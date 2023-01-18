@@ -372,6 +372,11 @@ static const char* const kItemNamesMm[] = {
     "the " C0 "Boss Key (Snowhead)",
     "the " C0 "Boss Key (Great Bay)",
     "the " C0 "Boss Key (Stone Tower)",
+    "a " C0 "Stray Fairy (Woodfall)",
+    "a " C0 "Stray Fairy (Snowhead)",
+    "a " C0 "Stray Fairy (Great Bay)",
+    "a " C0 "Stray Fairy (Stone Tower)",
+    "a " C0 "Stray Fairy (Town)",
 };
 
 typedef struct
@@ -839,6 +844,17 @@ void comboTextAppendRegionName(char** b, u8 regionId, int flags)
 {
     char* start;
     const RegionName* regName;
+
+    if (regionId == 0)
+    {
+        if (flags & TF_PREPOS)
+        {
+            comboTextAppendStr(b, "in ");
+        }
+        comboTextAppendStr(b, "the " TEXT_COLOR_RED "Void");
+        comboTextAppendClearColor(b);
+        return;
+    }
 
     if (regionId & 0x80)
     {

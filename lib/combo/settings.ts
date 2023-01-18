@@ -62,6 +62,28 @@ export const SETTINGS = [{
   ],
   default: 'ownDungeon'
 }, {
+  key: 'townFairyShuffle',
+  name: 'Town Stray Fairy Shuffle',
+  category: 'main',
+  type: 'enum',
+  values: [
+    { value: 'vanilla', name: 'Vanilla' },
+    { value: 'anywhere', name: 'Anywhere' },
+  ],
+  default: 'vanilla'
+}, {
+  key: 'strayFairyShuffle',
+  name: 'Dungeon Stray Fairy Shuffle',
+  category: 'main',
+  type: 'enum',
+  values: [
+    { value: 'vanilla', name: 'Vanilla' },
+    { value: 'mixed', name: 'Chests Own Dungeon' },
+    { value: 'ownDungeon', name: 'Own Dungeon' },
+    { value: 'anywhere', name: 'Anywhere' },
+  ],
+  default: 'mixed'
+}, {
   key: 'ganonBossKey',
   name: 'Ganon Boss Key Shuffle',
   category: 'main',
@@ -90,6 +112,12 @@ export const SETTINGS = [{
   type: 'boolean',
   default: true
 }, {
+  key: 'csmc',
+  name: 'Chest Size Matches Content',
+  category: 'misc',
+  type: 'boolean',
+  default: false
+}, {
   key: 'noLogic',
   name: 'No Logic',
   category: 'advanced',
@@ -101,9 +129,38 @@ export const SETTINGS_CATEGORIES = [{
   name: "Main Settings",
   key: "main",
 }, {
+  name: "Misc",
+  key: "misc",
+}, {
   name: "Advanced",
   key: "advanced",
 }];
+
+export const TRICKS = {
+  OOT_LENS: "Fewer Lens Requirements (OoT)",
+  OOT_TUNICS: "Fewer Tunic Requirements",
+  OOT_HIDDEN_GROTTOS: "Hidden Grottos (OoT) without Stone of Agony",
+  OOT_MIDO_SKIP: "Backflip Over Mido",
+  OOT_MAN_ON_ROOF: "Man on Roof with Nothing",
+  OOT_BLIND_WASTELAND: "Blind Wasteland Crossing",
+  OOT_NIGHT_GS: "Nighttime Gold Skulltulas without Sun's Song",
+  MM_LENS: "Fewer Lens Requirements (MM)",
+  MM_GORON_BOMB_JUMP: "Bomb Jump Fences as Goron",
+  MM_NO_SEAHORSE: "Pinnacle Rock without Seahorse",
+  MM_ZORA_HALL_HUMAN: "Swim to Zora Hall as Human",
+  MM_ICELESS_IKANA: "Climb Ikana Canyon without Ice Arrows",
+  MM_ONE_MASK_STONE_TOWER: "Climb Stone Tower with One Mask",
+};
+
+export type Tricks = {[k in keyof typeof TRICKS]: boolean};
+export type Trick = keyof Tricks;
+
+const DEFAULT_ENABLED_TRICKS = new Set<Trick>(['OOT_NIGHT_GS']);
+
+const DEFAULT_TRICKS = Object.keys(TRICKS).reduce((tricks, trick) => {
+  tricks[trick as Trick] = DEFAULT_ENABLED_TRICKS.has(trick as Trick);
+  return tricks;
+}, {} as Tricks);
 
 type SettingDataEnumValue = {
   readonly value: string;
@@ -138,10 +195,15 @@ type SettingShapes = InputToShape<SettingDataEntry>;
 type UnionToIntersection<U> =
   (U extends any ? (k: U)=>void : never) extends ((k: infer I)=>void) ? I : never
 
-export type Settings = UnionToIntersection<SettingShapes>;
+type SettingsBase = UnionToIntersection<SettingShapes>;
 
-export const DEFAULT_SETTINGS: Settings = SETTINGS.map(s => {
+export type Settings = SettingsBase & {
+  startingItems: {[k: string]: number},
+  tricks: Tricks,
+};
+
+export const DEFAULT_SETTINGS: Settings = { ...SETTINGS.map(s => {
   return {[s.key]: s.default};
-}).reduce((a, b) => ({...a, ...b}), {}) as Settings;
+}).reduce((a, b) => ({...a, ...b}), {}), startingItems: {}, tricks: { ...DEFAULT_TRICKS } } as Settings;
 
 export const settings = (s: Partial<Settings>): Settings => ({...DEFAULT_SETTINGS, ...s});
