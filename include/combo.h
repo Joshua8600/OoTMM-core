@@ -117,19 +117,20 @@ void comboGameSwitch(void);
 #define OV_GS           3
 #define OV_SF           4
 
-#define OVF_NO_PROGRESSIVE   (1 << 0)
+#define OVF_PROGRESSIVE       (1 << 0)
+#define OVF_DOWNGRADE         (1 << 1)
 
 s16 comboOverride(int type, u16 sceneId, u16 id, s16 gi);
 s16 comboOverrideEx(int type, u16 sceneId, u16 id, s16 gi, int flags);
 
 /* Text */
 int  comboMultibyteCharSize(u8 c);
-void comboTextHijackItem(GameState_Play* play, u16 itemId);
-void comboTextHijackItemShop(GameState_Play* play, u16 itemId, s16 price, int confirm);
+void comboTextHijackItem(GameState_Play* play, s16 gi);
+void comboTextHijackItemShop(GameState_Play* play, s16 gi, s16 price, int confirm);
 
 #if defined(GAME_OOT)
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int base, int count);
-void comboTextHijackSkullReward(GameState_Play* play, s16 itemId, int count);
+void comboTextHijackSkullReward(GameState_Play* play, s16 gi, int count);
 void comboTextHijackLightArrows(GameState_Play* play);
 #else
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int hint);
@@ -140,6 +141,7 @@ void comboTextHijackOathToOrder(GameState_Play* play);
 s32 comboProgressive(s32 gi);
 s32 comboProgressiveOot(s32 gi);
 s32 comboProgressiveMm(s32 gi);
+s16 comboDowngrade(s16 gi);
 
 /* Objects */
 void    comboObjectsReset(void);
@@ -163,9 +165,6 @@ void comboDrawBlit2D(GameState_Play* play, u32 segAddr, int w, int h, float x, f
 void comboOotSetEventChk(u16 flag);
 void comboMmSetEventWeek(u16 flag);
 
-/* GI */
-u16 comboItemFromGI(s32 gi);
-
 /* Item */
 extern const u8 kMaxSticks[];
 extern const u8 kMaxNuts[];
@@ -179,9 +178,9 @@ extern const u8 kMmTrade1[];
 extern const u8 kMmTrade2[];
 extern const u8 kMmTrade3[];
 
-void comboAddItemMm(u16 itemId, int noEffect);
-void comboAddItemOot(u16 itemId, int noEffect);
-void comboAddItemEffect(GameState_Play* play, u16 itemId);
+void comboAddItemMm(s16 gi, int noEffect);
+void comboAddItemOot(s16 gi, int noEffect);
+void comboAddItemEffect(GameState_Play* play, s16 gi);
 void comboAddSmallKeyOot(u16 dungeonId);
 void comboAddBossKeyOot(u16 dungeonId);
 void comboAddCompassOot(u16 dungeonId);
@@ -189,9 +188,14 @@ void comboAddMapOot(u16 dungeonId);
 void comboAddSmallKeyMm(u16 dungeonId);
 void comboAddBossKeyMm(u16 dungeonId);
 void comboAddStrayFairyMm(u16 dungeonId);
+void comboAddMapMm(u16 dungeonId);
+void comboAddCompassMm(u16 dungeonId);
 
 int  comboAddItem(GameState_Play* play, s16 gi);
 int  comboAddItemNoEffect(s16 gi);
+
+int comboIsItemUnavailable(s16 gi);
+int comboIsItemMinor(s16 gi);
 
 void comboToggleTrade(u8* slot, u32 flags, const u8* table, u32 tableSize);
 
@@ -274,6 +278,14 @@ void comboHintGossip(u8 key, GameState_Play* play);
 void comboCsmcInit(Actor* this, GameState_Play* play, s16 gi);
 void comboCsmcPreDraw(Actor* this, GameState_Play* play, s16 gi);
 int  comboCsmcChestSize(s16 gi);
+
+/* Shop */
+#define SC_OK               0x00
+#define SC_OK_NOCUTSCENE    0x01
+#define SC_ERR_CANNOTBUY    0x02
+#define SC_ERR_NORUPEES     0x04
+
+int comboShopPrecond(GameState_Play* play, Actor_EnGirlA* girlA);
 
 #else
 # include <combo/asm.h>

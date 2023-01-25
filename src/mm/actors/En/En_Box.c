@@ -4,13 +4,21 @@ static s16 EnBox_Item(Actor* this, GameState_Play* play, s16 gi, int progressive
 {
     if (play->sceneId == SCE_MM_TREASURE_SHOP && gi == -GI_MM_HEART_PIECE)
     {
-        gi = comboOverrideEx(OV_NPC, 0, NPC_MM_CHEST_GAME, gi, progressive ? 0 : OVF_NO_PROGRESSIVE);
+        gi = comboOverrideEx(OV_NPC, 0, NPC_MM_CHEST_GAME, gi, progressive ? OVF_PROGRESSIVE | OVF_DOWNGRADE : 0);
     }
     else
     {
-        gi = comboOverrideEx(OV_CHEST, play->sceneId, this->variable & 0x1f, gi, progressive ? 0 : OVF_NO_PROGRESSIVE);
+        gi = comboOverrideEx(OV_CHEST, play->sceneId, this->variable & 0x1f, gi, progressive ? OVF_PROGRESSIVE | OVF_DOWNGRADE : 0);
     }
     return gi;
+}
+
+static s16 EnBox_GetGI(Actor* this)
+{
+    s32 raw;
+
+    raw = *(s32*)((char*)this + 0x21c);
+    return (s16)(-raw);
 }
 
 int EnBox_GiveItemDefaultRange(Actor* actor, GameState_Play* play, s16 gi)
@@ -31,7 +39,7 @@ void EnBox_InitWrapper(Actor* this, GameState_Play* play)
     init(this, play);
 
     /* Resize chest */
-    gi = EnBox_Item(this, play, -1, 0);
+    gi = EnBox_Item(this, play, EnBox_GetGI(this), 0);
     comboCsmcInit(this, play, gi);
 }
 
@@ -41,7 +49,7 @@ void EnBox_DrawWrapper(Actor* this, GameState_Play* play)
     s16 gi;
 
     /* Prepare the segments */
-    gi = EnBox_Item(this, play, -1, 0);
+    gi = EnBox_Item(this, play, EnBox_GetGI(this), 0);
     comboCsmcPreDraw(this, play, gi);
 
     /* Draw */
