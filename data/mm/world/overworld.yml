@@ -454,7 +454,7 @@
 "Front of Lone Peak Shrine":
   region: GORON_VILLAGE
   exits:
-    "Goron Village": "can_use_lens"
+    "Goron Village": "has(LENS)"
     "Lone Peak Shrine": "true"
 "Lone Peak Shrine":
   region: GORON_VILLAGE
@@ -491,7 +491,7 @@
     "Path to Snowhead Front": "true"
     "Path to Snowhead Back": "true"
   locations:
-    "Path to Snowhead HP": "can_use_lens"
+    "Path to Snowhead HP": "has(LENS)"
 "Path to Snowhead Back":
   region: PATH_TO_SNOWHEAD
   exits:
