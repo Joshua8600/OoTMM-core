@@ -26,7 +26,7 @@
     "Great Bay Temple Pre-Boss": "event(GB_WATER_WHEEL)"
   locations:
     "Great Bay Temple SF Central Room Barrel": "true"
-    "Great Bay Temple SF Central Room Underwater Pot": "has(MASK_ZORA) || has(MASK_GREAT_FAIRY))"
+    "Great Bay Temple SF Central Room Underwater Pot": "has(MASK_ZORA) || has(MASK_GREAT_FAIRY)"
 "Great Bay Temple Map Room":
   dungeon: GB
   exits:
