@@ -71,7 +71,7 @@ const RegionName kRegionNamesMm[] = {
     { "in",         TEXT_COLOR_YELLOW "East Clock Town" },
     { "in",         TEXT_COLOR_YELLOW "West Clock Town" },
     { "in",         "the " TEXT_COLOR_YELLOW "Laundry Pool" },
-    { "inside",     "the " TEXT_COLOR_PINK "Giants's Dream" },
+    { "inside",     "the " TEXT_COLOR_PINK "Giant's Dream" },
     { "on",         TEXT_COLOR_YELLOW "Clock Tower Roof" },
     { "in",         "the " TEXT_COLOR_RED "Stock Pot Inn" },
     { "in",         TEXT_COLOR_RED "Termina Field" },
@@ -127,7 +127,7 @@ static const char* const kCheckNamesMm[] = {
     "the " TEXT_COLOR_RED "Goron Race",
     "the " TEXT_COLOR_PINK "Graveyard Big Poe",
     "the " TEXT_COLOR_TEAL "Bank's Final Reward",
-    "the " TEXT_COLOR_TEAL "Sound Check",
+    "the " TEXT_COLOR_TEAL "Milk Bar Performance",
     "the " TEXT_COLOR_GREEN "Boat Archery",
     "the " TEXT_COLOR_BLUE "Ocean Spider House Chest",
     "the " TEXT_COLOR_BLUE "Pinnacle Rock Seahorses",
@@ -196,6 +196,7 @@ static int isItemAmbiguousOot(s16 gi)
     case GI_OOT_MAGIC_UPGRADE:
     case GI_OOT_MAGIC_UPGRADE2:
     case GI_OOT_DEFENSE_UPGRADE:
+    case GI_OOT_SHIELD_MIRROR:
         return 1;
     default:
         return 0;
@@ -262,6 +263,7 @@ static int isItemAmbiguousMm(s16 gi)
     case GI_MM_MAGIC_UPGRADE2:
     case GI_MM_DEFENSE_UPGRADE:
     case GI_MM_BOTTLED_MILK:
+    case GI_MM_SHIELD_MIRROR:
         return 1;
     default:
         return 0;
