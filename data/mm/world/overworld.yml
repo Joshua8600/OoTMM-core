@@ -400,7 +400,7 @@
   exits:
     "Mountain Village Path Upper": "true"
     "Twin Islands": "true"
-    "Goron Graveyard": "can_use_lens_strict || event(BOSS_SNOWHEAD)"
+    "Goron Graveyard": "has(LENS) || event(BOSS_SNOWHEAD)"
     "Path to Snowhead Front": "true"
     "Blacksmith": "true"
   gossip:
@@ -469,7 +469,7 @@
   exits:
     "Mountain Village": "true"
   locations:
-    "Goron Graveyard Mask": "can_use_lens_strict && can_play(SONG_HEALING)"
+    "Goron Graveyard Mask": "has(LENS) && can_play(SONG_HEALING)"
   events:
     GORON_GRAVEYARD_HOT_WATER: "has(MASK_GORON)"
 "Goron Shrine":
