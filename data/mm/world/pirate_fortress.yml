@@ -57,7 +57,7 @@
     "Pirate Fortress Entrance Captured": "true"
   events:
     FORTRESS_BEEHIVE: "true"
-    ZORA_EGGS_HOOKSHOT_ROOM: "has(MASK_ZORA) && event(FORTRESS_BEEHIVE))"
+    ZORA_EGGS_HOOKSHOT_ROOM: "has(MASK_ZORA) && event(FORTRESS_BEEHIVE)"
   locations:
     "Pirate Fortress Interior Hookshot": "event(FORTRESS_BEEHIVE)"
 "Pirate Fortress Barrel Maze Entry":
