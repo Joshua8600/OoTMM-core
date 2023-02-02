@@ -2,16 +2,82 @@
 
 #define ENTRANCE_MARKET       0x1d1
 
+static const s32 kDungeonEntrances[] = {
+    0x000,
+    0x004,
+    0x028,
+    0x169,
+    0x165,
+    0x010,
+    0x037,
+    0x082,
+};
+
+static void dungeonRespawn(s16 sceneId)
+{
+    int id;
+
+    switch (sceneId)
+    {
+    case SCE_OOT_LAIR_GOHMA:
+        id = 0;
+        break;
+    case SCE_OOT_LAIR_KING_DODONGO:
+        id = 1;
+        break;
+    case SCE_OOT_LAIR_BARINADE:
+        id = 2;
+        break;
+    case SCE_OOT_LAIR_PHANTOM_GANON:
+        id = 3;
+        break;
+    case SCE_OOT_LAIR_VOLVAGIA:
+        id = 4;
+        break;
+    case SCE_OOT_LAIR_MORPHA:
+        id = 5;
+        break;
+    case SCE_OOT_LAIR_BONGO_BONGO:
+        id = 6;
+        break;
+    case SCE_OOT_LAIR_TWINROVA:
+        id = 7;
+        break;
+    default:
+        return;
+    }
+
+    id = gComboData.blueWarps[id];
+    if (id >= 8)
+    {
+        /* Coming from MM */
+        gSave.entrance = ENTRANCE_MARKET;
+        return;
+    }
+
+    gSave.entrance = kDungeonEntrances[id];
+}
+
 void Sram_AfterOpenSave(void)
 {
 #if defined(DEBUG) && defined(DEBUG_OOT_ENTRANCE)
     gSave.entrance = DEBUG_OOT_ENTRANCE;
 #endif
 
+    /* Dungeon shuffle override */
+    dungeonRespawn(gSave.sceneId);
+
+    /* Game switch override */
     if (gComboCtx.valid)
     {
         gSave.entrance = ENTRANCE_MARKET;
         gComboCtx.valid = 0;
+
+        if (gComboCtx.entrance != -1)
+        {
+            gSave.entrance = gComboCtx.entrance;
+            gComboCtx.entrance = -1;
+        }
     }
 }
 
@@ -80,3 +146,11 @@ void comboCreateSave(void* unk, void* buffer)
     memcpy((char*)buffer + base, &gOotSave, 0x1354);
     memcpy((char*)buffer + base + 0x3cf0, &gOotSave, 0x1354);
 }
+
+static void DeathWarpWrapper(GameState_Play* play)
+{
+    dungeonRespawn(play->sceneId);
+    DeathWarp(play);
+}
+
+PATCH_CALL(0x8009dacc, DeathWarpWrapper);

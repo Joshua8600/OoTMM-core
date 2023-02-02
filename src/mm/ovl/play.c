@@ -5,6 +5,8 @@ static void debugCheat(GameState_Play* play)
 #if defined(DEBUG)
     /*if (play->gs.input[0].current.buttons & 0x20)*/
     {
+        gMmExtraBoss.boss = 0xff;
+
         gSave.itemEquips.sword = 1;
         gSave.itemEquips.shield = 1;
         gMmExtraFlags2.progressiveShield = 1;
@@ -65,7 +67,7 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.items[ITS_MM_MASK_FIERCE_DEITY] = ITEM_MM_MASK_FIERCE_DEITY;
 
         //gSave.inventory.questItems.remainsOdolwa = 1;
-        gMmExtraBoss |= 0x01;
+        gMmExtraBoss.boss |= 0x01;
 
         //gSave.day = 3;
         //gSave.isNight = 1;
@@ -79,8 +81,28 @@ static void debugCheat(GameState_Play* play)
 void hookPlay_Init(GameState_Play* play)
 {
     int isEndOfGame;
+    s32 override;
 
     isEndOfGame = 0;
+
+    /* Handle transition override */
+    if (gIsEntranceOverride)
+    {
+        gIsEntranceOverride = 0;
+        override = comboEntranceOverride(gSave.entranceIndex);
+        if (override != -1)
+        {
+            if (override >= 0)
+                gSave.entranceIndex = override;
+            else
+            {
+                gSave.entranceIndex = gLastEntrance;
+                Play_Init(play);
+                comboGameSwitch(play, override);
+                return;
+            }
+        }
+    }
 
     if (!gCustomKeep)
     {
@@ -114,6 +136,7 @@ void hookPlay_Init(GameState_Play* play)
     MM_SET_EVENT_WEEK(MM_EV(82, 1));
 
     Play_Init(play);
+    gLastEntrance = gSave.entranceIndex;
     comboSpawnItemGivers(play);
 
     if (isEndOfGame)
@@ -136,9 +159,7 @@ void hookPlay_Init(GameState_Play* play)
 
     if (gSave.entranceIndex == 0xc010)
     {
-        gSave.isOwlSave = 1;
-        PrepareSave(&play->sramCtx);
-        comboGameSwitch();
+        comboGameSwitch(play, -1);
         return;
     }
 }

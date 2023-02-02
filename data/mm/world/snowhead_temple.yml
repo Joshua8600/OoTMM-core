@@ -181,14 +181,15 @@
     "Snowhead Temple Boss Key Room": "true"
     "Snowhead Temple Dinolfos Room": "true"
 "Snowhead Temple Boss":
+  boss: true
   dungeon: SH
   exits:
-    "Snowhead Temple After Boss": "has(ARROW_FIRE)"
+    "Snowhead Temple After Boss": "event(TIME_TRAVEL) && has(ARROW_FIRE)"
 "Snowhead Temple After Boss":
+  boss: true
   dungeon: SH
   exits:
     "Oath to Order": "true"
-    "Mountain Village": "true"
   events:
     BOSS_SNOWHEAD: "true"
   locations:
