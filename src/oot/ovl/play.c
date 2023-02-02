@@ -74,7 +74,7 @@ static void debugCheat(GameState_Play* play)
         //gSave.quest.medallionWater = 1;
         //gSave.quest.medallionLight = 1;
 
-        gSave.health = gSave.healthMax = 20 * 0x10;
+        //gSave.health = gSave.healthMax = 20 * 0x10;
 
         gSave.rupees = 500;
 
@@ -185,6 +185,27 @@ static void endGame(void)
 
 void hookPlay_Init(GameState_Play* play)
 {
+    s32 override;
+
+    /* Handle transition override */
+    if (gIsEntranceOverride)
+    {
+        gIsEntranceOverride = 0;
+        override = comboEntranceOverride(gSave.entrance);
+        if (override != -1)
+        {
+            if (override >= 0)
+                gSave.entrance = override;
+            else
+            {
+                gSave.entrance = gLastEntrance;
+                Play_Init(play);
+                comboGameSwitch(play, override);
+                return;
+            }
+        }
+    }
+
     /* Handle swordless */
     if (gSave.currentEquipment.swords == 0 || (gSave.equipment.swords & (1 << (gSave.currentEquipment.swords - 1))) == 0)
     {
@@ -224,13 +245,12 @@ void hookPlay_Init(GameState_Play* play)
     eventFixes(play);
 
     Play_Init(play);
+    gLastEntrance = gSave.entrance;
     comboSpawnItemGivers(play);
 
     if (gSave.entrance == 0x0530)
     {
-        PlayStoreFlags(play);
-        gSave.sceneId = play->sceneId;
-        comboGameSwitch();
+        comboGameSwitch(play, -1);
         return;
     }
 
@@ -248,7 +268,7 @@ void hookPlay_Init(GameState_Play* play)
 #if defined(DEBUG)
     if (play->gs.input[0].current.buttons & R_TRIG)
     {
-        comboGameSwitch();
+        comboGameSwitch(play, -1);
         return;
     }
 #endif
