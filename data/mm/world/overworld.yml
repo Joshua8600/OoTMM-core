@@ -326,7 +326,7 @@
   exits:
     "Swamp Back": "true"
     "Swamp Canopy": "true"
-    "Deku Shrine": "has(MASK_DEKU) && event(DEKU_PRINCESS)"
+    "Deku Shrine": "has(MASK_DEKU)"
   events:
     MAGIC_BEANS_PALACE: "true"
   locations:
