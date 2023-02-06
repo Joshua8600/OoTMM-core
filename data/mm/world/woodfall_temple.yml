@@ -2,9 +2,9 @@
   dungeon: WF
   exits:
     "Woodfall Front of Temple": "true"
-    "Woodfall Temple Main": "has(MASK_DEKU) || has(HOOKSHOT)"
+    "Woodfall Temple Main": "true"
   locations:
-    "Woodfall Temple Entrance Chest": "has(MASK_DEKU) || has(HOOKSHOT)"
+    "Woodfall Temple Entrance Chest": "true"
     "Woodfall Temple SF Entrance": "true"
 "Woodfall Temple Main":
   dungeon: WF
@@ -14,7 +14,7 @@
     "Woodfall Temple Maze": "has(SMALL_KEY_WF, 1)"
     "Woodfall Temple Main Ledge": "event(WOODFALL_TEMPLE_MAIN_FLOWER) || event(WOODFALL_TEMPLE_MAIN_LADDER)"
   events:
-    WOODFALL_TEMPLE_MAIN_FLOWER: "can_use_fire_arrows"
+    WOODFALL_TEMPLE_MAIN_FLOWER: "true"
   locations:
     "Woodfall Temple SF Main Pot": "true"
     "Woodfall Temple SF Main Deku Baba": "true"
@@ -22,17 +22,17 @@
   dungeon: WF
   exits:
     "Woodfall Temple Main": "true"
-    "Woodfall Temple Map Room": "has(MASK_DEKU) || has(HOOKSHOT)"
-    "Woodfall Temple Water Room Upper": "has(BOW) && has(MASK_DEKU)"
+    "Woodfall Temple Map Room": "true"
+    "Woodfall Temple Water Room Upper": "true"
   locations:
-    "Woodfall Temple Water Chest": "has(MASK_DEKU) || has(HOOKSHOT)"
-    "Woodfall Temple SF Water Room Beehive": "has(BOW) || can_use_deku_bubble || (has(MASK_GREAT_FAIRY) && (has(BOMB_BAG) || has(MASK_ZORA) || has(HOOKSHOT)))"
+    "Woodfall Temple Water Chest": "true"
+    "Woodfall Temple SF Water Room Beehive": "true"
 "Woodfall Temple Map Room":
   dungeon: WF
   exits:
     "Woodfall Temple Water Room": "true"
   locations:
-    "Woodfall Temple Map": "has(MASK_DEKU) || has_explosives || has(MASK_GORON)"
+    "Woodfall Temple Map": "true"
 "Woodfall Temple Maze":
   dungeon: WF
   exits:
@@ -40,9 +40,9 @@
     "Woodfall Temple Compass Room": "true"
     "Woodfall Temple Dark Room": "true"
   locations:
-    "Woodfall Temple SF Maze Skulltula": "can_fight || has(BOW) || can_use_deku_bubble || has_explosives"
-    "Woodfall Temple SF Maze Beehive": "has_weapon_range"
-    "Woodfall Temple SF Maze Bubble": "(has(MASK_GREAT_FAIRY) && (has(BOW) || has(HOOKSHOT))) || event(WOODFALL_TEMPLE_MAIN_FLOWER)"
+    "Woodfall Temple SF Maze Skulltula": "true"
+    "Woodfall Temple SF Maze Beehive": "true"
+    "Woodfall Temple SF Maze Bubble": "true"
 "Woodfall Temple Compass Room":
   dungeon: WF
   exits:
@@ -67,12 +67,12 @@
   exits:
     "Woodfall Temple Main": "true"
     "Woodfall Temple Pits Room": "true"
-    "Woodfall Temple Pre-Boss": "has(BOW)"
+    "Woodfall Temple Pre-Boss": "true"
   events:
-    WOODFALL_TEMPLE_MAIN_FLOWER: "has(BOW)"
+    WOODFALL_TEMPLE_MAIN_FLOWER: "true"
     WOODFALL_TEMPLE_MAIN_LADDER: "true"
   locations:
-    "Woodfall Temple Center Chest": "has(MASK_DEKU)"
+    "Woodfall Temple Center Chest": "true"
     "Woodfall Temple SF Main Bubble": "true"
 "Woodfall Temple Water Room Upper":
   dungeon: WF
@@ -80,13 +80,13 @@
     "Woodfall Temple Main Ledge": "true"
     "Woodfall Temple Water Room": "true"
     "Woodfall Temple Bow Room": "true"
-    "Woodfall Temple Boss Key Room": "has(BOW) && has(MASK_DEKU)"
+    "Woodfall Temple Boss Key Room": "true"
 "Woodfall Temple Bow Room":
   dungeon: WF
   exits:
-    "Woodfall Temple Water Room Upper": "can_fight || has(BOW)"
+    "Woodfall Temple Water Room Upper": "true"
   locations:
-    "Woodfall Temple Bow": "can_fight || has(BOW)"
+    "Woodfall Temple Bow": "true"
 "Woodfall Temple Boss Key Room":
   dungeon: WF
   exits:
@@ -98,17 +98,17 @@
 "Woodfall Temple Pre-Boss":
   dungeon: WF
   exits:
-    "Woodfall Temple Boss": "has(BOSS_KEY_WF) && (has(HOOKSHOT) || has(MASK_DEKU))"
+    "Woodfall Temple Boss": "has(BOSS_KEY_WF)"
     "Woodfall Temple Main Ledge": "true"
   locations:
     "Woodfall Temple SF Pre-Boss Bottom Right": "true"
-    "Woodfall Temple SF Pre-Boss Left": "has(MASK_DEKU) || has(MASK_GREAT_FAIRY)"
+    "Woodfall Temple SF Pre-Boss Left": "true"
     "Woodfall Temple SF Pre-Boss Top Right": "true"
-    "Woodfall Temple SF Pre-Boss Pillar": "has(MASK_DEKU) && has(BOW)"
+    "Woodfall Temple SF Pre-Boss Pillar": "true"
 "Woodfall Temple Princess Jail":
   dungeon: WF
   events:
-    DEKU_PRINCESS: "has_bottle && has_weapon"
+    DEKU_PRINCESS: "true"
   exits:
     "Woodfall": "true"
 "Woodfall Temple Boss":
