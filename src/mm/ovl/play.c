@@ -8,7 +8,7 @@ static void debugCheat(GameState_Play* play)
         gMmExtraBoss.boss = 0xff;
 
         gSave.itemEquips.sword = 1;
-        gSave.itemEquips.shield = 1;
+        gSave.itemEquips.shield = 2;
         gMmExtraFlags2.progressiveShield = 1;
         gSave.itemEquips.buttonItems[0][0] = ITEM_MM_SWORD_KOKIRI;
         gSave.inventory.items[ITS_MM_OCARINA] = ITEM_MM_OCARINA_OF_TIME;
@@ -19,6 +19,7 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.items[ITS_MM_LENS] = ITEM_MM_LENS_OF_TRUTH;
         gSave.inventory.items[ITS_MM_BOMBS] = ITEM_MM_BOMB;
         gSave.inventory.items[ITS_MM_HOOKSHOT] = ITEM_MM_HOOKSHOT;
+        gSave.inventory.items[ITS_MM_GREAT_FAIRY_SWORD] = ITEM_MM_GREAT_FAIRY_SWORD;
         gSave.inventory.upgrades.quiver = 3;
         gSave.inventory.upgrades.wallet = 2;
         gSave.inventory.upgrades.bombBag = 3;
@@ -47,7 +48,7 @@ static void debugCheat(GameState_Play* play)
 
         gSave.inventory.items[ITS_MM_KEG] = ITEM_MM_POWDER_KEG;
         gSave.inventory.items[ITS_MM_MASK_CAPTAIN] = ITEM_MM_MASK_CAPTAIN;
-        gSave.playerData.healthCapacity = 0x10 * 10;
+        //gSave.playerData.healthCapacity = 0x10 * 10;
         gSave.playerData.health = gSave.playerData.healthCapacity;
 
         gSave.inventory.items[ITS_MM_TRADE1] = ITEM_MM_DEED_LAND;
@@ -67,7 +68,7 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.items[ITS_MM_MASK_FIERCE_DEITY] = ITEM_MM_MASK_FIERCE_DEITY;
 
         //gSave.inventory.questItems.remainsOdolwa = 1;
-        gMmExtraBoss.boss |= 0x01;
+        //gMmExtraBoss.boss |= 0x01;
 
         //gSave.day = 3;
         //gSave.isNight = 1;
