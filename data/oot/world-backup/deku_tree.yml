@@ -1,0 +1,51 @@
+"Deku Tree Lobby":
+  dungeon: DT
+  exits:
+    "Kokiri Forest": "true"
+    "Deku Tree Slingshot Room": "has_shield"
+    "Deku Tree Basement": "true"
+  locations:
+    "Deku Tree Map Chest": "true"
+    "Deku Tree Compass Chest": "true"
+    "Deku Tree Compass Room Side Chest": "true"
+    "Deku Tree GS Compass": "true"
+"Deku Tree Slingshot Room":
+  dungeon: DT
+  exits:
+    "Deku Tree Lobby": "true"
+  locations:
+    "Deku Tree Slingshot Chest": "true"
+    "Deku Tree Slingshot Side Chest": "true"
+"Deku Tree Basement":
+  dungeon: DT
+  exits:
+    "Deku Tree Lobby": "true"
+    "Deku Tree Basement Back Room": "true"
+# TODO: Edit once tricks are in
+#    "Deku Tree Basement Ledge": "false"
+  locations:
+    "Deku Tree Basement Chest": "true"
+    "Deku Tree GS Basement Gate": "true"
+    "Deku Tree GS Basement Vines": "true"
+"Deku Tree Basement Back Room":
+  dungeon: DT
+  exits:
+    "Deku Tree Basement Ledge": "is_child"
+  locations:
+    "Deku Tree GS Basement Back Room": "true"
+"Deku Tree Basement Ledge":
+  dungeon: DT
+  exits:
+    "Deku Tree Basement Back Room": "is_child"
+    "Deku Tree Before Boss": "true"
+"Deku Tree Before Boss":
+  dungeon: DT
+  exits:
+    "Deku Tree Basement Ledge": "true"
+    "Deku Tree Boss": "has_shield"
+"Deku Tree Boss":
+  boss: true
+  dungeon: DT
+  locations:
+    "Deku Tree Boss Container": "true"
+    "Deku Tree Boss": "true"

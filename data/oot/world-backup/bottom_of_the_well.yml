@@ -1,0 +1,22 @@
+"Bottom of the Well":
+  dungeon: BotW
+  exits:
+    "Kakariko": "true"
+  locations:
+    "Bottom of the Well Compass": "true"
+    "Bottom of the Well Under Debris": "true"
+    "Bottom of the Well Back West": "has_explosives && has_lens"
+    "Bottom of the Well East": "true"
+    "Bottom of the Well Front West": "true"
+    "Bottom of the Well Underwater": "has(SONG_ZELDA)"
+    "Bottom of the Well East Cage": "has(SMALL_KEY_BOTW, 3)"
+    "Bottom of the Well Blood Chest": "true"
+    "Bottom of the Well Underwater 2": "has(SONG_ZELDA)"
+    "Bottom of the Well Map": "true"
+    "Bottom of the Well Coffin": "true"
+    "Bottom of the Well Pits": "has(SMALL_KEY_BOTW, 3)"
+    "Bottom of the Well Lens": "has(SONG_ZELDA)"
+    "Bottom of the Well Lens Side Chest": "has(SONG_ZELDA)"
+    "Bottom of the Well GS East Cage": "has(SMALL_KEY_BOTW, 3)"
+    "Bottom of the Well GS Inner West": "has(SMALL_KEY_BOTW, 3)"
+    "Bottom of the Well GS Inner East": "has(SMALL_KEY_BOTW, 3)"
