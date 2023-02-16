@@ -85,7 +85,7 @@
   dungeon: ST
   exits:
     "Stone Tower Top Inverted": "true"
-    "Stone Tower Temple Inverted East": "true"
+    "Stone Tower Temple Inverted East": "can_use_light_arrows"
   locations:
     "Stone Tower Temple Inverted Entrance Chest": "has(ARROW_LIGHT)"
 "Stone Tower Temple Inverted East":
@@ -142,6 +142,8 @@
   dungeon: ST
   exits:
     "Stone Tower Temple Inverted Bridge 2": "true"
+    "Stone Tower Temple Inverted Boss Key Room": "trick(MM_ISTT_EYEGORE) && has(MASK_GORON)"
+    "Stone Tower Temple Inverted Center": "trick(MM_ISTT_EYEGORE) && has(MASK_GORON)"
   locations:
     "Stone Tower Temple Inverted Giant Mask": "true"
 "Stone Tower Temple Inverted Bridge 2":

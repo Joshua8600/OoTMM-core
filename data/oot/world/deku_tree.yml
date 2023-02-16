@@ -21,8 +21,7 @@
   exits:
     "Deku Tree Lobby": "true"
     "Deku Tree Basement Back Room": "true"
-# TODO: Edit once tricks are in
-#    "Deku Tree Basement Ledge": "false"
+    "Deku Tree Basement Ledge": "true"
   locations:
     "Deku Tree Basement Chest": "true"
     "Deku Tree GS Basement Gate": "true"
