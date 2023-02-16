@@ -73,7 +73,7 @@
     "Spirit Temple Adult Upper": "has(SMALL_KEY_SPIRIT, 4)"
   locations:
     "Spirit Temple Statue Hands": "event(SPIRIT_ADULT_DOOR) && has(SONG_ZELDA)"
-    "Spirit Temple Statue Upper Right": "event(SPIRIT_ADULT_DOOR) && has(SONG_ZELDA))"
+    "Spirit Temple Statue Upper Right": "event(SPIRIT_ADULT_DOOR) && has(SONG_ZELDA)"
 "Spirit Temple Adult Upper":
   dungeon: Spirit
   exits:
