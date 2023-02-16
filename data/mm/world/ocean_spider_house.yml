@@ -5,6 +5,9 @@
     "Ocean Spider House Back": "true"
   locations:
     "Ocean Spider House Wallet": "has(GS_TOKEN_OCEAN, 30)"
+    "Ocean Skulltula Entrance Right Wall": "true"
+    "Ocean Skulltula Entrance Left Wall": "true"
+    "Ocean Skulltula Entrance Web": "true"
 "Ocean Spider House Back":
   region: SPIDER_HOUSE_OCEAN
   exits:
@@ -22,10 +25,7 @@
     "Ocean Skulltula Storage Room Ceiling Web": "true"
     "Ocean Skulltula Storage Room Behind Crate": "true"
     "Ocean Skulltula 2nd Room Jar": "true"
-    "Ocean Skulltula Entrance Right Wall": "true"
-    "Ocean Skulltula Entrance Left Wall": "true"
     "Ocean Skulltula 2nd Room Webbed Hole": "true"
-    "Ocean Skulltula Entrance Web": "can_use_fire_arrows"
     "Ocean Skulltula Colored Skulls Chandelier 1": "true"
     "Ocean Skulltula Colored Skulls Chandelier 2": "true"
     "Ocean Skulltula Colored Skulls Chandelier 3": "true"
