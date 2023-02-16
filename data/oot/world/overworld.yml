@@ -404,7 +404,7 @@
   region: ZORA_RIVER
   exits:
     "Zora River Front": "true"
-    "Zora Domain": "true(SONG_ZELDA)"
+    "Zora Domain": "is_child || (is_adult && has(SONG_ZELDA))"
     "Lost Woods": "true"
   locations:
     "Zora River Bean Seller": "is_child"
