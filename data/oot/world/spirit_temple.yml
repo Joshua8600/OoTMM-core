@@ -13,17 +13,17 @@
     "Spirit Temple Entrance": "is_child"
     "Spirit Temple Child Climb": "is_child && has(SMALL_KEY_SPIRIT)"
   locations:
-    "Spirit Temple Child First Chest": "has_ranged_weapon_child"
-    "Spirit Temple Child Second Chest": "has_ranged_weapon_child"
-    "Spirit Temple GS Child Fence": "has_ranged_weapon_child"
+    "Spirit Temple Child First Chest": "true"
+    "Spirit Temple Child Second Chest": "true"
+    "Spirit Temple GS Child Fence": "true"
 "Spirit Temple Child Climb":
   dungeon: Spirit
   exits:
     "Spirit Temple Child Entrance": "is_child && has(SMALL_KEY_SPIRIT)"
-    "Spirit Temple Statue": "has_explosives"
+    "Spirit Temple Statue": "true"
   locations:
-    "Spirit Temple Child Climb 1": "has_ranged_weapon_both || (event(SPIRIT_CHILD_DOOR) && has_ranged_weapon_child) || (event(SPIRIT_ADULT_DOOR) && has_ranged_weapon_adult)"
-    "Spirit Temple Child Climb 2": "has_ranged_weapon_both || (event(SPIRIT_CHILD_DOOR) && has_ranged_weapon_child) || (event(SPIRIT_ADULT_DOOR) && has_ranged_weapon_adult)"
+    "Spirit Temple Child Climb 1": "event(SPIRIT_CHILD_DOOR) || event(SPIRIT_ADULT_DOOR)"
+    "Spirit Temple Child Climb 2": "event(SPIRIT_CHILD_DOOR) || event(SPIRIT_ADULT_DOOR)"
     "Spirit Temple GS Child Climb": "true"
 "Spirit Temple Child Upper":
   dungeon: Spirit
@@ -31,8 +31,8 @@
     "Spirit Temple Statue": "true"
     "Spirit Temple Child Hand": "has(SMALL_KEY_SPIRIT, 5)"
   locations:
-    "Spirit Temple Sun Block Room Torches": "(event(SPIRIT_CHILD_DOOR) && is_child) || has_fire_spirit"
-    "Spirit Temple GS Iron Knuckle": "(event(SPIRIT_CHILD_DOOR) && can_boomerang) || (event(SPIRIT_ADULT_DOOR) && can_hookshot) || (can_collect_ageless && (has_explosives || has(SMALL_KEY_SPIRIT, 2)))"
+    "Spirit Temple Sun Block Room Torches": "(event(SPIRIT_CHILD_DOOR) && is_child) || ((has(ARROW_FIRE)) || (has(SPELL_FIRE)) && has(SMALL_KEY_SPIRIT, 2))"
+    "Spirit Temple GS Iron Knuckle": "(event(SPIRIT_CHILD_DOOR) && can_boomerang) || (event(SPIRIT_ADULT_DOOR) && is_adult) || (can_collect_ageless && has(SMALL_KEY_SPIRIT, 2))"
 "Spirit Temple Child Hand":
   dungeon: Spirit
   exits:
@@ -45,9 +45,9 @@
   exits:
     "Spirit Temple Adult Climb": "has(SMALL_KEY_SPIRIT)"
   locations:
-    "Spirit Temple Adult Silver Rupees": "has_ranged_weapon_adult || has_explosives"
-    "Spirit Temple Adult Lullaby": "can_play(SONG_ZELDA) && can_hookshot"
-    "Spirit Temple GS Boulders": "can_play(SONG_TIME) && (has_ranged_weapon_adult || has_explosives)"
+    "Spirit Temple Adult Silver Rupees": "true"
+    "Spirit Temple Adult Lullaby": "has(SONG_ZELDA) && is_adult"
+    "Spirit Temple GS Boulders": "has(SONG_TIME)"
 "Spirit Temple Adult Climb":
   dungeon: Spirit
   exits:
@@ -58,26 +58,26 @@
 "Spirit Temple Statue":
   dungeon: Spirit
   exits:
-    "Spirit Temple Statue Adult": "can_hookshot"
+    "Spirit Temple Statue Adult": "is_adult"
     "Spirit Temple Child Climb": "true"
     "Spirit Temple Child Upper": "true"
-    "Spirit Temple Boss": "has(BOSS_KEY_SPIRIT) && event(SPIRIT_LIGHT_STATUE) && can_hookshot"
+    "Spirit Temple Boss": "has(BOSS_KEY_SPIRIT) && event(SPIRIT_LIGHT_STATUE) && is_adult"
   locations:
-    "Spirit Temple Statue Base": "(event(SPIRIT_CHILD_DOOR) && has_explosives) || has_fire_spirit"
-    "Spirit Temple GS Statue": "event(SPIRIT_ADULT_DOOR) && (can_hookshot || has_hover_boots)"
-    "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 3) && has(HOOKSHOT, 2) && has_explosives"
+    "Spirit Temple Statue Base": "event(SPIRIT_CHILD_DOOR) || ((has(ARROW_FIRE)) || (has(SPELL_FIRE)) && has(SMALL_KEY_SPIRIT, 2))"
+    "Spirit Temple GS Statue": "event(SPIRIT_ADULT_DOOR)"
+    "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 3) && has(HOOKSHOT, 2)"
 "Spirit Temple Statue Adult":
   dungeon: Spirit
   exits:
     "Spirit Temple Statue": "true"
     "Spirit Temple Adult Upper": "has(SMALL_KEY_SPIRIT, 4)"
   locations:
-    "Spirit Temple Statue Hands": "event(SPIRIT_ADULT_DOOR) && can_play(SONG_ZELDA)"
-    "Spirit Temple Statue Upper Right": "event(SPIRIT_ADULT_DOOR) && can_play(SONG_ZELDA) && (has_hover_boots || can_hookshot)"
+    "Spirit Temple Statue Hands": "event(SPIRIT_ADULT_DOOR) && has(SONG_ZELDA)"
+    "Spirit Temple Statue Upper Right": "event(SPIRIT_ADULT_DOOR) && has(SONG_ZELDA)"
 "Spirit Temple Adult Upper":
   dungeon: Spirit
   exits:
-    "Spirit Temple Adult Upper 2": "has_explosives"
+    "Spirit Temple Adult Upper 2": "true"
     "Spirit Temple Adult Climb 2": "has(SMALL_KEY_SPIRIT, 5)"
 "Spirit Temple Adult Upper 2":
   dungeon: Spirit
@@ -92,15 +92,15 @@
     "Spirit Temple Child Hand": "can_longshot"
     "Desert Colossus": "true"
   locations:
-    "Spirit Temple Adult Invisible 1": "has_lens"
-    "Spirit Temple Adult Invisible 2": "has_lens"
+    "Spirit Temple Adult Invisible 1": "true"
+    "Spirit Temple Adult Invisible 2": "true"
     "Spirit Temple Mirror Shield": "true"
 "Spirit Temple Adult Climb 2":
   dungeon: Spirit
   events:
-    SPIRIT_LIGHT_STATUE: "has_mirror_shield && has_explosives"
+    SPIRIT_LIGHT_STATUE: "has_mirror_shield"
   locations:
-    "Spirit Temple Adult Boss Key Chest": "can_play(SONG_ZELDA) && can_hookshot && can_use_bow"
+    "Spirit Temple Adult Boss Key Chest": "has(SONG_ZELDA) && is_adult"
     "Spirit Temple Adult Topmost Sun on Wall": "has_mirror_shield"
 "Spirit Temple Boss":
   boss: true
