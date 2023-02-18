@@ -1,7 +1,7 @@
 "SPAWN":
   region: NONE
   events:
-    "TIME_TRAVEL": "true"
+    "TIME_TRAVEL": "can_play(SONG_TIME)"
   exits:
     "INITIAL": "event(TIME_TRAVEL)"
 "INITIAL":
