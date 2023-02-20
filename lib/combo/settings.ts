@@ -54,6 +54,16 @@ export const SETTINGS = [{
   ],
   default: 'ownDungeon'
 }, {
+  key: 'smallKeyShuffleHideout',
+  name: 'Hideout Small Key Shuffle',
+  category: 'main',
+  type: 'enum',
+  values: [
+    { value: 'ownDungeon', name: 'Own Dungeon' },
+    { value: 'anywhere', name: 'Anywhere' },
+  ],
+  default: 'ownDungeon'
+}, {
   key: 'bossKeyShuffle',
   name: 'Boss Key Shuffle',
   category: 'main',
@@ -132,7 +142,7 @@ export const SETTINGS = [{
 }, {
   key: 'erBoss',
   name: 'Boss Entrance Shuffle',
-  category: 'main',
+  category: 'entrances',
   type: 'enum',
   values: [
     { value: 'none', name: 'None' },
@@ -140,6 +150,29 @@ export const SETTINGS = [{
     { value: 'full', name: 'Full' },
   ],
   default: 'none'
+}, {
+  key: 'erDungeons',
+  name: 'Dungeon Entrance Shuffle',
+  category: 'entrances',
+  type: 'enum',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'ownGame', name: 'Own Game' },
+    { value: 'full', name: 'Full' },
+  ],
+  default: 'none'
+}, {
+  key: 'erSpiderHouses',
+  name: 'Shuffle Spider Houses with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'erMinorDungeons',
+  name: 'Shuffle OoT Minor Dungeons with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
 }, {
   key: 'progressiveShieldsOot',
   name: 'OoT Shields',
@@ -202,6 +235,9 @@ export const SETTINGS_CATEGORIES = [{
 }, {
   name: "Progressive Items",
   key: "progressive",
+}, {
+  name: "Entrances",
+  key: "entrances",
 }, {
   name: "Misc",
   key: "misc",
