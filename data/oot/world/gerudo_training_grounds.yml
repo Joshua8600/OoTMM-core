@@ -2,24 +2,24 @@
   dungeon: GTG
   exits:
     "Gerudo Fortress Exterior": "true"
-    "Gerudo Training Grounds Left Side": "can_hookshot && has_weapon"
-    "Gerudo Training Grounds Right Side": "has_explosives && has_weapon"
+    "Gerudo Training Grounds Left Side": "is_adult"
+    "Gerudo Training Grounds Right Side": "true"
     "Gerudo Training Grounds Maze": "true"
   locations:
-    "Gerudo Training Grounds Entrance 1": "can_use_bow || can_use_slingshot"
-    "Gerudo Training Grounds Entrance 2": "can_use_bow || can_use_slingshot"
-    "Gerudo Training Grounds Stalfos": "has_weapon"
+    "Gerudo Training Grounds Entrance 1": "true"
+    "Gerudo Training Grounds Entrance 2": "true"
+    "Gerudo Training Grounds Stalfos": "true"
 "Gerudo Training Grounds Left Side":
   dungeon: GTG
   exits:
-    "Gerudo Training Grounds After Block": "can_lift_silver && has_lens && can_hookshot"
-    "Gerudo Training Grounds Upper": "can_hookshot && has_lens"
+    "Gerudo Training Grounds After Block": "can_lift_silver && is_adult"
+    "Gerudo Training Grounds Upper": "is_adult"
   locations:
     "Gerudo Training Grounds Near Block": "true"
 "Gerudo Training Grounds After Block":
   dungeon: GTG
   locations:
-    "Gerudo Training Grounds Behind Block Invisible": "has_lens"
+    "Gerudo Training Grounds Behind Block Invisible": "true"
     "Gerudo Training Grounds Behind Block Visible 1": "true"
     "Gerudo Training Grounds Behind Block Visible 2": "true"
     "Gerudo Training Grounds Behind Block Visible 3": "true"
@@ -29,7 +29,7 @@
     "Gerudo Training Grounds Left Side": "true"
     "Gerudo Training Grounds Statue": "true"
   locations:
-    "Gerudo Training Maze Upper Cage": "can_use_bow"
+    "Gerudo Training Maze Upper Cage": "true"
 "Gerudo Training Grounds Right Side":
   dungeon: GTG
   exits:
@@ -39,9 +39,9 @@
 "Gerudo Training Grounds Lava":
   dungeon: GTG
   exits:
-    "Gerudo Training Grounds Maze Side": "can_play(SONG_TIME)"
-    "Gerudo Training Grounds Hammer": "can_hookshot && (can_longshot || has_hover_boots || can_play(SONG_TIME))"
-    "Gerudo Training Grounds Water": "can_hookshot && (has_hover_boots || can_play(SONG_TIME))"
+    "Gerudo Training Grounds Maze Side": "has(SONG_TIME)"
+    "Gerudo Training Grounds Hammer": "is_adult && (can_longshot || has_hover_boots || has(SONG_TIME))"
+    "Gerudo Training Grounds Water": "is_adult && (has_hover_boots || has(SONG_TIME))"
 "Gerudo Training Grounds Maze Side":
   dungeon: GTG
   locations:
@@ -51,12 +51,12 @@
 "Gerudo Training Grounds Water":
   dungeon: GTG
   locations:
-    "Gerudo Training Water": "can_play(SONG_TIME) && has_tunic_zora && has_iron_boots"
+    "Gerudo Training Water": "has(SONG_TIME) && has_iron_boots"
 "Gerudo Training Grounds Hammer":
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Lava": "true"
-    "Gerudo Training Grounds Statue": "can_hammer && can_use_bow"
+    "Gerudo Training Grounds Statue": "can_hammer"
   locations:
     "Gerudo Training Grounds Hammer Room Switch": "can_hammer"
     "Gerudo Training Grounds Hammer Room": "true"
@@ -65,11 +65,11 @@
   exits:
     "Gerudo Training Grounds Hammer": "true"
   locations:
-    "Gerudo Training Grounds Eye Statue": "can_use_bow"
+    "Gerudo Training Grounds Eye Statue": "true"
 "Gerudo Training Grounds Maze":
   dungeon: GTG
   locations:
-    "Gerudo Training Maze Upper Fake Ceiling": "has(SMALL_KEY_GTG, 3) && has_lens"
+    "Gerudo Training Maze Upper Fake Ceiling": "has(SMALL_KEY_GTG, 3)"
     "Gerudo Training Maze Chest 1": "has(SMALL_KEY_GTG, 4)"
     "Gerudo Training Maze Chest 2": "has(SMALL_KEY_GTG, 6)"
     "Gerudo Training Maze Chest 3": "has(SMALL_KEY_GTG, 7)"
