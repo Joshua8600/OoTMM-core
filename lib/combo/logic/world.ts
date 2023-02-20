@@ -72,6 +72,9 @@ export const DUNGEONS_REGIONS: {[k: string]: string} = {
   SH: "MM_TEMPLE_SNOWHEAD",
   GB: "MM_TEMPLE_GREAT_BAY",
   ST: "MM_TEMPLE_STONE_TOWER",
+  IST: "MM_TEMPLE_STONE_TOWER",
+  SSH: "MM_SPIDER_HOUSE_SWAMP",
+  OSH: "MM_SPIDER_HOUSE_OCEAN",
 };
 
 const mapExprs = (exprParser: ExprParser, game: Game, char: string, data: any) => {
@@ -191,6 +194,9 @@ const loadWorldGame = (world: World, game: Game, settings: Settings) => {
   loadWorldAreas(world, game, exprParser);
   loadWorldPool(world, game, settings);
   loadWorldEntrances(world, game);
+
+  /* Create a special black-hole area */
+  world.areas["VOID"] = { boss: false, dungeon: null, exits: {}, events: {}, locations: {}, gossip: {} };
 }
 
 export const createWorld = (settings: Settings) => {

@@ -1,5 +1,7 @@
 #include <combo.h>
 
+int gNoTimeFlow;
+
 static void debugCheat(GameState_Play* play)
 {
 #if defined(DEBUG)
@@ -141,6 +143,12 @@ void hookPlay_Init(GameState_Play* play)
     Play_Init(play);
     gLastEntrance = gSave.entranceIndex;
     comboSpawnItemGivers(play);
+
+    if (gNoTimeFlow)
+    {
+        play->envCtx.sceneTimeSpeed = 0;
+        gGameData->clockSpeed = 0;
+    }
 
     if (isEndOfGame)
     {

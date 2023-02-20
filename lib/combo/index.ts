@@ -7,8 +7,7 @@ import { SETTINGS, DEFAULT_SETTINGS, SETTINGS_CATEGORIES, Settings, TRICKS } fro
 import { createWorld } from './logic/world';
 import { alterWorld, configFromSettings, isShuffled } from './logic/settings';
 import { itemName } from './names';
-import { Items } from './logic/pathfind';
-import { addItem, isDungeonItem, isDungeonReward, isJunk, isStrayFairy, isToken } from './logic/items';
+import { addItem, isDungeonItem, isDungeonReward, isJunk, isStrayFairy, isToken, Items } from './logic/items';
 import { EXTRA_ITEMS } from './logic/solve';
 
 type GeneratorParams = {
@@ -61,10 +60,13 @@ export const locationList = (aSettings: Partial<Settings>) => {
   const config = configFromSettings(settings);
   alterWorld(world, settings, config);
 
+  // Precalculate this to avoid doing it more than once in the gui
+  const dungeonLocations = Object.values(world.dungeons).reduce((acc, x) => new Set([...acc, ...x]));
+
   /* Everywhere below Check.type is a placeholder for Check.flags that I am going to add to the item tables. */
   const locations: LocInfo = {};
   for (const loc in world.checks) {
-    if (!isShuffled(settings, loc)) {
+    if (!isShuffled(settings, world, loc, dungeonLocations)) {
       continue;
     }
     locations[loc] = [world.checks[loc].type];
