@@ -1,7 +1,12 @@
-"Ocean Spider House Front":
-  region: SPIDER_HOUSE_OCEAN
+"Ocean Spider House":
+  dungeon: OSH
   exits:
+    "Ocean Spider House Front": "event(TIME_TRAVEL)"
     "Great Bay Coast": "true"
+"Ocean Spider House Front":
+  dungeon: OSH
+  exits:
+    "Ocean Spider House": "true"
     "Ocean Spider House Back": "true"
   locations:
     "Ocean Spider House Wallet": "has(GS_TOKEN_OCEAN, 30)"
@@ -9,9 +14,9 @@
     "Ocean Skulltula Entrance Left Wall": "true"
     "Ocean Skulltula Entrance Web": "true"
 "Ocean Spider House Back":
-  region: SPIDER_HOUSE_OCEAN
+  dungeon: OSH
   exits:
-    "Ocean Spider House Front": "true"
+    "Ocean Spider House": "true"
   locations:
     "Ocean Spider House Chest HP": "true"
     "Ocean Skulltula Storage Room Behind Boat": "true"
