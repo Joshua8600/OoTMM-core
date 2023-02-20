@@ -384,13 +384,6 @@
     "Woodfall": "true"
     "Woodfall Shrine": "true"
     "Woodfall Great Fairy Fountain": "true"
-    "Woodfall Near Owl Chest": "true"
-"Woodfall Near Great Fairy Fountain":
-  region: WOODFALL
-  exits:
-    "Woodfall": "true"
-    "Woodfall Shrine": "has(MASK_DEKU)"
-    "Woodfall Great Fairy Fountain": "true"
 "Woodfall Great Fairy Fountain":
   region: WOODFALL
   exits:
