@@ -1,0 +1,63 @@
+"Shadow Temple Entrance":
+  dungeon: Shadow
+  exits:
+    "Graveyard Upper": "true"
+    "Shadow Temple Pit": "true"
+"Shadow Temple Pit":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Main": "has_hover_boots"
+  locations:
+    "Shadow Temple Map": "true"
+    "Shadow Temple Hover Boots": "true"
+"Shadow Temple Main":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Open": "has(SMALL_KEY_SHADOW, 1)"
+  locations:
+    "Shadow Temple Silver Rupees": "true"
+    "Shadow Temple Compass": "true"
+"Shadow Temple Open":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Wind": "has(SMALL_KEY_SHADOW, 3)"
+  locations:
+    "Shadow Temple Spinning Blades Visible": "true"
+    "Shadow Temple Spinning Blades Invisible": "true"
+    "Shadow Temple Falling Spikes Lower": "true"
+    "Shadow Temple Falling Spikes Upper 1": "true"
+    "Shadow Temple Falling Spikes Upper 2": "true"
+    "Shadow Temple Invisible Spike Room": "has(SMALL_KEY_SHADOW, 2)"
+    "Shadow Temple Skull": "has(SMALL_KEY_SHADOW, 2)"
+    "Shadow Temple GS Skull Pot": "has(SMALL_KEY_SHADOW, 2)"
+    "Shadow Temple GS Falling Spikes": "true"
+    "Shadow Temple GS Invisible Scythe": "true"
+"Shadow Temple Wind":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Boat": "has(SMALL_KEY_SHADOW, 4) && has(SONG_ZELDA)"
+  locations:
+    "Shadow Temple Wind Room Hint": "true"
+    "Shadow Temple After Wind": "true"
+    "Shadow Temple After Wind Invisible": "true"
+    "Shadow Temple GS Near Boat": "has(SMALL_KEY_SHADOW, 4)"
+"Shadow Temple Boat":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Boss": "has(SMALL_KEY_SHADOW, 5) && has(BOSS_KEY_SHADOW)"
+  locations:
+    "Shadow Temple Boss Key Room 1": "has(SPELL_FIRE)"
+    "Shadow Temple Boss Key Room 2": "has(SPELL_FIRE)"
+    "Shadow Temple Invisible Floormaster": "true"
+    "Shadow Temple GS Triple Skull Pot": "true"
+"Shadow Temple Boss":
+  boss: true
+  dungeon: Shadow
+  exits:
+    "Shadow Temple After Boss": "true"
+"Shadow Temple After Boss":
+  boss: true
+  dungeon: Shadow
+  locations:
+    "Shadow Temple Boss HC": "true"
+    "Shadow Temple Boss": "true"

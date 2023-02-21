@@ -3,13 +3,13 @@
   exits:
     "Zora Fountain": "true"
   events:
-    BLUE_FIRE: "has_bottle"
+    BLUE_FIRE: "true"
   locations:
     "Ice Cavern Iron Boots": "event(BLUE_FIRE)"
     "Ice Cavern Map": "event(BLUE_FIRE)"
     "Ice Cavern Compass": "event(BLUE_FIRE)"
     "Ice Cavern HP": "event(BLUE_FIRE)"
     "Ice Cavern Sheik Song": "event(BLUE_FIRE)"
-    "Ice Cavern GS Scythe Room": "event(BLUE_FIRE) && can_hookshot"
-    "Ice Cavern GS Block Room": "event(BLUE_FIRE) && can_hookshot"
-    "Ice Cavern GS HP Room": "event(BLUE_FIRE) && can_hookshot"
+    "Ice Cavern GS Scythe Room": "event(BLUE_FIRE) && is_adult"
+    "Ice Cavern GS Block Room": "event(BLUE_FIRE) && is_adult"
+    "Ice Cavern GS HP Room": "event(BLUE_FIRE) && is_adult"
