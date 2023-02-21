@@ -329,7 +329,7 @@
   exits:
     "Swamp Back": "true"
     "Swamp Canopy Front": "has(MASK_DEKU)"
-    "Deku Shrine": "has(MASK_DEKU)"
+    "Deku Shrine": "event(CLEAN_SWAMP)"
   events:
     MAGIC_BEANS_PALACE: "true"
   locations:
@@ -395,7 +395,7 @@
   exits:
     "Deku Palace": "true"
   locations:
-    "Deku Shrine Mask of Scents": "true"
+    "Deku Shrine Mask of Scents": "event(DEKU_PRINCESS) && has_weapon_range"
 "Mountain Village Path Lower":
   region: PATH_TO_MOUNTAIN_VILLAGE
   exits:

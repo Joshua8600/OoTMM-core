@@ -8,7 +8,7 @@ import { itemName } from '../names';
 import { Monitor } from '../monitor';
 import { Analysis } from './analysis';
 import { regionName } from '../regions';
-import { isShuffled } from './settings';
+import { isShuffled } from './is-shuffled'
 
 const VERSION = process.env.VERSION || 'XXX';
 
@@ -179,7 +179,7 @@ export class LogicPassSpoiler {
     spoilerEntrances(buffer, this.state.entrances);
     spoilerFoolish(buffer, this.state.hints.foolish);
     spoilerHints(buffer, this.state.hints, this.state.items);
-    if (!this.state.opts.settings.noLogic) {
+    if (this.state.opts.settings.logic !== 'none') {
       spoilerSpheres(buffer, this.state.world, this.state.items, this.state.analysis.spheres);
     }
     spoilerRaw(buffer, this.state.opts.settings, this.state.world, this.state.items);

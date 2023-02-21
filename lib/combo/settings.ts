@@ -222,11 +222,16 @@ export const SETTINGS = [{
   type: 'boolean',
   default: false
 }, {
-  key: 'noLogic',
-  name: 'No Logic',
+  key: 'logic',
+  name: 'Logic',
   category: 'advanced',
-  type: 'boolean',
-  default: false
+  type: 'enum',
+  values: [
+    { value: 'allLocations', name: 'All Locations' },
+    { value: 'beatable', name: 'Beatable Only' },
+    { value: 'none', name: 'No Logic' },
+  ],
+  default: 'allLocations'
 }] as const;
 
 export const SETTINGS_CATEGORIES = [{
@@ -260,7 +265,7 @@ export const TRICKS = {
   OOT_VOLCANO_HOVERS: "Volcano Item with Hover Boots",
   OOT_NIGHT_GS: "Nighttime Gold Skulltulas without Sun's Song",
   MM_LENS: "Fewer Lens Requirements (MM)",
-  MM_WFT_HOOKSHOT: "Woodfall Temple 2F with Hookshot",
+  MM_PALACE_BEAN_SKIP: "Skip Planting Beans in Deku Palace",
   MM_DARMANI_WALL: "Climb Mountain Village Wall Blind",
   MM_NO_SEAHORSE: "Pinnacle Rock without Seahorse",
   MM_ZORA_HALL_HUMAN: "Swim to Zora Hall as Human",
