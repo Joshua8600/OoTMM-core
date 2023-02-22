@@ -36,6 +36,7 @@
   exits:
     "Forest Temple Garden West": "true"
     "Forest Temple Floormaster": "true"
+    "Forest Temple Maze": "true"
   events:
     FOREST_LEDGE_REACHED: "true"
 "Forest Temple Floormaster":
@@ -54,6 +55,9 @@
   exits:
     "Forest Temple Garden East": "true"
   events:
+    FOREST_WELL: "true"
+"Forest Temple Garden East":
+  dungeon: Forest
     FOREST_WELL: "is_adult"
 "Forest Temple Garden East":
   dungeon: Forest
@@ -63,6 +67,9 @@
   exits:
     "Forest Temple Well": "event(FOREST_WELL) || can_dive_big"
     "Forest Temple Garden East Ledge": "can_longshot || (can_hookshot && trick(OOT_FOREST_HOOK))"
+  locations:
+    "Forest Temple Garden": "can_hookshot"
+    "Forest Temple GS Garden East": "can_hookshot"
 "Forest Temple Well":
   dungeon: Forest
   exits:
@@ -75,6 +82,8 @@
   exits:
     "Forest Temple Main": "true"
     "Forest Temple Garden West Ledge": "has_hover_boots"
+    "Forest Temple Twisted 1 Normal": "is_adult && has(SMALL_KEY_FOREST, 2) && has(STRENGTH)"
+    "Forest Temple Twisted 1 Alt": "is_adult && has(SMALL_KEY_FOREST, 2) && has(STRENGTH) && can_hit_triggers_distance"
     "Forest Temple Twisted 1 Normal": "has(SMALL_KEY_FOREST, 2)"
     "Forest Temple Twisted 1 Alt": "has(SMALL_KEY_FOREST, 2)"
   locations:
@@ -132,7 +141,7 @@
 "Forest Temple Poe 3":
   dungeon: Forest
   events:
-    FOREST_POE_3: "true"
+    FOREST_POE_3: "can_use_bow"
 "Forest Temple Antichamber":
   dungeon: Forest
   exits:
