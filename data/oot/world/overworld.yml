@@ -596,7 +596,7 @@
 "Haunted Wasteland Structure":
   region: HAUNTED_WASTELAND
   exits:
-    "Desert Colossus": "has_lens_strict || trick(OOT_BLIND_WASTELAND)"
+    "Desert Colossus": "has(LENS) || trick(OOT_BLIND_WASTELAND)"
   locations:
     "Haunted Wasteland Chest": "is_adult && (has(SPELL_FIRE) || has(ARROW_FIRE))"
     "Haunted Wasteland GS": "is_adult || can_boomerang"
