@@ -404,8 +404,8 @@
   region: ZORA_RIVER
   exits:
     "Zora River Front": "true"
-    "Zora Domain": "can_play(SONG_ZELDA)"
-    "Lost Woods": "can_dive_small"
+    "Zora Domain": "is_child || has_hover_boots"
+    "Lost Woods": "true"
   locations:
     "Zora River Bean Seller": "is_child"
     "Zora River HP Pillar": "is_child || has_hover_boots"
