@@ -67,7 +67,7 @@
   exits:
     "Snowhead Temple Center Level 1": "true"
   events:
-    SNOWHEAD_RAISE_PILLAR: "has(MASK_GORON)"
+    SNOWHEAD_RAISE_PILLAR: "has(MASK_GORON) && has(ARROW_FIRE)"
   locations:
     "Snowhead Temple Pillars Room": "true"
 "Snowhead Temple Center Level 0":
