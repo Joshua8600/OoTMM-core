@@ -10,7 +10,7 @@
     "Water Temple Ruto Room": "has_iron_boots || event(WATER_LEVEL_LOW)"
     "Water Temple Center Bottom": "event(WATER_LEVEL_LOW) && has(SMALL_KEY_WATER, 5)"
     "Water Temple Center Middle": "event(WATER_LEVEL_LOW)"
-    "Water Temple Compass Room": "has_iron_boots || event(WATER_LEVEL_LOW)) && is_adult"
+    "Water Temple Compass Room": "(has_iron_boots || event(WATER_LEVEL_LOW)) && is_adult"
     "Water Temple Dragon Room": "event(WATER_LEVEL_LOW)"
     "Water Temple Elevator": "has(SMALL_KEY_WATER, 5) && is_adult"
     "Water Temple Corridor": "(can_longshot || has_hover_boots) && event(WATER_LEVEL_LOW)"
@@ -29,7 +29,7 @@
   dungeon: Water
   exits:
     "Water Temple Map Room": "event(WATER_LEVEL_RESET)"
-    "Water Temple Shell Room": "event(WATER_LEVEL_LOW) && (has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE))"
+    "Water Temple Shell Room": "event(WATER_LEVEL_LOW) && (has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
   events:
     WATER_LEVEL_LOW: "has(SONG_ZELDA)"
   locations:
