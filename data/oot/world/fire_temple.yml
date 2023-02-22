@@ -45,6 +45,24 @@
     "Fire Temple Scarecrow Chest": "true"
     "Fire Temple GS Scarecrow Wall": "true"
     "Fire Temple GS Scarecrow Top": "true"
+    "Fire Temple After Elevator": "has_small_keys_fire(3)"
+  locations:
+    "Fire Temple Jail 2 Chest": "true"
+    "Fire Temple Jail 3 Chest": "true"
+    "Fire Temple GS Lava Side Room": "has(SONG_TIME)"
+"Fire Temple After Elevator":
+  dungeon: Fire
+  exits:
+    "Fire Temple": "true"
+    "Fire Temple Ring": "has_small_keys_fire(6)"
+    "Fire Temple Scarecrow": "has_small_keys_fire(5) && is_adult"
+  locations:
+    "Fire Temple Maze Chest": "true"
+    "Fire Temple Jail 4 Chest": "true"
+    "Fire Temple Map": "has_small_keys_fire(5)"
+    "Fire Temple Above Maze Chest": "has_small_keys_fire(5)"
+    "Fire Temple Below Maze Chest": "has_small_keys_fire(5)"
+    "Fire Temple GS Maze": "true"
 "Fire Temple Ring":
   dungeon: Fire
   exits:
@@ -55,10 +73,10 @@
 "Fire Temple Before Miniboss":
   dungeon: Fire
   exits:
-    "Fire Temple After Miniboss": "has_explosives"
-    "Fire Temple Pillar Ledge": "can_play(SONG_TIME)"
+    "Fire Temple After Miniboss": "true"
+    "Fire Temple Pillar Ledge": "has(SONG_TIME)"
   locations:
-    "Fire Temple Ring Jail": "can_hammer && can_play(SONG_TIME)"
+    "Fire Temple Ring Jail": "can_hammer && has(SONG_TIME)"
 "Fire Temple Pillar Ledge":
   dungeon: Fire
   exits:
@@ -74,6 +92,12 @@
     "Fire Temple Pillar Ledge": "can_hammer"
   locations:
     "Fire Temple Hammer": "true"
+"Fire Temple Scarecrow":
+  dungeon: Fire
+  locations:
+    "Fire Temple Scarecrow Chest": "true"
+    "Fire Temple GS Scarecrow Wall": "true"
+    "Fire Temple GS Scarecrow Top": "is_adult || can_boomerang"
 "Fire Temple Boss":
   boss: true
   dungeon: Fire
