@@ -56,17 +56,17 @@
   dungeon: ST
   exits:
     "Stone Tower Temple Water Room": "has(SMALL_KEY_ST, 4)"
-    "Stone Tower Temple Wind Room": "true"
+    "Stone Tower Temple Wind Room": "has(ARROW_LIGHT) || (has(MASK_GORON) && has_mirror_shield)"
   locations:
-    "Stone Tower Temple Mirrors Room Center Chest": "true"
-    "Stone Tower Temple Mirrors Room Right Chest": "true"
+    "Stone Tower Temple Mirrors Room Center Chest": "has(ARROW_LIGHT) || (has(MASK_GORON) && has_mirror_shield)"
+    "Stone Tower Temple Mirrors Room Right Chest": "has(ARROW_LIGHT) || (has(MASK_GORON) && has_mirror_shield)"
 "Stone Tower Temple Wind Room":
   dungeon: ST
   exits:
     "Stone Tower Temple Light Arrow Room": "true"
     "Stone Tower Temple Mirrors Room": "true"
   locations:
-    "Stone Tower Temple Wind Room Ledge Chest": "true"
+    "Stone Tower Temple Wind Room Ledge Chest": "has(MASK_DEKU)"
     "Stone Tower Temple Wind Room Jail Chest": "has(MASK_GORON)"
 "Stone Tower Temple Light Arrow Room":
   dungeon: ST
