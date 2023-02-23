@@ -18,7 +18,7 @@
   exits:
     "Fire Temple Maze": "has_small_keys_fire(3)"
   locations:
-    "Fire Temple Jail 2 Chest": "true"
+    "Fire Temple Jail 2 Chest": "is_adult || (is_child has(SONG_TIME))"
     "Fire Temple Jail 3 Chest": "true"
     "Fire Temple GS Lava Side Room": "has(SONG_TIME)"
 "Fire Temple Maze":
