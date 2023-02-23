@@ -5,7 +5,9 @@ int gNoTimeFlow;
 static void debugCheat(GameState_Play* play)
 {
 #if defined(DEBUG)
-    MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF);
+    gMiscFlags.erSpring = 1;
+    gMiscFlags.erSwampClear = 1;
+    gMiscFlags.erCoastClear = 1;
     /*if (play->gs.input[0].current.buttons & 0x20)*/
     {
         gSave.itemEquips.sword = 1;
@@ -79,6 +81,7 @@ static void debugCheat(GameState_Play* play)
 
         //gSave.skullCountOcean = 0x10;
     }
+
 #endif
 }
 
@@ -142,6 +145,7 @@ void hookPlay_Init(GameState_Play* play)
     Play_Init(play);
     gLastEntrance = gSave.entranceIndex;
     comboSpawnItemGivers(play);
+    comboSpawnCustomWarps(play);
 
     if (gNoTimeFlow)
     {
