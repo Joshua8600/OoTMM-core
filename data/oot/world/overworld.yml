@@ -586,10 +586,10 @@
     OPEN_FORTRESS_GATE: "has(GERUDO_CARD) && is_adult"
   locations:
     "Gerudo Fortress Chest": "has_hover_boots || can_longshot || scarecrow_hookshot"
-    "Gerudo Fortress Archery Reward 1": "event(EPONA) && can_use_bow && has(GERUDO_CARD)"
-    "Gerudo Fortress Archery Reward 2": "event(EPONA) && can_use_bow && has(GERUDO_CARD)"
-    "Gerudo Fortress GS Wall": "can_hookshot && gs_night"
-    "Gerudo Fortress GS Target": "can_hookshot && gs_night && has(GERUDO_CARD)"
+    "Gerudo Fortress Archery Reward 1": "event(EPONA) && has(GERUDO_CARD)"
+    "Gerudo Fortress Archery Reward 2": "event(EPONA) && has(GERUDO_CARD)"
+    "Gerudo Fortress GS Wall": "is_adult && gs_night"
+    "Gerudo Fortress GS Target": "is_adult && gs_night && has(GERUDO_CARD)"
 "Fortress Near Wasteland":
   region: GERUDO_FORTRESS
   exits:
@@ -604,10 +604,10 @@
   region: HAUNTED_WASTELAND
   exits:
     "Haunted Wasteland Start": "can_longshot || has_hover_boots"
-    "Haunted Wasteland End": "has_lens_strict || trick(OOT_BLIND_WASTELAND)"
+    "Haunted Wasteland End": "has(LENS) || trick(OOT_BLIND_WASTELAND)"
   locations:
-    "Haunted Wasteland Chest": "has_fire"
-    "Haunted Wasteland GS": "can_collect_distance"
+    "Haunted Wasteland Chest": "is_adult && (has(SPELL_FIRE) || has(ARROW_FIRE))"
+    "Haunted Wasteland GS": "is_adult || can_boomerang"
 "Haunted Wasteland End":
   region: HAUNTED_WASTELAND
   exits:
