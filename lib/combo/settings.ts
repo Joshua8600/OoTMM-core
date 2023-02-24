@@ -176,7 +176,7 @@ export const SETTINGS = [{
 }, {
   key: 'progressiveShieldsOot',
   name: 'OoT Shields',
-  category: 'progressive',
+  category: 'items',
   type: 'enum',
   values: [
     { value: 'separate', name: 'Separate' },
@@ -186,7 +186,7 @@ export const SETTINGS = [{
 }, {
   key: 'progressiveSwordsOot',
   name: 'OoT Swords',
-  category: 'progressive',
+  category: 'items',
   type: 'enum',
   values: [
     { value: 'separate', name: 'Separate' },
@@ -197,7 +197,7 @@ export const SETTINGS = [{
 }, {
   key: 'progressiveShieldsMm',
   name: 'MM Shields',
-  category: 'progressive',
+  category: 'items',
   type: 'enum',
   values: [
     { value: 'separate', name: 'Separate' },
@@ -208,13 +208,37 @@ export const SETTINGS = [{
 }, {
   key: 'progressiveGoronLullaby',
   name: 'MM Goron Lullaby',
-  category: 'progressive',
+  category: 'items',
   type: 'enum',
   values: [
     { value: 'single', name: 'Full Lullaby Only' },
     { value: 'progressive', name: 'Progressive' },
   ],
   default: 'progressive'
+}, {
+  key: 'sharedBows',
+  name: 'Shared Bows',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedBombBags',
+  name: 'Shared Bomb Bags',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedMagic',
+  name: 'Shared Magic',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedMagicArrows',
+  name: 'Shared Magic Arrows',
+  category: 'items',
+  type: 'boolean',
+  default: false
 }, {
   key: 'csmc',
   name: 'Chest Size Matches Content',
@@ -238,8 +262,8 @@ export const SETTINGS_CATEGORIES = [{
   name: "Main Settings",
   key: "main",
 }, {
-  name: "Progressive Items",
-  key: "progressive",
+  name: "Items",
+  key: "items",
 }, {
   name: "Entrances",
   key: "entrances",
