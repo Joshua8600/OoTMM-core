@@ -71,6 +71,30 @@ export class LogicPassConfig {
       config.add('SHARED_MAGIC_ARROWS');
     }
 
+    if (this.state.settings.sharedSongs) {
+      config.add('SHARED_SONGS');
+    }
+
+    if (this.state.settings.sharedNutsSticks) {
+      config.add('SHARED_NUTS_STICKS');
+    }
+
+    if (this.state.settings.sharedHookshot) {
+      config.add('SHARED_HOOKSHOT');
+    }
+
+    if (this.state.settings.sharedLens) {
+      config.add('SHARED_LENS');
+    }
+
+    if (this.state.settings.sharedOcarina) {
+      config.add('SHARED_OCARINA');
+    }
+
+    if (this.state.settings.sharedMasks) {
+      config.add('SHARED_MASKS');
+    }
+
     return { config };
   }
 }

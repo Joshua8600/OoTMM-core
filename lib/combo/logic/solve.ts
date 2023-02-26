@@ -11,14 +11,17 @@ import { Monitor } from '../monitor';
 export const EXTRA_ITEMS = [
   'OOT_MASK_SKULL',
   'OOT_MASK_SPOOKY',
-  'OOT_MASK_KEATON',
-  'OOT_MASK_BUNNY',
-  'OOT_MASK_TRUTH',
-  'OOT_MASK_GORON',
-  'OOT_MASK_ZORA',
   'OOT_MASK_GERUDO',
   'MM_MASK_DEKU',
   'MM_SWORD',
+];
+
+export const EXTRA_MASKS_OOT = [
+  'OOT_MASK_KEATON',
+  'OOT_MASK_TRUTH',
+  'OOT_MASK_BUNNY',
+  'OOT_MASK_GORON',
+  'OOT_MASK_ZORA',
 ];
 
 export type ItemPlacement = {[k: string]: string};
@@ -176,6 +179,13 @@ export class LogicPassSolver {
     /* Add the extra items */
     for (const item of EXTRA_ITEMS) {
       this.insertItem(pools, item);
+    }
+
+    if (!this.state.settings.sharedMasks) {
+      /* Add the extra masks */
+      for (const item of EXTRA_MASKS_OOT) {
+        this.insertItem(pools, item);
+      }
     }
 
     if (this.state.settings.progressiveSwordsOot === 'progressive') {
@@ -373,7 +383,7 @@ export class LogicPassSolver {
 
     const pool = combinedItems(this.pools.required, this.pools.nice);
     const songs = shuffle(this.state.random, itemsArray(pool).filter(x => isSong(x)));
-    const locations = new Set(Object.keys(this.state.world.checks).filter(x => isSong(this.state.world.checks[x].item) && !this.items[x]));
+    const locations = new Set([...this.state.world.songLocations].filter(x => !this.items[x]));
 
     if (songs.length > locations.size) {
       throw new Error(`Not enough song locations for ${songs.length} songs`);

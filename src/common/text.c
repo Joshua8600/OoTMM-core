@@ -133,7 +133,7 @@ static const char* const kCheckNamesMm[] = {
     "the " TEXT_COLOR_BLUE "Pinnacle Rock Seahorses",
     "the " TEXT_COLOR_BLUE "Fisherman's Game",
     TEXT_COLOR_ORANGE "Igos du Ikana",
-    "the " TEXT_COLOR_YELLOW "Secret Shrine 4th Boss and Chest",
+    "the " TEXT_COLOR_YELLOW "Secret Shrine Wart and Final Chest",
 };
 
 static int isItemAmbiguousOot(s16 gi)
@@ -163,26 +163,37 @@ static int isItemAmbiguousOot(s16 gi)
     case GI_OOT_ARROW_ICE:
     case GI_OOT_ARROW_LIGHT:
         return !comboConfig(CFG_SHARED_MAGIC_ARROWS);
+    case GI_OOT_SONG_EPONA:
+    case GI_OOT_SONG_TIME:
+    case GI_OOT_SONG_STORMS:
+        return !comboConfig(CFG_SHARED_SONGS);
     case GI_OOT_STICK:
-    case GI_OOT_OCARINA_TIME:
-    case GI_OOT_BOMBCHU_10:
+    case GI_OOT_STICKS_5:
+    case GI_OOT_STICKS_10:
+    case GI_OOT_NUTS_5:
+    case GI_OOT_NUTS_5_ALT:
+    case GI_OOT_NUTS_10:
+        return !comboConfig(CFG_SHARED_NUTS_STICKS);
     case GI_OOT_HOOKSHOT:
+        return !comboConfig(CFG_SHARED_HOOKSHOT);
     case GI_OOT_LENS:
-    case GI_OOT_MAGIC_BEAN:
-    case GI_OOT_EMPTY_BOTTLE:
-    case GI_OOT_MILK_BOTTLE:
+        return !comboConfig(CFG_SHARED_LENS);
+    case GI_OOT_OCARINA_TIME:
+        return !comboConfig(CFG_SHARED_OCARINA);
     case GI_OOT_MASK_KEATON:
     case GI_OOT_MASK_BUNNY:
     case GI_OOT_MASK_GORON:
     case GI_OOT_MASK_ZORA:
     case GI_OOT_MASK_TRUTH:
+        return !comboConfig(CFG_SHARED_MASKS);
+    case GI_OOT_BOMBCHU_10:
+    case GI_OOT_MAGIC_BEAN:
+    case GI_OOT_EMPTY_BOTTLE:
+    case GI_OOT_MILK_BOTTLE:
     case GI_OOT_SWORD_KOKIRI:
     case GI_OOT_SHIELD_HYLIAN:
     case GI_OOT_WALLET2:
     case GI_OOT_WALLET3:
-    case GI_OOT_SONG_EPONA:
-    case GI_OOT_SONG_TIME:
-    case GI_OOT_SONG_STORMS:
     case GI_OOT_HEART_CONTAINER:
     case GI_OOT_HEART_CONTAINER2:
     case GI_OOT_HEART_PIECE:
@@ -192,11 +203,6 @@ static int isItemAmbiguousOot(s16 gi)
     case GI_OOT_RUPEE_RED:
     case GI_OOT_RUPEE_PURPLE:
     case GI_OOT_RUPEE_HUGE:
-    case GI_OOT_STICKS_5:
-    case GI_OOT_STICKS_10:
-    case GI_OOT_NUTS_5:
-    case GI_OOT_NUTS_5_ALT:
-    case GI_OOT_NUTS_10:
     case GI_OOT_BOMBCHU_5:
     case GI_OOT_BOMBCHU_20:
     case GI_OOT_DEFENSE_UPGRADE:
@@ -234,27 +240,35 @@ static int isItemAmbiguousMm(s16 gi)
     case GI_MM_ARROW_ICE:
     case GI_MM_ARROW_LIGHT:
         return !comboConfig(CFG_SHARED_MAGIC_ARROWS);
-    case GI_MM_OCARINA_OF_TIME:
-    case GI_MM_BOMBCHU:
-    case GI_MM_DEKU_STICK:
-    case GI_MM_DEKU_NUT:
-    case GI_MM_MAGIC_BEAN:
-    case GI_MM_LENS:
+    case GI_MM_SONG_TIME:
+    case GI_MM_SONG_EPONA:
+    case GI_MM_SONG_STORMS:
+        return !comboConfig(CFG_SHARED_SONGS);
+    case GI_MM_STICK:
+    case GI_MM_NUT:
+    case GI_MM_NUTS_5:
+    case GI_MM_NUTS_10:
+        return !comboConfig(CFG_SHARED_NUTS_STICKS);
     case GI_MM_HOOKSHOT:
-    case GI_MM_BOTTLED_POTION_RED:
-    case GI_MM_EMPTY_BOTTLE:
+        return !comboConfig(CFG_SHARED_HOOKSHOT);
+    case GI_MM_LENS:
+        return !comboConfig(CFG_SHARED_LENS);
+    case GI_MM_OCARINA_OF_TIME:
+        return !comboConfig(CFG_SHARED_OCARINA);
     case GI_MM_MASK_GORON:
     case GI_MM_MASK_ZORA:
     case GI_MM_MASK_TRUTH:
     case GI_MM_MASK_BUNNY:
     case GI_MM_MASK_KEATON:
+        return !comboConfig(CFG_SHARED_MASKS);
+    case GI_MM_BOMBCHU:
+    case GI_MM_MAGIC_BEAN:
+    case GI_MM_BOTTLED_POTION_RED:
+    case GI_MM_EMPTY_BOTTLE:
     case GI_MM_SWORD_KOKIRI:
     case GI_MM_SHIELD_HERO:
     case GI_MM_WALLET2:
     case GI_MM_WALLET3:
-    case GI_MM_SONG_TIME:
-    case GI_MM_SONG_EPONA:
-    case GI_MM_SONG_STORMS:
     case GI_MM_HEART_CONTAINER:
     case GI_MM_HEART_PIECE:
     case GI_MM_RECOVERY_HEART:
@@ -264,8 +278,6 @@ static int isItemAmbiguousMm(s16 gi)
     case GI_MM_RUPEE_PURPLE:
     case GI_MM_RUPEE_SILVER:
     case GI_MM_RUPEE_GOLD:
-    case GI_MM_DEKU_NUTS_5:
-    case GI_MM_DEKU_NUTS_10:
     case GI_MM_BOMBCHU_20:
     case GI_MM_BOMBCHU_10:
     case GI_MM_BOMBCHU_5:

@@ -153,7 +153,7 @@
   exits:
     "Clock Town East": "true"
   locations:
-    "Milk Bar Troupe Leader Mask": "has(OCARINA) && has(MASK_DEKU) && has(MASK_ZORA) && has(MASK_GORON) && has(MASK_ROMANI)"
+    "Milk Bar Troupe Leader Mask": "has_ocarina && has(MASK_DEKU) && has(MASK_ZORA) && has(MASK_GORON) && has(MASK_ROMANI)"
     "Milk Bar Madame Aroma Bottle": "has(MASK_KAFEI) && has(LETTER_TO_MAMA)"
 "Town Archery":
   region: CLOCK_TOWN_EAST
@@ -240,7 +240,7 @@
     "Termina Field Dodongo Grotto": "true"
     "Termina Field Bio Baba Grotto": "has(MASK_ZORA)"
     "Termina Field Scrub": "event(SCRUB_TELESCOPE) && has(WALLET)"
-    "Termina Field Gossip Stones HP": "has(OCARINA) && ((has(MASK_GORON) && has_goron_song) || (has(MASK_DEKU) && has(SONG_AWAKENING)) || (has(MASK_ZORA) && has(SONG_ZORA))) && can_break_boulders"
+    "Termina Field Gossip Stones HP": "has_ocarina && ((has(MASK_GORON) && has_goron_song) || (has(MASK_DEKU) && has(SONG_AWAKENING)) || (has(MASK_ZORA) && has(SONG_ZORA))) && can_break_boulders"
 #    "Termina Field Log Grotto Cow 1": "has_explosives && can_play(SONG_EPONA)"
 #    "Termina Field Log Grotto Cow 2": "has_explosives && can_play(SONG_EPONA)"
   gossip:
@@ -335,7 +335,7 @@
   locations:
     "Deku Palace HP": "true"
     "Deku Palace Grotto Chest": "true"
-    "Deku Palace Sonata of Awakening": "has(MASK_DEKU) && has(OCARINA)"
+    "Deku Palace Sonata of Awakening": "has(MASK_DEKU) && has_ocarina"
 "Swamp Canopy Front":
   region: SOUTHERN_SWAMP
   exits:
@@ -447,9 +447,9 @@
   locations:
     "Twin Islands Underwater Chest 1": "event(BOSS_SNOWHEAD) && has(MASK_ZORA)"
     "Twin Islands Underwater Chest 2": "event(BOSS_SNOWHEAD) && has(MASK_ZORA)"
-    "Goron Elder": "has(MASK_GORON) && has(OCARINA)"
     "Twin Islands Frozen Grotto Chest": "true"
     "Twin Islands Ramp Grotto Chest": "true"
+    "Goron Elder": "has(MASK_GORON)"
 "Goron Village":
   region: GORON_VILLAGE
   exits:
@@ -649,7 +649,7 @@
   exits:
     "Great Bay Coast": "true"
   locations:
-    "Laboratory Zora Song": "event(ZORA_EGGS_HOOKSHOT_ROOM) && event(ZORA_EGGS_BARREL_MAZE) && event(ZORA_EGGS_LONE_GUARD) && event(ZORA_EGGS_TREASURE_ROOM) && event(ZORA_EGGS_PINNACLE_ROCK) && has(MASK_ZORA) && has(OCARINA)"
+    "Laboratory Zora Song": "event(ZORA_EGGS_HOOKSHOT_ROOM) && event(ZORA_EGGS_BARREL_MAZE) && event(ZORA_EGGS_LONE_GUARD) && event(ZORA_EGGS_TREASURE_ROOM) && event(ZORA_EGGS_PINNACLE_ROCK) && has(MASK_ZORA) && has_ocarina"
     "Laboratory Fish HP": "true"
 "Zora Cape":
   region: ZORA_CAPE
@@ -704,7 +704,7 @@
   locations:
     "Zora Hall Scrub HP": "has(MASK_ZORA)"
     "Zora Hall Scrub Deed": "has(MASK_ZORA) && has(DEED_MOUNTAIN) && has(MASK_GORON)"
-    "Zora Hall Evan HP": "has(MASK_ZORA) && has(OCARINA)"
+    "Zora Hall Evan HP": "has(MASK_ZORA) && has_ocarina"
     "Zora Hall Scene Lights": "has(ARROW_FIRE)"
 "Zora Cape Peninsula":
   region: ZORA_CAPE

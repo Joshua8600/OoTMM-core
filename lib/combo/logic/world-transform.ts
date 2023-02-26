@@ -74,6 +74,59 @@ export class LogicPassWorldTransform {
       itemsToJunk.add('MM_ARROW_LIGHT');
     }
 
+    if (config.has('SHARED_SONGS')) {
+      itemsToReplace.set('OOT_SONG_TIME',   'SHARED_SONG_TIME');
+      itemsToReplace.set('OOT_SONG_EPONA',  'SHARED_SONG_EPONA');
+      itemsToReplace.set('OOT_SONG_STORMS', 'SHARED_SONG_STORMS');
+      itemsToJunk.add('MM_SONG_TIME');
+      itemsToJunk.add('MM_SONG_EPONA');
+      itemsToJunk.add('MM_SONG_STORMS');
+    }
+
+    if (config.has('SHARED_NUTS_STICKS')) {
+      /* Nuts */
+      itemsToReplace.set('OOT_NUTS_5',      'SHARED_NUTS_5');
+      itemsToReplace.set('OOT_NUTS_5_ALT',  'SHARED_NUTS_5');
+      itemsToReplace.set('OOT_NUTS_10',     'SHARED_NUTS_10');
+      itemsToReplace.set('MM_NUT',          'SHARED_NUT');
+      itemsToReplace.set('MM_NUTS_5',       'SHARED_NUTS_5');
+      itemsToReplace.set('MM_NUTS_10',      'SHARED_NUTS_10');
+
+      /* Sticks */
+      itemsToReplace.set('OOT_STICK',       'SHARED_STICK');
+      itemsToReplace.set('OOT_STICKS_5',    'SHARED_STICKS_5');
+      itemsToReplace.set('OOT_STICKS_10',   'SHARED_STICKS_10');
+      itemsToReplace.set('MM_STICK',        'SHARED_STICK');
+    }
+
+    if (config.has('SHARED_HOOKSHOT')) {
+      itemsToReplace.set('OOT_HOOKSHOT', 'SHARED_HOOKSHOT');
+      itemsToJunk.add('MM_HOOKSHOT');
+    }
+
+    if (config.has('SHARED_LENS')) {
+      itemsToReplace.set('OOT_LENS', 'SHARED_LENS');
+      itemsToJunk.add('MM_LENS');
+    }
+
+    if (config.has('SHARED_OCARINA')) {
+      itemsToReplace.set('OOT_OCARINA', 'SHARED_OCARINA');
+      itemsToJunk.add('MM_OCARINA');
+    }
+
+    if (config.has('SHARED_MASKS')) {
+      itemsToReplace.set('MM_MASK_ZORA', 'SHARED_MASK_ZORA');
+      itemsToReplace.set('MM_MASK_GORON', 'SHARED_MASK_GORON');
+      itemsToReplace.set('MM_MASK_TRUTH', 'SHARED_MASK_TRUTH');
+      itemsToReplace.set('MM_MASK_BUNNY', 'SHARED_MASK_BUNNY');
+      itemsToReplace.set('MM_MASK_KEATON', 'SHARED_MASK_KEATON');
+      itemsToJunk.add('OOT_MASK_ZORA');
+      itemsToJunk.add('OOT_MASK_GORON');
+      itemsToJunk.add('OOT_MASK_TRUTH');
+      itemsToJunk.add('OOT_MASK_BUNNY');
+      itemsToJunk.add('OOT_MASK_KEATON');
+    }
+
     for (const loc in this.state.world.checks) {
       const check = this.state.world.checks[loc];
       let item = check.item;
@@ -143,6 +196,7 @@ export class LogicPassWorldTransform {
           item = 'MM_SONG_GORON_HALF';
         } else {
           item = 'MM_RUPEE_BLUE';
+          this.state.world.songLocations.delete(loc);
         }
       } else if (item === 'MM_SONG_GORON_HALF' && !this.state.config.has('MM_PROGRESSIVE_LULLABY')) {
         item = 'MM_SONG_GORON';
