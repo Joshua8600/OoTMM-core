@@ -844,7 +844,7 @@
   exits:
     "Stone Tower": "true"
     "Stone Tower Front of Temple": "true"
-    "Stone Tower Top Inverted": "has(ARROW_LIGHT)"
+    "Stone Tower Top Inverted": "has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
   events:
     STONE_TOWER_OWL: "true"
 "Stone Tower Front of Temple":
@@ -852,18 +852,18 @@
   exits:
     "Stone Tower": "true"
     "Stone Tower Top": "can_use_elegy3"
-    "Stone Tower Top Inverted": "has(ARROW_LIGHT)"
+    "Stone Tower Top Inverted": "has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
     "Stone Tower Temple": "true"
 "Stone Tower Top Inverted":
   region: STONE_TOWER
   exits:
     "Stone Tower Temple Inverted": "true"
-    "Stone Tower Top": "has(ARROW_LIGHT)"
+    "Stone Tower Top": "has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
     "Stone Tower Top Inverted Upper": "can_use_beans"
 "Stone Tower Top Inverted Upper":
   region: STONE_TOWER
   exits:
-    "Stone Tower Top Inverted": "true"
+    "Stone Tower Top Inverted": "can_use_beans"
   locations:
     "Stone Tower Inverted Chest 1": "true"
     "Stone Tower Inverted Chest 2": "true"
