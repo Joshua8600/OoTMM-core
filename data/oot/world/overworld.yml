@@ -237,7 +237,7 @@
   region: SACRED_MEADOW
   exits:
     "Lost Woods Deep": "true"
-    "Forest Temple": "is_adult"
+    "Forest Temple": "can_hookshot"
   locations:
     "Saria's Song": "event(MEET_ZELDA)"
     "Sacred Meadow Sheik Song": "is_adult"
@@ -447,7 +447,7 @@
     "Hyrule Field": "true"
     "Zora Domain": "is_child"
     "Laboratory": "true"
-    "Water Temple": "has_iron_boots && is_adult"
+    "Water Temple": "has_iron_boots && can_hookshot"
     "Fishing Pond": "is_child || event(WATER_TEMPLE_CLEARED) || scarecrow_hookshot || can_ride_bean(BEAN_LAKE_HYLIA)"
   events:
     SCARECROW_CHILD: "is_child"
