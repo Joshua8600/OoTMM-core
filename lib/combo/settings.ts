@@ -216,6 +216,12 @@ export const SETTINGS = [{
   ],
   default: 'progressive'
 }, {
+  key: 'sharedNutsSticks',
+  name: 'Shared Nuts & Sticks',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
   key: 'sharedBows',
   name: 'Shared Bows',
   category: 'items',
@@ -240,6 +246,36 @@ export const SETTINGS = [{
   type: 'boolean',
   default: false
 }, {
+  key: 'sharedSongs',
+  name: 'Shared Songs',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedHookshot',
+  name: 'Shared Hookshots',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedLens',
+  name: 'Shared Lens of Truth',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedOcarina',
+  name: 'Shared Ocarina of Time',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedMasks',
+  name: 'Shared Masks',
+  category: 'items',
+  type: 'boolean',
+  default: false
+}, {
   key: 'csmc',
   name: 'Chest Size Matches Content',
   category: 'misc',
@@ -249,13 +285,19 @@ export const SETTINGS = [{
   key: 'logic',
   name: 'Logic',
   category: 'advanced',
-  type: 'enum',
-  values: [
-    { value: 'allLocations', name: 'All Locations' },
-    { value: 'beatable', name: 'Beatable Only' },
-    { value: 'none', name: 'No Logic' },
-  ],
-  default: 'allLocations'
+type: 'enum',
+values: [
+  { value: 'allLocations', name: 'All Locations' },
+  { value: 'beatable', name: 'Beatable Only' },
+  { value: 'none', name: 'No Logic' },
+],
+default: 'allLocations'
+}, {
+  key: 'generateSpoilerLog',
+  name: 'Generate Spoiler Log',
+  category: 'advanced',
+  type: 'boolean',
+  default: true
 }] as const;
 
 export const SETTINGS_CATEGORIES = [{

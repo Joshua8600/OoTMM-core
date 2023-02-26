@@ -408,20 +408,39 @@
 #if defined(GAME_OOT)
 # define ITS_NATIVE_BOW             ITS_OOT_BOW
 # define ITS_NATIVE_BOMBS           ITS_OOT_BOMBS
+# define ITS_NATIVE_STICKS          ITS_OOT_STICKS
+# define ITS_NATIVE_NUTS            ITS_OOT_NUTS
 # define ITS_FOREIGN_BOW            ITS_MM_BOW
 # define ITS_FOREIGN_BOMBS          ITS_MM_BOMBS
+# define ITS_FOREIGN_STICKS         ITS_MM_STICKS
+# define ITS_FOREIGN_NUTS           ITS_MM_NUTS
 #endif
 
 #if defined(GAME_MM)
 # define ITS_NATIVE_BOW             ITS_MM_BOW
 # define ITS_NATIVE_BOMBS           ITS_MM_BOMBS
+# define ITS_NATIVE_STICKS          ITS_MM_STICKS
+# define ITS_NATIVE_NUTS            ITS_MM_NUTS
 # define ITS_FOREIGN_BOW            ITS_OOT_BOW
 # define ITS_FOREIGN_BOMBS          ITS_OOT_BOMBS
+# define ITS_FOREIGN_STICKS         ITS_OOT_STICKS
+# define ITS_FOREIGN_NUTS           ITS_OOT_NUTS
 #endif
 
 /* Common shared item IDs */
 #define SITEM_ARROW_FIRE        0x00
 #define SITEM_ARROW_ICE         0x01
 #define SITEM_ARROW_LIGHT       0x02
+#define SITEM_SONG_EPONA        0x03
+#define SITEM_SONG_TIME         0x04
+#define SITEM_SONG_STORMS       0x05
+#define SITEM_HOOKSHOT          0x06
+#define SITEM_LENS              0x07
+#define SITEM_OCARINA_TIME      0x08
+#define SITEM_MASK_GORON        0x09
+#define SITEM_MASK_ZORA         0x0a
+#define SITEM_MASK_TRUTH        0x0b
+#define SITEM_MASK_KEATON       0x0c
+#define SITEM_MASK_BUNNY        0x0d
 
 #endif

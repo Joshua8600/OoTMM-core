@@ -44,6 +44,23 @@ const SHARED_ITEMS_OOT = new Map([
   ['SHARED_ARROW_FIRE',     'OOT_ARROW_FIRE'],
   ['SHARED_ARROW_ICE',      'OOT_ARROW_ICE'],
   ['SHARED_ARROW_LIGHT',    'OOT_ARROW_LIGHT'],
+  ['SHARED_SONG_TIME',      'OOT_SONG_TIME'],
+  ['SHARED_SONG_EPONA',     'OOT_SONG_EPONA'],
+  ['SHARED_SONG_STORMS',    'OOT_SONG_STORMS'],
+  ['SHARED_NUT',            'MM_NUT'] /* OoT lacks single nut */,
+  ['SHARED_NUTS_5',         'OOT_NUTS_5'],
+  ['SHARED_NUTS_10',        'OOT_NUTS_10'],
+  ['SHARED_STICK',          'OOT_STICK'],
+  ['SHARED_STICKS_5',       'OOT_STICKS_5'],
+  ['SHARED_STICKS_10',      'OOT_STICKS_10'],
+  ['SHARED_HOOKSHOT',       'OOT_HOOKSHOT'],
+  ['SHARED_LENS',           'OOT_LENS'],
+  ['SHARED_OCARINA',        'OOT_OCARINA'],
+  ['SHARED_MASK_KEATON',    'OOT_MASK_KEATON'],
+  ['SHARED_MASK_BUNNY',     'OOT_MASK_BUNNY'],
+  ['SHARED_MASK_TRUTH',     'OOT_MASK_TRUTH'],
+  ['SHARED_MASK_GORON',     'OOT_MASK_GORON'],
+  ['SHARED_MASK_ZORA',      'OOT_MASK_ZORA'],
 ]);
 
 const SHARED_ITEMS_MM = new Map([
@@ -62,6 +79,23 @@ const SHARED_ITEMS_MM = new Map([
   ['SHARED_ARROW_FIRE',     'MM_ARROW_FIRE'],
   ['SHARED_ARROW_ICE',      'MM_ARROW_ICE'],
   ['SHARED_ARROW_LIGHT',    'MM_ARROW_LIGHT'],
+  ['SHARED_SONG_TIME',      'MM_SONG_TIME'],
+  ['SHARED_SONG_EPONA',     'MM_SONG_EPONA'],
+  ['SHARED_SONG_STORMS',    'MM_SONG_STORMS'],
+  ['SHARED_NUT',            'MM_NUT'],
+  ['SHARED_NUTS_5',         'MM_NUTS_5'],
+  ['SHARED_NUTS_10',        'MM_NUTS_10'],
+  ['SHARED_STICK',          'MM_STICK'],
+  ['SHARED_STICKS_5',       'OOT_STICKS_5'],  /* MM lacks 5 pack */
+  ['SHARED_STICKS_10',      'OOT_STICKS_10'], /* MM lacks 10 pack */
+  ['SHARED_HOOKSHOT',       'MM_HOOKSHOT'],
+  ['SHARED_LENS',           'MM_LENS'],
+  ['SHARED_OCARINA',        'OOT_OCARINA'], /* Progressive */
+  ['SHARED_MASK_KEATON',    'MM_MASK_KEATON'],
+  ['SHARED_MASK_BUNNY',     'MM_MASK_BUNNY'],
+  ['SHARED_MASK_TRUTH',     'MM_MASK_TRUTH'],
+  ['SHARED_MASK_GORON',     'MM_MASK_GORON'],
+  ['SHARED_MASK_ZORA',      'MM_MASK_ZORA'],
 ]);
 
 const SHARED_ITEMS = {

@@ -6,5 +6,11 @@ test("Can make a seed - Shared Items", () => {
     sharedBombBags: true,
     sharedMagic: true,
     sharedMagicArrows: true,
+    sharedSongs: true,
+    sharedNutsSticks: true,
+    sharedHookshot: true,
+    sharedLens: true,
+    sharedOcarina: true,
+    sharedMasks: true,
   });
 });
