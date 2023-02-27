@@ -12,5 +12,7 @@ test("Can make a seed - Shared Items", () => {
     sharedLens: true,
     sharedOcarina: true,
     sharedMasks: true,
+    sharedWallets: true,
+    sharedHealth: true,
   });
 });
