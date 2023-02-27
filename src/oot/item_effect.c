@@ -39,7 +39,45 @@ static void reloadIconsC(GameState_Play* play)
 
 void comboAddItemSharedForeignEffect(GameState_Play* play, s16 gi)
 {
+    if (comboConfig(CFG_SHARED_WALLETS))
+    {
+        switch (gi)
+        {
+        case GI_MM_RUPEE_GREEN:
+            addRupees(1);
+            break;
+        case GI_MM_RUPEE_BLUE:
+            addRupees(5);
+            break;
+        case GI_MM_RUPEE_RED:
+            addRupees(20);
+            break;
+        case GI_MM_RUPEE_PURPLE:
+            addRupees(50);
+            break;
+        case GI_MM_RUPEE_SILVER:
+            addRupees(100);
+            break;
+        case GI_MM_RUPEE_GOLD:
+            addRupees(200);
+            break;
+        }
+    }
 
+    if (comboConfig(CFG_SHARED_HEALTH))
+    {
+        switch (gi)
+        {
+        case GI_MM_RECOVERY_HEART:
+            addHealth(1);
+            break;
+        case GI_MM_HEART_CONTAINER:
+        case GI_MM_HEART_PIECE:
+        case GI_MM_DEFENSE_UPGRADE:
+            addHealth(20);
+            break;
+        }
+    }
 }
 
 int comboAddItemEffect(GameState_Play* play, s16 gi)
@@ -109,11 +147,11 @@ int comboAddItemEffect(GameState_Play* play, s16 gi)
     case GI_OOT_POTION_RED:
     case GI_OOT_POTION_BLUE:
     case GI_OOT_POTION_GREEN:
-    case GI_OOT_MILK_BOTTLE:
+    case GI_OOT_BOTTLE_MILK:
     case GI_OOT_FISH:
     case GI_OOT_BLUE_FIRE:
     case GI_OOT_BUG:
-    case GI_OOT_LON_LON_MILK:
+    case GI_OOT_MILK:
         reloadIconsC(play);
         break;
     }

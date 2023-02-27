@@ -24,6 +24,8 @@ export class LogicPassWorldTransform {
     let fireTempleKeyRemoved = false;
     let mmExtraShield = false;
     let ootShields = 3;
+    let sharedHc = 0;
+    let sharedHp = 0;
 
     const itemsToReplace = new Map<string, string>();
     const itemsToJunk = new Set<string>();
@@ -127,12 +129,62 @@ export class LogicPassWorldTransform {
       itemsToJunk.add('OOT_MASK_KEATON');
     }
 
+    if (config.has('SHARED_WALLETS')) {
+      /* Wallets */
+      itemsToReplace.set('OOT_WALLET', 'SHARED_WALLET');
+      itemsToJunk.add('MM_WALLET');
+
+      /* Rupees */
+      itemsToReplace.set('OOT_RUPEE_GREEN',   'SHARED_RUPEE_GREEN');
+      itemsToReplace.set('OOT_RUPEE_BLUE',    'SHARED_RUPEE_BLUE');
+      itemsToReplace.set('OOT_RUPEE_RED',     'SHARED_RUPEE_RED');
+      itemsToReplace.set('OOT_RUPEE_PURPLE',  'SHARED_RUPEE_PURPLE');
+      itemsToReplace.set('OOT_RUPEE_HUGE',    'SHARED_RUPEE_GOLD');
+      itemsToReplace.set('MM_RUPEE_GREEN',    'SHARED_RUPEE_GREEN');
+      itemsToReplace.set('MM_RUPEE_BLUE',     'SHARED_RUPEE_BLUE');
+      itemsToReplace.set('MM_RUPEE_RED',      'SHARED_RUPEE_RED');
+      itemsToReplace.set('MM_RUPEE_PURPLE',   'SHARED_RUPEE_PURPLE');
+      itemsToReplace.set('MM_RUPEE_SILVER',   'SHARED_RUPEE_SILVER');
+      itemsToReplace.set('MM_RUPEE_GOLD',     'SHARED_RUPEE_GOLD');
+    }
+
+    if (config.has('SHARED_HEALTH')) {
+      /* Pieces and containers */
+      itemsToReplace.set('OOT_HEART_CONTAINER', 'SHARED_HEART_CONTAINER');
+      itemsToReplace.set('MM_HEART_PIECE',      'SHARED_HEART_PIECE');
+      itemsToJunk.add('MM_HEART_CONTAINER');
+      itemsToJunk.add('OOT_HEART_PIECE');
+
+      /* Defense */
+      itemsToReplace.set('OOT_DEFENSE_UPGRADE', 'SHARED_DEFENSE_UPGRADE');
+      itemsToJunk.add('MM_DEFENSE_UPGRADE');
+
+      /* Recovery */
+      itemsToReplace.set('OOT_RECOVERY_HEART', 'SHARED_RECOVERY_HEART');
+      itemsToReplace.set('MM_RECOVERY_HEART',  'SHARED_RECOVERY_HEART');
+    }
+
     for (const loc in this.state.world.checks) {
       const check = this.state.world.checks[loc];
       let item = check.item;
 
       if (itemsToReplace.has(item)) {
         item = itemsToReplace.get(item)!;
+        if (item === 'SHARED_HEART_CONTAINER') {
+          sharedHc++;
+          if (sharedHc === 6) {
+            itemsToReplace.delete('OOT_HEART_CONTAINER');
+            itemsToJunk.add('OOT_HEART_CONTAINER');
+          }
+        }
+
+        if (item === 'SHARED_HEART_PIECE') {
+          sharedHp++;
+          if (sharedHp === 44) {
+            itemsToReplace.delete('MM_HEART_PIECE');
+            itemsToJunk.add('MM_HEART_PIECE');
+          }
+        }
       }
 
       if (itemsToJunk.has(item)) {
