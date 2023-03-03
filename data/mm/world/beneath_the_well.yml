@@ -21,6 +21,7 @@
     WELL_BIG_POE: "has(MASK_GIBDO)"
   locations:
     "Beneath the Well Skulltulla Chest": "has(MASK_GIBDO)"
+    "Beneath the Well Cow": "has(MASK_GIBDO) && can_play(SONG_EPONA) && can_play(SONG_SOARING)"
 "Beneath the Well End":
   region: BENEATH_THE_WELL
   exits:
