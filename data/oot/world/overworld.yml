@@ -13,7 +13,7 @@
   exits:
     "Kokiri Forest": "true"
   locations:
-    "Kokiri Forest Cow": "is_adult && event(MALON_COW) && can_play(SONG_EPONA)"
+    "Kokiri Forest Cow": "is_adult && event(MALON_COW) && has(SONG_EPONA)"
 "Kokiri Forest":
   region: KOKIRI_FOREST
   exits:
@@ -210,16 +210,16 @@
   exits:
     "Lon Lon Ranch": "true"
   locations:
-    "Lon Lon Ranch Stables Cow Left": "can_play(SONG_EPONA)"
-    "Lon Lon Ranch Stables Cow Right": "can_play(SONG_EPONA)"
+    "Lon Lon Ranch Stables Cow Left": "has(SONG_EPONA)"
+    "Lon Lon Ranch Stables Cow Right": "has(SONG_EPONA)"
 "Lon Lon Ranch Silo":
   region: LON_LON_RANCH
   exits:
     "Lon Lon Ranch": "true"
   locations:
     "Lon Lon Ranch Silo HP": "is_child"
-    "Lon Lon Ranch Silo Cow Front": "can_play(SONG_EPONA)"
-    "Lon Lon Ranch Silo Cow Back": "can_play(SONG_EPONA)"
+    "Lon Lon Ranch Silo Cow Front": "hasy(SONG_EPONA)"
+    "Lon Lon Ranch Silo Cow Back": "has(SONG_EPONA)"
 "Lon Lon Ranch House":
   region: LON_LON_RANCH
   exits:
@@ -691,7 +691,7 @@
     "Gerudo Valley Waterfall HP": "true"
     "Gerudo Valley GS Soil": "is_child"
     "Gerudo Valley GS Wall": "can_boomerang && gs_night"
-    "Gerudo Valley Cow": "is_child && can_play(SONG_EPONA)"
+    "Gerudo Valley Cow": "is_child && has(SONG_EPONA)"
   gossip:
     "Gerudo Valley Gossip": "true"
 "Gerudo Valley After Bridge":
