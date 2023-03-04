@@ -218,7 +218,7 @@
     "Lon Lon Ranch": "true"
   locations:
     "Lon Lon Ranch Silo HP": "is_child"
-    "Lon Lon Ranch Silo Cow Front": "hasy(SONG_EPONA)"
+    "Lon Lon Ranch Silo Cow Front": "has(SONG_EPONA)"
     "Lon Lon Ranch Silo Cow Back": "has(SONG_EPONA)"
 "Lon Lon Ranch House":
   region: LON_LON_RANCH
