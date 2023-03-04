@@ -123,7 +123,7 @@
   exits:
     "Market": "is_child"
   locations:
-    "Market Potion Shop Item 1": "has(WALLET, 1)"
+    "Market Potion Shop Item 1": "true"
     "Market Potion Shop Item 2": "true"
     "Market Potion Shop Item 3": "true"
     "Market Potion Shop Item 4": "true"
@@ -136,14 +136,14 @@
   exits:
     "Market": "is_child"
   locations:
-    "Market Bombchu Shop Item 1": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 2": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 3": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 4": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 5": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 6": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 7": "has(WALLET, 1)"
-    "Market Bombchu Shop Item 8": "has(WALLET, 1)"
+    "Market Bombchu Shop Item 1": "true"
+    "Market Bombchu Shop Item 2": "true"
+    "Market Bombchu Shop Item 3": "true"
+    "Market Bombchu Shop Item 4": "true"
+    "Market Bombchu Shop Item 5": "true"
+    "Market Bombchu Shop Item 6": "true"
+    "Market Bombchu Shop Item 7": "true"
+    "Market Bombchu Shop Item 8": "true"
 "Market Pot House":
   region: MARKET
   exits:
@@ -373,7 +373,7 @@
   exits:
     "Kakariko": "is_adult"
   locations:
-    "Kakariko Potion Shop Item 1": "has(WALLET, 1)"
+    "Kakariko Potion Shop Item 1": "true"
     "Kakariko Potion Shop Item 2": "true"
     "Kakariko Potion Shop Item 3": "true"
     "Kakariko Potion Shop Item 4": "true"
@@ -563,7 +563,7 @@
   locations:
     "Zora Shop Item 1": "true"
     "Zora Shop Item 2": "true"
-    "Zora Shop Item 3": "has(WALLET, 1)"
+    "Zora Shop Item 3": "true"
     "Zora Shop Item 4": "true"
     "Zora Shop Item 5": "true"
     "Zora Shop Item 6": "true"
