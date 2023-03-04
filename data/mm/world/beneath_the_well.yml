@@ -9,23 +9,23 @@
   exits:
     "Beneath the Well Entrance": "true"
   events:
-    WELL_HOT_WATER: "has_bottle && (has_explosives || has(MASK_ZORA))"
+    WELL_HOT_WATER: "true"
   locations:
-    "Beneath the Well Keese Chest": "can_use_lens"
+    "Beneath the Well Keese Chest": "true"
 "Beneath the Well East Section":
   region: BENEATH_THE_WELL
   exits:
     "Beneath the Well Entrance": "true"
     "Beneath the Well End": "event(WELL_BIG_POE)"
   events:
-    WELL_BIG_POE: "has(MASK_GIBDO) && has_bottle && has(BOMB_BAG) && (has(BOW) || has(ZORA))"
+    WELL_BIG_POE: "has(MASK_GIBDO)"
   locations:
-    "Beneath the Well Skulltulla Chest": "has(MASK_GIBDO) && has_bottle"
-    "Beneath the Well Cow": "has(MASK_GIBDO) && (event(WELL_HOT_WATER) || has_hot_water) && can_play(SONG_EPONA)"
+    "Beneath the Well Skulltulla Chest": "has(MASK_GIBDO)"
+    "Beneath the Well Cow": "has(MASK_GIBDO) && can_play(SONG_EPONA) && can_play(SONG_SOARING)"
 "Beneath the Well End":
   region: BENEATH_THE_WELL
   exits:
     "Beneath the Well East Section": "true"
-    "Ancient Castle of Ikana Exterior": "has_mirror_shield || can_use_light_arrows"
+    "Ancient Castle of Ikana Exterior": "has_mirror_shield || has(ARROW_LIGHT)"
   locations:
-    "Beneath the Well Mirror Shield": "can_use_fire_arrows || event(WELL_BIG_POE)"
+    "Beneath the Well Mirror Shield": "has(ARROW_FIRE) || event(WELL_BIG_POE)"
