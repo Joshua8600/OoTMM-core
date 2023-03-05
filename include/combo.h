@@ -356,12 +356,13 @@ int  comboCsmcChestSize(s16 gi);
 #define SC_ERR_CANNOTBUY    0x02
 #define SC_ERR_NORUPEES     0x04
 
-int  comboShopItemSlot(GameState_Play* play, Actor_EnGirlA* girlA);
+u8   comboShopItemSlot(GameState_Play* play, Actor_EnGirlA* girlA);
 int  comboShopPrecond(GameState_Play* play, Actor_EnGirlA* girlA);
 void comboShopDisplayTextBox(GameState_Play* play, Actor_EnGirlA* girlA);
 void comboShopDisplayTextBoxConfirm(GameState_Play* play, Actor_EnGirlA* girlA);
 void comboShopAfterBuy(GameState_Play* play, Actor_EnGirlA* girlA);
 void comboShopSetupItem(GameState_Play* play, Actor_EnGirlA* girlA);
+void comboShopUpdateItem(GameState_Play* play, Actor_EnGirlA* girlA);
 
 /* Entrance */
 void comboInitEntrances(void);
@@ -378,6 +379,9 @@ void comboTriggerWarp(GameState_Play* play, int index);
 /* Menu */
 void comboMenuKeysUpdate(GameState_Play* play);
 void comboMenuKeysDraw(GameState_Play* play);
+
+/* Custom Shaders */
+void Shader_Xlu0(GameState_Play* play, s16 shaderId);
 
 #if defined(GAME_MM)
 extern int gNoTimeFlow;

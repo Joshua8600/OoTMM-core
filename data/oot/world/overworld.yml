@@ -23,6 +23,8 @@
     "Lost Woods Bridge": "true"
     "Kokiri Shop": "true"
     "Deku Tree": "is_child"
+  events:
+    STICKS: "can_boomerang || (is_child && has_weapon)"
   locations:
     "Kokiri Forest Kokiri Sword Chest": "is_child"
     "Kokiri Forest Storms Grotto": "has(SONG_STORMS)"
@@ -309,7 +311,7 @@
     "Lost Woods Deep": "true"
     "Forest Temple": "can_hookshot"
   locations:
-    "Saria's Song": "event(MEET_ZELDA)"
+    "Saria's Song": "event(MEET_ZELDA) && is_child && (can_play(SONG_TP_FOREST) || can_damage)"
     "Sacred Meadow Sheik Song": "is_adult"
     "Sacred Meadow Grotto": "true"
     "Sacred Meadow GS Night Adult": "is_adult && gs_night"
@@ -480,6 +482,7 @@
     "Goron Shop": "true"
   event:
     GORON_CITY_SHORTCUT: "true"
+    STICKS: "is_child"
   locations:
     "Darunia": "has(SONG_ZELDA) && has(SONG_SARIA)"
     "Goron City Maze Center 1": "true"
@@ -513,7 +516,7 @@
     "Hyrule Field": "true"
     "Zora River": "is_adult || is_child"
   locations:
-    "Zora River GS Tree": "is_child"
+    "Zora River GS Tree": "is_child && can_damage_skull"
 "Zora River":
   region: ZORA_RIVER
   exits:
@@ -543,6 +546,8 @@
     "Zora Shop": "is_child || has_blue_fire"
   events:
     KING_ZORA_LETTER: "is_child && has(RUTO_LETTER)"
+    STICKS: "is_child"
+    NUTS: "true"
   locations:
     "Zora Domain Waterfall Chest": "is_child"
     "Zora Domain Diving Game": "is_child"
