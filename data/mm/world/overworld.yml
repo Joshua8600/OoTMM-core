@@ -520,7 +520,7 @@
     "Snowhead Near Great Fairy Fountain": "event(OPEN_SNOWHEAD_TEMPLE)"
   events:
     SNOWHEAD_OWL: "true"
-    OPEN_SNOWHEAD_TEMPLE: "can_lullaby || event(BOSS_SNOWHEAD) || (has(HOOKSHOT) && has(MASK_ZORA))"
+    OPEN_SNOWHEAD_TEMPLE: "can_lullaby || (event(BOSS_SNOWHEAD) && has(MASK_GORON))"
 "Snowhead":
   region: SNOWHEAD
   exits:
