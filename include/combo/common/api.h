@@ -11,6 +11,7 @@
 #define PLAYER_ACTOR_STATE_FROZEN               0x00000200
 #define PLAYER_ACTOR_STATE_GET_ITEM             0x00000400
 #define PLAYER_ACTOR_STATE_HOLD_ITEM            0x00000800
+#define PLAYER_ACTOR_STATE_CLIMB2               0x00200000
 #define PLAYER_ACTOR_STATE_EPONA                0x00800000
 #define PLAYER_ACTOR_STATE_WATER                0x08000000
 #define PLAYER_ACTOR_STATE_USE_ITEM             0x10000000
@@ -212,5 +213,7 @@ void Shader_Scale(GameState_Play*, s16);
 void Shader_SoldOut(GameState_Play*, s16);
 void Shader_Spell(GameState_Play*, s16);
 void Shader_MoonTear(GameState_Play*, s16);
+
+void SpawnRoomActors(GameState_Play* play, int id);
 
 #endif
