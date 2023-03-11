@@ -434,7 +434,7 @@
   region: GRAVEYARD
   exits:
     "Graveyard": "true"
-    "Shadow Temple": "has(SPELL_FIRE)"
+    "Shadow Temple": "has(SPELL_FIRE) && has(MAGIC_UPGRADE)"
   gossip:
     "Graveyard Gossip": "true"
 "Graveyard Royal Tomb":
