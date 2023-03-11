@@ -1,13 +1,14 @@
-"SPAWN":
+"SOARING":
   region: NONE
+  exits:
+    "SPAWN": "has(SONG_SOARING)"
+"SPAWN":
+  region: CLOCK_TOWN_SOUTH
   events:
     "TIME_TRAVEL": "can_play(SONG_TIME)"
   exits:
-    "INITIAL": "event(TIME_TRAVEL)"
-"INITIAL":
-  region: CLOCK_TOWN_SOUTH
-  exits:
-    "Clock Town South": "true"
+    "Clock Town South": "event(TIME_TRAVEL)"
+    "OOT SONGS": "setting(crossWarpOot) && has_ocarina"
   locations:
     "Initial Song of Healing": "true"
 "Oath to Order":

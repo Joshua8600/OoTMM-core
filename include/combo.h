@@ -20,6 +20,7 @@
 # include <combo/patch.h>
 # include <combo/npc.h>
 # include <combo/text.h>
+# include <combo/common/ocarina.h>
 
 # if defined(GAME_OOT)
 #  include <combo/oot/play.h>
@@ -147,7 +148,7 @@ void comboCopyMmSave(int dst, int src);
 void comboCreateSaveMM(void);
 
 /* Switch */
-void comboGameSwitch(GameState_Play* play, s32 entrance);
+NORETURN void comboGameSwitch(GameState_Play* play, s32 entrance);
 
 /* Override */
 #define OV_CHEST        0
@@ -385,8 +386,17 @@ void comboMenuKeysDraw(GameState_Play* play);
 void Shader_Xlu0(GameState_Play* play, s16 shaderId);
 
 #if defined(GAME_MM)
+void Ocarina_HandleWarp(Actor_Player* player, GameState_Play* ctxt);
+#endif
+
+#if defined(GAME_MM)
 extern int gNoTimeFlow;
 #endif
+
+/* Ocarina */
+void comboCheckSong(const OcarinaSongButtons* songButtons, int songIndex);
+
+extern u8 gCustomOcarinaSong;
 
 #else
 # include <combo/asm.h>
