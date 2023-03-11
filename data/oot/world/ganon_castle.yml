@@ -62,4 +62,4 @@
 "Ganon Castle Tower Boss":
   dungeon: Ganon
   events:
-    GANON: "has(ARROW_LIGHT)"
+    GANON: "has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
