@@ -166,6 +166,23 @@ export const SETTINGS = [{
   ],
   default: 'closed'
 }, {
+  key: 'crossWarpOot',
+  name: 'Cross-Games OoT Warp Songs',
+  category: 'main',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'crossWarpMm',
+  name: 'Cross-Games MM Song of Soaring',
+  category: 'main',
+  type: 'enum',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'childOnly', name: 'Child Only' },
+    { value: 'full', name: 'Child & Adult' },
+  ],
+  default: 'none'
+}, {
   key: 'erBoss',
   name: 'Boss Entrance Shuffle',
   category: 'entrances',

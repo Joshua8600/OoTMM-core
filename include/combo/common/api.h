@@ -156,6 +156,7 @@ void Play_Draw(GameState_Play*);
 
 void Interface_LoadItemIconImpl(GameState_Play* play, int slot);
 void UpdateEquipment(GameState_Play* play, Actor_Player* link);
+
 void PlayStoreFlags(GameState_Play* play);
 
 void Player_Update(Actor_Player* this, GameState_Play* play);
@@ -215,5 +216,14 @@ void Shader_Spell(GameState_Play*, s16);
 void Shader_MoonTear(GameState_Play*, s16);
 
 void SpawnRoomActors(GameState_Play* play, int id);
+
+extern u8 gPlayedOcarinaSong;
+extern u8 gIsOcarinaEnabled;
+extern u32 gOcarinaFlags;
+extern u8 gOcarinaButtonPitchMap[];
+extern u8 gOcarinaSongBuffer[];
+extern u8 gOcarinaSongBufferCursor;
+
+void HandleMessages(GameState_Play* play, void* unk);
 
 #endif
