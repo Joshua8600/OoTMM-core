@@ -1,4 +1,4 @@
-import { GAMES } from '../config';
+import { Game, GAMES } from '../config';
 import { Random, sample, shuffle } from '../random';
 import { gameId } from '../util';
 import { Pathfinder, PathfinderState } from './pathfind';
@@ -60,6 +60,7 @@ export class LogicPassSolver {
 
   constructor(
     private readonly state: {
+      fixedLocations: Set<string>,
       world: World,
       settings: Settings,
       random: Random,
@@ -78,15 +79,15 @@ export class LogicPassSolver {
     this.state.monitor.log(`Logic: Solver (attempt ${this.state.attempts})`);
     const checksCount = Object.keys(this.state.world.checks).length;
 
+    /* Fix vanilla items */
+    this.fixItems();
+
     /* Place junk into junkLocations */
     this.placeJunkLocations();
 
     /* Place items fixed to default */
-    this.fixCows();
-    this.fixShops();
     this.fixTokens();
     this.fixFairies();
-    this.fixLocations();
 
     /* Place songs */
     this.fixSongs();
@@ -126,26 +127,12 @@ export class LogicPassSolver {
     return { items: this.items };
   }
 
-  private fixLocations() {
-    if (!this.state.settings.shuffleGerudoCard) {
-      const location = 'OOT Gerudo Member Card';
-      const item = this.state.world.checks[location].item;
-      this.place(location, item);
-      removeItemPools(this.pools, item);
-    }
-
-    if (!this.state.settings.shuffleMasterSword) {
-      const location = 'OOT Temple of Time Master Sword';
-      const item = this.state.world.checks[location].item;
-      this.place(location, item);
-      removeItemPools(this.pools, item);
-    }
-
-    if (this.state.settings.ganonBossKey === 'vanilla') {
-      const location = 'OOT Ganon Castle Boss Key';
-      const item = this.state.world.checks[location].item;
-      this.place(location, item);
-      removeItemPools(this.pools, item);
+  private fixItems() {
+    for (const loc in this.state.world.checks) {
+      if (this.state.fixedLocations.has(loc)) {
+        const item = this.state.world.checks[loc].item;
+        this.place(loc, item);
+      }
     }
   }
 
@@ -156,7 +143,7 @@ export class LogicPassSolver {
       const check = this.state.world.checks[location];
       const { item, type } = check;
 
-      if (this.items[location]) {
+      if (this.items[location] || this.state.fixedLocations.has(location)) {
         continue;
       }
 
@@ -244,36 +231,6 @@ export class LogicPassSolver {
       const item = pool.pop();
       this.place(location, item!);
       removeItemPools(this.pools, item!);
-    }
-  }
-
-  private fixCows() {
-    if (this.state.settings.cowShuffle === 'full') {
-      return;
-    }
-
-    for (const loc in this.state.world.checks) {
-      const c = this.state.world.checks[loc];
-      if (c.type === 'cow') {
-        const item = this.state.world.checks[loc].item;
-        this.place(loc, item);
-        removeItemPools(this.pools, item);
-      }
-    }
-  }
-
-  private fixShops() {
-    if (this.state.settings.shopShuffleOot === 'full') {
-      return;
-    }
-
-    for (const loc in this.state.world.checks) {
-      const c = this.state.world.checks[loc];
-      const { type, game, item } = c;
-      if (type === 'shop' && game === 'oot') {
-        this.place(loc, item);
-        removeItemPools(this.pools, item);
-      }
     }
   }
 
