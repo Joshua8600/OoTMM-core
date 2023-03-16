@@ -3,35 +3,33 @@
   exits:
     "Desert Colossus": "true"
     "Spirit Temple Child Side": "is_child"
-    "Spirit Temple Statue": "can_longshot && has_explosives && can_lift_silver"
+    "Spirit Temple Statue": "can_longshot && can_lift_silver"
   events:
-    SPIRIT_LOBBY_BOULDERS: "has_explosives_or_hammer"
+    SPIRIT_LOBBY_BOULDERS: "true"
   locations:
     "MQ Spirit Temple Entrance Initial Chest": "true"
-    "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS) && can_hit_triggers_distance"
-    "MQ Spirit Temple Lobby Back-Right Chest": "can_hit_triggers_distance || has_explosives || can_hookshot"
-    #The following three chests are here to allow for an age indeterminate path. This is the only age indeterminate content in Spirit MQ.
-    "MQ Spirit Temple Compass Chest": "can_use_slingshot && has(BOW) && has(SMALL_KEY_SPIRIT, 2) && has_explosives"
-    "MQ Spirit Temple Sun Block Room Chest": "has(SMALL_KEY_SPIRIT, 2) && has_explosives && can_play(SONG_TIME) && is_child"
-    "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 4) && has_explosives && can_play(SONG_TIME) && is_child && (has_weapon || can_use_sticks) && has_lens"
+    "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS)"
+    "MQ Spirit Temple Lobby Back-Right Chest": "true"
+    "MQ Spirit Temple Compass Chest": "has(SMALL_KEY_SPIRIT, 2)"
+    "MQ Spirit Temple Sun Block Room Chest": "has(SMALL_KEY_SPIRIT, 2) && has(SONG_TIME) && is_child"
+    "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 4) && has(SONG_TIME) && is_child && has(LENS)"
 "Spirit Temple Child Side":
   dungeon: Spirit
   exits:
-    "Spirit Temple Child Upper": "has_explosives && has(SMALL_KEY_SPIRIT, 6)" #Everything in this room that kid can do adult can do too, only 6 keys is safe.
+    "Spirit Temple Child Upper": "has(SMALL_KEY_SPIRIT, 6)"
   locations:
-    "MQ Spirit Temple Map Chest": "can_use_sticks || has_weapon || (has_explosives && has_nuts)"
-    "MQ Spirit Temple Map Room Back Chest": "has_weapon && has_explosives && can_use_slingshot && can_use_din"
+    "MQ Spirit Temple Map Chest": "true"
+    "MQ Spirit Temple Map Room Back Chest": "has(SPELL_FIRE)"
     "MQ Spirit Temple Paradox Chest": "event(SPIRIT_PARADOX)"
 "Spirit Temple Child Upper":
-#All paths into this room guarantee explosives.
   dungeon: Spirit
   exits:
     "Spirit Temple Statue": "has(SMALL_KEY_SPIRIT, 7)"
   events:
     SPIRIT_PARADOX: "can_hammer"
   locations:
-    "MQ Spirit Temple Child Upper Ground Chest": "has_weapon"
-    "MQ Spirit Temple Child Upper Ledge Chest": "can_hookshot"
+    "MQ Spirit Temple Child Upper Ground Chest": "true"
+    "MQ Spirit Temple Child Upper Ledge Chest": "is_adult"
 "Spirit Temple Statue":
   dungeon: Spirit
   exits:
