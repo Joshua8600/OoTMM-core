@@ -3,7 +3,7 @@ import { Buffer } from 'buffer';
 import { options, OptionsInput } from './options';
 import { Generator, GeneratorOutput } from './generator';
 import { Monitor, MonitorCallbacks } from './monitor';
-import { SETTINGS, DEFAULT_SETTINGS, SETTINGS_CATEGORIES, Settings, TRICKS } from './settings';
+import { SETTINGS, DEFAULT_SETTINGS, SETTINGS_CATEGORIES, Settings, TRICKS, DUNGEONS } from './settings';
 import { worldState } from './logic';
 import { itemName } from './names';
 import { addItem, isDungeonItem, isDungeonReward, isItemUnlimitedStarting, isJunk, isStrayFairy, isToken, Items } from './logic/items';
@@ -28,12 +28,12 @@ export const generate = (params: GeneratorParams): Generator => {
   return new Generator(params.oot, params.mm, opts, params.monitor || {});
 };
 
-export { SETTINGS, DEFAULT_SETTINGS, SETTINGS_CATEGORIES, TRICKS, itemName };
+export { SETTINGS, DEFAULT_SETTINGS, SETTINGS_CATEGORIES, TRICKS, itemName, DUNGEONS };
 
 export const itemPool = (aSettings: Partial<Settings>) => {
   const settings: Settings = { ...DEFAULT_SETTINGS, ...aSettings };
   const monitor = new Monitor({ onLog: () => {} });
-  const { world, fixedLocations } = worldState(monitor, settings);
+  const { world, fixedLocations } = worldState(monitor, { settings, debug: false, seed: "--- INTERNAL ---" });
 
   /* Extract relevant items from the world */
   const items: Items = {};
@@ -68,7 +68,7 @@ export const itemPool = (aSettings: Partial<Settings>) => {
 export const locationList = (aSettings: Partial<Settings>) => {
   const settings: Settings = { ...DEFAULT_SETTINGS, ...aSettings };
   const monitor = new Monitor({ onLog: () => {} });
-  const { world, fixedLocations } = worldState(monitor, settings);
+  const { world, fixedLocations } = worldState(monitor, { settings, debug: false, seed: "--- INTERNAL ---" });
 
   // Precalculate this to avoid doing it more than once in the gui
   const dungeonLocations = Object.values(world.dungeons).reduce((acc, x) => new Set([...acc, ...x]));

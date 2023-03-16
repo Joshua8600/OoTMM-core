@@ -105,14 +105,3 @@
   locations:
     "Spirit Temple Adult Boss Key Chest": "has(SONG_ZELDA) && is_adult"
     "Spirit Temple Adult Topmost Sun on Wall": "has_mirror_shield"
-"Spirit Temple Boss":
-  boss: true
-  dungeon: Spirit
-  exits:
-    "Spirit Temple After Boss": "has_mirror_shield"
-"Spirit Temple After Boss":
-  boss: true
-  dungeon: Spirit
-  locations:
-    "Spirit Temple Boss HC": "true"
-    "Spirit Temple Boss": "true"
