@@ -5,24 +5,24 @@
     "Forest Temple Main": "is_adult || (has_nuts || has_weapon || has_explosives || has_ranged_weapon_child)"
   locations:
     "Forest Temple Tree Small Key": "true"
-    "Forest Temple GS Entrance": "has_ranged_weapon || has_explosives || can_use_din"
+    "Forest Temple GS Entrance": "true"
 "Forest Temple Main":
   dungeon: Forest
   exits:
     "Forest Temple": "true"
     "Forest Temple Mini-Boss": "true"
-    "Forest Temple Garden West": "can_play(SONG_TIME)"
-    "Forest Temple Garden East": "can_hit_triggers_distance"
+    "Forest Temple Garden West": "has(SONG_TIME)"
+    "Forest Temple Garden East": "true"
     "Forest Temple Maze": "has(SMALL_KEY_FOREST, 1)"
     "Forest Temple Antichamber": "event(FOREST_POE_4)"
   events:
-    FOREST_POE_4: "event(FOREST_POE_1) && event(FOREST_POE_2) && event(FOREST_POE_3) && can_use_bow"
+    FOREST_POE_4: "event(FOREST_POE_1) && event(FOREST_POE_2) && event(FOREST_POE_3)"
   locations:
-    "Forest Temple GS Main": "can_collect_distance"
+    "Forest Temple GS Main": "can_boomerang || is_adult"
 "Forest Temple Mini-Boss":
   dungeon: Forest
   locations:
-    "Forest Temple Mini-Boss Key": "has_weapon"
+    "Forest Temple Mini-Boss Key": "true"
 "Forest Temple Garden West":
   dungeon: Forest
   exits:
@@ -33,7 +33,7 @@
     STICKS: "can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon)"
     NUTS: "is_adult || has_weapon || has_explosives || can_use_slingshot"
   locations:
-    "Forest Temple GS Garden West": "can_longshot || (event(FOREST_LEDGE_REACHED) && can_collect_distance)"
+    "Forest Temple GS Garden West": "can_longshot || (event(FOREST_LEDGE_REACHED) && (can_boomerang || is_adult))"
 "Forest Temple Garden West Ledge":
   dungeon: Forest
   exits:
@@ -63,13 +63,13 @@
   dungeon: Forest
   exits:
     "Forest Temple Well": "event(FOREST_WELL) || can_dive_big"
-    "Forest Temple Garden East Ledge": "can_longshot || (can_hookshot && trick(OOT_FOREST_HOOK))"
+    "Forest Temple Garden East Ledge": "can_longshot || (is_adult && trick(OOT_FOREST_HOOK))"
   events:
-    STICKS: "can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon)"
-    NUTS: "is_adult || has_weapon || has_explosives || can_use_slingshot"
+    STICKS: "true"
+    NUTS: "true"
   locations:
-    "Forest Temple Garden": "can_hookshot"
-    "Forest Temple GS Garden East": "can_hookshot"
+    "Forest Temple Garden": "is_adult"
+    "Forest Temple GS Garden East": "is_adult"
 "Forest Temple Well":
   dungeon: Forest
   exits:
@@ -82,10 +82,10 @@
   exits:
     "Forest Temple Main": "true"
     "Forest Temple Garden West Ledge": "has_hover_boots"
-    "Forest Temple Twisted 1 Normal": "is_adult && has(SMALL_KEY_FOREST, 2) && has(STRENGTH)"
-    "Forest Temple Twisted 1 Alt": "is_adult && has(SMALL_KEY_FOREST, 2) && has(STRENGTH) && can_hit_triggers_distance"
+    "Forest Temple Twisted 1 Normal": "is_adult && has(SMALL_KEY_FOREST, 2)"
+    "Forest Temple Twisted 1 Alt": "is_adult && has(SMALL_KEY_FOREST, 2)"
   locations:
-    "Forest Temple Maze": "has(STRENGTH) && can_hit_triggers_distance"
+    "Forest Temple Maze": "has(STRENGTH)"
 "Forest Temple Twisted 1 Normal":
   dungeon: Forest
   exits:
@@ -101,23 +101,23 @@
   exits:
     "Forest Temple Mini-Boss 2": "true"
   events:
-    FOREST_POE_1: "can_use_bow"
+    FOREST_POE_1: "true"
   locations:
-    "Forest Temple Poe Key": "can_use_bow"
+    "Forest Temple Poe Key": "true"
 "Forest Temple Mini-Boss 2":
   dungeon: Forest
   exits:
-    "Forest Temple Poe 2": "has_weapon"
+    "Forest Temple Poe 2": "true"
   locations:
-    "Forest Temple Bow": "has_weapon"
+    "Forest Temple Bow": "true"
 "Forest Temple Poe 2":
   dungeon: Forest
   exits:
     "Forest Temple Twisted 2 Normal": "has(SMALL_KEY_FOREST, 4)"
   events:
-    FOREST_POE_2: "can_use_bow"
+    FOREST_POE_2: "true"
   locations:
-    "Forest Temple Compass": "can_use_bow"
+    "Forest Temple Compass": "true"
 "Forest Temple Twisted 2 Normal":
   dungeon: Forest
   exits:
@@ -125,7 +125,7 @@
 "Forest Temple Rotating Room":
   dungeon: Forest
   exits:
-    "Forest Temple Twisted 2 Alt": "can_use_bow || can_use_din"
+    "Forest Temple Twisted 2 Alt": "true"
 "Forest Temple Twisted 2 Alt":
   dungeon: Forest
   exits:
@@ -139,11 +139,22 @@
 "Forest Temple Poe 3":
   dungeon: Forest
   events:
-    FOREST_POE_3: "can_use_bow"
+    FOREST_POE_3: "true"
 "Forest Temple Antichamber":
   dungeon: Forest
   exits:
     "Forest Temple Boss": "has(BOSS_KEY_FOREST)"
   locations:
     "Forest Temple Antichamber": "true"
-    "Forest Temple GS Antichamber": "can_collect_distance"
+    "Forest Temple GS Antichamber": "can_boomerang || is_adult"
+"Forest Temple Boss":
+  boss: true
+  dungeon: Forest
+  exits:
+    "Forest Temple After Boss": "true"
+"Forest Temple After Boss":
+  boss: true
+  dungeon: Forest
+  locations:
+    "Forest Temple Boss": "true"
+    "Forest Temple Boss Container": "true"

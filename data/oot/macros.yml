@@ -65,3 +65,6 @@
 "can_kill_baba_nuts": "has_weapon || has_explosives || can_use_slingshot"
 "can_damage": "has_weapon || can_use_sticks || has_explosives || can_use_slingshot || can_use_din"
 "can_damage_skull": "can_damage || can_collect_distance"
+"can_collect_distance_NNL": "can_boomerang || is_adult"
+"fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
+"has_blue_fire_NNL": "(event(BLUE_FIRE) || has(BLUE_FIRE))"
