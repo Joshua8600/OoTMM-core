@@ -2,7 +2,7 @@
   dungeon: GB
   exits:
     "Great Bay Temple Entrance": "event(TIME_TRAVEL)"
-    "Zora Cape Peninsula": "has(HOOKSHOT)"
+    "Zora Cape Peninsula": "can_hookshot"
 "Great Bay Temple Entrance":
   dungeon: GB
   exits:
@@ -13,7 +13,7 @@
 "Great Bay Temple Water Wheel":
   dungeon: GB
   events:
-    GB_WATER_WHEEL: "event(GB_PIPE_RED) && event(GB_PIPE_RED2)"
+    GB_WATER_WHEEL: "event(GB_PIPE_RED) && event(GB_PIPE_RED2) && can_hookshot"
   exits:
     "Great Bay Temple Entrance": "true"
     "Great Bay Temple Central Room": "true"
@@ -90,14 +90,14 @@
   events:
     GB_PIPE_GREEN: "true"
   locations:
-    "Great Bay Temple Green Pipe 1 Chest": "has(HOOKSHOT)"
+    "Great Bay Temple Green Pipe 1 Chest": "can_hookshot"
 "Great Bay Temple Green Pipe 2":
   dungeon: GB
   exits:
     "Great Bay Temple Green Pipe 3": "has(ARROW_ICE) && has(ARROW_FIRE)"
   locations:
-    "Great Bay Temple Green Pipe 2 Lower Chest": "has(HOOKSHOT)"
-    "Great Bay Temple Green Pipe 2 Upper Chest": "has(HOOKSHOT) && has(ARROW_ICE) && has(ARROW_FIRE)"
+    "Great Bay Temple Green Pipe 2 Lower Chest": "can_hookshot"
+    "Great Bay Temple Green Pipe 2 Upper Chest": "can_hookshot && has(ARROW_ICE) && has(ARROW_FIRE)"
 "Great Bay Temple Green Pipe 3":
   dungeon: GB
   exits:

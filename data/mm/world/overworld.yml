@@ -613,11 +613,11 @@
     GREAT_BAY_OWL: "true"
   locations:
     "Great Bay Coast Zora Mask": "can_play(SONG_HEALING)"
-    "Great Bay Coast HP": "true"
-    "Great Bay Coast Fisherman HP": "has(HOOKSHOT) && event(BOSS_GREAT_BAY)"
+    "Great Bay Coast HP": "scarecrow_hookshot"
+    "Great Bay Coast Fisherman HP": "can_hookshot && event(BOSS_GREAT_BAY)"
     "Great Bay Coast Fisherman Grotto": "true"
-    "Great Bay Coast Cow Front": "has(HOOKSHOT) && can_play(SONG_EPONA)"
-    "Great Bay Coast Cow Back": "has(HOOKSHOT) && can_play(SONG_EPONA)"
+    "Great Bay Coast Cow Front": "can_hookshot && can_play(SONG_EPONA)"
+    "Great Bay Coast Cow Back": "can_hookshot && can_play(SONG_EPONA)"
   gossip:
     "Great Bay Coast Gossip": "true"
 "Great Bay Coast Captured":
@@ -658,8 +658,8 @@
     "Great Bay Coast": "true"
     "Zora Hall Entrance": "has(MASK_ZORA)"
     "Zora Cape Peninsula": "true"
-    "Waterfall Cliffs": "has(HOOKSHOT)"
-    "Great Bay Near Fairy Fountain": "has(HOOKSHOT)"
+    "Waterfall Cliffs": "can_hookshot"
+    "Great Bay Near Fairy Fountain": "can_hookshot"
   locations:
     "Zora Cape Underwater Chest": "has(MASK_ZORA)"
     "Zora Cape Waterfall HP": "has(MASK_ZORA)"
@@ -683,8 +683,8 @@
     "Zora Cape": "true"
     "Waterfall Rapids": "true"
   locations:
-    "Zora Cape Ledge Chest 1": "has(HOOKSHOT)"
-    "Zora Cape Ledge Chest 2": "has(HOOKSHOT)"
+    "Zora Cape Ledge Chest 1": "can_hookshot"
+    "Zora Cape Ledge Chest 2": "can_hookshot"
 "Waterfall Rapids":
   region: ZORA_CAPE
   exits:
@@ -712,7 +712,7 @@
   exits:
     "Zora Cape": "true"
     "Zora Hall": "true"
-    "Great Bay Temple": "has(MASK_ZORA) && has(HOOKSHOT) && can_play(SONG_ZORA)"
+    "Great Bay Temple": "has(MASK_ZORA) && can_hookshot && can_play(SONG_ZORA)"
   events:
     ZORA_CAPE_OWL: "true"
 "Gorman Track":
@@ -727,13 +727,13 @@
     "Termina Field": "true"
     "Road to Ikana Center": "true"
   locations:
-    "Road to Ikana Chest": "has(HOOKSHOT)"
+    "Road to Ikana Chest": "can_hookshot"
     "Road to Ikana Grotto": "true"
 "Road to Ikana Center":
   region: ROAD_TO_IKANA
   exits:
     "Road to Ikana Front": "true"
-    "Road to Ikana Top": "has(HOOKSHOT)"
+    "Road to Ikana Top": "can_hookshot"
     "Ikana Graveyard": "true"
   locations:
     "Road to Ikana Stone Mask": "has(LENS)"
@@ -777,7 +777,7 @@
   region: IKANA_CANYON
   exits:
     "Road to Ikana Top": "true"
-    "Ikana Canyon": "has(HOOKSHOT)"
+    "Ikana Canyon": "can_hookshot"
     "Secret Shrine Entrance": "true"
     "Sakon Hideout": "event(MEET_KAFEI)"
     "Swamp Front": "true"
@@ -839,7 +839,7 @@
   region: STONE_TOWER
   exits:
     "Ikana Canyon": "true"
-    "Stone Tower Top": "has(HOOKSHOT)"
+    "Stone Tower Top": "can_hookshot && can_play(SONG_EMPTINESS)"
 "Stone Tower Top":
   region: STONE_TOWER
   exits:

@@ -51,8 +51,8 @@
     "Snowhead Temple Center Level 3 Iced": "true"
     "Snowhead Temple Center Level 3 Snow": "true"
   locations:
-    "Snowhead Temple Map Alcove": "true"
-    "Snowhead Temple Central Room Alcove": "true"
+    "Snowhead Temple Map Alcove": "has(LENS) || can_hookshot"
+    "Snowhead Temple Central Room Alcove": "scarecrow_hookshot"
 "Snowhead Temple Center Level 1":
   dungeon: SH
   exits:
@@ -127,7 +127,7 @@
   dungeon: SH
   exits:
     "Snowhead Temple Map Room Upper": "true"
-    "Snowhead Temple Center Level 3 Snow": "has(HOOKSHOT)"
+    "Snowhead Temple Center Level 3 Snow": "can_hookshot"
     "Snowhead Temple Center Level 1": "true"
   locations:
     "Snowhead Temple Fire Arrow": "true"
@@ -137,7 +137,7 @@
   exits:
     "Snowhead Temple Map Room Upper": "true"
     "Snowhead Temple Center Level 2 Dual": "true"
-    "Snowhead Temple Center Level 3 Iced": "true"
+    "Snowhead Temple Center Level 3 Iced": "has(MASK_GORON) || can_hookshot"
     "Snowhead Temple Snow Room": "has(SMALL_KEY_SH, 3)"
     "Snowhead Temple Fire Arrow": "true"
   locations:
@@ -148,7 +148,7 @@
     "Snowhead Temple Map Room Upper": "true"
     "Snowhead Temple Center Level 2 Dual": "true"
     "Snowhead Temple Fire Arrow": "true"
-    "Snowhead Temple Center Level 3 Snow": "true"
+    "Snowhead Temple Center Level 3 Snow": "has(MASK_GORON) || can_hookshot"
     "Snowhead Temple Center Level 4": "event(SNOWHEAD_RAISE_PILLAR)"
   locations:
     "Snowhead Temple Central Room Alcove": "true"
