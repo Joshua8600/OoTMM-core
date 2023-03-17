@@ -69,3 +69,4 @@
 "fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
 "has_blue_fire_NNL": "(event(BLUE_FIRE) || has(BLUE_FIRE))"
 "can_hookshot_NNL": "is_adult"
+"scarecrow_hookshot_NNL": "can_hookshot_NNL && event(SCARECROW)"
