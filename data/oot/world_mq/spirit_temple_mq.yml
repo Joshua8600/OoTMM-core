@@ -48,7 +48,7 @@
 "Spirit Temple Sun Block Room":
   dungeon: Spirit
   exits:
-    "Spirit Temple Child Hand": "(has(SMALL_KEY_SPIRIT, 7) || (is_adult && has(SMALL_KEY_SPIRIT, 4) && has(LENS) && has(SONG_TIME))"
+    "Spirit Temple Child Hand": "has(SMALL_KEY_SPIRIT, 7) || (is_adult && has(SMALL_KEY_SPIRIT, 4) && has(LENS) && has(SONG_TIME))"
   locations:
     "MQ Spirit Temple Sun Block Room Chest": "true"
     "MQ Spirit Temple GS Sun Block Room": "is_adult"
