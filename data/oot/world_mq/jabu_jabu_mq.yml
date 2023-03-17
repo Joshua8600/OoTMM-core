@@ -13,7 +13,7 @@
   exits:
     "Jabu-Jabu": "true"
     "Jabu-Jabu Back": "can_boomerang"
-    "Jabu-Jabu Pre-Boss": "event(JABU_TENTACLE_RED) && (event(JABU_BIG_OCTO)"
+    "Jabu-Jabu Pre-Boss": "event(JABU_TENTACLE_RED) && event(JABU_BIG_OCTO)"
     "Jabu-Jabu Basement Side Room": "event(JABU_TENTACLE_RED)"
   events:
     "JABU_BIG_OCTO": "event(JABU_TENTACLE_GREEN) && is_child"
