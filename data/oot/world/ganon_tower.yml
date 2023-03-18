@@ -1,7 +1,7 @@
 "Ganon Castle Tower":
   dungeon: Ganon
   locations:
-    "Ganon Castle Boss Key": "has_weapon"
+    "Ganon Castle Boss Key": "true"
   exits:
     "Ganon Castle Tower Boss": "setting(ganonBossKey, removed) || has(BOSS_KEY_GANON)"
 "Ganon Castle Tower Boss":
