@@ -44,7 +44,7 @@
   exits:
     "Stone Tower Temple Water Room": "has(MASK_ZORA)"
     "Stone Tower Temple Center Ledge": "has(MASK_ZORA)"
-    "Stone Tower Temple Water Bridge": "hs(ARROW_ICE)"
+    "Stone Tower Temple Water Bridge": "has(ARROW_ICE)"
   locations:
     "Stone Tower Temple Center Across Water Chest": "true"
 "Stone Tower Temple Water Room":
