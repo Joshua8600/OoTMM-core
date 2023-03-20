@@ -8,6 +8,10 @@
 #define ALIGNED(x)  __attribute__((aligned(x)))
 #define UNREACHABLE __builtin_unreachable
 
+#define PALIGN(val, align)  ((void*)ALIGN(((u32)(val)), align))
+
+#define ABS_ALT(x) ((x) < 0 ? -(x) : (x))
+
 typedef struct PACKED
 {
     s16 x;
