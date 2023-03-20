@@ -121,6 +121,10 @@
   locations:
     "Water Temple River Chest": "true"
     "Water Temple GS River": "has_iron_boots"
+"Water Temple Dragon Room Ledge":
+  dungeon: Water
+  exits:
+    "Water Temple Dragon Room": "true"
 "Water Temple Cage Room":
   dungeon: Water
   locations:

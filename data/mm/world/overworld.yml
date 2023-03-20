@@ -313,7 +313,7 @@
     "Swamp Spider House": "true"
     "Swamp Canopy Back": "true"
   locations:
-    "Southern Swamp Grotto": "has(MASK_DEKU) || has(MASK_ZORA)"
+    "Southern Swamp Grotto": "has(MASK_DEKU) || has(MASK_ZORA) || event(CLEAN_SWAMP)"
 "Tourist Information":
   region: SOUTHERN_SWAMP
   exit:
@@ -380,7 +380,6 @@
   locations:
     "Woodfall Entrance Chest": "true"
     "Woodfall HP Chest": "true"
-    "Woodfall Near Owl Chest": "event(CLEAN_SWAMP)"
 "Woodfall Front of Temple":
   region: WOODFALL
   exits:
@@ -402,8 +401,10 @@
   region: WOODFALL
   exits:
     "Woodfall": "true"
-    "Woodfall Shrine": "true"
+    "Woodfall Shrine": "has(MASK_DEKU)"
     "Woodfall Great Fairy Fountain": "true"
+  locations:
+    "Woodfall Near Owl Chest": "true"
 "Woodfall Great Fairy Fountain":
   region: WOODFALL
   exits:
@@ -687,7 +688,7 @@
     "Zora Hall Entrance": "has(MASK_ZORA)"
     "Zora Cape Peninsula": "true"
     "Waterfall Cliffs": "can_hookshot"
-    "Great Bay Near Fairy Fountain": "can_hookshot"
+    "Great Bay Near Fairy Fountain": "can_hookshot" #|| (can_use_ice_arrows && (has(MASK_ZORA) || can_hookshot_short))
   locations:
     "Zora Cape Underwater Chest": "has(MASK_ZORA)"
     "Zora Cape Waterfall HP": "has(MASK_ZORA)"
@@ -709,7 +710,7 @@
   region: ZORA_CAPE
   exits:
     "Zora Cape": "true"
-    "Waterfall Rapids": "true"
+    "Waterfall Rapids": "can_hookshot"
   locations:
     "Zora Cape Ledge Chest 1": "can_hookshot"
     "Zora Cape Ledge Chest 2": "can_hookshot"
