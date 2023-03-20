@@ -55,6 +55,7 @@
     "Termina Field": "true"
     "Clock Town South": "true"
     "Bomb Shop": "true"
+    "Trading Post": "true"
     "Curiosity Shop": "true"
     "Post Office": "true"
     "Swordsman School": "true"
@@ -109,8 +110,23 @@
   exits:
     "Clock Town West": "true"
   locations:
+    "Bomb Shop Item 1": "true"
+    "Bomb Shop Item 2": "true"
     "Bomb Shop Bomb Bag": "true"
     "Bomb Shop Bomb Bag 2": "event(SAKON_BOMB_BAG)"
+"Trading Post":
+  region: CLOCK_TOWN_WEST
+  exits:
+    "Clock Town West": "true"
+  locations:
+    "Trading Post Item 1": "true"
+    "Trading Post Item 2": "true"
+    "Trading Post Item 3": "true"
+    "Trading Post Item 4": "true"
+    "Trading Post Item 5": "true"
+    "Trading Post Item 6": "true"
+    "Trading Post Item 7": "true"
+    "Trading Post Item 8": "true"
 "Curiosity Shop":
   region: CLOCK_TOWN_WEST
   exits:
@@ -325,6 +341,9 @@
     BLUE_POTION: "has(MASK_SCENTS)"
   locations:
     "Swamp Potion Shop Kotake": "true"
+    "Swamp Potion Shop Item 1": "has_bottle && has(MASK_SCENTS)"
+    "Swamp Potion Shop Item 2": "true"
+    "Swamp Potion Shop Item 3": "true"
 "Deku Palace":
   region: DEKU_PALACE
   exits:
@@ -490,10 +509,19 @@
   region: GORON_VILLAGE
   exits:
     "Goron Village": "true"
+    "Goron Shop": "true"
   events:
     GORON_FOOD: "has(MASK_GORON)"
   locations:
     "Goron Baby": "has(MASK_GORON) && can_lullaby_half"
+"Goron Shop":
+  region: GORON_VILLAGE
+  exits:
+    "Goron Shrine": "true"
+  locations:
+    "Goron Shop Item 1": "true"
+    "Goron Shop Item 2": "true"
+    "Goron Shop Item 3": "true"
 "Path to Snowhead Front":
   region: PATH_TO_SNOWHEAD
   exits:
@@ -702,11 +730,20 @@
   exits:
     "Zora Hall Entrance": "has(MASK_ZORA)"
     "Zora Cape Peninsula": "true"
+    "Zora Shop": "true"
   locations:
     "Zora Hall Scrub HP": "has(MASK_ZORA)"
     "Zora Hall Scrub Deed": "has(MASK_ZORA) && has(DEED_MOUNTAIN) && has(MASK_GORON)"
     "Zora Hall Evan HP": "has(MASK_ZORA) && has_ocarina"
     "Zora Hall Scene Lights": "has(ARROW_FIRE)"
+"Zora Shop":
+  region: ZORA_HALL
+  exits:
+    "Zora Hall": "true"
+  locations:
+    "Zora Shop Item 1": "true"
+    "Zora Shop Item 2": "true"
+    "Zora Shop Item 3": "true"
 "Zora Cape Peninsula":
   region: ZORA_CAPE
   exits:
@@ -719,6 +756,8 @@
   region: MILK_ROAD
   exits:
     "Milk Road": "true"
+  events:
+    MILK: "true"
   locations:
     "Gorman Track Garo Mask": "can_play(SONG_EPONA)"
 "Road to Ikana Front":
