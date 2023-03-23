@@ -5,7 +5,7 @@
 "SPAWN":
   region: CLOCK_TOWN_SOUTH
   events:
-    "TIME_TRAVEL": "can_play(SONG_TIME)"
+    "TIME_TRAVEL": "has(SONG_TIME)"
   exits:
     "Clock Town South": "event(TIME_TRAVEL)"
     "OOT SONGS": "setting(crossWarpOot) && has_ocarina"
