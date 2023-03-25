@@ -7,9 +7,9 @@
   dungeon: WF
   exits:
     "Woodfall Temple": "true"
-    "Woodfall Temple Main": "has(MASK_DEKU) || can_hookshot_short"
+    "Woodfall Temple Main": "true"
   locations:
-    "Woodfall Temple Entrance Chest": "has(MASK_DEKU) || can_hookshot_short"
+    "Woodfall Temple Entrance Chest": "true"
     "Woodfall Temple SF Entrance": "true"
 "Woodfall Temple Main":
   dungeon: WF
@@ -17,7 +17,7 @@
     "Woodfall Temple": "true"
     "Woodfall Temple Water Room": "true"
     "Woodfall Temple Maze": "has(SMALL_KEY_WF, 1)"
-    "Woodfall Temple Main Ledge": "event(WOODFALL_TEMPLE_MAIN_FLOWER) || event(WOODFALL_TEMPLE_MAIN_LADDER) || can_hookshot_short"
+    "Woodfall Temple Main Ledge": "event(WOODFALL_TEMPLE_MAIN_FLOWER) || event(WOODFALL_TEMPLE_MAIN_LADDER)"
   events:
     WOODFALL_TEMPLE_MAIN_FLOWER: "true"
   locations:
