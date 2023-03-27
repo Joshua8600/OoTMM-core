@@ -26,7 +26,7 @@
     "Clock Tower Roof": "true"
   events:
     CLOCK_TOWN_SCRUB: "has(MOON_TEAR)"
-    CLOCK_TOWN_OWL: "true"
+    CLOCK_TOWN_OWL: "can_play(SONG_SOARING)"
   locations:
     "Clock Town South Chest Lower": "true"
     "Clock Town South Chest Upper": "true"
@@ -299,10 +299,11 @@
   events:
     MAGIC_BEANS_SWAMP: "has(MAGIC_BEAN) && has(MASK_DEKU)"
     FROG_3: "has(MASK_DON_GERO)"
-    SWAMP_OWL: "true"
+    SWAMP_OWL: "can_play(SONG_SOARING)"
   locations:
     "Southern Swamp HP": "true"
     "Southern Swamp Scrub Deed": "has(DEED_LAND)"
+    #"Southern Swamp Scrub Purchase": "has(MASK_DEKU)"
   gossip:
     "Southern Swamp Gossip": "true"
 "Swamp Back":
@@ -393,7 +394,7 @@
     "Woodfall Near Great Fairy Fountain": "has(MASK_DEKU) || event(CLEAN_SWAMP)"
     "Woodfall Front of Temple": "event(OPEN_WOODFALL_TEMPLE)"
   events:
-    WOODFALL_OWL: "true"
+    WOODFALL_OWL: "can_play(SONG_SOARING)"
     OPEN_WOODFALL_TEMPLE: "has(MASK_DEKU) && can_play(SONG_AWAKENING)"
   locations:
     "Woodfall Near Owl Chest": "true"
@@ -441,7 +442,7 @@
     "Mountain Village Gossip Outside": "event(BOSS_SNOWHEAD)"
     "Mountain Village Gossip Tunnel": "event(BOSS_SNOWHEAD)"
   events:
-    MOUNTAIN_VILLAGE_OWL: "true"
+    MOUNTAIN_VILLAGE_OWL: "can_play(SONG_SOARING)"
   locations:
     "Mountain Village Waterfall Chest": "event(BOSS_SNOWHEAD)"
     "Mountain Village Don Gero Mask": "event(GORON_FOOD)"
@@ -580,7 +581,7 @@
     "Termina Field": "true"
     "Gorman Track": "true"
   events:
-    MILK_ROAD_OWL: "true"
+    MILK_ROAD_OWL: "can_play(SONG_SOARING)"
   gossip:
     "Milk Road Gossip": "true"
 "Romani Ranch":
@@ -639,7 +640,7 @@
     "Zora Cape": "true"
     "Ocean Spider House": "true"
   events:
-    GREAT_BAY_OWL: "true"
+    GREAT_BAY_OWL: "can_play(SONG_SOARING)"
   locations:
     "Great Bay Coast Zora Mask": "can_play(SONG_HEALING)"
     "Great Bay Coast HP": "scarecrow_hookshot"
@@ -733,6 +734,7 @@
     "Zora Cape Peninsula": "true"
     "Zora Shop": "true"
   locations:
+    #"Zora Hall Scrub Purchase": "has(MASK_ZORA)"
     "Zora Hall Scrub HP": "has(MASK_ZORA)"
     "Zora Hall Scrub Deed": "has(MASK_ZORA) && has(DEED_MOUNTAIN) && has(MASK_GORON)"
     "Zora Hall Evan HP": "has(MASK_ZORA) && has_ocarina"
@@ -752,7 +754,7 @@
     "Zora Hall": "true"
     "Great Bay Temple": "has(MASK_ZORA) && can_hookshot && can_play(SONG_ZORA)"
   events:
-    ZORA_CAPE_OWL: "true"
+    ZORA_CAPE_OWL: "can_play(SONG_SOARING)"
 "Gorman Track":
   region: MILK_ROAD
   exits:
@@ -825,6 +827,7 @@
     BLUE_POTION: "has_bottle && has(WALLET)"
   locations:
     "Ikana Valley Scrub Rupee": "has(DEED_OCEAN) && has(MASK_ZORA)"
+    #"Ikana Valley Scrub Purchase": "has(WALLET)"
     "Ikana Valley Scrub HP": "true"
     "Ikana Valley Grotto": "true"
   gossip:
@@ -848,7 +851,7 @@
     "Ancient Castle of Ikana Entrance": "true"
     "Stone Tower": "true"
   events:
-    IKANA_CANYON_OWL: "true"
+    IKANA_CANYON_OWL: "can_play(SONG_SOARING)"
   gossip:
     "Ikana Canyon Gossip Upper": "true"
 "Ikana Fairy Fountain":
@@ -887,7 +890,7 @@
     "Stone Tower Front of Temple": "true"
     "Stone Tower Top Inverted": "has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
   events:
-    STONE_TOWER_OWL: "true"
+    STONE_TOWER_OWL: "can_play(SONG_SOARING)"
 "Stone Tower Front of Temple":
   region: STONE_TOWER
   exits:

@@ -7,15 +7,16 @@
   dungeon: JJ
   exits:
     "Jabu-Jabu": "true"
-    "Jabu-Jabu Pre-Boss": "can_boomerang"
+    "Jabu-Jabu Pre-Boss": "can_boomerang && (has_weapon || can_use_sticks)"
   locations:
     "Jabu-Jabu Map Chest": "can_boomerang"
     "Jabu-Jabu Compass Chest": "can_boomerang"
     "Jabu-Jabu Boomerang Chest": "true"
+    #"Jabu-Jabu Scrub": "true"
     "Jabu-Jabu GS Bottom Lower": "can_boomerang || is_adult"
     "Jabu-Jabu GS Bottom Upper": "can_boomerang || is_adult"
     "Jabu-Jabu GS Water Switch": "true"
-    "Jabu-Jabu GS Near Boss": "can_boomerang"
+    "Jabu-Jabu GS Near Boss": "can_boomerang && (has_weapon || can_use_sticks)"
 "Jabu-Jabu Pre-Boss":
   dungeon: JJ
   exits:

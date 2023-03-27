@@ -92,6 +92,6 @@
   exits:
     "Stone Tower Temple Entrance": "true"
     "Stone Tower Temple Center": "can_goron_bomb_jump"
-    "Stone Tower Temple Center Ledge": "can_goron_bomb_jump && can_use_ice_arrows"    
+    "Stone Tower Temple Center Ledge": "(can_goron_bomb_jump && (has(BOMB_BAG) || (has(SMALL_KEY_ST, 3) && trick_keg_explosives))) && can_use_ice_arrows"    
   locations:
     "Stone Tower Temple Water Bridge Chest": "true"
