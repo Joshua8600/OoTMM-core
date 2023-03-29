@@ -147,14 +147,3 @@
   locations:
     "Forest Temple Antichamber": "true"
     "Forest Temple GS Antichamber": "can_boomerang || is_adult"
-"Forest Temple Boss":
-  boss: true
-  dungeon: Forest
-  exits:
-    "Forest Temple After Boss": "true"
-"Forest Temple After Boss":
-  boss: true
-  dungeon: Forest
-  locations:
-    "Forest Temple Boss": "true"
-    "Forest Temple Boss Container": "true"
