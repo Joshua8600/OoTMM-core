@@ -6,16 +6,16 @@
 "Deku Tree Lobby":
   dungeon: DT
   exits:
-    "Deku Tree Slingshot Room": "has_shield_for_scrubs"
-    "Deku Tree Basement": "has_fire || has_nuts || has_weapon || has_explosives || has_ranged_weapon_child"
+    "Deku Tree Slingshot Room": "true"
+    "Deku Tree Basement": "true"
   events:
-    STICKS: "can_kill_baba_sticks"
-    NUTS: "can_kill_baba_nuts"
+    STICKS: "true"
+    NUTS: "true"
   locations:
     "Deku Tree Map Chest": "true"
     "Deku Tree Compass Chest": "true"
     "Deku Tree Compass Room Side Chest": "true"
-    "Deku Tree GS Compass": "can_damage_skull"
+    "Deku Tree GS Compass": "true"
 "Deku Tree Slingshot Room":
   dungeon: DT
   exits:
@@ -38,14 +38,14 @@
   exits:
     "Deku Tree Basement Ledge": "is_child"
   locations:
-    "Deku Tree GS Basement Back Room": "can_collect_distance"
+    "Deku Tree GS Basement Back Room": "can_collect_distance_NNL"
 "Deku Tree Basement Ledge":
   dungeon: DT
   exits:
     "Deku Tree Basement Back Room": "is_child"
-    "Deku Tree Before Boss": "has_fire_or_sticks"
+    "Deku Tree Before Boss": "is_child || fire_NNL"
 "Deku Tree Before Boss":
   dungeon: DT
   exits:
     "Deku Tree Basement Ledge": "true"
-    "Deku Tree Boss": "has_shield_for_scrubs"
+    "Deku Tree Boss": "true"
