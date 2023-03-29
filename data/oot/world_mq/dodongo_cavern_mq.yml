@@ -17,8 +17,8 @@
   locations:
     "MQ Dodongo Cavern Map Chest": "true"
     "MQ Dodongo Cavern GS Time Blocks": "can_play(SONG_TIME)"
-    #"MQ Dodongo Cavern Lobby Scrub Front": "true"
-    #"MQ Dodongo Cavern Lobby Scrub Back": "true"
+    "MQ Dodongo Cavern Lobby Scrub Front": "true"
+    "MQ Dodongo Cavern Lobby Scrub Back": "true"
   gossip:
     "Dodongo Cavern Gossip": "true"
 "Dodongo Cavern Upper Staircase":
@@ -31,7 +31,7 @@
     "MQ Dodongo Cavern Compass Chest": "true"
     "MQ Dodongo Cavern Larvae Room Chest": "is_child || fire_NNL"
     "MQ Dodongo Cavern GS Larve Room": "is_child || fire_NNL"
-    #"MQ Dodongo Cavern Staircase Scrub": "true"
+    "MQ Dodongo Cavern Staircase Scrub": "true"
 "Dodongo Cavern Upper Lizalfos":
   dungeon: DC
   exits:
@@ -51,8 +51,8 @@
   dungeon: DC
   exits:
     "Dodongo Cavern Lower Lizalfos": "true"
-  #locations:
-    #"MQ Dodongo Cavern Tunnel Side Scrub": "true"
+  locations:
+    "MQ Dodongo Cavern Tunnel Side Scrub": "true"
 "Dodongo Cavern Lower Lizalfos":
   dungeon: DC
   exits:

@@ -8,12 +8,12 @@
     "Ganon Castle Spirit": "true"
     "Ganon Castle Shadow": "true"
     "Ganon Castle Tower": "true"
-  #locations:
-    #"MQ Ganon Castle Leftmost Scrub": "true"
-    #"MQ Ganon Castle Left-Center Scrub": "true"
-    #"MQ Ganon Castle Center Scrub": "true"
-    #"MQ Ganon Castle Right-Center Scrub": "true"
-    #"MQ Ganon Castle Rightmost Scrub": "true"
+  locations:
+    "MQ Ganon Castle Leftmost Scrub": "true"
+    "MQ Ganon Castle Left-Center Scrub": "true"
+    "MQ Ganon Castle Center Scrub": "true"
+    "MQ Ganon Castle Right-Center Scrub": "true"
+    "MQ Ganon Castle Rightmost Scrub": "true"
 "Ganon Castle Light":
   dungeon: Ganon
   events:

@@ -227,9 +227,9 @@
     EPONA: "is_adult && has(SONG_EPONA)"
     MALON_COW: "is_adult && event(EPONA)"
   locations:
-    #"Lon Lon Ranch Grotto Left Scrub": "is_child"
-    #"Lon Lon Ranch Grotto Center Scrub": "is_child"
-    #"Lon Lon Ranch Grotto Right Scrub": "is_child"
+    "Lon Lon Ranch Grotto Left Scrub": "is_child"
+    "Lon Lon Ranch Grotto Center Scrub": "is_child"
+    "Lon Lon Ranch Grotto Right Scrub": "is_child"
     "Lon Lon Ranch Malon Song": "is_child && event(MALON)"
     "Lon Lon Ranch GS Tree": "is_child"
     "Lon Lon Ranch GS House": "can_boomerang && gs_night"
@@ -323,9 +323,9 @@
   events:
     BEAN_LOST_WOODS_LATE: "can_use_beans"
   locations:
-    #"Lost Woods Grotto Scrub Back": "true"
-    #"Lost Woods Near Theater Left Scrub": "is_child"
-    #"Lost Woods Near Theater Right Scrub": "is_child"
+    "Lost Woods Grotto Scrub Back": "true"
+    "Lost Woods Near Theater Left Scrub": "is_child"
+    "Lost Woods Near Theater Right Scrub": "is_child"
     "Lost Woods Grotto Scrub Nuts Upgrade": "true"
     "Lost Woods GS Soil Theater": "is_child"
     "Lost Woods GS Bean Ride": "gs_night && can_ride_bean(BEAN_LOST_WOODS_LATE)"
@@ -344,8 +344,8 @@
   locations:
     "Saria's Song": "event(MEET_ZELDA) && is_child && (can_play(SONG_TP_FOREST) || can_damage)"
     "Sacred Meadow Sheik Song": "is_adult"
-    #"Sacred Meadow Storms Grotto Front Scrub": "hidden_grotto_storms && can_hit_scrub && (is_adult || can_damage || can_play(SONG_TP_FOREST))"
-    #"Sacred Meadow Storms Grotto Back Scrub": "hidden_grotto_storms && can_hit_scrub && (is_adult || can_damage || can_play(SONG_TP_FOREST))"
+    "Sacred Meadow Storms Grotto Front Scrub": "has(SONG_STORMS)"
+    "Sacred Meadow Storms Grotto Back Scrub": "has(SONG_STORMS)"
     "Sacred Meadow Grotto": "true"
     "Sacred Meadow GS Night Adult": "is_adult && gs_night"
   gossip:
@@ -521,9 +521,9 @@
     "Goron City Maze Center 1": "true"
     "Goron City Maze Center 2": "true"
     "Goron City Maze Left": "can_hammer || can_lift_silver"
-    #"Goron City Grotto Left Scrub": "is_adult && (can_play(SONG_TIME) || (can_hookshot && (has_tunic_goron_strict || can_use_nayru)))"
-    #"Goron City Grotto Center Scrub": "is_adult && (can_play(SONG_TIME) || (can_hookshot && (has_tunic_goron_strict || can_use_nayru)))"
-    #"Goron City Grotto Right Scrub": "is_adult && (can_play(SONG_TIME) || (can_hookshot && (has_tunic_goron_strict || can_use_nayru)))"
+    "Goron City Grotto Left Scrub": "is_adult"
+    "Goron City Grotto Center Scrub": "is_adult"
+    "Goron City Grotto Right Scrub": "is_adult"
     "Goron City Big Pot HP": "is_child && (has(SONG_ZELDA) || has(SPELL_FIRE))"
     "Goron City Tunic": "is_adult"
     "Goron City Bomb Bag": "is_child"
@@ -566,8 +566,8 @@
     "Zora River Frogs Storms": "is_child && has(SONG_STORMS)"
     "Zora River Frogs Game": "is_child && has(SONG_ZELDA) && has(SONG_SARIA) && has(SONG_EPONA) && has(SONG_SUN) && has(SONG_TIME) && has(SONG_STORMS)"
     "Zora River Grotto": "true"
-    #"Zora River Storms Grotto Front Scrub": "hidden_grotto_storms && can_hit_scrub"
-    #"Zora River Storms Grotto Back Scrub": "hidden_grotto_storms && can_hit_scrub"
+    "Zora River Storms Grotto Front Scrub": "has(SONG_STORMS)"
+    "Zora River Storms Grotto Back Scrub": "has(SONG_STORMS)"
     "Zora River GS Ladder": "is_child && gs_night"
     "Zora River GS Near Grotto": "is_adult && gs_night"
     "Zora River GS Near Bridge": "is_adult && gs_night"
@@ -628,9 +628,9 @@
     "Lake Hylia Underwater Bottle": "is_child"
     "Lake Hylia Fire Arrow": "event(WATER_TEMPLE_CLEARED) || scarecrow_longshot"
     "Lake Hylia HP": "can_ride_bean(BEAN_LAKE_HYLIA) || scarecrow_hookshot"
-    #"Lake Hylia Grotto Left Scrub": "can_hit_scrub"
-    #"Lake Hylia Grotto Center Scrub": "can_hit_scrub"
-    #"Lake Hylia Grotto Right Scrub": "can_hit_scrub"
+    "Lake Hylia Grotto Left Scrub": "can_hit_scrub"
+    "Lake Hylia Grotto Center Scrub": "can_hit_scrub"
+    "Lake Hylia Grotto Right Scrub": "can_hit_scrub"
     "Lake Hylia GS Lab Wall": "gs_night && can_boomerang"
     "Lake Hylia GS Island": "is_child && gs_night"
     "Lake Hylia GS Soil": "is_child"
@@ -702,7 +702,7 @@
     "Death Mountain Crater GS Crate": "is_child"
     "Death Mountain Crater Grotto": "true"
     "Death Mountain Crater Alcove HP": "true"
-    #"Death Mountain Crater Scrub Child": "is_child && can_hit_scrub"
+    "Death Mountain Crater Scrub Child": "is_child && can_hit_scrub"
   gossip:
     "Death Mountain Crater Gossip Grotto": "true"
     "Death Mountain Crater Gossip Wall": "true"
@@ -715,9 +715,9 @@
   events:
     RED_BOULDER_BROKEN: "can_hammer"
   locations:
-    #"Death Mountain Crater Grotto Left Scrub": "can_hammer"
-    #"Death Mountain Crater Grotto Center Scrub": "can_hammer"
-    #"Death Mountain Crater Grotto Right Scrub": "can_hammer"
+    "Death Mountain Crater Grotto Left Scrub": "can_hammer"
+    "Death Mountain Crater Grotto Center Scrub": "can_hammer"
+    "Death Mountain Crater Grotto Right Scrub": "can_hammer"
     "Great Fairy Magic Upgrade 2": "can_hammer && has(SONG_ZELDA)"
 "Death Mountain Crater Warp":
   region: DEATH_MOUNTAIN_CRATER
@@ -757,8 +757,8 @@
   locations:
     "Gerudo Valley Chest": "can_hammer"
     "Gerudo Valley Broken Goron Sword": "adult_trade(POACHER_SAW)"
-    #"Gerudo Valley Grotto Front Scrub": "hidden_grotto_storms && can_hit_scrub"
-    #"Gerudo Valley Grotto Back Scrub": "hidden_grotto_storms && can_hit_scrub"
+    "Gerudo Valley Grotto Front Scrub": "has(SONG_STORMS)"
+    "Gerudo Valley Grotto Back Scrub": "has(SONG_STORMS)"
     "Gerudo Valley GS Tent": "is_adult && gs_night"
     "Gerudo Valley GS Pillar": "is_adult && gs_night"
 "Gerudo Fortress Exterior":
@@ -809,8 +809,8 @@
   locations:
     "Desert Colossus HP": "can_ride_bean(BEAN_DESERT_COLOSSUS)"
     "Desert Colossus Song Spirit": "true"
-    #"Desert Colossus Grotto Front Scrub": "can_lift_silver && can_hit_scrub"
-    #"Desert Colossus Grotto Back Scrub": "can_lift_silver && can_hit_scrub"
+    "Desert Colossus Grotto Front Scrub": "can_lift_silver"
+    "Desert Colossus Grotto Back Scrub": "can_lift_silver"
     "Great Fairy Nayru's Love": "has(SONG_ZELDA)"
     "Desert Colossus GS Soil": "is_child"
     "Desert Colossus GS Tree": "is_adult && gs_night"
