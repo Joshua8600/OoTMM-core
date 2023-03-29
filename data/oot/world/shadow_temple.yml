@@ -50,14 +50,3 @@
     "Shadow Temple Boss Key Room 2": "has(SPELL_FIRE)"
     "Shadow Temple Invisible Floormaster": "true"
     "Shadow Temple GS Triple Skull Pot": "is_adult"
-"Shadow Temple Boss":
-  boss: true
-  dungeon: Shadow
-  exits:
-    "Shadow Temple After Boss": "true"
-"Shadow Temple After Boss":
-  boss: true
-  dungeon: Shadow
-  locations:
-    "Shadow Temple Boss HC": "true"
-    "Shadow Temple Boss": "true"
