@@ -324,8 +324,8 @@
     BEAN_LOST_WOODS_LATE: "can_use_beans"
   locations:
     "Lost Woods Grotto Scrub Back": "true"
-    "Lost Woods Near Theater Left Scrub": "is_child"
-    "Lost Woods Near Theater Right Scrub": "is_child"
+    "Lost Woods Scrub Near Theater Left": "is_child"
+    "Lost Woods Scrub Near Theater Right": "is_child"
     "Lost Woods Grotto Scrub Nuts Upgrade": "true"
     "Lost Woods GS Soil Theater": "is_child"
     "Lost Woods GS Bean Ride": "gs_night && can_ride_bean(BEAN_LOST_WOODS_LATE)"
