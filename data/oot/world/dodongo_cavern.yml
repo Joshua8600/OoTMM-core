@@ -80,6 +80,7 @@
     "Dodongo Cavern Stairs Top": "true"
     "Dodongo Cavern Bomb Bag Room 2": "is_adult"
     "Dodongo Cavern Miniboss 2": "true"
+    "Dodongo Cavern Bomb Bag Side Room": "true"
   locations:
     "Dodongo Cavern Bomb Bag Side Chest": "true"
 "Dodongo Cavern Bomb Bag Side Room":
@@ -118,16 +119,3 @@
     "Dodongo Cavern Boss": "true"
   locations:
     "Dodongo Cavern GS Near Boss": "true"
-"Dodongo Cavern Boss":
-  boss: true
-  dungeon: DC
-  exits:
-    "Dodongo Cavern After Boss": "true"
-  locations:
-    "Dodongo Cavern Boss Chest": "true"
-"Dodongo Cavern After Boss":
-  boss: true
-  dungeon: DC
-  locations:
-    "Dodongo Cavern Boss Container": "true"
-    "Dodongo Cavern Boss": "true"
