@@ -723,7 +723,7 @@
   region: DEATH_MOUNTAIN_CRATER
   exits:
     "Fire Temple": "is_adult"
-    "Death Mountain Crater Bottom": "is_adult || has_hover_boots || can_ride_bean(BEAN_DEATH_MOUNTAIN_CRATER)"
+    "Death Mountain Crater Bottom": "is_adult"
   events:
     BEAN_DEATH_MOUNTAIN_CRATER: "can_use_beans"
   locations:
@@ -790,7 +790,7 @@
   region: HAUNTED_WASTELAND
   exits:
     "Haunted Wasteland Start": "can_longshot || has_hover_boots || trick(OOT_SAND_RIVER_NOTHING)"
-    "Haunted Wasteland End": "has(LENS) || trick(OOT_BLIND_WASTELAND)"
+    "Haunted Wasteland End": "has_lens || trick(OOT_BLIND_WASTELAND)"
   locations:
     "Haunted Wasteland Chest": "is_adult && (has(SPELL_FIRE) || has(ARROW_FIRE))"
     "Haunted Wasteland GS": "is_adult || can_boomerang"
