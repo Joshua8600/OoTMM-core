@@ -722,7 +722,7 @@
 "Death Mountain Crater Warp":
   region: DEATH_MOUNTAIN_CRATER
   exits:
-    "Fire Temple": "is_adult"
+    "Fire Temple Entry": "is_adult"
     "Death Mountain Crater Bottom": "is_adult"
   events:
     BEAN_DEATH_MOUNTAIN_CRATER: "can_use_beans"
