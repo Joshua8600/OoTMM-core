@@ -33,4 +33,4 @@
   dungeon: BtWE
   exits:
     "Beneath the Well Sun Block": "can_reset_time && has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
-    "Ancient Castle of Ikana Well": "true"
+    "Ikana Castle Exterior": "true"
