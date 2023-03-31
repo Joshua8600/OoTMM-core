@@ -66,3 +66,8 @@
 "can_damage": "has_weapon || can_use_sticks || has_explosives || can_use_slingshot || can_use_din"
 "can_damage_skull": "can_damage || can_collect_distance"
 "can_hit_scrub": "has_nuts || can_hit_triggers_distance || has_shield_for_scrubs || can_collect_distance || can_hammer"
+"can_collect_distance_NNL": "can_boomerang || is_adult"
+"fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
+"has_blue_fire_NNL": "(event(BLUE_FIRE) || has(BLUE_FIRE))"
+"can_hookshot_NNL": "is_adult"
+"scarecrow_hookshot_NNL": "can_hookshot_NNL && event(SCARECROW)"

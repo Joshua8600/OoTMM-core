@@ -9,28 +9,28 @@
   exits:
     "Beneath the Well Entrance": "true"
   events:
-    WELL_HOT_WATER: "has_bottle && (has_explosives || has(MASK_ZORA) || trick_keg_explosives)"
+    WELL_HOT_WATER: "true"
   locations:
-    "Beneath the Well Keese Chest": "can_use_lens"
+    "Beneath the Well Keese Chest": "true"
 "Beneath the Well East Section":
   dungeon: BtW
   exits:
     "Beneath the Well Entrance": "true"
     "Beneath the Well Sun Block": "event(WELL_BIG_POE) && has_milk"
   events:
-    WELL_BIG_POE: "has(MASK_GIBDO) && has_bottle && has(BOMB_BAG) && (has_weapon_range)"
+    WELL_BIG_POE: "has(MASK_GIBDO)"
   locations:
-    "Beneath the Well Skulltulla Chest": "has(MASK_GIBDO) && has_bottle"
-    "Beneath the Well Cow": "has(MASK_GIBDO) && (event(WELL_HOT_WATER) || has_hot_water_distance) && can_play(SONG_EPONA)"
+    "Beneath the Well Skulltulla Chest": "has(MASK_GIBDO)"
+    "Beneath the Well Cow": "has(MASK_GIBDO) && can_play(SONG_SOARING) && can_play(SONG_EPONA)"
 "Beneath the Well Sun Block":
   dungeon: BtW
   exits:
     "Beneath the Well East Section": "true"
-    "Beneath the Well End": "has_mirror_shield || can_use_light_arrows"
+    "Beneath the Well End": "has_mirror_shield || (has(ARROW_LIGHT) && has(MAGIC_UPGRADE))"
   locations:
-    "Beneath the Well Mirror Shield": "can_use_fire_arrows || event(WELL_BIG_POE)"
+    "Beneath the Well Mirror Shield": "has(ARROW_FIRE) || event(WELL_BIG_POE)"
 "Beneath the Well End":
   dungeon: BtWE
   exits:
-    "Beneath the Well Sun Block": "can_reset_time && can_use_light_arrows"
+    "Beneath the Well Sun Block": "can_reset_time && has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
     "Ancient Castle of Ikana Well": "true"
