@@ -1,11 +1,11 @@
 "Beneath the Well Entrance":
-  region: BENEATH_THE_WELL
+  dungeon: BtW
   exits:
     "Ikana Canyon": "true"
-    "Beneath the Well North Section": "has(MASK_GIBDO) && has_blue_potion"
-    "Beneath the Well East Section": "has(MASK_GIBDO) && has_beans"
+    "Beneath the Well North Section": "can_reset_time && has(MASK_GIBDO) && has_blue_potion"
+    "Beneath the Well East Section": "can_reset_time && has(MASK_GIBDO) && has_beans"
 "Beneath the Well North Section":
-  region: BENEATH_THE_WELL
+  dungeon: BtW
   exits:
     "Beneath the Well Entrance": "true"
   events:
@@ -13,19 +13,24 @@
   locations:
     "Beneath the Well Keese Chest": "true"
 "Beneath the Well East Section":
-  region: BENEATH_THE_WELL
+  dungeon: BtW
   exits:
     "Beneath the Well Entrance": "true"
-    "Beneath the Well End": "event(WELL_BIG_POE) && has_milk"
+    "Beneath the Well Sun Block": "event(WELL_BIG_POE) && has_milk"
   events:
     WELL_BIG_POE: "has(MASK_GIBDO)"
   locations:
     "Beneath the Well Skulltulla Chest": "has(MASK_GIBDO)"
-    "Beneath the Well Cow": "has(MASK_GIBDO) && can_play(SONG_EPONA) && can_play(SONG_SOARING)"
-"Beneath the Well End":
-  region: BENEATH_THE_WELL
+    "Beneath the Well Cow": "has(MASK_GIBDO) && can_play(SONG_SOARING) && can_play(SONG_EPONA)"
+"Beneath the Well Sun Block":
+  dungeon: BtW
   exits:
     "Beneath the Well East Section": "true"
-    "Ancient Castle of Ikana Exterior": "has_mirror_shield || has(ARROW_LIGHT)"
+    "Beneath the Well End": "has_mirror_shield || (has(ARROW_LIGHT) && has(MAGIC_UPGRADE))"
   locations:
     "Beneath the Well Mirror Shield": "has(ARROW_FIRE) || event(WELL_BIG_POE)"
+"Beneath the Well End":
+  dungeon: BtWE
+  exits:
+    "Beneath the Well Sun Block": "can_reset_time && has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
+    "Ancient Castle of Ikana Well": "true"

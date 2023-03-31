@@ -249,14 +249,32 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
+  key: 'erMinorDungeons',
+  name: 'Shuffle OoT Minor Dungeons with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
   key: 'erSpiderHouses',
   name: 'Shuffle Spider Houses with Dungeons',
   category: 'entrances',
   type: 'boolean',
   default: false
 }, {
-  key: 'erMinorDungeons',
-  name: 'Shuffle OoT Minor Dungeons with Dungeons',
+  key: 'erBeneathWell',
+  name: 'Shuffle Beneath the Well with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'erIkanaCastle',
+  name: 'Shuffle Ikana Castle Interior with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'erSecretShrine',
+  name: 'Shuffle Secret Shrine with Dungeons',
   category: 'entrances',
   type: 'boolean',
   default: false
@@ -464,6 +482,9 @@ export const TRICKS = {
   MM_SHT_FIRELESS: "Complete Snowhead Temple without Fire Arrows",
   MM_KEG_EXPLOSIVES: "Use Powder Kegs as Explosives",
   MM_DOG_RACE_CHEST_NOTHING: "Doggy Racetrack Chest with Nothing",
+  MM_MAJORA_LOGIC: "Fight Majora to Reset Time",
+  MM_SOUTHERN_SWAMP_SCRUB_HP_GORON: "Southern Swamp Scrub HP as Goron",
+  MM_ZORA_HALL_SCRUB_HP_NO_DEKU: "Zora Hall Scrub HP without Deku",
 };
 
 export type Tricks = {[k in keyof typeof TRICKS]: boolean};
