@@ -47,6 +47,7 @@ const SHARED_ITEMS_OOT = new Map([
   ['SHARED_SONG_TIME',        'OOT_SONG_TIME'],
   ['SHARED_SONG_EPONA',       'OOT_SONG_EPONA'],
   ['SHARED_SONG_STORMS',      'OOT_SONG_STORMS'],
+  ['SHARED_SONG_SUN',         'OOT_SONG_SUN'],
   ['SHARED_NUT',              'MM_NUT'] /* OoT lacks single nut */,
   ['SHARED_NUTS_5',           'OOT_NUTS_5'],
   ['SHARED_NUTS_10',          'OOT_NUTS_10'],
@@ -93,6 +94,7 @@ const SHARED_ITEMS_MM = new Map([
   ['SHARED_SONG_TIME',        'MM_SONG_TIME'],
   ['SHARED_SONG_EPONA',       'MM_SONG_EPONA'],
   ['SHARED_SONG_STORMS',      'MM_SONG_STORMS'],
+  ['SHARED_SONG_SUN',         'MM_SONG_SUN'],
   ['SHARED_NUT',              'MM_NUT'],
   ['SHARED_NUTS_5',           'MM_NUTS_5'],
   ['SHARED_NUTS_10',          'MM_NUTS_10'],
@@ -187,10 +189,14 @@ const gi = (settings: Settings, game: Game, item: string, generic: boolean) => {
   if (!DATA_GI.hasOwnProperty(item)) {
     throw new Error(`Unknown item ${item}`);
   }
-  let value = DATA_GI[item];
 
+  if (settings.zoraMaskInOot) {
+    item = 'OOT_MASK_ZORA';
+  }
+
+  let value = DATA_GI[item];
   if ((/^OOT_/.test(item) && game === 'mm') || (/^MM_/.test(item) && game === 'oot')) {
-    value |= 0x100;
+    value |= 0x200;
   }
 
   return value;
@@ -478,10 +484,10 @@ export const randomizerData = (logic: LogicResult): Buffer => {
   const buffers = [];
   buffers.push(randomizerMq(logic));
   buffers.push(randomizerConfig(logic.config));
+  buffers.push(specialConds(logic.settings));
   buffers.push(randomizerHints(logic));
   buffers.push(randomizerBoss(logic));
   buffers.push(randomizerDungeons(logic));
-  buffers.push(specialConds(logic.settings));
   return Buffer.concat(buffers);
 };
 

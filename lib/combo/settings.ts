@@ -221,6 +221,18 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
+  key: 'zoraMaskInOot',
+  name: 'Zora Transformation in OoT',
+  category: 'main.cross',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sunSongMm',
+  name: 'Sun\'s Song in MM',
+  category: 'main.cross',
+  type: 'boolean',
+  default: false
+}, {
   key: 'csmc',
   name: 'Chest Size Matches Content',
   category: 'main.misc',
@@ -257,6 +269,12 @@ export const SETTINGS = [{
 }, {
   key: 'erSpiderHouses',
   name: 'Shuffle Spider Houses with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'erPirateFortress',
+  name: 'Shuffle Pirate Fortress with Dungeons',
   category: 'entrances',
   type: 'boolean',
   default: false
@@ -463,6 +481,10 @@ export const TRICKS = {
   OOT_SAND_RIVER_NOTHING: "Cross the River of Sand with Nothing",
   OOT_SHADOW_FIRE_ARROW: "Enter Shadow Temple using Fire Arrows",
   OOT_KZ_SKIP: "Skip King Zora as Adult",
+  OOT_LOST_WOODS_ADULT_GS: "Lost Woods Adult GS without Bean",
+  OOT_WINDMILL_HP_NOTHING: "Windmill HP as Adult with Nothing",
+  OOT_LAB_DIVE_NO_GOLD_SCALE: "Laboratory Dive without Gold Scale",
+  OOT_LAB_WALL_GS: "Laboratory Wall GS with Jump Slash",
   MM_LENS: "Fewer Lens Requirements (MM)",
   MM_PALACE_BEAN_SKIP: "Skip Planting Beans in Deku Palace",
   MM_DARMANI_WALL: "Climb Mountain Village Wall Blind",
@@ -485,6 +507,7 @@ export const TRICKS = {
   MM_MAJORA_LOGIC: "Fight Majora to Reset Time",
   MM_SOUTHERN_SWAMP_SCRUB_HP_GORON: "Southern Swamp Scrub HP as Goron",
   MM_ZORA_HALL_SCRUB_HP_NO_DEKU: "Zora Hall Scrub HP without Deku",
+  MM_IKANA_ROOF_PARKOUR: "Jump from Ikana Castle's Roof Interior to Exterior",
 };
 
 export type Tricks = {[k in keyof typeof TRICKS]: boolean};
