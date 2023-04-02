@@ -94,6 +94,8 @@ void hookPlay_Init(GameState_Play* play)
     isEndOfGame = 0;
 
     /* Handle transition override */
+    if (g.inGrotto)
+        gIsEntranceOverride = 0;
     if (gIsEntranceOverride)
     {
         gIsEntranceOverride = 0;
@@ -125,8 +127,14 @@ void hookPlay_Init(GameState_Play* play)
     if (gSave.entranceIndex == 0xc030)
     {
         /* Moon crash */
-        gSave.entranceIndex = 0xd800;
+        gSave.entranceIndex = g.initialEntrance;
         comboReadForeignSave();
+    }
+
+    if (gSave.entranceIndex == 0xd800 && gLastEntrance == 0x1c00)
+    {
+        /* Song of Time */
+        gSave.entranceIndex = g.initialEntrance;
     }
 
     if (gSave.entranceIndex == 0x8610)
@@ -155,7 +163,8 @@ void hookPlay_Init(GameState_Play* play)
     Play_Init(play);
     gPlay = play;
     gLastEntrance = gSave.entranceIndex;
-    if (play->sceneId != SCE_MM_GROTTOS)
+    g.inGrotto = (play->sceneId == SCE_MM_GROTTOS);
+    if (!g.inGrotto)
     {
         gLastScene = play->sceneId;
     }
@@ -179,7 +188,7 @@ void hookPlay_Init(GameState_Play* play)
             gSave.day = 0;
             gSave.time = 0x3fff;
             Sram_SaveNewDay(play);
-            play->nextEntrance = 0xd800;
+            play->nextEntrance = g.initialEntrance;
             play->transitionTrigger = TRANS_TRIGGER_NORMAL;
             play->transitionType = TRANS_TYPE_BLACK;
             return;

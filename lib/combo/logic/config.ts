@@ -141,6 +141,14 @@ export class LogicPassConfig {
       config.add('MM_SONG_SUN');
     }
 
+    if (this.state.settings.skipZelda) {
+      config.add('OOT_SKIP_ZELDA');
+    }
+
+    if (this.state.settings.kakarikoGate === 'open') {
+      config.add('OOT_OPEN_KAKARIKO_GATE');
+    }
+
     return { mq, config };
   }
 }

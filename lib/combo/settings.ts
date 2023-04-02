@@ -204,6 +204,22 @@ export const SETTINGS = [{
   ],
   default: 'closed'
 }, {
+  key: 'kakarikoGate',
+  name: 'Kakariko Gate',
+  category: 'main.events',
+  type: 'enum',
+  values: [
+    { value: 'closed', name: 'Closed' },
+    { value: 'open', name: 'Open' },
+  ],
+  default: 'closed'
+}, {
+  key: 'skipZelda',
+  name: 'Skip Child Zelda',
+  category: 'main.events',
+  type: 'boolean',
+  default: false,
+}, {
   key: 'crossWarpOot',
   name: 'Cross-Games OoT Warp Songs',
   category: 'main.cross',
@@ -220,12 +236,6 @@ export const SETTINGS = [{
     { value: 'full', name: 'Child & Adult' },
   ],
   default: 'none'
-}, {
-  key: 'zoraMaskInOot',
-  name: 'Zora Transformation in OoT',
-  category: 'main.cross',
-  type: 'boolean',
-  default: false
 }, {
   key: 'sunSongMm',
   name: 'Sun\'s Song in MM',
@@ -293,6 +303,12 @@ export const SETTINGS = [{
 }, {
   key: 'erSecretShrine',
   name: 'Shuffle Secret Shrine with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'erOverworld',
+  name: 'Basic Overworld Shuffle',
   category: 'entrances',
   type: 'boolean',
   default: false

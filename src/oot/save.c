@@ -124,6 +124,19 @@ static void applyStartingEvents(void)
         SetEventChk(EV_OOT_CHK_DOOR_TIME);
     }
 
+    if (comboConfig(CFG_OOT_SKIP_ZELDA))
+    {
+        SetEventChk(EV_OOT_CHK_ZELDA_LETTER);
+        SetEventChk(EV_OOT_CHK_SONG_ZELDA);
+        SetEventChk(EV_OOT_CHK_CHILD_TALON_WOKEN);
+        SetEventChk(EV_OOT_CHK_CHILD_TALON_FLED);
+    }
+
+    if (comboConfig(CFG_OOT_OPEN_KAKARIKO_GATE))
+    {
+        BITMAP16_SET(gSave.eventsMisc, EV_OOT_INF_KAKARIKO_GATE_OPEN);
+    }
+
     if (gComboData.mq & (1 << MQ_TEMPLE_SHADOW))
     {
         gSave.perm[SCE_OOT_TEMPLE_SHADOW].switches |= (1 << 7);

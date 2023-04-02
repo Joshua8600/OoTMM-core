@@ -126,7 +126,7 @@
     "Market Bazaar": "true"
     "Market Potion Shop": "true"
     "Market Bombchu Shop": "true"
-    "MM SPAWN": "is_child"
+    "MM Clock Town": "is_child"
   gossip:
     "Market Gossip Outside Temple Leftmost": "true"
     "Market Gossip Outside Temple Left-Center": "true"
@@ -255,7 +255,7 @@
   exits:
     "Lon Lon Ranch": "true"
   locations:
-    "Lon Lon Ranch Talon Bottle": "is_child && event(TALON_CHILD)"
+    "Lon Lon Ranch Talon Bottle": "is_child && woke_talon_child"
 "Hyrule Castle":
   region: HYRULE_CASTLE
   exits:
@@ -263,11 +263,11 @@
   events:
     MALON: "true"
     TALON_CHILD: "has(CHICKEN)"
-    MEET_ZELDA: "event(TALON_CHILD)"
+    MEET_ZELDA: "woke_talon_child"
   locations:
     "Malon Egg": "event(MALON)"
-    "Zelda's Letter": "event(MEET_ZELDA)"
-    "Zelda's Song": "event(MEET_ZELDA)"
+    "Zelda's Letter": "met_zelda"
+    "Zelda's Song": "met_zelda"
     "Great Fairy Din's Fire": "has(SONG_ZELDA)"
     "Hyrule Castle GS Tree": "true"
     "Hyrule Castle GS Grotto": "has(SONG_STORMS) && can_boomerang"
@@ -342,7 +342,7 @@
     "Lost Woods Deep": "true"
     "Forest Temple": "can_hookshot"
   locations:
-    "Saria's Song": "event(MEET_ZELDA) && is_child && (can_play(SONG_TP_FOREST) || can_damage)"
+    "Saria's Song": "met_zelda && is_child && (can_play(SONG_TP_FOREST) || can_damage)"
     "Sacred Meadow Sheik Song": "is_adult"
     "Sacred Meadow Storms Grotto Front Scrub": "has(SONG_STORMS)"
     "Sacred Meadow Storms Grotto Back Scrub": "has(SONG_STORMS)"
@@ -354,9 +354,11 @@
     "Sacred Meadow Gossip Atop Maze Temple Side": "true"
 "Kakariko":
   region: KAKARIKO
+  events:
+    KAKARIKO_GATE_OPEN: "is_child && has(ZELDA_LETTER)"
   exits:
     "Hyrule Field": "true"
-    "Death Mountain": "has(ZELDA_LETTER) || is_adult"
+    "Death Mountain": "setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN)"
     "Graveyard": "true"
     "Bottom of the Well": "is_child && has(SONG_STORMS)"
     "Skulltula House": "true"
@@ -467,7 +469,7 @@
   exits:
     "Goron City": "true"
     "Dodongo Cavern": "true"
-    "Kakariko": "has(ZELDA_LETTER) || is_adult"
+    "Kakariko": "setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN)"
     "Death Mountain Summit": "event(BOULDER_DEATH_MOUNTAIN) || can_ride_bean(BEAN_DEATH_MOUNTAIN)"
   events:
     BEAN_DEATH_MOUNTAIN: "can_use_beans"
