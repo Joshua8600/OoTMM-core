@@ -81,3 +81,8 @@
 "has_ranged_weapon_both": "has_explosives || (((has(SLINGSHOT) && (event(SEEDS) || has(DEKU_SEEDS_30))) || has(BOOMERANG)) && (has(HOOKSHOT) || (has(BOW) || (event(ARROWS) || has(ARROWS_5) || has(ARROWS_10) || has(ARROWS_30)))))"
 "can_collect_ageless": "has(HOOKSHOT) && has(BOOMERANG)"
 "has_small_keys_fire(x)": "cond(setting(smallKeyShuffle, anywhere), has(SMALL_KEY_FIRE, x + 1), has(SMALL_KEY_FIRE, x))"
+"can_collect_distance_NNL": "can_boomerang || is_adult"
+"fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
+"has_blue_fire_NNL": "(event(BLUE_FIRE) || has(BLUE_FIRE))"
+"can_hookshot_NNL": "is_adult"
+"scarecrow_hookshot_NNL": "can_hookshot_NNL && event(SCARECROW)"
