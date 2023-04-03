@@ -12,7 +12,7 @@
     "Jabu-Jabu Map Chest": "can_boomerang"
     "Jabu-Jabu Compass Chest": "can_boomerang"
     "Jabu-Jabu Boomerang Chest": "true"
-    "Jabu-Jabu Scrub": "true"
+    "Jabu-Jabu Scrub": "is_child || can_dive_small"
     "Jabu-Jabu GS Bottom Lower": "can_boomerang || is_adult"
     "Jabu-Jabu GS Bottom Upper": "can_boomerang || is_adult"
     "Jabu-Jabu GS Water Switch": "true"
