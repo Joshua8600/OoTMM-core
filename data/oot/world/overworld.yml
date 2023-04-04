@@ -904,44 +904,44 @@
   exits:
     "Goron City": "true"
   locations:
-    "Goron Shop Item 1": "true && event(RUPEES)"
-    "Goron Shop Item 2": "true && event(RUPEES)"
-    "Goron Shop Item 3": "true && event(RUPEES)"
-    "Goron Shop Item 4": "has(WALLET, 1) && event(RUPEES)"
-    "Goron Shop Item 5": "true && event(RUPEES)"
-    "Goron Shop Item 6": "true && event(RUPEES)"
-    "Goron Shop Item 7": "true && event(RUPEES)"
-    "Goron Shop Item 8": "has(WALLET, 1) && event(RUPEES)"
+    "Goron Shop Item 1": "true"
+    "Goron Shop Item 2": "true"
+    "Goron Shop Item 3": "true"
+    "Goron Shop Item 4": "true"
+    "Goron Shop Item 5": "true"
+    "Goron Shop Item 6": "true"
+    "Goron Shop Item 7": "true"
+    "Goron Shop Item 8": "true"
 "Goron City Grotto":
   region: GORON_CITY
   exits:
     "Goron City": "true"
   locations:
-    "Goron City Grotto Left Scrub": "can_hit_scrub && event(RUPEES)"
-    "Goron City Grotto Center Scrub": "can_hit_scrub && event(RUPEES)"
-    "Goron City Grotto Right Scrub": "can_hit_scrub && event(RUPEES)"
+    "Goron City Grotto Left Scrub": "true"
+    "Goron City Grotto Center Scrub": "true"
+    "Goron City Grotto Right Scrub": "true"
 "Zora River Front":
   region: ZORA_RIVER
   exits:
     "Hyrule Field": "true"
-    "Zora River": "is_adult || (is_child && has_explosives)"
+    "Zora River": "is_adult || is_child"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
+    MAGIC: "true"
   locations:
-    "Zora River GS Tree": "is_child && can_damage_skull"
+    "Zora River GS Tree": "is_child"
 "Zora River":
   region: ZORA_RIVER
   exits:
     "Zora River Front": "true"
-    "Zora Domain": "can_play(SONG_ZELDA) || (is_child && trick(OOT_CHILD_DOMAIN)) || (has_hover_boots && trick(OOT_ADULT_DOMAIN))"
+    "Zora Domain": "has(SONG_ZELDA) || is_child || has_hover_boots"
     "Lost Woods": "can_dive_small"
-    "Zora River Storms Grotto": "hidden_grotto_storms"
+    "Zora River Storms Grotto": "has(SONG_STORMS)"
     "Zora River Open Grotto": "true"
-    "Zora River Boulder Grotto": "has_explosives_or_hammer"
+    "Zora River Boulder Grotto": "true"
   events:
     BOMBS: "true"
     RUPEES: "true"
@@ -949,14 +949,14 @@
     ARROWS: "is_adult"
     MAGIC: "true"
   locations:
-    "Zora River Bean Seller": "is_child && event(RUPEES)"
+    "Zora River Bean Seller": "is_child"
     "Zora River HP Pillar": "is_child || has_hover_boots"
     "Zora River HP Platform": "is_child || has_hover_boots"
-    "Zora River Frogs Storms": "is_child && can_play(SONG_STORMS)"
-    "Zora River Frogs Game": "is_child && can_play(SONG_ZELDA) && can_play(SONG_SARIA) && can_play(SONG_EPONA) && can_play(SONG_SUN) && can_play(SONG_TIME) && can_play(SONG_STORMS)"
-    "Zora River GS Ladder": "is_child && gs_night && can_damage_skull"
-    "Zora River GS Near Grotto": "is_adult && gs_night && can_hookshot"
-    "Zora River GS Near Bridge": "is_adult && gs_night && can_hookshot"
+    "Zora River Frogs Storms": "is_child && has(SONG_STORMS)"
+    "Zora River Frogs Game": "is_child && has(SONG_ZELDA) && has(SONG_SARIA) && has(SONG_EPONA) && has(SONG_SUN) && has(SONG_TIME) && has(SONG_STORMS)"
+    "Zora River GS Ladder": "is_child && gs_night"
+    "Zora River GS Near Grotto": "is_adult && gs_night && can_hookshot_NNL"
+    "Zora River GS Near Bridge": "is_adult && gs_night && can_hookshot_NNL"
   gossip:
     "Zora River Gossip High Pillar": "true"
     "Zora River Gossip Near Domain": "true"
@@ -965,20 +965,20 @@
   exits:
     "Zora River": "true"
   locations:
-    "Zora River Storms Grotto Front Scrub": "can_hit_scrub && event(RUPEES)"
-    "Zora River Storms Grotto Back Scrub": "can_hit_scrub && event(RUPEES)"
+    "Zora River Storms Grotto Front Scrub": "true"
+    "Zora River Storms Grotto Back Scrub": "true"
 "Zora River Open Grotto":
   region: ZORA_RIVER
   exits:
     "Zora River": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Zora River Grotto": "true"
   gossip:
@@ -993,20 +993,20 @@
     "Zora River": "true"
     "Lake Hylia": "is_child && has(SCALE)"
     "Zora Domain Back": "event(KING_ZORA_LETTER) || (is_adult && trick(OOT_KZ_SKIP))"
-    "Zora Shop": "is_child || has_blue_fire"
-    "Zora Domain Grotto": "hidden_grotto_storms"
+    "Zora Shop": "is_child || has_blue_fire_NNL"
+    "Zora Domain Grotto": "has(SONG_STORMS)"
   events:
     KING_ZORA_LETTER: "is_child && has(RUTO_LETTER)"
     STICKS: "is_child"
     NUTS: "true"
     RUPEES: "true"
-    FISH: "is_child && has_bottle"
+    FISH: "is_child"
   locations:
     "Zora Domain Waterfall Chest": "is_child"
-    "Zora Domain Diving Game": "is_child && event(RUPEES)"
-    "Zora Domain Tunic": "is_adult && has_blue_fire"
-    "Zora Domain Eyeball Frog": "has_blue_fire && adult_trade(PRESCRIPTION)"
-    "Zora Domain GS Waterfall": "is_adult && gs_night && (has_ranged_weapon_adult || has(MAGIC_UPGRADE))"
+    "Zora Domain Diving Game": "is_child"
+    "Zora Domain Tunic": "is_adult && has_blue_fire_NNL"
+    "Zora Domain Eyeball Frog": "has_blue_fire_NNL && adult_trade(PRESCRIPTION)"
+    "Zora Domain GS Waterfall": "is_adult && gs_night"
   gossip:
     "Zora Domain Gossip": "true"
 "Zora Domain Back":
