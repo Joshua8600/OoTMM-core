@@ -210,13 +210,13 @@
   exits:
     "Hyrule Field": "true"
   events:
-    NUTS: "has_fire"
-    BUGS: "has_fire && can_cut_grass"
+    NUTS: "fire_NNL"
+    BUGS: "fire_NNL"
   locations:
-    "Hyrule Field Grotto Near Gerudo GS": "can_collect_distance && has_fire"
-    "Hyrule Field Cow": "has_fire && can_play(SONG_EPONA)"
+    "Hyrule Field Grotto Near Gerudo GS": "can_collect_distance_NNL && fire_NNL"
+    "Hyrule Field Cow": "fire_NNL && has(SONG_EPONA)"
   gossip:
-    "Hyrule Field Gossip Near Gerudo Valley": "has_fire"
+    "Hyrule Field Gossip Near Gerudo Valley": "fire_NNL"
 "Hyrule Field Grotto Near Kak":
   region: HYRULE_FIELD
   exits:
@@ -225,7 +225,7 @@
     SEEDS: "has_sword_kokiri"
     ARROWS: "is_adult"
   locations:
-    "Hyrule Field Grotto Near Kakariko GS": "can_collect_distance"
+    "Hyrule Field Grotto Near Kakariko GS": "can_collect_distance_NNL"
 "Hyrule Field Fairy Grotto":
   region: HYRULE_FIELD
   exits:
@@ -257,40 +257,40 @@
   exits:
     "Market": "is_child"
   locations:
-    "Market Bazaar Item 1": "event(RUPEES)"
-    "Market Bazaar Item 2": "event(RUPEES)"
-    "Market Bazaar Item 3": "event(RUPEES)"
-    "Market Bazaar Item 4": "event(RUPEES)"
-    "Market Bazaar Item 5": "event(RUPEES)"
-    "Market Bazaar Item 6": "event(RUPEES)"
-    "Market Bazaar Item 7": "event(RUPEES)"
-    "Market Bazaar Item 8": "event(RUPEES)"
+    "Market Bazaar Item 1": "true"
+    "Market Bazaar Item 2": "true"
+    "Market Bazaar Item 3": "true"
+    "Market Bazaar Item 4": "true"
+    "Market Bazaar Item 5": "true"
+    "Market Bazaar Item 6": "true"
+    "Market Bazaar Item 7": "true"
+    "Market Bazaar Item 8": "true"
 "Market Potion Shop":
   region: MARKET
   exits:
     "Market": "is_child"
   locations:
-    "Market Potion Shop Item 1": "has(WALLET, 1) && event(RUPEES)"
-    "Market Potion Shop Item 2": "event(RUPEES)"
-    "Market Potion Shop Item 3": "event(RUPEES)"
-    "Market Potion Shop Item 4": "event(RUPEES)"
-    "Market Potion Shop Item 5": "has(WALLET, 2) && event(RUPEES)"
-    "Market Potion Shop Item 6": "event(RUPEES)"
-    "Market Potion Shop Item 7": "event(RUPEES)"
-    "Market Potion Shop Item 8": "event(RUPEES)"
+    "Market Potion Shop Item 1": "true"
+    "Market Potion Shop Item 2": "true"
+    "Market Potion Shop Item 3": "true"
+    "Market Potion Shop Item 4": "true"
+    "Market Potion Shop Item 5": "has(WALLET, 2)"
+    "Market Potion Shop Item 6": "true"
+    "Market Potion Shop Item 7": "true"
+    "Market Potion Shop Item 8": "true"
 "Market Bombchu Shop":
   region: MARKET
   exits:
     "Market": "is_child"
   locations:
-    "Market Bombchu Shop Item 1": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 2": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 3": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 4": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 5": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 6": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 7": "has(WALLET, 1) && event(RUPEES)"
-    "Market Bombchu Shop Item 8": "has(WALLET, 1) && event(RUPEES)"
+    "Market Bombchu Shop Item 1": "true"
+    "Market Bombchu Shop Item 2": "true"
+    "Market Bombchu Shop Item 3": "true"
+    "Market Bombchu Shop Item 4": "true"
+    "Market Bombchu Shop Item 5": "true"
+    "Market Bombchu Shop Item 6": "true"
+    "Market Bombchu Shop Item 7": "true"
+    "Market Bombchu Shop Item 8": "true"
 "Market Pot House":
   region: MARKET
   exits:
@@ -324,23 +324,23 @@
   exits:
     "Market": "true"
   events:
-    BOMBS: "event(RUPEES) && has(WALLET)"
-    BOMBCHUS: "event(RUPEES)"
+    BOMBS: "true"
+    BOMBCHUS: "true"
   locations:
-    "Bombchu Bowling Reward 1": "has(BOMB_BAG) && event(RUPEES)"
-    "Bombchu Bowling Reward 2": "has(BOMB_BAG) && event(RUPEES)"
+    "Bombchu Bowling Reward 1": "true"
+    "Bombchu Bowling Reward 2": "true"
 "Shooting Gallery Child":
   region: MARKET
   exits:
     "Market": "is_child"
   locations:
-    "Shooting Gallery Child": "is_child && event(RUPEES)"
+    "Shooting Gallery Child": "is_child"
 "Treasure Game":
   region: MARKET
   exits:
     "Market": "true"
   locations:
-    "Treasure Game HP": "has_lens_strict && event(RUPEES)"
+    "Treasure Game HP": "has_lens_strict"
 "Market Destroyed":
   region: MARKET
   exits:
@@ -368,11 +368,11 @@
     "Lon Lon Ranch House": "true"
     "Lon Lon Ranch Grotto": "is_child"
   events:
-    EPONA: "is_adult && can_play(SONG_EPONA) && event(RUPEES)"
+    EPONA: "is_adult && has(SONG_EPONA)"
     MALON_COW: "is_adult && event(EPONA)"
     RUPEES: "is_child"
   locations:
-    "Lon Lon Ranch Malon Song": "is_child && has(OCARINA) && event(MALON)"
+    "Lon Lon Ranch Malon Song": "is_child && event(MALON)"
     "Lon Lon Ranch GS Tree": "is_child"
     "Lon Lon Ranch GS House": "can_boomerang && gs_night"
     "Lon Lon Ranch GS Rain Shed": "is_child && gs_night"
@@ -382,22 +382,22 @@
   exits:
     "Lon Lon Ranch": "true"
   locations:
-    "Lon Lon Ranch Stables Cow Left": "can_play(SONG_EPONA)"
-    "Lon Lon Ranch Stables Cow Right": "can_play(SONG_EPONA)"
+    "Lon Lon Ranch Stables Cow Left": "has(SONG_EPONA)"
+    "Lon Lon Ranch Stables Cow Right": "has(SONG_EPONA)"
 "Lon Lon Ranch Silo":
   region: LON_LON_RANCH
   exits:
     "Lon Lon Ranch": "true"
   locations:
     "Lon Lon Ranch Silo HP": "is_child"
-    "Lon Lon Ranch Silo Cow Front": "can_play(SONG_EPONA)"
-    "Lon Lon Ranch Silo Cow Back": "can_play(SONG_EPONA)"
+    "Lon Lon Ranch Silo Cow Front": "has(SONG_EPONA)"
+    "Lon Lon Ranch Silo Cow Back": "has(SONG_EPONA)"
 "Lon Lon Ranch House":
   region: LON_LON_RANCH
   exits:
     "Lon Lon Ranch": "true"
   locations:
-    "Lon Lon Ranch Talon Bottle": "is_child && woke_talon_child && event(RUPEES)"
+    "Lon Lon Ranch Talon Bottle": "is_child && woke_talon_child"
 "Lon Lon Ranch Grotto":
   region: LON_LON_RANCH
   exits:
