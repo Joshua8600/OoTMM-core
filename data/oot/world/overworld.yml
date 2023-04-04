@@ -500,13 +500,13 @@
   exits:
     "Lost Woods": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Lost Woods Grotto Generic": "true"
   gossip:
@@ -522,24 +522,24 @@
 "Lost Woods Deep":
   region: LOST_WOODS
   exits:
-    "Lost Woods": "is_child || can_play(SONG_SARIA)"
+    "Lost Woods": "is_child || has(SONG_SARIA)"
     "Sacred Meadow Entryway": "true"
     "Deku Theater": "true"
-    "Lost Woods Scrub Grotto": "has_explosives_or_hammer"
+    "Lost Woods Scrub Grotto": "true"
     "Kokiri Forest": "true"
   events:
     BEAN_LOST_WOODS_LATE: "can_use_beans"
-    RUPEES: "can_cut_grass"
-    BOMBS: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    RUPEES: "true"
+    BOMBS: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    BUGS: "true"
   locations:
-    "Lost Woods Scrub Near Theater Left": "is_child && can_hit_scrub && event(RUPEES)"
-    "Lost Woods Scrub Near Theater Right": "is_child && can_hit_scrub && event(RUPEES)"
-    "Lost Woods GS Soil Theater": "gs_soil && can_damage_skull"
-    "Lost Woods GS Bean Ride": "gs_night && (can_ride_bean(BEAN_LOST_WOODS_LATE) || (trick(OOT_LOST_WOODS_ADULT_GS) && can_hookshot && (can_longshot || can_use_bow || has_bombchu || can_use_din)))"
+    "Lost Woods Scrub Near Theater Left": "is_child"
+    "Lost Woods Scrub Near Theater Right": "is_child"
+    "Lost Woods GS Soil Theater": "is_child"
+    "Lost Woods GS Bean Ride": "gs_night && (can_ride_bean(BEAN_LOST_WOODS_LATE) || (trick(OOT_LOST_WOODS_ADULT_GS) && can_hookshot_NNL"
 "Deku Theater":
   region: LOST_WOODS
   exits:
@@ -552,14 +552,14 @@
   exits:
     "Lost Woods Deep": "true"
   locations:
-    "Lost Woods Grotto Scrub Nuts Upgrade": "can_hit_scrub && event(RUPEES)"
-    "Lost Woods Grotto Scrub Back": "can_hit_scrub && event(RUPEES)"
+    "Lost Woods Grotto Scrub Nuts Upgrade": "true"
+    "Lost Woods Grotto Scrub Back": "true"
 "Sacred Meadow Entryway":
   region: SACRED_MEADOW
   exits:
     "Lost Woods Deep": "true"
-    "Sacred Meadow": "can_damage"
-    "Wolfos Grotto": "hidden_grotto_bomb"
+    "Sacred Meadow": "true"
+    "Wolfos Grotto": "true"
   events:
     RUPEES: "true"
 "Wolfos Grotto":
@@ -567,17 +567,17 @@
   exits:
     "Sacred Meadow Entryway": "true"
   locations:
-    "Sacred Meadow Grotto": "can_damage"
+    "Sacred Meadow Grotto": "true"
 "Sacred Meadow":
   region: SACRED_MEADOW
   exits:
     "Lost Woods Deep": "true"
-    "Forest Temple": "can_hookshot"
-    "Sacred Meadow Storms Grotto": "hidden_grotto_storms"
+    "Forest Temple": "can_hookshot_NNL"
+    "Sacred Meadow Storms Grotto": "has(SONG_STORMS)"
   locations:
     "Saria's Song": "met_zelda && is_child"
     "Sacred Meadow Sheik Song": "is_adult"
-    "Sacred Meadow GS Night Adult": "can_hookshot && gs_night"
+    "Sacred Meadow GS Night Adult": "can_hookshot_NNL && gs_night"
   gossip:
     "Sacred Meadow Gossip Near Forest Temple": "true"
     "Sacred Meadow Gossip Atop Maze Woods Side": "true"
@@ -587,18 +587,18 @@
   exits:
     "Sacred Meadow": "true"
   locations:
-    "Sacred Meadow Storms Grotto Front Scrub": "can_hit_scrub && event(RUPEES)"
-    "Sacred Meadow Storms Grotto Back Scrub": "can_hit_scrub && event(RUPEES)"
+    "Sacred Meadow Storms Grotto Front Scrub": "true"
+    "Sacred Meadow Storms Grotto Back Scrub": "true"
 "Kakariko":
   region: KAKARIKO
   events:
     KAKARIKO_GATE_OPEN: "is_child && has(ZELDA_LETTER)"
-    BUGS: "has_bottle"
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BUGS: "true"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
+    MAGIC: "true"
   exits:
     "Hyrule Field": "true"
     "Kakariko Trail Start": "setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN) || is_adult"
@@ -606,26 +606,26 @@
     "Bottom of the Well": "is_child && event(WELL_DRAIN)"
     "Skulltula House": "true"
     "Shooting Gallery Adult": "is_adult"
-    "Kakariko Rooftop": "is_child || can_hookshot"
+    "Kakariko Rooftop": "is_child || can_hookshot_NNL"
     "Kakariko Bazaar": "is_adult"
     "Kakariko Potion Shop": "is_adult"
     "Kakariko Granny Shop": "is_adult"
     "Windmill": "true"
     "Impa House Front": "true"
-    "ReDead Grotto": "hidden_grotto_bomb"
+    "ReDead Grotto": "true"
     "Kakariko Generic Grotto": "true"
   locations:
     "Kakariko Anju Bottle": "is_child"
     "Kakariko Anju Egg": "is_adult"
     "Kakariko Anju Cojiro": "adult_trade(POCKET_CUCCO)"
     "Kakariko Song Shadow": "is_adult && has(MEDALLION_FOREST) && has(MEDALLION_FIRE) && has(MEDALLION_WATER)"
-    "Kakariko Man on Roof": "can_hookshot || trick(OOT_MAN_ON_ROOF)"
-    "Kakariko GS Roof": "gs_night && can_hookshot"
+    "Kakariko Man on Roof": "true"
+    "Kakariko GS Roof": "gs_night && can_hookshot_NNL"
     "Kakariko GS Shooting Gallery": "gs_night && is_child"
     "Kakariko GS Tree": "gs_night && is_child"
     "Kakariko GS House of Skulltula": "gs_night && is_child"
     "Kakariko GS Bazaar": "gs_night && is_child"
-    "Kakariko GS Ladder": "gs_night && is_child && (can_use_slingshot || has_bombchu)"
+    "Kakariko GS Ladder": "gs_night && is_child"
 "Kakariko Rooftop":
   region: KAKARIKO
   exits:
@@ -641,27 +641,27 @@
   exits:
     "Kakariko": "is_adult"
   locations:
-    "Kakariko Bazaar Item 1": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 2": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 3": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 4": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 5": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 6": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 7": "true && event(RUPEES)"
-    "Kakariko Bazaar Item 8": "true && event(RUPEES)"
+    "Kakariko Bazaar Item 1": "true"
+    "Kakariko Bazaar Item 2": "true"
+    "Kakariko Bazaar Item 3": "true"
+    "Kakariko Bazaar Item 4": "true"
+    "Kakariko Bazaar Item 5": "true"
+    "Kakariko Bazaar Item 6": "true"
+    "Kakariko Bazaar Item 7": "true"
+    "Kakariko Bazaar Item 8": "true"
 "Kakariko Potion Shop":
   region: KAKARIKO
   exits:
     "Kakariko": "is_adult"
   locations:
-    "Kakariko Potion Shop Item 1": "has(WALLET, 1) && event(RUPEES)"
-    "Kakariko Potion Shop Item 2": "true && event(RUPEES)"
-    "Kakariko Potion Shop Item 3": "true && event(RUPEES)"
-    "Kakariko Potion Shop Item 4": "true && event(RUPEES)"
-    "Kakariko Potion Shop Item 5": "has(WALLET, 2) && event(RUPEES)"
-    "Kakariko Potion Shop Item 6": "true && event(RUPEES)"
-    "Kakariko Potion Shop Item 7": "true && event(RUPEES)"
-    "Kakariko Potion Shop Item 8": "true && event(RUPEES)"
+    "Kakariko Potion Shop Item 1": "true"
+    "Kakariko Potion Shop Item 2": "true"
+    "Kakariko Potion Shop Item 3": "true"
+    "Kakariko Potion Shop Item 4": "true)"
+    "Kakariko Potion Shop Item 5": "has(WALLET, 2)"
+    "Kakariko Potion Shop Item 6": "true"
+    "Kakariko Potion Shop Item 7": "true"
+    "Kakariko Potion Shop Item 8": "true"
 "Kakariko Granny Shop":
   region: KAKARIKO
   exits:
@@ -673,29 +673,29 @@
   exits:
     "Kakariko": "is_adult"
   locations:
-    "Shooting Gallery Adult": "can_use_bow && event(RUPEES)"
+    "Shooting Gallery Adult": "true"
 "Impa House Front":
   region: KAKARIKO
   exits:
     "Kakariko": "true"
   locations:
-    "Kakariko Cow": "can_play(SONG_EPONA)"
+    "Kakariko Cow": "has(SONG_EPONA)"
 "Impa House Back":
   region: KAKARIKO
   exits:
     "Kakariko": "true"
   locations:
-    "Kakariko Cow": "can_play(SONG_EPONA)"
+    "Kakariko Cow": "has(SONG_EPONA)"
     "Kakariko Impa House HP": "true"
 "Windmill":
   region: KAKARIKO
   exits:
     "Kakariko": "true"
   events:
-    WELL_DRAIN: "is_child && can_play(SONG_STORMS)"
+    WELL_DRAIN: "is_child && has(SONG_STORMS)"
   locations:
     "Windmill HP": "can_boomerang || event(WINDMILL_TOP) || trick(OOT_WINDMILL_HP_NOTHING)"
-    "Windmill Song of Storms": "is_adult && has(OCARINA)"
+    "Windmill Song of Storms": "is_adult"
 "Skulltula House":
   region: KAKARIKO
   exits:
@@ -711,7 +711,7 @@
   exits:
     "Kakariko": "true"
   locations:
-    "Kakariko Grotto Front": "has_weapon || can_use_sticks"
+    "Kakariko Grotto Front": "true"
 "Kakariko Generic Grotto":
   region: KAKARIKO
   exits:
