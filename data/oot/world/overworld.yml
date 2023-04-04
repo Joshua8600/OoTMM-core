@@ -403,15 +403,15 @@
   exits:
     "Lon Lon Ranch": "true"
   locations:
-    "Lon Lon Ranch Grotto Left Scrub": "is_child && can_hit_scrub"
-    "Lon Lon Ranch Grotto Center Scrub": "is_child && can_hit_scrub"
-    "Lon Lon Ranch Grotto Right Scrub": "is_child && can_hit_scrub"
+    "Lon Lon Ranch Grotto Left Scrub": "is_child"
+    "Lon Lon Ranch Grotto Center Scrub": "is_child"
+    "Lon Lon Ranch Grotto Right Scrub": "is_child"
 "Hyrule Castle":
   region: HYRULE_CASTLE
   exits:
     "Market": "true"
-    "Fairy Fountain Din": "has_explosives"
-    "Hyrule Castle Grotto": "hidden_grotto_storms"
+    "Fairy Fountain Din": "true"
+    "Hyrule Castle Grotto": "has(SONG_STORMS)"
   events:
     MALON: "true"
     TALON_CHILD: "has(CHICKEN)"
@@ -420,12 +420,12 @@
     RUPEES: "true"
     SEEDS: "is_child"
     MAGIC: "true"
-    BUGS: "has_bottle"
+    BUGS: "true"
   locations:
     "Malon Egg": "event(MALON)"
     "Zelda's Letter": "met_zelda"
     "Zelda's Song": "met_zelda"
-    "Hyrule Castle GS Tree": "can_damage_skull"
+    "Hyrule Castle GS Tree": "true"
   gossip:
     "Hyrule Castle Gossip After Climb": "true"
     "Hyrule Castle Gossip Before Moat": "true"
@@ -434,24 +434,24 @@
   exits:
     "Hyrule Castle": "true"
   events:
-    MAGIC: "can_play(SONG_ZELDA)"
+    MAGIC: "has(SONG_ZELDA)"
   locations:
-    "Great Fairy Din's Fire": "can_play(SONG_ZELDA)"
+    "Great Fairy Din's Fire": "has(SONG_ZELDA)"
 "Hyrule Castle Grotto":
   region: HYRULE_CASTLE
   exits:
     "Hyrule Castle": "true"
   events:
-    RUPEES: "has_explosives_or_hammer"
-    NUTS: "has_explosives_or_hammer"
-    SEEDS: "has_explosives && is_child"
-    ARROWS: "has_explosives_or_hammer && is_adult"
+    RUPEES: "true"
+    NUTS: "true"
+    SEEDS: "is_child"
+    ARROWS: "is_adult"
     BOMBS: "can_hammer"
-    BUGS: "has_explosives_or_hammer && has_bottle"
+    BUGS: "true"
   locations:
-    "Hyrule Castle GS Grotto": "has_explosives_or_hammer && can_collect_distance"
+    "Hyrule Castle GS Grotto": "can_collect_distance_NNL"
   gossip:
-    "Hyrule Castle Gossip Grotto": "has_explosives_or_hammer"
+    "Hyrule Castle Gossip Grotto": "true"
 "Ganon Castle Exterior":
   region: GANON_CASTLE_EXTERIOR
   exits:
@@ -465,34 +465,34 @@
   exits:
     "Ganon Castle Exterior": "true"
   events:
-    MAGIC: "can_play(SONG_ZELDA)"
+    MAGIC: "has(SONG_ZELDA)"
   locations:
-    "Great Fairy Defense Upgrade": "can_play(SONG_ZELDA)"
+    "Great Fairy Defense Upgrade": "has(SONG_ZELDA)"
 "Lost Woods":
   region: LOST_WOODS
   exits:
     "Kokiri Forest": "true"
     "Lost Woods Bridge": "can_longshot || has_hover_boots || can_ride_bean(BEAN_LOST_WOODS_EARLY)"
-    "Lost Woods Deep": "is_child || can_play(SONG_SARIA) || trick_mido"
-    "Lost Woods Generic Grotto": "has_explosives_or_hammer"
+    "Lost Woods Deep": "true"
+    "Lost Woods Generic Grotto": "true"
     "Goron City Shortcut": "true"
     "Zora River": "can_dive_small"
   events:
     BEAN_LOST_WOODS_EARLY: "can_use_beans"
     RUPEES: "true"
-    BOMBS: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    SEEDS: "is_child"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    BUGS: "true"
   locations:
-    "Lost Woods Target": "can_use_slingshot"
-    "Lost Woods Skull Kid": "is_child && can_play(SONG_SARIA)"
-    "Lost Woods Memory Game": "is_child && has(OCARINA)"
-    "Lost Woods Scrub Sticks Upgrade": "is_child && can_hit_scrub && event(RUPEES)"
+    "Lost Woods Target": "is_child"
+    "Lost Woods Skull Kid": "is_child && has(SONG_SARIA)"
+    "Lost Woods Memory Game": "is_child"
+    "Lost Woods Scrub Sticks Upgrade": "is_child"
     "Lost Woods Odd Mushroom": "adult_trade(COJIRO)"
     "Lost Woods Poacher's Saw": "adult_trade(ODD_POTION)"
-    "Lost Woods GS Soil Bridge": "gs_soil && can_damage_skull"
+    "Lost Woods GS Soil Bridge": "is_child"
   gossip:
     "Lost Woods Gossip Under Bridge": "true"
 "Lost Woods Generic Grotto":
