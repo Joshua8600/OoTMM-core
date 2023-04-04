@@ -717,13 +717,13 @@
   exits:
     "Kakariko": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Kakariko Grotto Back": "true"
   gossip:
@@ -732,23 +732,23 @@
   region: GRAVEYARD
   exits:
     "Kakariko": "true"
-    "Graveyard Royal Tomb": "can_play(SONG_ZELDA)"
+    "Graveyard Royal Tomb": "has(SONG_ZELDA)"
     "Graveyard Shield Grave": "true"
     "Graveyard ReDead Grave": "true"
     "Dampe Grave": "is_adult"
     "Dampe House": "true"
   events:
     BEAN_GRAVEYARD: "can_use_beans"
-    BUGS: "has_bottle"
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BUGS: "true"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
+    MAGIC: "true"
   locations:
-    "Graveyard Dampe Game": "is_child && event(RUPEES)"
+    "Graveyard Dampe Game": "is_child"
     "Graveyard Crate HP": "can_ride_bean(BEAN_GRAVEYARD) || can_longshot"
-    "Graveyard GS Soil": "gs_soil && can_damage_skull"
+    "Graveyard GS Soil": "is_child"
     "Graveyard GS Wall": "can_boomerang && gs_night"
 "Graveyard Upper":
   region: GRAVEYARD
@@ -763,7 +763,7 @@
     "Graveyard": "true"
   locations:
     "Graveyard Royal Tomb Song": "true"
-    "Graveyard Royal Tomb Chest": "has_fire"
+    "Graveyard Royal Tomb Chest": "fire_NNL"
 "Graveyard Shield Grave":
   region: GRAVEYARD
   exits:
@@ -775,12 +775,12 @@
   exits:
     "Graveyard": "true"
   locations:
-    "Graveyard ReDead Tomb": "can_play(SONG_SUN)"
+    "Graveyard ReDead Tomb": "has(SONG_SUN)"
 "Dampe Grave":
   region: GRAVEYARD
   exits:
     "Graveyard": "true"
-    "Windmill": "is_adult && can_play(SONG_TIME)"
+    "Windmill": "is_adult && has(SONG_TIME)"
   events:
     NUTS: "true"
     RUPEES: "true"
@@ -788,10 +788,10 @@
     BOMBS: "true"
     SEEDS: "is_child"
     ARROWS: "is_adult"
-    WINDMILL_TOP: "is_adult && can_play(SONG_TIME)"
+    WINDMILL_TOP: "is_adult && has(SONG_TIME)"
   locations:
     "Graveyard Dampe Tomb Reward 1": "true"
-    "Graveyard Dampe Tomb Reward 2": "is_adult" #It's very hard to finish this race sub-1 as kid.
+    "Graveyard Dampe Tomb Reward 2": "is_adult"
 "Dampe House":
   region: GRAVEYARD
   exits:
@@ -800,31 +800,31 @@
   region: DEATH_MOUNTAIN_TRAIL
   exits:
     "Goron City": "true"
-    "Dodongo Cavern": "has_bombflowers || is_adult"
+    "Dodongo Cavern": "is_child || is_adult"
     "Kakariko Trail Start": "true"
     "Death Mountain Summit": "event(BOULDER_DEATH_MOUNTAIN) || can_ride_bean(BEAN_DEATH_MOUNTAIN)"
-    "Death Mountain Storms Grotto": "hidden_grotto_storms"
-    "Death Mountain Cow Grotto": "has_explosives_or_hammer"
+    "Death Mountain Storms Grotto": "has(SONG_STORMS)"
+    "Death Mountain Cow Grotto": "true"
   events:
-    BEAN_DEATH_MOUNTAIN: "can_use_beans && has_bombflowers"
-    BOULDER_DEATH_MOUNTAIN: "has_explosives_or_hammer"
+    BEAN_DEATH_MOUNTAIN: "can_use_beans"
+    BOULDER_DEATH_MOUNTAIN: "true"
     RUPEES: "true"
   locations:
-    "Death Mountain Chest": "has_explosives_or_hammer"
+    "Death Mountain Chest": "true"
     "Death Mountain HP": "true"
-    "Death Mountain GS Entrance": "has_explosives_or_hammer"
-    "Death Mountain GS Soil": "gs_soil && has_bombflowers && can_damage_skull"
-    "Death Mountain GS Above Dodongo":  "gs_night && can_hammer"
+    "Death Mountain GS Entrance": "true"
+    "Death Mountain GS Soil": "is_child"
+    "Death Mountain GS Above Dodongo": "gs_night && can_hammer"
 "Death Mountain Summit":
   region: DEATH_MOUNTAIN_TRAIL
   exits:
     "Death Mountain": "true"
     "Kakariko Rooftop": "is_child"
     "Death Mountain Crater Top": "true"
-    "Fairy Fountain Magic": "has_explosives_or_hammer"
+    "Fairy Fountain Magic": "true"
   events:
     BEAN_DEATH_MOUNTAIN: "can_use_beans"
-    BOULDER_DEATH_MOUNTAIN: "has_explosives_or_hammer"
+    BOULDER_DEATH_MOUNTAIN: "true"
   locations:
     "Death Mountain Prescription": "adult_trade(BROKEN_GORON_SWORD)"
     "Death Mountain Claim Check": "adult_trade(EYE_DROPS)"
@@ -837,13 +837,13 @@
   exits:
     "Death Mountain": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Death Mountain Grotto": "true"
   gossip:
@@ -855,50 +855,50 @@
   events:
     RUPEES: "true"
   locations:
-    "Death Mountain Cow": "can_play(SONG_EPONA)"
+    "Death Mountain Cow": "has(SONG_EPONA)"
 "Fairy Fountain Magic":
   region: DEATH_MOUNTAIN_TRAIL
   exits:
     "Death Mountain Summit": "true"
   events:
-    MAGIC: "can_play(SONG_ZELDA)"
+    MAGIC: "has(SONG_ZELDA)"
   locations:
-    "Great Fairy Magic Upgrade": "can_play(SONG_ZELDA)"
+    "Great Fairy Magic Upgrade": "has(SONG_ZELDA)"
 "Goron City Shortcut":
   region: GORON_CITY
   exits:
     "Lost Woods": "true"
     "Goron City": "event(GORON_CITY_SHORTCUT)"
   events:
-    GORON_CITY_SHORTCUT: "has_explosives || can_hammer || can_use_din"
+    GORON_CITY_SHORTCUT: "true"
 "Goron City":
   region: GORON_CITY
   exits:
     "Goron City Shortcut": "event(GORON_CITY_SHORTCUT)"
     "Death Mountain": "true"
-    "Death Mountain Crater Bottom": "is_adult && (has_explosives || can_use_bow || has(STRENGTH))"
-    "Goron Shop": "(is_adult && (has_explosives || can_use_bow || has(STRENGTH))) || (is_child && has_bombflowers)"
-    "Goron City Grotto": "is_adult && (can_play(SONG_TIME) || (can_hookshot && (has_tunic_goron_strict || can_use_nayru)))"
+    "Death Mountain Crater Bottom": "is_adult"
+    "Goron Shop": "true"
+    "Goron City Grotto": "is_adult && (has(SONG_TIME) || (can_hookshot_NNL && (has_tunic_goron_strict || can_use_nayru)))"
   event:
-    GORON_CITY_SHORTCUT: "has_bombflowers || can_hammer || can_use_bow || can_use_din"
+    GORON_CITY_SHORTCUT: "true"
     STICKS: "is_child"
     ARROWS: "is_adult"
-    RUPEES: "is_adult && (has_explosives || can_use_bow || has(STRENGTH))" #The pots outside of adult Darunia's Room are too unreliable
-    BUGS: "has_bottle && (has_explosives_or_hammer || can_lift_silver)"
+    RUPEES: "is_adult"
+    BUGS: "can_hammer || can_lift_silver"
   locations:
-    "Darunia": "can_play(SONG_ZELDA) && can_play(SONG_SARIA)"
-    "Goron City Maze Center 1": "has_explosives_or_hammer || can_lift_silver"
-    "Goron City Maze Center 2": "has_explosives_or_hammer || can_lift_silver"
+    "Darunia": "has(SONG_ZELDA) && has(SONG_SARIA)"
+    "Goron City Maze Center 1": "true"
+    "Goron City Maze Center 2": "true"
     "Goron City Maze Left": "can_hammer || can_lift_silver"
-    "Goron City Big Pot HP": "is_child && has_explosives && (can_play(SONG_ZELDA) || has_fire)"
-    "Goron City Tunic": "is_adult && (has_explosives || can_use_bow || has(STRENGTH))"
-    "Goron City Bomb Bag": "is_child && has_explosives"
-    "Goron City Medigoron Giant Knife": "is_adult && has(WALLET) && (has_bombflowers || can_hammer) && event(RUPEES)"
+    "Goron City Big Pot HP": "is_child && (has(SONG_ZELDA) || fire_NNL)"
+    "Goron City Tunic": "is_adult"
+    "Goron City Bomb Bag": "is_child"
+    "Goron City Medigoron Giant Knife": "is_adult"
     "Goron City GS Platform": "is_adult"
-    "Goron City GS Maze": "is_child && has_explosives"
+    "Goron City GS Maze": "is_child"
   gossip:
-    "Goron City Gossip Boulder Maze": "has_explosives_or_hammer || can_lift_silver"
-    "Goron City Gossip Near Medigoron": "has_bombflowers || can_hammer"
+    "Goron City Gossip Boulder Maze": "true"
+    "Goron City Gossip Near Medigoron": "true"
 "Goron Shop":
   region: GORON_CITY
   exits:
