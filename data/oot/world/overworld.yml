@@ -1019,14 +1019,14 @@
   exits:
     "Zora Domain": "true"
   locations:
-    "Zora Shop Item 1": "true && event(RUPEES)"
-    "Zora Shop Item 2": "true && event(RUPEES)"
-    "Zora Shop Item 3": "has(WALLET, 1) && event(RUPEES)"
-    "Zora Shop Item 4": "true && event(RUPEES)"
-    "Zora Shop Item 5": "true && event(RUPEES)"
-    "Zora Shop Item 6": "true && event(RUPEES)"
-    "Zora Shop Item 7": "has(WALLET, 2) && event(RUPEES)"
-    "Zora Shop Item 8": "true && event(RUPEES)"
+    "Zora Shop Item 1": "true"
+    "Zora Shop Item 2": "true"
+    "Zora Shop Item 3": "true"
+    "Zora Shop Item 4": "true"
+    "Zora Shop Item 5": "true"
+    "Zora Shop Item 6": "true"
+    "Zora Shop Item 7": "has(WALLET, 2)"
+    "Zora Shop Item 8": "true"
 "Zora Domain Grotto":
   region: ZORA_DOMAIN
   exits:
@@ -1036,28 +1036,27 @@
   exits:
     "Hyrule Field": "true"
     "Zora Domain": "is_child && has(SCALE)"
-
     "Laboratory": "true"
-    "Water Temple": "has_iron_boots && has_tunic_zora && can_hookshot"
-    "Fishing Pond": "is_child || event(WATER_TEMPLE_CLEARED) || scarecrow_hookshot || can_ride_bean(BEAN_LAKE_HYLIA)"
+    "Water Temple": "has_iron_boots && can_hookshot"
+    "Fishing Pond": "is_child || event(WATER_TEMPLE_CLEARED) || scarecrow_hookshot_NNL || can_ride_bean(BEAN_LAKE_HYLIA)"
     "Lake Hylia Grotto": "true"
   events:
-    SCARECROW_CHILD: "is_child && has(OCARINA)"
+    SCARECROW_CHILD: "is_child"
     SCARECROW: "is_adult && event(SCARECROW_CHILD)"
     BEAN_LAKE_HYLIA: "can_use_beans"
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    BUGS: "has_bottle && can_cut_grass && is_child"
+    MAGIC: "true"
+    BUGS: "is_child"
   locations:
-    "Lake Hylia Underwater Bottle": "is_child && has(SCALE)"
-    "Lake Hylia Fire Arrow": "can_use_bow && (event(WATER_TEMPLE_CLEARED) || scarecrow_longshot)"
-    "Lake Hylia HP": "can_ride_bean(BEAN_LAKE_HYLIA) || scarecrow_hookshot"
-    "Lake Hylia GS Lab Wall": "gs_night && (can_boomerang || (trick(OOT_LAB_WALL_GS) && (has_sword_kokiri || has_sticks)))"
-    "Lake Hylia GS Island": "is_child && gs_night && can_damage_skull"
-    "Lake Hylia GS Soil": "gs_soil && can_damage_skull"
+    "Lake Hylia Underwater Bottle": "is_child"
+    "Lake Hylia Fire Arrow": "event(WATER_TEMPLE_CLEARED) || scarecrow_longshot"
+    "Lake Hylia HP": "can_ride_bean(BEAN_LAKE_HYLIA) || scarecrow_hookshot_NNL"
+    "Lake Hylia GS Lab Wall": "gs_night && (can_boomerang || (has_sword_kokiri || has_sticks))"
+    "Lake Hylia GS Island": "is_child && gs_night"
+    "Lake Hylia GS Soil": "is_child"
     "Lake Hylia GS Big Tree": "gs_night && can_longshot"
   gossip:
     "Lake Hylia Gossip Near River": "true"
@@ -1068,39 +1067,39 @@
   exits:
     "Lake Hylia": "true"
   locations:
-    "Laboratory Dive": "has(SCALE, 2) || (trick(OOT_LAB_DIVE_NO_GOLD_SCALE) && has_iron_boots && can_hookshot)"
+    "Laboratory Dive": "has(SCALE, 2) || (has_iron_boots && can_hookshot_NNL)"
     "Laboratory Eye Drops": "adult_trade(EYEBALL_FROG)"
-    "Laboratory GS Crate": "has_iron_boots && can_hookshot"
+    "Laboratory GS Crate": "has_iron_boots && can_hookshot_NNL"
 "Fishing Pond":
   region: LAKE_HYLIA
   exits:
     "Lake Hylia": "true"
   locations:
-    "Fishing Pond Child": "is_child && event(RUPEES)"
-    "Fishing Pond Adult": "is_adult && event(RUPEES)"
+    "Fishing Pond Child": "is_child"
+    "Fishing Pond Adult": "is_adult"
 "Lake Hylia Grotto":
   region: LAKE_HYLIA
   exits:
     "Lake Hylia": "true"
   locations:
-    "Lake Hylia Grotto Left Scrub": "can_hit_scrub && event(RUPEES)"
-    "Lake Hylia Grotto Center Scrub": "can_hit_scrub && event(RUPEES)"
-    "Lake Hylia Grotto Right Scrub": "can_hit_scrub && event(RUPEES)"
+    "Lake Hylia Grotto Left Scrub": "true"
+    "Lake Hylia Grotto Center Scrub": "true"
+    "Lake Hylia Grotto Right Scrub": "true"
 "Zora Fountain":
   region: ZORA_FOUNTAIN
   exits:
     "Zora Domain Back": "true"
-    "Jabu-Jabu": "is_child && has_bottle && (has(FISH) || event(FISH))"
+    "Jabu-Jabu": "is_child"
     "Zora Fountain Frozen": "is_adult"
-    "Fairy Fountain Farore": "has_explosives"
+    "Fairy Fountain Farore": "true"
   events:
     SEEDS: "is_child"
   locations:
     "Zora Fountain Iceberg HP": "is_adult"
     "Zora Fountain Bottom HP": "has_tunic_zora && has_iron_boots"
     "Zora Fountain GS Wall": "gs_night && can_boomerang"
-    "Zora Fountain GS Tree": "is_child && can_damage_skull"
-    "Zora Fountain GS Upper": "gs_night && has_explosives_or_hammer && can_hookshot && can_lift_silver"
+    "Zora Fountain GS Tree": "is_child"
+    "Zora Fountain GS Upper": "gs_night && can_hookshot_NNL && can_lift_silver"
   gossip:
     "Zora Fountain Gossip Northwest": "true"
     "Zora Fountain Gossip Near Fairy": "true"
@@ -1114,9 +1113,9 @@
   exits:
     "Zora Fountain": "true"
   events:
-    MAGIC: "can_play(SONG_ZELDA)"
+    MAGIC: "has(SONG_ZELDA)"
   locations:
-    "Great Fairy Farore's Wind": "can_play(SONG_ZELDA)"
+    "Great Fairy Farore's Wind": "has(SONG_ZELDA)"
 "Temple of Time":
   region: TEMPLE_OF_TIME
   exits:
@@ -1140,24 +1139,23 @@
     "Death Mountain Summit": "true"
     "Death Mountain Crater Bottom": "event(RED_BOULDER_BROKEN) || has_hover_boots"
     "Death Mountain Crater Warp": "has_tunic_goron_strict && scarecrow_longshot"
-    "Death Mountain Crater Generic Grotto": "has_explosives_or_hammer"
+    "Death Mountain Crater Generic Grotto": "true"
   events:
-    #Having to farm these rocks for drops without heat resistance isn't fair
     BOMBS: "has_tunic_goron_strict"
     RUPEES: "has_tunic_goron_strict"
     ARROWS: "has_tunic_goron_strict"
     MAGIC: "has_tunic_goron_strict"
   locations:
-    "Death Mountain Crater GS Crate": "is_child && can_damage_skull"
+    "Death Mountain Crater GS Crate": "is_child"
     "Death Mountain Crater Alcove HP": "true"
-    "Death Mountain Crater Scrub Child": "is_child && can_hit_scrub"
+    "Death Mountain Crater Scrub Child": "is_child"
   gossip:
-    "Death Mountain Crater Gossip Wall": "has_explosives"
+    "Death Mountain Crater Gossip Wall": "true"
 "Death Mountain Crater Bottom":
   region: DEATH_MOUNTAIN_CRATER
   exits:
     "Goron City": "true"
-    "Death Mountain Crater Warp": "can_hookshot || has_hover_boots"
+    "Death Mountain Crater Warp": "can_hookshot_NNL || has_hover_boots"
     "Death Mountain Crater Top": "is_adult"
     "Death Mountain Crater Scrub Grotto": "can_hammer"
     "Fairy Fountain Double Magic": "can_hammer"
@@ -1166,14 +1164,14 @@
 "Death Mountain Crater Warp":
   region: DEATH_MOUNTAIN_CRATER
   exits:
-    "Fire Temple Entry": "is_adult && has_tunic_goron"
-    "Death Mountain Crater Bottom": "can_hookshot || has_hover_boots || can_ride_bean(BEAN_DEATH_MOUNTAIN_CRATER)"
+    "Fire Temple Entry": "is_adult"
+    "Death Mountain Crater Bottom": "can_hookshot_NNL || has_hover_boots || can_ride_bean(BEAN_DEATH_MOUNTAIN_CRATER)"
   events:
     BEAN_DEATH_MOUNTAIN_CRATER: "can_use_beans"
   locations:
-    "Death Mountain Crater Volcano HP": "can_ride_bean(BEAN_DEATH_MOUNTAIN_CRATER) || (trick(OOT_VOLCANO_HOVERS) && has_hover_boots)"
+    "Death Mountain Crater Volcano HP": "can_ride_bean(BEAN_DEATH_MOUNTAIN_CRATER) || has_hover_boots"
     "Death Mountain Crater Sheik Song": "is_adult"
-    "Death Mountain Crater GS Soil": "gs_soil && can_damage_skull"
+    "Death Mountain Crater GS Soil": "is_child"
 "Fire Temple Entry":
   region: DEATH_MOUNTAIN_CRATER
   exits:
@@ -1184,13 +1182,13 @@
   exits:
     "Death Mountain Crater Top": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Death Mountain Crater Grotto": "true"
   gossip:
