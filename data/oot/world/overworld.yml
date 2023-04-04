@@ -572,7 +572,7 @@
   region: SACRED_MEADOW
   exits:
     "Lost Woods Deep": "true"
-    "Forest Temple": "can_hookshot_NNL"
+    "Forest Temple": "can_hookshot"
     "Sacred Meadow Storms Grotto": "has(SONG_STORMS)"
   locations:
     "Saria's Song": "met_zelda && is_child"
