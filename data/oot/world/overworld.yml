@@ -16,7 +16,7 @@
 "SPAWN COMMON":
   region: NONE
   exits:
-    "SONGS": "has(OCARINA)"
+    "SONGS": "true"
     "EGGS": "true"
 "SONGS":
   region: NONE
@@ -38,7 +38,7 @@
   exits:
     "Kokiri Forest": "true"
   locations:
-    "Kokiri Forest Cow": "is_adult && event(MALON_COW) && can_play(SONG_EPONA)"
+    "Kokiri Forest Cow": "is_adult && event(MALON_COW) && has(SONG_EPONA)"
 "Kokiri Forest":
   region: KOKIRI_FOREST
   exits:
@@ -51,9 +51,9 @@
     "Lost Woods Bridge": "true"
     "Kokiri Shop": "true"
     "Deku Tree": "is_child"
-    "Kokiri Forest Storms Grotto": "hidden_grotto_storms"
+    "Kokiri Forest Storms Grotto": "has(SONG_STORMS)"
   events:
-    STICKS: "can_boomerang || (is_child && has_weapon)"
+    STICKS: "true"
     BOMBS: "true"
     RUPEES: "true"
     SEEDS: "is_child"
@@ -61,12 +61,12 @@
     MAGIC: "true"
   locations:
     "Kokiri Forest Kokiri Sword Chest": "is_child"
-    "Kokiri Forest GS Soil": "gs_soil && can_damage_skull"
-    "Kokiri Forest GS Night Child": "is_child && gs_night && can_damage_skull"
-    "Kokiri Forest GS Night Adult": "can_hookshot && gs_night"
+    "Kokiri Forest GS Soil": "true"
+    "Kokiri Forest GS Night Child": "is_child && gs_night"
+    "Kokiri Forest GS Night Adult": "can_hookshot_NNL && gs_night"
   gossip:
     "Kokiri Gossip Near Lost Woods Open": "true"
-    "Kokiri Gossip Near Lost Woods Grotto": "hidden_grotto_storms"
+    "Kokiri Gossip Near Lost Woods Grotto": "has(SONG_STORMS)"
     "Kokiri Gossip Left of Deku Tree": "true"
     "Kokiri Gossip Right of Deku Tree": "true"
 "Kokiri Shop":
@@ -74,14 +74,14 @@
   exits:
     "Kokiri Forest": "true"
   locations:
-    "Kokiri Shop Item 1": "event(RUPEES)"
-    "Kokiri Shop Item 2": "event(RUPEES)"
-    "Kokiri Shop Item 3": "event(RUPEES)"
-    "Kokiri Shop Item 4": "event(RUPEES)"
-    "Kokiri Shop Item 5": "event(RUPEES)"
-    "Kokiri Shop Item 6": "event(RUPEES)"
-    "Kokiri Shop Item 7": "event(RUPEES)"
-    "Kokiri Shop Item 8": "event(RUPEES)"
+    "Kokiri Shop Item 1": "true"
+    "Kokiri Shop Item 2": "true"
+    "Kokiri Shop Item 3": "true"
+    "Kokiri Shop Item 4": "true"
+    "Kokiri Shop Item 5": "true"
+    "Kokiri Shop Item 6": "true"
+    "Kokiri Shop Item 7": "true"
+    "Kokiri Shop Item 8": "true"
 "Mido's House":
   region: KOKIRI_FOREST
   exits:
@@ -108,13 +108,13 @@
   exits:
     "Kokiri Forest": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "has_bottle && true"
   locations:
     "Kokiri Forest Storms Grotto": "true"
 "Hyrule Field":
@@ -127,17 +127,16 @@
     "Lake Hylia": "true"
     "Gerudo Valley": "true"
     "Lon Lon Ranch": "true"
-    "Hyrule Field Scrub Grotto": "hidden_grotto_bomb"
+    "Hyrule Field Scrub Grotto": "true"
     "Hyrule Field Open Grotto": "true"
-    "Hyrule Field Southeast Grotto": "has_explosives_or_hammer"
-    "Hyrule Field Grotto Near Market": "has_explosives_or_hammer"
-    "Hyrule Field Tektite Grotto": "hidden_grotto_bomb"
-    "Hyrule Field Grotto Near GV": "(is_child && hidden_grotto_bomb) || can_hammer"
-    "Hyrule Field Grotto Near Kak": "hidden_grotto_bomb"
-    "Hyrule Field Fairy Grotto": "has_explosives_or_hammer"
+    "Hyrule Field Southeast Grotto": "true"
+    "Hyrule Field Grotto Near Market": "true"
+    "Hyrule Field Tektite Grotto": "true"
+    "Hyrule Field Grotto Near GV": "is_child || can_hammer"
+    "Hyrule Field Grotto Near Kak": "true"
+    "Hyrule Field Fairy Grotto": "true"
   events:
-    BIG_POE: "event(EPONA) && can_use_bow && has_bottle"
-    #There are rocks near Gerudo Valley you can farm for drops
+    BIG_POE: "event(EPONA)"
     BOMBS: "true"
     RUPEES: "true"
     SEEDS: "is_child"
@@ -151,19 +150,19 @@
   exits:
     "Hyrule Field": "true"
   locations:
-    "Hyrule Field Grotto Scrub HP": "can_hit_scrub && event(RUPEES)"
+    "Hyrule Field Grotto Scrub HP": "true"
 "Hyrule Field Open Grotto":
   region: HYRULE_FIELD
   exits:
     "Hyrule Field": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Hyrule Field Grotto Open": "true"
   gossip:
@@ -173,13 +172,13 @@
   exits:
     "Hyrule Field": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Hyrule Field Grotto Southeast": "true"
   gossip:
@@ -189,13 +188,13 @@
   exits:
     "Hyrule Field": "true"
   events:
-    BOMBS: "can_cut_grass"
-    RUPEES: "can_cut_grass"
-    SEEDS: "is_child && can_cut_grass"
+    BOMBS: "true"
+    RUPEES: "true"
+    SEEDS: "is_child && true"
     ARROWS: "is_adult"
-    MAGIC: "can_cut_grass"
-    FISH: "has_bottle"
-    BUGS: "has_bottle && can_cut_grass"
+    MAGIC: "true"
+    FISH: "true"
+    BUGS: "true"
   locations:
     "Hyrule Field Grotto Market": "true"
   gossip:
