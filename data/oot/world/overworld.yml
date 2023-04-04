@@ -61,7 +61,7 @@
     MAGIC: "true"
   locations:
     "Kokiri Forest Kokiri Sword Chest": "is_child"
-    "Kokiri Forest GS Soil": "true"
+    "Kokiri Forest GS Soil": "is_child"
     "Kokiri Forest GS Night Child": "is_child && gs_night"
     "Kokiri Forest GS Night Adult": "can_hookshot_NNL && gs_night"
   gossip:
