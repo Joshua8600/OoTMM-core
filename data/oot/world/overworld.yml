@@ -539,7 +539,7 @@
     "Lost Woods Scrub Near Theater Left": "is_child"
     "Lost Woods Scrub Near Theater Right": "is_child"
     "Lost Woods GS Soil Theater": "is_child"
-    "Lost Woods GS Bean Ride": "gs_night && (can_ride_bean(BEAN_LOST_WOODS_LATE) || (trick(OOT_LOST_WOODS_ADULT_GS) && can_hookshot_NNL"
+    "Lost Woods GS Bean Ride": "gs_night && (can_ride_bean(BEAN_LOST_WOODS_LATE) || can_hookshot_NNL)"
 "Deku Theater":
   region: LOST_WOODS
   exits:
