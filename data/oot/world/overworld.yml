@@ -1198,17 +1198,17 @@
   exits:
     "Death Mountain Crater Bottom": "true"
   locations:
-    "Death Mountain Crater Grotto Left Scrub": "can_hit_scrub && event(RUPEES)"
-    "Death Mountain Crater Grotto Center Scrub": "can_hit_scrub && event(RUPEES)"
-    "Death Mountain Crater Grotto Right Scrub": "can_hit_scrub && event(RUPEES)"
+    "Death Mountain Crater Grotto Left Scrub": "true"
+    "Death Mountain Crater Grotto Center Scrub": "true"
+    "Death Mountain Crater Grotto Right Scrub": "true"
 "Fairy Fountain Double Magic":
   region: DEATH_MOUNTAIN_CRATER
   exits:
     "Death Mountain Crater Bottom": "true"
   events:
-    MAGIC: "can_play(SONG_ZELDA)"
+    MAGIC: "has(SONG_ZELDA)"
   locations:
-    "Great Fairy Magic Upgrade 2": "can_play(SONG_ZELDA)"
+    "Great Fairy Magic Upgrade 2": "has(SONG_ZELDA)"
 "Gerudo Valley":
   region: GERUDO_VALLEY
   exits:
@@ -1221,13 +1221,13 @@
     BOMBS: "is_child"
     SEEDS: "is_child"
     MAGIC: "is_child"
-    BUGS: "is_child && has_bottle"
+    BUGS: "is_child"
   locations:
     "Gerudo Valley Crate HP": "is_child || can_longshot"
     "Gerudo Valley Waterfall HP": "true"
-    "Gerudo Valley GS Soil": "gs_soil && can_damage_skull"
+    "Gerudo Valley GS Soil": "is_child"
     "Gerudo Valley GS Wall": "can_boomerang && gs_night"
-    "Gerudo Valley Cow": "is_child && can_play(SONG_EPONA)"
+    "Gerudo Valley Cow": "is_child && has(SONG_EPONA)"
   gossip:
     "Gerudo Valley Gossip": "true"
 "Gerudo Valley After Bridge":
@@ -1236,13 +1236,13 @@
     "Lake Hylia": "true"
     "Gerudo Fortress Exterior": "true"
     "Gerudo Valley": "can_longshot || (is_adult && event(EPONA)) || (is_adult && event(CARPENTERS_RESCUE))"
-    "Gerudo Valley Storms Grotto": "hidden_grotto_storms && is_adult"
+    "Gerudo Valley Storms Grotto": "has(SONG_STORMS) && is_adult"
     "Gerudo Valley Tent": "is_adult"
   locations:
-    "Gerudo Valley Chest": "can_hammer"
+    "Gerudo Valley Chest": "can_hammer || can_longshot"
     "Gerudo Valley Broken Goron Sword": "adult_trade(POACHER_SAW)"
-    "Gerudo Valley GS Tent": "can_hookshot && gs_night"
-    "Gerudo Valley GS Pillar": "can_hookshot && gs_night"
+    "Gerudo Valley GS Tent": "can_hookshot_NNL && gs_night"
+    "Gerudo Valley GS Pillar": "can_hookshot_NNL && gs_night"
 "Octorok Grotto":
   region: GERUDO_VALLEY
   exits:
@@ -1254,8 +1254,8 @@
   exits:
     "Gerudo Valley After Bridge": "true"
   locations:
-    "Gerudo Valley Grotto Front Scrub": "can_hit_scrub && event(RUPEES)"
-    "Gerudo Valley Grotto Back Scrub": "can_hit_scrub && event(RUPEES)"
+    "Gerudo Valley Grotto Front Scrub": "true"
+    "Gerudo Valley Grotto Back Scrub": "true"
 "Gerudo Valley Tent":
   region: GERUDO_VALLEY
   exits:
@@ -1266,16 +1266,16 @@
     "Gerudo Fortress": "true"
     "Gerudo Valley After Bridge": "true"
     "Fortress Near Wasteland": "event(OPEN_FORTRESS_GATE)"
-    "Gerudo Training Grounds": "has(GERUDO_CARD) && is_adult && event(RUPEES)"
-    "Gerudo Fortress Grotto": "is_adult && hidden_grotto_storms"
+    "Gerudo Training Grounds": "has(GERUDO_CARD) && is_adult"
+    "Gerudo Fortress Grotto": "is_adult && has(SONG_STORMS)"
   events:
     OPEN_FORTRESS_GATE: "has(GERUDO_CARD) && is_adult"
   locations:
-    "Gerudo Fortress Chest": "has_hover_boots || can_longshot || scarecrow_hookshot"
-    "Gerudo Fortress Archery Reward 1": "event(EPONA) && can_use_bow && has(GERUDO_CARD) && event(RUPEES)"
-    "Gerudo Fortress Archery Reward 2": "event(EPONA) && can_use_bow && has(GERUDO_CARD) && event(RUPEES)"
-    "Gerudo Fortress GS Wall": "can_hookshot && gs_night"
-    "Gerudo Fortress GS Target": "can_hookshot && gs_night && has(GERUDO_CARD)"
+    "Gerudo Fortress Chest": "has_hover_boots || can_longshot || scarecrow_hookshot_NNL"
+    "Gerudo Fortress Archery Reward 1": "event(EPONA) && has(GERUDO_CARD)"
+    "Gerudo Fortress Archery Reward 2": "event(EPONA) && has(GERUDO_CARD)"
+    "Gerudo Fortress GS Wall": "can_hookshot_NNL && gs_night"
+    "Gerudo Fortress GS Target": "can_hookshot_NNL && gs_night && has(GERUDO_CARD)"
 "Fortress Near Wasteland":
   region: GERUDO_FORTRESS
   exits:
@@ -1296,10 +1296,10 @@
     "Haunted Wasteland Start": "can_longshot || has_hover_boots || trick(OOT_SAND_RIVER_NOTHING)"
     "Haunted Wasteland End": "has_lens_strict || trick(OOT_BLIND_WASTELAND)"
   events:
-    BOMBCHUS: "has(WALLET) && event(RUPEES)"
+    BOMBCHUS: "true"
   locations:
-    "Haunted Wasteland Chest": "has_fire"
-    "Haunted Wasteland GS": "can_collect_distance"
+    "Haunted Wasteland Chest": "fire_NNL"
+    "Haunted Wasteland GS": "can_collect_distance_NNL"
 "Haunted Wasteland End":
   region: HAUNTED_WASTELAND
   exits:
@@ -1310,14 +1310,14 @@
   exits:
     "Spirit Temple": "true"
     "Haunted Wasteland End": "true"
-    "Fairy Fountain Nayru": "has_explosives"
+    "Fairy Fountain Nayru": "true"
     "Desert Colossus Grotto": "can_lift_silver"
   events:
     BEAN_DESERT_COLOSSUS: "can_use_beans"
   locations:
     "Desert Colossus HP": "can_ride_bean(BEAN_DESERT_COLOSSUS)"
-    "Desert Colossus GS Soil": "gs_soil && can_damage_skull"
-    "Desert Colossus GS Tree": "can_hookshot && gs_night"
+    "Desert Colossus GS Soil": "is_child"
+    "Desert Colossus GS Tree": "can_hookshot_NNL && gs_night"
     "Desert Colossus GS Plateau": "gs_night && (can_longshot || can_ride_bean(BEAN_DESERT_COLOSSUS))"
   gossip:
     "Desert Colossus Gossip": "true"
@@ -1332,13 +1332,13 @@
   exits:
     "Desert Colossus": "true"
   events:
-    MAGIC: "can_play(SONG_ZELDA)"
+    MAGIC: "has(SONG_ZELDA)"
   locations:
-    "Great Fairy Nayru's Love": "can_play(SONG_ZELDA)"
+    "Great Fairy Nayru's Love": "has(SONG_ZELDA)"
 "Desert Colossus Grotto":
   region: DESERT_COLOSSUS
   exits:
     "Desert Colossus": "true"
   locations:
-    "Desert Colossus Grotto Front Scrub": "can_hit_scrub && event(RUPEES)"
-    "Desert Colossus Grotto Back Scrub": "can_hit_scrub && event(RUPEES)"
+    "Desert Colossus Grotto Front Scrub": "true"
+    "Desert Colossus Grotto Back Scrub": "true"
