@@ -2,26 +2,26 @@
   boss: true
   dungeon: DT
   locations:
-    "Deku Tree Boss Container": "(has_nuts || can_use_slingshot) && (can_use_sticks || has_weapon)"
-    "Deku Tree Boss": "(has_nuts || can_use_slingshot) && (can_use_sticks || has_weapon)"
+    "Deku Tree Boss Container": "true"
+    "Deku Tree Boss": "true"
 "Dodongo Cavern Boss":
   boss: true
   dungeon: DC
   exits:
-    "Dodongo Cavern After Boss": "has_explosives"
+    "Dodongo Cavern After Boss": "true"
   locations:
     "Dodongo Cavern Boss Chest": "true"
 "Dodongo Cavern After Boss":
   boss: true
   dungeon: DC
   locations:
-    "Dodongo Cavern Boss Container": "(has_bombs || has(STRENGTH)) && (can_use_sticks || has_weapon)"
-    "Dodongo Cavern Boss": "(has_bombs || has(STRENGTH)) && (can_use_sticks || has_weapon)"
+    "Dodongo Cavern Boss Container": "true"
+    "Dodongo Cavern Boss": "true"
 "Jabu-Jabu Boss":
   boss: true
   dungeon: JJ
   exits:
-    "Jabu-Jabu After Boss": "can_boomerang && (can_use_sticks || has_weapon)"
+    "Jabu-Jabu After Boss": "can_boomerang"
 "Jabu-Jabu After Boss":
   boss: true
   dungeon: JJ
@@ -32,7 +32,7 @@
   boss: true
   dungeon: Forest
   exits:
-    "Forest Temple After Boss": "(has_ranged_weapon_adult || can_use_slingshot) && has_weapon"
+    "Forest Temple After Boss": "true"
 "Forest Temple After Boss":
   boss: true
   dungeon: Forest
@@ -54,7 +54,7 @@
   boss: true
   dungeon: Water
   exits:
-    "Water Temple After Boss": "can_hookshot && has_weapon"
+    "Water Temple After Boss": "true"
 "Water Temple After Boss":
   boss: true
   dungeon: Water
@@ -78,7 +78,7 @@
   boss: true
   dungeon: Shadow
   exits:
-    "Shadow Temple After Boss": "has_weapon && has_lens && (can_use_bow || can_use_slingshot)"
+    "Shadow Temple After Boss": "true"
 "Shadow Temple After Boss":
   boss: true
   dungeon: Shadow
