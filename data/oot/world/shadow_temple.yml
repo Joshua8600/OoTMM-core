@@ -27,12 +27,12 @@
     "Shadow Temple Spinning Blades Visible": "true"
     "Shadow Temple Spinning Blades Invisible": "true"
     "Shadow Temple Falling Spikes Lower": "true"
-    "Shadow Temple Falling Spikes Upper 1": "true"
-    "Shadow Temple Falling Spikes Upper 2": "true"
-    "Shadow Temple Invisible Spike Room": "has(SMALL_KEY_SHADOW, 2) && is_adult"
-    "Shadow Temple Skull": "has(SMALL_KEY_SHADOW, 2) && is_adult"
-    "Shadow Temple GS Skull Pot": "has(SMALL_KEY_SHADOW, 2) && is_adult"
-    "Shadow Temple GS Falling Spikes": "is_adult"
+    "Shadow Temple Falling Spikes Upper 1": "has(STRENGTH)"
+    "Shadow Temple Falling Spikes Upper 2": "has(STRENGTH)"
+    "Shadow Temple Invisible Spike Room": "has(SMALL_KEY_SHADOW, 2) && can_hookshot_NNL"
+    "Shadow Temple Skull": "has(SMALL_KEY_SHADOW, 2) && can_hookshot_NNL"
+    "Shadow Temple GS Skull Pot": "has(SMALL_KEY_SHADOW, 2) && can_hookshot_NNL"
+    "Shadow Temple GS Falling Spikes": "can_hookshot_NNL"
     "Shadow Temple GS Invisible Scythe": "true"
 "Shadow Temple Wind":
   dungeon: Shadow

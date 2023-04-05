@@ -13,8 +13,8 @@
     "Jabu-Jabu Compass Chest": "can_boomerang"
     "Jabu-Jabu Boomerang Chest": "true"
     "Jabu-Jabu Scrub": "is_child || can_dive_small"
-    "Jabu-Jabu GS Bottom Lower": "can_boomerang || is_adult"
-    "Jabu-Jabu GS Bottom Upper": "can_boomerang || is_adult"
+    "Jabu-Jabu GS Bottom Lower": "can_collect_distance_NNL"
+    "Jabu-Jabu GS Bottom Upper": "can_collect_distance_NNL"
     "Jabu-Jabu GS Water Switch": "true"
     "Jabu-Jabu GS Near Boss": "can_boomerang && (has_weapon || can_use_sticks)"
 "Jabu-Jabu Pre-Boss":
