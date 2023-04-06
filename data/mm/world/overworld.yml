@@ -667,8 +667,6 @@
     RED_POTION: "event(MEET_KOUME)"
   exits:
     "Swamp Front": "true"
-  events:
-    BLUE_POTION: "has(MASK_SCENTS)"
   locations:
     "Swamp Potion Shop Item 1": "event(MUSHROOM)"
     "Swamp Potion Shop Item 2": "true"
