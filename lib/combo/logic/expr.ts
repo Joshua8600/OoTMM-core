@@ -4,12 +4,46 @@ import { Age } from './pathfind';
 
 export const MM_TIME_SLICES = [
   'DAY1_AM_06_00',
+  'DAY1_AM_07_00',
+  'DAY1_AM_10_00',
+  'DAY1_PM_01_45',
+  'DAY1_PM_03_00',
+  'DAY1_PM_04_00',
   'NIGHT1_PM_06_00',
+  'NIGHT1_PM_08_00',
+  'NIGHT1_PM_09_00',
+  'NIGHT1_PM_10_00',
+  'NIGHT1_PM_11_00',
+  'NIGHT1_AM_12_00',
   'NIGHT1_AM_02_30',
+  'NIGHT1_AM_04_00',
+  'NIGHT1_AM_05_00',
   'DAY2_AM_06_00',
+  'DAY2_AM_07_00',
+  'DAY2_AM_10_00',
+  'DAY2_AM_11_30',
+  'DAY2_PM_02_00',
   'NIGHT2_PM_06_00',
+  'NIGHT2_PM_08_00',
+  'NIGHT2_PM_09_00',
+  'NIGHT2_PM_10_00',
+  'NIGHT2_PM_11_00',
+  'NIGHT2_AM_12_00',
+  'NIGHT2_AM_04_00',
+  'NIGHT2_AM_05_00',
   'DAY3_AM_06_00',
+  'DAY3_AM_07_00',
+  'DAY3_AM_10_00',
+  'DAY3_AM_11_30',
+  'DAY3_PM_01_00',
   'NIGHT3_PM_06_00',
+  'NIGHT3_PM_08_00',
+  'NIGHT3_PM_09_00',
+  'NIGHT3_PM_10_00',
+  'NIGHT3_PM_11_00',
+  'NIGHT3_AM_12_00',
+  'NIGHT3_AM_04_00',
+  'NIGHT3_AM_05_00',
 ];
 
 export type ExprDependencies = {
@@ -28,6 +62,7 @@ type ExprRestrictions = {
     night: boolean;
   },
   mmTime: number;
+  mmTime2: number;
 };
 
 export const defaultRestrictions = (): ExprRestrictions => ({
@@ -36,6 +71,7 @@ export const defaultRestrictions = (): ExprRestrictions => ({
     night: false,
   },
   mmTime: 0,
+  mmTime2: 0,
 });
 
 export const maxRestrictions = (): ExprRestrictions => ({
@@ -44,12 +80,14 @@ export const maxRestrictions = (): ExprRestrictions => ({
     night: true,
   },
   mmTime: 0xffffffff,
+  mmTime2: 0xffffffff,
 });
 
 export const isDefaultRestrictions = (r: ExprRestrictions): boolean => {
   return r.oot.day === false &&
     r.oot.night === false &&
-    r.mmTime === 0;
+    r.mmTime === 0 &&
+    r.mmTime2 === 0;
 };
 
 type ExprResultTrue = {
@@ -66,6 +104,7 @@ export type AreaData = {
     night: boolean;
   },
   mmTime: number;
+  mmTime2: number;
 };
 
 type State = {
@@ -100,6 +139,7 @@ export const exprRestrictionsAnd = (exprs: ExprResult[]): ExprRestrictions => {
     restrictions.oot.day = restrictions.oot.day || expr.restrictions.oot.day;
     restrictions.oot.night = restrictions.oot.night || expr.restrictions.oot.night;
     restrictions.mmTime = (restrictions.mmTime | expr.restrictions.mmTime) >>> 0;
+    restrictions.mmTime2 = (restrictions.mmTime2 | expr.restrictions.mmTime2) >>> 0;
   }
 
   return restrictions;
@@ -115,6 +155,7 @@ export const exprRestrictionsOr = (exprs: ExprResult[]): ExprRestrictions => {
     restrictions.oot.day = restrictions.oot.day && expr.restrictions.oot.day;
     restrictions.oot.night = restrictions.oot.night && expr.restrictions.oot.night;
     restrictions.mmTime = (restrictions.mmTime & expr.restrictions.mmTime) >>> 0;
+    restrictions.mmTime2 = (restrictions.mmTime2 & expr.restrictions.mmTime2) >>> 0;
   }
 
   return restrictions;
@@ -253,6 +294,7 @@ export const exprOotTime = (time: string): Expr => {
 export const exprMmTime = (operator: string, sliceName: string): Expr => {
   const slice = MM_TIME_SLICES.indexOf(sliceName);
   let value = 0;
+  let value2 = 0;
 
   if (slice === -1) {
     throw new Error(`Invalid MM time slice: ${sliceName}`);
@@ -262,25 +304,38 @@ export const exprMmTime = (operator: string, sliceName: string): Expr => {
   case 'before':
     /* Time < slice */
     for (let i = 0; i < slice; ++i)
-      value = (value | (1 << i)) >>> 0;
+      if (i < 32) {
+        value = (value | (1 << i)) >>> 0;
+      } else {
+        value2 = (value2 | (1 << (i - 32))) >>> 0;
+      }
     break;
   case 'after':
     /* Time >= slice */
     for (let i = slice; i < MM_TIME_SLICES.length; ++i)
-      value = (value | (1 << i)) >>> 0;
+      if (i < 32) {
+        value = (value | (1 << i)) >>> 0;
+      } else {
+        value2 = (value2 | (1 << (i - 32))) >>> 0;
+      }
     break;
   case 'at':
     /* Time == slice */
-    value = (1 << slice) >>> 0;
+    if (slice < 32) {
+      value = (1 << slice) >>> 0;
+    } else {
+      value2 = (1 << (slice - 32)) >>> 0;
+    }
     break;
   default:
     throw new Error(`Invalid MM time operator: ${operator}`);
   }
 
   return state => {
-    if (state.areaData.mmTime & value) {
+    if ((state.areaData.mmTime & value) || (state.areaData.mmTime2 & value2)) {
       const restrictions = defaultRestrictions();
       restrictions.mmTime = ~value >>> 0;
+      restrictions.mmTime2 = ~value2 >>> 0;
       return { result: true, restrictions };
     } else {
       return {
