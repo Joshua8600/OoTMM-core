@@ -16,9 +16,9 @@
     GB_WATER_WHEEL: "event(GB_PIPE_RED) && event(GB_PIPE_RED2) && can_hookshot"
   exits:
     "Great Bay Temple Entrance": "true"
-    "Great Bay Temple Central Room": "has(MASK_ZORA)"
+    "Great Bay Temple Central Room": "true"
   locations:
-    "Great Bay Temple SF Water Wheel Platform": "has(MASK_ZORA) || (has(MASK_GREAT_FAIRY) && (has(BOW) || can_hookshot))"
+    "Great Bay Temple SF Water Wheel Platform": "true"
     "Great Bay Temple SF Water Wheel Skulltula": "true"
 "Great Bay Temple Central Room":
   dungeon: GB
@@ -26,17 +26,17 @@
     "Great Bay Temple Water Wheel": "true"
     "Great Bay Temple Map Room": "true"
     "Great Bay Temple Red Pipe 1": "true"
-    "Great Bay Temple Green Pipe 1": "can_use_ice_arrows"
+    "Great Bay Temple Green Pipe 1": "true"
     "Great Bay Temple Compass Room": "event(GB_WATER_WHEEL)"
     "Great Bay Temple Pre-Boss": "event(GB_WATER_WHEEL)"
   locations:
     "Great Bay Temple SF Central Room Barrel": "true"
-    "Great Bay Temple SF Central Room Underwater Pot": "has(MASK_ZORA) || (has(BOW) && has(MASK_GREAT_FAIRY))"
+    "Great Bay Temple SF Central Room Underwater Pot": "has(MASK_ZORA) || has(MASK_GREAT_FAIRY)"
 "Great Bay Temple Map Room":
   dungeon: GB
   exits:
     "Great Bay Temple Baba Room": "true"
-    "Great Bay Temple Red Pipe 2": "can_use_ice_arrows"
+    "Great Bay Temple Red Pipe 2": "true"
   locations:
     "Great Bay Temple Map": "true"
     "Great Bay Temple SF Map Room Pot": "true"
@@ -51,7 +51,7 @@
   exits:
     "Great Bay Temple Baba Room": "true"
     "Great Bay Temple Central Room": "true"
-    "Great Bay Temple Boss Key Room": "can_use_ice_arrows && can_use_fire_arrows"
+    "Great Bay Temple Boss Key Room": "has(ARROW_ICE) && has(ARROW_FIRE) || (has(MASK_ZORA) && has(ARROW_ICE))"
     "Great Bay Temple Green Pipe 2": "event(GB_WATER_WHEEL)"
   locations:
     "Great Bay Temple Compass": "true"
@@ -62,7 +62,7 @@
   exits:
     "Great Bay Temple Ice Arrow Room": "has(SMALL_KEY_GB, 1)"
   events:
-    GB_PIPE_RED: "can_use_ice_arrows"
+    GB_PIPE_RED: "true"
 "Great Bay Temple Ice Arrow Room":
   dungeon: GB
   exits:
@@ -74,7 +74,7 @@
   exits:
     "Great Bay Temple Map Room": "true"
   events:
-    GB_PIPE_RED2: "can_use_ice_arrows"
+    GB_PIPE_RED2: "true"
 "Great Bay Temple Boss Key Room":
   dungeon: GB
   exits:
@@ -94,33 +94,33 @@
 "Great Bay Temple Green Pipe 2":
   dungeon: GB
   exits:
-    "Great Bay Temple Green Pipe 3": "can_use_ice_arrows && can_use_fire_arrows"
+    "Great Bay Temple Green Pipe 3": "has(ARROW_ICE) && has(ARROW_FIRE)"
   locations:
-    "Great Bay Temple Green Pipe 2 Lower Chest": "can_hookshot || (can_use_ice_arrows && can_hookshot_short)" #can_use_fire_arrows - can just jump to the alcove after riding the platform, fires for safety of using ice arrows
-    "Great Bay Temple Green Pipe 2 Upper Chest": "can_hookshot && can_use_ice_arrows && can_use_fire_arrows"
+    "Great Bay Temple Green Pipe 2 Lower Chest": "can_hookshot"
+    "Great Bay Temple Green Pipe 2 Upper Chest": "can_hookshot && has(ARROW_ICE) && has(ARROW_FIRE)"
 "Great Bay Temple Green Pipe 3":
   dungeon: GB
   exits:
     "Great Bay Temple Green Pipe 2": "true"
-    "Great Bay Temple Map Room": "can_use_fire_arrows && can_use_ice_arrows"
+    "Great Bay Temple Map Room": "has(ARROW_ICE) && has(ARROW_FIRE)"
   events:
-    GB_PIPE_GREEN2: "can_use_ice_arrows && can_use_fire_arrows"
+    GB_PIPE_GREEN2: "has(ARROW_ICE) && has(ARROW_FIRE)"
   locations:
-    "Great Bay Temple Green Pipe 3 Chest": "can_use_ice_arrows && can_use_fire_arrows && can_hookshot"
-    "Great Bay Temple SF Green Pipe 3 Barrel": "true"
+    "Great Bay Temple Green Pipe 3 Chest": "true"
+    "Great Bay Temple SF Green Pipe 3 Barrel": "has(MASK_ZORA) || has(MASK_GREAT_FAIRY)"
 "Great Bay Temple Pre-Boss":
   dungeon: GB
   exits:
     "Great Bay Temple Central Room": "true"
     "Great Bay Temple Boss": "has(BOSS_KEY_GB) && event(GB_PIPE_GREEN) && event(GB_PIPE_GREEN2)"
   locations:
-    "Great Bay Temple SF Pre-Boss Above Water": "can_use_ice_arrows || (has(MASK_GREAT_FAIRY) && (has(BOW) || can_hookshot))"
-    "Great Bay Temple SF Pre-Boss Underwater": "true"
+    "Great Bay Temple SF Pre-Boss Above Water": "true"
+    "Great Bay Temple SF Pre-Boss Underwater": "has(MASK_ZORA)"
 "Great Bay Temple Boss":
   boss: true
   dungeon: GB
   exits:
-    "Great Bay Temple After Boss": "(has(MAGIC_UPGRADE) && ((has(MASK_ZORA) && has(BOW)) || has(MASK_FIERCE_DEITY)))"
+    "Great Bay Temple After Boss": "has(MASK_ZORA) || has(MASK_FIERCE_DEITY)"
 "Great Bay Temple After Boss":
   boss: true
   dungeon: GB
