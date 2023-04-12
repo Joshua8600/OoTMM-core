@@ -1,7 +1,7 @@
 "GLOBAL":
   region: NONE
   exits:
-    "OOT SONGS": "setting(crossWarpOot) && has_ocarina"
+    "OOT SONGS": "setting(crossWarpOot)"
 #    "Tingle": "true"
 #"Tingle":
 #  region: TINGLE
@@ -33,7 +33,7 @@
   region: CLOCK_TOWN_SOUTH
   exits:
     "GLOBAL": "true"
-    "Clock Town South": "can_reset_time"
+    "Clock Town South": "has(SONG_TIME) || event(MAJORA)"
     "Moon": "can_play(SONG_ORDER) && special(MOON)"
   locations:
     "Initial Song of Healing": "true"
@@ -300,9 +300,9 @@
     SETUP_MEET: "has(MASK_KAFEI) && after(DAY1_PM_01_45) && before(NIGHT1_PM_09_00)"
     MEET_ANJU: "event(SETUP_MEET) && (has(MASK_DEKU) || has(ROOM_KEY))" #after(NIGHT1_AM_12_00) && before(DAY2_AM_06_00)
     DELIVER_PENDANT: "has(PENDANT_OF_MEMORIES) && ((after(DAY2_AM_06_00) && before(NIGHT2_PM_09_00)) || (after(DAY3_AM_06_00) && before(DAY3_AM_11_30)))"
-    BUGS: "has_bottle"
-    FISH: "has_bottle"
-    MUSHROOM: "has_bottle && has(MASK_SCENTS)"
+    BUGS: "true"
+    FISH: "true"
+    MUSHROOM: "has(MASK_SCENTS)"
   locations:
     "Stock Pot Inn Guest Room Chest": "has(ROOM_KEY)"
     "Stock Pot Inn Staff Room Chest": "is_night3"
@@ -365,9 +365,9 @@
     "Clock Town East": "true"
     "Clock Town West": "true"
     "Road to Southern Swamp": "true"
-    "Behind Large Icicles": "has_arrows || has_hot_water_distance"
+    "Behind Large Icicles": "true"
     "Milk Road Front": "true"
-    "Great Bay Fence": "can_play(SONG_EPONA) || (can_goron_bomb_jump && has_bombs)"
+    "Great Bay Fence": "true"
     "Road to Ikana Front": "true"
     "Astral Observatory Balcony": "true"
     "Grass Grotto": "true"
@@ -890,9 +890,9 @@
     RUPEES: "true"
     STICKS: "true"
     NUTS: "true"
-    BUGS: "has_bottle"
-    FISH: "has_bottle"
-    MUSHROOM: "has_bottle && has(MASK_SCENTS)"
+    BUGS: "true"
+    FISH: "true"
+    MUSHROOM: "has(MASK_SCENTS)"
   locations:
     "Mountain Village Tunnel Grotto": "true"
 "Blacksmith":
@@ -932,9 +932,9 @@
     RUPEES: "true"
     STICKS: "true"
     NUTS: "true"
-    BUGS: "has_bottle"
-    FISH: "has_bottle"
-    MUSHROOM: "has_bottle && has(MASK_SCENTS)"
+    BUGS: "true"
+    FISH: "true"
+    MUSHROOM: "has(MASK_SCENTS)"
   locations:
     "Twin Islands Ramp Grotto Chest": "true"
 "Twin Islands Frozen Grotto":
@@ -942,12 +942,12 @@
   exits:
     "Twin Islands": "true"
   events:
-    TWIN_ISLANDS_HOT_WATER: "has_bottle"
-    WATER: "has_bottle"
-    STICKS: "can_kill_baba_sticks"
-    MUSHROOM: "has_bottle && has(MASK_SCENTS)"
+    TWIN_ISLANDS_HOT_WATER: "true"
+    WATER: "true"
+    STICKS: "true"
+    MUSHROOM: "has(MASK_SCENTS)"
   locations:
-    "Twin Islands Frozen Grotto Chest": "(has_explosives || trick_keg_explosives || (trick(MM_KEG_EXPLOSIVES) && event(POWDER_KEG_TRIAL)))"
+    "Twin Islands Frozen Grotto Chest": "true"
 "Near Goron Race":
   region: TWIN_ISLANDS
   exits:
@@ -958,7 +958,7 @@
   region: TWIN_ISLANDS
   exits:
     "Twin Islands": "true"
-    "Twin Islands Ramp Grotto": "has_explosives || trick_keg_explosives || (trick(MM_KEG_EXPLOSIVES) && event(POWDER_KEG_TRIAL))"
+    "Twin Islands Ramp Grotto": "true"
 "Goron Village":
   region: GORON_VILLAGE
   exits:
@@ -985,8 +985,8 @@
     "Front of Lone Peak Shrine": "true"
   locations:
     "Lone Peak Shrine Lens Chest": "true"
-    "Lone Peak Shrine Boulder Chest": "has_explosives || trick_keg_explosives"
-    "Lone Peak Shrine Invisible Chest": "can_use_lens"
+    "Lone Peak Shrine Boulder Chest": "true"
+    "Lone Peak Shrine Invisible Chest": "true"
 "Near Goron Graveyard":
   region: MOUNTAIN_VILLAGE
   exits:
@@ -1042,7 +1042,7 @@
   exits:
     "Path to Snowhead Middle": "true"
     "Snowhead Entrance": "true"
-    "Path to Snowhead Grotto": "has_explosives || trick_keg_explosives"
+    "Path to Snowhead Grotto": "true"
 "Path to Snowhead Grotto":
   region: PATH_TO_SNOWHEAD
   exits:
@@ -1054,9 +1054,9 @@
     RUPEES: "true"
     STICKS: "true"
     NUTS: "true"
-    BUGS: "has_bottle"
-    FISH: "has_bottle"
-    MUSHROOM: "has_bottle && has(MASK_SCENTS)"
+    BUGS: "true"
+    FISH: "true"
+    MUSHROOM: "has(MASK_SCENTS)"
   locations:
     "Path to Snowhead Grotto": "true"
 "Snowhead Entrance":
