@@ -125,6 +125,7 @@ export const SETTINGS = [{
     { value: 'vanilla', name: 'Vanilla' },
     { value: 'ganon', name: 'Ganon\'s Castle' },
     { value: 'anywhere', name: 'Anywhere' },
+    { value: 'custom', name: 'Custom' },
   ],
   default: 'removed'
 }, {
@@ -219,6 +220,16 @@ export const SETTINGS = [{
   category: 'main.events',
   type: 'boolean',
   default: false,
+}, {
+  key: 'lacs',
+  name: 'Light Arrow Cutscene',
+  category: 'main.events',
+  type: 'enum',
+  values: [
+    { value: 'vanilla', name: 'Vanilla' },
+    { value: 'custom', name: 'Custom' },
+  ],
+  default: 'vanilla'
 }, {
   key: 'crossWarpOot',
   name: 'Cross-Games OoT Warp Songs',
@@ -326,14 +337,44 @@ export const SETTINGS = [{
   type: 'boolean',
   default: false
 }, {
-  key: 'sharedMagicArrows',
-  name: 'Shared Magic Arrows',
+  key: 'sharedMagicArrowFire',
+  name: 'Shared Fire Arrow',
   category: 'items.shared',
   type: 'boolean',
   default: false
 }, {
-  key: 'sharedSongs',
-  name: 'Shared Songs',
+  key: 'sharedMagicArrowIce',
+  name: 'Shared Ice Arrow',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedMagicArrowLight',
+  name: 'Shared Light Arrow',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedSongEpona',
+  name: 'Shared Epona\'s Song',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedSongStorms',
+  name: 'Shared Song of Storms',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedSongTime',
+  name: 'Shared Song of Time',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'sharedSongSun',
+  name: 'Shared Sun\'s Song',
   category: 'items.shared',
   type: 'boolean',
   default: false
@@ -594,14 +635,25 @@ const DEFAULT_SPECIAL_COND = Object.keys(SPECIAL_CONDS_KEYS).reduce((conds, cond
   return conds;
 }, { count: 0 } as any) as SpecialCond;
 
-export const SPECIAL_CONDS = {
-  BRIDGE: "Rainbow Bridge",
-  MOON: "Moon Access",
+type SettingCond = (s: Settings) => boolean;
+
+type SpecialCondDefiniton = {
+  name: string;
+  cond?: SettingCond;
+};
+
+export const SPECIAL_CONDS: {[k: string]: SpecialCondDefiniton} = {
+  BRIDGE: { name: "Rainbow Bridge" },
+  MOON: { name: "Moon Access" },
+  LACS: { name: "Light Arrow Cutscene", cond: s => s.lacs === 'custom' },
+  GANON_BK: { name: "Ganon Boss Key", cond: s => s.ganonBossKey === 'custom' },
 };
 
 const DEFAULT_SPECIAL_CONDS: SpecialConds = {
   BRIDGE: { ...DEFAULT_SPECIAL_COND, medallions: true, count: 6 },
   MOON: { ...DEFAULT_SPECIAL_COND, remains: true, count: 4 },
+  LACS: { ...DEFAULT_SPECIAL_COND },
+  GANON_BK: { ...DEFAULT_SPECIAL_COND },
 };
 
 export type SpecialConds = {[k in keyof typeof SPECIAL_CONDS]: SpecialCond };

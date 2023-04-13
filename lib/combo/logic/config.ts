@@ -1,6 +1,7 @@
 import { Monitor } from '../monitor';
 import { Random } from '../random';
 import { DUNGEONS, Settings } from '../settings';
+import { isEntranceShuffle } from './helpers';
 
 /* This pass pre-computes things from the settings */
 export class LogicPassConfig {
@@ -70,6 +71,10 @@ export class LogicPassConfig {
       config.add('ER_DUNGEONS');
     }
 
+    if (isEntranceShuffle(this.state.settings)) {
+      config.add('ER_ANY');
+    }
+
     if (this.state.settings.sharedBows) {
       config.add('SHARED_BOWS');
     }
@@ -82,12 +87,32 @@ export class LogicPassConfig {
       config.add('SHARED_MAGIC');
     }
 
-    if (this.state.settings.sharedMagicArrows) {
-      config.add('SHARED_MAGIC_ARROWS');
+    if (this.state.settings.sharedMagicArrowFire) {
+      config.add('SHARED_MAGIC_ARROW_FIRE');
     }
 
-    if (this.state.settings.sharedSongs) {
-      config.add('SHARED_SONGS');
+    if (this.state.settings.sharedMagicArrowIce) {
+      config.add('SHARED_MAGIC_ARROW_ICE');
+    }
+
+    if (this.state.settings.sharedMagicArrowLight) {
+      config.add('SHARED_MAGIC_ARROW_LIGHT');
+    }
+
+    if (this.state.settings.sharedSongEpona) {
+      config.add('SHARED_SONG_EPONA');
+    }
+
+    if (this.state.settings.sharedSongStorms) {
+      config.add('SHARED_SONG_STORMS');
+    }
+
+    if (this.state.settings.sharedSongTime) {
+      config.add('SHARED_SONG_TIME');
+    }
+
+    if (this.state.settings.sharedSongSun) {
+      config.add('SHARED_SONG_SUN');
     }
 
     if (this.state.settings.sharedNutsSticks) {
@@ -147,6 +172,14 @@ export class LogicPassConfig {
 
     if (this.state.settings.kakarikoGate === 'open') {
       config.add('OOT_OPEN_KAKARIKO_GATE');
+    }
+
+    if (this.state.settings.lacs === 'custom') {
+      config.add('OOT_LACS_CUSTOM');
+    }
+
+    if (this.state.settings.ganonBossKey === 'custom') {
+      config.add('OOT_GANON_BK_CUSTOM');
     }
 
     return { mq, config };

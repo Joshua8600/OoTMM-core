@@ -10,6 +10,10 @@
     "Snowhead Temple Main": "true"
 "Snowhead Temple Main":
   dungeon: SH
+  events:
+    MAGIC: "true"
+    ARROWS: "true"
+    RUPEES: "true"
   exits:
     "Snowhead Temple Entrance": "true"
     "Snowhead Temple Compass Room": "has(SMALL_KEY_SH, 3)"
@@ -17,6 +21,10 @@
     "Snowhead Temple Center Level 1": "true"
 "Snowhead Temple Bridge Front":
   dungeon: SH
+  events:
+    MAGIC: "true"
+    BOMBS: "true"
+    RUPEES: "true"
   exits:
     "Snowhead Temple Main": "true"
     "Snowhead Temple Bridge Back": "true"
@@ -95,9 +103,9 @@
 "Snowhead Temple Compass Room":
   dungeon: SH
   exits:
-    "Snowhead Temple Main": "has(SMALL_KEY_SH, 3)"
-    "Snowhead Temple Block Room Upper": "true"
-    "Snowhead Temple Icicles": "true"
+    "Snowhead Temple Main": "has(SMALL_KEY_SH, 3) || ((has_explosives || trick_keg_explosives) && has(SMALL_KEY_SH, 2))"
+    "Snowhead Temple Block Room Upper": "can_use_fire_arrows || trick_sht_fireless || can_hookshot_short || can_goron_bomb_jump"
+    "Snowhead Temple Icicles": "has_explosives || trick_keg_explosives"
   locations:
     "Snowhead Temple Compass": "true"
     "Snowhead Temple Compass Room Ledge": "true"
@@ -190,6 +198,9 @@
 "Snowhead Temple Boss":
   boss: true
   dungeon: SH
+  events:
+    MAGIC: "true"
+    ARROWS: "true"
   exits:
     "Snowhead Temple After Boss": "has(ARROW_FIRE)"
 "Snowhead Temple After Boss":
@@ -199,6 +210,8 @@
     "Oath to Order": "true"
   events:
     BOSS_SNOWHEAD: "true"
+    MAGIC: "true"
+    ARROWS: "true"
   locations:
     "Snowhead Temple Boss HC": "true"
     "Snowhead Temple Boss": "true"

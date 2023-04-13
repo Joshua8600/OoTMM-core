@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 static const u16 kSwords[] = {
     ITEM_NONE,
@@ -487,39 +488,39 @@ void comboAddItemSharedMm(s16 gi, int noEffect)
         }
     }
 
-    if (comboConfig(CFG_SHARED_MAGIC_ARROWS))
+    if (comboConfig(CFG_SHARED_MAGIC_ARROW_FIRE) && gi == GI_MM_ARROW_FIRE)
     {
-        switch (gi)
-        {
-        case GI_MM_ARROW_FIRE:
-            comboAddCommonItemOot(SITEM_ARROW_FIRE, noEffect);
-            break;
-        case GI_MM_ARROW_ICE:
-            comboAddCommonItemOot(SITEM_ARROW_ICE, noEffect);
-            break;
-        case GI_MM_ARROW_LIGHT:
-            comboAddCommonItemOot(SITEM_ARROW_LIGHT, noEffect);
-            break;
-        }
+        comboAddCommonItemOot(SITEM_ARROW_FIRE, noEffect);
     }
 
-    if (comboConfig(CFG_SHARED_SONGS))
+    if (comboConfig(CFG_SHARED_MAGIC_ARROW_ICE) && gi == GI_MM_ARROW_ICE)
     {
-        switch (gi)
-        {
-        case GI_MM_SONG_EPONA:
-            comboAddCommonItemOot(SITEM_SONG_EPONA, noEffect);
-            break;
-        case GI_MM_SONG_TIME:
-            comboAddCommonItemOot(SITEM_SONG_TIME, noEffect);
-            break;
-        case GI_MM_SONG_STORMS:
-            comboAddCommonItemOot(SITEM_SONG_STORMS, noEffect);
-            break;
-        case GI_MM_SONG_SUN:
-            comboAddCommonItemOot(SITEM_SONG_SUN, noEffect);
-            break;
-        }
+        comboAddCommonItemOot(SITEM_ARROW_ICE, noEffect);
+    }
+
+    if (comboConfig(CFG_SHARED_MAGIC_ARROW_LIGHT) && gi == GI_MM_ARROW_LIGHT)
+    {
+        comboAddCommonItemOot(SITEM_ARROW_LIGHT, noEffect);
+    }
+
+    if (comboConfig(CFG_SHARED_SONG_EPONA) && gi == GI_MM_SONG_EPONA)
+    {
+        comboAddCommonItemOot(SITEM_SONG_EPONA, noEffect);
+    }
+
+    if (comboConfig(CFG_SHARED_SONG_STORMS) && gi == GI_MM_SONG_STORMS)
+    {
+        comboAddCommonItemOot(SITEM_SONG_STORMS, noEffect);
+    }
+
+    if (comboConfig(CFG_SHARED_SONG_TIME) && gi == GI_MM_SONG_TIME)
+    {
+        comboAddCommonItemOot(SITEM_SONG_TIME, noEffect);
+    }
+
+    if (comboConfig(CFG_SHARED_SONG_SUN) && gi == GI_MM_SONG_SUN)
+    {
+        comboAddCommonItemOot(SITEM_SONG_SUN, noEffect);
     }
 
     if (comboConfig(CFG_SHARED_NUTS_STICKS))
