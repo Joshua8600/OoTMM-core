@@ -3,57 +3,54 @@
   exits:
     "Desert Colossus Spirit Exit": "true"
     "Spirit Temple Child Side": "is_child"
-    "Spirit Temple Statue": "can_longshot && has_explosives && can_lift_silver"
+    "Spirit Temple Statue": "can_longshot && can_lift_silver"
   events:
-    SPIRIT_LOBBY_BOULDERS: "has_explosives_or_hammer"
+    SPIRIT_LOBBY_BOULDERS: "true"
     BOMBS: "true"
     MAGIC: "true"
   locations:
     "MQ Spirit Temple Entrance Initial Chest": "true"
-    "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS) && can_hit_triggers_distance"
-    "MQ Spirit Temple Lobby Back-Right Chest": "can_hit_triggers_distance || has_explosives || can_hookshot"
-    #The following three chests are here to allow for an age indeterminate path. This is the only age indeterminate content in Spirit MQ.
-    "MQ Spirit Temple Compass Chest": "can_use_slingshot && has(BOW) && has(SMALL_KEY_SPIRIT, 2) && has_explosives"
-    "MQ Spirit Temple Sun Block Room Chest": "has(SMALL_KEY_SPIRIT, 2) && has_explosives && can_play(SONG_TIME) && is_child"
-    "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 4) && has_explosives && can_play(SONG_TIME) && is_child && (has_weapon || can_use_sticks) && has_lens"
+    "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS)"
+    "MQ Spirit Temple Lobby Back-Right Chest": "true"
+    "MQ Spirit Temple Compass Chest": "has(SMALL_KEY_SPIRIT, 2)"
+    "MQ Spirit Temple Sun Block Room Chest": "has(SMALL_KEY_SPIRIT, 2) && has(SONG_TIME) && is_child"
+    "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 4) && has(SONG_TIME) && is_child && has(LENS)"
 "Spirit Temple Child Side":
   dungeon: Spirit
   exits:
-    "Spirit Temple Child Upper": "has_explosives && has(SMALL_KEY_SPIRIT, 6)" #Everything in this room that kid can do adult can do too, only 6 keys is safe.
+    "Spirit Temple Child Upper": "has(SMALL_KEY_SPIRIT, 6)"
   locations:
-    "MQ Spirit Temple Map Chest": "can_use_sticks || has_weapon || (has_explosives && has_nuts)"
-    "MQ Spirit Temple Map Room Back Chest": "has_weapon && has_explosives && can_use_slingshot && can_use_din"
+    "MQ Spirit Temple Map Chest": "true"
+    "MQ Spirit Temple Map Room Back Chest": "has(SPELL_FIRE)"
     "MQ Spirit Temple Paradox Chest": "event(SPIRIT_PARADOX)"
 "Spirit Temple Child Upper":
-#All paths into this room guarantee explosives.
   dungeon: Spirit
   exits:
     "Spirit Temple Statue": "has(SMALL_KEY_SPIRIT, 7)"
   events:
     SPIRIT_PARADOX: "can_hammer"
   locations:
-    "MQ Spirit Temple Child Upper Ground Chest": "has_weapon"
-    "MQ Spirit Temple Child Upper Ledge Chest": "can_hookshot"
+    "MQ Spirit Temple Child Upper Ground Chest": "true"
+    "MQ Spirit Temple Child Upper Ledge Chest": "can_hookshot_NNL"
 "Spirit Temple Statue":
   dungeon: Spirit
   exits:
     "Spirit Temple Child Upper": "has(SMALL_KEY_SPIRIT, 7)"
-    "Spirit Temple Sun Block Room": "is_adult || can_play(SONG_TIME)" #Adult's long legs make the jumps easy
-    "Spirit Temple Adult Lower": "has_fire_arrows && has_mirror_shield"
+    "Spirit Temple Sun Block Room": "is_adult || has(SONG_TIME)"
+    "Spirit Temple Adult Lower": "is_adult && has(ARROW_FIRE) && has_mirror_shield"
     "Spirit Temple Adult Upper": "has(SMALL_KEY_SPIRIT, 5)"
     "Spirit Temple Boss": "event(SPIRIT_TEMPLE_LIGHT) && has_mirror_shield && has(BOSS_KEY_SPIRIT)"
   events:
-    SPIRIT_STATUE_FIRE: "has_fire" #This allows for adult to open the shortcut for kid with Fire Arrows.
+    SPIRIT_STATUE_FIRE: "fire_NNL"
   locations:
-    "MQ Spirit Temple Silver Block Room Target Chest": "event(SPIRIT_STATUE_FIRE) && can_use_slingshot"
-    "MQ Spirit Temple Compass Chest": "can_use_slingshot || can_use_bow"
-    "MQ Spirit Temple Chest in Box": "can_play(SONG_ZELDA) && is_adult"
-    "MQ Spirit Temple Statue Room Ledge Chest": "is_adult && has_lens"
+    "MQ Spirit Temple Silver Block Room Target Chest": "event(SPIRIT_STATUE_FIRE)"
+    "MQ Spirit Temple Compass Chest": "true"
+    "MQ Spirit Temple Chest in Box": "has(SONG_ZELDA) && is_adult"
+    "MQ Spirit Temple Statue Room Ledge Chest": "is_adult && has(LENS)"
 "Spirit Temple Sun Block Room":
   dungeon: Spirit
   exits:
-    #This looks weird but is the last way to account for a very specific scenario involving adult access to the Silver Gauntlets chest and the Colossus drop.
-    "Spirit Temple Child Hand": "(has(SMALL_KEY_SPIRIT, 7) && (has_weapon || can_use_sticks)) || (is_adult && has(SMALL_KEY_SPIRIT, 4) && has_lens && can_play(SONG_TIME))"
+    "Spirit Temple Child Hand": "has(SMALL_KEY_SPIRIT, 7) || (is_adult && has(SMALL_KEY_SPIRIT, 4) && has(LENS) && has(SONG_TIME))"
   locations:
     "MQ Spirit Temple Sun Block Room Chest": "true"
     "MQ Spirit Temple GS Sun Block Room": "is_adult"
@@ -85,12 +82,12 @@
   locations:
     "MQ Spirit Temple Dinolfos Room Chest": "true"
     "MQ Spirit Temple Boss Key Chest": "has_mirror_shield"
-    "Spirit Temple Mirror Shield": "has_lens"
+    "Spirit Temple Mirror Shield": "has(LENS)"
 "Spirit Temple Top Floor":
   dungeon: Spirit
   events:
-    SPIRIT_TEMPLE_LIGHT: "can_play(SONG_ZELDA) && can_hammer && has_mirror_shield"
+    SPIRIT_TEMPLE_LIGHT: "has(SONG_ZELDA) && can_hammer && has_mirror_shield"
   locations:
-    "MQ Spirit Temple Topmost Chest": "can_play(SONG_ZELDA) && can_hammer && has_lens"
+    "MQ Spirit Temple Topmost Chest": "has(SONG_ZELDA) && can_hammer && has(LENS)"
     "MQ Spirit Temple GS Top Floor Left Wall": "has(SMALL_KEY_SPIRIT, 7)"
     "MQ Spirit Temple GS Top Floor Back Wall": "has(SMALL_KEY_SPIRIT, 7)"
