@@ -86,3 +86,8 @@
 "can_collect_ageless": "has(HOOKSHOT) && has(BOOMERANG)"
 "has_small_keys_fire(x)": "cond(setting(smallKeyShuffle, anywhere), has(SMALL_KEY_FIRE, x + 1), has(SMALL_KEY_FIRE, x))"
 "king_zora_moved": "event(KING_ZORA_LETTER) || setting(zoraKing, open) || (setting(zoraKing, adult) && is_adult)"
+"can_collect_distance_NNL": "can_boomerang || is_adult"
+"fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
+"has_blue_fire_NNL": "(event(BLUE_FIRE) || has(BLUE_FIRE))"
+"can_hookshot_NNL": "is_adult"
+"scarecrow_hookshot_NNL": "can_hookshot_NNL && event(SCARECROW)"

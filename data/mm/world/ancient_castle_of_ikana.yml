@@ -7,19 +7,19 @@
   dungeon: ACoI
   exits:
     "Ancient Castle of Ikana": "true"
-    "Ancient Castle of Ikana Interior North": "can_reset_time && can_use_fire_arrows"
-    "Ancient Castle of Ikana Interior South": "can_reset_time && can_use_fire_arrows"
-    "Ancient Castle of Ikana Pre-Boss": "can_reset_time && ((has_mirror_shield && event(IKANA_CASTLE_LIGHT2)) || can_use_light_arrows)"
+    "Ancient Castle of Ikana Interior North": "can_reset_time && has(ARROW_FIRE)"
+    "Ancient Castle of Ikana Interior South": "can_reset_time && has(ARROW_FIRE)"
+    "Ancient Castle of Ikana Pre-Boss": "can_reset_time && ((has_mirror_shield && event(IKANA_CASTLE_LIGHT2)) || has(ARROW_LIGHT))"
 "Ancient Castle of Ikana Interior North":
   dungeon: ACoI
   exits:
     "Ancient Castle of Ikana Interior": "true"
-    "Ancient Castle of Ikana Interior North 2": "has(MASK_DEKU)"
+    "Ancient Castle of Ikana Interior North 2": "true"
 "Ancient Castle of Ikana Interior North 2":
   dungeon: ACoI
   exits:
-    "Ancient Castle of Ikana Interior North": "has(MASK_DEKU)"
-    "Ancient Castle of Ikana Roof Exterior": "can_use_lens"
+    "Ancient Castle of Ikana Interior North": "true"
+    "Ancient Castle of Ikana Roof Exterior": "true"
 "Ancient Castle of Ikana Roof Exterior":
   dungeon: ACoI
   exits:
@@ -30,17 +30,17 @@
     IKANA_CASTLE_LIGHT: "has(MASK_DEKU)" #|| (has(MASK_ZORA) && can_gainer) Can press the switch trivially, but can't get back to the roof without these.
     IKANA_CASTLE_LIGHT2: "can_use_keg"
   locations:
-    "Ancient Castle of Ikana HP": "(has(BOW) || can_hookshot_short) && has(MASK_DEKU)"
+    "Ancient Castle of Ikana HP": "has(MASK_DEKU)"
 "Ancient Castle of Ikana Interior South":
   dungeon: ACoI
   exits:
     "Ancient Castle of Ikana Interior": "true"
-    "Ancient Castle of Ikana Wizzrobe": "(has_mirror_shield && event(IKANA_CASTLE_LIGHT)) || can_use_light_arrows"
+    "Ancient Castle of Ikana Wizzrobe": "(has_mirror_shield && event(IKANA_CASTLE_LIGHT)) || has(ARROW_LIGHT)"
 "Ancient Castle of Ikana Wizzrobe":
   dungeon: ACoI
   exits:
-    "Ancient Castle of Ikana Interior South": "can_use_light_arrows"
-    "Ancient Castle of Ikana Roof Interior": "can_fight || has(BOW)"
+    "Ancient Castle of Ikana Interior South": "has(ARROW_LIGHT)"
+    "Ancient Castle of Ikana Roof Interior": "true"
 "Ancient Castle of Ikana Roof Interior":
   dungeon: ACoI
   exits:
@@ -57,7 +57,7 @@
 "Ancient Castle of Ikana Throne Room":
   dungeon: ACoI
   exits:
-    "Ancient Castle of Ikana After Boss": "has_mirror_shield && can_use_fire_arrows && can_fight"
+    "Ancient Castle of Ikana After Boss": "has_mirror_shield && has(ARROW_FIRE)"
 "Ancient Castle of Ikana After Boss":
   dungeon: ACoI
   exits:
