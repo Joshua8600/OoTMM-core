@@ -1021,7 +1021,7 @@
   exits:
     "Zora River": "true"
     "Lake Hylia": "is_child && has(SCALE)"
-    "Zora Domain Back": "event(KING_ZORA_LETTER) || (is_adult && trick(OOT_KZ_SKIP))"
+    "Zora Domain Back": "king_zora_moved || (is_adult && trick(OOT_KZ_SKIP))"
     "Zora Shop": "is_child || has_blue_fire_NNL"
     "Zora Domain Grotto": "has(SONG_STORMS)"
   events:
@@ -1042,7 +1042,7 @@
   region: ZORA_DOMAIN
   exits:
     "Zora Fountain": "true"
-    "Zora Domain": "event(KING_ZORA_LETTER)"
+    "Zora Domain": "king_zora_moved"
 "Zora Shop":
   region: ZORA_DOMAIN
   exits:

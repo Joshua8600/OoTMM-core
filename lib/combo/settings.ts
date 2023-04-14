@@ -2,6 +2,18 @@ import { merge } from 'lodash';
 import type { PartialDeep } from 'type-fest';
 
 export const SETTINGS = [{
+  key: 'goal',
+  name: 'Goal',
+  category: 'main',
+  type: 'enum',
+  values: [
+    { value: 'any', name: 'Any Final Boss' },
+    { value: 'ganon', name: 'Ganon' },
+    { value: 'majora', name: 'Majora' },
+    { value: 'both', name: 'Ganon & Majora' },
+  ],
+  default: 'both'
+}, {
   key: 'logic',
   name: 'Logic',
   category: 'main',
@@ -214,6 +226,17 @@ export const SETTINGS = [{
     { value: 'open', name: 'Open' },
   ],
   default: 'closed'
+}, {
+  key: 'zoraKing',
+  name: 'Zora King',
+  category: 'main.events',
+  type: 'enum',
+  values: [
+    { value: 'vanilla', name: 'Vanilla' },
+    { value: 'adult', name: 'Open (Adult Only)' },
+    { value: 'open', name: 'Open' },
+  ],
+  default: 'vanilla'
 }, {
   key: 'skipZelda',
   name: 'Skip Child Zelda',
