@@ -16,7 +16,15 @@ static void Sram_LoadOptions(void)
 
 void Sram_AfterOpenSave(void)
 {
+    /* Patch MM options */
     Sram_LoadOptions();
+
+    /* Read the foreign save */
+    comboReadForeignSave();
+
+    /* Handle common settings */
+    comboOnSaveLoad();
+
     gSave.playerForm = MM_PLAYER_FORM_HUMAN;
     gSave.equippedMask = 0;
     gSave.entranceIndex = ENTRANCE_CLOCKTOWN;

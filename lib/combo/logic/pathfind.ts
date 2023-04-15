@@ -213,9 +213,6 @@ export class Pathfinder {
     const previousAreaData = this.state.areas[age].get(area);
     const newAreaData = previousAreaData ? mergeAreaData(previousAreaData, sourceAreaData) : sourceAreaData;
     const worldArea = this.world.areas[area];
-    if (!worldArea) {
-      throw new Error(`Area ${area} not found`);
-    }
     if (worldArea.game === 'oot') {
       if (['day', 'flow'].includes(worldArea.time)) {
         newAreaData.oot.day = true;
@@ -339,9 +336,13 @@ export class Pathfinder {
     }
   }
 
-  private addLocation(loc: string) {
+  private addLocationDelayed(loc: string) {
     this.state.locations.add(loc);
     this.state.newLocations.add(loc);
+  }
+
+  private addLocation(loc: string) {
+    this.state.locations.add(loc);
     const item = this.opts.items?.[loc];
     if (item) {
       this.state.uncollectedLocations.delete(loc);
@@ -477,7 +478,7 @@ export class Pathfinder {
         /* Otherwise, track dependencies */
         if (results.some(x => x.result)) {
           if (isAllowed) {
-            this.addLocation(location);
+            this.addLocationDelayed(location);
           } else {
             this.state.forbiddenReachableLocations.add(location);
           }
@@ -528,6 +529,9 @@ export class Pathfinder {
   }
 
   private pathfindStep() {
+    /* Clear new locations */
+    this.state.newLocations = new Set();
+
     for (;;) {
       /* Expand as much as possible */
       this.evalExits('child');
@@ -542,6 +546,11 @@ export class Pathfinder {
 
     /* Get locations */
     this.evalLocations();
+
+    /* Add delayed locations */
+    for (const location of this.state.newLocations) {
+      this.addLocation(location);
+    }
 
     /* Return true if there is more to do */
     const { queue } = this.state;
@@ -561,9 +570,6 @@ export class Pathfinder {
   }
 
   private pathfind() {
-    /* Clear new locations */
-    this.state.newLocations = new Set();
-
     /* Handle initial state */
     if (!this.state.started) {
       this.state.started = true;

@@ -9,11 +9,11 @@
     "Ganon Castle Shadow": "true"
     "Ganon Castle Tower": "true"
   locations:
-    "MQ Ganon Castle Leftmost Scrub": "true"
-    "MQ Ganon Castle Left-Center Scrub": "true"
-    "MQ Ganon Castle Center Scrub": "true"
-    "MQ Ganon Castle Right-Center Scrub": "true"
-    "MQ Ganon Castle Rightmost Scrub": "true"
+    "MQ Ganon Castle Leftmost Scrub": "can_use_wallet(1)"
+    "MQ Ganon Castle Left-Center Scrub": "can_use_wallet(1)"
+    "MQ Ganon Castle Center Scrub": "can_use_wallet(1)"
+    "MQ Ganon Castle Right-Center Scrub": "can_use_wallet(1)"
+    "MQ Ganon Castle Rightmost Scrub": "can_use_wallet(1)"
 "Ganon Castle Light":
   dungeon: Ganon
   events:

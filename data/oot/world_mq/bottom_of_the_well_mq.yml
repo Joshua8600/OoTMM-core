@@ -9,7 +9,7 @@
     "Bottom of the Well": "true"
   locations:
     "MQ Bottom of the Well Map Chest": "has(SONG_ZELDA)"
-    "MQ Bottom of the Well Compass Chest": "true"
+    "MQ Bottom of the Well Compass Chest": "has(SONG_ZELDA)"
     "MQ Bottom of the Well Lens Chest": "has(SONG_ZELDA) && has(SMALL_KEY_BOTW, 2)"
     "MQ Bottom of the Well Dead Hand Key": "true"
     "MQ Bottom of the Well East Middle Room Key": "has(SONG_ZELDA)"

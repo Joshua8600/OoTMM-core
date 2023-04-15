@@ -24,6 +24,15 @@ static void reloadIconsC(GameState_Play* play)
         Interface_LoadItemIconImpl(play, i);
 }
 
+static void reloadHookshot(GameState_Play* play)
+{
+    Actor_Player* link;
+
+    link = GET_LINK(play);
+    link->state &= ~(PLAYER_ACTOR_STATE_HOLD_ITEM | PLAYER_ACTOR_STATE_USE_ITEM);
+    reloadIconsC(play);
+}
+
 void comboAddItemSharedForeignEffect(GameState_Play* play, s16 gi)
 {
     if (comboConfig(CFG_SHARED_WALLETS))
@@ -144,7 +153,11 @@ int comboAddItemEffect(GameState_Play* play, s16 gi)
     case GI_MM_SEAHORSE2:
     case GI_MM_MILK:
     case GI_MM_CHATEAU:
+    case GI_MM_OCARINA_OF_TIME:
         reloadIconsC(play);
+        break;
+    case GI_MM_HOOKSHOT:
+        reloadHookshot(play);
         break;
     }
 
@@ -152,9 +165,11 @@ int comboAddItemEffect(GameState_Play* play, s16 gi)
     {
         switch (gi)
         {
+        case GI_MM_WALLET:
         case GI_MM_WALLET2:
         case GI_MM_WALLET3:
-            addRupees(kMaxRupees[gSave.inventory.upgrades.wallet]);
+        case GI_MM_WALLET4:
+            addRupees(gMmMaxRupees[gSave.inventory.upgrades.wallet]);
             break;
         }
     }

@@ -9,6 +9,9 @@ static void debugCheat(GameState_Play* play)
     MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_SH);
     if (play->gs.input[0].current.buttons & L_TRIG)
     {
+        gSave.playerData.swordHealth = 8;
+        gSave.isBiggoronSword = 1;
+
         gSave.inventory.dungeonKeys[SCE_OOT_TEMPLE_FIRE] = 8;
         gSave.inventory.items[ITS_OOT_STICKS] = ITEM_OOT_STICK;
         gSave.inventory.items[ITS_OOT_NUTS] = ITEM_OOT_NUT;
@@ -38,7 +41,7 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.upgrades.bombBag = 3;
         gSave.inventory.upgrades.quiver = 3;
         gSave.inventory.upgrades.dive = 2;
-        gSave.inventory.upgrades.wallet = 2;
+        //gSave.inventory.upgrades.wallet = 2;
         gSave.inventory.upgrades.strength = 3;
         gSave.inventory.ammo[ITS_OOT_STICKS] = 10;
         gSave.inventory.ammo[ITS_OOT_SLINGSHOT] = 50;
@@ -79,7 +82,7 @@ static void debugCheat(GameState_Play* play)
 
         gSave.playerData.health = gSave.playerData.healthMax = 20 * 0x10;
 
-        gSave.playerData.rupees = 500;
+        //gSave.playerData.rupees = 500;
 
         gOotExtraTrade.child = 0xffff;
         gOotExtraTrade.adult = 0xffff;
