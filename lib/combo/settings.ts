@@ -319,7 +319,7 @@ export const SETTINGS = [{
     { value: 'long', name: 'Long (~25s)' },
     { value: 'verylong', name: 'Very Long (~51s)' },
   ],
-  default: 'default'
+  default: 'instant'
 }, {
   key: 'fillWallets',
   name: 'Fill Wallets',
