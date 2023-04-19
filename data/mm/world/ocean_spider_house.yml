@@ -1,12 +1,15 @@
 "Ocean Spider House":
   dungeon: OSH
   exits:
-    "Ocean Spider House Front": "can_reset_time"
+    "Ocean Spider House Front": "has(SONG_TIME) || (event(MAJORA) && trick(MM_MAJORA_LOGIC))"
     "Great Bay Coast": "true"
   locations:
     "Ocean Spider House Wallet": "has(GS_TOKEN_OCEAN, 30)"
 "Ocean Spider House Front":
   dungeon: OSH
+  events:
+    MAGIC: "true"
+    ARROWS: "true"
   exits:
     "Ocean Spider House": "true"
     "Ocean Spider House Back": "true"
@@ -16,8 +19,6 @@
     "Ocean Skulltula Entrance Web": "true"
 "Ocean Spider House Back":
   dungeon: OSH
-  exits:
-    "Ocean Spider House": "true"
   locations:
     "Ocean Skulltula 2nd Room Ceiling Edge": "true"
     "Ocean Skulltula 2nd Room Ceiling Plank": "true"

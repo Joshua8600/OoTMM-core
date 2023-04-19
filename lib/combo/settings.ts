@@ -159,6 +159,8 @@ export const SETTINGS = [{
   type: 'enum',
   values: [
     { value: 'dungeonBlueWarps', name: 'Dungeon Blue Warps' },
+    { value: 'dungeonsLimited', name: 'Dungeons (Max one per dungeon)' },
+    { value: 'dungeons', name: 'Dungeons (Unrestricted)' },
     { value: 'anywhere', name: 'Anywhere' },
   ],
   default: 'dungeonBlueWarps'
@@ -304,6 +306,20 @@ export const SETTINGS = [{
   category: 'main.misc',
   type: 'boolean',
   default: false
+}, {
+  key: 'blaskMaskCooldown',
+  name: 'Blast Mask Cooldown',
+  category: 'main.misc',
+  type: 'enum',
+  values: [
+    { value: 'instant', name: 'Instant (0s)' },
+    { value: 'veryshort', name: 'Very Short (~2s)' },
+    { value: 'short', name: 'Short (~6s)' },
+    { value: 'default', name: 'Default (~15s)' },
+    { value: 'long', name: 'Long (~25s)' },
+    { value: 'verylong', name: 'Very Long (~51s)' },
+  ],
+  default: 'default'
 }, {
   key: 'fillWallets',
   name: 'Fill Wallets',

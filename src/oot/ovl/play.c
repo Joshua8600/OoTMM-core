@@ -41,7 +41,7 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.upgrades.bombBag = 3;
         gSave.inventory.upgrades.quiver = 3;
         gSave.inventory.upgrades.dive = 2;
-        //gSave.inventory.upgrades.wallet = 2;
+        gSave.inventory.upgrades.wallet = 2;
         gSave.inventory.upgrades.strength = 3;
         gSave.inventory.ammo[ITS_OOT_STICKS] = 10;
         gSave.inventory.ammo[ITS_OOT_SLINGSHOT] = 50;
@@ -82,7 +82,7 @@ static void debugCheat(GameState_Play* play)
 
         gSave.playerData.health = gSave.playerData.healthMax = 20 * 0x10;
 
-        //gSave.playerData.rupees = 500;
+        gSave.playerData.rupees = 500;
 
         gOotExtraTrade.child = 0xffff;
         gOotExtraTrade.adult = 0xffff;
@@ -123,6 +123,14 @@ static void eventFixes(GameState_Play* play)
         if (!(tmp & 0xff))
             tmp |= 0x1e;
         gSave.eventsMisc[20] = tmp;
+
+        /* Ruto kidnap fixes */
+        if (BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED) || BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE))
+        {
+            /* Un-kidnap ruto */
+            BITMAP16_CLEAR(gSave.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED);
+            BITMAP16_CLEAR(gSave.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE);
+        }
     }
 
     /* Skip Zelda's cutscene when having all the spiritual stones */
