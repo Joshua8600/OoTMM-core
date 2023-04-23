@@ -25,6 +25,7 @@
     "MQ Spirit Temple Map Room Back Chest": "has(SPELL_FIRE)"
     "MQ Spirit Temple Paradox Chest": "event(SPIRIT_PARADOX)"
 "Spirit Temple Child Upper":
+#All paths into this room guarantee explosives.
   dungeon: Spirit
   exits:
     "Spirit Temple Statue": "has(SMALL_KEY_SPIRIT, 7)"
