@@ -8,6 +8,7 @@
   exits:
     "Shadow Temple Main": "has_hover_boots"
   events:
+#There are a lot of ways this works, but it always needs this trick.
     MAGIC: "trick(OOT_LENS)"
   locations:
     "Shadow Temple Map": "true"
