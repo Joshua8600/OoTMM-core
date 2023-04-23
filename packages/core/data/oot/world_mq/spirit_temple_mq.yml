@@ -40,7 +40,7 @@
     "Spirit Temple Child Upper": "has(SMALL_KEY_SPIRIT, 7)"
     "Spirit Temple Sun Block Room": "is_adult || has(SONG_TIME)"
     "Spirit Temple Adult Lower": "is_adult && has(ARROW_FIRE) && has_mirror_shield"
-    "Spirit Temple Adult Upper": "has(SMALL_KEY_SPIRIT, 5)"
+    "Spirit Temple Adult Upper": "is_adult && has(SMALL_KEY_SPIRIT, 5)"
     "Spirit Temple Boss": "event(SPIRIT_TEMPLE_LIGHT) && has_mirror_shield && has(BOSS_KEY_SPIRIT)"
   events:
     SPIRIT_STATUE_FIRE: "fire_NNL"
