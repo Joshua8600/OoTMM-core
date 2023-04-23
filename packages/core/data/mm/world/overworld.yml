@@ -1560,7 +1560,7 @@
   exits:
     "Road to Ikana Top": "true"
     "Ikana Canyon": "can_hookshot"
-    "Secret Shrine Entrance": "true"
+    "Secret Shrine": "true"
     "Sakon Hideout": "event(MEET_KAFEI) && at(NIGHT3_PM_06_00)"
     "Ikana Valley Grotto": "true"
     "Swamp Front": "true"
