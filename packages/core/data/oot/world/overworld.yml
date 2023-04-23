@@ -138,6 +138,7 @@
     "Hyrule Field Fairy Grotto": "true"
   events:
     BIG_POE: "can_ride_epona && can_use_bow && has_bottle"
+    #There are rocks near Gerudo Valley you can farm for drops
     BOMBS: "true"
     RUPEES: "true"
     SEEDS: "is_child"
