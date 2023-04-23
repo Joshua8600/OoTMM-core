@@ -12,6 +12,7 @@
     "MQ Spirit Temple Entrance Initial Chest": "true"
     "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS)"
     "MQ Spirit Temple Lobby Back-Right Chest": "true"
+    #The following three chests are here to allow for an age indeterminate path. This is the only age indeterminate content in Spirit MQ.
     "MQ Spirit Temple Compass Chest": "has(SMALL_KEY_SPIRIT, 2)"
     "MQ Spirit Temple Sun Block Room Chest": "has(SMALL_KEY_SPIRIT, 2) && has(SONG_TIME) && is_child"
     "Spirit Temple Silver Gauntlets": "has(SMALL_KEY_SPIRIT, 4) && has(SONG_TIME) && is_child && has(LENS)"
