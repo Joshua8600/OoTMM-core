@@ -46,6 +46,7 @@
   locations:
     "MQ Ganon Castle Spirit Trial First Chest": "can_hammer"
     "MQ Ganon Castle Spirit Trial Second Chest": "can_hammer"
+    #Chests are named relative to facing the door to the end of the trial
     "MQ Ganon Castle Spirit Trial Back Right Sun Chest": "can_hammer && has(ARROW_FIRE) && has_mirror_shield"
     "MQ Ganon Castle Spirit Trial Back Left Sun Chest": "can_hammer && has(ARROW_FIRE) && has_mirror_shield"
     "MQ Ganon Castle Spirit Trial Front Left Sun Chest": "can_hammer && has(ARROW_FIRE) && has_mirror_shield"
