@@ -52,6 +52,7 @@
   dungeon: Spirit
   exits:
     "Spirit Temple Child Hand": "has(SMALL_KEY_SPIRIT, 7) || (is_adult && has(SMALL_KEY_SPIRIT, 4) && has(LENS) && has(SONG_TIME))"
+    #This looks weird but is the last way to account for a very specific scenario involving adult access to the Silver Gauntlets chest and the Colossus drop.
   locations:
     "MQ Spirit Temple Sun Block Room Chest": "true"
     "MQ Spirit Temple GS Sun Block Room": "is_adult"
