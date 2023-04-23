@@ -1,0 +1,64 @@
+"Ocean Spider House":
+  dungeon: OSH
+  exits:
+    "Ocean Spider House Front": "has(SONG_TIME) || (event(MAJORA) && trick(MM_MAJORA_LOGIC))"
+    "Great Bay Coast": "true"
+  locations:
+    "Ocean Spider House Wallet": "has(GS_TOKEN_OCEAN, 30)"
+"Ocean Spider House Front":
+  dungeon: OSH
+  events:
+    MAGIC: "true"
+    ARROWS: "true"
+  exits:
+    "Ocean Spider House": "true"
+    "Ocean Spider House Back": "true"
+  locations:
+    "Ocean Skulltula Entrance Right Wall": "true"
+    "Ocean Skulltula Entrance Left Wall": "true"
+    "Ocean Skulltula Entrance Web": "true"
+"Ocean Spider House Back":
+  dungeon: OSH
+  locations:
+    "Ocean Skulltula 2nd Room Ceiling Edge": "true"
+    "Ocean Skulltula 2nd Room Ceiling Plank": "true"
+    "Ocean Skulltula 2nd Room Jar": "true"
+    "Ocean Skulltula 2nd Room Webbed Hole": "true"
+    "Ocean Skulltula 2nd Room Behind Skull 1": "true"
+    "Ocean Skulltula 2nd Room Behind Skull 2": "true"
+    "Ocean Skulltula 2nd Room Webbed Pot": "true"
+    "Ocean Skulltula 2nd Room Upper Pot": "true"
+    "Ocean Skulltula 2nd Room Lower Pot": "true"
+    "Ocean Skulltula Library Hole Behind Picture": "true"
+    "Ocean Skulltula Library Hole Behind Cabinet": "true"
+    "Ocean Skulltula Library On Corner Bookshelf": "true"
+<<<<<<< HEAD:packages/core/data/mm/world/ocean_spider_house.yml
+    "Ocean Skulltula Library Behind Picture": "can_hookshot_short || has_arrows || has(MASK_ZORA) || can_use_deku_bubble"
+=======
+    "Ocean Skulltula Library Behind Picture": "true"
+>>>>>>> NNL-develop:data/mm/world/ocean_spider_house.yml
+    "Ocean Skulltula Library Behind Bookcase 1": "true"
+    "Ocean Skulltula Library Behind Bookcase 2": "true"
+    "Ocean Skulltula Library Ceiling Edge": "true"
+    "Ocean Skulltula Colored Skulls Chandelier 1": "true"
+    "Ocean Skulltula Colored Skulls Chandelier 2": "true"
+    "Ocean Skulltula Colored Skulls Chandelier 3": "true"
+<<<<<<< HEAD:packages/core/data/mm/world/ocean_spider_house.yml
+    "Ocean Skulltula Colored Skulls Behind Picture": "can_hookshot_short || has(MASK_ZORA) || (has(MASK_GORON) && (has_arrows || can_use_deku_bubble))"
+    "Ocean Skulltula Colored Skulls Pot": "true"
+    "Ocean Skulltula Colored Skulls Ceiling Edge": "can_hookshot_short || has(MASK_ZORA)"
+    "Ocean Spider House Chest HP": "has_arrows && (has(MASK_CAPTAIN) || trick(MM_CAPTAIN_SKIP))"
+    "Ocean Skulltula Storage Room Behind Boat": "true"
+    "Ocean Skulltula Storage Room Ceiling Web": "can_use_fire_arrows && (can_hookshot_short || has(MASK_ZORA))"
+    "Ocean Skulltula Storage Room Behind Crate": "can_hookshot_short || has(MASK_ZORA) || (has(MASK_GORON) && (has_arrows || can_use_deku_bubble || has_explosives || trick_keg_explosives))"
+=======
+    "Ocean Skulltula Colored Skulls Behind Picture": "true"
+    "Ocean Skulltula Colored Skulls Pot": "true"
+    "Ocean Skulltula Colored Skulls Ceiling Edge": "true"
+    "Ocean Spider House Chest HP": "true"
+    "Ocean Skulltula Storage Room Behind Boat": "true"
+    "Ocean Skulltula Storage Room Ceiling Web": "true"
+    "Ocean Skulltula Storage Room Behind Crate": "true"
+>>>>>>> NNL-develop:data/mm/world/ocean_spider_house.yml
+    "Ocean Skulltula Storage Room Crate": "true"
+    "Ocean Skulltula Storage Room Jar": "true"

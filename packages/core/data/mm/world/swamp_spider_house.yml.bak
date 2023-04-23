@@ -1,0 +1,55 @@
+"Swamp Spider House":
+  dungeon: SSH
+  exits:
+    "Near Swamp Spider House": "true"
+    "Swamp Spider House Main": "can_reset_time"
+  locations:
+    "Swamp Spider House Mask of Truth": "has(GS_TOKEN_SWAMP, 30)"
+"Swamp Spider House Main":
+  dungeon: SSH
+  events:
+    MAGIC: "true"
+    RUPEES: "has_arrows"
+    BUGS: "has_bottle"
+  exits:
+    "Swamp Spider House": "true"
+  locations:
+<<<<<<< HEAD:packages/core/data/mm/world/swamp_spider_house.yml
+    "Swamp Skulltula Main Room Near Ceiling": "can_hookshot_short || has(MASK_ZORA) || (has(MASK_DEKU) && (has_arrows || has_magic || (has_bombs || has_bombchu || trick_keg_explosives)))"
+    "Swamp Skulltula Main Room Lower Right Soft Soil": "has_bottle"
+    "Swamp Skulltula Main Room Lower Left Soft Soil": "has_bottle"
+    "Swamp Skulltula Main Room Upper Soft Soil": "has_bottle"
+=======
+    "Swamp Skulltula Main Room Near Ceiling": "true"
+    "Swamp Skulltula Main Room Lower Right Soft Soil": "true"
+    "Swamp Skulltula Main Room Lower Left Soft Soil": "true"
+    "Swamp Skulltula Main Room Upper Soft Soil": "true"
+>>>>>>> NNL-develop:data/mm/world/swamp_spider_house.yml
+    "Swamp Skulltula Main Room Upper Pillar": "true"
+    "Swamp Skulltula Main Room Pillar": "true"
+    "Swamp Skulltula Main Room Water": "true"
+    "Swamp Skulltula Main Room Jar": "true"
+    "Swamp Skulltula Gold Room Near Ceiling": "true"
+    "Swamp Skulltula Gold Room Pillar": "true"
+    "Swamp Skulltula Gold Room Wall": "true"
+    "Swamp Skulltula Tree Room Hive": "true"
+    "Swamp Skulltula Tree Room Grass 1": "true"
+    "Swamp Skulltula Tree Room Grass 2": "true"
+    "Swamp Skulltula Tree Room Tree 1": "true"
+    "Swamp Skulltula Tree Room Tree 2": "true"
+    "Swamp Skulltula Tree Room Tree 3": "true"
+    "Swamp Skulltula Monument Room Lower Wall": "true"
+    "Swamp Skulltula Monument Room On Monument": "true"
+    "Swamp Skulltula Monument Room Crate 1": "true"
+    "Swamp Skulltula Monument Room Crate 2": "true"
+    "Swamp Skulltula Monument Room Torch": "true"
+    "Swamp Skulltula Gold Room Hive": "true"
+    "Swamp Skulltula Pot Room Hive 1": "true"
+    "Swamp Skulltula Pot Room Hive 2": "true"
+    "Swamp Skulltula Pot Room Behind Vines": "true"
+    "Swamp Skulltula Pot Room Pot 1": "true"
+    "Swamp Skulltula Pot Room Pot 2": "true"
+    "Swamp Skulltula Pot Room Jar": "true"
+    "Swamp Skulltula Pot Room Wall": "true"
+  gossip:
+    "Swamp Spider House Gossip": "true"

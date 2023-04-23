@@ -1,0 +1,142 @@
+"Woodfall Temple":
+  dungeon: WF
+  exits:
+    "Woodfall Front of Temple": "true"
+    "Woodfall Temple Entrance": "can_reset_time"
+"Woodfall Temple Entrance":
+  dungeon: WF
+  events:
+    MAGIC: "true"
+    RUPEES: "has_weapon_range"
+  exits:
+    "Woodfall Temple": "true"
+    "Woodfall Temple Main": "true"
+  locations:
+    "Woodfall Temple Entrance Chest": "true"
+    "Woodfall Temple SF Entrance": "true"
+"Woodfall Temple Main":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Entrance": "true"
+    "Woodfall Temple Water Room": "true"
+    "Woodfall Temple Maze": "has(SMALL_KEY_WF, 1)"
+    "Woodfall Temple Main Ledge": "event(WOODFALL_TEMPLE_MAIN_FLOWER) || event(WOODFALL_TEMPLE_MAIN_LADDER)"
+  events:
+    WOODFALL_TEMPLE_MAIN_FLOWER: "has(ARROW_FIRE) && has(MAGIC_UPGRADE)"
+    STICKS: "true"
+    NUTS: "true"
+    BOMBS: "true"
+    ARROWS: "true"
+  locations:
+    "Woodfall Temple SF Main Pot": "true"
+    "Woodfall Temple SF Main Deku Baba": "true"
+"Woodfall Temple Water Room":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Main": "true"
+    "Woodfall Temple Map Room": "true"
+    "Woodfall Temple Water Room Upper": "has(MASK_DEKU)"
+  locations:
+    "Woodfall Temple Water Chest": "true"
+    "Woodfall Temple SF Water Room Beehive": "true"
+"Woodfall Temple Map Room":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Water Room": "true"
+  locations:
+    "Woodfall Temple Map": "true"
+"Woodfall Temple Maze":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Main": "true"
+    "Woodfall Temple Compass Room": "has_sticks || can_use_fire_arrows"
+    "Woodfall Temple Dark Room": "has_sticks || can_use_fire_arrows"
+  locations:
+    "Woodfall Temple SF Maze Skulltula": "true"
+    "Woodfall Temple SF Maze Beehive": "true"
+    "Woodfall Temple SF Maze Bubble": "true"
+"Woodfall Temple Compass Room":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Maze": "true"
+  locations:
+    "Woodfall Temple Compass": "true"
+"Woodfall Temple Dark Room":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Maze": "has_sticks || has_arrows"
+    "Woodfall Temple Pits Room": "true"
+  locations:
+    "Woodfall Temple Dark Chest": "true"
+"Woodfall Temple Pits Room":
+  dungeon: WF
+  events:
+    RUPEES: "true"
+  exits:
+    "Woodfall Temple Main": "true"
+    "Woodfall Temple Dark Room": "true"
+    "Woodfall Temple Main Ledge": "has(MASK_DEKU)"
+"Woodfall Temple Main Ledge":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Main": "true"
+    "Woodfall Temple Pits Room": "true"
+    "Woodfall Temple Pre-Boss": "true"
+  events:
+    WOODFALL_TEMPLE_MAIN_FLOWER: "true"
+    WOODFALL_TEMPLE_MAIN_LADDER: "true"
+  locations:
+    "Woodfall Temple Center Chest": "true"
+    "Woodfall Temple SF Main Bubble": "true"
+"Woodfall Temple Water Room Upper":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Main Ledge": "true"
+    "Woodfall Temple Water Room": "true"
+    "Woodfall Temple Bow Room": "true"
+    "Woodfall Temple Boss Key Room": "true"
+"Woodfall Temple Bow Room":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Water Room Upper": "true"
+  locations:
+    "Woodfall Temple Bow": "true"
+"Woodfall Temple Boss Key Room":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Water Room Upper": "true"
+  events:
+    FROG_2: "has(MASK_DON_GERO)"
+  locations:
+    "Woodfall Temple Boss Key Chest": "true"
+"Woodfall Temple Pre-Boss":
+  dungeon: WF
+  exits:
+    "Woodfall Temple Boss": "has(BOSS_KEY_WF) && (can_hookshot || has(MASK_DEKU))"
+    "Woodfall Temple Main Ledge": "true"
+  locations:
+    "Woodfall Temple SF Pre-Boss Bottom Right": "true"
+    "Woodfall Temple SF Pre-Boss Left": "true"
+    "Woodfall Temple SF Pre-Boss Top Right": "true"
+    "Woodfall Temple SF Pre-Boss Pillar": "true"
+"Woodfall Temple Princess Jail":
+  dungeon: WF
+  events:
+    DEKU_PRINCESS: "true"
+  exits:
+    "Woodfall": "true"
+"Woodfall Temple Boss":
+  boss: true
+  dungeon: WF
+  exits:
+    "Woodfall Temple After Boss": "true"
+"Woodfall Temple After Boss":
+  boss: true
+  dungeon: WF
+  exits:
+    "Oath to Order": "true"
+  events:
+    CLEAN_SWAMP: "true"
+  locations:
+    "Woodfall Temple Boss Container": "true"
+    "Woodfall Temple Boss": "true"
