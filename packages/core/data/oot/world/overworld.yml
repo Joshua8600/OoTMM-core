@@ -1171,6 +1171,7 @@
     "Death Mountain Crater Warp": "has_tunic_goron_strict && scarecrow_longshot"
     "Death Mountain Crater Generic Grotto": "true"
   events:
+    #Having to farm these rocks for drops without heat resistance isn't fair
     BOMBS: "has_tunic_goron_strict"
     RUPEES: "has_tunic_goron_strict"
     ARROWS: "has_tunic_goron_strict"
