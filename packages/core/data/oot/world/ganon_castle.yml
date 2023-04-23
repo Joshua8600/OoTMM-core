@@ -58,13 +58,3 @@
   locations:
     "Ganon Castle Shadow Chest 1": "is_adult"
     "Ganon Castle Shadow Chest 2": "(can_longshot || has(ARROW_FIRE)) && (has_hover_boots || has_fire)"
-"Ganon Castle Tower":
-  dungeon: Ganon
-  locations:
-    "Ganon Castle Boss Key": "true"
-  exits:
-    "Ganon Castle Tower Boss": "setting(ganonBossKey, removed) || has(BOSS_KEY_GANON)"
-"Ganon Castle Tower Boss":
-  dungeon: Ganon
-  events:
-    GANON: "has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
