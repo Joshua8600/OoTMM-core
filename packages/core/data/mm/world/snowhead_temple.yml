@@ -8,6 +8,7 @@
   exits:
     "Snowhead Temple": "true"
     "Snowhead Temple Main": "true"
+    "Snowhead Temple Boss": "setting(bossWarpPads, remains) && has(REMAINS_GOHT)"
 "Snowhead Temple Main":
   dungeon: SH
   events:

@@ -11,6 +11,7 @@
   exits:
     "Woodfall Temple": "true"
     "Woodfall Temple Main": "true"
+    "Woodfall Temple Boss": "setting(bossWarpPads, remains) && has(REMAINS_ODOLWA)"
   locations:
     "Woodfall Temple Entrance Chest": "true"
     "Woodfall Temple SF Entrance": "true"
