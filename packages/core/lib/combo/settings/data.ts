@@ -24,6 +24,19 @@ export const SETTINGS = [{
   ],
   default: 'allLocations'
 }, {
+  key: 'itemPool',
+  name: 'Item Pool',
+  category: 'main',
+  type: 'enum',
+  description: 'Change the item pool.',
+  values: [
+    { value: 'plentiful', name: 'Plentiful', description: 'One extra copy of every major item. Heart containers only.' },
+    { value: 'normal', name: 'Normal', description: 'The regular item count for each game.' },
+    { value: 'scarce', name: 'Scarce', description: 'One less of every major item. No Heart Containers.' },
+    { value: 'minimal', name: 'Minimal', description: 'Only one of each major item. No Heart Pieces or containers.' },
+  ],
+  default: 'normal'
+}, {
   key: 'generateSpoilerLog',
   name: 'Generate Spoiler Log',
   category: 'main',
@@ -251,6 +264,38 @@ export const SETTINGS = [{
     { value: 'open', name: 'Open', description: 'The Door is already open' },
   ],
   default: 'closed'
+}, {
+  key: 'dekuTree',
+  name: 'Deku Tree',
+  category: 'main.events',
+  type: 'enum',
+  description: 'Alters the Deku Tree state',
+  values: [
+    { value: 'closed', name: 'Closed', description: 'Mido will block the way to the deku tree until you have a deku shield and the kokiri sword.' },
+    { value: 'open', name: 'Open', description: 'The deku tree will be open from the start' },
+  ],
+  default: 'open'
+}, {
+  key: 'dekuTreeAdult',
+  name: 'Deku Tree as Adult',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Allows access to the Deku Tree as adult.',
+  default: false
+}, {
+  key: 'wellAdult',
+  name: 'Well as Adult',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Allows access to the Well as adult.',
+  default: false
+}, {
+  key: 'fireChild',
+  name: 'Fire Temple as Child',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Allows access to the Fire Temple as child.',
+  default: false
 }, {
   key: 'kakarikoGate',
   name: 'Kakariko Gate',
