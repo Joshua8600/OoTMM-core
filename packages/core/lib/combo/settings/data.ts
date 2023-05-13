@@ -197,6 +197,13 @@ export const SETTINGS = [{
   description: 'Should Business Scrubs in OOT shuffled? If not, the one in Hyrule Field by Lake Hylia fences, the one by the Bridge in Lost Woods and the front one in the grotto near Sacred Forest Meadow will still be shuffled',
   default: false
 }, {
+  key: 'scrubShuffleMm',
+  name: 'Scrub Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Shuffle the three business scrubs that sells regular items in MM',
+  default: false
+}, {
   key: 'cowShuffleOot',
   name: 'Cow Shuffle (OoT)',
   category: 'main.shuffle',
@@ -257,6 +264,13 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'Controls whether or not the Gerudo Membership Card is shuffled amongst all the items',
   default: true
+}, {
+  key: 'shuffleMerchantsMm',
+  name: 'Merchants Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Shuffle extra merchants in MM',
+  default: false
 }, {
   key: 'eggShuffle',
   name: 'Weird / Pocket Egg Content Shuffle',
