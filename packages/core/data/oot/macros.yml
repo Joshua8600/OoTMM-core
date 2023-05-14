@@ -115,11 +115,15 @@
 "king_zora_moved": "event(KING_ZORA_LETTER) || setting(zoraKing, open) || (setting(zoraKing, adult) && is_adult)"
 "can_move_mido": "is_child && has_sword_kokiri && renewable(SHIELD_DEKU)"
 "mido_moved": "setting(dekuTree, open) || is_adult || event(MIDO_MOVED)"
-
 # Wallets
 "has_wallet(n)": "cond(setting(childWallets), has(WALLET, n), has(WALLET, n - 1))"
 "can_use_wallet(n)": "has_rupees && has_wallet(n)"
-
 # Keys
 "boss_key(x)": "setting(bossKeyShuffleOot, removed) || has(x)"
 "small_keys(x, count)": "setting(smallKeyShuffleOot, removed) || has(x, count)"
+# NNL-Macros
+"can_collect_distance_NNL": "can_boomerang || is_adult"
+"fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
+"has_blue_fire_NNL": "(event(BLUE_FIRE) || has(BLUE_FIRE))"
+"can_hookshot_NNL": "is_adult"
+"scarecrow_hookshot_NNL": "can_hookshot_NNL && event(SCARECROW)"
