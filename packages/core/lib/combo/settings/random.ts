@@ -64,9 +64,11 @@ export function applyRandomSettings(rnd: OptionRandomSettings, oldSettings: Sett
   base.housesSkulltulaTokens = sampleWeighted(random, { none: 5, all: 3 });
   base.tingleShuffle = sampleWeighted(random, { vanilla: 10, anywhere: 7, starting: 7, removed: 5 });
   base.mapCompassShuffle = sampleWeighted(random, { ownDungeon: 10, anywhere: 7, starting: 7, removed: 5 });
-  base.smallKeyShuffle = sampleWeighted(random, { ownDungeon: 10, anywhere: 7 });
+  base.smallKeyShuffleOot = sampleWeighted(random, { ownDungeon: 10, anywhere: 8, removed: 4 });
+  base.smallKeyShuffleMm = sampleWeighted(random, { ownDungeon: 10, anywhere: 8, removed: 4 });
   base.smallKeyShuffleHideout = sampleWeighted(random, { ownDungeon: 10, anywhere: 7 });
-  base.bossKeyShuffle = sampleWeighted(random, { ownDungeon: 10, anywhere: 7 });
+  base.bossKeyShuffleOot = sampleWeighted(random, { ownDungeon: 10, anywhere: 8, removed: 4 });
+  base.bossKeyShuffleMm = sampleWeighted(random, { ownDungeon: 10, anywhere: 8, removed: 4 });
   base.townFairyShuffle = sampleWeighted(random, { vanilla: 10, anywhere: 10 });
   base.strayFairyShuffle = sampleWeighted(random, { mixed: 10, anywhere: 7, vanilla: 3, ownDungeon: 5 });
   base.ganonBossKey = sampleWeighted(random, { removed: 10, vanilla: 5, anywhere: 7, ganon: 5 });
@@ -82,6 +84,7 @@ export function applyRandomSettings(rnd: OptionRandomSettings, oldSettings: Sett
   base.dekuTree = sampleWeighted(random, { open: 10, closed: 7 });
   base.kakarikoGate = sampleWeighted(random, { closed: 10, open: 7 });
   base.zoraKing = sampleWeighted(random, { vanilla: 10, open: 5, adult: 5 });
+  base.gerudoFortress = sampleWeighted(random, { vanilla: 1, single: 1, open: 1 });
   base.bossWarpPads = sampleWeighted(random, { bossBeaten: 10, remains: 4 });
   base.crossWarpOot = booleanWeighted(random, 0.5);
   base.sunSongMm = booleanWeighted(random, 0.5);

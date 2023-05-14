@@ -17,7 +17,7 @@
     RUPEES: "true"
   exits:
     "Snowhead Temple Entrance": "true"
-    "Snowhead Temple Compass Room": "has(SMALL_KEY_SH, 3)"
+    "Snowhead Temple Compass Room": "small_keys(SMALL_KEY_SH, 3)"
     "Snowhead Temple Bridge Front": "true"
     "Snowhead Temple Center Level 1": "true"
 "Snowhead Temple Bridge Front":
@@ -103,7 +103,7 @@
 "Snowhead Temple Compass Room":
   dungeon: SH
   exits:
-    "Snowhead Temple Main": "has(SMALL_KEY_SH, 3) || ((has_explosives || trick_keg_explosives) && has(SMALL_KEY_SH, 2))"
+    "Snowhead Temple Main": "small_keys(SMALL_KEY_SH, 3) || ((has_explosives || trick_keg_explosives) && small_keys(SMALL_KEY_SH, 2))"
     "Snowhead Temple Block Room Upper": "can_use_fire_arrows || trick_sht_fireless || can_hookshot_short || can_goron_bomb_jump"
     "Snowhead Temple Icicles": "has_explosives || trick_keg_explosives"
   locations:
@@ -114,14 +114,14 @@
   dungeon: SH
   exits:
     "Snowhead Temple Compass Room": "true"
-    "Snowhead Temple Dual Switches": "has(SMALL_KEY_SH, 3)"
+    "Snowhead Temple Dual Switches": "small_keys(SMALL_KEY_SH, 3)"
   locations:
     "Snowhead Temple Icicle Room Alcove": "true"
     "Snowhead Temple Icicle Room": "true"
 "Snowhead Temple Dual Switches":
   dungeon: SH
   exits:
-    "Snowhead Temple Icicles": "has(SMALL_KEY_SH, 3)"
+    "Snowhead Temple Icicles": "small_keys(SMALL_KEY_SH, 3)"
     "Snowhead Temple Center Level 2 Dual": "true"
   locations:
     "Snowhead Temple SF Dual Switches": "has(MASK_GREAT_FAIRY)"
@@ -146,7 +146,7 @@
     "Snowhead Temple Map Room Upper": "true"
     "Snowhead Temple Center Level 2 Dual": "true"
     "Snowhead Temple Center Level 3 Iced": "has(MASK_GORON) || can_hookshot"
-    "Snowhead Temple Snow Room": "has(SMALL_KEY_SH, 3)"
+    "Snowhead Temple Snow Room": "small_keys(SMALL_KEY_SH, 3)"
     "Snowhead Temple Fire Arrow": "true"
   locations:
     "Snowhead Temple Central Room Alcove": "true"
@@ -165,8 +165,8 @@
 "Snowhead Temple Snow Room":
   dungeon: SH
   exits:
-    "Snowhead Temple Center Level 3 Snow": "has(SMALL_KEY_SH, 3)"
-    "Snowhead Temple Dinolfos Room": "true"
+    "Snowhead Temple Center Level 3 Snow": "small_keys(SMALL_KEY_SH, 3)"
+    "Snowhead Temple Dinolfos Room": "has(ARROW_FIRE)"
   locations:
     "Snowhead Temple SF Snow Room": "true"
 "Snowhead Temple Dinolfos Room":
@@ -192,7 +192,7 @@
   exits:
     "Snowhead Temple Center Level 3 Iced": "true"
     "Snowhead Temple Center Level 3 Snow": "true"
-    "Snowhead Temple Boss": "has(BOSS_KEY_SH)"
+    "Snowhead Temple Boss": "boss_key(BOSS_KEY_SH)"
     "Snowhead Temple Boss Key Room": "true"
     "Snowhead Temple Dinolfos Room": "true"
 "Snowhead Temple Boss":

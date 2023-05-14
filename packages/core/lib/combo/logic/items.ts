@@ -321,7 +321,7 @@ export const ITEMS_REQUIRED = new Set<string>([
   'SHARED_BOMBCHU_20',
 ]);
 
-export const ITEMS_SMALL_KEY = new Set([
+export const ITEMS_SMALL_KEY_OOT = new Set([
   'OOT_SMALL_KEY_FOREST',
   'OOT_SMALL_KEY_FIRE',
   'OOT_SMALL_KEY_WATER',
@@ -330,18 +330,24 @@ export const ITEMS_SMALL_KEY = new Set([
   'OOT_SMALL_KEY_BOTW',
   'OOT_SMALL_KEY_GTG',
   'OOT_SMALL_KEY_GANON',
+]);
+
+export const ITEMS_SMALL_KEY_MM = new Set([
   'MM_SMALL_KEY_WF',
   'MM_SMALL_KEY_SH',
   'MM_SMALL_KEY_GB',
   'MM_SMALL_KEY_ST',
 ]);
 
-export const ITEMS_BOSS_KEY = new Set([
+export const ITEMS_BOSS_KEY_OOT = new Set([
   'OOT_BOSS_KEY_FOREST',
   'OOT_BOSS_KEY_FIRE',
   'OOT_BOSS_KEY_WATER',
   'OOT_BOSS_KEY_SPIRIT',
   'OOT_BOSS_KEY_SHADOW',
+]);
+
+export const ITEMS_BOSS_KEY_MM = new Set([
   'MM_BOSS_KEY_WF',
   'MM_BOSS_KEY_SH',
   'MM_BOSS_KEY_GB',
@@ -593,10 +599,14 @@ export const isMapCompass = (item: string) => isMap(item) || isCompass(item);
 export const isSong = (item: string) => ITEMS_SONGS.has(item);
 export const isSmallKey = (item: string) => isSmallKeyRegular(item) || isSmallKeyHideout(item);
 export const isSmallKeyHideout = (item: string) => item === 'OOT_SMALL_KEY_GF';
-export const isSmallKeyRegular = (item: string) => ITEMS_SMALL_KEY.has(item);
+export const isSmallKeyRegularOot = (item: string) => ITEMS_SMALL_KEY_OOT.has(item);
+export const isSmallKeyRegularMm = (item: string) => ITEMS_SMALL_KEY_MM.has(item);
+export const isSmallKeyRegular = (item: string) => isSmallKeyRegularOot(item) || isSmallKeyRegularMm(item);
 export const isGanonBossKey = (item: string) => item === 'OOT_BOSS_KEY_GANON';
 export const isBossKey = (item: string) => isRegularBossKey(item) || isGanonBossKey(item);
-export const isRegularBossKey = (item: string) => ITEMS_BOSS_KEY.has(item);
+export const isRegularBossKeyOot = (item: string) => ITEMS_BOSS_KEY_OOT.has(item);
+export const isRegularBossKeyMm = (item: string) => ITEMS_BOSS_KEY_MM.has(item);
+export const isRegularBossKey = (item: string) => isRegularBossKeyOot(item) || isRegularBossKeyMm(item);
 export const isStrayFairy = (item: string) => !!item.match(/^(OOT|MM)_STRAY_FAIRY_/);
 export const isTownStrayFairy = (item: string) => item === 'MM_STRAY_FAIRY_TOWN';
 export const isDungeonStrayFairy = (item: string) => isStrayFairy(item) && !isTownStrayFairy(item);

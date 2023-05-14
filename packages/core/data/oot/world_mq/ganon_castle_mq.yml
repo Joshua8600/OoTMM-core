@@ -18,7 +18,7 @@
 "Ganon Castle Light":
   dungeon: Ganon
   events:
-    GANON_TRIAL_LIGHT: "has(ARROW_LIGHT) && has(MAGIC_UPGRADE) && can_hookshot_NNL && has(SMALL_KEY_GANON, 3)"
+    GANON_TRIAL_LIGHT: "has(ARROW_LIGHT) && has(MAGIC_UPGRADE) && can_hookshot_NNL && small_keys(SMALL_KEY_GANON, 3)"
   locations:
     "MQ Ganon Castle Light Trial Chest": "has(SONG_ZELDA)"
 "Ganon Castle Forest":
@@ -37,7 +37,7 @@
   dungeon: Ganon
   events:
     BLUE_FIRE: "true"
-    GANON_TRIAL_WATER: "has_blue_fire_NNL && has(SMALL_KEY_GANON, 3) && has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
+    GANON_TRIAL_WATER: "has_blue_fire_NNL && small_keys(SMALL_KEY_GANON, 3) && has(ARROW_LIGHT) && has(MAGIC_UPGRADE)"
   locations:
     "MQ Ganon Castle Water Trial Chest": "has_blue_fire_NNL"
 "Ganon Castle Spirit":

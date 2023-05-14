@@ -106,14 +106,27 @@ export const SETTINGS = [{
   ],
   default: 'ownDungeon'
 }, {
-  key: 'smallKeyShuffle',
-  name: 'Small Key Shuffle',
+  key: 'smallKeyShuffleOot',
+  name: 'Small Key Shuffle (OoT)',
   category: 'main.shuffle',
   type: 'enum',
-  description: 'Controls where Small Keys (for Dungeons) can be',
+  description: 'Controls where Small Keys (for Dungeons) can be in OoT',
   values: [
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Dungeon Small Keys can only be found in their own dungeons' },
     { value: 'anywhere', name: 'Anywhere', description: 'Dungeon Small Keys can be found anywhere' },
+    { value: 'removed', name: 'Removed', description: 'Small keys are removed and small key doors are unlocked' },
+  ],
+  default: 'ownDungeon'
+}, {
+  key: 'smallKeyShuffleMm',
+  name: 'Small Key Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'enum',
+  description: 'Controls where Small Keys (for Dungeons) can be in MM',
+  values: [
+    { value: 'ownDungeon', name: 'Own Dungeon', description: 'Dungeon Small Keys can only be found in their own dungeons' },
+    { value: 'anywhere', name: 'Anywhere', description: 'Dungeon Small Keys can be found anywhere' },
+    { value: 'removed', name: 'Removed', description: 'Small keys are removed and small key doors are unlocked' },
   ],
   default: 'ownDungeon'
 }, {
@@ -123,19 +136,33 @@ export const SETTINGS = [{
   type: 'enum',
   description: 'Controls where Hideout (Gerudo Fortress) Small Keys can be',
   values: [
+    { value: 'vanilla', name: 'Vanilla', description: 'Hideout Small Keys are always on the guards' },
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Hideout Small Keys can only be found within Gerudo Fortress INTERIOR' },
     { value: 'anywhere', name: 'Anywhere', description: 'Hideout Small Keys can be found anywhere' },
   ],
   default: 'ownDungeon'
 }, {
-  key: 'bossKeyShuffle',
-  name: 'Boss Key Shuffle',
+  key: 'bossKeyShuffleOot',
+  name: 'Boss Key Shuffle (OoT)',
   category: 'main.shuffle',
   type: 'enum',
-  description: 'Controls where Boss Keys can be',
+  description: 'Controls where Boss Keys can be in OoT',
   values: [
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Boss Keys can only be in their own dungeons' },
     { value: 'anywhere', name: 'Anywhere', description: 'Boss Keys can be found anywhere' },
+    { value: 'removed', name: 'Removed', description: 'Boss keys are removed and boss doors are unlocked' },
+  ],
+  default: 'ownDungeon'
+}, {
+  key: 'bossKeyShuffleMm',
+  name: 'Boss Key Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'enum',
+  description: 'Controls where Boss Keys can be in MM',
+  values: [
+    { value: 'ownDungeon', name: 'Own Dungeon', description: 'Boss Keys can only be in their own dungeons' },
+    { value: 'anywhere', name: 'Anywhere', description: 'Boss Keys can be found anywhere' },
+    { value: 'removed', name: 'Removed', description: 'Boss keys are removed and boss doors are unlocked' },
   ],
   default: 'ownDungeon'
 }, {
@@ -342,6 +369,18 @@ export const SETTINGS = [{
     { value: 'vanilla', name: 'Vanilla', description: 'You will need to present him Ruto\'s Letter in order to enter Zora\'s Fountain as both Child and Adult' },
     { value: 'adult', name: 'Open (Adult Only)', description: 'Already on the side as Adult, leaving Zora\'s Fountain access free. Child still needs Ruto\'s Letter' },
     { value: 'open', name: 'Open', description: 'He will already be on the side for both Child and Adult, and Ruto\'s Letter is removed from the game, in favor of an empty bottle' },
+  ],
+  default: 'vanilla'
+}, {
+  key: 'gerudoFortress',
+  name: 'Gerudo Fortress',
+  category: 'main.events',
+  type: 'enum',
+  description: 'Alters the behavior of the Carpenters in Gerudo Fortress',
+  values: [
+    { value: 'vanilla', name: 'Vanilla', description: 'You will need to rescue all carpenters.' },
+    { value: 'single', name: 'One Carpenter', description: 'You will need to rescue only one carpenter.' },
+    { value: 'open', name: 'Open', description: 'Carpenters are rescued from the start.' },
   ],
   default: 'vanilla'
 }, {

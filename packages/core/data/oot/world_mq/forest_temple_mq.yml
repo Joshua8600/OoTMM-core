@@ -2,7 +2,7 @@
   dungeon: Forest
   exits:
     "Sacred Meadow": "true"
-    "Forest Temple Main": "has(SMALL_KEY_FOREST, 1)"
+    "Forest Temple Main": "small_keys(SMALL_KEY_FOREST, 1)"
   locations:
     "MQ Forest Temple First Room Chest": "true"
     "MQ Forest Temple GS Entryway": "can_collect_distance_NNL"
@@ -20,9 +20,9 @@
   dungeon: Forest
   exits:
     "Forest Temple Main": "true"
-    "Forest Temple Straightened Hallway": "has(SMALL_KEY_FOREST, 3) && is_adult"
-    "Forest Temple West Garden": "has(SMALL_KEY_FOREST, 2) && is_adult"
-    "Forest Temple Twisted Hallway": "has(SMALL_KEY_FOREST, 3) && is_adult && event(FOREST_TWIST_SWITCH)"
+    "Forest Temple Straightened Hallway": "small_keys(SMALL_KEY_FOREST, 3) && is_adult"
+    "Forest Temple West Garden": "small_keys(SMALL_KEY_FOREST, 2) && is_adult"
+    "Forest Temple Twisted Hallway": "small_keys(SMALL_KEY_FOREST, 3) && is_adult && event(FOREST_TWIST_SWITCH)"
   locations:
     "MQ Forest Temple GS Climb Room": "true"
 "Forest Temple Straightened Hallway":
@@ -78,11 +78,11 @@
 "Forest Temple Twisted Hallway":
   dungeon: Forest
   exits:
-    "Forest Temple Bow Region": "has(SMALL_KEY_FOREST, 4)"
+    "Forest Temple Bow Region": "small_keys(SMALL_KEY_FOREST, 4)"
 "Forest Temple Bow Region":
   dungeon: Forest
   exits:
-    "Forest Temple Falling Ceiling": "has(SMALL_KEY_FOREST, 5)"
+    "Forest Temple Falling Ceiling": "small_keys(SMALL_KEY_FOREST, 5)"
   events:
     FOREST_POE_1: "true"
     FOREST_POE_2: "true"
@@ -93,12 +93,12 @@
 "Forest Temple Falling Ceiling":
   dungeon: Forest
   events:
-    FOREST_POE_3: "has(SMALL_KEY_FOREST, 6)"
+    FOREST_POE_3: "small_keys(SMALL_KEY_FOREST, 6)"
   locations:
     "MQ Forest Temple Falling Ceiling Chest": "true"
 "Forest Temple Antichamber":
   dungeon: Forest
   exits:
-    "Forest Temple Boss": "has(BOSS_KEY_FOREST)"
+    "Forest Temple Boss": "boss_key(BOSS_KEY_FOREST)"
   locations:
     "MQ Forest Temple Antichamber": "true"

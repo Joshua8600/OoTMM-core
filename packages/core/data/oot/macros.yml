@@ -96,7 +96,10 @@
 "can_kill_baba_sticks": "can_boomerang || (has_weapon && (is_child || has_nuts || can_hookshot || can_hammer))"
 "can_kill_baba_nuts": "has_weapon || has_explosives || can_use_slingshot"
 "can_hit_scrub": "has_nuts || can_hit_triggers_distance || has_shield_for_scrubs || can_collect_distance || can_hammer"
-"can_rescue_carpenter": "has(SMALL_KEY_GF, 4) && (has_weapon || ((can_boomerang || has_nuts) && can_use_sticks))"
+"has_small_key_gerudo": "setting(gerudoFortress, open) || cond(setting(gerudoFortress, single), has(SMALL_KEY_GF, 1), has(SMALL_KEY_GF, 4))"
+"can_rescue_carpenter": "has_small_key_gerudo && (has_weapon || ((can_boomerang || has_nuts) && can_use_sticks))"
+"carpenters_rescued": "setting(gerudoFortress, open) || (event(CARPENTER_1) && (setting(gerudoFortress, single) || (event(CARPENTER_2) || event(CARPENTER_3) || event(CARPENTER_4))))"
+
 #Trick Macros
 "gs_night": "is_night && (trick(OOT_NIGHT_GS) || can_play(SONG_SUN))"
 "has_lens": "has_lens_strict || trick(OOT_LENS)"
@@ -105,16 +108,19 @@
 #Specialty Macros
 "met_zelda": "event(MEET_ZELDA) || setting(skipZelda)"
 "woke_talon_child": "event(TALON_CHILD) || setting(skipZelda)"
-"has_fire_spirit": "has_magic && ((has(BOW) && has(ARROW_FIRE) && has_sticks && (event(ARROWS) || renewable(ARROWS_5) || renewable(ARROWS_10) || renewable(ARROWS_30) || renewable(ARROWS_40) || (setting(sharedBows) && event(MM_ARROWS)))) || has(SPELL_FIRE)) && (has_explosives || has(SMALL_KEY_SPIRIT, 2))"
+"has_fire_spirit": "has_magic && ((has(BOW) && has(ARROW_FIRE) && has_sticks && (event(ARROWS) || renewable(ARROWS_5) || renewable(ARROWS_10) || renewable(ARROWS_30) || renewable(ARROWS_40) || (setting(sharedBows) && event(MM_ARROWS)))) || has(SPELL_FIRE)) && (has_explosives || small_keys(SMALL_KEY_SPIRIT, 2))"
 "has_ranged_weapon_both": "has_explosives || (((has(SLINGSHOT) && (event(SEEDS) || renewable(DEKU_SEEDS_30))) || has(BOOMERANG)) && (has(HOOKSHOT) || (has(BOW) || (event(ARROWS) || renewable(ARROWS_5) || renewable(ARROWS_10) || renewable(ARROWS_30) || renewable(ARROWS_40) || (setting(sharedBows) && event(MM_ARROWS))))))"
 "can_collect_ageless": "has(HOOKSHOT) && has(BOOMERANG)"
-"has_small_keys_fire(x)": "cond(setting(smallKeyShuffle, anywhere), has(SMALL_KEY_FIRE, x + 1), has(SMALL_KEY_FIRE, x))"
+"has_small_keys_fire(x)": "setting(smallKeyShuffleOot, removed) || cond(setting(smallKeyShuffleOot, anywhere), has(SMALL_KEY_FIRE, x + 1), has(SMALL_KEY_FIRE, x))"
 "king_zora_moved": "event(KING_ZORA_LETTER) || setting(zoraKing, open) || (setting(zoraKing, adult) && is_adult)"
 "can_move_mido": "is_child && has_sword_kokiri && renewable(SHIELD_DEKU)"
 "mido_moved": "setting(dekuTree, open) || is_adult || event(MIDO_MOVED)"
 # Wallets
 "has_wallet(n)": "cond(setting(childWallets), has(WALLET, n), has(WALLET, n - 1))"
 "can_use_wallet(n)": "has_rupees && has_wallet(n)"
+# Keys
+"boss_key(x)": "setting(bossKeyShuffleOot, removed) || has(x)"
+"small_keys(x, count)": "setting(smallKeyShuffleOot, removed) || has(x, count)"
 # NNL-Macros
 "can_collect_distance_NNL": "can_boomerang || is_adult"
 "fire_NNL": "(has(SPELL_FIRE) || (is_adult && has(ARROW_FIRE)))"
