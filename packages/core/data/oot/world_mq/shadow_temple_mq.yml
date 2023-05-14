@@ -2,12 +2,12 @@
   dungeon: Shadow
   exits:
     "Graveyard Upper": "true"
-    "Shadow Temple Truth Spinner": "has_lens && (can_hookshot || has_hover_boots)"
+    "Shadow Temple Truth Spinner": "has(LENS) && (can_hookshot_NNL || has_hover_boots)"
 "Shadow Temple Truth Spinner":
   dungeon: Shadow
   exits:
-    "Shadow Temple First Locked Door": "has_explosives && small_keys(SMALL_KEY_SHADOW, 6)"
-    "Shadow Temple First Beamos": "has_fire_arrows || has_hover_boots"
+    "Shadow Temple First Locked Door": "small_keys(SMALL_KEY_SHADOW, 6)"
+    "Shadow Temple First Beamos": "(has(ARROW_FIRE) && has(MAGIC_UPGRADE)) || has_hover_boots"
   events:
     ARROWS: "true"
     BOMBS: "true"
@@ -16,11 +16,11 @@
   dungeon: Shadow
   locations:
     "MQ Shadow Temple Compass Chest": "true"
-    "MQ Shadow Temple Hover Boots Chest": "can_play(SONG_TIME) && can_use_bow"
+    "MQ Shadow Temple Hover Boots Chest": "has(SONG_TIME)"
 "Shadow Temple First Beamos":
   dungeon: Shadow
   exits:
-    "Shadow Temple Upper Huge Pit": "has_explosives && small_keys(SMALL_KEY_SHADOW, 2)"
+    "Shadow Temple Upper Huge Pit": "small_keys(SMALL_KEY_SHADOW, 2)"
   locations:
     "MQ Shadow Temple First Gibdos Chest": "true"
     "MQ Shadow Temple Map Chest": "true"
@@ -30,8 +30,8 @@
   exits:
     "Shadow Temple Lower Huge Pit": "has_fire"
   locations:
-    "MQ Shadow Temple Second Silver Rupee Visible Chest": "can_play(SONG_TIME)"
-    "MQ Shadow Temple Second Silver Rupee Invisible Chest": "can_play(SONG_TIME)"
+    "MQ Shadow Temple Second Silver Rupee Visible Chest": "has(SONG_TIME)"
+    "MQ Shadow Temple Second Silver Rupee Invisible Chest": "has(SONG_TIME)"
 "Shadow Temple Lower Huge Pit":
   dungeon: Shadow
   exits:
@@ -39,38 +39,38 @@
   locations:
     "MQ Shadow Temple Huge Pit Silver Rupee Chest": "can_longshot"
     "MQ Shadow Temple Spike Curtain Ground Chest": "true"
-    "MQ Shadow Temple Spike Curtain Upper Cage Chest": "has(STRENGTH)"
-    "MQ Shadow Temple Spike Curtain Upper Switch Chest": "has(STRENGTH)"
-    "MQ Shadow Temple GS Spike Curtain": "can_hookshot"
+    "MQ Shadow Temple Spike Curtain Upper Cage Chest": "true"
+    "MQ Shadow Temple Spike Curtain Upper Switch Chest": "true"
+    "MQ Shadow Temple GS Spike Curtain": "can_hookshot_NNL"
 "Shadow Temple Invisible Spike Floor":
   dungeon: Shadow
   exits:
-    "Shadow Temple Wind Tunnel": "small_keys(SMALL_KEY_SHADOW, 4) && can_hookshot"
+    "Shadow Temple Wind Tunnel": "small_keys(SMALL_KEY_SHADOW, 4) && can_hookshot_NNL"
   locations:
     "MQ Shadow Temple Invisible Spike Floor Chest": "true"
-    "MQ Shadow Temple Stalfos Room Chest": "can_hookshot"
+    "MQ Shadow Temple Stalfos Room Chest": "can_hookshot_NNL"
 "Shadow Temple Wind Tunnel":
   dungeon: Shadow
   exits:
-    "Shadow Temple Boat": "small_keys(SMALL_KEY_SHADOW, 5) && can_play(SONG_ZELDA)"
+    "Shadow Temple Boat": "small_keys(SMALL_KEY_SHADOW, 5) && has(SONG_ZELDA)"
   locations:
     "MQ Shadow Temple Wind Hint Chest": "true"
     "MQ Shadow Temple After Wind Gibdos Chest": "true"
-    "MQ Shadow Temple After Wind Bomb Chest": "has_explosives"
+    "MQ Shadow Temple After Wind Bomb Chest": "true"
     "MQ Shadow Temple GS Wind Hint": "true"
-    "MQ Shadow Temple GS After Wind Bomb": "has_explosives"
+    "MQ Shadow Temple GS After Wind Bomb": "true"
 "Shadow Temple Final Side Rooms":
   dungeon: Shadow
   locations:
-    "MQ Shadow Temple Hidden Dead Hand Chest": "has_explosives || has(STRENGTH)" #Not strictly necessary to check
-    "MQ Shadow Temple Triple Pot Key": "has_explosives || has(STRENGTH)" #Not strictly necessary to check
-    "MQ Shadow Temple Boss Key Chest": "small_keys(SMALL_KEY_SHADOW, 6) && can_use_din"
-    "MQ Shadow Temple Crushing Wall Left Chest": "small_keys(SMALL_KEY_SHADOW, 6) && can_use_din"
+    "MQ Shadow Temple Hidden Dead Hand Chest": "true"
+    "MQ Shadow Temple Triple Pot Key": "true"
+    "MQ Shadow Temple Boss Key Chest": "small_keys(SMALL_KEY_SHADOW, 6) && has(SPELL_FIRE)"
+    "MQ Shadow Temple Crushing Wall Left Chest": "small_keys(SMALL_KEY_SHADOW, 6) && has(SPELL_FIRE)"
 "Shadow Temple Boat":
   dungeon: Shadow
   exits:
-    "Shadow Temple Boss": "boss_key(BOSS_KEY_SHADOW) && can_use_bow"
-    "Shadow Temple Final Side Rooms": "can_use_bow && can_play(SONG_TIME) && can_longshot"
+    "Shadow Temple Boss": "boss_key(BOSS_KEY_SHADOW)"
+    "Shadow Temple Final Side Rooms": "has(SONG_TIME) && can_longshot"
   locations:
     "MQ Shadow Temple GS After Boat": "true"
-    "MQ Shadow Temple GS Pre-Boss": "can_use_bow"
+    "MQ Shadow Temple GS Pre-Boss": "true"
