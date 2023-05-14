@@ -458,7 +458,7 @@ export class LogicPassHints {
     hints += this.placeGossipItemExactPool(HINTS_ITEMS_SOMETIMES, 3);
 
     /* Place 5 foolish hints */
-    const foolishHints = this.placeGossipFoolish(this.foolish, 5);
+    const foolishHints = this.placeGossipFoolish(this.foolish, 0);
     hints += foolishHints;
 
     const missingFoolish = 5 - foolishHints;
@@ -475,7 +475,7 @@ export class LogicPassHints {
     hints += this.placeGossipItemRegionSpheres(4);
 
     /* Place way of the hero hints */
-    hints += this.placeGossipHero(9);
+    hints += this.placeGossipHero(14);
 
     /* Place remaining hints */
     const missingHints = 34 - hints;
