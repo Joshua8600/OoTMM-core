@@ -414,9 +414,14 @@ export const SETTINGS = [{
   key: 'csmc',
   name: 'Chest Size Matches Content',
   category: 'main.misc',
-  type: 'boolean',
+  type: 'enum',
+  values: [
+    { value: 'never',  name: 'Never', description: 'Chests will be vanilla' },
+    { value: 'agony',  name: 'Stone of Agony', description: 'Chests will match content when you have the stone of agony in OoT' },
+    { value: 'always', name: 'Always', description: 'Chests will always match content' },
+  ],
   description: 'Modifies the chests appearance so they match their content. Works for unique items, keys and fairies.',
-  default: false
+  default: 'always'
 }, {
   key: 'blastMaskCooldown',
   name: 'Blast Mask Cooldown',
@@ -481,7 +486,7 @@ export const SETTINGS = [{
   category: 'main.misc',
   type: 'boolean',
   description: 'Modifies the Bunny Hood in OoT to give a speed increase',
-  default: false
+  default: true
 }, {
   key: 'agelessSwords',
   name: 'Ageless Swords',
@@ -750,7 +755,19 @@ export const SETTINGS = [{
   name: 'Shuffle OoT Minor Dungeons with Dungeons',
   category: 'entrances',
   type: 'boolean',
-  description: 'If turned on, it meeans Bottom of the Well, Ice Cavern and Gerudo Training Grounds are also shuffled',
+  description: 'If turned on, it means Bottom of the Well, Ice Cavern and Gerudo Training Grounds are also shuffled',
+  default: false
+}, {
+  key: 'erGanonCastle',
+  name: 'Shuffle Ganon\'s Castle with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false
+}, {
+  key: 'erGanonTower',
+  name: 'Shuffle Ganon\'s Tower with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
   default: false
 }, {
   key: 'erSpiderHouses',
