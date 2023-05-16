@@ -7,7 +7,7 @@
     "Ganon Castle Water": "true"
     "Ganon Castle Spirit": "true"
     "Ganon Castle Shadow": "true"
-    "Ganon Castle Stairs": "true"
+    "Ganon Castle Tower": "true"
   locations:
     "MQ Ganon Castle Leftmost Scrub": "can_use_wallet(1)"
     "MQ Ganon Castle Left-Center Scrub": "can_use_wallet(1)"
