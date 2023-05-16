@@ -1,7 +1,6 @@
 "Ganon Castle":
   dungeon: Ganon
   exits:
-    "Ganon Castle Exterior After Bridge": "true"
     "Ganon Castle Light": "has(STRENGTH, 3)"
     "Ganon Castle Forest": "true"
     "Ganon Castle Fire": "true"
@@ -59,8 +58,3 @@
   locations:
     "Ganon Castle Shadow Chest 1": "is_adult"
     "Ganon Castle Shadow Chest 2": "(can_longshot || has(ARROW_FIRE)) && (has_hover_boots || has_fire)"
-"Ganon Castle Stairs":
-  region: NONE
-  exits:
-    "Ganon Castle": "true"
-    "Ganon Castle Tower": "true"
