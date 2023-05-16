@@ -82,7 +82,7 @@
   exits:
     "Forest Temple Main": "true"
     "Forest Temple Garden West Ledge": "has_hover_boots"
-    "Forest Temple Twisted 1 Normal": "is_adult && small_keys(SMALL_KEY_FOREST, 2))"
+    "Forest Temple Twisted 1 Normal": "is_adult && small_keys(SMALL_KEY_FOREST, 2)"
     "Forest Temple Twisted 1 Alt": "is_adult && small_keys(SMALL_KEY_FOREST, 2)"
   locations:
     "Forest Temple Maze": "has(STRENGTH)"
