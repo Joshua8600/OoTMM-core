@@ -1,13 +1,14 @@
 "Ganon Castle":
   dungeon: Ganon
   exits:
+    "Ganon Castle Exterior After Bridge": "true"
     "Ganon Castle Light": "can_lift_gold"
     "Ganon Castle Forest": "true"
     "Ganon Castle Fire": "true"
     "Ganon Castle Water": "true"
     "Ganon Castle Spirit": "true"
     "Ganon Castle Shadow": "true"
-    "Ganon Castle Tower": "true"
+    "Ganon Castle Stairs": "true"
   locations:
     "MQ Ganon Castle Leftmost Scrub": "can_use_wallet(1)"
     "MQ Ganon Castle Left-Center Scrub": "can_use_wallet(1)"
@@ -58,3 +59,8 @@
   locations:
     "MQ Ganon Castle Shadow Trial Bomb Flower Chest": "true"
     "MQ Ganon Castle Shadow Trial Switch Chest": "has(LENS) && (has_hover_boots || (can_hookshot_NNL && fire_NNL))"
+"Ganon Castle Stairs":
+  region: NONE
+  exits:
+    "Ganon Castle": "true"
+    "Ganon Castle Tower": "true"
