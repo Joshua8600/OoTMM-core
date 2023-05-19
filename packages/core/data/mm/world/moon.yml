@@ -106,4 +106,4 @@
   region: MOON
   events:
     MAJORA_PHASE_1: "true"
-    MAJORA: "true"
+    MAJORA: "!setting(goal, triforce) && event(MAJORA_PHASE_1)"

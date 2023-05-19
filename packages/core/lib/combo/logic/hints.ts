@@ -2,7 +2,7 @@ import { ItemPlacement } from './solve';
 import { World } from './world';
 import { Analysis } from './analysis';
 import { Random, sample, shuffle } from '../random';
-import { DUNGEON_REWARDS_ORDERED, isDungeonReward, isGoldToken, itemsArray, isKey, isHouseToken, isGanonBossKey, isRegularBossKey, isStrayFairy, isToken, isTownStrayFairy, isSong, isSmallKeyRegular, isSmallKeyHideout, isMapCompass, ITEMS_MASKS_REGULAR, isSmallKeyRegularOot, isSmallKeyRegularMm, isRegularBossKeyOot, isRegularBossKeyMm } from './items';
+import { DUNGEON_REWARDS_ORDERED, isDungeonReward, isGoldToken, itemsArray, isKey, isHouseToken, isGanonBossKey, isRegularBossKey, isStrayFairy, isToken, isTownStrayFairy, isSong, isSmallKeyRegular, isSmallKeyHideout, isMapCompass, ITEMS_MASKS_REGULAR, isSmallKeyRegularOot, isSmallKeyRegularMm, isRegularBossKeyOot, isRegularBossKeyMm, isItemTriforce } from './items';
 import { Settings } from '../settings';
 import { Game } from '../config';
 import { Monitor } from '../monitor';
@@ -249,6 +249,11 @@ export class LogicPassHints {
       return true;
     }
 
+    /* Triforce Piece - never hinted */
+    if (isItemTriforce(item)) {
+      return true;
+    }
+
     return false;
   }
 
@@ -478,7 +483,7 @@ export class LogicPassHints {
     }
     let placed = 0;
     for (let i = 0; i < locations.length; ++i) {
-      if (placed > count)
+      if (placed >= count)
         break;
       const loc = locations[i];
       if (this.placeGossipItemRegion(loc, extra, false)) {
