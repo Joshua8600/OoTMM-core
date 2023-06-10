@@ -250,3 +250,22 @@ int comboItemPrecond(s16 gi, s16 price)
 
     return SC_OK;
 }
+
+const ComboItemQuery* gItemQueryCandidate;
+
+void comboGiveItemOverride(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
+{
+    s16 gi;
+
+    gi = q->gi;
+
+    /* If the given item is an override, we need to store the metadata */
+    if (q->ovType != OV_NONE)
+    {
+        gItemQueryCandidate = q;
+
+        gi = comboOverrideEx(q->ovType, q->sceneId, q->id, gi, q->ovFlags);
+    }
+
+    GiveItem(actor, play, gi, a, b);
+}

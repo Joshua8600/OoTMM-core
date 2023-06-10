@@ -199,6 +199,7 @@ void comboCreateSaveMM(void);
 NORETURN void comboGameSwitch(GameState_Play* play, s32 entrance);
 
 /* Override */
+#define OV_NONE         -1
 #define OV_CHEST        0
 #define OV_COLLECTIBLE  1
 #define OV_NPC          2
@@ -403,6 +404,16 @@ typedef struct
     u8  isCreditWarp;
 }
 ComboGlobal;
+
+typedef struct
+{
+    s16 gi;
+    s16 ovType;
+    int ovFlags;
+    u8  sceneId;
+    u8  id;
+}
+ComboItemQuery;
 
 extern ComboGlobal g;
 
