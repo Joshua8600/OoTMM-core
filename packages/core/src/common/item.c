@@ -253,7 +253,7 @@ int comboItemPrecond(s16 gi, s16 price)
 
 const ComboItemQuery* gItemQueryCandidate;
 
-void comboGiveItemOverride(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
+void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
 {
     s16 gi;
 
@@ -268,4 +268,18 @@ void comboGiveItemOverride(Actor* actor, GameState_Play* play, const ComboItemQu
     }
 
     GiveItem(actor, play, gi, a, b);
+}
+
+void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float a, float b)
+{
+    ComboItemQuery q = ITEM_QUERY_INIT;
+
+    q.gi = gi;
+    if (npc != -1)
+    {
+        q.ovType = OV_NPC;
+        q.id = npc;
+    }
+
+    comboGiveItem(actor, play, &q, a, b);
 }

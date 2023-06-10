@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 void DmChar02_InitScaleHook(Actor* this, float scale)
 {
@@ -28,16 +29,23 @@ PATCH_CALL(0x80aab1d4, DmChar02_HasGivenItem);
 void DmChar02_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
     Actor_Player* link;
+    int npc;
 
     link = GET_LINK(play);
     if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     if (!gMmExtraFlags2.ocarina)
-        gi = comboOverride(OV_NPC, 0, NPC_MM_SKULL_KID_OCARINA, GI_MM_OCARINA_OF_TIME);
+    {
+        gi = GI_MM_OCARINA_OF_TIME;
+        npc = NPC_MM_SKULL_KID_OCARINA;
+    }
     else
-        gi = comboOverride(OV_NPC, 0, NPC_MM_SKULL_KID_SONG, GI_MM_SONG_TIME);
-    GiveItem(this, play, gi, a, b);
+    {
+        gi = GI_MM_SONG_TIME;
+        npc = NPC_MM_SKULL_KID_SONG;
+    }
+    comboGiveItemNpc(this, play, gi, npc, a, b);
 }
 
 PATCH_CALL(0x80aab1fc, DmChar02_GiveItem);

@@ -405,16 +405,6 @@ typedef struct
 }
 ComboGlobal;
 
-typedef struct
-{
-    s16 gi;
-    s16 ovType;
-    int ovFlags;
-    u8  sceneId;
-    u8  id;
-}
-ComboItemQuery;
-
 extern ComboGlobal g;
 
 void comboCreditWarp(GameState_Play* play);

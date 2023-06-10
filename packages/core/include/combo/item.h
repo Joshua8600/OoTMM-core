@@ -75,4 +75,20 @@ int comboIsItemMinor(s16 gi);
 int comboItemPrecond(s16 gi, s16 price);
 s16 comboRenewable(s16 gi, s16 def);
 
+typedef struct
+{
+    s16 gi;
+    s16 giRenew;
+    s16 ovType;
+    int ovFlags;
+    u8  sceneId;
+    u8  id;
+}
+ComboItemQuery;
+
+#define ITEM_QUERY_INIT { 0, 0, OV_NONE, 0, 0, 0 }
+
+void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b);
+void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npcId, float a, float b);
+
 #endif

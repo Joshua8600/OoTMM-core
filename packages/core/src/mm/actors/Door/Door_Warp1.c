@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 typedef struct
 {
@@ -67,6 +68,7 @@ int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
     int id;
     const BlueWarpData* data;
     s16 gi;
+    int npc;
 
     /* Check for collision */
     if (!DoorWarp1_Collide(this, play))
@@ -106,10 +108,16 @@ int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
 
     /* Give the correct item */
     if (!gMmExtraFlags2.songOath)
-        gi = comboOverride(OV_NPC, 0, NPC_MM_SONG_ORDER, GI_MM_SONG_ORDER);
+    {
+        gi = GI_MM_SONG_ORDER;
+        npc = NPC_MM_SONG_ORDER;
+    }
     else
-        gi = comboOverride(OV_NPC, 0, data->npc, data->gi);
-    GiveItem(this, play, gi, 9999.f, 9999.f);
+    {
+        gi = data->gi;
+        npc = data->npc;
+    }
+    comboGiveItemNpc(this, play, gi, npc, 9999.f, 9999.f);
     return 0;
 }
 
