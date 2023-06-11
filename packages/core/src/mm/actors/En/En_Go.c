@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 void EnGo_AfterGivingItem(Actor* actor)
 {
@@ -7,9 +8,12 @@ void EnGo_AfterGivingItem(Actor* actor)
 
 void EnGo_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
+    int npc;
+
+    npc = -1;
     if (!gMmExtraFlags.powderKeg)
     {
-        gi = comboOverride(OV_NPC, 0, NPC_MM_GORON_KEG, GI_MM_POWDER_KEG);
+        npc = NPC_MM_GORON_KEG;
     }
     else if (gMmSave.inventory.items[ITS_MM_KEG] == ITEM_MM_POWDER_KEG)
     {
@@ -19,7 +23,8 @@ void EnGo_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
     {
         gi = GI_MM_RECOVERY_HEART;
     }
-    GiveItem(this, play, gi, a, b);
+
+    comboGiveItemNpc(this, play, gi, npc, a, b);
 }
 
 static void powderKegHint(GameState_Play* play)

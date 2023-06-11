@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 static void EnScopenuts_AlterMessage(GameState_Play* play)
 {
@@ -29,8 +30,7 @@ PATCH_CALL(0x80bcb79c, EnScopenuts_DisplayTextBox);
 
 void EnScopenuts_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
-    gi = comboOverride(OV_NPC, 0, NPC_MM_SCRUB_TELESCOPE, gi);
-    GiveItem(this, play, gi, a, b);
+    comboGiveItemNpc(this, play, gi, NPC_MM_SCRUB_TELESCOPE, a, b);
 }
 
 PATCH_CALL(0x80bcb968, EnScopenuts_GiveItem);

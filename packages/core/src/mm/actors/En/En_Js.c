@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 static void EnJs_AskForFight(GameState_Play* play, u16 unk, Actor* this)
 {
@@ -29,11 +30,14 @@ PATCH_CALL(0x8096a2fc, EnJs_HasGivenItem);
 
 void EnJs_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
+    int npc;
+
+    npc = -1;
     if (gMmExtraFlags2.maskFierceDeity)
         gi = GI_MM_RECOVERY_HEART;
     else
-        gi = comboOverride(OV_NPC, 0, NPC_MM_MASK_FIERCE_DEITY, gi);
-    GiveItem(this, play, gi, a, b);
+        npc = NPC_MM_MASK_FIERCE_DEITY;
+    comboGiveItemNpc(this, play, gi, npc, a, b);
 }
 
 PATCH_CALL(0x8096a370, EnJs_GiveItem);
