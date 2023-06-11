@@ -75,7 +75,7 @@ int comboIsItemMinor(s16 gi);
 int comboItemPrecond(s16 gi, s16 price);
 s16 comboRenewable(s16 gi, s16 def);
 
-typedef struct
+typedef struct ComboItemQuery
 {
     s16 gi;
     s16 giRenew;
@@ -86,7 +86,7 @@ typedef struct
 }
 ComboItemQuery;
 
-typedef struct
+typedef struct ComboItemOverride
 {
     s16 gi;
 }

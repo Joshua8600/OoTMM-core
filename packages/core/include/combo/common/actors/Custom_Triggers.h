@@ -20,8 +20,11 @@ Actor_CustomTriggers;
 extern Actor_CustomTriggers* gActorCustomTriggers;
 
 typedef struct GameState_Play GameState_Play;
-int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, s16 gi);
-int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, s16 npcId);
+typedef struct ComboItemQuery ComboItemQuery;
+
+int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, const ComboItemQuery* q);
+int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, int npc);
+int CustomTriggers_GiveItemDirect(Actor_CustomTriggers* this, GameState_Play* play, s16 gi);
 int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play);
 
 #endif

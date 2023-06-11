@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 #define TRIGGER_NONE            0x00
 #define TRIGGER_GANON_BK        0x01
@@ -17,26 +18,44 @@ void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, GameState_Play*
 
 Actor_CustomTriggers* gActorCustomTriggers;
 
-int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, s16 gi)
+int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, const ComboItemQuery* q)
 {
     Actor_Player* link;
 
     link = GET_LINK(play);
     if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
         return 0;
+
     if (Actor_HasParent(&this->base))
     {
         this->base.attachedA = NULL;
         return 1;
     }
-    GiveItem(&this->base, play, gi, 10000.f, 10000.f);
+
+    comboGiveItem(&this->base, play, q, 10000.f, 10000.f);
     return 0;
 }
 
-int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, s16 npcId)
+int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, int npc)
 {
-    gi = comboOverride(OV_NPC, 0, npcId, gi);
-    return CustomTriggers_GiveItem(this, play, gi);
+    ComboItemQuery q = ITEM_QUERY_INIT;
+
+    q.ovType = OV_NPC;
+    q.gi = gi;
+    q.id = npc;
+    q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
+
+    return CustomTriggers_GiveItem(this, play, &q);
+}
+
+int CustomTriggers_GiveItemDirect(Actor_CustomTriggers* this, GameState_Play* play, s16 gi)
+{
+    ComboItemQuery q = ITEM_QUERY_INIT;
+
+    q.gi = gi;
+    q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
+
+    return CustomTriggers_GiveItem(this, play, &q);
 }
 
 int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
@@ -60,7 +79,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
     switch (this->trigger)
     {
     case TRIGGER_GANON_BK:
-        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItem(this, play, GI_OOT | GI_OOT_BOSS_KEY_GANON))
+        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, GI_OOT | GI_OOT_BOSS_KEY_GANON))
         {
             gOotExtraFlags.ganonBossKey = 1;
             this->trigger = TRIGGER_NONE;
