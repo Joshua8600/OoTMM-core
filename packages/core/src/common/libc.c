@@ -61,3 +61,8 @@ void* memset(void* dst, int v, size_t size)
         ((char*)dst)[i] = v;
     return dst;
 }
+
+void bzero(void* s, size_t n)
+{
+    memset(s, 0, n);
+}

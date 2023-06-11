@@ -5,6 +5,7 @@ void EnAl_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
     int npc;
 
+    npc = -1;
     switch (gi)
     {
     case GI_MM_MASK_KAFEI:

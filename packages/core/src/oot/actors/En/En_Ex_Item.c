@@ -66,17 +66,16 @@ void EnExItem_RewardByIndex(ComboItemQuery* q, int index, int flags)
 
 void EnExItem_Reward(ComboItemQuery* q, const Actor* actor, int flags)
 {
-    EnExItem_RewardByIndex(&q, actor->variable & 0x1f, flags);
+    EnExItem_RewardByIndex(q, actor->variable & 0x1f, flags);
 }
 
 void EnExItem_Draw(Actor* actor, GameState_Play* play)
 {
-    ComboItemOverride o;
     ComboItemQuery q;
-    s16 gi;
+    ComboItemOverride o;
     float scale;
 
-    EnExItem_Reward(actor, &q, OVF_PROGRESSIVE);
+    EnExItem_Reward(&q, actor, OVF_PROGRESSIVE);
     comboItemOverride(&o, &q);
     scale = *(float*)(((char*)actor) + 0x154);
     ActorSetScale(actor, scale);
