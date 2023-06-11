@@ -1,16 +1,22 @@
 #include <combo.h>
+#include <combo/item.h>
 
 void EnItem00_GiveItem(Actor_EnItem00* this, GameState_Play* play, s16 gi, float a, float b)
 {
+    ComboItemQuery q = ITEM_QUERY_INIT;
     Actor_Player* link;
     s16 itemId;
 
+    q.gi = gi;
     link = GET_LINK(play);
     itemId = -1;
     switch (this->base.variable)
     {
     case 0x06:
-        gi = comboOverride(OV_COLLECTIBLE, play->sceneId, this->collectibleFlag, gi);
+        q.ovType = OV_COLLECTIBLE;
+        q.sceneId = play->sceneId;
+        q.id = this->collectibleFlag;
+        q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
         break;
     default:
         itemId = kExtendedGetItems[gi - 1].itemId;
@@ -26,7 +32,7 @@ void EnItem00_GiveItem(Actor_EnItem00* this, GameState_Play* play, s16 gi, float
     }
     else
     {
-        GiveItem(&this->base, play, gi, a, b);
+        comboGiveItem(&this->base, play, &q, a, b);
     }
 }
 

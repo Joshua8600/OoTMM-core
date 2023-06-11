@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 int EnZot_HasGivenItem(Actor* this)
 {
@@ -14,11 +15,14 @@ PATCH_CALL(0x80b98f40, EnZot_HasGivenItem);
 
 void EnZot_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
+    int npc;
+
+    npc = -1;
     if (!gMmExtraFlags.zoraHallLights)
     {
-        gi = comboOverride(OV_NPC, 0, NPC_MM_ZORA_HALL_LIGHTS, gi);
+        npc = NPC_MM_ZORA_HALL_LIGHTS;
     }
-    GiveItem(this, play, gi, a, b);
+    comboGiveItemNpc(this, play, gi, npc, a, b);
 }
 
 PATCH_CALL(0x80b98f7c, EnZot_GiveItem);

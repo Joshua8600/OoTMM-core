@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 static int EnTrt_HasGivenItem(Actor_EnTrt* this, GameState_Play* play)
 {
@@ -27,8 +28,7 @@ PATCH_FUNC(0x80a8baf8, EnTrt_DisplayShopTextBox);
 
 void EnTrt_GiveItem_BottledRedPotion(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
 {
-    gi = comboOverride(OV_NPC, 0, NPC_MM_KOTAKE_RED_POTION, gi);
-    GiveItem(actor, play, gi, a, b);
+    comboGiveItemNpc(actor, play, gi, NPC_MM_KOTAKE_RED_POTION, a, b);
 }
 
 PATCH_CALL(0x80a8c54c, EnTrt_GiveItem_BottledRedPotion);

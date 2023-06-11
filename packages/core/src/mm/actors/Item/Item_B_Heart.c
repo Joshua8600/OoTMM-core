@@ -1,9 +1,17 @@
 #include <combo.h>
+#include <combo/item.h>
 
 void ItemBHeart_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
-    gi = comboOverride(OV_COLLECTIBLE, play->sceneId, 0x1f, gi);
-    GiveItem(this, play, gi, a, b);
+    ComboItemQuery q = ITEM_QUERY_INIT;
+
+    q.gi = gi;
+    q.ovType = OV_COLLECTIBLE;
+    q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
+    q.sceneId = play->sceneId;
+    q.id = 0x1f;
+
+    comboGiveItem(this, play, &q, a, b);
 }
 
 PATCH_CALL(0x808bcf38, ItemBHeart_GiveItem);
