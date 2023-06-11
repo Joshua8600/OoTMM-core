@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 void ItemOcarina_HandlerItem2(Actor* this, GameState_Play* play)
 {
@@ -16,8 +17,6 @@ void ItemOcarina_HandlerItem2(Actor* this, GameState_Play* play)
 
 void ItemOcarina_HandlerItem(Actor* this, GameState_Play* play)
 {
-    s16 gi;
-
     if (Actor_HasParent(this))
     {
         SetEventChk(EV_OOT_CHK_SONG_TIME);
@@ -25,28 +24,20 @@ void ItemOcarina_HandlerItem(Actor* this, GameState_Play* play)
         this->draw = NULL;
         this->update = ItemOcarina_HandlerItem2;
         ItemOcarina_HandlerItem2(this, play);
+        return;
     }
-    else
-    {
-        gi = comboOverride(OV_NPC, 0, NPC_OOT_OCARINA_TIME_ITEM, GI_OOT_OCARINA_TIME);
-        GiveItem(this, play, gi, 30.f, 50.f);
-    }
+    comboGiveItemNpc(this, play, GI_OOT_OCARINA_TIME, NPC_OOT_OCARINA_TIME_ITEM, 30.f, 50.f);
 }
 
 void ItemOcarina_HandlerSong(Actor* this, GameState_Play* play)
 {
-    s16 gi;
-
     if (Actor_HasParent(this))
     {
         SetEventChk(EV_OOT_CHK_OCARINA_OF_TIME);
         ActorDestroy(this);
+        return;
     }
-    else
-    {
-        gi = comboOverride(OV_NPC, 0, NPC_OOT_OCARINA_TIME_SONG, GI_OOT_SONG_TIME);
-        GiveItem(this, play, gi, 10000.f, 1000.f);
-    }
+    comboGiveItemNpc(this, play, GI_OOT_SONG_TIME, NPC_OOT_OCARINA_TIME_SONG, 10000.f, 1000.f);
 }
 
 void ItemOcarina_Handler(Actor* this, GameState_Play* play)
