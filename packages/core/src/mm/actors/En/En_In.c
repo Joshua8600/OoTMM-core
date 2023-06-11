@@ -9,6 +9,7 @@ static void EnIn_ItemQuery(ComboItemQuery* q, s16 gi, int flags)
 
     q->gi = gi;
     q->ovFlags = flags;
+    q->giRenew = GI_MM_RECOVERY_HEART;
 
     switch (gi)
     {
@@ -16,7 +17,7 @@ static void EnIn_ItemQuery(ComboItemQuery* q, s16 gi, int flags)
         q->ovType = OV_NPC;
         q->id = NPC_MM_GORMAN_MILK;
         if (gMmExtraFlags2.gormanMilk)
-            q->giRenew = GI_MM_RECOVERY_HEART;
+            q->ovFlags |= OVF_RENEW;
         break;
     case GI_MM_MASK_GARO:
         q->ovType = OV_NPC;

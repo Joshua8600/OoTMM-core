@@ -40,6 +40,7 @@ static void EnAkindonuts_ShopItemQuery(ComboItemQuery* q, int id, int flags)
     bzero(q, sizeof(*q));
     q->ovType = OV_NPC;
     q->ovFlags = flags;
+    q->giRenew = GI_MM_RECOVERY_HEART;
     switch (id)
     {
     case 0:
@@ -70,7 +71,7 @@ static void EnAkindonuts_ShopItemQuery(ComboItemQuery* q, int id, int flags)
         }
         else
         {
-            q->giRenew = GI_MM_RECOVERY_HEART;
+            q->ovFlags |= OVF_RENEW;
         }
     }
 }

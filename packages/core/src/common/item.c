@@ -294,4 +294,8 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
 {
     memset(dst, 0, sizeof(*dst));
     dst->gi = comboOverrideEx(q->ovType, q->sceneId, q->id, q->gi, q->ovFlags);
+    if (q->ovFlags & OVF_RENEW)
+    {
+        dst->gi = comboRenewable(dst->gi, q->giRenew);
+    }
 }
