@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 int EnGm_HasGivenItem(Actor* this)
 {
@@ -14,8 +15,7 @@ PATCH_CALL(0x80aa0030, EnGm_HasGivenItem);
 
 void EnGm_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
 {
-    gi = comboOverride(OV_NPC, 0, NPC_OOT_MEDIGORON, gi);
-    GiveItem(actor, play, gi, a, b);
+    comboGiveItemNpc(actor, play, gi, NPC_OOT_MEDIGORON, a, b);
 }
 
 PATCH_CALL(0x80a9ffd8, EnGm_GiveItem);
