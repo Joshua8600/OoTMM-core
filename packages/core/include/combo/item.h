@@ -86,9 +86,17 @@ typedef struct
 }
 ComboItemQuery;
 
+typedef struct
+{
+    s16 gi;
+}
+ComboItemOverride;
+
 #define ITEM_QUERY_INIT { 0, 0, OV_NONE, 0, 0, 0 }
 
 void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b);
 void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npcId, float a, float b);
+void comboGiveItemNpcEx(Actor* actor, GameState_Play* play, s16 gi, int npcId, int flags, float a, float b);
+void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q);
 
 #endif

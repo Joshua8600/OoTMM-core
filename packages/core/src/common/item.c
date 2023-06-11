@@ -272,9 +272,15 @@ void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, 
 
 void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float a, float b)
 {
+    comboGiveItemNpcEx(actor, play, gi, npc, OVF_DOWNGRADE | OVF_PROGRESSIVE, a, b);
+}
+
+void comboGiveItemNpcEx(Actor* actor, GameState_Play* play, s16 gi, int npc, int flags, float a, float b)
+{
     ComboItemQuery q = ITEM_QUERY_INIT;
 
     q.gi = gi;
+    q.ovFlags = flags;
     if (npc != -1)
     {
         q.ovType = OV_NPC;
@@ -282,4 +288,10 @@ void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float
     }
 
     comboGiveItem(actor, play, &q, a, b);
+}
+
+void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
+{
+    memset(dst, 0, sizeof(*dst));
+    dst->gi = comboOverrideEx(q->ovType, q->sceneId, q->id, q->gi, q->ovFlags);
 }

@@ -41,3 +41,23 @@ size_t strlen(const char* str)
         ++i;
     return i;
 }
+
+void* memset(void* dst, int v, size_t size)
+{
+    if ((size % 4) == 0 && ((uint32_t)dst % 4) == 0)
+    {
+        uint32_t pattern;
+
+        v &= 0xff;
+        pattern = v | (v << 8) | (v << 16) | (v << 24);
+        size /= 4;
+
+        for (size_t i = 0; i < size; ++i)
+            ((uint32_t*)dst)[i] = pattern;
+        return dst;
+    }
+
+    for (size_t i = 0; i < size; ++i)
+        ((char*)dst)[i] = v;
+    return dst;
+}

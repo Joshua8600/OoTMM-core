@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/item.h>
 
 static const s16 kGreatFairyRewards[] = {
     GI_MM_MASK_GREAT_FAIRY,
@@ -30,9 +31,8 @@ static u8 EnElfgrp_GetFairyIndex(Actor* this)
 
 static void EnElfgrp_GiveReward(Actor* actor, GameState_Play* play)
 {
-    u8      fairyIndex;
-    u8      mask;
-    u16     gi;
+    u8 fairyIndex;
+    u8 mask;
 
     fairyIndex = EnElfgrp_GetFairyIndex(actor);
     mask = (1 << fairyIndex);
@@ -48,8 +48,7 @@ static void EnElfgrp_GiveReward(Actor* actor, GameState_Play* play)
         return;
     }
 
-    gi = comboOverride(OV_NPC, 0, kGreatFairyNPCs[fairyIndex], kGreatFairyRewards[fairyIndex]);
-    GiveItem(actor, play, gi, 200.f, 200.f);
+    comboGiveItemNpc(actor, play, kGreatFairyRewards[fairyIndex], kGreatFairyNPCs[fairyIndex], 200.f, 200.f);
 }
 
 PATCH_FUNC(0x80a3a398, EnElfgrp_GiveReward);

@@ -1,9 +1,9 @@
 #include <combo.h>
+#include <combo/item.h>
 
 void EnColMan_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
 {
-    gi = comboOverride(OV_NPC, 0, NPC_MM_LAB_FISH_HEART_PIECE, gi);
-    GiveItem(actor, play, gi, a, b);
+    comboGiveItemNpc(actor, play, gi, NPC_MM_LAB_FISH_HEART_PIECE, a, b);
 }
 
 PATCH_CALL(0x80afdecc, EnColMan_GiveItem);
