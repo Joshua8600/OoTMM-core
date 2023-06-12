@@ -12,7 +12,10 @@ void shopWriteFlag(int);
 
 int comboShopPrecond(GameState_Play* play, Actor_EnGirlA* girlA)
 {
-    return comboItemPrecond(girlA->gi, girlA->price);
+    ComboItemOverride o;
+
+    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
+    return comboItemPrecond(o.gi, girlA->price);
 }
 
 void comboShopAfterBuy(GameState_Play* play, Actor_EnGirlA* girlA)
@@ -23,7 +26,11 @@ void comboShopAfterBuy(GameState_Play* play, Actor_EnGirlA* girlA)
 
 static void quickBuyItem(GameState_Play* play, Actor_EnGirlA* girlA)
 {
-    comboAddItem(play, girlA->gi);
+    /* TODO: Use new system */
+    ComboItemOverride o;
+
+    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
+    comboAddItem(play, o.gi);
     AddRupees(-girlA->price);
 }
 
@@ -34,33 +41,15 @@ static void postBuyItem(GameState_Play* play, Actor_EnGirlA* girlA)
 
 void comboShopUpdateItem(GameState_Play* play, Actor_EnGirlA* girlA)
 {
+    ComboItemOverride o;
+
+    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
+    if (o.gi == SOLD_OUT)
+        girlA->disabled = 1;
+
     girlA->precond = comboShopPrecond;
     girlA->quickBuy = quickBuyItem;
     girlA->postBuy = postBuyItem;
-
-    /* Update GI */
-    girlA->gi = comboOverrideEx(OV_SHOP, 0, girlA->shopId, girlA->gi, OVF_PROGRESSIVE);
-
-    if (shopReadFlag(girlA->shopId))
-    {
-#if defined(GAME_MM)
-        switch (girlA->shopId)
-        {
-        case 0x02:
-        case 0x03:
-        case 0x04:
-            girlA->gi = SOLD_OUT;
-            break;
-        }
-#endif
-
-        girlA->gi = comboRenewable(girlA->gi, SOLD_OUT);
-
-        if (girlA->gi == SOLD_OUT)
-        {
-            girlA->disabled = 1;
-        }
-    }
 }
 
 void comboShopSetupItem(GameState_Play* play, Actor_EnGirlA* girlA)
@@ -76,16 +65,22 @@ void comboShopSetupItem(GameState_Play* play, Actor_EnGirlA* girlA)
 
 void comboShopDisplayTextBox(GameState_Play* play, Actor_EnGirlA* girlA)
 {
+    ComboItemOverride o;
+
+    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
     DisplayTextBox2(play, girlA->base.messageId);
-    if (girlA->gi == SOLD_OUT)
+    if (o.gi == SOLD_OUT)
     {
         girlA->disabled = 1;
     }
-    comboTextHijackItemShop(play, girlA->gi, girlA->price, 0);
+    comboTextHijackItemShop(play, o.gi, girlA->price, 0);
 }
 
 void comboShopDisplayTextBoxConfirm(GameState_Play* play, Actor_EnGirlA* girlA)
 {
+    ComboItemOverride o;
+
+    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
     DisplayTextBox2(play, girlA->messageId2);
-    comboTextHijackItemShop(play, girlA->gi, girlA->price, 1);
+    comboTextHijackItemShop(play, o.gi, girlA->price, 1);
 }

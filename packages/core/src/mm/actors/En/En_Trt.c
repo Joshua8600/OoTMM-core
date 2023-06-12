@@ -33,3 +33,16 @@ void EnTrt_GiveItem_BottledRedPotion(Actor* actor, GameState_Play* play, s16 gi,
 
 PATCH_CALL(0x80a8c54c, EnTrt_GiveItem_BottledRedPotion);
 PATCH_CALL(0x80ad4094, EnTrt_GiveItem_BottledRedPotion); /* En_Trt2 */
+
+static void EnTrt_GiveItem(Actor_EnTrt* this, GameState_Play* play, s16 gi, float a, float b)
+{
+    ComboItemQuery q;
+    Actor_EnGirlA* girlA;
+
+    girlA = this->items[this->itemIndex];
+    EnGirlA_ItemQuery(&q, girlA, OVF_PROGRESSIVE);
+    comboGiveItem(&this->base, play, &q, a, b);
+}
+
+PATCH_CALL(0x80a8cc44, EnTrt_GiveItem);
+PATCH_CALL(0x80a8e014, EnTrt_GiveItem);
