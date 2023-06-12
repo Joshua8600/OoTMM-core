@@ -2,13 +2,15 @@ import { Options } from '../options';
 import { Settings, Trick, TRICKS } from '../settings';
 import { EntranceShuffleResult } from './entrance';
 import { HintGossipFoolish, HintGossipHero, HintGossipItemExact, HintGossipItemRegion, Hints } from './hints';
-import { ItemPlacement } from './item-placement';
 import { World } from './world';
 import { itemName } from '../names';
 import { Monitor } from '../monitor';
 import { Analysis } from './analysis';
 import { regionName } from '../regions';
 import { isShuffled } from './is-shuffled'
+import { ItemPlacement } from './solve';
+import { Location, locationData, makeLocation } from './locations';
+import { Item, itemData } from './items';
 
 const VERSION = process.env.VERSION || 'XXX';
 
@@ -182,22 +184,34 @@ export class LogicPassSpoiler {
     this.buffer.push('');
   }
 
+  private locationName(location: Location) {
+    const data = locationData(location);
+    return `World ${data.world as number + 1} ${data.id}`;
+  }
+
+  private itemName(item: Item) {
+    const data = itemData(item);
+    return `Player ${data.player as number + 1} ${itemName(data.id)}`;
+  }
+
   private writeRaw() {
     const { world, items: placement, settings } = this.state;
     this.writeSectionHeader();
     this.buffer.push('Location List');
-    const regionNames = new Set(Object.values(world.regions));
-    const dungeonLocations = Object.values(world.dungeons).reduce((acc, x) => new Set([...acc, ...x]));
-    regionNames.forEach(region => {
-      const regionalLocations = Object.keys(world.regions)
-        .filter(location => world.regions[location] === region)
-        .filter(location => isShuffled(settings, world, location, dungeonLocations))
-        .map(loc => `    ${loc}: ${itemName(placement[loc])}`);
-      this.buffer.push(`  ${regionName(region)}:`);
-      this.buffer.push(regionalLocations.join('\n'));
-      this.buffer.push('')
+    for (let i = 0; i < this.state.settings.players; ++i) {
+      this.buffer.push(`  World ${i+1}`);
+      const regionNames = new Set(Object.values(world.regions));
+      const dungeonLocations = Object.values(world.dungeons).reduce((acc, x) => new Set([...acc, ...x]));
+      for (const region of regionNames) {
+        const regionalLocations = Object.keys(world.regions)
+          .filter(location => world.regions[location] === region)
+          .filter(location => isShuffled(settings, world, location, dungeonLocations))
+          .map(loc => `    ${loc}: ${this.itemName(placement[makeLocation(loc, i)])}`);
+        this.buffer.push(`  ${regionName(region)}:`);
+        this.buffer.push(regionalLocations.join('\n'));
+        this.buffer.push('');
       }
-    )
+    }
   }
 
   private writeSpheres() {

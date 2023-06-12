@@ -666,8 +666,8 @@ export const addItem = (items: Items, item: Item) => {
   items[item] = (items[item] || 0) + 1;
 };
 
-export const addRawItem = (items: {[k: string]: number}, item: string) => {
-  items[item] = (items[item] || 0) + 1;
+export const addRawItem = (items: {[k: string]: number}, item: string, amount = 1) => {
+  items[item] = (items[item] || 0) + amount;
 };
 
 export const removeItem = (items: Items, item: Item) => {

@@ -185,11 +185,13 @@ export class Pathfinder {
     this.state = state ? cloneDeep(state) : defaultState(this.settings);
 
     for (const item of Object.keys(this.opts.assumedItems || {}) as Item[]) {
+      const amount = this.opts.assumedItems![item];
       const itemD = itemData(item);
       const ws = this.state.ws[itemD.player as number];
-      addRawItem(ws.items, itemD.id);
-      addRawItem(ws.renewables, itemD.id);
-      addRawItem(ws.licenses, itemD.id);
+
+      addRawItem(ws.items, itemD.id, amount);
+      addRawItem(ws.renewables, itemD.id, amount);
+      addRawItem(ws.licenses, itemD.id, amount);
     }
 
     this.pathfind();

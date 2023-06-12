@@ -83,7 +83,6 @@ export class LogicPassSolver {
 
   run() {
     this.state.monitor.log(`Logic: Solver (attempt ${this.state.attempts})`);
-    const checksCount = Object.keys(this.state.world.checks).length;
 
     /* Place plando items */
     this.placePlando();
@@ -122,7 +121,7 @@ export class LogicPassSolver {
           break;
         }
       }
-      if (this.pathfinderState.locations.size === checksCount) {
+      if (this.pathfinderState.locations.size === this.locations.length) {
         break;
       }
 
