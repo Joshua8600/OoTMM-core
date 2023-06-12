@@ -83,7 +83,7 @@ export function buildPatchfile(args: BuildPatchfileIn): Patchfile {
   file.addPatch('global', 0x3c, Buffer.from('ZZE'));
 
   /* Patch the randomized data */
-  patchRandomizer(args.logic, args.settings, file);
+  patchRandomizer(0, args.logic, args.settings, file);
 
   return file;
 };

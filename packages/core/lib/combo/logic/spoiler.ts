@@ -2,7 +2,7 @@ import { Options } from '../options';
 import { Settings, Trick, TRICKS } from '../settings';
 import { EntranceShuffleResult } from './entrance';
 import { HintGossipFoolish, HintGossipHero, HintGossipItemExact, HintGossipItemRegion, Hints } from './hints';
-import { ItemPlacement } from './solve';
+import { ItemPlacement } from './item-placement';
 import { World } from './world';
 import { itemName } from '../names';
 import { Monitor } from '../monitor';
@@ -144,6 +144,9 @@ export class LogicPassSpoiler {
   };
 
   private writeHints() {
+    // TODO: DEBUG THIS
+    return;
+
     const { hints } = this.state;
     this.buffer.push('Hints');
     const gossipStones = Object.entries(hints.gossip)
@@ -160,7 +163,7 @@ export class LogicPassSpoiler {
         const hint = gossipStone[1]
         if (hint.type === 'hero') {
           if(sortedHints.hero[0][0] === stone)this.buffer.push('  Way of the Hero:')
-          this.buffer.push(`    ${stone}\n      ${regionName(hint.region)}    ${hint.location} - ${itemName(this.state.items[hint.location])}`)
+          this.buffer.push(`    ${stone}\n      ${regionName(hint.region)}    ${hint.location} - ${itemName(this.state.items.at(0, hint.location))}`)
         }
         if (hint.type === 'foolish') {
           if(sortedHints.foolish[0][0] === stone) this.buffer.push('\n  Foolish:')

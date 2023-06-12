@@ -1,4 +1,4 @@
-import { ItemPlacement } from './solve';
+import { ItemPlacement } from './item-placement';
 import { World } from './world';
 import { Analysis } from './analysis';
 import { Random, sample, shuffle } from '../random';
@@ -150,14 +150,14 @@ export class LogicPassHints {
 
     for (const sphere of this.state.analysis.spheres) {
       for (const loc of sphere) {
-        if (this.state.items[loc] === item) {
+        if (this.state.items.at(0, loc) === item) {
           locs.push(loc);
         }
       }
     }
 
     for (const loc in this.state.items) {
-      if (this.state.items[loc] === item) {
+      if (this.state.items.at(0, loc) === item) {
         locs.push(loc);
       }
     }
@@ -175,7 +175,7 @@ export class LogicPassHints {
 
   private isLocationHintable(loc: string, klass: HintClass) {
     /* Get the item and region  */
-    const item = this.state.items[loc];
+    const item = this.state.items.at(0, loc);
     const region = this.state.world.regions[loc];
 
     /* These specific locations are always ignored */
@@ -338,7 +338,7 @@ export class LogicPassHints {
         return false;
       }
     }
-    const items = locations.map(l => this.state.items[l]);
+    const items = locations.map(l => this.state.items.at(0, l));
     let gossip;
     if (isMoon) {
       const candidates = Object.keys(this.state.world.gossip)
@@ -449,7 +449,7 @@ export class LogicPassHints {
     if (this.hintedLocations.has(location) && !isMoon) {
       return false;
     }
-    const item = this.state.items[location];
+    const item = this.state.items.at(0, location);
     const hint = this.state.world.checks[location].hint;
     if (this.placeGossipItemExact(hint, extra, isMoon)) {
       return true;
@@ -592,6 +592,9 @@ export class LogicPassHints {
 
   run() {
     this.state.monitor.log('Logic: Hints');
+
+    // TODO: DEBUG THIS
+    return { hints: { foolish: {}, dungeonRewards: {}, lightArrow: {}, oathToOrder: {}, ganonBossKey: {} } };
 
     const dungeonRewardLocations = DUNGEON_REWARDS_ORDERED.map(item => this.findItem(item));
     const lightArrowLocation = this.findItem('OOT_ARROW_LIGHT') || this.findItem('SHARED_ARROW_LIGHT');
