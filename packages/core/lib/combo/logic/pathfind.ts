@@ -53,7 +53,6 @@ type PathfinderWorldState = {
   renewables: {[k: string]: number};
   forbiddenReachableLocations: Set<string>;
   events: Set<string>;
-  gossip: Set<string>;
   restrictedLocations?: Set<string>;
   forbiddenLocations?: Set<string>;
 }
@@ -67,6 +66,7 @@ export type PathfinderState = {
 
   /* Output */
   locations: Set<Location>;
+  gossips: Set<string>[];
 }
 
 const emptyDepList = (): PathfinderDependencyList => ({
@@ -104,7 +104,6 @@ const defaultWorldState = (settings: Settings): PathfinderWorldState => ({
   renewables: {},
   forbiddenReachableLocations: new Set(),
   events: new Set(),
-  gossip: new Set(),
 });
 
 const defaultWorldStates = (settings: Settings) => {
@@ -117,14 +116,23 @@ const defaultWorldStates = (settings: Settings) => {
   return ws;
 }
 
-const defaultState = (settings: Settings): PathfinderState => ({
-  items: {},
-  goal: false,
-  started: false,
-  ws: defaultWorldStates(settings),
-  locations: new Set(),
-  newLocations: new Set(),
-});
+const defaultState = (settings: Settings): PathfinderState => {
+  const gossips: Set<string>[] = [];
+
+  for (let world = 0; world < settings.players; ++world) {
+    gossips.push(new Set());
+  }
+
+  return {
+    items: {},
+    goal: false,
+    started: false,
+    ws: defaultWorldStates(settings),
+    locations: new Set(),
+    newLocations: new Set(),
+    gossips,
+  };
+};
 
 const defaultAreaData = (): AreaData => ({
   oot: {
@@ -581,7 +589,7 @@ export class Pathfinder {
     /* Evaluate all the gossips */
     for (const [gossip, areas] of queue) {
       for (const area of areas) {
-        if (ws.gossip.has(gossip)) {
+        if (this.state.gossips[world].has(gossip)) {
           continue;
         }
 
@@ -598,7 +606,7 @@ export class Pathfinder {
         /* If any of the results are true, add the location to the state and queue up everything */
         /* Otherwise, track dependencies */
         if (results.some(x => x.result)) {
-          ws.gossip.add(gossip);
+          this.state.gossips[world].add(gossip);
         } else {
           /* Track dependencies */
           const d = exprDependencies(results);
