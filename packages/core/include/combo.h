@@ -152,6 +152,9 @@ ComboDataHints;
 #define SPECIAL_GANON_BK    3
 #define SPECIAL_MAJORA      4
 
+#define PLAYER_SELF 0x00
+#define PLAYER_ALL  0xff
+
 typedef struct
 {
     u16 flags;
