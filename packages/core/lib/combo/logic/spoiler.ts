@@ -222,7 +222,7 @@ export class LogicPassSpoiler {
       this.buffer.push(`  Sphere ${i}`);
       const sphere = spheres[i];
       for (const loc of sphere) {
-        this.buffer.push(`    ${loc}: ${itemName(this.state.items[loc])}`);
+        this.buffer.push(`    ${this.locationName(loc)}: ${this.itemName(this.state.items[loc])}`);
       }
       this.buffer.push('');
     }

@@ -54,6 +54,8 @@ type PathfinderWorldState = {
   forbiddenReachableLocations: Set<string>;
   events: Set<string>;
   gossip: Set<string>;
+  restrictedLocations?: Set<string>;
+  forbiddenLocations?: Set<string>;
 }
 
 export type PathfinderState = {
@@ -165,8 +167,8 @@ type PathfinderOptions = {
   ignoreItems?: boolean;
   recursive?: boolean;
   stopAtGoal?: boolean;
-  restrictedLocations?: Set<string>;
-  forbiddenLocations?: Set<string>;
+  restrictedLocations?: Set<Location>;
+  forbiddenLocations?: Set<Location>;
   includeForbiddenReachable?: boolean;
 };
 
@@ -184,6 +186,7 @@ export class Pathfinder {
     this.opts = opts || {};
     this.state = state ? cloneDeep(state) : defaultState(this.settings);
 
+    /* Assumed items */
     for (const item of Object.keys(this.opts.assumedItems || {}) as Item[]) {
       const amount = this.opts.assumedItems![item];
       const itemD = itemData(item);
@@ -192,6 +195,38 @@ export class Pathfinder {
       addRawItem(ws.items, itemD.id, amount);
       addRawItem(ws.renewables, itemD.id, amount);
       addRawItem(ws.licenses, itemD.id, amount);
+    }
+
+    /* Restricted locations */
+    if (this.opts.restrictedLocations) {
+      for (let world = 0; world < this.settings.players; ++world) {
+        this.state.ws[world].restrictedLocations = new Set();
+      }
+
+      for (const loc of this.opts.restrictedLocations) {
+        const locD = locationData(loc);
+        this.state.ws[locD.world as number].restrictedLocations!.add(locD.id);
+      }
+    } else {
+      for (let world = 0; world < this.settings.players; ++world) {
+        this.state.ws[world].restrictedLocations = undefined;
+      }
+    }
+
+    /* Forbidden locations */
+    if (this.opts.forbiddenLocations) {
+      for (let world = 0; world < this.settings.players; ++world) {
+        this.state.ws[world].forbiddenLocations = new Set();
+      }
+
+      for (const loc of this.opts.forbiddenLocations) {
+        const locD = locationData(loc);
+        this.state.ws[locD.world as number].forbiddenLocations!.add(locD.id);
+      }
+    } else {
+      for (let world = 0; world < this.settings.players; ++world) {
+        this.state.ws[world].forbiddenLocations = undefined;
+      }
     }
 
     this.pathfind();
@@ -281,14 +316,14 @@ export class Pathfinder {
     if (previousAreaData && compareAreaData(previousAreaData, newAreaData)) {
       return;
     }
-    this.state.ws[world].areas[age].set(area, newAreaData);
+    ws.areas[age].set(area, newAreaData);
     const a = this.world.areas[area];
     let locs = Object.keys(a.locations).filter(x => !ws.locations.has(x));
-    if (this.opts.restrictedLocations && !this.opts.includeForbiddenReachable) {
-      locs = locs.filter(x => this.opts.restrictedLocations!.has(x));
+    if (ws.restrictedLocations && !this.opts.includeForbiddenReachable) {
+      locs = locs.filter(x => ws.restrictedLocations!.has(x));
     }
-    if (this.opts.forbiddenLocations && !this.opts.includeForbiddenReachable) {
-      locs = locs.filter(x => !this.opts.forbiddenLocations!.has(x));
+    if (ws.forbiddenLocations && !this.opts.includeForbiddenReachable) {
+      locs = locs.filter(x => !ws.forbiddenLocations!.has(x));
     }
     locs.forEach(x => this.queueLocation(world, x, area));
     Object.keys(a.events).filter(x => !ws.events.has(x)).forEach(x => this.queueEvent(world, x, area));
@@ -497,9 +532,9 @@ export class Pathfinder {
     for (const [location, areas] of queue) {
       let isAllowed = true;
       if (this.opts.includeForbiddenReachable) {
-        if (this.opts.restrictedLocations && !this.opts.restrictedLocations.has(location)) {
+        if (ws.restrictedLocations && !ws.restrictedLocations.has(location)) {
           isAllowed = false;
-        } else if (this.opts.forbiddenLocations && this.opts.forbiddenLocations.has(location)) {
+        } else if (ws.forbiddenLocations && ws.forbiddenLocations.has(location)) {
           isAllowed = false;
         }
       }
@@ -679,9 +714,9 @@ export class Pathfinder {
       /* Collect previously forbidden locations */
       for (const loc of ws.forbiddenReachableLocations) {
         let isAllowed = true;
-        if (this.opts.restrictedLocations && !this.opts.restrictedLocations.has(loc)) {
+        if (ws.restrictedLocations && !ws.restrictedLocations.has(loc)) {
           isAllowed = false;
-        } else if (this.opts.forbiddenLocations && this.opts.forbiddenLocations.has(loc)) {
+        } else if (ws.forbiddenLocations && ws.forbiddenLocations.has(loc)) {
           isAllowed = false;
         }
         if (isAllowed) {
