@@ -1,16 +1,16 @@
 import { Settings } from '../settings';
 import { isItemConsumable, isItemLicense } from './items';
-import { isLocationRenewable } from './locations';
+import { Location, isLocationRenewable, makePlayerLocations } from './locations';
 import { Pathfinder, PathfinderState } from './pathfind';
-import { ItemPlacement } from './item-placement';
 import { World } from './world';
 import { Random, sample } from '../random';
 import { Analysis } from './analysis';
 import { Monitor } from '../monitor';
+import { ItemPlacement } from './solve';
 
 type ZigZagState = {
-  allowed: Set<string>;
-  forbidden: Set<string>;
+  allowed: Set<Location>;
+  forbidden: Set<Location>;
 }
 
 export class LogicPassAnalysisFoolish {
@@ -31,9 +31,9 @@ export class LogicPassAnalysisFoolish {
     this.conditionallyRequiredLocations = new Set();
   }
 
-  private markAsSometimesRequired(loc: string) {
+  private markAsSometimesRequired(loc: Location) {
     if (!this.conditionallyRequiredLocations.has(loc)) {
-      this.state.monitor.debug("Foolish Analysis - Sometimes Required: " + loc + "(" + this.state.items.at(0, loc) + ")");
+      this.state.monitor.debug("Foolish Analysis - Sometimes Required: " + loc + "(" + this.state.items[loc] + ")");
       this.conditionallyRequiredLocations.add(loc);
     }
   }
@@ -42,7 +42,7 @@ export class LogicPassAnalysisFoolish {
     const locations = new Set(zz.allowed);
     let allowed = new Set(zz.allowed);
     const forbidden = new Set(zz.forbidden);
-    let lastBanished: string | null = null;
+    let lastBanished: Location | null = null;
 
     for (;;) {
       const locs = Array.from(locations);
@@ -77,7 +77,7 @@ export class LogicPassAnalysisFoolish {
     const locations = new Set(zz.forbidden);
     let forbidden = new Set(zz.forbidden);
     const allowed = new Set(zz.allowed);
-    let lastAdded: string | null = null;
+    let lastAdded: Location | null = null;
     let pathfinderState: PathfinderState | null = null;
 
     for (;;) {
@@ -111,9 +111,9 @@ export class LogicPassAnalysisFoolish {
     return { allowed, forbidden };
   }
 
-  private monteCarloZigZag(locations: Set<string>) {
+  private monteCarloZigZag(locations: Set<Location>) {
     const allowed = new Set(locations);
-    const forbidden = new Set<string>();
+    const forbidden = new Set<Location>();
     let zz: ZigZagState = { allowed, forbidden };
 
     const step = this.monteCarloZigZagDown(zz);
@@ -134,8 +134,8 @@ export class LogicPassAnalysisFoolish {
   }
 
   private uselessLocs() {
-    const locs = new Set<string>();
-    for (const loc in this.state.world.checks) {
+    const locs = new Set<Location>();
+    for (const loc of makePlayerLocations(this.state.settings, Object.keys(this.state.world.checks))) {
       if (this.state.analysis.unreachable.has(loc)) continue;
       if (this.state.analysis.required.has(loc)) continue;
       if (this.conditionallyRequiredLocations.has(loc)) continue;
@@ -170,12 +170,12 @@ export class LogicPassAnalysisFoolish {
     }
 
     /* Get all candidates */
-    const locsSet = new Set<string>();
-    for (const loc in this.state.world.checks) {
+    const locsSet = new Set<Location>();
+    for (const loc of makePlayerLocations(this.state.settings, Object.keys(this.state.world.checks))) {
       if (this.state.analysis.required.has(loc)) continue;
       if (this.state.analysis.unreachable.has(loc)) continue;
       if (this.state.analysis.useless.has(loc)) continue;
-      const item = this.state.items.at(0, loc);
+      const item = this.state.items[loc];
       if (isItemConsumable(item) && !isLocationRenewable(this.state.world, loc) && !isItemLicense(item)) continue;
       locsSet.add(loc);
     }

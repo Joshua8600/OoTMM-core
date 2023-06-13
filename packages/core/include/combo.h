@@ -161,6 +161,8 @@ SpecialCond;
 
 typedef struct
 {
+    u8              uuid[16];
+    u8              playerId;
     u32             mq;
     u8              config[0x40];
     SpecialCond     special[5];
