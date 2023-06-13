@@ -541,14 +541,15 @@ export class LogicPassAnalysis {
     while (locsToCheck.length > 0) {
       const l = locsToCheck.pop()!;
       const item = this.state.items[l];
+      const itemD = itemData(item);
       if (isItemImportant(item) && !this.uselessLocs.has(l) && !this.unreachableLocs.has(l)) {
         /* May be a progression item - need to check other locations */
-        const dependencies = this.dependencies[item];
+        const dependencies = this.dependencies[itemD.id];
         if (dependencies === undefined) {
           return false;
         } else {
           for (const d of dependencies) {
-            const player = itemData(item).player;
+            const player = itemD.player;
             if (player === 'all') return false;
             const loc = makeLocation(d, player);
             if (!locsAdded.has(loc)) {
