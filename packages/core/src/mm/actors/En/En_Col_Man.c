@@ -13,7 +13,7 @@ void EnColMan_DrawHeartPiece(Actor* this, GameState_Play* play)
     static const float scale = 12.5f;
     s16 gi;
 
-    gi = comboOverride(OV_NPC, 0, NPC_MM_LAB_FISH_HEART_PIECE, GI_MM_HEART_PIECE);
+    gi = 0;//comboOverride(OV_NPC, 0, NPC_MM_LAB_FISH_HEART_PIECE, GI_MM_HEART_PIECE);
     ModelViewScale(scale, scale, scale, MAT_MUL);
     comboDrawGI(play, this, gi, 0);
 }

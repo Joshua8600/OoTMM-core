@@ -7,7 +7,7 @@ static void EnScopenuts_AlterMessage(GameState_Play* play)
     char* b;
     char* start;
 
-    gi = comboOverrideEx(OV_NPC, 0, NPC_MM_SCRUB_TELESCOPE, GI_MM_HEART_PIECE, 0);
+    gi = 0; //gi = comboOverrideEx(OV_NPC, 0, NPC_MM_SCRUB_TELESCOPE, GI_MM_HEART_PIECE, 0);
     b = play->textBuffer;
     comboTextAppendHeader(&b);
     start = b;

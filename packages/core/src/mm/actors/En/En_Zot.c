@@ -29,7 +29,7 @@ PATCH_CALL(0x80b98f7c, EnZot_GiveItem);
 
 static void appendTextNpcItem(char** buf, GameState_Play* play, s16 npcId, s16 gi)
 {
-    gi = comboOverrideEx(OV_NPC, 0, npcId, gi, 0);
+    gi = 0;//comboOverrideEx(OV_NPC, 0, npcId, gi, 0);
     comboTextAppendItemName(buf, gi, TF_PREPOS | TF_PROGRESSIVE);
 }
 

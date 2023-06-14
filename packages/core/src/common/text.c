@@ -805,8 +805,8 @@ void comboTextHijackOathToOrder(GameState_Play* play)
 
 void comboTextAppendNpcReward(char** b, s16 npcId, s16 gi)
 {
-    gi = comboOverrideEx(OV_NPC, 0, npcId, gi, 0);
-    comboTextAppendItemName(b, gi, TF_PREPOS | TF_PROGRESSIVE);
+    //gi = comboOverrideEx(OV_NPC, 0, npcId, gi, 0);
+    //comboTextAppendItemName(b, gi, TF_PREPOS | TF_PROGRESSIVE);
 }
 
 void comboTextMessageCantBuy(GameState_Play* play, int flags)

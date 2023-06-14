@@ -20,7 +20,7 @@ void ItemBHeart_Draw(Actor* this, GameState_Play* play)
 {
     s16 gi;
 
-    gi = comboOverride(OV_COLLECTIBLE, play->sceneId, 0x1f, GI_MM_HEART_CONTAINER);
+    gi = 0;//comboOverride(OV_COLLECTIBLE, play->sceneId, 0x1f, GI_MM_HEART_CONTAINER);
     comboDrawGI(play, this, gi, DRAW_RAW);
 }
 

@@ -26,7 +26,7 @@ static void hintZoraEggs(GameState_Play* play)
     char* b;
     char* start;
 
-    gi = comboOverrideEx(OV_NPC, 0, NPC_MM_SONG_ZORA, GI_MM_SONG_ZORA, 0);
+    gi = 0; //gi = comboOverrideEx(OV_NPC, 0, NPC_MM_SONG_ZORA, GI_MM_SONG_ZORA, 0);
     b = play->textBuffer;
     comboTextAppendHeader(&b);
     start = b;

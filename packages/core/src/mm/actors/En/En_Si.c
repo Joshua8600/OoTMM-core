@@ -36,7 +36,7 @@ static s16 EnSi_GetOverride(Actor* this, GameState_Play* play)
         gi = GI_MM_GS_TOKEN_OCEAN;
     else
         gi = GI_MM_GS_TOKEN_SWAMP;
-    return comboOverride(OV_CHEST, play->sceneId, (this->variable & 0xfc) >> 2, gi);
+    return 0;//comboOverride(OV_CHEST, play->sceneId, (this->variable & 0xfc) >> 2, gi);
 }
 
 void EnSi_AddItem(Actor* this, GameState_Play* play)

@@ -133,7 +133,7 @@ void DoorWarp1_AfterDraw(Actor* this, GameState_Play* play)
         return;
     if (gMmExtraBoss.items & (1 << data->index))
         return;
-    gi = comboOverride(OV_NPC, 0, data->npc, data->gi);
+    gi = 0;//comboOverride(OV_NPC, 0, data->npc, data->gi);
 
     angle = (play->gs.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
     ModelViewTranslate(this->position.x, this->position.y + 35.f, this->position.z, MAT_SET);

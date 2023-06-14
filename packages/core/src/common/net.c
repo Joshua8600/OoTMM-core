@@ -12,20 +12,20 @@ void netInit(void)
     gNetCtx.playerId = gComboData.playerId;
 
     /* Init the global struct */
-    gNetGlobal.ctx = 0;
+    gNetGlobal.ctx = &gNetCtx;
     gNetGlobal.mutexSystem = 0;
     gNetGlobal.mutexScript = 0;
     gNetGlobal.magic = NET_MAGIC;
 }
 
-void netMutexLock(void)
+NetContext* netMutexLock(void)
 {
     /* Preemptive lock */
     gNetGlobal.mutexSystem = 1;
 
     /* Check for concurrent lock */
     if (!gNetGlobal.mutexScript)
-        return;
+        return &gNetCtx;
 
     /* The mutex is alrady locked */
     gNetGlobal.mutexSystem = 0;
@@ -35,7 +35,7 @@ void netMutexLock(void)
         ;
 
     /* Lock the mutex */
-    netMutexLock();
+    return netMutexLock();
 }
 
 void netMutexUnlock(void)

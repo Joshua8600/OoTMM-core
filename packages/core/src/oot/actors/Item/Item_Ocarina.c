@@ -58,7 +58,7 @@ void ItemOcarina_Draw(Actor* this, GameState_Play* play)
 {
     s16 gi;
 
-    gi = comboOverride(OV_NPC, 0, NPC_OOT_OCARINA_TIME_ITEM, GI_OOT_OCARINA_TIME);
+    gi = 0;//comboOverride(OV_NPC, 0, NPC_OOT_OCARINA_TIME_ITEM, GI_OOT_OCARINA_TIME);
     comboDrawGI(play, this, gi, 0);
 }
 

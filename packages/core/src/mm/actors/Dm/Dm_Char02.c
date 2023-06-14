@@ -55,7 +55,7 @@ void DmChar02_DrawOcarina(Actor* this, GameState_Play* play)
     s16 gi;
     static const float scale = 25.0f;
 
-    gi = comboOverride(OV_NPC, 0, NPC_MM_SKULL_KID_OCARINA, GI_MM_OCARINA_OF_TIME);
+    gi = 0;//comboOverride(OV_NPC, 0, NPC_MM_SKULL_KID_OCARINA, GI_MM_OCARINA_OF_TIME);
     ModelViewScale(scale, scale, scale, MAT_MUL);
     ModelViewTranslate(0.0f, 20.0f, 0.0f, MAT_MUL);
     comboDrawGI(play, this, gi, DRAW_RAW);

@@ -16,19 +16,19 @@ import { regionData } from '../logic/regions';
 
 const GAME_DATA_OFFSETS = {
   oot: 0x1000,
-  mm: 0x5000,
+  mm: 0x9000,
 };
 
 const HINTS_DATA_OFFSETS = {
-  oot: 0x9000,
-  mm: 0xa000,
+  oot: 0x11000,
+  mm: 0x12000,
 };
 
-const STARTING_ITEMS_DATA_OFFSET = 0xb000;
+const STARTING_ITEMS_DATA_OFFSET = 0x13000;
 
 const ENTRANCE_DATA_OFFSETS = {
-  oot: 0xc000,
-  mm: 0xd000,
+  oot: 0x14000,
+  mm: 0x15000,
 };
 
 const SHARED_ITEMS_OOT = new Map([
@@ -305,7 +305,7 @@ const gameChecks = (world: number, settings: Settings, game: Game, logic: LogicR
     }
     const key = (sceneId << 8) | id;
     const itemGi = gi(settings, game, itemD.id, true);
-    buf.push(key, itemGi);
+    buf.push((itemD.player as number) + 1, 0, key, itemGi);
   }
   return toU16Buffer(buf);
 };

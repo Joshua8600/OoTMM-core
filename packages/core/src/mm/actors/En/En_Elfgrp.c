@@ -109,15 +109,15 @@ static void EnElfgrp_DisplayTextBox(GameState_Play* play, s16 messageId, Actor* 
 
     if (fairyIndex <= 1)
     {
-        gi = comboOverrideEx(OV_NPC, 0, kGreatFairyNPCs[0], kGreatFairyRewards[0], 0);
-        gi2 = comboOverrideEx(OV_NPC, 0, kGreatFairyNPCs[1], kGreatFairyRewards[1], 0);
-        fairyHintTown(play, gi, gi2);
+        //gi = comboOverrideEx(OV_NPC, 0, kGreatFairyNPCs[0], kGreatFairyRewards[0], 0);
+        //gi2 = comboOverrideEx(OV_NPC, 0, kGreatFairyNPCs[1], kGreatFairyRewards[1], 0);
+        //fairyHintTown(play, gi, gi2);
         return;
     }
 
     /* Hint */
-    gi = comboOverrideEx(OV_NPC, 0, kGreatFairyNPCs[fairyIndex], kGreatFairyRewards[fairyIndex], 0);
-    fairyHint(play, gi);
+    //gi = comboOverrideEx(OV_NPC, 0, kGreatFairyNPCs[fairyIndex], kGreatFairyRewards[fairyIndex], 0);
+    //fairyHint(play, gi);
 }
 
 PATCH_CALL(0x80a3a9f0, EnElfgrp_DisplayTextBox);

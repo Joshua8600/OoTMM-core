@@ -6,7 +6,7 @@ void DemoEffect_TextRutoSapphire(GameState_Play* play)
     char* start;
     s16 gi;
 
-    gi = comboOverrideEx(OV_NPC, 0, NPC_OOT_BLUE_WARP_BARINADE, GI_OOT_STONE_SAPPHIRE, OVF_PROGRESSIVE | OVF_DOWNGRADE);
+    gi = 0;//comboOverrideEx(OV_NPC, 0, NPC_OOT_BLUE_WARP_BARINADE, GI_OOT_STONE_SAPPHIRE, OVF_PROGRESSIVE | OVF_DOWNGRADE);
     b = play->msgCtx.textBuffer;
     comboTextAppendHeader(&b);
     start = b;
@@ -23,7 +23,7 @@ static void DemoEffect_DrawSapphireInJabu(Actor* this, GameState_Play* play)
     s16 gi;
 
     angle = (play->gs.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
-    gi = comboOverrideEx(OV_NPC, 0, NPC_OOT_BLUE_WARP_BARINADE, GI_OOT_STONE_SAPPHIRE, OVF_PROGRESSIVE | OVF_DOWNGRADE);
+    gi = 0;//comboOverrideEx(OV_NPC, 0, NPC_OOT_BLUE_WARP_BARINADE, GI_OOT_STONE_SAPPHIRE, OVF_PROGRESSIVE | OVF_DOWNGRADE);
 
     ModelViewTranslate(this->position.x, this->position.y, this->position.z, MAT_SET);
     ModelViewScale(0.35f, 0.35f, 0.35f, MAT_MUL);

@@ -1,9 +1,11 @@
 #include <combo.h>
 #include <combo/item.h>
+#include <combo/net.h>
 
 #define TRIGGER_NONE            0x00
 #define TRIGGER_GANON_BK        0x01
 #define TRIGGER_TRIFORCE        0x02
+#define TRIGGER_NET             0x03
 
 #if defined(GAME_OOT)
 # define GI_OOT 0
@@ -76,6 +78,8 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
 
 static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_Play* play)
 {
+    NetContext* net;
+
     switch (this->trigger)
     {
     case TRIGGER_GANON_BK:
@@ -93,6 +97,15 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
             comboCreditWarp(play);
         }
         break;
+    case TRIGGER_NET:
+        net = netMutexLock();
+        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, net->cmd.itemRecv.gi))
+        {
+            net->cmd.op = NET_OP_NOP;
+            this->trigger = TRIGGER_NONE;
+        }
+        netMutexUnlock();
+        break;
     }
 
     CustomTriggers_HandleTriggerGame(this, play);
@@ -100,6 +113,8 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
 
 static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Play* play)
 {
+    NetContext* net;
+
     /* Ganon BK */
     if (comboConfig(CFG_OOT_GANON_BK_CUSTOM) && !gOotExtraFlags.ganonBossKey && comboSpecialCond(SPECIAL_GANON_BK))
     {
@@ -115,6 +130,20 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
         this->trigger = TRIGGER_TRIFORCE;
         return;
     }
+
+    /* Net */
+    net = netMutexLock();
+    if (net->cmd.op == NET_OP_ITEM_RECV)
+    {
+        if (net->cmd.itemRecv.player != net->playerId)
+            net->cmd.op = NET_OP_NOP;
+        else
+        {
+            this->acc = 0;
+            this->trigger = TRIGGER_NET;
+        }
+    }
+    netMutexUnlock();
 
     CustomTriggers_CheckTriggerGame(this, play);
 }

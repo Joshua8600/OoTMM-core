@@ -20,11 +20,11 @@ static void EnSsh_DisplayHint(Actor* this, GameState_Play* play)
 
     if (play->sceneId == SCE_MM_SPIDER_HOUSE_OCEAN)
     {
-        gi = comboOverrideEx(OV_NPC, 0, NPC_MM_SPIDER_HOUSE_OCEAN, GI_MM_WALLET2, 0);
+        gi = 0; //comboOverrideEx(OV_NPC, 0, NPC_MM_SPIDER_HOUSE_OCEAN, GI_MM_WALLET2, 0);
     }
     else
     {
-        gi = comboOverrideEx(OV_NPC, 0, NPC_MM_SPIDER_HOUSE_SWAMP, GI_MM_MASK_TRUTH, 0);
+        gi = 0;//comboOverrideEx(OV_NPC, 0, NPC_MM_SPIDER_HOUSE_SWAMP, GI_MM_MASK_TRUTH, 0);
     }
     PlayerDisplayTextBox(play, 0x915, this);
     hintSkullReward(play, gi);

@@ -255,19 +255,15 @@ const ComboItemQuery* gItemQueryCandidate;
 
 void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
 {
-    s16 gi;
-
-    gi = q->gi;
+    ComboItemOverride o;
 
     /* If the given item is an override, we need to store the metadata */
     if (q->ovType != OV_NONE)
-    {
         gItemQueryCandidate = q;
 
-        gi = comboOverrideEx(q->ovType, q->sceneId, q->id, gi, q->ovFlags);
-    }
-
-    GiveItem(actor, play, gi, a, b);
+    comboItemOverride(&o, q);
+    GiveItem(actor, play, o.gi, a, b);
+    gItemQueryCandidate = NULL;
 }
 
 void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float a, float b)
@@ -290,12 +286,138 @@ void comboGiveItemNpcEx(Actor* actor, GameState_Play* play, s16 gi, int npc, int
     comboGiveItem(actor, play, &q, a, b);
 }
 
+#if defined(GAME_OOT)
+# define OVERRIDE_ADDR 0x03fe1000
+#else
+# define OVERRIDE_ADDR 0x03fe9000
+#endif
+
+#define OVERRIDE_MAX 1024
+
+typedef struct ComboOverrideData
+{
+    s16  player;
+    s16  pad;
+    u16  key;
+    u16  value;
+}
+ComboOverrideData;
+
+static ALIGNED(16) ComboOverrideData gComboOverrides[OVERRIDE_MAX];
+
+void comboInitOverride(void)
+{
+    DMARomToRam(OVERRIDE_ADDR | PI_DOM1_ADDR2, &gComboOverrides, sizeof(gComboOverrides));
+}
+
+static u16 makeOverrideKey(int type, u16 sceneId, u16 id)
+{
+    switch (type)
+    {
+    case OV_CHEST:
+        id &= 0x3f;
+        break;
+    case OV_COLLECTIBLE:
+        id = (id & 0x3f) | 0x40;
+        break;
+    case OV_SF:
+        id = (id & 0x3f) | 0x80;
+        break;
+    case OV_NPC:
+        sceneId = SCE_NPC;
+        break;
+    case OV_GS:
+        sceneId = SCE_GS;
+        break;
+    case OV_COW:
+        sceneId = SCE_COW;
+        break;
+    case OV_SHOP:
+        sceneId = SCE_SHOP;
+        break;
+    case OV_SCRUB:
+        sceneId = SCE_SCRUB;
+        break;
+    }
+
+#if defined(GAME_MM)
+    switch (sceneId)
+    {
+    case SCE_MM_SOUTHERN_SWAMP_CLEAR:
+        sceneId = SCE_MM_SOUTHERN_SWAMP;
+        break;
+    case SCE_MM_TWIN_ISLANDS_SPRING:
+        sceneId = SCE_MM_TWIN_ISLANDS_WINTER;
+        break;
+    case SCE_MM_GORON_VILLAGE_SPRING:
+        sceneId = SCE_MM_GORON_VILLAGE_WINTER;
+        break;
+    case SCE_MM_MOUNTAIN_VILLAGE_SPRING:
+        sceneId = SCE_MM_MOUNTAIN_VILLAGE_WINTER;
+        break;
+    case SCE_MM_TEMPLE_STONE_TOWER_INVERTED:
+        sceneId = SCE_MM_TEMPLE_STONE_TOWER;
+        break;
+    }
+#endif
+
+    return (sceneId << 8) | id;
+}
+
+static const ComboOverrideData* overrideData(u16 key)
+{
+    for (int i = 0; i < OVERRIDE_MAX; ++i)
+    {
+        ComboOverrideData* o = &gComboOverrides[i];
+        if (o->key == 0xffff)
+            break;
+        if (o->key == key)
+            return o;
+    }
+    return NULL;
+}
+
 void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
 {
+    const ComboOverrideData* data;
+    s16 gi;
+    int neg;
+
     memset(dst, 0, sizeof(*dst));
-    dst->gi = comboOverrideEx(q->ovType, q->sceneId, q->id, q->gi, q->ovFlags);
-    if (q->ovFlags & OVF_RENEW)
+
+    if (q->gi < 0)
     {
-        dst->gi = comboRenewable(dst->gi, q->giRenew);
+        gi = -q->gi;
+        neg = 1;
     }
+    else
+    {
+        gi = q->gi;
+        neg = 0;
+    }
+
+    if (q->ovType == OV_NONE)
+        data = NULL;
+    else
+        data = overrideData(makeOverrideKey(q->ovType, q->sceneId, q->id));
+
+    if (data)
+    {
+        dst->player = data->player;
+        gi = (s16)data->value;
+    }
+
+    if (q->ovFlags & OVF_PROGRESSIVE)
+        gi = comboProgressive(gi);
+
+    if (q->ovFlags & OVF_DOWNGRADE)
+        gi = comboDowngrade(gi);
+
+    if (q->ovFlags & OVF_RENEW)
+        gi = comboRenewable(gi, q->giRenew);
+
+    if (neg)
+        gi = -gi;
+
+    dst->gi = gi;
 }

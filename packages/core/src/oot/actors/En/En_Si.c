@@ -20,7 +20,7 @@ static s16 EnSi_Override(Actor* this)
         UNREACHABLE();
     }
     key += ((((this->variable + 0x100) >> 8) & 0x1f) * 8);
-    return comboOverride(OV_GS, 0, key, GI_OOT_GS_TOKEN);
+    return 0;//comboOverride(OV_GS, 0, key, GI_OOT_GS_TOKEN);
 }
 
 void EnSi_Draw(Actor* this, GameState_Play* play)

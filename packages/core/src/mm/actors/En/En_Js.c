@@ -48,7 +48,7 @@ static void EnJs_DisplayHint(GameState_Play* play, s16 messageId)
     char* b;
     char* start;
 
-    gi = comboOverrideEx(OV_NPC, 0, NPC_MM_MASK_FIERCE_DEITY, GI_MM_MASK_FIERCE_DEITY, 0);
+    gi = 0; //gi = comboOverrideEx(OV_NPC, 0, NPC_MM_MASK_FIERCE_DEITY, GI_MM_MASK_FIERCE_DEITY, 0);
 
     /* Hint */
     DisplayTextBox2(play, messageId);

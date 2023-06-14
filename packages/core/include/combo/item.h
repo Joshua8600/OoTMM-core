@@ -88,6 +88,7 @@ ComboItemQuery;
 
 typedef struct ComboItemOverride
 {
+    u8  player;
     s16 gi;
 }
 ComboItemOverride;

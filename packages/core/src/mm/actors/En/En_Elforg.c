@@ -10,10 +10,10 @@ static s16 EnElforg_Item(Actor* this, GameState_Play* play)
     {
     case SCE_MM_CLOCK_TOWN_EAST:
     case SCE_MM_LAUNDRY_POOL:
-        gi = comboOverride(OV_NPC, 0, NPC_MM_STRAY_FAIRY_TOWN, gi);
+        gi = 0;//comboOverride(OV_NPC, 0, NPC_MM_STRAY_FAIRY_TOWN, gi);
         break;
     default:
-        gi = comboOverride(OV_SF, play->sceneId, (this->variable & 0xfe00) >> 9, gi);
+        gi = 0;//comboOverride(OV_SF, play->sceneId, (this->variable & 0xfe00) >> 9, gi);
         break;
     }
     return gi;

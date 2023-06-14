@@ -218,9 +218,6 @@ NORETURN void comboGameSwitch(GameState_Play* play, s32 entrance);
 #define OVF_DOWNGRADE         (1 << 1)
 #define OVF_RENEW             (1 << 2)
 
-s16 comboOverride(int type, u16 sceneId, u16 id, s16 gi);
-s16 comboOverrideEx(int type, u16 sceneId, u16 id, s16 gi, int flags);
-
 /* Text */
 int  comboMultibyteCharSize(u8 c);
 void comboTextHijackItem(GameState_Play* play, s16 gi, int count);
