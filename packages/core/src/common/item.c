@@ -64,6 +64,22 @@ int comboAddItemNoEffect(s16 gi)
     return -1;
 }
 
+int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q)
+{
+    ComboItemOverride o;
+
+    comboItemOverride(&o, q);
+    if (o.player == PLAYER_SELF || o.player == gComboData.playerId)
+        comboAddItem(play, o.gi);
+    else
+    {
+        /* It's an item for another player */
+        comboTextHijackItemEx(play, o.gi, 0, o.player);
+    }
+
+    return -1;
+}
+
 static int isItemUnavailableOot(s32 gi)
 {
     switch (gi)
@@ -251,19 +267,26 @@ int comboItemPrecond(s16 gi, s16 price)
     return SC_OK;
 }
 
-const ComboItemQuery* gItemQueryCandidate;
-
 void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
 {
+    static ComboItemQuery sItemQ;
+    static ComboItemQuery sItemQBox;
     ComboItemOverride o;
 
-    /* If the given item is an override, we need to store the metadata */
-    if (q->ovType != OV_NONE)
-        gItemQueryCandidate = q;
-
     comboItemOverride(&o, q);
-    GiveItem(actor, play, o.gi, a, b);
-    gItemQueryCandidate = NULL;
+    if (GiveItem(actor, play, o.gi, a, b) && q->ovType != OV_NONE)
+    {
+        if (q->gi < 0)
+        {
+            memcpy(&sItemQBox, q, sizeof(sItemQBox));
+            g.itemQueryBox = &sItemQBox;
+        }
+        else
+        {
+            memcpy(&sItemQ, q, sizeof(sItemQ));
+            g.itemQuery = &sItemQ;
+        }
+    }
 }
 
 void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float a, float b)
@@ -420,4 +443,46 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
         gi = -gi;
 
     dst->gi = gi;
+}
+
+void comboPlayerAddItem(GameState_Play* play, s16 gi)
+{
+#if defined(GAME_MM)
+# define CHEST_OFF 0x430
+#else
+# define CHEST_OFF 0x428
+#endif
+
+    Actor* chest;
+    Actor_Player* player;
+    ComboItemQuery q = ITEM_QUERY_INIT;
+
+    /* Check for a chest */
+    player = GET_LINK(play);
+    chest = *(Actor**)((char*)player + CHEST_OFF);
+    if (chest && chest->id == AC_EN_BOX)
+    {
+        if (g.itemQueryBox)
+        {
+            memcpy(&q, g.itemQueryBox, sizeof(q));
+            g.itemQueryBox = NULL;
+        }
+        else
+            q.gi = gi;
+    }
+    else
+    {
+        if (g.itemQuery)
+        {
+            memcpy(&q, g.itemQuery, sizeof(q));
+            g.itemQuery = NULL;
+        }
+        else
+            q.gi = gi;
+    }
+
+    if (q.gi < 0)
+        q.gi = -q.gi;
+
+    comboAddItemEx(play, &q);
 }

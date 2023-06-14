@@ -651,10 +651,13 @@ void comboTextAppendCheckName(char** b, u8 checkId)
     comboTextAppendClearColor(b);
 }
 
-void comboTextHijackItem(GameState_Play* play, s16 gi, int count)
+void comboTextHijackItemEx(GameState_Play* play, s16 gi, int count, int player)
 {
     char* b;
     char* start;
+    int isSelf;
+
+    isSelf = (player == PLAYER_SELF) || (player == gComboData.playerId);
 
 #if defined(GAME_OOT)
     b = play->msgCtx.textBuffer;
@@ -665,8 +668,14 @@ void comboTextHijackItem(GameState_Play* play, s16 gi, int count)
     start = b;
     comboTextAppendStr(&b, "You got ");
     comboTextAppendItemName(&b, gi, 0);
+    if (!isSelf)
+    {
+        comboTextAppendStr(&b, " for " TEXT_COLOR_YELLOW "Player ");
+        comboTextAppendNum(&b, player);
+        comboTextAppendClearColor(&b);
+    }
     comboTextAppendStr(&b, "!");
-    if (count)
+    if (isSelf && count)
     {
         comboTextAppendStr(&b, TEXT_NL "This is your " TEXT_COLOR_RED);
         comboTextAppendOrd(&b, count);
@@ -675,6 +684,11 @@ void comboTextHijackItem(GameState_Play* play, s16 gi, int count)
     }
     comboTextAppendStr(&b, TEXT_END);
     comboTextAutoLineBreaks(start);
+}
+
+void comboTextHijackItem(GameState_Play* play, s16 gi, int count)
+{
+    comboTextHijackItemEx(play, gi, count, PLAYER_SELF);
 }
 
 static int isSoldOut(s16 gi)

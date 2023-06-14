@@ -221,6 +221,7 @@ NORETURN void comboGameSwitch(GameState_Play* play, s32 entrance);
 /* Text */
 int  comboMultibyteCharSize(u8 c);
 void comboTextHijackItem(GameState_Play* play, s16 gi, int count);
+void comboTextHijackItemEx(GameState_Play* play, s16 gi, int count, int player);
 void comboTextHijackItemShop(GameState_Play* play, s16 gi, s16 price, int confirm);
 
 #if defined(GAME_OOT)
@@ -399,12 +400,16 @@ extern u8 gCustomOcarinaSong;
 int comboSpecialCond(int special);
 int comboGoalCond(void);
 
+typedef struct ComboItemQuery ComboItemQuery;
+
 /* Global data */
 typedef struct
 {
-    u16 initialEntrance;
-    u8  inGrotto;
-    u8  isCreditWarp;
+    u16                     initialEntrance;
+    u8                      inGrotto;
+    u8                      isCreditWarp;
+    const ComboItemQuery*   itemQuery;
+    const ComboItemQuery*   itemQueryBox;
 }
 ComboGlobal;
 

@@ -69,6 +69,8 @@ void comboAddCommonItemMm(int sid, int noEffect);
 int  comboAddItem(GameState_Play* play, s16 gi);
 int  comboAddItemNoEffect(s16 gi);
 
+int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q);
+
 int comboIsItemUnavailable(s16 gi);
 int comboIsItemMinor(s16 gi);
 
