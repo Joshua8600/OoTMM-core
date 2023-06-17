@@ -109,6 +109,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
             net->cmdIn.op = NET_OP_NOP;
             this->trigger = TRIGGER_NONE;
             gSaveLedgerBase++;
+            net->ledgerBase = gSaveLedgerBase;
         }
         netMutexUnlock();
         break;
@@ -145,6 +146,7 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
         {
             net->cmdIn.op = NET_OP_NOP;
             gSaveLedgerBase++;
+            net->ledgerBase = gSaveLedgerBase;
         }
         else
         {
