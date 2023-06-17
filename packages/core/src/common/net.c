@@ -5,11 +5,24 @@
 
 NetContext gNetCtx;
 
+volatile unsigned int gWaitCycles;
+
+static void wait(void)
+{
+    /* Small wait */
+    for (int i = 0; i < 100000; ++i)
+    {
+        gWaitCycles++;
+        if (gWaitCycles == -1000000000)
+            gWaitCycles = 0;
+    }
+}
+
 void netInit(void)
 {
     /* Init the context */
     gNetCtx.uuid = gComboData.uuid;
-    gNetCtx.playerId = gComboData.playerId;
+    gNetCtx.ledgerBase = 0xffffffff;
 
     /* Init the global struct */
     gNetGlobal.ctx = &gNetCtx;
@@ -48,4 +61,21 @@ void netClose(void)
     netMutexLock();
     gNetGlobal.magic = 0;
     netMutexUnlock();
+}
+
+void netWaitCmdClear(void)
+{
+    if (gNetCtx.cmdOut.op == NET_OP_NOP)
+        return;
+
+    /* Command is not clear, need to loop */
+    for (;;)
+    {
+        netMutexUnlock();
+        wait();
+        netMutexLock();
+
+        if (gNetCtx.cmdOut.op == NET_OP_NOP)
+            return;
+    }
 }

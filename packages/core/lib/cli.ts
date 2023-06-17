@@ -49,7 +49,7 @@ function writeFiles(data: (Buffer | string)[], name: string, ext: string) {
   }
 
   return data.map((x, i) => {
-    return fs.writeFile(`${name}-${i}.${ext}`, x);
+    return fs.writeFile(`${name}-${i+1}.${ext}`, x);
   });
 }
 

@@ -1,5 +1,6 @@
 #include <combo.h>
 #include <combo/item.h>
+#include <combo/net.h>
 
 #if defined(GAME_OOT)
 # define comboAddItemNative             comboAddItemOot
@@ -61,22 +62,6 @@ int comboAddItemNoEffect(s16 gi)
         comboAddItemNative(gi, 1);
         comboAddItemSharedNative(gi, 1);
     }
-    return -1;
-}
-
-int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q)
-{
-    ComboItemOverride o;
-
-    comboItemOverride(&o, q);
-    if (o.player == PLAYER_SELF || o.player == gComboData.playerId)
-        comboAddItem(play, o.gi);
-    else
-    {
-        /* It's an item for another player */
-        comboTextHijackItemEx(play, o.gi, 0, o.player);
-    }
-
     return -1;
 }
 
@@ -443,6 +428,42 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
         gi = -gi;
 
     dst->gi = gi;
+}
+
+
+int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q)
+{
+    ComboItemOverride o;
+    NetContext* net;
+
+    comboItemOverride(&o, q);
+    if (o.player == PLAYER_SELF || o.player == gComboData.playerId)
+        comboAddItem(play, o.gi);
+    else
+    {
+        /* It's an item for another player */
+        comboTextHijackItemEx(play, o.gi, 0, o.player);
+
+        /* We need to send it */
+        net = netMutexLock();
+        netWaitCmdClear();
+        bzero(&net->cmdOut, sizeof(net->cmdOut));
+        net->cmdOut.op = NET_OP_ITEM_SEND;
+        net->cmdOut.itemSend.playerFrom = gComboData.playerId;
+        net->cmdOut.itemSend.playerTo = o.player;
+#if defined(GAME_OOT)
+        net->cmdOut.itemSend.game = 0;
+        net->cmdOut.itemSend.gi = o.gi;
+#else
+        net->cmdOut.itemSend.game = 1;
+        net->cmdOut.itemSend.gi = o.gi ^ MASK_FOREIGN_GI;
+#endif
+        net->cmdOut.itemSend.key = makeOverrideKey(q->ovType, q->sceneId, q->id);
+        net->cmdOut.itemSend.flags = (s16)q->ovFlags;
+        netMutexUnlock();
+    }
+
+    return -1;
 }
 
 void comboPlayerAddItem(GameState_Play* play, s16 gi)

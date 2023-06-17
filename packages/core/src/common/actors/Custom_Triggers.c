@@ -79,6 +79,7 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
 static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_Play* play)
 {
     NetContext* net;
+    s16 gi;
 
     switch (this->trigger)
     {
@@ -99,10 +100,15 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
         break;
     case TRIGGER_NET:
         net = netMutexLock();
-        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, net->cmd.itemRecv.gi))
+        gi = net->cmdIn.itemRecv.gi;
+#if defined(GAME_MM)
+        gi ^= MASK_FOREIGN_GI;
+#endif
+        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, gi))
         {
-            net->cmd.op = NET_OP_NOP;
+            net->cmdIn.op = NET_OP_NOP;
             this->trigger = TRIGGER_NONE;
+            gSaveLedgerBase++;
         }
         netMutexUnlock();
         break;
@@ -133,10 +139,13 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
 
     /* Net */
     net = netMutexLock();
-    if (net->cmd.op == NET_OP_ITEM_RECV)
+    if (net->cmdIn.op == NET_OP_ITEM_RECV)
     {
-        if (net->cmd.itemRecv.player != net->playerId)
-            net->cmd.op = NET_OP_NOP;
+        if (net->cmdIn.itemRecv.playerTo != gComboData.playerId)
+        {
+            net->cmdIn.op = NET_OP_NOP;
+            gSaveLedgerBase++;
+        }
         else
         {
             this->acc = 0;
