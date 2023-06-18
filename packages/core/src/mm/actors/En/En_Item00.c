@@ -60,7 +60,7 @@ void EnItem00_DrawHeartPiece(Actor_EnItem00* this, GameState_Play* play)
     EnItem00_ItemQuery(&q, this, play, GI_OOT_HEART_PIECE, OVF_PROGRESSIVE);
     comboItemOverride(&o, &q);
     ModelViewScale(scale, scale, scale, MAT_MUL);
-    comboDrawGI(play, &this->base, q.gi, 0);
+    comboDrawGI(play, &this->base, o.gi, 0);
 }
 
 PATCH_FUNC(0x800a75b8, EnItem00_DrawHeartPiece);
