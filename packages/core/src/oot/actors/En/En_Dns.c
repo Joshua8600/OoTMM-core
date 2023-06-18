@@ -135,7 +135,7 @@ static void EnDns_ItemQuery(ComboItemQuery* q, int id, int flags)
 
     q->ovType = OV_SCRUB;
     q->gi = GI_OOT_STICK; /* Dummy */
-    q->ovFlags = flags;
+    q->ovFlags = flags | OVF_PRECOND;
     q->id = id;
 
     if (EnDns_GetFlag(id))
