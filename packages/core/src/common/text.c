@@ -725,7 +725,7 @@ static int isSoldOut(s16 gi)
 #endif
 }
 
-void comboTextHijackItemShop(GameState_Play* play, s16 gi, s16 price, int confirm)
+void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s16 price, int confirm)
 {
     char* b;
 
@@ -737,13 +737,13 @@ void comboTextHijackItemShop(GameState_Play* play, s16 gi, s16 price, int confir
 
     comboTextAppendShopHeader(&b, price);
 
-    if (isSoldOut(gi))
+    if (isSoldOut(o->gi))
     {
         comboTextAppendStr(&b, "SOLD OUT" TEXT_NOCLOSE TEXT_END);
         return;
     }
 
-    comboTextAppendItemName(&b, gi, TF_CAPITALIZE);
+    comboTextAppendItemNameOverride(&b, o, TF_CAPITALIZE);
     comboTextAppendStr(&b, TEXT_NL TEXT_COLOR_RED);
     comboTextAppendNum(&b, price);
     comboTextAppendStr(&b, " Rupees");

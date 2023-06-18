@@ -223,11 +223,10 @@ NORETURN void comboGameSwitch(GameState_Play* play, s32 entrance);
 int  comboMultibyteCharSize(u8 c);
 void comboTextHijackItem(GameState_Play* play, s16 gi, int count);
 void comboTextHijackItemEx(GameState_Play* play, const ComboItemOverride* o, int count);
-void comboTextHijackItemShop(GameState_Play* play, s16 gi, s16 price, int confirm);
+void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s16 price, int confirm);
 
 #if defined(GAME_OOT)
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int base, int count);
-void comboTextHijackSkullReward(GameState_Play* play, s16 gi, int count);
 void comboTextHijackLightArrows(GameState_Play* play);
 #else
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int hint);

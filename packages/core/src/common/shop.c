@@ -72,7 +72,7 @@ void comboShopDisplayTextBox(GameState_Play* play, Actor_EnGirlA* girlA)
     {
         girlA->disabled = 1;
     }
-    comboTextHijackItemShop(play, o.gi, girlA->price, 0);
+    comboTextHijackItemShop(play, &o, girlA->price, 0);
 }
 
 void comboShopDisplayTextBoxConfirm(GameState_Play* play, Actor_EnGirlA* girlA)
@@ -81,5 +81,5 @@ void comboShopDisplayTextBoxConfirm(GameState_Play* play, Actor_EnGirlA* girlA)
 
     EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
     DisplayTextBox2(play, girlA->messageId2);
-    comboTextHijackItemShop(play, o.gi, girlA->price, 1);
+    comboTextHijackItemShop(play, &o, girlA->price, 1);
 }
