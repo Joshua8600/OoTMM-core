@@ -469,7 +469,7 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q)
 void comboPlayerAddItem(GameState_Play* play, s16 gi)
 {
 #if defined(GAME_MM)
-# define CHEST_OFF 0x430
+# define CHEST_OFF 0x388
 #else
 # define CHEST_OFF 0x428
 #endif
