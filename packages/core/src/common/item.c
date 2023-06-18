@@ -26,6 +26,13 @@ const u8 kMaxBombs[] = { 0, 20, 30, 40 };
 const u8 kMaxArrows[] = { 0, 30, 40, 50 };
 const u8 kMaxSeeds[] = { 0, 30, 40, 50 };
 
+static int isPlayerSelf(u8 playerId)
+{
+    if (playerId == PLAYER_SELF || playerId == gComboData.playerId)
+        return 1;
+    return 0;
+}
+
 int comboAddItem(GameState_Play* play, s16 gi)
 {
     int count;
@@ -238,15 +245,18 @@ static int isItemBuyable(s16 gi)
         return isItemBuyableOot(gi);
 }
 
-int comboItemPrecond(s16 gi, s16 price)
+int comboItemPrecondEx(const ComboItemQuery* q, s16 price)
 {
-    if (comboIsItemUnavailable(gi) || !isItemBuyable(gi))
+    ComboItemOverride o;
+
+    comboItemOverride(&o, q);
+    if (isPlayerSelf(o.player) && (comboIsItemUnavailable(o.gi) || !isItemBuyable(o.gi)))
         return SC_ERR_CANNOTBUY;
 
     if (gSave.playerData.rupees < price)
         return SC_ERR_NORUPEES;
 
-    if (comboIsItemMinor(gi))
+    if (comboIsItemMinor(o.gi))
         return SC_OK_NOCUTSCENE;
 
     return SC_OK;
@@ -383,13 +393,6 @@ static const ComboOverrideData* overrideData(u16 key)
             return o;
     }
     return NULL;
-}
-
-static int isPlayerSelf(u8 playerId)
-{
-    if (playerId == PLAYER_SELF || playerId == gComboData.playerId)
-        return 1;
-    return 0;
 }
 
 void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)

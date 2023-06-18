@@ -6,6 +6,24 @@
 
 typedef struct GameState_Play GameState_Play;
 
+typedef struct ComboItemQuery
+{
+    s16 gi;
+    s16 giRenew;
+    s16 ovType;
+    int ovFlags;
+    u8  sceneId;
+    u8  id;
+}
+ComboItemQuery;
+
+typedef struct ComboItemOverride
+{
+    u8  player;
+    s16 gi;
+}
+ComboItemOverride;
+
 extern u16 gMaxRupees[];
 
 #if defined(GAME_OOT)
@@ -74,26 +92,8 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q);
 int comboIsItemUnavailable(s16 gi);
 int comboIsItemMinor(s16 gi);
 
-int comboItemPrecond(s16 gi, s16 price);
+int comboItemPrecondEx(const ComboItemQuery* q, s16 price);
 s16 comboRenewable(s16 gi, s16 def);
-
-typedef struct ComboItemQuery
-{
-    s16 gi;
-    s16 giRenew;
-    s16 ovType;
-    int ovFlags;
-    u8  sceneId;
-    u8  id;
-}
-ComboItemQuery;
-
-typedef struct ComboItemOverride
-{
-    u8  player;
-    s16 gi;
-}
-ComboItemOverride;
 
 #define ITEM_QUERY_INIT { 0, 0, OV_NONE, 0, 0, 0 }
 

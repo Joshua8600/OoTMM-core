@@ -15,7 +15,7 @@ void EnGirlA_ItemQuery(ComboItemQuery* q, Actor_EnGirlA* girlA, int flags)
 
     q->ovType = OV_SHOP;
     q->id = girlA->shopId;
-    q->ovFlags = flags;
+    q->ovFlags = flags | OVF_PRECOND;
     q->gi = girlA->gi;
     q->giRenew = SOLD_OUT;
 

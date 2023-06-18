@@ -15,6 +15,7 @@ static void EnIn_ItemQuery(ComboItemQuery* q, s16 gi, int flags)
     {
     case GI_MM_MILK:
         q->ovType = OV_NPC;
+        q->ovFlags |= OVF_PRECOND;
         q->id = NPC_MM_GORMAN_MILK;
         if (gMmExtraFlags2.gormanMilk)
             q->ovFlags |= OVF_RENEW;
@@ -31,12 +32,10 @@ static void EnIn_ItemQuery(ComboItemQuery* q, s16 gi, int flags)
 static int EnIn_CanBuy(void)
 {
     ComboItemQuery q;
-    ComboItemOverride o;
     int ret;
 
     EnIn_ItemQuery(&q, GI_MM_MILK, 0);
-    comboItemOverride(&o, &q);
-    ret = comboItemPrecond(o.gi, 0);
+    ret = comboItemPrecondEx(&q, 0);
     if (ret == SC_OK || ret == SC_OK_NOCUTSCENE)
         return 1;
     return 0;

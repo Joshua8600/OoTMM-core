@@ -15,7 +15,7 @@ static void EnTab_ItemQuery(ComboItemQuery* q, int index, int flags)
     bzero(q, sizeof(*q));
 
     q->ovType = OV_NPC;
-    q->ovFlags = flags;
+    q->ovFlags = flags | OVF_PRECOND;
 
     switch (index)
     {
@@ -118,7 +118,7 @@ void EnTab_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
     if (gi == 0)
         sc = SC_ERR_CANNOTBUY;
     else
-        sc = comboItemPrecond(o.gi, kPrices[sItemIndex]);
+        sc = comboItemPrecondEx(&q, kPrices[sItemIndex]);
 
     switch (sc)
     {

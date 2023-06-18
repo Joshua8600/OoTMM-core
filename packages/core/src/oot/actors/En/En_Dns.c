@@ -172,13 +172,13 @@ void EnDns_MaybeDestroy(Actor* this)
 
 static int EnDns_CanBuy(Actor* this)
 {
-    ComboItemOverride o;
+    ComboItemQuery q;
     s16 price;
 
-    EnDns_ItemOverride(&o, EnDns_GetID(this), 0);
+    EnDns_ItemQuery(&q, EnDns_GetID(this), 0);
     price = EnDns_GetPrice(this);
 
-    switch (comboItemPrecond(o.gi, price))
+    switch (comboItemPrecondEx(&q, price))
     {
     case SC_OK:
     case SC_OK_NOCUTSCENE:

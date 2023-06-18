@@ -46,7 +46,7 @@ static void EnBal_ItemQuery(ComboItemQuery* q, int mapId, int flags)
     bzero(q, sizeof(*q));
 
     q->ovType = OV_NPC;
-    q->ovFlags = flags;
+    q->ovFlags = flags | OVF_PRECOND;
     q->id = kTingleNpc[mapId];
     q->gi = kTingleMaps[mapId];
     q->giRenew = 0;
@@ -92,6 +92,7 @@ PATCH_CALL(0x80a635c4, EnBal_GiveItem);
 
 static int EnBal_AlreadyBoughtItemWrapper(Actor* this, GameState_Play* play)
 {
+    ComboItemQuery q;
     ComboItemOverride o;
     int (*EnBal_AlreadyBoughtItem)(Actor*, GameState_Play*);
     int precond;
@@ -103,12 +104,13 @@ static int EnBal_AlreadyBoughtItemWrapper(Actor* this, GameState_Play* play)
     mapId = *(s16*)((char*)this + 0x3ac);
 
     /* Get the item */
-    EnBal_ItemOverride(&o, mapId, 0);
+    EnBal_ItemQuery(&q, mapId, 0);
+    comboItemOverride(&o, &q);
     if (o.gi == 0)
         return 1;
 
     /* Check for preconds (rupees are checked separately) */
-    precond = comboItemPrecond(o.gi, 0);
+    precond = comboItemPrecondEx(&q, 0);
     if (precond == SC_OK || precond == SC_OK_NOCUTSCENE)
         return 0;
     return 1;

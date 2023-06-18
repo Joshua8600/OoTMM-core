@@ -10,9 +10,11 @@
 #if defined(GAME_OOT)
 # define GI_OOT 0
 # define GI_MM  MASK_FOREIGN_GI
+# define RECOVERY_HEART GI_OOT_RECOVERY_HEART
 #else
 # define GI_OOT MASK_FOREIGN_GI
 # define GI_MM  0
+# define RECOVERY_HEART GI_MM_RECOVERY_HEART
 #endif
 
 void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, GameState_Play* play);
@@ -56,6 +58,34 @@ int CustomTriggers_GiveItemDirect(Actor_CustomTriggers* this, GameState_Play* pl
 
     q.gi = gi;
     q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
+
+    return CustomTriggers_GiveItem(this, play, &q);
+}
+
+int CustomTriggers_GiveItemNet(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, int flags)
+{
+    ComboItemQuery q = ITEM_QUERY_INIT;
+    int ret;
+
+    q.gi = gi;
+    q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
+
+    if (flags & OVF_PRECOND)
+    {
+        q.ovFlags &= ~OVF_DOWNGRADE;
+        ret = comboItemPrecondEx(&q, 0);
+        switch (ret)
+        {
+        case SC_OK:
+        case SC_OK_NOCUTSCENE:
+            break;
+        default:
+            bzero(&q, sizeof(q));
+            q.ovType = OV_NONE;
+            q.gi = RECOVERY_HEART;
+            break;
+        }
+    }
 
     return CustomTriggers_GiveItem(this, play, &q);
 }
@@ -110,7 +140,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
 #if defined(GAME_MM)
         gi ^= MASK_FOREIGN_GI;
 #endif
-        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, gi))
+        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemNet(this, play, gi, net->cmdIn.itemRecv.flags))
         {
             bzero(&net->cmdIn, sizeof(net->cmdIn));
             this->trigger = TRIGGER_NONE;

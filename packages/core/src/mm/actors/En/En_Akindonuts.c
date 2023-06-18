@@ -39,7 +39,7 @@ static void EnAkindonuts_ShopItemQuery(ComboItemQuery* q, int id, int flags)
 
     bzero(q, sizeof(*q));
     q->ovType = OV_NPC;
-    q->ovFlags = flags;
+    q->ovFlags = flags | OVF_PRECOND;
     q->giRenew = GI_MM_RECOVERY_HEART;
     switch (id)
     {
@@ -87,13 +87,13 @@ static void EnAkindonuts_ShopOverride(ComboItemOverride* o, int id, int flags)
 
 static int EnAkindonuts_Precond(Actor* this)
 {
-    ComboItemOverride o;
+    ComboItemQuery q;
     int id;
     int sc;
 
     id = EnAkindonuts_ShopID(this);
-    EnAkindonuts_ShopOverride(&o, id, 0);
-    sc = comboItemPrecond(o.gi, kPrices[id]);
+    EnAkindonuts_ShopItemQuery(&q, id, 0);
+    sc = comboItemPrecondEx(&q, kPrices[id]);
 
     switch (sc)
     {

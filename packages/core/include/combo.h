@@ -217,6 +217,7 @@ NORETURN void comboGameSwitch(GameState_Play* play, s32 entrance);
 #define OVF_PROGRESSIVE       (1 << 0)
 #define OVF_DOWNGRADE         (1 << 1)
 #define OVF_RENEW             (1 << 2)
+#define OVF_PRECOND           (1 << 3)
 
 /* Text */
 int  comboMultibyteCharSize(u8 c);

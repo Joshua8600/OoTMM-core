@@ -12,10 +12,10 @@ void shopWriteFlag(int);
 
 int comboShopPrecond(GameState_Play* play, Actor_EnGirlA* girlA)
 {
-    ComboItemOverride o;
+    ComboItemQuery q;
 
-    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
-    return comboItemPrecond(o.gi, girlA->price);
+    EnGirlA_ItemQuery(&q, girlA, 0);
+    return comboItemPrecondEx(&q, girlA->price);
 }
 
 void comboShopAfterBuy(GameState_Play* play, Actor_EnGirlA* girlA)
