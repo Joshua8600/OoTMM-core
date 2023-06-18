@@ -17,8 +17,8 @@ void comboOnSaveLoad(void)
     /* Clear network */
     net = netMutexLock();
     net->ledgerBase = gSaveLedgerBase;
-    net->cmdIn.op = NET_OP_NOP;
-    net->cmdOut.op = NET_OP_NOP;
+    bzero(&net->cmdIn, sizeof(net->cmdIn));
+    bzero(&net->cmdOut, sizeof(net->cmdOut));
     netMutexUnlock();
 
     gOotMaxRupees[0] = gOotExtraFlags.childWallet ? 99 : 0;

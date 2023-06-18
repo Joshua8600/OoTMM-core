@@ -65,17 +65,15 @@ void netClose(void)
 
 void netWaitCmdClear(void)
 {
-    if (gNetCtx.cmdOut.op == NET_OP_NOP)
-        return;
-
-    /* Command is not clear, need to loop */
     for (;;)
     {
+        if (gNetCtx.cmdOut.op == NET_OP_NOP)
+            return;
+
+        /* Command is not clear, need to loop */
         netMutexUnlock();
         wait();
         netMutexLock();
 
-        if (gNetCtx.cmdOut.op == NET_OP_NOP)
-            return;
     }
 }

@@ -385,6 +385,13 @@ static const ComboOverrideData* overrideData(u16 key)
     return NULL;
 }
 
+static int isPlayerSelf(u8 playerId)
+{
+    if (playerId == PLAYER_SELF || playerId == gComboData.playerId)
+        return 1;
+    return 0;
+}
+
 void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
 {
     const ComboOverrideData* data;
@@ -415,11 +422,14 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
         gi = (s16)data->value;
     }
 
-    if (q->ovFlags & OVF_PROGRESSIVE)
-        gi = comboProgressive(gi);
+    if (isPlayerSelf(dst->player))
+    {
+        if (q->ovFlags & OVF_PROGRESSIVE)
+            gi = comboProgressive(gi);
 
-    if (q->ovFlags & OVF_DOWNGRADE)
-        gi = comboDowngrade(gi);
+        if (q->ovFlags & OVF_DOWNGRADE)
+            gi = comboDowngrade(gi);
+    }
 
     if (q->ovFlags & OVF_RENEW)
         gi = comboRenewable(gi, q->giRenew);

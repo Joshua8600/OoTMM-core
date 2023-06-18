@@ -70,6 +70,12 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
         this->acc = 0;
         return 0;
     }
+
+#if defined(GAME_OOT)
+    if (play->sceneId == SCE_OOT_BOMBCHU_BOWLING_ALLEY)
+        return 0;
+#endif
+
     this->acc++;
     if (this->acc > 3)
         return 1;
@@ -106,7 +112,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
 #endif
         if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, gi))
         {
-            net->cmdIn.op = NET_OP_NOP;
+            bzero(&net->cmdIn, sizeof(net->cmdIn));
             this->trigger = TRIGGER_NONE;
             gSaveLedgerBase++;
             net->ledgerBase = gSaveLedgerBase;
@@ -144,7 +150,7 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
     {
         if (net->cmdIn.itemRecv.playerTo != gComboData.playerId)
         {
-            net->cmdIn.op = NET_OP_NOP;
+            bzero(&net->cmdIn, sizeof(net->cmdIn));
             gSaveLedgerBase++;
             net->ledgerBase = gSaveLedgerBase;
         }
