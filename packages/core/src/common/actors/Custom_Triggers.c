@@ -112,6 +112,51 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
     return 0;
 }
 
+int CustomTrigger_ItemSafeNet(Actor_CustomTriggers* this, GameState_Play* play)
+{
+    Actor_Player* link;
+
+    link = GET_LINK(play);
+    if (link->state & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
+    {
+        this->acc = 0;
+        return 0;
+    }
+
+    switch (play->sceneId)
+    {
+#if defined(GAME_OOT)
+    case SCE_OOT_BOMBCHU_BOWLING_ALLEY:
+    case SCE_OOT_TREASURE_SHOP:
+    case SCE_OOT_SHOOTING_GALLERY:
+    case SCE_OOT_KOKIRI_SHOP:
+    case SCE_OOT_ZORA_SHOP:
+    case SCE_OOT_GORON_SHOP:
+    case SCE_OOT_BOMBCHU_SHOP:
+    case SCE_OOT_MARKET_POTION_SHOP:
+    case SCE_OOT_KAKARIKO_POTION_SHOP:
+    case SCE_OOT_BAZAAR:
+#endif
+#if defined(GAME_MM)
+    case SCE_MM_BOMB_SHOP:
+    case SCE_MM_CURIOSITY_SHOP:
+    case SCE_MM_POTION_SHOP:
+    case SCE_MM_TRADING_POST:
+    case SCE_MM_GORON_SHOP:
+    case SCE_MM_ZORA_HALL_ROOMS:
+#endif
+        return 0;
+
+    default:
+        break;
+    }
+
+    this->acc++;
+    if (this->acc > 1)
+        return 1;
+    return 0;
+}
+
 static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_Play* play)
 {
     NetContext* net;
@@ -140,7 +185,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
 #if defined(GAME_MM)
         gi ^= MASK_FOREIGN_GI;
 #endif
-        if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemNet(this, play, gi, net->cmdIn.itemRecv.flags))
+        if (CustomTrigger_ItemSafeNet(this, play) && CustomTriggers_GiveItemNet(this, play, gi, net->cmdIn.itemRecv.flags))
         {
             bzero(&net->cmdIn, sizeof(net->cmdIn));
             this->trigger = TRIGGER_NONE;
