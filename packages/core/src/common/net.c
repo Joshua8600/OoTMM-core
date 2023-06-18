@@ -74,6 +74,5 @@ void netWaitCmdClear(void)
         netMutexUnlock();
         wait();
         netMutexLock();
-
     }
 }

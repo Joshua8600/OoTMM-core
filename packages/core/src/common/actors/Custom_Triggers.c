@@ -21,6 +21,7 @@ void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, GameState_Play
 void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, GameState_Play* play);
 
 Actor_CustomTriggers* gActorCustomTriggers;
+ComboTriggersData gComboTriggersData;
 
 int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, const ComboItemQuery* q)
 {
@@ -98,7 +99,7 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
     link = GET_LINK(play);
     if (link->state & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
     {
-        this->acc = 0;
+        gComboTriggersData.acc = 0;
         return 0;
     }
 
@@ -107,8 +108,8 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
         return 0;
 #endif
 
-    this->acc++;
-    if (this->acc > 3)
+    gComboTriggersData.acc++;
+    if (gComboTriggersData.acc > 3)
         return 1;
     return 0;
 }
@@ -120,7 +121,7 @@ int CustomTrigger_ItemSafeNet(Actor_CustomTriggers* this, GameState_Play* play)
     link = GET_LINK(play);
     if (link->state & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
     {
-        this->acc = 0;
+        gComboTriggersData.acc = 0;
         return 0;
     }
 
@@ -152,8 +153,8 @@ int CustomTrigger_ItemSafeNet(Actor_CustomTriggers* this, GameState_Play* play)
         break;
     }
 
-    this->acc++;
-    if (this->acc > 1)
+    gComboTriggersData.acc++;
+    if (gComboTriggersData.acc > 3)
         return 1;
     return 0;
 }
@@ -163,20 +164,20 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
     NetContext* net;
     s16 gi;
 
-    switch (this->trigger)
+    switch (gComboTriggersData.trigger)
     {
     case TRIGGER_GANON_BK:
         if (CustomTrigger_ItemSafe(this, play) && CustomTriggers_GiveItemDirect(this, play, GI_OOT | GI_OOT_BOSS_KEY_GANON))
         {
             gOotExtraFlags.ganonBossKey = 1;
-            this->trigger = TRIGGER_NONE;
+            gComboTriggersData.trigger = TRIGGER_NONE;
         }
         break;
     case TRIGGER_TRIFORCE:
         if (CustomTrigger_ItemSafe(this, play))
         {
             gOotExtraFlags.triforceWin = 1;
-            this->trigger = TRIGGER_NONE;
+            gComboTriggersData.trigger = TRIGGER_NONE;
             comboCreditWarp(play);
         }
         break;
@@ -189,7 +190,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
         if (CustomTrigger_ItemSafeNet(this, play) && CustomTriggers_GiveItemNet(this, play, gi, net->cmdIn.itemRecv.playerFrom, net->cmdIn.itemRecv.flags))
         {
             bzero(&net->cmdIn, sizeof(net->cmdIn));
-            this->trigger = TRIGGER_NONE;
+            gComboTriggersData.trigger = TRIGGER_NONE;
             gSaveLedgerBase++;
             net->ledgerBase = gSaveLedgerBase;
         }
@@ -207,16 +208,16 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
     /* Ganon BK */
     if (comboConfig(CFG_OOT_GANON_BK_CUSTOM) && !gOotExtraFlags.ganonBossKey && comboSpecialCond(SPECIAL_GANON_BK))
     {
-        this->acc = 0;
-        this->trigger = TRIGGER_GANON_BK;
+        gComboTriggersData.acc = 0;
+        gComboTriggersData.trigger = TRIGGER_GANON_BK;
         return;
     }
 
     /* Triforce */
     if (comboConfig(CFG_GOAL_TRIFORCE) && !gOotExtraFlags.triforceWin && gOotExtraFlags.triforceCount >= gComboData.triforceGoal)
     {
-        this->acc = 0;
-        this->trigger = TRIGGER_TRIFORCE;
+        gComboTriggersData.acc = 0;
+        gComboTriggersData.trigger = TRIGGER_TRIFORCE;
         return;
     }
 
@@ -232,8 +233,8 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
         }
         else
         {
-            this->acc = 0;
-            this->trigger = TRIGGER_NET;
+            gComboTriggersData.acc = 0;
+            gComboTriggersData.trigger = TRIGGER_NET;
         }
     }
     netMutexUnlock();
@@ -243,8 +244,11 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
 
 static void CustomTriggers_Init(Actor_CustomTriggers* this, GameState_Play* play)
 {
-    this->trigger = TRIGGER_NONE;
-    gActorCustomTriggers = this;
+}
+
+static void CustomTriggers_Fini(Actor_CustomTriggers* this, GameState_Play* play)
+{
+    gActorCustomTriggers = NULL;
 }
 
 static void CustomTriggers_Update(Actor_CustomTriggers* this, GameState_Play* play)
@@ -259,10 +263,29 @@ static void CustomTriggers_Update(Actor_CustomTriggers* this, GameState_Play* pl
         this->base.position.z = link->base.position.z;
     }
 
-    if (this->trigger == TRIGGER_NONE)
+    if (gComboTriggersData.trigger == TRIGGER_NONE)
         CustomTriggers_CheckTrigger(this, play);
-    if (this->trigger != TRIGGER_NONE)
+    if (gComboTriggersData.trigger != TRIGGER_NONE)
         CustomTriggers_HandleTrigger(this, play);
+}
+
+void CustomTriggers_Spawn(GameState_Play* play)
+{
+    if (gActorCustomTriggers)
+        return;
+
+    gActorCustomTriggers = (Actor_CustomTriggers*)SpawnActor(
+#if defined(GAME_OOT)
+        (char*)play + 0x1c24,
+#else
+        (char*)play + 0x1ca0,
+#endif
+        play,
+        AC_CUSTOM_TRIGGERS,
+        0, 0, 0,
+        0, 0, 0,
+        0
+    );
 }
 
 ActorInit CustomTriggers_gActorInit = {
@@ -272,7 +295,7 @@ ActorInit CustomTriggers_gActorInit = {
     0x1,
     sizeof(Actor_CustomTriggers),
     (ActorFunc)CustomTriggers_Init,
-    NULL,
+    (ActorFunc)CustomTriggers_Fini,
     (ActorFunc)CustomTriggers_Update,
     NULL,
 };
