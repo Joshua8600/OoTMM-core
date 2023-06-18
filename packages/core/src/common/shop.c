@@ -26,11 +26,10 @@ void comboShopAfterBuy(GameState_Play* play, Actor_EnGirlA* girlA)
 
 static void quickBuyItem(GameState_Play* play, Actor_EnGirlA* girlA)
 {
-    /* TODO: Use new system */
-    ComboItemOverride o;
+    ComboItemQuery q;
 
-    EnGirlA_ItemOverride(&o, girlA, OVF_PROGRESSIVE);
-    comboAddItem(play, o.gi);
+    EnGirlA_ItemQuery(&q, girlA, OVF_PROGRESSIVE);
+    comboAddItemEx(play, &q);
     AddRupees(-girlA->price);
 }
 

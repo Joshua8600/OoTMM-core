@@ -31,6 +31,7 @@ void EnGirlA_ItemQuery(ComboItemQuery* q, Actor_EnGirlA* girlA, int flags)
         case 0x04:
             bzero(q, sizeof(*q));
             q->ovType = OV_NONE;
+            q->gi = GI_MM_SOLD_OUT;
             break;
         }
 #endif
