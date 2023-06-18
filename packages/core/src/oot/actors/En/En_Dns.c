@@ -194,12 +194,12 @@ PATCH_CALL(0x80a75620, EnDns_CanBuy);
 
 static void EnDns_ShopText(Actor* this, GameState_Play* play)
 {
-    ComboItemOverride o;
+    ComboItemQuery q;
     char* b;
     char* start;
     s16 price;
 
-    EnDns_ItemOverride(&o, EnDns_GetID(this), 0);
+    EnDns_ItemQuery(&q, EnDns_GetID(this), 0);
 
     b = play->msgCtx.textBuffer;
     start = b;
@@ -207,7 +207,7 @@ static void EnDns_ShopText(Actor* this, GameState_Play* play)
     comboTextAppendShopHeader(&b, price);
 
     comboTextAppendStr(&b, "Do you want ");
-    comboTextAppendItemName(&b, o.gi, TF_PROGRESSIVE);
+    comboTextAppendItemNameQuery(&b, &q, TF_PROGRESSIVE);
     comboTextAppendStr(&b, " for " TEXT_COLOR_RED);
     comboTextAppendNum(&b, price);
     comboTextAppendStr(&b, " Rupees");
