@@ -17,7 +17,7 @@ static void ItemEtcetera_ItemQuery(ComboItemQuery* q, Actor* this, s16 gi, int f
     case 0x7:
         q->ovType = OV_NPC;
         q->id = NPC_OOT_FIRE_ARROW;
-        q->gi = 0;//comboOverride(OV_NPC, 0, NPC_OOT_FIRE_ARROW, q->gi);
+        q->gi = GI_OOT_ARROW_FIRE;
         break;
     case 0xc:
         q->ovType = OV_CHEST;

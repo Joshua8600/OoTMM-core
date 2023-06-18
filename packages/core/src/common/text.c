@@ -790,24 +790,6 @@ void comboTextHijackDungeonRewardHints(GameState_Play* play, int hint)
 #endif
 
 #if defined(GAME_OOT)
-void comboTextHijackSkullReward(GameState_Play* play, s16 gi, int count)
-{
-    char* b;
-
-    b = play->msgCtx.textBuffer;
-    comboTextAppendHeader(&b);
-    comboTextAppendStr(&b,
-        "Yeaaarrgh! I'm cursed!! Please save me by destroying " TEXT_COLOR_RED
-    );
-    comboTextAppendNum(&b, count);
-    comboTextAppendStr(&b,
-        " Spiders of the Curse" TEXT_CZ " and I will give you "
-    );
-    comboTextAppendItemName(&b, gi, TF_PROGRESSIVE);
-    comboTextAppendStr(&b, TEXT_CZ "." TEXT_END);
-    comboTextAutoLineBreaks(play->msgCtx.textBuffer);
-}
-
 void comboTextHijackLightArrows(GameState_Play* play)
 {
     char* b;
@@ -844,8 +826,12 @@ void comboTextHijackOathToOrder(GameState_Play* play)
 
 void comboTextAppendNpcReward(char** b, s16 npcId, s16 gi)
 {
-    //gi = comboOverrideEx(OV_NPC, 0, npcId, gi, 0);
-    //comboTextAppendItemName(b, gi, TF_PREPOS | TF_PROGRESSIVE);
+    ComboItemQuery q = ITEM_QUERY_INIT;
+
+    q.ovType = OV_NPC;
+    q.id = npcId;
+    q.gi = gi;
+    comboTextAppendItemNameQuery(b, &q, TF_PREPOS | TF_PROGRESSIVE);
 }
 
 void comboTextMessageCantBuy(GameState_Play* play, int flags)

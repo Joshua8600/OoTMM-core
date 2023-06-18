@@ -118,8 +118,6 @@ static void fairyHintTown(GameState_Play* play)
 
 static void EnElfgrp_DisplayTextBox(GameState_Play* play, s16 messageId, Actor* this)
 {
-    s16 gi;
-    s16 gi2;
     u8 fairyIndex;
 
     fairyIndex = EnElfgrp_GetFairyIndex(this);
