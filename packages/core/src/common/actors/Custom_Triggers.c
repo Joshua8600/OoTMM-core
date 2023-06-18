@@ -62,13 +62,14 @@ int CustomTriggers_GiveItemDirect(Actor_CustomTriggers* this, GameState_Play* pl
     return CustomTriggers_GiveItem(this, play, &q);
 }
 
-int CustomTriggers_GiveItemNet(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, int flags)
+int CustomTriggers_GiveItemNet(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, u8 from, int flags)
 {
     ComboItemQuery q = ITEM_QUERY_INIT;
     int ret;
 
     q.gi = gi;
     q.ovFlags = OVF_PROGRESSIVE | OVF_DOWNGRADE;
+    q.from = from;
 
     if (flags & OVF_PRECOND)
     {
@@ -185,7 +186,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
 #if defined(GAME_MM)
         gi ^= MASK_FOREIGN_GI;
 #endif
-        if (CustomTrigger_ItemSafeNet(this, play) && CustomTriggers_GiveItemNet(this, play, gi, net->cmdIn.itemRecv.flags))
+        if (CustomTrigger_ItemSafeNet(this, play) && CustomTriggers_GiveItemNet(this, play, gi, net->cmdIn.itemRecv.playerFrom, net->cmdIn.itemRecv.flags))
         {
             bzero(&net->cmdIn, sizeof(net->cmdIn));
             this->trigger = TRIGGER_NONE;

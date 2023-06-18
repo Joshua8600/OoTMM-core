@@ -53,8 +53,7 @@ int comboAddItem(GameState_Play* play, s16 gi)
             count = count2;
     }
 
-    comboTextHijackItem(play, gi, count);
-    return -1;
+    return count;
 }
 
 int comboAddItemNoEffect(s16 gi)
@@ -441,6 +440,7 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
         gi = -gi;
 
     dst->gi = gi;
+    dst->playerFrom = q->from;
 }
 
 
@@ -448,15 +448,16 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q)
 {
     ComboItemOverride o;
     NetContext* net;
+    int count;
 
     comboItemOverride(&o, q);
-    if (o.player == PLAYER_SELF || o.player == gComboData.playerId)
-        comboAddItem(play, o.gi);
+    count = 0;
+
+    /* Add the item if it's for us */
+    if (isPlayerSelf(o.player))
+        count = comboAddItem(play, o.gi);
     else
     {
-        /* It's an item for another player */
-        comboTextHijackItemEx(play, o.gi, 0, o.player);
-
         /* We need to send it */
         net = netMutexLock();
         netWaitCmdClear();
@@ -475,6 +476,9 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q)
         net->cmdOut.itemSend.flags = (s16)q->ovFlags;
         netMutexUnlock();
     }
+
+    /* Update text */
+    comboTextHijackItemEx(play, &o, count);
 
     return -1;
 }

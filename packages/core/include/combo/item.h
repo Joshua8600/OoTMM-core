@@ -14,12 +14,14 @@ typedef struct ComboItemQuery
     int ovFlags;
     u8  sceneId;
     u8  id;
+    u8  from;
 }
 ComboItemQuery;
 
 typedef struct ComboItemOverride
 {
     u8  player;
+    u8  playerFrom;
     s16 gi;
 }
 ComboItemOverride;

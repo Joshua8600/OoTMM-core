@@ -1,4 +1,6 @@
 #include <combo.h>
+#include <combo/text.h>
+#include <combo/item.h>
 
 #define C0   TEXT_COLOR_TEAL
 #define C1   TEXT_COLOR_RED
@@ -594,6 +596,32 @@ void comboTextAppendItemName(char** b, s16 gi, int flags)
     }
 }
 
+void comboTextAppendItemNameQuery(char** b, const ComboItemQuery* q, int flags)
+{
+    ComboItemOverride o;
+
+    comboItemOverride(&o, q);
+    comboTextAppendItemNameOverride(b, &o, flags);
+}
+
+void comboTextAppendItemNameOverride(char** b, const ComboItemOverride* o, int flags)
+{
+    comboTextAppendItemName(b, o->gi, flags);
+    if (o->player != PLAYER_SELF && o->player != PLAYER_ALL && o->player != gComboData.playerId)
+    {
+        comboTextAppendStr(b, " for " TEXT_COLOR_YELLOW "Player ");
+        comboTextAppendNum(b, o->player);
+        comboTextAppendClearColor(b);
+    }
+
+    if (o->playerFrom != PLAYER_SELF && o->playerFrom != PLAYER_ALL && o->playerFrom != gComboData.playerId)
+    {
+        comboTextAppendStr(b, " from " TEXT_COLOR_YELLOW "Player ");
+        comboTextAppendNum(b, o->playerFrom);
+        comboTextAppendClearColor(b);
+    }
+}
+
 void comboTextAppendRegionName(char** b, u8 regionId, int flags)
 {
     char* start;
@@ -651,13 +679,13 @@ void comboTextAppendCheckName(char** b, u8 checkId)
     comboTextAppendClearColor(b);
 }
 
-void comboTextHijackItemEx(GameState_Play* play, s16 gi, int count, int player)
+void comboTextHijackItemEx(GameState_Play* play, const ComboItemOverride* o, int count)
 {
     char* b;
     char* start;
     int isSelf;
 
-    isSelf = (player == PLAYER_SELF) || (player == gComboData.playerId);
+    isSelf = (o->player == PLAYER_SELF) || (o->player == PLAYER_ALL) || (o->player == gComboData.playerId);
 
 #if defined(GAME_OOT)
     b = play->msgCtx.textBuffer;
@@ -667,13 +695,7 @@ void comboTextHijackItemEx(GameState_Play* play, s16 gi, int count, int player)
     comboTextAppendHeader(&b);
     start = b;
     comboTextAppendStr(&b, "You got ");
-    comboTextAppendItemName(&b, gi, 0);
-    if (!isSelf)
-    {
-        comboTextAppendStr(&b, " for " TEXT_COLOR_YELLOW "Player ");
-        comboTextAppendNum(&b, player);
-        comboTextAppendClearColor(&b);
-    }
+    comboTextAppendItemNameOverride(&b, o, 0);
     comboTextAppendStr(&b, "!");
     if (isSelf && count)
     {
@@ -688,7 +710,10 @@ void comboTextHijackItemEx(GameState_Play* play, s16 gi, int count, int player)
 
 void comboTextHijackItem(GameState_Play* play, s16 gi, int count)
 {
-    comboTextHijackItemEx(play, gi, count, PLAYER_SELF);
+    ComboItemOverride o;
+    memset(&o, 0, sizeof(o));
+    o.gi = gi;
+    comboTextHijackItemEx(play, &o, count);
 }
 
 static int isSoldOut(s16 gi)
