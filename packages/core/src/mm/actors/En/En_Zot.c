@@ -27,25 +27,33 @@ void EnZot_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 
 PATCH_CALL(0x80b98f7c, EnZot_GiveItem);
 
-static void appendTextNpcItem(char** buf, GameState_Play* play, s16 npcId, s16 gi)
+static void EnZot_BeaverItemQuery(ComboItemQuery* q, int index, int flags)
 {
-    gi = 0;//comboOverrideEx(OV_NPC, 0, npcId, gi, 0);
-    comboTextAppendItemName(buf, gi, TF_PREPOS | TF_PROGRESSIVE);
+    bzero(q, sizeof(*q));
+
+    q->ovType = OV_NPC;
+    q->gi = index == 0 ? GI_MM_BOTTLE_EMPTY : GI_MM_HEART_PIECE;
+    q->id = index == 0 ? NPC_MM_BEAVER_1 : NPC_MM_BEAVER_2;
+    q->ovFlags = flags;
 }
 
 void EnZot_DisplayBeaverHint(Actor* this, GameState_Play* play)
 {
+    ComboItemQuery q1;
+    ComboItemQuery q2;
     char* b;
     char* start;
 
+    EnZot_BeaverItemQuery(&q1, 0, 0);
+    EnZot_BeaverItemQuery(&q2, 1, 0);
     PlayerDisplayTextBox(play, 0x1260, this);
     b = play->textBuffer;
     comboTextAppendHeader(&b);
     start = b;
     comboTextAppendStr(&b, "I've heared that the beavers are betting ");
-    appendTextNpcItem(&b, play, NPC_MM_BEAVER_1, GI_MM_BOTTLE_EMPTY);
+    comboTextAppendItemNameQuery(&b, &q1, TF_PREPOS | TF_PROGRESSIVE);
     comboTextAppendStr(&b, " and ");
-    appendTextNpcItem(&b, play, NPC_MM_BEAVER_2, GI_MM_HEART_PIECE);
+    comboTextAppendItemNameQuery(&b, &q2, TF_PREPOS | TF_PROGRESSIVE);
     comboTextAppendStr(&b, "." TEXT_SIGNAL TEXT_END);
     comboTextAutoLineBreaks(start);
 }

@@ -1,6 +1,25 @@
 #include <combo.h>
 #include <combo/item.h>
 
+static void EnJs_ItemQuery(ComboItemQuery* q, int flags)
+{
+    bzero(q, sizeof(*q));
+
+    if (!gMmExtraFlags2.maskFierceDeity)
+    {
+        q->ovType = OV_NPC;
+        q->gi = GI_MM_MASK_FIERCE_DEITY;
+        q->id = NPC_MM_MASK_FIERCE_DEITY;
+        q->ovFlags = flags;
+    }
+    else
+    {
+        q->ovType = OV_NONE;
+        q->gi = GI_MM_RECOVERY_HEART;
+        q->ovFlags = flags;
+    }
+}
+
 static void EnJs_AskForFight(GameState_Play* play, u16 unk, Actor* this)
 {
     char* b;
@@ -30,33 +49,28 @@ PATCH_CALL(0x8096a2fc, EnJs_HasGivenItem);
 
 void EnJs_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
-    int npc;
+    ComboItemQuery q;
 
-    npc = -1;
-    if (gMmExtraFlags2.maskFierceDeity)
-        gi = GI_MM_RECOVERY_HEART;
-    else
-        npc = NPC_MM_MASK_FIERCE_DEITY;
-    comboGiveItemNpc(this, play, gi, npc, a, b);
+    EnJs_ItemQuery(&q, OVF_PROGRESSIVE | OVF_DOWNGRADE);
+    comboGiveItem(this, play, &q, a, b);
 }
 
 PATCH_CALL(0x8096a370, EnJs_GiveItem);
 
 static void EnJs_DisplayHint(GameState_Play* play, s16 messageId)
 {
-    s16 gi;
+    ComboItemQuery q;
     char* b;
     char* start;
 
-    gi = 0; //gi = comboOverrideEx(OV_NPC, 0, NPC_MM_MASK_FIERCE_DEITY, GI_MM_MASK_FIERCE_DEITY, 0);
-
     /* Hint */
+    EnJs_ItemQuery(&q, 0);
     DisplayTextBox2(play, messageId);
     b = play->textBuffer;
     comboTextAppendHeader(&b);
     start = b;
     comboTextAppendStr(&b, "You have only weak masks..." TEXT_NL "Having better masks would give you ");
-    comboTextAppendItemName(&b, gi, TF_PREPOS | TF_PROGRESSIVE);
+    comboTextAppendItemNameQuery(&b, &q, TF_PREPOS | TF_PROGRESSIVE);
     comboTextAppendStr(&b, "..." TEXT_BB "So...you'll play?" TEXT_NL TEXT_NL TEXT_COLOR_GREEN TEXT_CHOICE2 "Yes" TEXT_NL "No" TEXT_END);
     comboTextAutoLineBreaks(start);
 }
