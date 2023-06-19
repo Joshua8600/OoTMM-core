@@ -444,9 +444,11 @@ export class LogicPassAnalysis {
   private makeSpheresRaw(restrictedLocations?: Set<Location>) {
     const spheres: Location[][] = [];
     let pathfinderState: PathfinderState | null = null;
+    let count = 0;
 
     do {
-      pathfinderState = this.pathfinder.run(pathfinderState, { items: this.state.items, stopAtGoal: true, restrictedLocations });
+      this.progress(count++, 10);
+      pathfinderState = this.pathfinder.run(pathfinderState, { inPlace: true, items: this.state.items, stopAtGoal: true, restrictedLocations });
       const sphere = Array.from(pathfinderState.newLocations).filter(x => isItemImportant(this.state.items[x]));
       if (sphere.length !== 0) {
         spheres.push(shuffle(this.state.random, sphere));
@@ -457,10 +459,15 @@ export class LogicPassAnalysis {
   }
 
   private makeSpheres() {
+    this.state.monitor.log('Analysis - Spheres (Raw)');
+
     const locs = this.makeSpheresRaw().reverse().flat();
     const spheresLocs = new Set(locs);
 
+    this.state.monitor.log('Analysis - Spheres (Playthrough)');
+    let count = 0;
     for (const loc of locs) {
+      this.state.monitor.setProgress(count++, locs.length);
       spheresLocs.delete(loc);
       const pathfinderState = this.pathfinder.run(null, { items: this.state.items, restrictedLocations: spheresLocs, recursive: true, stopAtGoal: true });
       if (!pathfinderState.goal) {
@@ -469,12 +476,16 @@ export class LogicPassAnalysis {
     }
 
     /* Recompute spheres to ensure correct order */
+    this.state.monitor.log('Analysis - Spheres (Reorder)');
     this.spheres = this.makeSpheresRaw(spheresLocs);
   }
 
   private makeRequiredLocs() {
+    this.state.monitor.log('Analysis - WotH');
+    let count = 0;
     const locations = new Set(this.spheres.flat());
     for (const loc of locations) {
+      this.state.monitor.setProgress(count++, locations.size);
       const pathfinderState = this.pathfinder.run(null, { items: this.state.items, forbiddenLocations: new Set([loc]), recursive: true, stopAtGoal: true });
       if (!pathfinderState.goal) {
         this.requiredLocs.add(loc);
@@ -583,6 +594,10 @@ export class LogicPassAnalysis {
         this.unreachableLocs.add(loc);
       }
     }
+  }
+
+  private progress(x: number, slope: number) {
+    this.state.monitor.setProgress(x, x + slope);
   }
 
   run() {

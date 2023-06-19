@@ -39,7 +39,7 @@ export class Monitor {
 
   debug(message: string) {
     if (this.isDebug) {
-      this.log(message);
+      this.onLog(message);
     }
   }
 }

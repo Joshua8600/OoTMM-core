@@ -44,7 +44,6 @@ type PathfinderWorldState = {
     child: Map<string, AreaData>;
     adult: Map<string, AreaData>;
   },
-  locations: Set<string>;
   queue: PathfinderQueue;
   dependencies: PathfinderDependencies;
   uncollectedLocations: Set<string>;
@@ -60,12 +59,12 @@ type PathfinderWorldState = {
 export type PathfinderState = {
   goal: boolean;
   started: boolean;
-  newLocations: Set<Location>;
   ws: PathfinderWorldState[];
   previousAssumedItems: Items;
 
   /* Output */
   locations: Set<Location>;
+  newLocations: Set<Location>;
   gossips: Set<string>[];
 }
 
@@ -93,7 +92,6 @@ const defaultWorldState = (settings: Settings): PathfinderWorldState => ({
       adult: new Map(),
     },
   },
-  locations: new Set(),
   dependencies: {
     items: new Map(),
     events: new Map(),
@@ -158,6 +156,14 @@ const compareAreaData = (a: AreaData, b: AreaData): boolean => (
   a.mmTime === b.mmTime &&
   a.mmTime2 === b.mmTime2
 );
+
+const coveringAreaData = (a: AreaData, b: AreaData): boolean => {
+  if (a.oot.day && !b.oot.day) return false;
+  if (a.oot.night && !b.oot.night) return false;
+  if (((a.mmTime | b.mmTime) >>> 0) !== a.mmTime) return false;
+  if (((a.mmTime2 | b.mmTime2) >>> 0) !== a.mmTime2) return false;
+  return true;
+}
 
 const cloneAreaData = (a: AreaData): AreaData => ({
   oot: {
@@ -312,12 +318,12 @@ export class Pathfinder {
       }
     }
 
-    if (previousAreaData && compareAreaData(previousAreaData, newAreaData)) {
+    if (previousAreaData && coveringAreaData(previousAreaData, newAreaData)) {
       return;
     }
     ws.areas[age].set(area, newAreaData);
     const a = this.world.areas[area];
-    let locs = Object.keys(a.locations).filter(x => !ws.locations.has(x));
+    let locs = Object.keys(a.locations).filter(x => !this.state.locations.has(makeLocation(x, world)));
     if (ws.restrictedLocations && !this.opts.includeForbiddenReachable) {
       locs = locs.filter(x => ws.restrictedLocations!.has(x));
     }
@@ -410,7 +416,6 @@ export class Pathfinder {
   private addLocationDelayed(world: number, loc: string) {
     const globalLoc = makeLocation(loc, world);
     const ws = this.state.ws[world];
-    ws.locations.add(loc);
     this.state.locations.add(globalLoc);
     this.state.newLocations.add(globalLoc);
   }
@@ -418,7 +423,6 @@ export class Pathfinder {
   private addLocation(world: number, loc: string) {
     const ws = this.state.ws[world];
     const globalLoc = makeLocation(loc, world);
-    ws.locations.add(loc);
     this.state.locations.add(globalLoc);
     const globalItem = this.opts.items?.[globalLoc];
     if (globalItem) {
@@ -545,8 +549,10 @@ export class Pathfinder {
         }
       }
 
+      const globalLoc = makeLocation(location, world);
+
       for (const area of areas) {
-        if (ws.locations.has(location)) {
+        if (this.state.locations.has(globalLoc)) {
           continue;
         }
 
@@ -617,7 +623,7 @@ export class Pathfinder {
 
   private pathfindStep() {
     /* Clear new locations */
-    this.state.newLocations = new Set();
+    this.state.newLocations.clear();
 
     for (let world = 0; world < this.settings.players; ++world) {
       for (;;) {

@@ -31,6 +31,10 @@ export class LogicPassAnalysisFoolish {
     this.conditionallyRequiredLocations = new Set();
   }
 
+  private progress(x: number, slope: number) {
+    this.state.monitor.setProgress(x, x + slope);
+  }
+
   private markAsSometimesRequired(loc: Location) {
     if (!this.conditionallyRequiredLocations.has(loc)) {
       this.state.monitor.debug("Foolish Analysis - Sometimes Required: " + loc + "(" + this.state.items[loc] + ")");
@@ -89,16 +93,15 @@ export class LogicPassAnalysisFoolish {
       locations.delete(loc);
       forbidden.delete(loc);
       allowed.add(loc);
-      const newPathfinderState = this.pathfinder.run(pathfinderState, { recursive: true, items: this.state.items, forbiddenLocations: forbidden, stopAtGoal: true, includeForbiddenReachable: true });
-      if (newPathfinderState.goal) {
+      pathfinderState = this.pathfinder.run(pathfinderState, { inPlace: true, recursive: true, items: this.state.items, forbiddenLocations: forbidden, stopAtGoal: true, includeForbiddenReachable: true });
+      if (pathfinderState.goal) {
         if (!this.conditionallyRequiredLocations.has(loc)) {
           this.markAsSometimesRequired(loc);
           lastAdded = loc;
         }
         allowed.delete(loc);
         forbidden.add(loc);
-      } else {
-        pathfinderState = newPathfinderState;
+        pathfinderState = null;
       }
     }
 
@@ -153,7 +156,7 @@ export class LogicPassAnalysisFoolish {
       return {};
     }
 
-    this.state.monitor.log("Logic: Probabilistic Foolish Analysis (can take up to a few minutes...)");
+    this.state.monitor.log("Logic: Probabilistic Foolish Analysis");
 
     /* Mark playthrough locs as conditionally required */
     let atLeastOneConditionallyRequired = false;
@@ -182,7 +185,9 @@ export class LogicPassAnalysisFoolish {
 
     /* Prune */
     let failures = 0;
+    let count = 0;
     for (;;) {
+      this.progress(count++, 30);
       if (this.monteCarloZigZag(locsSet)) {
         failures = 0;
       } else {

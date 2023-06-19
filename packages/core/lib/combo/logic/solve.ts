@@ -520,9 +520,9 @@ export class LogicPassSolver {
     let unplacedLocs: Location[] = [];
     if (this.state.settings.logic !== 'beatable') {
       /* Get all assumed reachable locations */
-      const prevNow = microtime.nowDouble();
+      //const prevNow = microtime.nowDouble();
       const result = this.pathfinder.run(null, { recursive: true, items: this.items, assumedItems: pool });
-      console.log("NEG: " + (microtime.nowDouble() - prevNow));
+      //console.log("NEG: " + (microtime.nowDouble() - prevNow));
 
       /* Get all assumed reachable locations that have not been placed */
       unplacedLocs = Array.from(result.locations)
