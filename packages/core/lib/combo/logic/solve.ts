@@ -1,5 +1,3 @@
-import microtime from 'microtime';
-
 import { GAMES } from '../config';
 import { Random, sample, shuffle } from '../random';
 import { gameId } from '../util';
