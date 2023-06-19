@@ -27,7 +27,7 @@
     "Lake Hylia": "has(SONG_TP_WATER)"
     "Graveyard Upper": "has(SONG_TP_SHADOW)"
     "Desert Colossus": "has(SONG_TP_SPIRIT)"
-    "MM SOARING": "setting(crossWarpMm, full) || (setting(crossWarpMm, childOnly) && is_child)"
+    "MM SOARING": "(setting(crossWarpMm, full) || (setting(crossWarpMm, childOnly) && is_child)) && has(MM_SONG_SOARING)"
 "EGGS":
   region: EGGS
   locations:
@@ -51,7 +51,7 @@
     "Lost Woods Bridge": "true"
     "Kokiri Shop": "true"
     "Kokiri Forest Storms Grotto": "has(SONG_STORMS)"
-    "Kokiri Forest Near Deku Tree": "mido_moved"
+    "Kokiri Forest Near Deku Tree": "mido_moved || is_adult"
   events:
     BOMBS: "true"
     RUPEES: "true"
@@ -70,7 +70,7 @@
 "Kokiri Forest Near Deku Tree":
   region: KOKIRI_FOREST
   exits:
-    "Kokiri Forest": "mido_moved"
+    "Kokiri Forest": "mido_moved || is_adult"
     "Deku Tree": "is_child || (is_adult && setting(dekuTreeAdult) && mido_moved)"
   events:
     STICKS: "can_boomerang || (is_child && has_weapon)"

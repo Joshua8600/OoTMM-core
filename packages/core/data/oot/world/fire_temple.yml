@@ -23,7 +23,7 @@
 "Fire Temple Lava Room":
   dungeon: Fire
   exits:
-    "Fire Temple Maze": "has_small_keys_fire(3)"
+    "Fire Temple Maze": "is_adult && has_small_keys_fire(3) && has_tunic_goron_strict"
   locations:
     "Fire Temple Jail 2 Chest": "is_adult || (is_child && has(SONG_TIME))"
     "Fire Temple Jail 3 Chest": "is_adult"
