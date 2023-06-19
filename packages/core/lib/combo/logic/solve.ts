@@ -1,3 +1,5 @@
+import microtime from 'microtime';
+
 import { GAMES } from '../config';
 import { Random, sample, shuffle } from '../random';
 import { gameId } from '../util';
@@ -60,6 +62,7 @@ export class LogicPassSolver {
   private pools!: ItemPools;
   private criticalRenewables!: Set<Item>;
   private junkDistribution!: Items;
+  private placedCount!: number;
 
   constructor(
     private readonly state: {
@@ -83,6 +86,8 @@ export class LogicPassSolver {
 
   run() {
     this.state.monitor.log(`Logic: Solver (attempt ${this.state.attempts})`);
+
+    this.placedCount = 0;
 
     /* Place plando items */
     this.placePlando();
@@ -113,7 +118,7 @@ export class LogicPassSolver {
     /* Place required items */
     for (;;) {
       /* Pathfind */
-      this.pathfinderState = this.pathfinder.run(this.pathfinderState, { recursive: true, items: this.items });
+      this.pathfinderState = this.pathfinder.run(this.pathfinderState, { inPlace: true, recursive: true, items: this.items });
 
       /* Stop cond */
       if (this.state.settings.logic === 'beatable') {
@@ -515,7 +520,9 @@ export class LogicPassSolver {
     let unplacedLocs: Location[] = [];
     if (this.state.settings.logic !== 'beatable') {
       /* Get all assumed reachable locations */
-      const result = this.pathfinder.run(this.pathfinderState, { recursive: true, items: this.items, assumedItems: pool });
+      const prevNow = microtime.nowDouble();
+      const result = this.pathfinder.run(null, { recursive: true, items: this.items, assumedItems: pool });
+      console.log("NEG: " + (microtime.nowDouble() - prevNow));
 
       /* Get all assumed reachable locations that have not been placed */
       unplacedLocs = Array.from(result.locations)
@@ -616,5 +623,8 @@ export class LogicPassSolver {
     if (isLocationRenewable(this.state.world, location) && isItemCriticalRenewable(item)) {
       this.criticalRenewables.add(item);
     }
+
+    this.placedCount++;
+    this.state.monitor.setProgress(this.placedCount, this.locations.length);
   }
 }

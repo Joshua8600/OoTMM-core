@@ -328,7 +328,10 @@ export class Pathfinder {
     Object.keys(a.events).filter(x => !ws.events.has(x)).forEach(x => this.queueEvent(world, x, area));
     const exits = Object.keys(a.exits);
     exits.forEach(x => this.queueExit(world, age, x, area));
-    Object.keys(a.gossip).forEach(x => this.queueGossip(world, x, area));
+
+    if (this.opts.gossips) {
+      Object.keys(a.gossip).forEach(x => this.queueGossip(world, x, area));
+    }
   }
 
   private evalExpr(world: number, expr: Expr, age: Age, area: string) {
@@ -397,7 +400,9 @@ export class Pathfinder {
         d.exits.adult.forEach(x => this.queueExit(world, 'adult', x, area));
         d.events.forEach(x => this.queueEvent(world, x, area));
         d.locations.forEach(x => this.queueLocation(world, x, area));
-        d.gossips.forEach(x => this.queueGossip(world, x, area));
+        if (this.opts.gossips) {
+          d.gossips.forEach(x => this.queueGossip(world, x, area));
+        }
       }
     }
   }
@@ -508,7 +513,9 @@ export class Pathfinder {
               d.exits.adult.forEach(x => this.queueExit(world, 'adult', x, area));
               d.events.forEach(x => this.queueEvent(world, x, area));
               d.locations.forEach(x => this.queueLocation(world, x, area));
-              d.gossips.forEach(x => this.queueGossip(world, x, area));
+              if (this.opts.gossips) {
+                d.gossips.forEach(x => this.queueGossip(world, x, area));
+              }
             }
           }
         } else {
