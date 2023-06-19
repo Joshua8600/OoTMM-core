@@ -58,11 +58,11 @@ type PathfinderWorldState = {
 }
 
 export type PathfinderState = {
-  items: Items;
   goal: boolean;
   started: boolean;
   newLocations: Set<Location>;
   ws: PathfinderWorldState[];
+  previousAssumedItems: Items;
 
   /* Output */
   locations: Set<Location>;
@@ -124,7 +124,7 @@ const defaultState = (settings: Settings): PathfinderState => {
   }
 
   return {
-    items: {},
+    previousAssumedItems: {},
     goal: false,
     started: false,
     ws: defaultWorldStates(settings),
@@ -178,6 +178,8 @@ type PathfinderOptions = {
   restrictedLocations?: Set<Location>;
   forbiddenLocations?: Set<Location>;
   includeForbiddenReachable?: boolean;
+  gossips?: boolean;
+  inPlace?: boolean;
 };
 
 export class Pathfinder {
@@ -192,18 +194,7 @@ export class Pathfinder {
 
   run(state: PathfinderState | null, opts?: PathfinderOptions) {
     this.opts = opts || {};
-    this.state = state ? cloneDeep(state) : defaultState(this.settings);
-
-    /* Assumed items */
-    for (const item of Object.keys(this.opts.assumedItems || {}) as Item[]) {
-      const amount = this.opts.assumedItems![item];
-      const itemD = itemData(item);
-      const ws = this.state.ws[itemD.player as number];
-
-      addRawItem(ws.items, itemD.id, amount);
-      addRawItem(ws.renewables, itemD.id, amount);
-      addRawItem(ws.licenses, itemD.id, amount);
-    }
+    this.state = state ? (this.opts.inPlace ? state : cloneDeep(state)) : defaultState(this.settings);
 
     /* Restricted locations */
     if (this.opts.restrictedLocations) {
@@ -695,11 +686,21 @@ export class Pathfinder {
       }
     }
 
-    /* Requeue assumed items */
-    if (this.opts.assumedItems) {
-      for (const item of Object.keys(this.opts.assumedItems) as Item[]) {
+    /* Assumed items */
+    for (const item of Object.keys(this.opts.assumedItems || {}) as Item[]) {
+      const amount = this.opts.assumedItems![item];
+      const amountPrev = this.state.previousAssumedItems[item] || 0;
+
+      if (amount > amountPrev) {
         const itemD = itemData(item);
+        const ws = this.state.ws[itemD.player as number];
+        const delta = amount - amountPrev;
+
+        addRawItem(ws.items, itemD.id, delta);
+        addRawItem(ws.renewables, itemD.id, delta);
+        addRawItem(ws.licenses, itemD.id, delta);
         this.requeueItem(itemD.player as number, itemD.id);
+        this.state.previousAssumedItems[item] = amount;
       }
     }
 
@@ -749,8 +750,10 @@ export class Pathfinder {
     }
 
     /* Check for gossips */
-    for (let world = 0; world < this.settings.players; ++world) {
-      this.evalGossips(world);
+    if (this.opts.gossips) {
+      for (let world = 0; world < this.settings.players; ++world) {
+        this.evalGossips(world);
+      }
     }
   }
 }
