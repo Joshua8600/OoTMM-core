@@ -150,16 +150,9 @@ const mergeAreaData = (a: AreaData, b: AreaData): AreaData => ({
   mmTime2: (a.mmTime2 | b.mmTime2) >>> 0,
 });
 
-const compareAreaData = (a: AreaData, b: AreaData): boolean => (
-  a.oot.day === b.oot.day &&
-  a.oot.night === b.oot.night &&
-  a.mmTime === b.mmTime &&
-  a.mmTime2 === b.mmTime2
-);
-
 const coveringAreaData = (a: AreaData, b: AreaData): boolean => {
-  if (a.oot.day && !b.oot.day) return false;
-  if (a.oot.night && !b.oot.night) return false;
+  if (!a.oot.day && b.oot.day) return false;
+  if (!a.oot.night && b.oot.night) return false;
   if (((a.mmTime | b.mmTime) >>> 0) !== a.mmTime) return false;
   if (((a.mmTime2 | b.mmTime2) >>> 0) !== a.mmTime2) return false;
   return true;

@@ -560,7 +560,7 @@ export class LogicPassSolver {
         const loc = unplacedLocs.pop()!;
         const newPlacement = { ...this.items };
         newPlacement[loc] = requiredItem;
-        const result = this.pathfinder.run(this.pathfinderState, { recursive: true, stopAtGoal: true, items: newPlacement, assumedItems: pool });
+        const result = this.pathfinder.run(null, { recursive: true, stopAtGoal: true, items: newPlacement, assumedItems: pool });
         if (result.goal) {
           this.place(loc, requiredItem);
           return;
