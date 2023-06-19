@@ -104,20 +104,20 @@ const defaultWorldState = (settings: Settings): PathfinderWorldState => ({
   events: new Set(),
 });
 
-const defaultWorldStates = (settings: Settings) => {
+const defaultWorldStates = (settings: Settings, worldCount: number) => {
   const ws: PathfinderWorldState[] = [];
 
-  for (let world = 0; world < settings.players; ++world) {
+  for (let world = 0; world < worldCount; ++world) {
     ws.push(defaultWorldState(settings));
   }
 
   return ws;
 }
 
-const defaultState = (settings: Settings): PathfinderState => {
+const defaultState = (settings: Settings, worldCount: number): PathfinderState => {
   const gossips: Set<string>[] = [];
 
-  for (let world = 0; world < settings.players; ++world) {
+  for (let world = 0; world < worldCount; ++world) {
     gossips.push(new Set());
   }
 
@@ -125,7 +125,7 @@ const defaultState = (settings: Settings): PathfinderState => {
     previousAssumedItems: {},
     goal: false,
     started: false,
-    ws: defaultWorldStates(settings),
+    ws: defaultWorldStates(settings, worldCount),
     locations: new Set(),
     newLocations: new Set(),
     gossips,
@@ -179,11 +179,13 @@ type PathfinderOptions = {
   includeForbiddenReachable?: boolean;
   gossips?: boolean;
   inPlace?: boolean;
+  singleWorld?: boolean;
 };
 
 export class Pathfinder {
   private opts!: PathfinderOptions;
   private state!: PathfinderState;
+  private worldCount!: number;
 
   constructor(
     private readonly world: World,
@@ -193,11 +195,12 @@ export class Pathfinder {
 
   run(state: PathfinderState | null, opts?: PathfinderOptions) {
     this.opts = opts || {};
-    this.state = state ? (this.opts.inPlace ? state : cloneDeep(state)) : defaultState(this.settings);
+    this.worldCount = this.opts.singleWorld ? 1 : this.settings.players;
+    this.state = state ? (this.opts.inPlace ? state : cloneDeep(state)) : defaultState(this.settings, this.worldCount);
 
     /* Restricted locations */
     if (this.opts.restrictedLocations) {
-      for (let world = 0; world < this.settings.players; ++world) {
+      for (let world = 0; world < this.worldCount; ++world) {
         this.state.ws[world].restrictedLocations = new Set();
       }
 
@@ -206,14 +209,14 @@ export class Pathfinder {
         this.state.ws[locD.world as number].restrictedLocations!.add(locD.id);
       }
     } else {
-      for (let world = 0; world < this.settings.players; ++world) {
+      for (let world = 0; world < this.worldCount; ++world) {
         this.state.ws[world].restrictedLocations = undefined;
       }
     }
 
     /* Forbidden locations */
     if (this.opts.forbiddenLocations) {
-      for (let world = 0; world < this.settings.players; ++world) {
+      for (let world = 0; world < this.worldCount; ++world) {
         this.state.ws[world].forbiddenLocations = new Set();
       }
 
@@ -222,7 +225,7 @@ export class Pathfinder {
         this.state.ws[locD.world as number].forbiddenLocations!.add(locD.id);
       }
     } else {
-      for (let world = 0; world < this.settings.players; ++world) {
+      for (let world = 0; world < this.worldCount; ++world) {
         this.state.ws[world].forbiddenLocations = undefined;
       }
     }
@@ -618,7 +621,7 @@ export class Pathfinder {
     /* Clear new locations */
     this.state.newLocations.clear();
 
-    for (let world = 0; world < this.settings.players; ++world) {
+    for (let world = 0; world < this.worldCount; ++world) {
       for (;;) {
         /* Expand as much as possible */
         const ws = this.state.ws[world];
@@ -644,7 +647,7 @@ export class Pathfinder {
     }
 
     /* Return true if there is more to do */
-    for (let world = 0; world < this.settings.players; ++world) {
+    for (let world = 0; world < this.worldCount; ++world) {
       const ws = this.state.ws[world];
       const { queue } = ws;
       if (queue.events.size || queue.exits.child.size || queue.exits.adult.size || queue.locations.size)
@@ -657,7 +660,7 @@ export class Pathfinder {
   private isGoalReached() {
     const { settings } = this;
 
-    for (let world = 0; world < settings.players; ++world) {
+    for (let world = 0; world < this.worldCount; ++world) {
       const ws = this.state.ws[world];
       const ganon = ws.events.has('OOT_GANON');
       const majora = ws.events.has('MM_MAJORA');
@@ -686,7 +689,7 @@ export class Pathfinder {
       const initAreaData = defaultAreaData();
       initAreaData.mmTime = 1;
 
-      for (let world = 0; world < this.settings.players; ++world) {
+      for (let world = 0; world < this.worldCount; ++world) {
         this.exploreArea(world, 'child', 'OOT SPAWN', initAreaData, 'OOT SPAWN');
         this.exploreArea(world, 'adult', 'OOT SPAWN', initAreaData, 'OOT SPAWN');
       }
@@ -718,7 +721,7 @@ export class Pathfinder {
       return;
     }
 
-    for (let world = 0; world < this.settings.players; ++world) {
+    for (let world = 0; world < this.worldCount; ++world) {
       const ws = this.state.ws[world];
 
       /* Collect previous locations */
@@ -757,7 +760,7 @@ export class Pathfinder {
 
     /* Check for gossips */
     if (this.opts.gossips) {
-      for (let world = 0; world < this.settings.players; ++world) {
+      for (let world = 0; world < this.worldCount; ++world) {
         this.evalGossips(world);
       }
     }
