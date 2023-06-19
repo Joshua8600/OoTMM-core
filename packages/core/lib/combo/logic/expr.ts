@@ -108,9 +108,9 @@ export type AreaData = {
 };
 
 type State = {
-  items: Items;
-  renewables: Items;
-  licenses: Items;
+  items: {[k: string]: number};
+  renewables: {[k: string]: number};
+  licenses: {[k: string]: number};
   age: Age;
   events: Set<string>;
   ignoreItems: boolean;
