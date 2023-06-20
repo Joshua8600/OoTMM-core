@@ -150,6 +150,7 @@ int CustomTrigger_ItemSafeNet(Actor_CustomTriggers* this, GameState_Play* play)
     case SCE_MM_SHOOTING_GALLERY_SWAMP:
     case SCE_MM_HONEY_DARLING:
     case SCE_MM_TREASURE_SHOP:
+    case SCE_MM_WATERFALL_RAPIDS:
 #endif
         return 0;
 
