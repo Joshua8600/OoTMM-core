@@ -146,6 +146,10 @@ int CustomTrigger_ItemSafeNet(Actor_CustomTriggers* this, GameState_Play* play)
     case SCE_MM_TRADING_POST:
     case SCE_MM_GORON_SHOP:
     case SCE_MM_ZORA_HALL_ROOMS:
+    case SCE_MM_SHOOTING_GALLERY:
+    case SCE_MM_SHOOTING_GALLERY_SWAMP:
+    case SCE_MM_HONEY_DARLING:
+    case SCE_MM_TREASURE_SHOP:
 #endif
         return 0;
 
