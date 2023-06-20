@@ -345,7 +345,7 @@ export class LogicPassHints {
     if (checkHint === 'NONE') {
       return false;
     }
-    const locations = this.state.world.checkHints[checkHint].map(x => makeLocation(x, checkWorld));
+    const locations = (this.state.world.checkHints[checkHint] || []).map(x => makeLocation(x, checkWorld));
     if (locations.every(l => this.hintedLocations.has(l))) {
       return false;
     }
