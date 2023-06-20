@@ -389,7 +389,7 @@ export class LogicPassHints {
       if (placed >= count) {
         break;
       }
-      const locations = this.state.world.checkHints[checkHint].map(x => makeLocation(x, world));
+      const locations = (this.state.world.checkHints[checkHint] || []).map(x => makeLocation(x, world));
       if (!locations) {
         continue;
       }
