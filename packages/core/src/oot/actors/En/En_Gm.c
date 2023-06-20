@@ -3,6 +3,8 @@
 
 static void EnGm_ItemQuery(ComboItemQuery* q, int flags)
 {
+    bzero(q, sizeof(ComboItemQuery));
+
     q->ovType = OV_NPC;
     q->gi = GI_OOT_SWORD_KNIFE;
     q->id = NPC_OOT_MEDIGORON;
