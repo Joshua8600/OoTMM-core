@@ -1,3 +1,15 @@
+const SETTING_PRICE = {
+  type: 'enum',
+  values: [
+    { value: 'affordable', name: 'Affordable', description: 'All prices are set to 10 rupees.' },
+    { value: 'vanilla', name: 'Vanilla', description: 'All prices are set to their vanilla values.' },
+    { value: 'weighted', name: 'Weighted Random', description: 'All prices are randomized, but lower prices are favored.' },
+    { value: 'random', name: 'Random', description: 'All prices are randomized.' },
+  ],
+  category: 'main.prices',
+  default: 'vanilla',
+} as const;
+
 export const SETTINGS = [{
   key: 'mode',
   name: 'Mode',
@@ -355,7 +367,9 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'Fun setting: should using the Weird/Pocket Eggs give an item? If not, they\'re entirely removed from the game',
   default: false
-}, {
+},
+{ ...SETTING_PRICE, key: 'priceOotShops', name: 'OoT Shops Prices', description: 'Sets the price of items inside OoT shops' },
+{
   key: 'doorOfTime',
   name: 'Door of Time',
   category: 'main.events',
@@ -927,6 +941,6 @@ export const SETTINGS = [{
   name: 'Shuffle Extra Interiors',
   category: 'entrances',
   type: 'boolean',
-  description: 'Shuffle additional interiors, like link\'s house',
+  description: 'Shuffle additional, more complex interiors. These include:<br>- OOT: Link\'s House, Temple of Time, Windmill<br>- MM: Stock Pot Inn, Astral Observatory/Bombers\' Hideout, Swamp Tourist Hut, Ikana Spring Cave',
   default: false
 }] as const;
