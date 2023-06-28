@@ -18,10 +18,56 @@ const OOT_SHOPS = [
   ...OOT_SHOP_POTION,
   ...OOT_SHOP_BAZAAR,
   ...OOT_SHOP_POTION,
-]
+];
+
+const OOT_SCRUBS_OVERWORLD = [ 40, 15, 20, 40, 40, 40, 40, 10, 20, 40, 40, 20, 40, 40, 40, 20, 40, 40, 40, 40, 20, 40, 40, 40, 40, 40, 40 ];
+const OOT_SCRUBS_DT = [ 0 ];
+const OOT_SCRUBS_DT_MQ = [ 50 ];
+const OOT_SCRUBS_DC = [ 40, 15, 20, 50 ];
+const OOT_SCRUBS_DC_MQ = [ 40, 15, 50, 40 ];
+const OOT_SCRUBS_JJ = [ 20 ];
+const OOT_SCRUBS_JJ_MQ = [ 0 ];
+const OOT_SCRUBS_GC = [40, 40, 70, 40, 0];
+const OOT_SCRUBS_GC_MQ = [40, 40, 70, 40, 20];
+
+const OOT_SCRUBS = [
+  ...OOT_SCRUBS_OVERWORLD,
+  ...OOT_SCRUBS_DT,
+  ...OOT_SCRUBS_DC,
+  ...OOT_SCRUBS_JJ,
+  ...OOT_SCRUBS_GC,
+];
+
+const MM_SHOP_BOMB = [30, 40, 50, 90];
+const MM_SHOP_CURIOSITY = [500];
+const MM_SHOP_TRADING = [30, 80, 80, 50, 10, 30, 30, 30];
+const MM_SHOP_POTION = [60, 10, 20];
+const MM_SHOP_GORON = [40, 40, 80];
+const MM_SHOP_ZORA = [90, 20, 60];
+
+const MM_SHOPS = [
+  ...MM_SHOP_BOMB,
+  ...MM_SHOP_CURIOSITY,
+  ...MM_SHOP_TRADING,
+  ...MM_SHOP_POTION,
+  ...MM_SHOP_GORON,
+  ...MM_SHOP_ZORA,
+];
+
+const MM_SHOP_EX_CURIOSITY = [100];
+
+const MM_SHOPS_EX = [
+  ...MM_SHOP_EX_CURIOSITY,
+];
+
+const MM_TINGLE = [5, 40, 20, 40, 20, 40, 20, 40, 20, 40, 20, 40];
 
 const PRICES = {
   OOT_SHOPS,
+  OOT_SCRUBS,
+  MM_SHOPS,
+  MM_SHOPS_EX,
+  MM_TINGLE,
   MAX: [],
 } as const;
 
@@ -42,7 +88,41 @@ export const PRICE_RANGES: {[k: string] :number} = {};
 export type PriceRandoType = 'vanilla' | 'affordable' | 'random' | 'weighted';
 
 export function defaultPrices(mq: Set<string>) {
-  return [...DEFAULT_PRICES];
+  const p = [...DEFAULT_PRICES];
+
+  /* Handle MQ */
+  const ootScrubs: number[][] = [];
+  ootScrubs.push(OOT_SCRUBS_OVERWORLD);
+  if (mq.has('DT')) {
+    ootScrubs.push(OOT_SCRUBS_DT_MQ);
+  } else {
+    ootScrubs.push(OOT_SCRUBS_DT);
+  }
+
+  if (mq.has('DC')) {
+    ootScrubs.push(OOT_SCRUBS_DC_MQ);
+  } else {
+    ootScrubs.push(OOT_SCRUBS_DC);
+  }
+
+  if (mq.has('JJ')) {
+    ootScrubs.push(OOT_SCRUBS_JJ_MQ);
+  } else {
+    ootScrubs.push(OOT_SCRUBS_JJ);
+  }
+
+  if (mq.has('Ganon')) {
+    ootScrubs.push(OOT_SCRUBS_GC_MQ);
+  } else {
+    ootScrubs.push(OOT_SCRUBS_GC);
+  }
+
+  const ootScrubsFlat = ootScrubs.flat();
+  for (let i = 0; i < ootScrubsFlat.length; ++i) {
+    p[PRICE_RANGES.OOT_SCRUBS + i] = ootScrubsFlat[i];
+  }
+
+  return p;
 }
 
 /* Approximate beta func */
@@ -105,6 +185,10 @@ export class LogicPassPrice {
 
   run() {
     this.shufflePrices('OOT_SHOPS', this.state.settings.priceOotShops);
+    this.shufflePrices('OOT_SCRUBS', this.state.settings.priceOotScrubs);
+    this.shufflePrices('MM_SHOPS', this.state.settings.priceMmShops);
+    this.shufflePrices('MM_SHOPS_EX', this.state.settings.priceMmShops);
+    this.shufflePrices('MM_TINGLE', this.state.settings.priceMmTingle);
 
     return {};
   }

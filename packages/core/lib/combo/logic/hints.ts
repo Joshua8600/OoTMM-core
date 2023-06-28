@@ -1,6 +1,6 @@
 import { World } from './world';
 import { Analysis } from './analysis';
-import { Random, sample, shuffle } from '../random';
+import { Random, sample, shuffle, randomInt } from '../random';
 import { DUNGEON_REWARDS_ORDERED, isDungeonReward, isGoldToken, itemsArray, isKey, isHouseToken, isGanonBossKey, isStrayFairy, isToken, isTownStrayFairy, isSong, isSmallKeyRegular, isSmallKeyHideout, isMapCompass, ITEMS_MASKS_REGULAR, isSmallKeyRegularOot, isSmallKeyRegularMm, isRegularBossKeyOot, isRegularBossKeyMm, isItemTriforce, Item, itemData, makeItem } from './items';
 import { Settings } from '../settings';
 import { Game } from '../config';
@@ -77,6 +77,7 @@ export type HintGossipFoolish = {
 export type HintGossipItemExact = {
   type: 'item-exact',
   check: string,
+  world: number,
   items: Item[],
 };
 
@@ -86,7 +87,12 @@ export type HintGossipItemRegion = {
   item: Item;
 };
 
-export type HintGossip = { game: Game } & (HintGossipHero | HintGossipFoolish | HintGossipItemExact | HintGossipItemRegion);
+export type HintGossipJunk = {
+  type: 'junk';
+  id: number;
+};
+
+export type HintGossip = { game: Game } & (HintGossipHero | HintGossipFoolish | HintGossipItemExact | HintGossipItemRegion | HintGossipJunk);
 
 type WorldItemHints = {
   dungeonRewards: Region[];
@@ -372,7 +378,7 @@ export class LogicPassHints {
     for (const l of locations) {
       this.hintedLocations.add(l);
     }
-    const hint: HintGossip = { game: this.state.world.gossip[gossip].game, type: 'item-exact', items, check: checkHint };
+    const hint: HintGossip = { game: this.state.world.gossip[gossip].game, type: 'item-exact', items, check: checkHint, world: checkWorld };
     this.placeWithExtra(world, gossip, hint, extra);
     return true;
   }
@@ -459,6 +465,30 @@ export class LogicPassHints {
         this.placeWithExtra(world, gossip, hint, extra);
         placed++;
       }
+    }
+    return placed;
+  }
+
+  private placeGossipJunk(world: number, count: number | 'max', extra: number, moon: boolean) {
+    if (count === 'max') {
+      count = 999;
+    }
+    let placed = 0;
+    let gossips = Object.keys(this.state.world.gossip)
+      .filter(x => !this.gossip[world][x]);
+    if (!moon) {
+      gossips = gossips.filter(x => ['gossip', 'gossip-grotto'].includes(this.state.world.gossip[x].type));
+    }
+    gossips = shuffle(this.state.random, gossips);
+    for (;;) {
+      if (placed >= count || gossips.length === 0) {
+        break;
+      }
+      const gossip = gossips.pop()!;
+      const id = randomInt(this.state.random, 65536);
+      const hint: HintGossip = { game: this.state.world.gossip[gossip].game, type: 'junk', id };
+      this.placeWithExtra(world, gossip, hint, extra);
+      placed++;
     }
     return placed;
   }
@@ -563,41 +593,44 @@ export class LogicPassHints {
     }
   }
 
-  private placeGossips(world: number, foolish: {[k: string]: number}) {
+  private placeGossips(foolish: {[k: string]: number}[]) {
     const settingsHints = this.state.settings.hints;
 
     for (const s of settingsHints) {
-      switch (s.type) {
-      case 'always':
-        this.placeGossipItemExactPool(world, this.hintsAlways, s.amount, s.extra);
-        break;
-      case 'sometimes':
-        this.placeGossipItemExactPool(world, this.hintsSometimes, s.amount, s.extra);
-        break;
-      case 'foolish':
-        this.placeGossipFoolish(world, foolish, s.amount, s.extra);
-        break;
-      case 'item':
-        this.placeGossipItemName(world, s.item!, s.amount, s.extra);
-        break;
-      case 'playthrough':
-        this.placeGossipItemRegionSpheres(world, s.amount, s.extra);
-        break;
-      case 'woth':
-        this.placeGossipHero(world, s.amount, s.extra);
-        break;
+      for (let world = 0; world < this.state.settings.players; ++world) {
+        switch (s.type) {
+        case 'always':
+          this.placeGossipItemExactPool(world, this.hintsAlways, s.amount, s.extra);
+          break;
+        case 'sometimes':
+          this.placeGossipItemExactPool(world, this.hintsSometimes, s.amount, s.extra);
+          break;
+        case 'foolish':
+          this.placeGossipFoolish(world, foolish[world], s.amount, s.extra);
+          break;
+        case 'item':
+          this.placeGossipItemName(world, s.item!, s.amount, s.extra);
+          break;
+        case 'playthrough':
+          this.placeGossipItemRegionSpheres(world, s.amount, s.extra);
+          break;
+        case 'woth':
+          this.placeGossipHero(world, s.amount, s.extra);
+          break;
+        case 'junk':
+          this.placeGossipJunk(world, s.amount, s.extra, false);
+          break;
+        }
       }
     }
 
     /* Place moon hints */
-    this.placeMoonGossip(world);
-  }
+    for (let world = 0; world < this.state.settings.players; ++world)
+      this.placeMoonGossip(world);
 
-  private locRegion(loc: string | null) {
-    if (loc === null) {
-      return 'NONE';
-    }
-    return this.state.world.regions[loc];
+    /* Fill with junk hints */
+    for (let world = 0; world < this.state.settings.players; ++world)
+      this.placeGossipJunk(world, 'max', 0, true);
   }
 
   markLocation(location: Location | null) {
@@ -605,17 +638,6 @@ export class LogicPassHints {
       return;
     }
     this.hintedLocations.add(location);
-  }
-
-  private makeHints(world: number, foolish: {[k: string]: number}, ih: WorldItemHints): WorldHints {
-    /* Place hints on gossip stones */
-    this.placeGossips(world, foolish);
-
-    return {
-      ...ih,
-      foolish,
-      gossip: { ...this.gossip[world] },
-    };
   }
 
   run() {
@@ -653,9 +675,12 @@ export class LogicPassHints {
     }
 
     /* Place hints */
+    this.placeGossips(worldFoolish);
+
+    /* Make hints */
     const hints: Hints = [];
     for (let world = 0; world < this.state.settings.players; ++world) {
-      hints.push(this.makeHints(world, worldFoolish[world], worldItemHints[world]));
+      hints.push({ foolish: worldFoolish[world], ...worldItemHints[world], gossip: { ...this.gossip[world] }});
     }
 
     return { hints };

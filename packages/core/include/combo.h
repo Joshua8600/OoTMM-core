@@ -141,10 +141,17 @@ extern ComboContext gComboCtx;
 
 typedef struct
 {
-    u8 dungeonRewards[13];
-    u8 lightArrows;
-    u8 oathToOrder;
-    u8 ganonBossKey;
+    u8 region;
+    u8 world;
+}
+ItemHint;
+
+typedef struct
+{
+    ItemHint dungeonRewards[13];
+    ItemHint lightArrows;
+    ItemHint oathToOrder;
+    ItemHint ganonBossKey;
 }
 ComboDataHints;
 
@@ -343,6 +350,7 @@ extern DmaEntry kComboDmaData[];
 #define HINT_TYPE_FOOLISH       0x01
 #define HINT_TYPE_ITEM_EXACT    0x02
 #define HINT_TYPE_ITEM_REGION   0x03
+#define HINT_TYPE_JUNK          0x04
 
 void comboInitHints(void);
 void comboHintGossip(u8 key, GameState_Play* play);

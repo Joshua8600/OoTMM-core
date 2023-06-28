@@ -630,7 +630,7 @@ void comboTextAppendItemNameOverride(char** b, const ComboItemOverride* o, int f
     }
 }
 
-void comboTextAppendRegionName(char** b, u8 regionId, int flags)
+void comboTextAppendRegionName(char** b, u8 regionId, u8 world, int flags)
 {
     char* start;
     const RegionName* regName;
@@ -664,13 +664,20 @@ void comboTextAppendRegionName(char** b, u8 regionId, int flags)
     comboTextAppendStr(b, regName->name);
     comboTextAppendClearColor(b);
 
+    if (world != 0 && world != 0xff && world != gComboData.playerId)
+    {
+        comboTextAppendStr(b, " in " TEXT_COLOR_YELLOW "World ");
+        comboTextAppendNum(b, world);
+        comboTextAppendClearColor(b);
+    }
+
     if (flags & TF_CAPITALIZE)
     {
         start[0] = toupper(start[0]);
     }
 }
 
-void comboTextAppendCheckName(char** b, u8 checkId)
+void comboTextAppendCheckName(char** b, u8 checkId, u8 world)
 {
     const char* checkName;
 
@@ -685,6 +692,13 @@ void comboTextAppendCheckName(char** b, u8 checkId)
 
     comboTextAppendStr(b, checkName);
     comboTextAppendClearColor(b);
+
+    if (world != 0 && world != 0xff && world != gComboData.playerId)
+    {
+        comboTextAppendStr(b, " in " TEXT_COLOR_YELLOW "World ");
+        comboTextAppendNum(b, world);
+        comboTextAppendClearColor(b);
+    }
 }
 
 void comboTextHijackItemEx(GameState_Play* play, const ComboItemOverride* o, int count)
@@ -785,11 +799,13 @@ void comboMessageCancel(GameState_Play* play)
 #if defined(GAME_MM)
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int hint)
 {
+    const ItemHint* ih;
     char* b;
 
+    ih = &gComboData.hints.dungeonRewards[hint];
     b = play->textBuffer;
     appendBossRewardHeader(&b, 0x55 + hint);
-    comboTextAppendRegionName(&b, gComboData.hints.dungeonRewards[9 + hint], TF_PREPOS | TF_CAPITALIZE);
+    comboTextAppendRegionName(&b, ih->region, ih->world, TF_PREPOS | TF_CAPITALIZE);
     comboTextAppendStr(&b, "...");
     if (hint != 3)
         comboTextAppendStr(&b, "\x19");
@@ -807,7 +823,7 @@ void comboTextHijackLightArrows(GameState_Play* play)
     comboTextAppendStr(&b,
         "Have you found the " TEXT_COLOR_YELLOW "Light Arrows " TEXT_CZ
     );
-    comboTextAppendRegionName(&b, gComboData.hints.lightArrows, TF_PREPOS);
+    comboTextAppendRegionName(&b, gComboData.hints.lightArrows.region, gComboData.hints.lightArrows.world, TF_PREPOS);
     comboTextAppendStr(&b, "?" TEXT_END);
     comboTextAutoLineBreaks(play->msgCtx.textBuffer);
 }
@@ -826,7 +842,7 @@ void comboTextHijackOathToOrder(GameState_Play* play)
         "Have you found the " TEXT_COLOR_PINK "Oath to Order "
     );
     comboTextAppendClearColor(&b);
-    comboTextAppendRegionName(&b, gComboData.hints.oathToOrder, TF_PREPOS);
+    comboTextAppendRegionName(&b, gComboData.hints.oathToOrder.region, gComboData.hints.oathToOrder.world, TF_PREPOS);
     comboTextAppendStr(&b, "?" TEXT_END);
     comboTextAutoLineBreaks(start);
 }
