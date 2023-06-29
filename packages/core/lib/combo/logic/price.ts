@@ -132,7 +132,7 @@ function betaApproxInt(random: Random, alpha: number, beta: number, max: number)
   for (let i = 0; i < draws; ++i) {
     values.push(randomInt(random, max));
   }
-  return (values.sort())[alpha - 1];
+  return (values.sort((a, b) => a - b))[alpha - 1];
 }
 
 export class LogicPassPrice {
@@ -150,7 +150,7 @@ export class LogicPassPrice {
     if (this.state.settings.colossalWallets) {
       max = 199;
     }
-    const r = randomInt(this.state.random, max);
+    const r = randomInt(this.state.random, max + 1);
     return r * 5;
   }
 
@@ -161,7 +161,7 @@ export class LogicPassPrice {
       max = 199;
       beta = 9;
     }
-    const r = betaApproxInt(this.state.random, 2, beta, max);
+    const r = betaApproxInt(this.state.random, 2, beta, max + 1);
     return r * 5;
   }
 
