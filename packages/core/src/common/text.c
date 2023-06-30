@@ -140,6 +140,10 @@ static const char* const kCheckNamesMm[] = {
     TEXT_COLOR_ORANGE "Igos du Ikana",
     "the " TEXT_COLOR_YELLOW "Secret Shrine Wart and Final Chest",
     "the " TEXT_COLOR_PINK "Cow beneath the Well",
+    "the " TEXT_COLOR_RED "Blacksmith",
+    "the " TEXT_COLOR_PINK "Midnight Meeting",
+    TEXT_COLOR_BLUE "Madame Aroma in the Bar",
+    TEXT_COLOR_YELLOW "Marching for Cuccos",
 };
 
 static int isItemAmbiguousOot(s16 gi)
@@ -204,6 +208,7 @@ static int isItemAmbiguousOot(s16 gi)
     case GI_OOT_WALLET2:
     case GI_OOT_WALLET3:
     case GI_OOT_WALLET4:
+    case GI_OOT_WALLET5:
     case GI_OOT_RUPEE_GREEN:
     case GI_OOT_RUPEE_BLUE:
     case GI_OOT_RUPEE_RED:
@@ -298,6 +303,7 @@ static int isItemAmbiguousMm(s16 gi)
     case GI_MM_WALLET2:
     case GI_MM_WALLET3:
     case GI_MM_WALLET4:
+    case GI_MM_WALLET5:
     case GI_MM_RUPEE_GREEN:
     case GI_MM_RUPEE_BLUE:
     case GI_MM_RUPEE_RED:
