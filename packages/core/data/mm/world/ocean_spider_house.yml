@@ -8,8 +8,8 @@
 "Ocean Spider House Front":
   dungeon: OSH
   events:
-    MAGIC: "has_mask_goron || can_warp"
-    ARROWS: "has_mask_goron || can_warp"
+    MAGIC: "true"
+    ARROWS: "true"
   exits:
     "Ocean Spider House": "true"
     "Ocean Spider House Back": "can_hookshot_short || can_goron_bomb_jump"
