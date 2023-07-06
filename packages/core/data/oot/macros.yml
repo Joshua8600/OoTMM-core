@@ -42,13 +42,17 @@
 "age_shield_adult": "is_adult || setting(agelessShields)"
 "age_tunics": "is_adult || setting(agelessTunics)"
 "age_boots": "is_adult || setting(agelessBoots)"
+"age_child_trade": "is_child || setting(agelessChildTrade)"
 
 # Swords
 "has_sword_kokiri": "cond(setting(progressiveSwordsOot, progressive), has(SWORD), has(SWORD_KOKIRI))"
 "has_sword_master": "cond(setting(progressiveSwordsOot, progressive), has(SWORD, 2), has(SWORD_MASTER))"
 "has_sword_goron": "cond(setting(progressiveSwordsOot, progressive), has(SWORD, 3), cond(setting(progressiveSwordsOot, goron), has(SWORD_GORON), has(SWORD_KNIFE) || has(SWORD_BIGGORON)))"
 "has_weapon": "can_use_sword"
-"can_use_sword": "(age_sword_child && has_sword_kokiri) || (is_adult)"
+"can_use_sword_kokiri": "age_sword_child && has_sword_kokiri"
+"can_use_sword_master": "age_sword_adult && has_sword_master"
+"can_use_sword_goron": "age_sword_adult"
+"can_use_sword": "can_use_sword_kokiri || can_use_sword_master || can_use_sword_goron"
 
 # Shields
 "has_shield": "true"
