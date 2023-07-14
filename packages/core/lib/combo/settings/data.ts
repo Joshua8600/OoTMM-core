@@ -674,6 +674,13 @@ export const SETTINGS = [{
   description: 'Allows Link to use the child trade items independently of his age',
   default: false
 }, {
+  key: 'defaultHoldTarget',
+  name: 'Default Hold Target',
+  category: 'main.misc',
+  type: 'boolean',
+  description: 'Forces the default target system to HOLD instead of SWITCH',
+  default: true
+}, {
   key: 'fillWallets',
   name: 'Fill Wallets',
   category: 'items',
@@ -711,7 +718,7 @@ export const SETTINGS = [{
     { value: 'separate', name: 'Separate' },
     { value: 'progressive', name: 'Progressive' },
   ],
-  default: 'start'
+  default: 'separate'
 }, {
   key: 'progressiveGoronLullaby',
   name: 'MM Goron Lullaby',
