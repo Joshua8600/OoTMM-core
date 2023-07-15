@@ -348,6 +348,17 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
+  key: 'silverRupeeShuffle',
+  name: 'Silver Rupee Shuffle',
+  category: 'main.shuffle',
+  type: 'enum',
+  description: 'Make silver rupees items that can be shuffled.',
+  values: [
+    { value: 'vanilla', name: 'Vanilla', description: 'Silver Rupees are vanilla' },
+    { value: 'anywhere', name: 'Anywhere', description: 'Silver Rupees are shuffled in the item pool' },
+  ],
+  default: 'vanilla'
+}, {
   key: 'shuffleMasterSword',
   name: 'Master Sword Shuffle',
   category: 'main.shuffle',
@@ -611,69 +622,6 @@ export const SETTINGS = [{
   description: 'Modifies the Bunny Hood in OoT to give a speed increase',
   default: true
 }, {
-  key: 'blueFireArrows',
-  name: 'Blue Fire Arrows',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Changes the OoT Ice Arrows to have Blue Fire properties',
-  default: false,
-}, {
-  key: 'agelessSwords',
-  name: 'Ageless Swords',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use swords independently of his age',
-  default: false
-}, {
-  key: 'agelessShields',
-  name: 'Ageless Shields',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use shields independently of his age',
-  default: false
-}, {
-  key: 'agelessTunics',
-  name: 'Ageless Tunics',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use tunics independently of his age',
-  default: false
-}, {
-  key: 'agelessBoots',
-  name: 'Ageless Boots',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use boots independently of his age',
-  default: false
-}, {
-  key: 'agelessSticks',
-  name: 'Ageless Sticks',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use deku sticks independently of his age',
-  default: false
-}, {
-  key: 'agelessBoomerang',
-  name: 'Ageless Boomerang',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use the boomerang independently of his age',
-  default: false
-}, {
-  key: 'agelessHammer',
-  name: 'Ageless Hammer',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use the hammer independently of his age',
-  default: false
-}, {
-  key: 'agelessChildTrade',
-  name: 'Ageless Child Trade',
-  category: 'main.misc',
-  type: 'boolean',
-  description: 'Allows Link to use the child trade items independently of his age',
-  default: false
-}, {
   key: 'defaultHoldTarget',
   name: 'Default Hold Target',
   category: 'main.misc',
@@ -736,6 +684,13 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'Functionally identical as the Ocarina of Time, but now there\'s 2 Ocarinas for Majora\'s Mask!',
   default: false
+}, {
+  key: 'blueFireArrows',
+  name: 'Blue Fire Arrows',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Changes the OoT Ice Arrows to have Blue Fire properties',
+  default: false,
 }, {
   key: 'shortHookshotMm',
   name: 'Short Hookshot in MM',
@@ -890,6 +845,62 @@ export const SETTINGS = [{
   name: 'Shared Health',
   category: 'items.shared',
   type: 'boolean',
+  default: false
+}, {
+  key: 'agelessSwords',
+  name: 'Ageless Swords',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use swords independently of his age',
+  default: false
+}, {
+  key: 'agelessShields',
+  name: 'Ageless Shields',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use shields independently of his age',
+  default: false
+}, {
+  key: 'agelessTunics',
+  name: 'Ageless Tunics',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use tunics independently of his age',
+  default: false
+}, {
+  key: 'agelessBoots',
+  name: 'Ageless Boots',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use boots independently of his age',
+  default: false
+}, {
+  key: 'agelessSticks',
+  name: 'Ageless Sticks',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use deku sticks independently of his age',
+  default: false
+}, {
+  key: 'agelessBoomerang',
+  name: 'Ageless Boomerang',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use the boomerang independently of his age',
+  default: false
+}, {
+  key: 'agelessHammer',
+  name: 'Ageless Hammer',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use the hammer independently of his age',
+  default: false
+}, {
+  key: 'agelessChildTrade',
+  name: 'Ageless Child Trade',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Link to use the child trade items independently of his age',
   default: false
 }, {
   key: 'erBoss',

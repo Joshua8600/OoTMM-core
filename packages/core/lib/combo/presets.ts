@@ -135,6 +135,22 @@ const PRESET_BLITZ = makeSettings({
     'OOT Kakariko Song Shadow',
     'OOT Skulltula House 40 Tokens',
     'OOT Skulltula House 50 Tokens'
+  ],
+  plando: {
+    locations: {
+      'OOT Zora River Bean Seller': 'Magic Beans (OoT)',
+      'OOT Zelda\'s Letter':        'Progressive Ocarina (OoT)',
+      'OOT Zelda\'s Song':          'Prelude of Light',
+      'MM Initial Song of Healing': 'Song of Time (MM)'
+    }
+  },
+  hints: [
+    { type: 'foolish',      amount: 8,      extra: 1},
+    { type: 'always',       amount: 'max',  extra: 1},
+    { type: 'sometimes',    amount: 4,      extra: 1},
+    { type: 'playthrough',  amount: 4,      extra: 1},
+    { type: 'woth',         amount: 9,      extra: 1},
+    { type: 'sometimes',    amount: 'max',  extra: 1},
   ]
 });
 
@@ -337,6 +353,8 @@ const PRESET_HELL = makeSettings({
     'OOT_DEAD_HAND_STICKS',
     'OOT_BFA_MUDWALLS',
 	'OOT_JABU_BOSS_HOVER',
+	'OOT_SPIRIT_CHILD_HOVER',
+	'OOT_VALLEY_GATE_HOVER',
     'MM_LENS',
     'MM_PALACE_BEAN_SKIP',
     'MM_DARMANI_WALL',
