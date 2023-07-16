@@ -1,5 +1,8 @@
 #include <combo.h>
 #include <combo/item.h>
+#include <combo/player.h>
+
+#define SET_HANDLER(a, h) do { *(void**)(((char*)(a)) + 0x13c) = (h); } while (0)
 
 static u32* const kFlags[] = {
     &gOotSilverRupeeFlags1,
@@ -47,7 +50,7 @@ static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
         base = 0x05;
         break;
     case SCE_OOT_TEMPLE_SPIRIT:
-        switch (play->roomCtx.curRoom.num)
+        switch (this->room)
         {
         case 0x00:
         case 0x02:
@@ -65,7 +68,7 @@ static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
         }
         break;
     case SCE_OOT_TEMPLE_SHADOW:
-        switch (play->roomCtx.curRoom.num)
+        switch (this->room)
         {
         case 0x06:
             base = 0x19;
@@ -84,7 +87,7 @@ static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
         }
         break;
     case SCE_OOT_ICE_CAVERN:
-        switch (play->roomCtx.curRoom.num)
+        switch (this->room)
         {
         case 0x03:
             base = 0x37;
@@ -97,7 +100,7 @@ static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
         }
         break;
     case SCE_OOT_GERUDO_TRAINING_GROUND:
-        switch (play->roomCtx.curRoom.num)
+        switch (this->room)
         {
         case 0x02:
             base = 0x41;
@@ -113,7 +116,7 @@ static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
         }
         break;
     case SCE_OOT_INSIDE_GANON_CASTLE:
-        switch (play->roomCtx.curRoom.num)
+        switch (this->room)
         {
         case 0x0c:
         case 0x11:
@@ -178,6 +181,22 @@ void EnGSwitch_DrawSilverRupee(Actor* this, GameState_Play* play)
     comboDrawGI(play, this, o.gi, 0);
 }
 
+void EnGSwitch_HandlerAfterCollected(Actor* this, GameState_Play* play)
+{
+    ActorFunc f;
+
+    if (Message_IsClosed(this, play))
+    {
+        UnfreezePlayer(play);
+        f = actorAddr(AC_EN_G_SWITCH, 0x80a70db0);
+        f(this, play);
+    }
+    else
+    {
+        FreezePlayer(play);
+    }
+}
+
 void EnGSwitch_GiveItemSilverRupee(Actor* this)
 {
     ComboItemQuery q;
@@ -187,4 +206,6 @@ void EnGSwitch_GiveItemSilverRupee(Actor* this)
     PlayerDisplayTextBox(gPlay, 0xb4, NULL);
     comboAddItemEx(gPlay, &q);
     EnGSwitch_SetFlag(EnGSwitch_ID(this, gPlay));
+    SET_HANDLER(this, EnGSwitch_HandlerAfterCollected);
 }
+
