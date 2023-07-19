@@ -92,8 +92,8 @@
 "has_ranged_weapon_adult": "can_use_bow || can_hookshot"
 "has_ranged_weapon": "has_ranged_weapon_child || has_ranged_weapon_adult"
 "can_collect_distance": "can_hookshot || can_boomerang"
-"scarecrow_hookshot": "can_hookshot && event(SCARECROW)"
-"scarecrow_longshot": "can_longshot && event(SCARECROW)"
+"scarecrow_hookshot": "can_hookshot && (event(SCARECROW) || setting(freeScarecrowOot))"
+"scarecrow_longshot": "can_longshot && (event(SCARECROW) || setting(freeScarecrowOot))"
 "has_fire": "has_fire_arrows || can_use_din"
 "has_fire_or_sticks": "can_use_sticks || has_fire"
 "can_dive_small": "has(SCALE) || has_iron_boots"
@@ -101,6 +101,10 @@
 "hidden_grotto_bomb": "stone_of_agony && has_explosives_or_hammer"
 "hidden_grotto_storms": "stone_of_agony && can_play_storms"
 "has_spiritual_stones": "has(STONE_EMERALD) && has(STONE_RUBY) && has(STONE_SAPPHIRE)"
+
+# Bottle contents
+"has_bugs": "has_bottle && (renewable(BUGS) || event(BUGS))"
+"has_fish": "has_bottle && (renewable(FISH) || event(FISH))"
 
 #Specific Interaction Macros:
 "can_ride_epona": "is_adult && can_play_epona"
@@ -147,3 +151,7 @@
 
 # Masks
 "has_mask_truth": "has(MASK_TRUTH) || has(SHARED_MASK_TRUTH)"
+
+# Glitches
+"glitch_equip_swap": "glitch(OOT_EQUIP_SWAP) && (has(SPELL_FIRE) || (has_sticks && (is_child || setting(agelessSticks))))"
+"glitch_ocarina_items": "glitch(OOT_OCARINA_ITEMS) && (has_bugs || has_fish)"

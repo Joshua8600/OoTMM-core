@@ -1,4 +1,4 @@
-import { ItemHelpers } from '../items';
+import { ItemHelpers, Items } from '../items';
 import { Monitor } from '../monitor';
 import { Settings } from '../settings';
 import { Location, MM_MERCHANTS, MM_SCRUBS, ONE_TIME_SHOP_CHECKS, OOT_ONE_TIME_SCRUBS, makeLocation } from './locations';
@@ -66,7 +66,7 @@ export class LogicPassFixer {
         this.fixedLocations.add(location);
       }
 
-      if (type === 'sr' && settings.silverRupeeShuffle !== 'anywhere') {
+      if (type === 'sr' && settings.silverRupeeShuffle === 'vanilla') {
         this.fixedLocations.add(location);
       }
 
@@ -83,6 +83,10 @@ export class LogicPassFixer {
       }
 
       if (ItemHelpers.isSmallKeyHideout(item) && this.state.settings.smallKeyShuffleHideout === 'vanilla') {
+        this.fixedLocations.add(location);
+      }
+
+      if (item === Items.OOT_OCARINA && !this.state.settings.shuffleOcarinasOot) {
         this.fixedLocations.add(location);
       }
     }

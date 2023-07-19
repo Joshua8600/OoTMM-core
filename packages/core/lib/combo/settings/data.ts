@@ -235,6 +235,18 @@ export const SETTINGS = [{
   ],
   default: 'ownDungeon'
 }, {
+  key: 'silverRupeeShuffle',
+  name: 'Silver Rupee Shuffle',
+  category: 'main.shuffle',
+  type: 'enum',
+  description: 'Make silver rupees items that can be shuffled.',
+  values: [
+    { value: 'vanilla', name: 'Vanilla', description: 'Silver Rupees are vanilla' },
+    { value: 'ownDungeon', name: 'Own Dungeon', description: 'Silver Rupees are found within their own dungeon' },
+    { value: 'anywhere', name: 'Anywhere', description: 'Silver Rupees are shuffled in the item pool' },
+  ],
+  default: 'vanilla'
+}, {
   key: 'townFairyShuffle',
   name: 'Town Stray Fairy Shuffle',
   category: 'main.shuffle',
@@ -348,16 +360,12 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
-  key: 'silverRupeeShuffle',
-  name: 'Silver Rupee Shuffle',
+  key: 'shuffleOcarinasOot',
+  name: 'Ocarina Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'enum',
-  description: 'Make silver rupees items that can be shuffled.',
-  values: [
-    { value: 'vanilla', name: 'Vanilla', description: 'Silver Rupees are vanilla' },
-    { value: 'anywhere', name: 'Anywhere', description: 'Silver Rupees are shuffled in the item pool' },
-  ],
-  default: 'vanilla'
+  type: 'boolean',
+  description: 'Controls whether or not the two Ocarinas in OoT are shuffled',
+  default: true
 }, {
   key: 'shuffleMasterSword',
   name: 'Master Sword Shuffle',
@@ -510,6 +518,13 @@ export const SETTINGS = [{
     { value: 'remains', name: 'Remains', description: 'Enabled when the matching remain is obtained' },
   ],
   default: 'bossBeaten'
+}, {
+  key: 'freeScarecrowOot',
+  name: 'Free Scarecrow (OoT)',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Allows to spawn Pierre the Scarecrow just by pulling the Ocarina out',
+  default: false,
 }, {
   key: 'crossWarpOot',
   name: 'Cross-Games OoT Warp Songs',

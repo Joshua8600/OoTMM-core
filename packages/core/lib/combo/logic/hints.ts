@@ -233,6 +233,11 @@ export class LogicPassHints {
       return false;
     }
 
+    /* Non-shuffled silver rupees */
+    if (ItemHelpers.isSilverRupee(item.item) && this.state.settings.silverRupeeShuffle !== 'anywhere') {
+      return false;
+    }
+
     /* Non-shuffled Ganon BK (doesn't really matter) */
     if (ItemHelpers.isGanonBossKey(item.item) && this.state.settings.ganonBossKey !== 'anywhere') {
       return false;
@@ -279,7 +284,7 @@ export class LogicPassHints {
     }
 
     /* Triforce Piece - never hinted outside of location */
-    if (ItemHelpers.isItemTriforce(item.item) && klass !== 'location') {
+    if (ItemHelpers.isTriforcePiece(item.item) && klass !== 'location') {
       return false;
     }
 
