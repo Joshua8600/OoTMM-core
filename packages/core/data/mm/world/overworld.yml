@@ -940,7 +940,7 @@
 "Behind Large Icicles":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "has_arrows || has_hot_water_mtn || has_hot_water_er"
+    "Termina Field": "true"
     "Mountain Village Path Lower": "true"
 "Mountain Village Path Lower":
   region: PATH_TO_MOUNTAIN_VILLAGE
@@ -949,7 +949,7 @@
     MAGIC: "event(BOSS_SNOWHEAD)"
   exits:
     "Behind Large Icicles": "true"
-    "Mountain Village Path Upper": "can_break_boulders || can_use_fire_arrows || event(BOSS_SNOWHEAD)"
+    "Mountain Village Path Upper": "true"
   gossip:
     "Mountain Village Path Gossip": "true"
 "Mountain Village Path Upper":
@@ -958,7 +958,7 @@
     MAGIC: "true"
     RUPEES: "can_use_light_arrows"
   exits:
-    "Mountain Village Path Lower": "can_break_boulders || can_use_fire_arrows || event(BOSS_SNOWHEAD)"
+    "Mountain Village Path Lower": "true"
     "Mountain Village": "true"
 "Mountain Village":
   region: MOUNTAIN_VILLAGE
@@ -1009,7 +1009,7 @@
   exits:
     "Mountain Village": "true"
   events:
-    BLACKSMITH_ENABLED: "event(BOSS_SNOWHEAD) || can_use_fire_arrows || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))"
+    BLACKSMITH_ENABLED: "true"
     GOLD_DUST_USED: "can_use_wallet(2) && has(BOTTLED_GOLD_DUST) && event(BLACKSMITH_ENABLED)"
   locations:
     "Blacksmith Razor Blade": "can_use_wallet(2) && event(BLACKSMITH_ENABLED)"
