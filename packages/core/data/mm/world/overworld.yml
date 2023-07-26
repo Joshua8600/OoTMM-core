@@ -470,11 +470,11 @@
     "Clock Town East": "true"
     "Clock Town West": "true"
     "Road to Southern Swamp": "true"
-    "Behind Large Icicles": "has_arrows || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er"
+    "Behind Large Icicles": "true"
     "Milk Road": "true"
-    "Great Bay Fence": "can_play_epona || (can_goron_bomb_jump && has_bombs)"
+    "Great Bay Fence": "true"
     "Road to Ikana Front": "true"
-    "Astral Observatory Balcony": "has(MASK_DEKU) || (can_goron_bomb_jump && has_bombs)"
+    "Astral Observatory Balcony": "true"
     "Grass Grotto": "true"
     "Peahat Grotto": "true"
     "Bio Baba Grotto": "can_break_boulders"
@@ -1298,7 +1298,7 @@
 "Great Bay Fence":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "can_play_epona || (can_goron_bomb_jump && has_bombs)"
+    "Termina Field": "true"
     "Great Bay Coast": "true"
 "Great Bay Coast":
   region: GREAT_BAY_COAST
