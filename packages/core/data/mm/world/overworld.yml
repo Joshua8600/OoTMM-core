@@ -1502,7 +1502,7 @@
   exits:
     "Zora Hall": "true"
   locations:
-    "Zora Hall Scrub HP": "(trick(MM_ZORA_HALL_SCRUB_HP_NO_DEKU) && (has_mask_goron || has_mask_zora)) || (has_mask_goron && has(MASK_DEKU) && has(DEED_MOUNTAIN))"
+    "Zora Hall Scrub HP": "true"
     "Zora Hall Scrub Shop": "has_mask_zora && can_use_wallet(1)"
     "Zora Hall Scrub Deed": "has(DEED_MOUNTAIN) && has_mask_goron"
 "Zora Cape Peninsula":
@@ -1537,7 +1537,7 @@
   exits:
     "Termina Field": "true"
     "Road to Ikana Grotto": "has_mask_goron"
-    "Road to Ikana Center": "can_play_epona || (can_goron_bomb_jump && has_bombs)"
+    "Road to Ikana Center": "true"
   locations:
     "Road to Ikana Chest": "can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))"
 "Road to Ikana Grotto":
@@ -1560,7 +1560,7 @@
   events:
     RUPEES: "can_use_light_arrows && is_night"
   exits:
-    "Road to Ikana Front": "can_play_epona || (can_goron_bomb_jump && has_bombs)"
+    "Road to Ikana Front": "true"
     "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD)))"
     "Ikana Graveyard": "true"
   locations:
