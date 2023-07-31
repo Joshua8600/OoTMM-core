@@ -1321,7 +1321,7 @@
     "Gerudo Fortress Exterior": "true"
     "Gerudo Valley": "is_child || can_longshot || can_ride_epona || (is_adult && carpenters_rescued)"
     "Gerudo Valley Storms Grotto": "hidden_grotto_storms && is_adult"
-    "Gerudo Valley Tent": "is_adult"
+    "Gerudo Valley Tent": "true"
   locations:
     "Gerudo Valley Chest": "is_adult && can_hammer"
     "Gerudo Valley Broken Goron Sword": "adult_trade(POACHER_SAW)"
