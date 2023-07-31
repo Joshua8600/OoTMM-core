@@ -6,7 +6,7 @@ import { World } from './world';
 import { LogicError, LogicSeedError } from './error';
 import { Settings } from '../settings';
 import { Monitor } from '../monitor';
-import { Location, isLocationRenewable, locationData, makeLocation } from './locations';
+import { Location, isLocationChestFairy, isLocationOtherFairy, isLocationRenewable, locationData, makeLocation } from './locations';
 import { Item, ItemGroups, ItemHelpers, Items, ItemsCount, PlayerItem, PlayerItems, itemByID, makePlayerItem } from '../items';
 
 const VALIDATION_CRITICAL_ITEMS = [
@@ -218,18 +218,19 @@ export class LogicPassSolver {
 
   constructor(
     private readonly input: {
-      fixedLocations: Set<Location>,
-      worlds: World[],
-      settings: Settings,
-      random: Random,
-      monitor: Monitor,
+      fixedLocations: Set<Location>;
+      worlds: World[];
+      settings: Settings;
+      random: Random;
+      monitor: Monitor;
       pool: PlayerItems;
       renewableJunks: PlayerItems;
+      startingItems: ItemsCount;
     }
   ) {
     this.monitor = this.input.monitor;
     this.locations = this.input.worlds.map((x, i) => [...x.locations].map(l => makeLocation(l, i))).flat();
-    this.pathfinder = new Pathfinder(this.input.worlds, this.input.settings);
+    this.pathfinder = new Pathfinder(this.input.worlds, this.input.settings, this.input.startingItems);
     this.state = {
       items: new Map,
       pools: { required: new Map, nice: new Map, junk: new Map },
@@ -281,7 +282,6 @@ export class LogicPassSolver {
 
     /* Place items fixed to default */
     this.fixTokens();
-    this.fixFairies();
 
     /* Place dungeon rewards (when set to dungeon locs) */
     if (['dungeons', 'dungeonsLimited'].includes(this.input.settings.dungeonRewardShuffle)) {
@@ -399,11 +399,9 @@ export class LogicPassSolver {
     }
 
     /* Remove starting items */
-    for (const itemId in this.input.settings.startingItems) {
-      const item = itemByID(itemId);
+    for (const [item, count] of this.input.startingItems.entries()) {
       if (ItemHelpers.isItemUnlimitedStarting(item))
         continue;
-      const count = this.input.settings.startingItems[item.id];
       for (let i = 0; i < count; ++i) {
         this.removePlayersItemPools(this.state.pools, item);
       }
@@ -495,35 +493,9 @@ export class LogicPassSolver {
     }
   }
 
-  private fixFairies() {
-    for (let player = 0; player < this.input.settings.players; ++player) {
-      const world = this.input.worlds[player];
-      for (const locationId in world.checks) {
-        const location = makeLocation(locationId, player);
-        const check = world.checks[locationId];
-        const item = check.item;
-        const checkItem = makePlayerItem(item, player);
-        if (ItemHelpers.isTownStrayFairy(item) && this.input.settings.townFairyShuffle === 'vanilla') {
-          this.place(location, checkItem);
-          removeItemPools(this.state.pools, checkItem);
-        } else if (ItemHelpers.isDungeonStrayFairy(item)) {
-          if (check.type === 'sf') {
-            if (this.input.settings.strayFairyShuffle !== 'anywhere' && this.input.settings.strayFairyShuffle !== 'ownDungeon') {
-              this.place(location, checkItem);
-              removeItemPools(this.state.pools, checkItem);
-            }
-          } else {
-            if (this.input.settings.strayFairyShuffle === 'vanilla') {
-              this.place(location, checkItem);
-              removeItemPools(this.state.pools, checkItem);
-            }
-          }
-        }
-      }
-    }
-  }
-
   private fixDungeon(dungeon: string) {
+    const { settings } = this.input;
+
     /* handle IST and ST */
     if (['IST', 'Tower'].includes(dungeon)) {
       return;
@@ -531,7 +503,7 @@ export class LogicPassSolver {
 
     const pool = countMapCombine(this.state.pools.required, this.state.pools.nice);
 
-    for (let player = 0; player < this.input.settings.players; ++player) {
+    for (let player = 0; player < settings.players; ++player) {
       const world = this.input.worlds[player];
       let locationIds = world.dungeons[dungeon];
       if (dungeon === 'ST') {
@@ -545,27 +517,46 @@ export class LogicPassSolver {
         const playerItem = makePlayerItem(item, player);
         const locations = new Set([...locationIds].map(x => makeLocation(x, player)));
 
-        if (ItemHelpers.isSmallKeyHideout(item) && this.input.settings.smallKeyShuffleHideout === 'anywhere') {
+        if (ItemHelpers.isSmallKeyHideout(item) && settings.smallKeyShuffleHideout === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isSmallKeyRegularOot(item) && this.input.settings.smallKeyShuffleOot === 'anywhere') {
+        } else if (ItemHelpers.isSmallKeyRegularOot(item) && settings.smallKeyShuffleOot === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isSmallKeyRegularMm(item) && this.input.settings.smallKeyShuffleMm === 'anywhere') {
+        } else if (ItemHelpers.isSmallKeyRegularMm(item) && settings.smallKeyShuffleMm === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isGanonBossKey(item) && this.input.settings.ganonBossKey === 'anywhere') {
+        } else if (ItemHelpers.isGanonBossKey(item) && settings.ganonBossKey === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isRegularBossKeyOot(item) && this.input.settings.bossKeyShuffleOot === 'anywhere') {
+        } else if (ItemHelpers.isRegularBossKeyOot(item) && settings.bossKeyShuffleOot === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isRegularBossKeyMm(item) && this.input.settings.bossKeyShuffleMm === 'anywhere') {
+        } else if (ItemHelpers.isRegularBossKeyMm(item) && settings.bossKeyShuffleMm === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isDungeonStrayFairy(item) && this.input.settings.strayFairyShuffle === 'anywhere') {
+        } else if (ItemHelpers.isMapCompass(item) && settings.mapCompassShuffle === 'anywhere') {
           continue;
-        } else if (ItemHelpers.isMapCompass(item) && this.input.settings.mapCompassShuffle === 'anywhere') {
-          continue;
-        } else if (ItemHelpers.isSilverRupee(item) && this.input.settings.silverRupeeShuffle === 'anywhere') {
+        } else if (ItemHelpers.isSilverRupee(item) && settings.silverRupeeShuffle === 'anywhere') {
           continue;
         }
 
-        while (pool.has(playerItem)) {
+        /* How much of each type of items do we need to place */
+        let count = pool.get(playerItem) || 0;
+        if (ItemHelpers.isDungeonStrayFairy(item)) {
+          if (settings.strayFairyChestShuffle === 'anywhere') {
+            for (const l of locations) {
+              if (isLocationChestFairy(world, l)) {
+                count--;
+              }
+            }
+          }
+
+          if (settings.strayFairyOtherShuffle === 'anywhere') {
+            for (const l of locations) {
+              if (isLocationOtherFairy(world, l)) {
+                count--;
+              }
+            }
+          }
+        }
+        const countRemaining = (pool.get(playerItem) || 0) - count;
+
+        while (pool.get(playerItem)! > countRemaining) {
           this.randomAssumed(pool, { restrictedLocations: locations, forcedItem: playerItem });
           removeItemPools(this.state.pools, playerItem);
         }

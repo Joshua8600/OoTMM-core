@@ -6,10 +6,10 @@ import { Game } from '../config';
 import { Monitor } from '../monitor';
 import { Pathfinder } from './pathfind';
 import { ItemPlacement } from './solve';
-import { Location, locationData, makeLocation } from './locations';
+import { Location, isLocationChestFairy, isLocationOtherFairy, locationData, makeLocation } from './locations';
 import { Region, makeRegion } from './regions';
 import { CountMap, countMapArray } from '../util';
-import { ItemGroups, ItemHelpers, Items, PlayerItem, itemByID, makePlayerItem } from '../items';
+import { ItemGroups, ItemHelpers, Items, ItemsCount, PlayerItem, itemByID, makePlayerItem } from '../items';
 
 const FIXED_HINTS_LOCATIONS = [
   'OOT Skulltula House 10 Tokens',
@@ -125,18 +125,19 @@ export class LogicPassHints {
 
   constructor(
     private readonly state: {
-      monitor: Monitor,
-      random: Random,
-      settings: Settings,
-      worlds: World[],
-      items: ItemPlacement,
-      analysis: Analysis,
-      fixedLocations: Set<Location>,
+      monitor: Monitor;
+      random: Random;
+      settings: Settings;
+      worlds: World[];
+      items: ItemPlacement;
+      analysis: Analysis;
+      fixedLocations: Set<Location>;
+      startingItems: ItemsCount;
     },
   ){
     this.hintsAlways = this.alwaysHints();
     this.hintsSometimes = this.sometimesHints();
-    this.pathfinder = new Pathfinder(state.worlds, state.settings);
+    this.pathfinder = new Pathfinder(state.worlds, state.settings, state.startingItems);
     this.woth = new Set(Array.from(this.state.analysis.required).filter(loc => this.isLocationHintable(loc, 'woth')));
     this.gossip = Array.from({ length: this.state.settings.players }).map(_ => ({}));
   }
@@ -203,7 +204,8 @@ export class LogicPassHints {
     /* Get the item and region  */
     const item = this.state.items.get(loc)!;
     const locD = locationData(loc);
-    const region = this.state.worlds[locD.world as number].regions[locD.id];
+    const world = this.state.worlds[locD.world as number];
+    const region = world.regions[locD.id];
 
     /* These specific locations are always ignored */
     if (['OOT Temple of Time Medallion', 'MM Oath to Order', 'OOT Hatch Chicken', 'OOT Hatch Pocket Cucco'].includes(locD.id)) {
@@ -257,8 +259,13 @@ export class LogicPassHints {
       return false;
     }
 
-    /* Non shuffled stray fairy */
-    if (ItemHelpers.isStrayFairy(item.item) && this.state.settings.strayFairyShuffle !== 'anywhere') {
+    /* Non shuffled chest stray fairy */
+    if (isLocationChestFairy(world, loc) && this.state.settings.strayFairyChestShuffle !== 'anywhere') {
+      return false;
+    }
+
+    /* Non shuffled other stray fairy */
+    if (isLocationOtherFairy(world, loc) && this.state.settings.strayFairyOtherShuffle !== 'anywhere') {
       return false;
     }
 

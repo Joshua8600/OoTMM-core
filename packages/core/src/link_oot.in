@@ -56,6 +56,9 @@ Shader_Scale            = 0x80058b34;
 Shader_SoldOut          = 0x8005719c;
 Shader_Spell            = 0x80058698;
 
+Magic_RequestChange     = 0x80072588;
+Magic_Update            = 0x80072840;
+
 InitListPolyOpa         = 0x8007e298;
 InitListPolyXlu         = 0x8007e2c0;
 Gfx_SetupDL_42Opa       = 0x8007e868;
@@ -88,8 +91,8 @@ SetSwitchFlag = 0x800204d0;
 GetSegment = 0x8007eb84;
 ConvertMatrix = 0x800ab6bc;
 
-_malloc = 0x800cda20;
-_free = 0x800cd008;
+_z_malloc = 0x800cda20;
+_z_free = 0x800cd008;
 LoadFile = 0x80000df0;
 ActorAlloc = 0x80066c10;
 ActorFree = 0x80066c90;
@@ -188,3 +191,5 @@ gDmaData = 0x8000b140;
 
 DmaCompressed = 0x80001254;
 osSetThreadPri = 0x80004480;
+
+SetTextFlags = 0x800c69a0;
