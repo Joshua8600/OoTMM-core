@@ -99,6 +99,7 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.OOT_MASK_GORON,
   Items.OOT_MASK_BUNNY,
   Items.OOT_MASK_KEATON,
+  Items.OOT_SKELETON_KEY,
   Items.MM_BOTTLED_GOLD_DUST,
   Items.MM_MASK_DEKU,
   Items.MM_MASK_GORON,
@@ -152,6 +153,7 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.MM_WALLET,
   Items.MM_GREAT_FAIRY_SWORD,
   Items.MM_SPIN_UPGRADE,
+  Items.MM_SKELETON_KEY,
   Items.SHARED_BOW,
   Items.SHARED_BOMB_BAG,
   Items.SHARED_MAGIC_UPGRADE,
@@ -167,6 +169,7 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.SHARED_MASK_BUNNY,
   Items.SHARED_MASK_KEATON,
   Items.SHARED_WALLET,
+  Items.SHARED_SKELETON_KEY,
 ]);
 
 const ITEMS_HEART_PIECES_CONTAINERS_BY_GAME = {
@@ -183,6 +186,24 @@ const ITEMS_HEART_PIECES_CONTAINERS_BY_GAME = {
     hc: Items.SHARED_HEART_CONTAINER,
   },
 }
+
+const KEY_RINGS_OOT = new Map([
+  [Items.OOT_SMALL_KEY_FOREST, Items.OOT_KEY_RING_FOREST],
+  [Items.OOT_SMALL_KEY_FIRE, Items.OOT_KEY_RING_FIRE],
+  [Items.OOT_SMALL_KEY_WATER, Items.OOT_KEY_RING_WATER],
+  [Items.OOT_SMALL_KEY_SHADOW, Items.OOT_KEY_RING_SHADOW],
+  [Items.OOT_SMALL_KEY_SPIRIT, Items.OOT_KEY_RING_SPIRIT],
+  [Items.OOT_SMALL_KEY_BOTW, Items.OOT_KEY_RING_BOTW],
+  [Items.OOT_SMALL_KEY_GTG, Items.OOT_KEY_RING_GTG],
+  [Items.OOT_SMALL_KEY_GANON, Items.OOT_KEY_RING_GANON],
+]);
+
+const KEY_RINGS_MM = new Map([
+  [Items.MM_SMALL_KEY_WF, Items.MM_KEY_RING_WF],
+  [Items.MM_SMALL_KEY_SH, Items.MM_KEY_RING_SH],
+  [Items.MM_SMALL_KEY_GB, Items.MM_KEY_RING_GB],
+  [Items.MM_SMALL_KEY_ST, Items.MM_KEY_RING_ST],
+]);
 
 export class LogicPassWorldTransform {
   private pool: PlayerItems = new Map;
@@ -373,11 +394,11 @@ export class LogicPassWorldTransform {
     }
 
     if (settings.smallKeyShuffleOot === 'anywhere') {
-      items = [...items, ...ItemGroups.SMALL_KEYS_OOT];
+      items = [...items, ...ItemGroups.SMALL_KEYS_OOT, ...ItemGroups.KEY_RINGS_OOT];
     }
 
     if (settings.smallKeyShuffleMm === 'anywhere') {
-      items = [...items, ...ItemGroups.SMALL_KEYS_MM];
+      items = [...items, ...ItemGroups.SMALL_KEYS_MM, ...ItemGroups.KEY_RINGS_MM];
     }
 
     if (settings.bossKeyShuffleOot === 'anywhere') {
@@ -393,7 +414,7 @@ export class LogicPassWorldTransform {
     }
 
     if (settings.smallKeyShuffleHideout === 'anywhere') {
-      items = [...items, Items.OOT_SMALL_KEY_GF];
+      items = [...items, Items.OOT_SMALL_KEY_GF, Items.OOT_KEY_RING_GF];
     }
 
     if (settings.mapCompassShuffle === 'anywhere') {
@@ -646,6 +667,10 @@ export class LogicPassWorldTransform {
       this.shareItems(SharedItemGroups.SOULS);
     }
 
+    if (settings.sharedSkeletonKey) {
+      this.shareItems(SharedItemGroups.SKELETON_KEY);
+    }
+
     switch (settings.itemPool) {
     case 'scarce':
       this.scarcifyPool(1);
@@ -740,6 +765,15 @@ export class LogicPassWorldTransform {
       }
     }
 
+    /* Add skeleton keys */
+    if (settings.skeletonKeyOot) {
+      this.addItem(Items.OOT_SKELETON_KEY);
+    }
+
+    if (settings.skeletonKeyMm) {
+      this.addItem(Items.MM_SKELETON_KEY);
+    }
+
     /* Handle extra wallets */
     if (this.state.settings.childWallets) {
       this.addItem(Items.OOT_WALLET);
@@ -822,6 +856,39 @@ export class LogicPassWorldTransform {
 
     if (settings.smallKeyShuffleMm === 'removed') {
       this.removeItems(ItemGroups.SMALL_KEYS_MM);
+    }
+
+    /* Handle key rings */
+    if (settings.smallKeyRingOot === 'keyRings') {
+      for (let worldId = 0; worldId < this.state.worlds.length; ++worldId) {
+        for (const [key, ring] of KEY_RINGS_OOT.entries()) {
+          const piKey = makePlayerItem(key, worldId);
+          const piRing = makePlayerItem(ring, worldId);
+          if (this.pool.has(piKey)) {
+            this.removePlayerItem(piKey);
+            this.addPlayerItem(piRing);
+          }
+        }
+
+        /* Hideout keys need special handling */
+        if (settings.smallKeyShuffleHideout !== 'vanilla') {
+          this.removePlayerItem(makePlayerItem(Items.OOT_SMALL_KEY_GF, worldId));
+          this.addPlayerItem(makePlayerItem(Items.OOT_KEY_RING_GF, worldId));
+        }
+      }
+    }
+
+    if (settings.smallKeyRingMm === 'keyRings') {
+      for (let worldId = 0; worldId < this.state.worlds.length; ++worldId) {
+        for (const [key, ring] of KEY_RINGS_MM.entries()) {
+          const piKey = makePlayerItem(key, worldId);
+          const piRing = makePlayerItem(ring, worldId);
+          if (this.pool.has(piKey)) {
+            this.removePlayerItem(piKey);
+            this.addPlayerItem(piRing);
+          }
+        }
+      }
     }
 
     if (settings.zoraKing === 'open') {

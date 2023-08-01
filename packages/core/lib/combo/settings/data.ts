@@ -235,6 +235,28 @@ export const SETTINGS = [{
   ],
   default: 'ownDungeon'
 }, {
+  key: 'smallKeyRingOot',
+  name: 'Small Key Ring (OoT)',
+  category: 'main.shuffle',
+  type: 'enum',
+  description: 'Controls the grouping of keys into keyrings, for OoT',
+  values: [
+    { value: 'disabled', name: 'Disabled', description: 'Small keys are found individually, like in the base game.' },
+    { value: 'keyRings', name: 'Key Rings', description: 'Small keys are grouped into key rings.' },
+  ],
+  default: 'disabled'
+}, {
+  key: 'smallKeyRingMm',
+  name: 'Small Key Ring (MM)',
+  category: 'main.shuffle',
+  type: 'enum',
+  description: 'Controls the grouping of keys into keyrings, for MM',
+  values: [
+    { value: 'disabled', name: 'Disabled', description: 'Small keys are found individually, like in the base game.' },
+    { value: 'keyRings', name: 'Key Rings', description: 'Small keys are grouped into key rings.' },
+  ],
+  default: 'disabled'
+}, {
   key: 'silverRupeeShuffle',
   name: 'Silver Rupee Shuffle',
   category: 'main.shuffle',
@@ -750,6 +772,20 @@ export const SETTINGS = [{
   default: false,
   cond: (s: any) => s.colossalWallets,
 }, {
+  key: 'skeletonKeyOot',
+  name: 'Skeleton Key (OoT)',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Adds a Skeleton Key that can open every small-key-locked door.',
+  default: false,
+}, {
+  key: 'skeletonKeyMm',
+  name: 'Skeleton Key (MM)',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Adds a Skeleton Key that can open every small-key-locked door.',
+  default: false,
+}, {
   key: 'enemySoulsOot',
   name: 'Enemy Souls (OoT)',
   category: 'items.extensions',
@@ -897,6 +933,13 @@ export const SETTINGS = [{
   default: false,
   cond: (s: any) => s.enemySoulsOot && s.enemySoulsMm,
 }, {
+  key: 'sharedSkeletonKey',
+  name: 'Shared Skeleton Key',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => s.skeletonKeyOot && s.skeletonKeyMm,
+}, {
   key: 'agelessSwords',
   name: 'Ageless Swords',
   category: 'items.ageless',
@@ -1035,6 +1078,13 @@ export const SETTINGS = [{
   ],
   default: 'none',
   description: '- Every entrance to Hyrule Field except Gerudo Valley and Market<br>- The entrance to Gerudo Fortress from Gerudo Valley<br>- The entrances to the four main regions in MM<br>- The entrance to Romani Ranch',
+}, {
+  key: 'erRegionsExtra',
+  name: 'Shuffle Market Entrance',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle Hyrule Field\'s Market entrance among the regions.',
+  default: false
 }, {
   key: 'erIndoors',
   name: 'Shuffle Interiors',

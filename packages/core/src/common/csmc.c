@@ -197,6 +197,7 @@ static int csmcFromItemOot(s16 gi)
     case GI_OOT_NUT_UPGRADE2:
     case GI_OOT_DEFENSE_UPGRADE:
     case GI_OOT_TRIFORCE:
+    case GI_OOT_SKELETON_KEY:
         return CSMC_MAJOR;
     case GI_OOT_SMALL_KEY:
     case GI_OOT_SMALL_KEY_FOREST:
@@ -208,6 +209,16 @@ static int csmcFromItemOot(s16 gi)
     case GI_OOT_SMALL_KEY_BOTW:
     case GI_OOT_SMALL_KEY_GF:
     case GI_OOT_SMALL_KEY_GTG:
+    case GI_OOT_KEY_RING:
+    case GI_OOT_KEY_RING_FOREST:
+    case GI_OOT_KEY_RING_FIRE:
+    case GI_OOT_KEY_RING_WATER:
+    case GI_OOT_KEY_RING_SPIRIT:
+    case GI_OOT_KEY_RING_SHADOW:
+    case GI_OOT_KEY_RING_GANON:
+    case GI_OOT_KEY_RING_BOTW:
+    case GI_OOT_KEY_RING_GF:
+    case GI_OOT_KEY_RING_GTG:
     case GI_OOT_RUPEE_SILVER_DC:
     case GI_OOT_RUPEE_SILVER_BOTW:
     case GI_OOT_RUPEE_SILVER_SPIRIT_CHILD:
@@ -398,12 +409,18 @@ static int csmcFromItemMm(s16 gi)
     case GI_MM_OWL_SOUTHERN_SWAMP:
     case GI_MM_OWL_IKANA_CANYON:
     case GI_MM_OWL_STONE_TOWER:
+    case GI_MM_SKELETON_KEY:
         return CSMC_MAJOR;
     case GI_MM_SMALL_KEY:
     case GI_MM_SMALL_KEY_WF:
     case GI_MM_SMALL_KEY_SH:
     case GI_MM_SMALL_KEY_GB:
     case GI_MM_SMALL_KEY_ST:
+    case GI_MM_KEY_RING:
+    case GI_MM_KEY_RING_WF:
+    case GI_MM_KEY_RING_SH:
+    case GI_MM_KEY_RING_GB:
+    case GI_MM_KEY_RING_ST:
         return CSMC_KEY;
     case GI_MM_BOSS_KEY:
     case GI_MM_BOSS_KEY_WF:

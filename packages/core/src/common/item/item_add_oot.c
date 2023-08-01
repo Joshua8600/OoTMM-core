@@ -34,6 +34,10 @@ int comboAddSmallKeyOot(u16 dungeonId)
 {
     s8 keyCount;
 
+    /* Check for max keys */
+    if (dungeonId != SCE_OOT_TREASURE_SHOP && gOotSave.inventory.dungeonItems[dungeonId].maxKeys >= g.maxKeysOot[dungeonId])
+        return 0;
+
     keyCount = gOotSave.inventory.dungeonKeys[dungeonId];
     if (keyCount < 0)
         keyCount = 1;
@@ -44,6 +48,18 @@ int comboAddSmallKeyOot(u16 dungeonId)
         return 0;
     else
         return ++gOotSave.inventory.dungeonItems[dungeonId].maxKeys;
+}
+
+void comboAddKeyRingOot(u16 dungeonId)
+{
+    for (int i = 0; i < g.maxKeysOot[dungeonId]; ++i)
+        comboAddSmallKeyOot(dungeonId);
+}
+
+void comboAddSkeletonKeyOot(void)
+{
+    for (int i = 0; i < ARRAY_SIZE(g.maxKeysOot); ++i)
+        comboAddKeyRingOot(i);
 }
 
 void comboAddBossKeyOot(u16 dungeonId)
@@ -298,7 +314,7 @@ static void addWallet(int index, int noEffect)
     }
     else
         gOotSave.inventory.upgrades.wallet = index;
-    if (!noEffect && comboConfig(CFG_FILL_WALLETS))
+    if (noEffect && comboConfig(CFG_FILL_WALLETS))
         addRupees(gOotMaxRupees[gOotSave.inventory.upgrades.wallet]);
 }
 
@@ -810,6 +826,9 @@ void comboAddItemSharedOot(s16 gi, int noEffect)
             break;
         }
     }
+
+    if (comboConfig(CFG_SHARED_SKELETON_KEY) && gi == GI_OOT_SKELETON_KEY)
+        comboAddSkeletonKeyMm();
 }
 
 int comboAddItemOot(s16 gi, int noEffect)
@@ -1277,6 +1296,36 @@ int comboAddItemOot(s16 gi, int noEffect)
         break;
     case GI_OOT_SMALL_KEY_GTG:
         count = comboAddSmallKeyOot(SCE_OOT_GERUDO_TRAINING_GROUND);
+        break;
+    case GI_OOT_KEY_RING_FOREST:
+        comboAddKeyRingOot(SCE_OOT_TEMPLE_FOREST);
+        break;
+    case GI_OOT_KEY_RING_FIRE:
+        comboAddKeyRingOot(SCE_OOT_TEMPLE_FIRE);
+        break;
+    case GI_OOT_KEY_RING_WATER:
+        comboAddKeyRingOot(SCE_OOT_TEMPLE_WATER);
+        break;
+    case GI_OOT_KEY_RING_SPIRIT:
+        comboAddKeyRingOot(SCE_OOT_TEMPLE_SPIRIT);
+        break;
+    case GI_OOT_KEY_RING_SHADOW:
+        comboAddKeyRingOot(SCE_OOT_TEMPLE_SHADOW);
+        break;
+    case GI_OOT_KEY_RING_GANON:
+        comboAddKeyRingOot(SCE_OOT_INSIDE_GANON_CASTLE);
+        break;
+    case GI_OOT_KEY_RING_BOTW:
+        comboAddKeyRingOot(SCE_OOT_BOTTOM_OF_THE_WELL);
+        break;
+    case GI_OOT_KEY_RING_GF:
+        comboAddKeyRingOot(SCE_OOT_THIEVES_HIDEOUT);
+        break;
+    case GI_OOT_KEY_RING_GTG:
+        comboAddKeyRingOot(SCE_OOT_GERUDO_TRAINING_GROUND);
+        break;
+    case GI_OOT_SKELETON_KEY:
+        comboAddSkeletonKeyOot();
         break;
     case GI_OOT_BOSS_KEY_FOREST:
         comboAddBossKeyOot(SCE_OOT_TEMPLE_FOREST);

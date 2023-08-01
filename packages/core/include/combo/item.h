@@ -61,10 +61,14 @@ int  comboAddItemEffect(GameState_Play* play, s16 gi);
 void comboAddItemSharedForeignEffect(GameState_Play* play, s16 gi);
 
 int  comboAddSmallKeyOot(u16 dungeonId);
+void comboAddKeyRingOot(u16 dungeonId);
+void comboAddSkeletonKeyOot(void);
 void comboAddBossKeyOot(u16 dungeonId);
 void comboAddCompassOot(u16 dungeonId);
 void comboAddMapOot(u16 dungeonId);
 int  comboAddSmallKeyMm(u16 dungeonId);
+void comboAddKeyRingMm(u16 dungeonId);
+void comboAddSkeletonKeyMm(void);
 void comboAddBossKeyMm(u16 dungeonId);
 int  comboAddStrayFairyMm(u16 dungeonId);
 void comboAddMapMm(u16 dungeonId);
