@@ -10,10 +10,10 @@
     RUPEES: "has_weapon_range"
   exits:
     "Woodfall Temple": "true"
-    "Woodfall Temple Main": "has(MASK_DEKU) || can_hookshot_short"
+    "Woodfall Temple Main": "true"
     "Woodfall Temple Boss Access": "setting(bossWarpPads, remains) && has(REMAINS_ODOLWA)"
   locations:
-    "Woodfall Temple Entrance Chest": "has(MASK_DEKU) || can_hookshot_short"
+    "Woodfall Temple Entrance Chest": "true"
     "Woodfall Temple SF Entrance": "true"
 "Woodfall Temple Main":
   dungeon: WF
@@ -21,7 +21,7 @@
     "Woodfall Temple Entrance": "true"
     "Woodfall Temple Water Room": "true"
     "Woodfall Temple Maze": "small_keys_wf(1)"
-    "Woodfall Temple Main Ledge": "event(WOODFALL_TEMPLE_MAIN_FLOWER) || event(WOODFALL_TEMPLE_MAIN_LADDER) || can_hookshot_short"
+    "Woodfall Temple Main Ledge": "true"
   events:
     WOODFALL_TEMPLE_MAIN_FLOWER: "can_use_fire_arrows"
     STICKS: "soul_deku_baba"
@@ -117,9 +117,9 @@
     "Woodfall Temple Main Ledge": "true"
   locations:
     "Woodfall Temple SF Pre-Boss Bottom Right": "true"
-    "Woodfall Temple SF Pre-Boss Left": "has(MASK_DEKU) || has(MASK_GREAT_FAIRY)"
+    "Woodfall Temple SF Pre-Boss Left": "true"
     "Woodfall Temple SF Pre-Boss Top Right": "true"
-    "Woodfall Temple SF Pre-Boss Pillar": "has(MASK_DEKU) || has(MASK_GREAT_FAIRY)"
+    "Woodfall Temple SF Pre-Boss Pillar": "true"
 "Woodfall Temple Princess Jail":
   dungeon: WF
   events:
