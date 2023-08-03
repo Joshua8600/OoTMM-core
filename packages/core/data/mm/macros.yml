@@ -86,6 +86,10 @@
 "bombers2": "event(BOMBERS_NORTH2) && event(BOMBERS_EAST2) && event(BOMBERS_WEST2)"
 "bombers3": "event(BOMBERS_NORTH3) && event(BOMBERS_EAST3) && event(BOMBERS_WEST3)"
 
+"can_isg_ow": "has(SHIELD, 1) && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))"
+"can_isg_tf": "has(SHIELD, 1)"
+"can_bomb_hover": "can_isg_ow && has(MASK_BLAST)"
+
 # Wallets
 "has_wallet(n)": "cond(setting(childWallets), has(WALLET, n) || has(SHARED_WALLET, n), has(WALLET, n - 1) || has(SHARED_WALLET, n - 1))"
 "can_use_wallet(n)": "has_rupees && has_wallet(n)"
