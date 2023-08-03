@@ -473,7 +473,7 @@
     "Road to Southern Swamp": "true"
     "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf"
     "Milk Road": "true"
-    "Great Bay Fence": "can_play_epona || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
+    "Great Bay Fence": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
     "Road to Ikana Front": "true"
     "Astral Observatory Balcony": "true"
     "Grass Grotto": "true"
@@ -1299,7 +1299,7 @@
 "Great Bay Fence":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "can_play_epona || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
+    "Termina Field": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
     "Great Bay Coast": "true"
 "Great Bay Coast":
   region: GREAT_BAY_COAST
@@ -1538,7 +1538,7 @@
   exits:
     "Termina Field": "true"
     "Road to Ikana Grotto": "has_mask_goron"
-    "Road to Ikana Center": "can_play_epona || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
+    "Road to Ikana Center": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
   locations:
     "Road to Ikana Chest": "can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))"
 "Road to Ikana Grotto":
@@ -1561,7 +1561,7 @@
   events:
     RUPEES: "can_use_light_arrows && is_night"
   exits:
-    "Road to Ikana Front": "can_play_epona || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
+    "Road to Ikana Front": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover"
     "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD)))"
     "Ikana Graveyard": "true"
   locations:
