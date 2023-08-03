@@ -471,7 +471,7 @@
     "Clock Town East": "true"
     "Clock Town West": "true"
     "Road to Southern Swamp": "true"
-    "Behind Large Icicles": "has_arrows || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf"
+    "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf"
     "Milk Road": "true"
     "Great Bay Fence": "can_play_epona || (can_goron_bomb_jump && has_bombs) || can_bomb_hover"
     "Road to Ikana Front": "true"
@@ -941,7 +941,7 @@
 "Behind Large Icicles":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "has_arrows || has_hot_water_mtn || has_hot_water_er || can_isg_ow"
+    "Termina Field": "(has(BOW) || has(SHARED_BOW)) || has_hot_water_mtn || has_hot_water_er || can_isg_ow"
     "Mountain Village Path Lower": "true"
 "Mountain Village Path Lower":
   region: PATH_TO_MOUNTAIN_VILLAGE
