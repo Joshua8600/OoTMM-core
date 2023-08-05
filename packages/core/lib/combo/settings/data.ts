@@ -396,6 +396,13 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
+  key: 'shufflePotsOot',
+  name: 'Pots Shuffle (OoT)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the pots are shuffled (OoT). !!!!! MQ NOT INCLUDED YET !!!!!',
+  default: false
+}, {
   key: 'shuffleOcarinasOot',
   name: 'Ocarina Shuffle (OoT)',
   category: 'main.shuffle',
@@ -581,13 +588,6 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
-  key: 'sunSongMm',
-  name: 'Sun\'s Song in MM',
-  category: 'main.cross',
-  type: 'boolean',
-  description: 'Enables Sun\'s Song as an item in MM.',
-  default: false
-}, {
   key: 'csmc',
   name: 'Chest Size Matches Content',
   category: 'main.misc',
@@ -729,6 +729,13 @@ export const SETTINGS = [{
   ],
   default: 'progressive'
 }, {
+  key: 'sunSongMm',
+  name: 'Sun\'s Song in MM',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Enables Sun\'s Song as an item in MM.',
+  default: false
+}, {
   key: 'fairyOcarinaMm',
   name: 'Fairy Ocarina in MM',
   category: 'items.extensions',
@@ -864,7 +871,8 @@ export const SETTINGS = [{
   name: 'Shared Sun\'s Song',
   category: 'items.shared',
   type: 'boolean',
-  default: false
+  default: false,
+  cond: (s: any) => s.sunSongMm,
 }, {
   key: 'sharedHookshot',
   name: 'Shared Hookshots',

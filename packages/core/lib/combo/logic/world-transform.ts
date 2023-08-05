@@ -1,10 +1,11 @@
 import { Confvar } from '../confvars';
+import { DATA_POOL } from '../data';
 import { Item, ItemGroups, ItemHelpers, Items, PlayerItem, PlayerItems, makePlayerItem } from '../items';
 import { Monitor } from '../monitor';
 import { Settings } from '../settings';
-import { countMapAdd } from '../util';
+import { countMapAdd, gameId } from '../util';
 import { exprTrue } from './expr';
-import { LOCATIONS_ZELDA, Location, isLocationChestFairy, isLocationOtherFairy, isLocationRenewable, locationData, makeLocation } from './locations';
+import { LOCATIONS_ZELDA, Location, isLocationOtherFairy, isLocationRenewable, locationData, makeLocation } from './locations';
 import { ItemSharedDef, SharedItemGroups } from './shared';
 import { World } from './world';
 
@@ -708,6 +709,12 @@ export class LogicPassWorldTransform {
           delete locations[loc];
         }
       }
+      for (const dungeonId of Object.keys(world.dungeons)) {
+        const dungeon = world.dungeons[dungeonId];
+        for (const l of locs) {
+          dungeon.delete(l);
+        }
+      }
     }
   }
 
@@ -727,6 +734,17 @@ export class LogicPassWorldTransform {
   run() {
     const { settings } = this.state;
     this.state.monitor.log('Logic: World Transform');
+
+    /* Potsanity */
+    if (!settings.shufflePotsOot) {
+      const pots = DATA_POOL.oot.filter((x: any) => x.type === 'pot').map((x: any) => gameId('oot', x.location, ' ')) as string[];
+      this.removeLocations(pots);
+    } else {
+      if (settings.goal === 'triforce') {
+        const potsGanonTower = DATA_POOL.oot.filter((x: any) => x.type === 'pot' && x.scene === 'GANON_TOWER').map((x: any) => gameId('oot', x.location, ' ')) as string[];
+        this.removeLocations(potsGanonTower);
+      }
+    }
 
     /* Carpenters */
     if (['open', 'single'].includes(settings.gerudoFortress)) {
@@ -948,10 +966,12 @@ export class LogicPassWorldTransform {
 
     /* Handle fixed locations */
     for (const loc of this.fixedLocations) {
-      const world = this.state.worlds[locationData(loc).world as number];
+      const worldId = locationData(loc).world as number;
+      const world = this.state.worlds[worldId];
       const check = world.checks[locationData(loc).id];
       const { item } = check;
-      this.removeItem(item, 1);
+      const pi = makePlayerItem(item, worldId);
+      this.removePlayerItem(pi, 1);
     }
 
     /* Handle required junks */
