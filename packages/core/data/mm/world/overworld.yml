@@ -950,7 +950,7 @@
     MAGIC: "event(BOSS_SNOWHEAD)"
   exits:
     "Behind Large Icicles": "true"
-    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && has(ARROW_FIRE) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD)"
+    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD)"
   gossip:
     "Mountain Village Path Gossip": "true"
 "Mountain Village Path Upper":
@@ -959,7 +959,7 @@
     MAGIC: "true"
     RUPEES: "can_use_light_arrows"
   exits:
-    "Mountain Village Path Lower": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && has(ARROW_FIRE) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD)"
+    "Mountain Village Path Lower": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD)"
     "Mountain Village": "true"
 "Mountain Village":
   region: MOUNTAIN_VILLAGE
