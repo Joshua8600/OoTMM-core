@@ -8,11 +8,11 @@
 # define POT_TEX_MAGIC_TOP      0x060013e0
 
 #if defined(GAME_OOT)
-# define POT_TEX_NORMAL_DANGEON_SIDE    0x05010ec0
-# define POT_TEX_NORMAL_DANGEON_TOP     0x05011ec0
-#else
 # define POT_TEX_NORMAL_DANGEON_SIDE    0x050108a0
 # define POT_TEX_NORMAL_DANGEON_TOP     0x050118a0
+#else
+# define POT_TEX_NORMAL_DANGEON_SIDE    0x05010ec0
+# define POT_TEX_NORMAL_DANGEON_TOP     0x05011ec0
 #endif
 
 typedef struct
@@ -29,8 +29,10 @@ static const CsmcPotData kCsmcData[] = {
     { 0, POT_TEX_MAGIC_SIDE, POT_TEX_MAGIC_TOP },
     { 1, CUSTOM_POT_MAJOR_SIDE_ADDR, CUSTOM_POT_MAJOR_TOP_ADDR },
     { 1, CUSTOM_POT_SPIDER_SIDE_ADDR, CUSTOM_POT_SPIDER_TOP_ADDR },
-    { 1, CUSTOM_POT_FAIRY_SIDE_ADDR, CUSTOM_POT_SPIDER_TOP_ADDR },
+    { 1, CUSTOM_POT_FAIRY_SIDE_ADDR, CUSTOM_POT_FAIRY_TOP_ADDR },
     { 1, CUSTOM_POT_KEY_SIDE_ADDR, CUSTOM_POT_SPIDER_TOP_ADDR },
+    { 1, CUSTOM_POT_HEART_SIDE_ADDR, CUSTOM_POT_HEART_TOP_ADDR },
+    { 1, CUSTOM_POT_BOSSKEY_SIDE_ADDR, CUSTOM_POT_BOSSKEY_TOP_ADDR },
 };
 
 static int csmcPotId(s16 gi, int def)
@@ -50,8 +52,9 @@ static int csmcPotId(s16 gi, int def)
     case CSMC_KEY:          return CSMC_POT_KEY;
     case CSMC_SPIDER:       return CSMC_POT_SPIDER;
     case CSMC_FAIRY:        return CSMC_POT_FAIRY;
-    case CSMC_HEART:        return def;
-    case CSMC_SOUL:         return CSMC_POT_MAJOR;
+    case CSMC_HEART:        return CSMC_POT_HEART;
+    case CSMC_BOSS_KEY:     return CSMC_POT_BOSSKEY;
+    case CSMC_SOUL:         return CSMC_POT_BOSSKEY;
     default:                return CSMC_POT_MAJOR;
     }
 }
