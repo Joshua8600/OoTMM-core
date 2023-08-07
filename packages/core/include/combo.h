@@ -132,8 +132,8 @@ typedef struct
     u16             giZoraSapphire;
     u8              boss[12];
     u8              dungeons[25];
-    u8              triforcePieces;
-    u8              triforceGoal;
+    u16             triforcePieces;
+    u16             triforceGoal;
 }
 ComboData;
 
@@ -201,6 +201,11 @@ void comboTextHijackOathToOrder(GameState_Play* play);
 s32 comboProgressive(s32 gi);
 s32 comboProgressiveOot(s32 gi);
 s32 comboProgressiveMm(s32 gi);
+
+/* Cache */
+void    comboCacheClear(void);
+void    comboCacheGarbageCollect(void);
+void*   comboCacheGetFile(u32 vrom);
 
 /* Objects */
 void    comboObjectsReset(void);
@@ -290,11 +295,6 @@ int comboDoorIsUnlocked(GameState_Play* play, Actor* actor);
 
 void comboInitHints(void);
 void comboHintGossip(u8 key, GameState_Play* play);
-
-/* CSMC */
-void comboCsmcInit(Actor* this, GameState_Play* play, s16 gi);
-void comboCsmcPreDraw(Actor* this, GameState_Play* play, s16 gi);
-int  comboCsmcChestSize(s16 gi);
 
 /* Shop */
 #define SC_OK               0x00
