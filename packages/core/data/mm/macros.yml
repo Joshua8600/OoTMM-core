@@ -85,6 +85,7 @@
 "bombers1": "event(BOMBERS_NORTH1) && event(BOMBERS_EAST1) && event(BOMBERS_WEST1)"
 "bombers2": "event(BOMBERS_NORTH2) && event(BOMBERS_EAST2) && event(BOMBERS_WEST2)"
 "bombers3": "event(BOMBERS_NORTH3) && event(BOMBERS_EAST3) && event(BOMBERS_WEST3)"
+"has_fire_sticks": "has_sticks || can_use_fire_arrows"
 
 "can_isg_ow": "has(SHIELD, 1) && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))"
 "can_isg_tf": "has(SHIELD, 1)"

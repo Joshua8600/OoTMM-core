@@ -17,6 +17,10 @@
     "Ocean Skulltula Entrance Right Wall": "true"
     "Ocean Skulltula Entrance Left Wall": "true"
     "Ocean Skulltula Entrance Web": "true"
+    "Ocean Spider House Pot Entrance 1": "true"
+    "Ocean Spider House Pot Entrance 2": "true"
+    "Ocean Spider House Pot Entrance 3": "true"
+    "Ocean Spider House Pot Entrance 4": "true"
 "Ocean Spider House Back":
   dungeon: OSH
   locations:
@@ -48,3 +52,16 @@
     "Ocean Skulltula Storage Room Behind Crate": "true"
     "Ocean Skulltula Storage Room Crate": "true"
     "Ocean Skulltula Storage Room Jar": "true"
+    "Ocean Spider House Pot Main Room Web": "has_fire_sticks"
+    "Ocean Spider House Pot Main Room Boe": "true"
+    "Ocean Spider House Pot Main Room 1": "true"
+    "Ocean Spider House Pot Main Room 2": "true"
+    "Ocean Spider House Pot Colored Skulls 1": "true"
+    "Ocean Spider House Pot Colored Skulls 2": "true"
+    "Ocean Spider House Pot Storage 1": "true"
+    "Ocean Spider House Pot Storage 2": "true"
+    "Ocean Spider House Pot Storage 3": "true"
+    "Ocean Spider House Pot Storage 4": "true"
+    "Ocean Spider House Pot Storage Top 1": "can_hookshot_short"
+    "Ocean Spider House Pot Storage Top 2": "can_hookshot_short"
+    "Ocean Spider House Pot Storage Top 3": "can_hookshot_short"
