@@ -112,6 +112,7 @@
 "can_ride_bean(x)": "is_adult && event(x)"
 "can_damage": "true"
 "can_damage_skull": "true"
+"can_cut_grass_no_c_button": "has_weapon || has(STRENGTH)"
 "can_cut_grass": "true"
 "can_kill_baba_sticks": "soul_deku_baba"
 "can_kill_baba_nuts": "soul_deku_baba"

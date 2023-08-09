@@ -714,6 +714,7 @@
     "Swamp Back": "true"
     "Swamp Potion Shop": "true"
     "Woods of Mystery": "true"
+    "Ikana Valley": "false"
     "Owl Swamp": "true"
   events:
     FROG_3: "has(MASK_DON_GERO)"
