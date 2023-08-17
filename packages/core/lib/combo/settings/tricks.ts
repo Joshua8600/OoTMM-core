@@ -61,6 +61,7 @@ export const TRICKS = {
   MM_WELL_HSW: "Well's Hot Spring Water without Killing Dexihand",
   MM_ISTT_CHUCHU_LESS: "ISTT Block Room without Chuchu jellies",
   MM_GBT_WATERWHEEL_GORON: "Cross GBT WaterWheel Room as Goron",
+  MM_GBT_ENTRANCE_BOW: "Great Bay Temple Entrance Chest using only Bow",
   MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
 };
 
