@@ -77,6 +77,7 @@ static const char* const kSoulsOot[] = {
     "Gohma Larvae",
     "Shaboms",
     "Baby Dodongos",
+    "Dark Link",
     "Biris/Baris",
     "Tailpasarans",
     "Parasites",
@@ -833,6 +834,10 @@ void comboMenuDraw(GameState_Play* play)
 
 void comboMenuNext(void)
 {
+    if(comboConfig(CFG_MENU_NOTEBOOK) && !gMmSave.inventory.quest.notebook) {
+        PlaySound(0x4806);
+        return;
+    }
     PlaySound(0x4809);
     g.menuScreen++;
     g.menuCursor = 0;
