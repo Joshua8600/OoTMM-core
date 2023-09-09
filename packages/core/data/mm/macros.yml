@@ -134,3 +134,5 @@
 
 # Misc
 "soul(x)": "(!setting(enemySoulsMm)) || has(x)"
+"short_hook_anywhere": "false"
+"hookshot_anywhere": "false"
