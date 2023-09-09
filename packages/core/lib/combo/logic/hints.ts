@@ -81,16 +81,18 @@ export type HintGossipFoolish = {
 };
 
 export type HintGossipItemExact = {
-  type: 'item-exact',
-  check: string,
-  world: number,
-  items: PlayerItem[],
+  type: 'item-exact';
+  check: string;
+  world: number;
+  items: PlayerItem[];
+  importances: number[];
 };
 
 export type HintGossipItemRegion = {
   type: 'item-region',
   region: Region,
   item: PlayerItem;
+  importance: number;
 };
 
 export type HintGossipJunk = {
@@ -208,6 +210,13 @@ export class LogicPassHints {
     const world = this.state.worlds[locD.world as number];
     const region = world.regions[locD.id];
 
+    /* No plando */
+    if (this.state.settings.noPlandoHints) {
+      if (this.state.settings.plando.locations[locD.id]) {
+        return false;
+      }
+    }
+
     /* These specific locations are always ignored */
     if (['OOT Temple of Time Medallion', 'MM Oath to Order', 'OOT Hatch Chicken', 'OOT Hatch Pocket Cucco'].includes(locD.id)) {
       return false;
@@ -293,7 +302,7 @@ export class LogicPassHints {
 
     /* Additional restrictions for WotH */
     if (klass === 'woth') {
-      if (ItemHelpers.isKey(item.item) || ItemHelpers.isStrayFairy(item.item) || ItemHelpers.isToken(item.item) || ItemHelpers.isDungeonReward(item.item)) {
+      if (ItemHelpers.isKey(item.item) || ItemHelpers.isStrayFairy(item.item) || ItemHelpers.isSilverRupee(item.item) || ItemHelpers.isToken(item.item) || ItemHelpers.isDungeonReward(item.item)) {
         return false;
       }
       if (ItemHelpers.isSong(item.item) && this.state.settings.songs !== 'anywhere') {
@@ -367,6 +376,23 @@ export class LogicPassHints {
     return regions;
   }
 
+  private locImportance(loc: Location) {
+    const pi = this.state.items.get(loc)!;
+    if (!ItemHelpers.isItemMajor(pi.item)) {
+      return -1;
+    }
+
+    if (this.state.analysis.unreachable.has(loc) || this.state.analysis.useless.has(loc)) {
+      return 0;
+    }
+
+    if (this.state.analysis.required.has(loc)) {
+      return 2;
+    }
+
+    return 1;
+  }
+
   private placeGossipItemExact(worldId: number, checkWorldId: number, checkHint: string, extra: number, isMoon: boolean) {
     if (checkHint === 'NONE') {
       return false;
@@ -392,12 +418,13 @@ export class LogicPassHints {
     if (!gossip) {
       return false;
     }
+    const importances = locations.map(l => this.locImportance(l));
 
     /* Found a valid gossip */
     for (const l of locations) {
       this.hintedLocations.add(l);
     }
-    const hint: HintGossip = { game: world.gossip[gossip].game, type: 'item-exact', items, check: checkHint, world: checkWorldId };
+    const hint: HintGossip = { game: world.gossip[gossip].game, type: 'item-exact', items, importances, check: checkHint, world: checkWorldId };
     this.placeWithExtra(worldId, gossip, hint, extra);
     return true;
   }
@@ -546,7 +573,8 @@ export class LogicPassHints {
       return false;
     }
     this.hintedLocations.add(location);
-    const h: HintGossip = { game: world.gossip[gossip].game, type: 'item-region', item, region: makeRegion(locWorld.regions[locD.id], locD.world as number) };
+    const importance = this.locImportance(location);
+    const h: HintGossip = { game: world.gossip[gossip].game, type: 'item-region', item, importance, region: makeRegion(locWorld.regions[locD.id], locD.world as number) };
     this.placeWithExtra(worldId, gossip, h, extra);
     return true;
   }
@@ -689,7 +717,19 @@ export class LogicPassHints {
       const locOathToOrder = this.findItem(makePlayerItem(Items.MM_SONG_ORDER, world));
       const locGanonBossKey = this.state.settings.ganonBossKey === 'anywhere' ? this.findItem(makePlayerItem(Items.OOT_BOSS_KEY_GANON, world)) : null;
 
-      for (const l of [...locDungeonRewards, locLightArrow, locOathToOrder, locGanonBossKey]) {
+      /* We consider LAs hinted only if they don't lock the hint itself */
+      if (locLightArrow) {
+        if (this.state.settings.logic === 'none') {
+          this.markLocation(locLightArrow);
+        } else {
+          const pathfinderStateNoLA = this.pathfinder.run(null, { recursive: true, items: this.state.items, forbiddenLocations: new Set([locLightArrow]) });
+          if (pathfinderStateNoLA.ws[world].events.has('OOT_GANON_START')) {
+            this.markLocation(locLightArrow);
+          }
+        }
+      }
+
+      for (const l of [...locDungeonRewards, locOathToOrder, locGanonBossKey]) {
         this.markLocation(l);
       }
 

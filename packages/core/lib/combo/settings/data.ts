@@ -113,6 +113,20 @@ export const SETTINGS = [{
   description: 'If you don\'t know what this is, leave it ON',
   default: true
 }, {
+  key: 'noPlandoHints',
+  name: 'No Plando Hints',
+  category: 'main',
+  type: 'boolean',
+  description: 'Prevents items that are part of a plando from being hinted',
+  default: true
+}, {
+  key: 'hintImportance',
+  name: 'Hint Importance',
+  category: 'main',
+  type: 'boolean',
+  description: 'Hints will tell if an item is foolish, sometimes required, or always required',
+  default: false
+}, {
   key: 'songs',
   name: 'Song Shuffle',
   category: 'main.shuffle',
@@ -457,6 +471,18 @@ export const SETTINGS = [{
 { ...SETTING_PRICE, key: 'priceMmShops', name: 'MM Shops Prices', description: 'Sets the price of items sold inside MM shops' },
 { ...SETTING_PRICE, key: 'priceMmTingle', name: 'MM Tingle Prices', description: 'Sets the price of items sold by Tingle' },
 {
+  key: 'startingAge',
+  name: 'Starting Age',
+  category: 'main.events',
+  type: 'enum',
+  description: 'Choose the starting age',
+  values: [
+    { value: 'child', name:  'Child',  description: 'Link will start off as child' },
+    { value: 'adult', name:  'Adult',  description: 'Link will start off as adult' },
+    { value: 'random', name: 'Random', description: 'Link will start off as either adult or child, with a 50/50 probability' },
+  ],
+  default: 'child'
+}, {
   key: 'doorOfTime',
   name: 'Door of Time',
   category: 'main.events',
@@ -834,6 +860,53 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'Locks the in-game tracker behind the Bombers\' Notebook',
   default: false
+}, {
+  key: 'coins',
+  name: 'Coins',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Enable the leftover coin items, that can be used for special conds',
+  default: false
+}, {
+  key: 'coinsRed',
+  name: 'Red Coins',
+  category: 'items.extensions',
+  type: 'number',
+  description: 'How many Red Coins to add to the item pool',
+  cond: (s: any) => s.coins,
+  default: 0,
+  min: 0,
+  max: 999,
+}, {
+  key: 'coinsGreen',
+  name: 'Green Coins',
+  category: 'items.extensions',
+  type: 'number',
+  description: 'How many Green Coins to add to the item pool',
+  cond: (s: any) => s.coins,
+  default: 0,
+  min: 0,
+  max: 999,
+}, {
+  key: 'coinsBlue',
+  name: 'Blue Coins',
+  category: 'items.extensions',
+  type: 'number',
+  description: 'How many Blue Coins to add to the item pool',
+  cond: (s: any) => s.coins,
+  default: 0,
+  min: 0,
+  max: 999,
+}, {
+  key: 'coinsYellow',
+  name: 'Yellow Coins',
+  category: 'items.extensions',
+  type: 'number',
+  description: 'How many Yellow Coins to add to the item pool',
+  cond: (s: any) => s.coins,
+  default: 0,
+  min: 0,
+  max: 999,
 }, {
   key: 'sharedNutsSticks',
   name: 'Shared Nuts & Sticks',
