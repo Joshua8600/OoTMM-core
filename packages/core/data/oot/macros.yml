@@ -169,6 +169,3 @@
 
 # Misc
 "soul(x)": "(!setting(enemySoulsOot)) || has(x)"
-"climb_anywhere": "setting(climbMostSurfacesOot)"
-"hookshot_anywhere": "can_hookshot && setting(hookshotAnywhereOot)"
-"longshot_anywhere": "can_longshot && setting(hookshotAnywhereOot)"
