@@ -169,3 +169,6 @@
 
 # Misc
 "soul(x)": "(!setting(enemySoulsOot)) || has(x)"
+"climb_anywhere": "false"
+"hookshot_anywhere": "false"
+"longshot_anywhere": "false"
