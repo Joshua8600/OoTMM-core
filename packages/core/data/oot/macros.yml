@@ -12,7 +12,7 @@
 "can_use_sticks": "age_sticks && has_sticks"
 "has_bomb_bag": "true"
 "has_bombs": "true"
-"has_bombchu": "true"
+"has_bombchu": "(event(BOMBCHUS) || renewable(BOMBCHU_5) || renewable(BOMBCHU_10) || renewable(BOMBCHU_20))"
 "can_use_slingshot": "is_child"
 "has_bow": "true"
 "has_arrows": "true"

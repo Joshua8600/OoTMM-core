@@ -46,7 +46,6 @@ const PRESET_BLITZ = makeSettings({
   sharedWallets: true,
   sharedHealth: true,
   tricks: [
-    'MM_ISTT_ENTRY_JUMP',
     'MM_LENS',
     'MM_NO_SEAHORSE',
     'MM_ONE_MASK_STONE_TOWER',
@@ -384,6 +383,11 @@ const PRESET_HELL = makeSettings({
     'MM_WELL_HSW',
     'MM_GBT_WATERWHEEL_GORON',
     'MM_GBT_ENTRANCE_BOW',
+    'MM_OOB_MOVEMENT',
+    'MM_ST_UPDRAFTS',
+    'MM_ESCAPE_CAGE',
+    'MM_GBT_FAIRY2_HOOK',
+    'MM_GBT_CENTRAL_GEYSER',
   ]
 });
 
