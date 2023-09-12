@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/dungeon.h>
 
 typedef struct
 {
@@ -31,7 +32,7 @@ static void CustomWarp_OnTrigger(Actor_CustomWarp* this, GameState_Play* play)
         break;
     case SWITCH_SWAMP_CLEAR:
         MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF);
-        play->nextEntrance = 0x8600;
+        play->nextEntrance = 0x0ca0;
         break;
     case SWITCH_COAST_CLEAR:
         MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_GB);
@@ -75,7 +76,7 @@ static void shaderFlameEffect(GameState_Play* play)
 
     OPEN_DISPS(play->gs.gfx);
     ModelViewUnkTransform((float*)((char*)play + kMatTransformOffset));
-    gSPSegment(POLY_XLU_DISP++, 0x08, GetSegment(play->gs.gfx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->gs.frameCount & 0x7f) << 2, 0x20, 0x80));
+    gSPSegment(POLY_XLU_DISP++, 0x08, DisplaceTexture(play->gs.gfx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->gs.frameCount & 0x7f) << 2, 0x20, 0x80));
     gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 0xff, 0x00, 0xff, 0xff);
     gDPSetEnvColor(POLY_XLU_DISP++, 0xff, 0x00, 0x00, 0xff);
@@ -117,13 +118,10 @@ void comboSpawnCustomWarps(GameState_Play* play)
     float y;
     float z;
 
-    if (!comboConfig(CFG_ER_DUNGEONS))
-        return;
-
     variable = -1;
 
 #if defined(GAME_MM)
-    if (play->sceneId == SCE_MM_MOUNTAIN_VILLAGE_WINTER && gMiscFlags.erSpring)
+    if ((comboConfig(CFG_ER_DUNGEONS) || gComboData.preCompleted & (1 << DUNGEONID_TEMPLE_SNOWHEAD)) && play->sceneId == SCE_MM_MOUNTAIN_VILLAGE_WINTER && gMiscFlags.erSpring)
     {
         variable = SWITCH_SPRING;
         x = -1200.f;
@@ -131,15 +129,15 @@ void comboSpawnCustomWarps(GameState_Play* play)
         z = 600.f;
     }
 
-    if (play->sceneId == SCE_MM_WOODFALL && !MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF) && gMiscFlags.erSwampClear)
+    if ((comboConfig(CFG_ER_DUNGEONS) || gComboData.preCompleted & (1 << DUNGEONID_TEMPLE_WOODFALL)) && play->sceneId == SCE_MM_SOUTHERN_SWAMP && !MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF) && gMiscFlags.erSwampClear)
     {
         variable = SWITCH_SWAMP_CLEAR;
-        x = 70.f;
-        y = 35.f;
-        z = -1320.f;
+        x = -910.f;
+        y = 50.f;
+        z = -550.f;
     }
 
-    if (play->sceneId == SCE_MM_ZORA_CAPE && !MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_GB) && gMiscFlags.erCoastClear)
+    if ((comboConfig(CFG_ER_DUNGEONS) || gComboData.preCompleted & (1 << DUNGEONID_TEMPLE_GREAT_BAY)) && play->sceneId == SCE_MM_ZORA_CAPE && !MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_GB) && gMiscFlags.erCoastClear)
     {
         variable = SWITCH_COAST_CLEAR;
         x = -5500.f;

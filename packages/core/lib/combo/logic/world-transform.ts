@@ -694,12 +694,25 @@ export class LogicPassWorldTransform {
       }
     }
 
+    /* Triforce quest */
+    if (settings.goal === 'triforce3') {
+      for (let i = 0; i < this.state.worlds.length; ++i) {
+        this.pool.set(makePlayerItem(Items.SHARED_TRIFORCE_POWER, i), 1);
+        this.pool.set(makePlayerItem(Items.SHARED_TRIFORCE_COURAGE, i), 1);
+        this.pool.set(makePlayerItem(Items.SHARED_TRIFORCE_WISDOM, i), 1);
+      }
+    }
+
     /* Coins */
     for (let i = 0; i < this.state.worlds.length; ++i) {
-      this.pool.set(makePlayerItem(Items.OOT_COIN_RED, i), settings.coinsRed);
-      this.pool.set(makePlayerItem(Items.OOT_COIN_GREEN, i), settings.coinsGreen);
-      this.pool.set(makePlayerItem(Items.OOT_COIN_BLUE, i), settings.coinsBlue);
-      this.pool.set(makePlayerItem(Items.OOT_COIN_YELLOW, i), settings.coinsYellow);
+      if (settings.coinsRed)
+        this.pool.set(makePlayerItem(Items.OOT_COIN_RED, i), settings.coinsRed);
+      if (settings.coinsGreen)
+        this.pool.set(makePlayerItem(Items.OOT_COIN_GREEN, i), settings.coinsGreen);
+      if (settings.coinsBlue)
+        this.pool.set(makePlayerItem(Items.OOT_COIN_BLUE, i), settings.coinsBlue);
+      if (settings.coinsYellow)
+        this.pool.set(makePlayerItem(Items.OOT_COIN_YELLOW, i), settings.coinsYellow);
     }
   }
 
@@ -751,7 +764,7 @@ export class LogicPassWorldTransform {
       const pots = DATA_POOL.oot.filter((x: any) => x.type === 'pot').map((x: any) => gameId('oot', x.location, ' ')) as string[];
       this.removeLocations(pots);
     } else {
-      if (settings.goal === 'triforce') {
+      if (settings.goal === 'triforce' || settings.goal === 'triforce3') {
         const potsGanonTower = DATA_POOL.oot.filter((x: any) => x.type === 'pot' && x.scene === 'GANON_TOWER').map((x: any) => gameId('oot', x.location, ' ')) as string[];
         this.removeLocations(potsGanonTower);
       }
@@ -761,7 +774,7 @@ export class LogicPassWorldTransform {
       const pots = DATA_POOL.mm.filter((x: any) => x.type === 'pot').map((x: any) => gameId('mm', x.location, ' ')) as string[];
       this.removeLocations(pots);
     } else {
-      if (settings.goal === 'triforce') {
+      if (settings.goal === 'triforce' || settings.goal === 'triforce3') {
         const potsMajora = DATA_POOL.mm.filter((x: any) => x.type === 'pot' && x.scene === 'LAIR_MAJORA').map((x: any) => gameId('mm', x.location, ' ')) as string[];
         this.removeLocations(potsMajora);
       }

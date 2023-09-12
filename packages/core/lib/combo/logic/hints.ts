@@ -1,4 +1,4 @@
-import { World } from './world';
+import { DUNGEONS_REGIONS, World } from './world';
 import { Analysis } from './analysis';
 import { Random, sample, shuffle, randomInt } from '../random';
 import { Settings } from '../settings';
@@ -9,7 +9,7 @@ import { ItemPlacement } from './solve';
 import { Location, locationData, makeLocation } from './locations';
 import { Region, makeRegion } from './regions';
 import { CountMap, countMapArray } from '../util';
-import { ItemGroups, ItemHelpers, Items, ItemsCount, PlayerItem, itemByID, makePlayerItem } from '../items';
+import { ItemGroups, ItemHelpers, Items, PlayerItems, PlayerItem, itemByID, makePlayerItem } from '../items';
 import { isDungeonStrayFairy } from '../items/helpers';
 
 const FIXED_HINTS_LOCATIONS = [
@@ -55,6 +55,10 @@ const HINTS_ITEMS_SOMETIMES = [
   'OOT_GTG_WATER',
   'OOT_HAUNTED_WASTELAND',
   'OOT_GERUDO_ARCHERY',
+  'OOT_BIGGORON',
+  'OOT_ICE_CAVERN_CHEST',
+  'OOT_TREASURE_GAME',
+  'OOT_SHOOT_SUN',
   'MM_BANK_3',
   'MM_SOUND_CHECK',
   'MM_BOAT_ARCHERY',
@@ -67,12 +71,24 @@ const HINTS_ITEMS_SOMETIMES = [
   'MM_MIDNIGHT_MEETING',
   'MM_MADAME_AROMA_BAR',
   'MM_CUCCOS',
+  'MM_KAFEI',
+  'MM_INVISIBLE_SOLDIER',
 ];
 
-export type HintGossipHero = {
-  type: 'hero',
+export const HINTS_PATHS = {
+  woth: { id: 0, name: "Way of the Hero" },
+  triforcePower: { id: 1, name: "Path of Power" },
+  triforceCourage: { id: 2, name: "Path of Courage" },
+  triforceWisdom: { id: 3, name: "Path of Wisdom" },
+};
+
+export type HintPath = keyof typeof HINTS_PATHS;
+
+export type HintGossipPath = {
+  type: 'path',
   region: Region,
   location: Location;
+  path: HintPath;
 };
 
 export type HintGossipFoolish = {
@@ -100,7 +116,7 @@ export type HintGossipJunk = {
   id: number;
 };
 
-export type HintGossip = { game: Game } & (HintGossipHero | HintGossipFoolish | HintGossipItemExact | HintGossipItemRegion | HintGossipJunk);
+export type HintGossip = { game: Game } & (HintGossipPath | HintGossipFoolish | HintGossipItemExact | HintGossipItemRegion | HintGossipJunk);
 
 type WorldItemHints = {
   dungeonRewards: Region[];
@@ -116,7 +132,7 @@ export type WorldHints = WorldItemHints & {
 
 export type Hints = WorldHints[];
 
-export type HintClass = 'woth' | 'item' | 'location';
+export type HintClass = 'path' | 'item' | 'location';
 
 export class LogicPassHints {
   private hintedLocations = new Set<Location>();
@@ -125,6 +141,7 @@ export class LogicPassHints {
   private pathfinder: Pathfinder;
   private hintsAlways: string[];
   private hintsSometimes: string[];
+  private ignoredRegions: Set<Region>;
 
   constructor(
     private readonly state: {
@@ -135,13 +152,31 @@ export class LogicPassHints {
       items: ItemPlacement;
       analysis: Analysis;
       fixedLocations: Set<Location>;
-      startingItems: ItemsCount;
+      startingItems: PlayerItems;
     },
   ){
+    this.ignoredRegions = new Set;
+    for (let worldId = 0; worldId < this.state.worlds.length; ++worldId) {
+      const world = this.state.worlds[worldId];
+      for (const dungeon of world.preCompleted) {
+        const rawRegion = DUNGEONS_REGIONS[dungeon];
+        if (!rawRegion)
+          continue;
+        const region = makeRegion(rawRegion, worldId);
+        this.ignoredRegions.add(region);
+      }
+      if (world.preCompleted.has('ST')) {
+        this.ignoredRegions.add(makeRegion('IST', worldId));
+      }
+      if (world.preCompleted.has('BtW')) {
+        this.ignoredRegions.add(makeRegion('BtWE', worldId));
+      }
+    }
+
     this.hintsAlways = this.alwaysHints();
     this.hintsSometimes = this.sometimesHints();
     this.pathfinder = new Pathfinder(state.worlds, state.settings, state.startingItems);
-    this.woth = new Set(Array.from(this.state.analysis.required).filter(loc => this.isLocationHintable(loc, 'woth')));
+    this.woth = new Set(Array.from(this.state.analysis.required).filter(loc => this.isLocationHintable(loc, 'path')));
     this.gossip = Array.from({ length: this.state.settings.players }).map(_ => ({}));
   }
 
@@ -209,6 +244,12 @@ export class LogicPassHints {
     const locD = locationData(loc);
     const world = this.state.worlds[locD.world as number];
     const region = world.regions[locD.id];
+    const playerRegion = makeRegion(region, locD.world as number);
+
+    /* Ignored region */
+    if (this.ignoredRegions.has(playerRegion)) {
+      return false;
+    }
 
     /* No plando */
     if (this.state.settings.noPlandoHints) {
@@ -301,7 +342,7 @@ export class LogicPassHints {
     }
 
     /* Additional restrictions for WotH */
-    if (klass === 'woth') {
+    if (klass === 'path') {
       if (ItemHelpers.isKey(item.item) || ItemHelpers.isStrayFairy(item.item) || ItemHelpers.isSilverRupee(item.item) || ItemHelpers.isToken(item.item) || ItemHelpers.isDungeonReward(item.item)) {
         return false;
       }
@@ -368,7 +409,8 @@ export class LogicPassHints {
     }
 
     for (const r of regions.keys()) {
-      if (regions.get(r)! <= 0) {
+      const playerRegion = makeRegion(r, worldId);
+      if (this.ignoredRegions.has(playerRegion) || (regions.get(r)! <= 0)) {
         regions.delete(r);
       }
     }
@@ -491,11 +533,67 @@ export class LogicPassHints {
     return placed;
   }
 
-  private placeGossipHero(worldId: number, count: number | 'max', extra: number) {
-    const world = this.state.worlds[worldId];
+  private placePaths(worldId: number, count: number | 'max', extra: number) {
     if (count === 'max') {
       count = 999;
     }
+    let placed = 0;
+    let tmp: number;
+    tmp = this.placePathsNamedTriforce(worldId, count, extra);
+    placed += tmp;
+    count -= tmp;
+    tmp = this.placePathWoth(worldId, count, extra);
+    placed += tmp;
+    count -= tmp;
+
+    return placed;
+  }
+
+  private placePathsNamedTriforce(worldId: number, count: number, extra: number) {
+    if (this.state.settings.goal !== 'triforce3') {
+      return 0;
+    }
+    const paths = ['triforcePower', 'triforceCourage', 'triforceWisdom'] as const;
+    const mapPaths = new Map<Location, Set<HintPath>>;
+    let locations: Location[] = [];
+    const world = this.state.worlds[worldId];
+
+    for (const p of paths) {
+      const pp = this.state.analysis.paths[p];
+      for (const loc of pp) {
+        if (this.hintedLocations.has(loc) || !this.isLocationHintable(loc, 'path')) {
+          continue;
+        }
+        const s = mapPaths.get(loc) || new Set;
+        s.add(p);
+        mapPaths.set(loc, s);
+        locations.push(loc);
+      }
+    }
+    locations = shuffle(this.state.random, locations);
+
+    let placed = 0;
+    for (;;) {
+      locations = locations.filter(x => !this.hintedLocations.has(x));
+      if (placed >= count || locations.length === 0)
+        break;
+      const loc = locations.pop()!;
+      const gossip = this.findValidGossip(worldId, loc);
+      if (gossip !== null) {
+        const locD = locationData(loc);
+        this.hintedLocations.add(loc);
+        const paths = mapPaths.get(loc)!;
+        const path = sample(this.state.random, Array.from(paths));
+        const hint: HintGossip = { game: world.gossip[gossip].game, type: 'path', path, region: makeRegion(world.regions[locD.id], locD.world as number), location: loc };
+        this.placeWithExtra(worldId, gossip, hint, extra);
+        placed++;
+      }
+    }
+    return placed;
+  }
+
+  private placePathWoth(worldId: number, count: number, extra: number) {
+    const world = this.state.worlds[worldId];
     let placed = 0;
     const locs = shuffle(this.state.random, Array.from(this.woth)
       .filter(loc => locationData(loc).world === worldId)
@@ -510,7 +608,7 @@ export class LogicPassHints {
       if (gossip !== null) {
         const locD = locationData(loc);
         this.hintedLocations.add(loc);
-        const hint: HintGossip = { game: world.gossip[gossip].game, type: 'hero', region: makeRegion(world.regions[locD.id], locD.world as number), location: loc };
+        const hint: HintGossip = { game: world.gossip[gossip].game, type: 'path', path: 'woth', region: makeRegion(world.regions[locD.id], locD.world as number), location: loc };
         this.placeWithExtra(worldId, gossip, hint, extra);
         placed++;
       }
@@ -648,8 +746,31 @@ export class LogicPassHints {
     }
   }
 
+  private placeGossipsJunkIgnored(worldId: number) {
+    const world = this.state.worlds[worldId];
+    const gossips = new Set<string>();
+    for (const a of Object.keys(world.areas)) {
+      const area = world.areas[a];
+      const playerRegion = makeRegion(area.region, worldId);
+      if (!this.ignoredRegions.has(playerRegion)) {
+        continue;
+      }
+      for (const g of Object.keys(area.gossip)) {
+        gossips.add(g);
+      }
+    }
+
+    for (const g of gossips) {
+      this.place(worldId, g, { game: world.gossip[g].game, type: 'junk', id: randomInt(this.state.random, 65536) });
+    }
+  }
+
   private placeGossips(foolish: CountMap<string>[]) {
     const settingsHints = this.state.settings.hints;
+
+    for (let world = 0; world < this.state.settings.players; ++world) {
+      this.placeGossipsJunkIgnored(world);
+    }
 
     for (const s of settingsHints) {
       for (let world = 0; world < this.state.settings.players; ++world) {
@@ -670,7 +791,7 @@ export class LogicPassHints {
           this.placeGossipItemRegionSpheres(world, s.amount, s.extra);
           break;
         case 'woth':
-          this.placeGossipHero(world, s.amount, s.extra);
+          this.placePaths(world, s.amount, s.extra);
           break;
         case 'junk':
           this.placeGossipJunk(world, s.amount, s.extra, false);

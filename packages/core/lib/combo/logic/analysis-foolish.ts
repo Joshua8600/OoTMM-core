@@ -6,7 +6,7 @@ import { Random, sample } from '../random';
 import { Analysis } from './analysis';
 import { Monitor } from '../monitor';
 import { ItemPlacement } from './solve';
-import { ItemHelpers, ItemsCount } from '../items';
+import { ItemHelpers, PlayerItems } from '../items';
 
 type ZigZagState = {
   allowed: Set<Location>;
@@ -25,7 +25,7 @@ export class LogicPassAnalysisFoolish {
       settings: Settings;
       items: ItemPlacement;
       analysis: Analysis;
-      startingItems: ItemsCount;
+      startingItems: PlayerItems;
     }
   ) {
     this.pathfinder = new Pathfinder(this.state.worlds, this.state.settings, this.state.startingItems);

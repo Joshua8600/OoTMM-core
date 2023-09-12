@@ -2,7 +2,7 @@ import { sortBy } from 'lodash';
 
 import { Options } from '../options';
 import { Glitch, GLITCHES, Settings, Trick, TRICKS } from '../settings';
-import { HintGossipFoolish, HintGossipHero, HintGossipItemExact, HintGossipItemRegion, Hints } from './hints';
+import { HintGossipFoolish, HintGossipPath, HintGossipItemExact, HintGossipItemRegion, Hints, HINTS_PATHS } from './hints';
 import { World } from './world';
 import { itemName } from '../names';
 import { Monitor } from '../monitor';
@@ -12,8 +12,7 @@ import { isShuffled } from './is-shuffled'
 import { ItemPlacement } from './solve';
 import { Location, locationData, makeLocation } from './locations';
 import { Region, regionData } from './regions';
-import { PlayerItem } from '../items';
-import { worldState } from '.';
+import { PlayerItem, PlayerItems } from '../items';
 
 const VERSION = process.env.VERSION || 'XXX';
 
@@ -32,6 +31,7 @@ export class LogicPassSpoiler {
       settings: Settings,
       hints: Hints,
       monitor: Monitor,
+      startingItems: PlayerItems;
     }
   ) {
     this.buffer = [];
@@ -128,15 +128,19 @@ export class LogicPassSpoiler {
   }
 
   private writeStartingItems() {
-    const { startingItems } = this.state.settings;
-    if (Object.keys(startingItems).length === 0) {
+    const { startingItems } = this.state;
+    if (startingItems.size === 0) {
       return;
     }
 
     this.indent('Starting Items');
-    for (const item in startingItems) {
-      const count = startingItems[item];
-      this.write(`${itemName(item)}: ${count}`);
+    for (let playerId = 0; playerId < this.state.settings.players; ++playerId) {
+      if (this.isMulti) this.indent(`Player ${playerId + 1}`);
+      const items = new Map(Array.from(startingItems.entries()).filter(([x, _]) => x.player === playerId));
+      for (const [item, count] of items) {
+        this.write(`${itemName(item.item.id)}: ${count}`);
+      }
+      if (this.isMulti) this.unindent('');
     }
     this.unindent('');
   }
@@ -170,6 +174,32 @@ export class LogicPassSpoiler {
       }
 
       for (const d of worlds[i].mq) {
+        this.write(`${d}`);
+      }
+
+      if (worlds.length > 1) {
+        this.unindent('');
+      }
+    }
+    this.unindent('');
+  }
+
+  private writePreCompleted() {
+    let worlds = this.state.worlds;
+    if (!this.state.settings.distinctWorlds) {
+      worlds = [this.state.worlds[0]];
+    }
+    if (!worlds.some(world => world.preCompleted.size > 0)) {
+      return;
+    }
+
+    this.indent('Pre-Completed Dungeons');
+    for (let i = 0; i < worlds.length; ++i) {
+      if (worlds.length > 1) {
+        this.indent(`World ${i + 1}`);
+      }
+
+      for (const d of worlds[i].preCompleted) {
         this.write(`${d}`);
       }
 
@@ -214,18 +244,23 @@ export class LogicPassSpoiler {
       if (this.isMulti) this.indent(`World ${worldId + 1}:`);
       const hints = globalHints[worldId];
       const gossipStones = Object.entries(hints.gossip);
-      const gossipsHero = gossipStones.filter(stone => stone[1].type === 'hero').sort() as [string, HintGossipHero][];
+      const gossipsPaths = gossipStones.filter(stone => stone[1].type === 'path').sort() as [string, HintGossipPath][];
       const gossipsFoolish = gossipStones.filter(stone => stone[1].type === 'foolish').sort() as [string, HintGossipFoolish][];
       const gossipsItemExact = gossipStones.filter(stone => stone[1].type === 'item-exact').sort() as [string, HintGossipItemExact][];
       const gossipsItemRegion = gossipStones.filter(stone => stone[1].type === 'item-region').sort() as [string, HintGossipItemRegion][];
 
-      if (gossipsHero.length > 0) {
-        this.indent('Way of the Hero:');
-        for (const [stone, hint] of gossipsHero) {
-          this.write(stone);
-          this.write(`  ${this.regionName(hint.region)}    ${this.locationName(hint.location)} - ${this.itemName(this.state.items.get(hint.location)!)}`);
+      if (gossipsPaths.length > 0) {
+        for (const type of Object.keys(HINTS_PATHS)) {
+          const hints = gossipsPaths.filter(x => x[1].path === type);
+          if (hints.length === 0) continue;
+          const name = (HINTS_PATHS as any)[type].name;
+          this.indent(`${name}:`);
+          for (const [stone, hint] of hints) {
+            this.write(stone);
+            this.write(`  ${this.regionName(hint.region)}    ${this.locationName(hint.location)} - ${this.itemName(this.state.items.get(hint.location)!)}`);
+          }
+          this.unindent('');
         }
-        this.unindent('');
       }
 
       if (gossipsFoolish.length > 0) {
@@ -350,6 +385,7 @@ export class LogicPassSpoiler {
     this.writeStartingItems();
     this.writeJunkLocations();
     this.writeMQ();
+    this.writePreCompleted();
     this.writeEntrances();
     this.writeHints();
     if (this.state.opts.settings.logic !== 'none') {

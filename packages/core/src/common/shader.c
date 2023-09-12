@@ -106,6 +106,59 @@ static const u32 kMatTransformOffset = 0x11da0;
 static const u32 kMatTransformOffset = 0x187fc;
 #endif
 
+static void shaderFlameEffectColor(GameState_Play* play, u32 color, float scale, float offsetY)
+{
+#if defined(GAME_OOT)
+    static const u32 kFlameDlist = 0x52a10;
+#else
+    static const u32 kFlameDlist = 0x7d590;
+#endif
+
+    float flameScale = 0.0055f * scale;
+
+    u32 primColor;
+    u32 envColor;
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 a;
+    u16 tmp;
+
+    primColor = color;
+
+    /* Auto-compute env color */
+    envColor = 0;
+    tmp = (primColor >> 24) & 0xff;
+    tmp += 0x44;
+    if (tmp > 0xff)
+        tmp = 0xff;
+    envColor |= tmp << 24;
+    tmp = (primColor >> 16) & 0xff;
+    tmp += 0x44;
+    if (tmp > 0xff)
+        tmp = 0xff;
+    envColor |= tmp << 16;
+    tmp = (primColor >> 8) & 0xff;
+    tmp += 0x44;
+    if (tmp > 0xff)
+        tmp = 0xff;
+    envColor |= tmp << 8;
+    envColor |= (primColor & 0xff);
+
+    OPEN_DISPS(play->gs.gfx);
+    ModelViewUnkTransform((float*)((char*)play + kMatTransformOffset));
+    ModelViewTranslate(0.f, -(30.f + offsetY), -15.f, MAT_MUL);
+    ModelViewScale(flameScale * 1.7f, flameScale, flameScale, MAT_MUL);
+    gSPSegment(POLY_XLU_DISP++, 0x08, DisplaceTexture(play->gs.gfx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->gs.frameCount & 0x7f) << 2, 0x20, 0x80));
+    gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    color4(&r, &g, &b, &a, primColor);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, r, g, b, a);
+    color4(&r, &g, &b, &a, envColor);
+    gDPSetEnvColor(POLY_XLU_DISP++, r, g, b, a);
+    gSPDisplayList(POLY_XLU_DISP++, 0x04000000 | kFlameDlist);
+    CLOSE_DISPS();
+}
+
 static void shaderFlameEffect(GameState_Play* play, int colorIndex, float scale, float offsetY)
 {
 #if defined(GAME_OOT)
@@ -139,7 +192,7 @@ static void shaderFlameEffect(GameState_Play* play, int colorIndex, float scale,
     ModelViewUnkTransform((float*)((char*)play + kMatTransformOffset));
     ModelViewTranslate(0.f, -(30.f + offsetY), -15.f, MAT_MUL);
     ModelViewScale(flameScale * 1.7f, flameScale, flameScale, MAT_MUL);
-    gSPSegment(POLY_XLU_DISP++, 0x08, GetSegment(play->gs.gfx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->gs.frameCount & 0x7f) << 2, 0x20, 0x80));
+    gSPSegment(POLY_XLU_DISP++, 0x08, DisplaceTexture(play->gs.gfx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->gs.frameCount & 0x7f) << 2, 0x20, 0x80));
     gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     color4(&r, &g, &b, &a, kPrimColors[colorIndex]);
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, r, g, b, a);
@@ -203,7 +256,7 @@ void Shader_CustomNut(GameState_Play* play, s16 shaderId)
 
     OPEN_DISPS(play->gs.gfx);
     InitListPolyOpa(play->gs.gfx);
-    gSPSegment(POLY_OPA_DISP++, 0x09, GetSegment(play->gs.gfx, 0, fc, fc, 0x20, 0x20, 1, fc, fc, 0x20, 0x20));
+    gSPSegment(POLY_OPA_DISP++, 0x09, DisplaceTexture(play->gs.gfx, 0, fc, fc, 0x20, 0x20, 1, fc, fc, 0x20, 0x20));
     gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     color4(&r, &g, &b, &a, kNutStickPrimColors[shader->lists[1]]);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, r, g, b, a);
@@ -527,6 +580,7 @@ void Shader_CustomGS(GameState_Play* play, s16 index)
         { 0x967800ff, 0xffffaaff, 0x82ff80ff, 0x82ff80ff }, /* Swamp Token */
         { 0x967800ff, 0xffffaaff, 0x7d83ffff, 0x7d83ffff }, /* Ocean Token */
         { 0xaaaaaaff, 0xffffffff, 0xff0000ff, 0xff0000ff }, /* Soul */
+        { 0xaaaaaaff, 0xffffffff, 0x8800ffff, 0x8800ffff }, /* Boss Soul */
     };
 
     const Shader* shader;
@@ -552,7 +606,7 @@ void Shader_CustomGS(GameState_Play* play, s16 index)
 
     InitListPolyXlu(play->gs.gfx);
     gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPSegment(POLY_XLU_DISP++, 0x08, GetSegment(play->gs.gfx, 0, 0, fc * -5, 0x20, 0x20, 1, 0, 0, 0x20, 0x40));
+    gSPSegment(POLY_XLU_DISP++, 0x08, DisplaceTexture(play->gs.gfx, 0, 0, fc * -5, 0x20, 0x20, 1, 0, 0, 0x20, 0x40));
     color4(&r, &g, &b, &a, gsc->flameEnv);
     gDPSetEnvColor(POLY_XLU_DISP++, r, g, b, a);
     color4(&r, &g, &b, &a, gsc->flamePrimary);
@@ -639,7 +693,7 @@ void Shader_CustomPotion(GameState_Play* play, s16 index)
     OPEN_DISPS(play->gs.gfx);
     /* Opa */
     InitListPolyOpa(play->gs.gfx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, GetSegment(play->gs.gfx, 0, -fc, fc, 0x20, 0x20, 1, -fc, fc, 0x20, 0x20));
+    gSPSegment(POLY_OPA_DISP++, 0x08, DisplaceTexture(play->gs.gfx, 0, -fc, fc, 0x20, 0x20, 1, -fc, fc, 0x20, 0x20));
     gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     color4(&r, &g, &b, &a, kPrimColors1[colorIndex]);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, r, g, b, a);
@@ -810,6 +864,40 @@ void Shader_MagicJar(GameState_Play* play, s16 index)
 
     if (isUpgrade)
         shaderFlameEffect(play, 3, 1.5f, 20.f);
+}
+
+void Shader_Triforce(GameState_Play* play, s16 index)
+{
+    const Shader* shader;
+    int type;
+    u32 color;
+
+    shader = &kShaders[index];
+    type = shader->lists[1];
+
+    OPEN_DISPS(play->gs.gfx);
+    InitListPolyOpa(play->gs.gfx);
+    gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+    gSPDisplayList(POLY_OPA_DISP++, shader->lists[0]);
+    CLOSE_DISPS();
+
+    if (type == 0)
+        return;
+
+    switch (type)
+    {
+    case 1:
+        color = 0xff0000c0;
+        break;
+    case 2:
+        color = 0x00ff00c0;
+        break;
+    case 3:
+        color = 0x0000ffc0;
+        break;
+    }
+
+    shaderFlameEffectColor(play, color, 1.5f, 20.f);
 }
 
 const Shader kShaders[] = {

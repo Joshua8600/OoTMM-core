@@ -69,6 +69,8 @@ type PathfinderWorldState = {
 
 export type PathfinderState = {
   goal: boolean;
+  ganonMajora: boolean;
+  changed: boolean;
   started: boolean;
   ws: PathfinderWorldState[];
   previousAssumedItems: PlayerItems;
@@ -115,17 +117,23 @@ const defaultWorldState = (startingItems: ItemsCount): PathfinderWorldState => (
   events: new Set(),
 });
 
-const defaultWorldStates = (startingItems: ItemsCount, worldCount: number) => {
+const defaultWorldStates = (startingItems: PlayerItems, worldCount: number) => {
   const ws: PathfinderWorldState[] = [];
 
   for (let world = 0; world < worldCount; ++world) {
-    ws.push(defaultWorldState(startingItems));
+    const itemCount: ItemsCount = new Map;
+    for (const [pi, count] of startingItems) {
+      if (pi.player === world) {
+        itemCount.set(pi.item, count);
+      }
+    }
+    ws.push(defaultWorldState(itemCount));
   }
 
   return ws;
 }
 
-const defaultState = (startingItems: ItemsCount, worldCount: number): PathfinderState => {
+const defaultState = (startingItems: PlayerItems, worldCount: number): PathfinderState => {
   const gossips: Set<string>[] = [];
 
   for (let world = 0; world < worldCount; ++world) {
@@ -134,7 +142,9 @@ const defaultState = (startingItems: ItemsCount, worldCount: number): Pathfinder
 
   return {
     previousAssumedItems: new Map,
+    changed: false,
     goal: false,
+    ganonMajora: false,
     started: false,
     ws: defaultWorldStates(startingItems, worldCount),
     locations: new Set(),
@@ -191,6 +201,7 @@ type PathfinderOptions = {
   gossips?: boolean;
   inPlace?: boolean;
   singleWorld?: number;
+  ganonMajora?: boolean;
 };
 
 export class Pathfinder {
@@ -200,7 +211,7 @@ export class Pathfinder {
   constructor(
     private readonly worlds: World[],
     private readonly settings: Settings,
-    private readonly startingItems: ItemsCount,
+    private readonly startingItems: PlayerItems,
   ) {
   }
 
@@ -720,6 +731,19 @@ export class Pathfinder {
     return false;
   }
 
+  private isGanonMajoraReached() {
+    for (let worldId = 0; worldId < this.worlds.length; ++worldId) {
+      if (this.opts.singleWorld !== undefined && this.opts.singleWorld !== worldId) {
+        continue;
+      }
+      const ws = this.state.ws[worldId];
+      if (!ws.events.has('OOT_GANON_PRE_BOSS')) return false;
+      if (!ws.events.has('MM_MAJORA_PRE_BOSS')) return false;
+    }
+
+    return true;
+  }
+
   private isGoalReached() {
     const { settings } = this;
 
@@ -738,6 +762,7 @@ export class Pathfinder {
       case 'majora': worldGoal = majora; break;
       case 'both': worldGoal = ganon && majora; break;
       case 'triforce': worldGoal = (this.opts.ignoreItems || ((ws.items.get(Items.SHARED_TRIFORCE) || 0) >= settings.triforceGoal)); break;
+      case 'triforce3': worldGoal = (this.opts.ignoreItems || (ws.items.has(Items.SHARED_TRIFORCE_POWER) && ws.items.has(Items.SHARED_TRIFORCE_COURAGE) && ws.items.has(Items.SHARED_TRIFORCE_WISDOM))); break;
       }
 
       if (!worldGoal) {
@@ -823,14 +848,17 @@ export class Pathfinder {
 
     /* Pathfind */
     for (;;) {
-      const changed = this.pathfindStep();
+      this.state.changed = this.pathfindStep();
+      if (this.opts.ganonMajora) {
+        this.state.ganonMajora = this.isGanonMajoraReached();
+      }
       if (this.isGoalReached()) {
         this.state.goal = true;
         if (this.opts.stopAtGoal) {
           break;
         }
       }
-      if (!changed || !this.opts.recursive) {
+      if (!this.state.changed || !this.opts.recursive) {
         break;
       }
     }

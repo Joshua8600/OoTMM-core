@@ -26,6 +26,7 @@ const PRESET_BLITZ = makeSettings({
   crossWarpMm: 'full',
   fastBunnyHood: true,
   blueFireArrows: true,
+  startingAge: 'random',
   defaultHoldTarget: true,
   progressiveGoronLullaby: 'single',
   freeScarecrowOot: true,
@@ -45,6 +46,8 @@ const PRESET_BLITZ = makeSettings({
   sharedMaskTruth: true,
   sharedWallets: true,
   sharedHealth: true,
+  noPlandoHints: true,
+  hintImportance: true,
   tricks: [
     'MM_LENS',
     'MM_NO_SEAHORSE',

@@ -180,9 +180,9 @@ Graveyard Grass 11,                                         grass,          NONE
 Graveyard Grass 12,                                         grass,          NONE,                 GRAVEYARD,                      0xb0110,                    RANDOM
 Death Mountain Chest,                                       chest,          NONE,                 DEATH_MOUNTAIN_TRAIL,           0x01,                       RUPEE_PURPLE
 Death Mountain HP,                                          collectible,    NONE,                 DEATH_MOUNTAIN_TRAIL,           0x1e,                       HEART_PIECE
-Death Mountain Prescription,                                npc,            NONE,                 DEATH_MOUNTAIN_TRAIL,           TRADE_PRESCRIPTION,         PRESCRIPTION
-Death Mountain Claim Check,                                 npc,            NONE,                 DEATH_MOUNTAIN_TRAIL,           TRADE_CLAIM_CHECK,          CLAIM_CHECK
-Death Mountain Biggoron Sword,                              npc,            NONE,                 DEATH_MOUNTAIN_TRAIL,           TRADE_BIGGORON_SWORD,       SWORD_BIGGORON
+Death Mountain Prescription,                                npc,            BIGGORON,             DEATH_MOUNTAIN_TRAIL,           TRADE_PRESCRIPTION,         PRESCRIPTION
+Death Mountain Claim Check,                                 npc,            BIGGORON,             DEATH_MOUNTAIN_TRAIL,           TRADE_CLAIM_CHECK,          CLAIM_CHECK
+Death Mountain Biggoron Sword,                              npc,            BIGGORON,             DEATH_MOUNTAIN_TRAIL,           TRADE_BIGGORON_SWORD,       SWORD_BIGGORON
 Death Mountain Grotto,                                      chest,          NONE,                 GROTTOS,                        0x17,                       RUPEE_HUGE
 Death Mountain Grotto Grass 1,                              grass,          NONE,                 GROTTOS,                        0x03702,                    RANDOM
 Death Mountain Grotto Grass 2,                              grass,          NONE,                 GROTTOS,                        0x03703,                    RANDOM
@@ -303,7 +303,7 @@ Zora Fountain Adult Pot 1,                                  pot,            NONE
 Zora Fountain Adult Pot 2,                                  pot,            NONE,                 ZORA_FOUNTAIN,                  0x802b,                     MAGIC_JAR_LARGE
 Zora Fountain Adult Pot 3,                                  pot,            NONE,                 ZORA_FOUNTAIN,                  0x802c,                     ARROWS_10
 Lake Hylia Underwater Bottle,                               npc,            NONE,                 LAKE_HYLIA,                     RUTO_LETTER,                RUTO_LETTER
-Lake Hylia Fire Arrow,                                      npc,            NONE,                 LAKE_HYLIA,                     FIRE_ARROW,                 ARROW_FIRE
+Lake Hylia Fire Arrow,                                      npc,            SHOOT_SUN,            LAKE_HYLIA,                     FIRE_ARROW,                 ARROW_FIRE
 Lake Hylia HP,                                              collectible,    NONE,                 LAKE_HYLIA,                     0x1e,                       HEART_PIECE
 Lake Hylia Grotto Left Scrub,                               scrub,          NONE,                 GROTTOS,                        0x14,                       NUTS_5
 Lake Hylia Grotto Center Scrub,                             scrub,          NONE,                 GROTTOS,                        0x15,                       DEKU_SEEDS_30
@@ -555,7 +555,7 @@ Market Grass 7,                                             grass,          NONE
 Market Grass 8,                                             grass,          NONE,                 MARKET_CHILD_DAY,               0x0001e,                    RANDOM
 Bombchu Bowling Reward 1,                                   npc,            NONE,                 BOMBCHU_BOWLING_ALLEY,          BOMBCHU_BOWLING_1,          BOMB_BAG
 Bombchu Bowling Reward 2,                                   npc,            NONE,                 BOMBCHU_BOWLING_ALLEY,          BOMBCHU_BOWLING_2,          HEART_PIECE
-Treasure Game HP,                                           chest,          NONE,                 TREASURE_SHOP,                  0x0a,                       HEART_PIECE
+Treasure Game HP,                                           chest,          TREASURE_GAME,        TREASURE_SHOP,                  0x0a,                       HEART_PIECE
 Shooting Gallery Child,                                     npc,            NONE,                 SHOOTING_GALLERY,               SHOOTING_GAME_CHILD,        SLINGSHOT
 Shooting Gallery Adult,                                     npc,            NONE,                 SHOOTING_GALLERY,               SHOOTING_GAME_ADULT,        BOW
 Hyrule Castle GS Tree,                                      gs,             NONE,                 HYRULE_CASTLE,                  0x7a,                       GS_TOKEN
@@ -813,11 +813,11 @@ Fire Temple Pot Ring 3,                                     pot,            NONE
 Fire Temple Pot Ring 4,                                     pot,            NONE,                 TEMPLE_FIRE,                    0x0a3a,                     RECOVERY_HEART
 Fire Temple Boss Container,                                 collectible,    NONE,                 LAIR_VOLVAGIA,                  0x1f,                       HEART_CONTAINER
 Fire Temple Boss,                                           npc,            NONE,                 LAIR_VOLVAGIA,                  BLUE_WARP_VOLVAGIA,         MEDALLION_FIRE
-Ice Cavern Iron Boots,                                      chest,          NONE,                 ICE_CAVERN,                     0x02,                       BOOTS_IRON
+Ice Cavern Iron Boots,                                      chest,          ICE_CAVERN_CHEST,     ICE_CAVERN,                     0x02,                       BOOTS_IRON
 Ice Cavern Map,                                             chest,          NONE,                 ICE_CAVERN,                     0x00,                       MAP_IC
 Ice Cavern Compass,                                         chest,          NONE,                 ICE_CAVERN,                     0x01,                       COMPASS_IC
 Ice Cavern HP,                                              collectible,    NONE,                 ICE_CAVERN,                     0x01,                       HEART_PIECE
-Ice Cavern Sheik Song,                                      npc,            NONE,                 ICE_CAVERN,                     SHEIK_WATER,                SONG_TP_WATER
+Ice Cavern Sheik Song,                                      npc,            ICE_CAVERN_CHEST,     ICE_CAVERN,                     SHEIK_WATER,                SONG_TP_WATER
 Ice Cavern GS Scythe Room,                                  gs,             NONE,                 ICE_CAVERN,                     0x51,                       GS_TOKEN
 Ice Cavern GS HP Room,                                      gs,             NONE,                 ICE_CAVERN,                     0x52,                       GS_TOKEN
 Ice Cavern GS Block Room,                                   gs,             NONE,                 ICE_CAVERN,                     0x50,                       GS_TOKEN
@@ -1306,9 +1306,9 @@ MQ Bottom of the Well Pot Side Room 2,                      pot,            NONE
 MQ Bottom of the Well Pot Side Room 3,                      pot,            NONE,                 BOTTOM_OF_THE_WELL,             0x0508,                     RECOVERY_HEART
 MQ Ice Cavern Map Chest,                                    chest,          NONE,                 ICE_CAVERN,                     0x01,                       MAP_IC
 MQ Ice Cavern Compass Chest,                                chest,          NONE,                 ICE_CAVERN,                     0x00,                       COMPASS_IC
-MQ Ice Cavern Iron Boots,                                   chest,          NONE,                 ICE_CAVERN,                     0x02,                       BOOTS_IRON
+MQ Ice Cavern Iron Boots,                                   chest,          ICE_CAVERN_CHEST,     ICE_CAVERN,                     0x02,                       BOOTS_IRON
 MQ Ice Cavern Piece of Heart,                               collectible,    NONE,                 ICE_CAVERN,                     0x01,                       HEART_PIECE
-MQ Ice Cavern Sheik Song,                                   npc,            NONE,                 ICE_CAVERN,                     SHEIK_WATER,                SONG_TP_WATER
+MQ Ice Cavern Sheik Song,                                   npc,            ICE_CAVERN_CHEST,     ICE_CAVERN,                     SHEIK_WATER,                SONG_TP_WATER
 MQ Ice Cavern GS Compass Room,                              gs,             NONE,                 ICE_CAVERN,                     0x51,                       GS_TOKEN
 MQ Ice Cavern GS Scarecrow,                                 gs,             NONE,                 ICE_CAVERN,                     0x50,                       GS_TOKEN
 MQ Ice Cavern GS Clear Blocks,                              gs,             NONE,                 ICE_CAVERN,                     0x52,                       GS_TOKEN
