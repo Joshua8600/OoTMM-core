@@ -301,6 +301,7 @@ export class Pathfinder {
     const previousAreaData = ws.areas[age].get(area);
     const newAreaData = previousAreaData ? mergeAreaData(previousAreaData, sourceAreaData) : sourceAreaData;
     const worldArea = world.areas[area];
+
     if (worldArea === undefined) {
       throw new Error(`Unknown area ${area}`);
     }
@@ -364,6 +365,12 @@ export class Pathfinder {
           }
         }
       }
+    }
+
+    /* Age swap */
+    if (ws.events.has('OOT_TIME_TRAVEL_AT_WILL') && worldArea.ageChange && area !== fromArea) {
+      const otherAge = age === 'child' ? 'adult' : 'child';
+      this.exploreArea(worldId, otherAge, area, newAreaData, area);
     }
 
     if (previousAreaData && coveringAreaData(previousAreaData, newAreaData)) {
@@ -464,9 +471,13 @@ export class Pathfinder {
   }
 
   private addLocationDelayed(worldId: number, loc: string) {
-    const globalLoc = makeLocation(loc, worldId);
-    this.state.locations.add(globalLoc);
-    this.state.newLocations.add(globalLoc);
+    if (this.opts.recursive) {
+      this.addLocation(worldId, loc);
+    } else {
+      const globalLoc = makeLocation(loc, worldId);
+      this.state.locations.add(globalLoc);
+      this.state.newLocations.add(globalLoc);
+    }
   }
 
   private addLocation(worldId: number, loc: string) {
@@ -584,6 +595,20 @@ export class Pathfinder {
               }
             }
           }
+
+          /* If it's time travel at will, we need to re-explore everything */
+          if (event === 'OOT_TIME_TRAVEL_AT_WILL') {
+            for (const [area, areaData] of ws.areas.child) {
+              const a = world.areas[area];
+              if (a.ageChange)
+                this.exploreArea(worldId, 'adult', area, areaData, area);
+            }
+            for (const [area, areaData] of ws.areas.adult) {
+              const a = world.areas[area];
+              if (a.ageChange)
+                this.exploreArea(worldId, 'child', area, areaData, area);
+            }
+          }
         } else {
           /* Track dependencies */
           const d = this.getDeps(results);
@@ -690,25 +715,29 @@ export class Pathfinder {
     this.state.newLocations.clear();
 
     for (let worldId = 0; worldId < this.worlds.length; ++worldId) {
+      const ws = this.state.ws[worldId];
+      const { queue } = ws;
+
       if (this.opts.singleWorld !== undefined && this.opts.singleWorld !== worldId) {
         continue;
       }
       for (;;) {
         /* Expand as much as possible */
-        const ws = this.state.ws[worldId];
-
         this.evalExits(worldId, 'child');
         this.evalExits(worldId, 'adult');
         this.evalEvents(worldId);
 
-        const { queue } = ws;
         if (!queue.events.size && !queue.exits.child.size && !queue.exits.adult.size) {
           break;
         }
       }
 
       /* Get locations */
-      this.evalLocations(worldId);
+      for (;;) {
+        this.evalLocations(worldId);
+        if (!this.opts.recursive || !queue.locations.size)
+          break;
+      }
     }
 
     /* Add delayed locations */
