@@ -83,6 +83,7 @@ export const TRICKS = {
   MM_ESCAPE_CAGE: "Escape the Monkey Cage with Hookshot Anywhere",
   MM_GBT_FAIRY2_HOOK: "GBT First Underwater Fairy with Short Hookshot Anywhere",
   MM_GBT_CENTRAL_GEYSER: "GBT Central Room without Zora using Fire & Ice Arrows",
+  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
 };
 
 export type Trick = keyof typeof TRICKS;
