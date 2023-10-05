@@ -355,16 +355,16 @@
 "Clock Tower Roof":
   region: CLOCK_TOWER_ROOF
   events:
-    MAGIC: "can_play_time"
+    MAGIC: "(can_play_time || event(MAJORA))"
   exits:
     "Moon": "can_play_order && special(MOON)"
   locations:
-    "Clock Tower Roof Skull Kid Ocarina": "has_weapon_range && can_play_time"
-    "Clock Tower Roof Skull Kid Song of Time": "has_weapon_range && can_play_time"
-    "Clock Tower Roof Pot 1": "can_play_time"
-    "Clock Tower Roof Pot 2": "can_play_time"
-    "Clock Tower Roof Pot 3": "can_play_time"
-    "Clock Tower Roof Pot 4": "can_play_time"
+    "Clock Tower Roof Skull Kid Ocarina": "has_weapon_range && (can_play_time || event(MAJORA))"
+    "Clock Tower Roof Skull Kid Song of Time": "has_weapon_range && (can_play_time || event(MAJORA))"
+    "Clock Tower Roof Pot 1": "(can_play_time || event(MAJORA))"
+    "Clock Tower Roof Pot 2": "(can_play_time || event(MAJORA))"
+    "Clock Tower Roof Pot 3": "(can_play_time || event(MAJORA))"
+    "Clock Tower Roof Pot 4": "(can_play_time || event(MAJORA))"
 "Bomb Shop":
   region: ENTRANCE
   events:
@@ -426,6 +426,8 @@
   region: ENTRANCE
   exits:
     "Clock Town West": "true"
+  stay:
+    NIGHT3_PM_11_00: "false"
   locations:
     "Swordsman School HP": "has(SWORD) && can_use_wallet(1) && before(NIGHT3_PM_11_00)"
     "Swordsman School Pot 1": "has(SWORD) && after(NIGHT3_AM_12_00)"
@@ -1687,18 +1689,18 @@
     "Twin Islands Underwater Chest 1": "event(BOSS_SNOWHEAD) && has_mask_zora"
     "Twin Islands Underwater Chest 2": "event(BOSS_SNOWHEAD) && has_mask_zora"
     "Goron Elder": "has_mask_goron && cond(!setting(erBoss, none), can_use_fire_arrows || (setting(bossWarpPads, bossBeaten) && has_hot_water_er), can_use_fire_arrows || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))) && (first_day || second_day)"
-    "Twin Islands Grass 01": "true"
-    "Twin Islands Grass 02": "true"
-    "Twin Islands Grass 03": "true"
-    "Twin Islands Grass 04": "true"
-    "Twin Islands Grass 05": "true"
-    "Twin Islands Grass 06": "true"
-    "Twin Islands Grass 07": "true"
-    "Twin Islands Grass 08": "true"
-    "Twin Islands Grass 09": "true"
-    "Twin Islands Grass 10": "true"
-    "Twin Islands Grass 11": "true"
-    "Twin Islands Grass 12": "true"
+    "Twin Islands Grass 01": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 02": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 03": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 04": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 05": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 06": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 07": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 08": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 09": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 10": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 11": "event(BOSS_SNOWHEAD)"
+    "Twin Islands Grass 12": "event(BOSS_SNOWHEAD)"
 "Twin Islands Ramp Grotto":
   region: ENTRANCE
   exits:
@@ -2500,7 +2502,7 @@
   region: MILK_ROAD
   exits:
     "Milk Road": "true"
-    "Gorman Track Back": "(can_goron_bomb_jump && has_bombs) || (is_night2 && event(ALIENS)) || short_hook_anywhere"
+    "Gorman Track": "(can_goron_bomb_jump && has_bombs) || (is_night2 && event(ALIENS)) || short_hook_anywhere"
   locations:
     "Gorman Track Garo Mask": "can_play_epona && can_use_wallet(1) && is_day"
     "Gorman Track Milk Purchase": "can_use_wallet(1) && is_day"
@@ -2508,7 +2510,12 @@
   region: MILK_ROAD
   exits:
     "Behind Gorman Fence": "true"
+    "Gorman Track": "(can_goron_bomb_jump && has_bombs) || (is_night2 && event(ALIENS)) || short_hook_anywhere"
+"Gorman Track":
+  region: MILK_ROAD
+  exits:
     "Gorman Track Front": "(can_goron_bomb_jump && has_bombs) || (is_night2 && event(ALIENS)) || short_hook_anywhere"
+    "Gorman Track Back": "(can_goron_bomb_jump && has_bombs) || (is_night2 && event(ALIENS)) || short_hook_anywhere"
   locations:
     "Gorman Track Grass Pack 1 Grass 01": "true"
     "Gorman Track Grass Pack 1 Grass 02": "true"
@@ -2670,12 +2677,12 @@
   locations:
     "Beneath The Graveyard HP": "soul_iron_knuckle && (has_explosives || trick_keg_explosives) && (can_use_lens || short_hook_anywhere)"
     "Beneath The Graveyard Pot Night 2 Early": "true"
-    "Beneath The Graveyard Pot Before Pit 1": "true"
-    "Beneath The Graveyard Pot Before Pit 2": "true"
-    "Beneath The Graveyard Pot After Pit 1": "can_use_lens || short_hook_anywhere"
-    "Beneath The Graveyard Pot After Pit 2": "can_use_lens || short_hook_anywhere"
-    "Beneath The Graveyard Pot After Pit 3": "can_use_lens || short_hook_anywhere"
-    "Beneath The Graveyard Pot After Pit 4": "can_use_lens || short_hook_anywhere"
+    "Beneath The Graveyard Pot Night 2 Before Pit 1": "can_use_lens"
+    "Beneath The Graveyard Pot Night 2 Before Pit 2": "can_use_lens"
+    "Beneath The Graveyard Pot Night 2 After Pit 1": "can_use_lens || short_hook_anywhere"
+    "Beneath The Graveyard Pot Night 2 After Pit 2": "can_use_lens || short_hook_anywhere"
+    "Beneath The Graveyard Pot Night 2 After Pit 3": "can_use_lens || short_hook_anywhere"
+    "Beneath The Graveyard Pot Night 2 After Pit 4": "can_use_lens || short_hook_anywhere"
 "Beneath The Graveyard Night 3":
   region: ENTRANCE
   events:
