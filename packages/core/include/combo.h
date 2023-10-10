@@ -142,6 +142,7 @@ typedef struct
     u16             triforcePieces;
     u16             triforceGoal;
     ComboDataHints  hints;
+    s8              staticHintsImportance[20];
     u16             giZoraSapphire;
     u8              boss[12];
     u8              dungeons[25];
@@ -391,7 +392,7 @@ typedef struct
     u8                      menuScreen;
     u8                      menuCursor;
     u8                      menuCursorMax;
-    u8                      maxKeysOot[0x10];
+    u8                      maxKeysOot[0x11];
     u8                      maxKeysMm[4];
     u8                      actorIndex;
     u8                      sceneSetupId;

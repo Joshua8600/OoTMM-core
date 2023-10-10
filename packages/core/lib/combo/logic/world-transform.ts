@@ -469,6 +469,10 @@ export class LogicPassWorldTransform {
       items = [...items, Items.OOT_SMALL_KEY_GF, Items.OOT_KEY_RING_GF];
     }
 
+    if (settings.smallKeyShuffleChestGame === 'anywhere') {
+      items = [...items, Items.OOT_SMALL_KEY_TCG, Items.OOT_KEY_RING_TCG];
+    }
+
     if (settings.mapCompassShuffle === 'anywhere') {
       items = [...items, ...ItemGroups.MAPS, ...ItemGroups.COMPASSES];
     }
@@ -1012,6 +1016,12 @@ export class LogicPassWorldTransform {
           this.removePlayerItem(makePlayerItem(Items.OOT_SMALL_KEY_GF, worldId));
           this.addPlayerItem(makePlayerItem(Items.OOT_KEY_RING_GF, worldId));
         }
+
+        /* TCG keys need special handling */
+        if (settings.smallKeyShuffleChestGame !== 'vanilla') {
+          this.removePlayerItem(makePlayerItem(Items.OOT_SMALL_KEY_TCG, worldId));
+          this.addPlayerItem(makePlayerItem(Items.OOT_KEY_RING_TCG, worldId));
+        }
       }
     }
 
@@ -1059,6 +1069,11 @@ export class LogicPassWorldTransform {
     } else if (this.state.config.has('OOT_PROGRESSIVE_SWORDS_GORON')) {
       this.replaceItem(Items.OOT_SWORD_KNIFE,     Items.OOT_SWORD_GORON);
       this.replaceItem(Items.OOT_SWORD_BIGGORON,  Items.OOT_SWORD_GORON);
+    }
+
+    /* Handle MM Swords */
+    if (settings.progressiveGFS === 'progressive') {
+      this.replaceItem(Items.MM_GREAT_FAIRY_SWORD, Items.MM_SWORD);
     }
 
     /* Handle MM Lullaby */

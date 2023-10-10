@@ -10,6 +10,7 @@ export const CONFVARS = [
   'MM_PROGRESSIVE_LULLABY',
   'DOOR_OF_TIME_OPEN',
   'ER_DUNGEONS',
+  'ER_MAJOR_DUNGEONS',
   'SHARED_BOWS',
   'SHARED_BOMB_BAGS',
   'SHARED_MAGIC',
@@ -87,6 +88,9 @@ export const CONFVARS = [
   'MM_OCARINA_BUTTONS',
   'OOT_AGE_CHANGE',
   'OOT_AGE_CHANGE_NEEDS_OOT',
+  'OOT_TRIALS',
+  'MM_PROGRESSIVE_GFS',
+  'OOT_CHEST_GAME_SHUFFLE',
 ] as const;
 
 export type Confvar = typeof CONFVARS[number];

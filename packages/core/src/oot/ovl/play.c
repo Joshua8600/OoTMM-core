@@ -13,6 +13,7 @@ static void debugCheat(GameState_Play* play)
 
         gSave.inventory.quest.gerudoCard = 1;
         gSave.inventory.dungeonKeys[SCE_OOT_TEMPLE_FIRE] = 8;
+        gSave.inventory.dungeonKeys[SCE_OOT_TREASURE_SHOP] = 6;
         gSave.inventory.items[ITS_OOT_STICKS] = ITEM_OOT_STICK;
         gSave.inventory.items[ITS_OOT_NUTS] = ITEM_OOT_NUT;
         gSave.inventory.items[ITS_OOT_BOMBS] = ITEM_OOT_BOMB;
@@ -150,18 +151,6 @@ static void eventFixes(GameState_Play* play)
     if (comboSpecialCond(SPECIAL_BRIDGE))
     {
         SetEventChk(EV_OOT_CHK_RAINBOW_BRIDGE);
-    }
-
-    /* Open Trials */
-    if (gSave.entrance == 0x0467)
-    {
-        SetEventChk(EV_OOT_CHK_TRIAL_LIGHT);
-        SetEventChk(EV_OOT_CHK_TRIAL_FIRE);
-        SetEventChk(EV_OOT_CHK_TRIAL_SHADOW);
-        SetEventChk(EV_OOT_CHK_TRIAL_WATER);
-        SetEventChk(EV_OOT_CHK_TRIAL_FOREST);
-        SetEventChk(EV_OOT_CHK_TRIAL_SPIRIT);
-        SetEventChk(EN_OOT_CHK_GANON_BARRIER);
     }
 }
 

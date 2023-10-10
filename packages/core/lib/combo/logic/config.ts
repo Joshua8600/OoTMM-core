@@ -102,6 +102,7 @@ export class LogicPassConfig {
       DOOR_OF_TIME_OPEN: settings.doorOfTime === 'open',
       OOT_OPEN_DEKU: settings.dekuTree === 'open',
       ER_DUNGEONS: settings.erDungeons !== 'none',
+      ER_MAJOR_DUNGEONS: settings.erMajorDungeons,
       ER_BOSS: settings.erBoss !== 'none',
       ER_ANY: isEntranceShuffle(settings),
       SHARED_BOWS: settings.sharedBows,
@@ -177,6 +178,9 @@ export class LogicPassConfig {
       MM_OCARINA_BUTTONS: settings.ocarinaButtonsShuffleMm,
       OOT_AGE_CHANGE: settings.ageChange !== 'none',
       OOT_AGE_CHANGE_NEEDS_OOT: settings.ageChange === 'oot',
+      OOT_TRIALS: settings.ganonTrials !== 'none',
+      MM_PROGRESSIVE_GFS: settings.progressiveGFS === 'progressive',
+      OOT_CHEST_GAME_SHUFFLE: settings.smallKeyShuffleChestGame !== 'vanilla',
     };
 
     for (const v in exprs) {
