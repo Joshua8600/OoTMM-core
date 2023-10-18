@@ -9,11 +9,16 @@ test("Can make a seed - Full ER", () => {
     //erRegionsExtra: true,
 	erRegionsShortcuts: true,
     erIndoors: 'full',
+    erIndoorsMajor: true,
     erIndoorsExtra: true,
     erWarps: 'full',
     erWarpsOwls: true,
+<<<<<<< HEAD
+    erMajorDungeons: true,
+=======
     erRegionWarps: 'both',
     erRegionWarpsExtra: true,
+>>>>>>> oneways
     erMinorDungeons: true,
     erSpiderHouses: true,
     erPirateFortress: true,
