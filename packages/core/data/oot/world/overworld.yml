@@ -83,7 +83,7 @@
     "Lost Woods Bridge from Forest": "true"
     "Kokiri Shop": "true"
     "Kokiri Forest Storms Grotto": "hidden_grotto_storms"
-    "Kokiri Forest Near Deku Tree": "mido_moved || is_adult || climb_anywhere || hookshot_anywhere"
+    "Kokiri Forest Near Deku Tree": "event(MIDO_MOVED) || is_adult || climb_anywhere || hookshot_anywhere"
   events:
     BOMBS: "true"
     RUPEES: "true"
@@ -129,8 +129,8 @@
 "Kokiri Forest Near Deku Tree":
   region: KOKIRI_FOREST
   exits:
-    "Kokiri Forest": "mido_moved || is_adult || climb_anywhere || hookshot_anywhere"
-    "Deku Tree": "is_child || (is_adult && setting(dekuTreeAdult) && mido_moved_soul)"
+    "Kokiri Forest": "event(MIDO_MOVED) || is_adult || climb_anywhere || hookshot_anywhere"
+    "Deku Tree": "is_child || (is_adult && setting(dekuTreeAdult) && mido_moved)"
   events:
     STICKS: "is_child && soul_deku_baba && (can_boomerang || has_weapon)"
     MIDO_MOVED: "can_move_mido"
@@ -770,7 +770,7 @@
     "Lost Woods Memory Game": "is_child && can_play_minigame"
     "Lost Woods Scrub Sticks Upgrade": "is_child && can_hit_scrub && scrub_price(0x00)"
     "Lost Woods Odd Mushroom": "adult_trade(COJIRO)"
-    "Lost Woods Poacher's Saw": "adult_trade(ODD_POTION)"
+    "Lost Woods Poacher's Saw": "adult_trade(ODD_POTION) && soul_npc(SOUL_NPC_KOKIRI)"
     "Lost Woods GS Soil Bridge": "gs_soil && can_damage_skull"
     "Lost Woods Grass 1": "can_cut_grass"
     "Lost Woods Grass 2": "can_cut_grass"
