@@ -474,7 +474,7 @@ export class LogicPassEntrances {
       pool.delete('one-way-song');
     }
 
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erWarps === 'ownGame' });
+    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erOneWays === 'ownGame' });
   }
 
   private placeOneWays(worldId: number) {
