@@ -642,6 +642,23 @@ export const TRIFORCE = new Set([
   ...NAMED_TRIFORCE,
 ]);
 
+export const BOTTLES_OOT = new Set([
+  Items.OOT_BOTTLE_EMPTY,
+  Items.OOT_BOTTLE_MILK,
+  Items.OOT_BOTTLE_POTION_RED,
+  Items.OOT_BOTTLE_POTION_GREEN,
+  Items.OOT_BOTTLE_POTION_BLUE,
+]);
+
+export const BOTTLES_MM = new Set([
+  Items.MM_BOTTLE_EMPTY,
+  Items.MM_BOTTLE_MILK,
+  Items.MM_BOTTLE_CHATEAU,
+  Items.MM_BOTTLE_POTION_RED,
+  Items.MM_BOTTLE_POTION_GREEN,
+  Items.MM_BOTTLE_POTION_BLUE,
+]);
+
 export const REQUIRED = new Set([
   ...OWLS,
   ...RUPEES_SILVER,
@@ -660,6 +677,8 @@ export const REQUIRED = new Set([
   ...TRIFORCE,
   ...KEY_RINGS_OOT,
   ...KEY_RINGS_MM,
+  ...BOTTLES_OOT,
+  ...BOTTLES_MM,
   Items.OOT_BOSS_KEY_GANON,
   Items.OOT_SMALL_KEY_GF,
   Items.OOT_KEY_RING_GF,
@@ -788,7 +807,6 @@ export const REQUIRED = new Set([
   Items.MM_MASK_SCENTS,
   Items.MM_MASK_KAFEI,
   Items.MM_MASK_FIERCE_DEITY,
-  Items.MM_BOTTLE_POTION_RED,
   Items.MM_BOTTLED_GOLD_DUST,
   Items.MM_BOTTLE_EMPTY,
   Items.MM_BOTTLE_MILK,

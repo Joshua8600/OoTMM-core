@@ -111,6 +111,8 @@
 "can_lift_gold": "is_adult && has(STRENGTH, 3)"
 
 #Magic Item Macros
+"has_green_potion": "has_bottle && (renewable(POTION_GREEN) || renewable(BOTTLE_POTION_GREEN))"
+"has_blue_potion": "has_bottle && (renewable(POTION_BLUE) || renewable(BOTTLE_POTION_BLUE))"
 "has_magic": "true"
 "can_use_din": "has_magic && has(SPELL_FIRE)"
 "can_use_nayru": "has_magic && has(SPELL_LOVE)"
@@ -158,7 +160,7 @@
 "can_kill_baba_nuts": "soul_deku_baba"
 "can_hit_scrub": "true"
 "can_rescue_carpenter": "small_keys_hideout_all && (has_weapon || ((can_boomerang || has_nuts) && can_use_sticks)) && soul_npc(SOUL_NPC_CARPENTERS)"
-"carpenters_rescued": "setting(gerudoFortress, open) || (event(CARPENTER_1) && (setting(gerudoFortress, single) || (event(CARPENTER_2) || event(CARPENTER_3) || event(CARPENTER_4))))"
+"carpenters_rescued": "setting(gerudoFortress, open) || (event(CARPENTER_1) && (setting(gerudoFortress, single) || (event(CARPENTER_2) && event(CARPENTER_3) && event(CARPENTER_4))))"
 
 #Trick Macros
 "gs_night": "is_night && (trick(OOT_NIGHT_GS) || can_play_sun)"

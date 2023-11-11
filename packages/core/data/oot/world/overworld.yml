@@ -721,7 +721,7 @@
   time: night
   exits:
     "Market Castle Entry": "true"
-    "Ganon Castle Exterior After Bridge": "special(BRIDGE) || longshot_anywhere"
+    "Ganon Castle Exterior After Bridge": "special(BRIDGE) || (longshot_anywhere && trick(OOT_GANON_CASTLE_ENTRY))"
     "Near Fairy Fountain Defense": "can_lift_gold"
   locations:
     "Ganon Castle Exterior GS": "true"
@@ -1025,7 +1025,7 @@
     "Kakariko Cow": "can_play_epona"
     "Kakariko Impa House HP": "true"
 "Windmill":
-  region: KAKARIKO
+  region: ENTRANCE
   exits:
     "Kakariko": "true"
     "Dampe Grave Entrance": "trick(OOT_REVERSE_DAMPE) && climb_anywhere && (is_child || can_play_time)"
@@ -1034,6 +1034,10 @@
   locations:
     "Windmill HP": "can_boomerang || event(WINDMILL_TOP) || (is_adult && trick(OOT_WINDMILL_HP_NOTHING)) || climb_anywhere || hookshot_anywhere"
     "Windmill Song of Storms": "is_adult && has_ocarina && soul_npc(SOUL_NPC_GURU_GURU)"
+"Windmill Exit":
+  region: NONE
+  exits:
+    "Windmill": "true"
 "Kakariko Carpenter House":
   region: ENTRANCE
   exits:
@@ -1056,7 +1060,7 @@
   exits:
     "Kakariko": "true"
   locations:
-    "Kakariko Grotto Front": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
+    "Kakariko Grotto Front": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din || can_hammer)"
 "Kakariko Generic Grotto":
   region: ENTRANCE
   age_change: false
@@ -1117,7 +1121,7 @@
   region: GRAVEYARD
   exits:
     "Graveyard": "true"
-    "Shadow Temple": "can_use_din || (has_fire_arrows && (trick(OOT_SHADOW_FIRE_ARROW) || can_use_sticks))"
+    "Shadow Temple": "can_use_din || (has_fire_arrows && (trick(OOT_SHADOW_FIRE_ARROW) || (trick(OOT_SHADOW_TEMPLE_STICKS) && can_use_sticks)))"
   gossip:
     "Graveyard Gossip": "true"
 "Graveyard Royal Tomb":
@@ -1143,7 +1147,7 @@
   region: GRAVEYARD
   exits:
     "Dampe Grave Entrance": "true"
-    "Windmill": "is_adult && can_play_time && soul_npc(SOUL_NPC_DAMPE)"
+    "Windmill Exit": "is_adult && can_play_time && soul_npc(SOUL_NPC_DAMPE)"
   events:
     NUTS: "true"
     RUPEES: "true"

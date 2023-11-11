@@ -484,7 +484,7 @@ export const SETTINGS = [{
   name: 'Merchants Shuffle (MM)',
   category: 'main.shuffle',
   type: 'boolean',
-  description: 'Shuffle extra merchants in MM',
+  description: 'Shuffle the Milk Bar and Gorman milk purchases in MM',
   default: false
 }, {
   key: 'eggShuffle',
@@ -892,6 +892,13 @@ export const SETTINGS = [{
     { value: 'progressive', name: 'Progressive' },
   ],
   default: 'progressive'
+}, {
+  key: 'bottleContentShuffle',
+  name: 'Random Bottle Contents',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Randomize the content of the bottles',
+  default: false
 }, {
   key: 'sunSongMm',
   name: 'Sun\'s Song in MM',
@@ -1398,7 +1405,7 @@ export const SETTINGS = [{
   name: 'Shuffle Regional Shortcuts',
   category: 'entrances',
   type: 'boolean',
-  description: 'Shuffles the various shortcuts between regions.<br>- Lost Woods/Goron City<br>- Lost Woods/Zora\'s River<br>- Lake Hylia/Zora\'s Domain<br>- Lake Hylia/Gerudo Valley<br>- Ikana Canyon/Southern Swamp',
+  description: 'Shuffles the various shortcuts between regions.<br>- Lost Woods/Goron City<br>- Lost Woods/Zora\'s River<br>- Zora\'s Domain/Lake Hylia',
   default: false,
   cond: (x: any) => x.erRegions !== 'none'
 }, {

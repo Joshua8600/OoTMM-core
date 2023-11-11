@@ -286,6 +286,9 @@ static int isItemAmbiguousOot(s16 gi)
     case GI_OOT_POTION_RED:
     case GI_OOT_POTION_GREEN:
     case GI_OOT_POTION_BLUE:
+    case GI_OOT_BOTTLE_POTION_RED:
+    case GI_OOT_BOTTLE_POTION_GREEN:
+    case GI_OOT_BOTTLE_POTION_BLUE:
     case GI_OOT_FAIRY:
     case GI_OOT_BUG:
     case GI_OOT_FISH:
@@ -409,6 +412,8 @@ static int isItemAmbiguousMm(s16 gi)
     case GI_MM_BOMBCHU:
     case GI_MM_MAGIC_BEAN:
     case GI_MM_BOTTLE_POTION_RED:
+    case GI_MM_BOTTLE_POTION_GREEN:
+    case GI_MM_BOTTLE_POTION_BLUE:
     case GI_MM_BOTTLE_EMPTY:
     case GI_MM_SWORD_KOKIRI:
     case GI_MM_SHIELD_HERO:
@@ -880,7 +885,7 @@ static int isSoldOut(s16 gi)
 #endif
 }
 
-void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s16 price, int confirm)
+void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s16 price, int flags)
 {
     char* b;
 
@@ -902,7 +907,7 @@ void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s
     comboTextAppendStr(&b, TEXT_NL TEXT_COLOR_RED);
     comboTextAppendNum(&b, price);
     comboTextAppendStr(&b, " Rupees");
-    if (confirm)
+    if (flags & TFS_CONFIRM)
     {
         comboTextAppendStr(&b, TEXT_NL TEXT_CHOICE2 TEXT_COLOR_GREEN);
         comboTextAppendStr(&b, "Buy" TEXT_NL);
@@ -910,7 +915,10 @@ void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s
     }
     else
     {
-        comboTextAppendStr(&b, TEXT_NL TEXT_NL TEXT_NOCLOSE);
+        comboTextAppendStr(&b, TEXT_NL TEXT_NL);
+        if (flags & TFS_MUSHROOM)
+            comboTextAppendStr(&b, TEXT_COLOR_PINK "Requires Magic Mushroom");
+        comboTextAppendStr(&b, TEXT_NOCLOSE);
     }
     comboTextAppendStr(&b, TEXT_END);
 }
