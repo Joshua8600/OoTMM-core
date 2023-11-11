@@ -474,7 +474,29 @@ export class LogicPassEntrances {
       pool.delete('one-way-song');
     }
 
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erWarps === 'ownGame' });
+    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erOneWays === 'ownGame' });
+  }
+
+  private placeOneWays(worldId: number) {
+    const pool = new Set(['']);
+
+    if (this.input.settings.erOneWaysMajor) {
+      pool.add('one-way');
+    }
+    if (this.input.settings.erOneWaysIkana) {
+      pool.add('one-way-ikana');
+    }
+    if (this.input.settings.erOneWaysSongs) {
+      pool.add('one-way-song');
+    }
+    if (this.input.settings.erOneWaysStatues) {
+      pool.add('one-way-statue');
+    }
+    if (this.input.settings.erOneWaysOwls) {
+      pool.add('one-way-owl');
+    }
+
+    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erOneWays === 'ownGame' });
   }
 
   private placeOneWays(worldId: number) {
