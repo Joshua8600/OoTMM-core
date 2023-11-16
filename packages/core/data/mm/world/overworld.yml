@@ -349,7 +349,7 @@
     "Clock Town North": "true"
   locations:
     "Clock Town Great Fairy": "has(STRAY_FAIRY_TOWN)"
-    "Clock Town Great Fairy Alt": "has(STRAY_FAIRY_TOWN) && (has(MASK_DEKU) || has_mask_goron || has_mask_zora)"
+    "Clock Town Great Fairy Alt": "has(STRAY_FAIRY_TOWN)"
 "Bomb Shop":
   region: ENTRANCE
   events:
@@ -556,11 +556,11 @@
     "Clock Town East": "true"
     "Clock Town West": "true"
     "Road to Southern Swamp": "true"
-    "Behind Large Icicles": "has_arrows || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || short_hook_anywhere"
+    "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf || short_hook_anywhere"
     "Milk Road": "true"
-    "Great Bay Fence": "can_play_epona || (can_goron_bomb_jump && has_bombs) || short_hook_anywhere"
+    "Great Bay Fence": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
     "Road to Ikana Front": "true"
-    "Astral Observatory Balcony": "has(MASK_DEKU) || short_hook_anywhere || (can_goron_bomb_jump && has_bombs)"
+    "Astral Observatory Balcony": "true"
     "Grass Grotto": "true"
     "Peahat Grotto": "true"
     "Bio Baba Grotto": "can_break_boulders"
@@ -1158,7 +1158,7 @@
   exits:
     "Road to Southern Swamp": "true"
     "Tourist Information": "true"
-    "Swamp Back": "event(BOAT_RIDE) || event(CLEAN_SWAMP) || has_mask_zora || (has(MASK_DEKU) && (has_arrows || can_hookshot_short))"
+    "Swamp Back": "true"
     "Swamp Potion Shop": "true"
     "Woods of Mystery": "true"
     "Owl Swamp": "true"
@@ -1223,7 +1223,7 @@
     PICTURE_SWAMP: "has(PICTOGRAPH_BOX)"
     PICTURE_BIG_OCTO: "has(PICTOGRAPH_BOX) && soul_octorok"
   exits:
-    "Swamp Front": "event(BOAT_RIDE) || event(CLEAN_SWAMP) || has_mask_zora || ((has_arrows || can_hookshot) && (has(MASK_DEKU) || has_mask_goron))"
+    "Swamp Front": "true"
     "Deku Palace Front": "true"
     "Near Swamp Spider House": "has(MASK_DEKU) || has_mask_zora || event(CLEAN_SWAMP) || short_hook_anywhere"
     "Swamp Canopy Back": "event(CLEAN_SWAMP) || short_hook_anywhere"
@@ -1526,7 +1526,7 @@
 "Behind Large Icicles":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "has_arrows || has_hot_water_mtn || has_hot_water_er || short_hook_anywhere"
+    "Termina Field": "(has(BOW) || has(SHARED_BOW)) || has_hot_water_mtn || has_hot_water_er || can_isg_ow || short_hook_anywhere"
     "Mountain Village Path Lower": "true"
 "Mountain Village Path Lower":
   region: PATH_TO_MOUNTAIN_VILLAGE
@@ -1536,7 +1536,7 @@
     FAIRY: "can_get_gossip_fairy"
   exits:
     "Behind Large Icicles": "true"
-    "Mountain Village Path Upper": "can_break_boulders || can_use_fire_arrows || event(BOSS_SNOWHEAD) || short_hook_anywhere"
+    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD) || short_hook_anywhere"
   gossip:
     "Mountain Village Path Gossip": "true"
 "Mountain Village Path Upper":
@@ -1651,7 +1651,7 @@
   exits:
     "Mountain Village": "true"
   events:
-    BLACKSMITH_ENABLED: "event(BOSS_SNOWHEAD) || can_use_fire_arrows || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))"
+    BLACKSMITH_ENABLED: "true"
     GOLD_DUST_USED: "can_use_wallet(2) && has(BOTTLED_GOLD_DUST) && event(BLACKSMITH_ENABLED)"
   locations:
     "Blacksmith Razor Blade": "can_use_wallet(2) && event(BLACKSMITH_ENABLED)"
@@ -2122,7 +2122,7 @@
 "Great Bay Fence":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "can_play_epona || (can_goron_bomb_jump && has_bombs) || short_hook_anywhere"
+    "Termina Field": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
     "Great Bay Coast": "true"
 "Great Bay Coast":
   region: GREAT_BAY_COAST
@@ -2467,7 +2467,7 @@
   exits:
     "Zora Hall": "true"
   locations:
-    "Zora Hall Scrub HP": "(trick(MM_ZORA_HALL_SCRUB_HP_NO_DEKU) && (has_mask_goron || has_mask_zora)) || (has_mask_goron && has(MASK_DEKU) && has(DEED_MOUNTAIN)) || short_hook_anywhere"
+    "Zora Hall Scrub HP": "true"
     "Zora Hall Scrub Shop": "has_mask_zora && can_use_wallet(1)"
     "Zora Hall Scrub Deed": "has(DEED_MOUNTAIN) && has_mask_goron"
 "Zora Cape Peninsula":
@@ -2532,7 +2532,7 @@
   exits:
     "Termina Field": "true"
     "Road to Ikana Grotto": "has_mask_goron"
-    "Road to Ikana Center": "can_play_epona || short_hook_anywhere || (can_goron_bomb_jump && has_bombs)"
+    "Road to Ikana Center": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
   locations:
     "Road to Ikana Chest": "can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))"
 "Road to Ikana Grotto":
@@ -2570,8 +2570,8 @@
     RUPEES: "can_use_light_arrows && is_night && soul_bubble"
     FAIRY: "can_get_gossip_fairy || scarecrow_hookshot || short_hook_anywhere"
   exits:
-    "Road to Ikana Front": "can_play_epona || short_hook_anywhere || (can_goron_bomb_jump && has_bombs)"
-    "Road to Ikana Top": "((has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD)))) || short_hook_anywhere"
+    "Road to Ikana Front": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
+    "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))) || short_hook_anywhere"
     "Ikana Graveyard": "true"
   locations:
     "Road to Ikana Stone Mask": "can_use_lens_strict && has_red_or_blue_potion"
