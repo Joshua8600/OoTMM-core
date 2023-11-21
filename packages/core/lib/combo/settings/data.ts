@@ -265,24 +265,34 @@ export const SETTINGS = [{
   key: 'smallKeyRingOot',
   name: 'Small Key Ring (OoT)',
   category: 'main.shuffle',
-  type: 'enum',
+  type: 'set',
   description: 'Controls the grouping of keys into keyrings, for OoT',
   values: [
-    { value: 'disabled', name: 'Disabled', description: 'Small keys are found individually, like in the base game.' },
-    { value: 'keyRings', name: 'Key Rings', description: 'Small keys are grouped into key rings.' },
+    { value: 'Forest', name: 'Forest Temple' },
+    { value: 'Fire',   name: 'Fire Temple' },
+    { value: 'Water',  name: 'Water Temple' },
+    { value: 'Shadow', name: 'Shadow Temple' },
+    { value: 'Spirit', name: 'Spirit Temple' },
+    { value: 'BotW',   name: 'Bottom of the Well' },
+    { value: 'GTG',    name: 'Gerudo Training Grounds' },
+    { value: 'Ganon',  name: 'Ganon\'s Castle' },
+    { value: 'GF',     name: 'Hideout' },
+    { value: 'TCG',    name: 'Chest Game' },
   ],
-  default: 'disabled'
+  default: 'none'
 }, {
   key: 'smallKeyRingMm',
   name: 'Small Key Ring (MM)',
   category: 'main.shuffle',
-  type: 'enum',
+  type: 'set',
   description: 'Controls the grouping of keys into keyrings, for MM',
   values: [
-    { value: 'disabled', name: 'Disabled', description: 'Small keys are found individually, like in the base game.' },
-    { value: 'keyRings', name: 'Key Rings', description: 'Small keys are grouped into key rings.' },
+    { value: 'WF', name: 'Woodfall Temple' },
+    { value: 'SH', name: 'Snowhead Temple' },
+    { value: 'GB', name: 'Great Bay Temple' },
+    { value: 'ST', name: 'Stone Tower Temple' },
   ],
-  default: 'disabled'
+  default: 'none'
 }, {
   key: 'silverRupeeShuffle',
   name: 'Silver Rupee Shuffle',
@@ -502,11 +512,15 @@ export const SETTINGS = [{
   key: 'ganonTrials',
   name: 'Ganon Trials',
   category: 'main.events',
-  type: 'enum',
+  type: 'set',
   description: 'Enables or disables the trials in Ganon\'s Castle',
   values: [
-    { value: 'none', name: 'None', description: 'Trials are not required to enter the tower' },
-    { value: 'all', name: 'All', description: 'All trials are required to enter the tower' },
+    { value: 'Light',   name: 'Light Trial' },
+    { value: 'Forest',  name: 'Forest Trial' },
+    { value: 'Fire',    name: 'Fire Trial' },
+    { value: 'Water',   name: 'Water Trial' },
+    { value: 'Shadow',  name: 'Shadow Trial' },
+    { value: 'Spirit',  name: 'Spirit Trial' },
   ],
   default: 'none'
 }, {
@@ -1341,6 +1355,13 @@ export const SETTINGS = [{
 }, {
   key: 'erGanonTower',
   name: 'Shuffle Ganon\'s Tower with Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  default: false,
+  cond: (x: any) => x.erDungeons !== 'none'
+}, {
+  key: 'erMoon',
+  name: 'Shuffle Clock Tower with Dungeons',
   category: 'entrances',
   type: 'boolean',
   default: false,

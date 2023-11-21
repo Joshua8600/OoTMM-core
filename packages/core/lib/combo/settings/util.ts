@@ -10,8 +10,12 @@ import { SETTINGS_DEFAULT_HINTS } from './hints';
 import { DEFAULT_GLITCHES, GLITCHES } from './glitches';
 
 export const DEFAULT_SETTINGS: Settings = { ...SETTINGS.map(s => {
-  return {[s.key]: s.default};
-}).reduce((a, b) => ({...a, ...b}), {}),
+  if (s.type === 'set') {
+    return {[s.key]: { type: s.default }};
+  } else {
+    return {[s.key]: s.default};
+  }
+}).reduce((a, b) => ({...a, ...b} as any), {}),
   startingItems: {},
   junkLocations: [] as string[],
   tricks: [ ...DEFAULT_TRICKS ],
@@ -102,7 +106,7 @@ export function validateSettings(settings: Settings) {
   }
 }
 
-function applyBaseSettings(dest: SettingsBase, src: Partial<SettingsBase>) {
+function applyBaseSettings(dest: SettingsBase, src: PartialDeep<SettingsBase>) {
   for (const setting of SETTINGS) {
     const { key } = setting;
     if (src.hasOwnProperty(key)) {
@@ -111,6 +115,14 @@ function applyBaseSettings(dest: SettingsBase, src: Partial<SettingsBase>) {
       case 'enum':
         if (setting.values.some(v => v.value === newValue)) {
           (dest as any)[key] = newValue;
+        }
+        break;
+      case 'set':
+        if (newValue instanceof Object && (['all', 'none', 'random', 'specific'].includes(newValue.type!))) {
+          (dest as any)[key] = { ...newValue };
+          if (newValue.type === 'specific') {
+            (dest[key] as any).values = Array.from(new Set(Array.from(newValue.values || []).filter(x => setting.values.some(v => v.value === x))));
+          }
         }
         break;
       case 'boolean':

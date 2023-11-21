@@ -50,6 +50,7 @@ const DUNGEON_INDEX = {
   PF: 22,
   Ganon: 23,
   Tower: 24,
+  Moon: 25,
 } as {[k: string]: number};;
 
 type PlaceOpts = {
@@ -65,7 +66,6 @@ export class LogicPassEntrances {
   constructor(
     private readonly input: {
       worlds: World[];
-      exprParsers: ExprParsers;
       settings: Settings;
       random: Random;
       monitor: Monitor;
@@ -300,6 +300,9 @@ export class LogicPassEntrances {
     if (this.input.settings.erSecretShrine) {
       shuffledDungeons.add('SS');
     }
+    if (this.input.settings.erMoon) {
+      shuffledDungeons.add('Moon');
+    }
 
     /* Get the transitions and exprs */
     const dungeonTransitions = [...world.entrances.values()]
@@ -374,8 +377,8 @@ export class LogicPassEntrances {
     }
   }
 
-  private songOfTime(e: Expr): Expr {
-    const subcond = this.input.exprParsers.mm.parse('can_reset_time');
+  private songOfTime(worldId: number, e: Expr): Expr {
+    const subcond = this.worlds[worldId].exprParsers.mm.parse('can_reset_time');
     return exprAnd([e, subcond]);
   }
 
@@ -392,7 +395,7 @@ export class LogicPassEntrances {
         world.areas[entranceOriginal.from].exits['MM GLOBAL'] = expr;
       }
       if (!opts.noSongOfTime) {
-        expr = this.songOfTime(expr);
+        expr = this.songOfTime(worldId, expr);
       }
     }
     world.areas[entranceOriginal.from].exits[entranceReplacement.to] = expr;
