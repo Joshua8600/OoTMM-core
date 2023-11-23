@@ -9,6 +9,8 @@ static void debugCheat(GameState_Play* play)
 #if defined(DEBUG)
     if (play->gs.input[0].current.buttons & L_TRIG)
     {
+        SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
+        SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
         gSave.playerData.swordHealth = 8;
         gSave.isBiggoronSword = 1;
 
@@ -320,6 +322,7 @@ void hookPlay_Init(GameState_Play* play)
 
     comboCacheClear();
     comboObjectsReset();
+    comboExObjectsReset();
     debugCheat(play);
     eventFixes(play);
 

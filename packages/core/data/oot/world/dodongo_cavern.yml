@@ -36,8 +36,8 @@
     "Dodongo Cavern Right Corridor": "true"
   locations:
     "Dodongo Cavern GS Side Room": "can_damage_skull"
-    # This grass fail to load
-    #"Dodongo Cavern Grass East Corridor Side Room": "can_cut_grass"
+    # Normally fails to load
+    "Dodongo Cavern Grass East Corridor Side Room": "can_cut_grass"
 "Dodongo Cavern Miniboss 1":
   dungeon: DC
   exits:
@@ -78,7 +78,7 @@
   exits:
     "Dodongo Cavern Main": "true"
     "Dodongo Cavern Compass Room": "true"
-    "Dodongo Cavern Stairs Top": "has_bombflowers || can_use_din || has_blue_fire_arrows_mudwall || climb_anywhere || hookshot_anywhere"
+    "Dodongo Cavern Stairs Top": "has_bombflowers || can_use_din || climb_anywhere || hookshot_anywhere"
 "Dodongo Cavern Stairs Top":
   dungeon: DC
   exits:
