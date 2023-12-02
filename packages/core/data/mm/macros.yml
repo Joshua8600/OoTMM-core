@@ -152,6 +152,7 @@
 "can_isg_tf": "has(SHIELD, 1)"
 "can_bomb_hover": "can_isg_ow && has(MASK_BLAST)"
 "can_ocarina_NNL": "(cond(setting(sharedOcarina), cond(setting(fairyOcarinaMm), has_ocarina_n(1), has_ocarina_n(2)), has_ocarina_n(1))) || (has(BOTTLE_EMPTY) || has(BOTTLE_POTION_RED) || has(BOTTLE_MILK) || event(GOLD_DUST_USED) || has(BOTTLE_CHATEAU))"
+"can_jump_fences": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
 
 # Wallets
 "has_wallet(n)": "cond(setting(childWallets), has(WALLET, n) || has(SHARED_WALLET, n), has(WALLET, n - 1) || has(SHARED_WALLET, n - 1))"
