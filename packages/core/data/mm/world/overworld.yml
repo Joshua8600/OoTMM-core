@@ -567,7 +567,7 @@
     "Road to Southern Swamp": "true"
     "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf || short_hook_anywhere"
     "Milk Road": "true"
-    "Great Bay Fence": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
+    "Great Bay Fence": "can_jump_fences"
     "Road to Ikana Front": "true"
     "Astral Observatory Balcony": "true"
     "Grass Grotto": "true"
@@ -2131,7 +2131,7 @@
 "Great Bay Fence":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
+    "Termina Field": "can_jump_fences"
     "Great Bay Coast": "true"
 "Great Bay Coast":
   region: GREAT_BAY_COAST
@@ -2541,7 +2541,7 @@
   exits:
     "Termina Field": "true"
     "Road to Ikana Grotto": "has_mask_goron"
-    "Road to Ikana Center": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
+    "Road to Ikana Center": "can_jump_fences"
   locations:
     "Road to Ikana Chest": "can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))"
 "Road to Ikana Grotto":
@@ -2579,7 +2579,7 @@
     RUPEES: "can_use_light_arrows && is_night && soul_bubble"
     FAIRY: "can_get_gossip_fairy || scarecrow_hookshot || short_hook_anywhere"
   exits:
-    "Road to Ikana Front": "(can_ocarina_NNL && (has(SONG_EPONA) || has(SHARED_SONG_EPONA))) || (can_goron_bomb_jump && (has(BOMB_BAG) || has(SHARED_BOMB_BAG))) || can_bomb_hover || short_hook_anywhere"
+    "Road to Ikana Front": "can_jump_fences"
     "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))) || short_hook_anywhere"
     "Ikana Graveyard": "true"
   locations:
