@@ -12,6 +12,9 @@
 
 # define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
+// "Length" is how long the fish is, which affects how much it weighs, but I call it weight sometimes anyway.
+# define FISH_WEIGHT_TO_LENGTH(weight) ((s32) (sqrtf((weight - 0.5f) / 0.0036f) + 0.1f)) // Add 0.1 to prevent rounding errors
+
 # include <ultra64.h>
 # include <combo/actor_ovl.h>
 # include <combo/defs.h>
@@ -71,7 +74,7 @@
 #include <combo/entrances.h>
 #include <combo/common/events.h>
 #include <combo/scenes.h>
-#include <combo/shader.h>
+#include <combo/drawgi.h>
 #include <combo/config.h>
 #if defined (GAME_OOT)
 # include <combo/oot/pause_state_defs.h>
@@ -196,6 +199,7 @@ void swapFarore(void);
 #define OV_SHOP         0x07
 #define OV_SCRUB        0x08
 #define OV_SR           0x09
+#define OV_FISH         0x0A
 
 #define OV_XFLAG0       0x10
 #define OV_XFLAG1       0x11
@@ -215,6 +219,7 @@ void swapFarore(void);
 
 /* Text */
 int  comboMultibyteCharSize(u8 c);
+void comboTextExtra(char** b, GameState_Play* play, s16 gi);
 void comboTextHijackItem(GameState_Play* play, s16 gi, int count);
 void comboTextHijackItemEx(GameState_Play* play, const ComboItemOverride* o, int count);
 void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s16 price, int confirm);
@@ -222,6 +227,7 @@ void comboTextHijackItemShop(GameState_Play* play, const ComboItemOverride* o, s
 #if defined(GAME_OOT)
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int base, int count);
 void comboTextHijackLightArrows(GameState_Play* play);
+void comboTextHijackFishCaught(GameState_Play* play, const ComboItemOverride* o);
 #else
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int hint);
 void comboTextHijackOathToOrder(GameState_Play* play);
@@ -254,8 +260,7 @@ void comboSpawnCustomWarps(GameState_Play*);
 #define DRAW_RAW        (DRAW_NO_PRE1 | DRAW_NO_PRE2)
 
 void comboSetObjectSegment(GfxContext* gfx, void* buffer);
-void comboDrawObject(GameState_Play* play, Actor* actor, u16 objectId, u16 shaderId, int flags);
-void comboDrawGI(GameState_Play* play, Actor* actor, int gi, int flags);
+void comboDrawGI(GameState_Play* play, Actor* actor, s16 gi, int flags);
 void comboDrawInit2D(Gfx** dl);
 void comboDrawBlit2D(Gfx** dl, u32 segAddr, int w, int h, float x, float y, float scale);
 void comboDrawBlit2D_IA4(Gfx** dl, u32 segAddr, int w, int h, float x, float y, float scale);
@@ -353,8 +358,8 @@ extern s32 gLastScene;
 /* Warp */
 void comboTriggerWarp(GameState_Play* play, int index);
 
-/* Custom Shaders */
-void Shader_Xlu0(GameState_Play* play, s16 shaderId);
+/* Custom DrawGI */
+void DrawGI_Xlu0(GameState_Play* play, s16 drawGiId);
 
 /* MQ */
 void comboMqKaleidoHook(GameState_Play* play);
