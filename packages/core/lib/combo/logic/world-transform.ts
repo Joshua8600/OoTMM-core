@@ -1248,7 +1248,6 @@ export class LogicPassWorldTransform {
             const item = itemByID(itemKey);
             const pi = makePlayerItem(item, i);
             this.addPlayerItem(pi);
-            console.log(pi);
           }
         }
 
