@@ -115,6 +115,7 @@
 
 #define EV_MM_WEEK_WOODFALL_TEMPLE_RISE         MM_EV(20,   0)
 #define EV_MM_WEEK_DUNGEON_WF                   MM_EV(20,   1)
+#define EV_MM_WEEK_CURIOSITY_SHOP_BOUGHT        MM_EV(33,   2)
 #define EV_MM_WEEK_DUNGEON_SH                   MM_EV(33,   7)
 #define EV_MM_WEEK_DUNGEON_GB                   MM_EV(55,   7)
 #define EV_MM_WEEK_DUNGEON_ST                   MM_EV(52,   5)
@@ -124,6 +125,7 @@
 # define MM_SET_EVENT_WEEK(x)       (gMmSave.weekEventReg[(x) / 8] |= (1 << ((x) % 8)))
 # define MM_CLEAR_EVENT_WEEK(x)     (gMmSave.weekEventReg[(x) / 8] &= ~(1 << ((x) % 8)))
 # define MM_GET_EVENT_WEEK(x)       (gMmSave.weekEventReg[(x) / 8] & (1 << ((x) % 8)))
+# define MM_CHECK_EVENT_INF(x)      (gMmSave.eventInf[(x) >> 4] & (1 << ((x) & 0xf)))
 int  GetEventChk(int index);
 void SetEventChk(int index);
 #endif

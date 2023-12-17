@@ -71,9 +71,12 @@ PATCH_START 0x80a35964
   nop
 PATCH_END
 
+/* Ugly fix to circumvent an overlapping range (TODO: find a better way)*/
+PATCH_GROUP PG_OOT_NOT_FISHING_POND_SHUFFLE
 PATCH_START 0x80a35988
   nop
 PATCH_END
+PATCH_GROUP_END
 
 PATCH_START 0x80a3d570
   jal     FishBite
@@ -299,8 +302,8 @@ Replaces:
 PATCH_START 0x80a3579c
   jal       Fishing_IsFishLoach
   or        a0, v0, zero
-  bnez      v0, .+0x54
   nop
+  bnez      v0, .+0x50
 PATCH_END
 
 /*
@@ -383,6 +386,30 @@ PATCH_START 0x80a3f4e8
   nop
   b         .+0x38
   nop
+PATCH_END
+
+/*
+Replaces:
+  LBU       T8, 0x0140 (S0)
+*/
+PATCH_START 0x80a3c0b4
+  lbu       t8, 0x0143 (s0)
+PATCH_END
+
+/*
+Replaces:
+  LBU       T1, 0x0140 (S0)
+*/
+PATCH_START 0x80a3f598
+  lbu       t1, 0x0143 (s0)
+PATCH_END
+
+/*
+Replaces:
+  LBU       T6, 0x0140 (S0)
+*/
+PATCH_START 0x80a40530
+  lbu       t6, 0x0143 (s0)
 PATCH_END
 
 PATCH_GROUP_END

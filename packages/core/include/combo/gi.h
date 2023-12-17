@@ -1,7 +1,6 @@
 #ifndef COMBO_GI_H
 #define COMBO_GI_H
 
-#define GI_NONE 0x00
 #include <combo/gi_data.h>
 
 #if !defined(__ASSEMBLER__)
@@ -17,18 +16,9 @@ typedef struct PACKED ALIGNED(2)
 }
 GetItem;
 
-typedef struct PACKED ALIGNED(2)
-{
-    GetItem native[MASK_FOREIGN_GI];
-    GetItem foreign[];
-}
-ExtendedItemTable;
-
-extern const ExtendedItemTable kExtendedGetItemsTable;
-#define kExtendedGetItems ((const GetItem*)(kExtendedGetItemsTable.native))
-
-extern const u8 kGetItemDrawGiParamOot[];
-extern const u8 kGetItemDrawGiParamMm[];
+extern const GetItem kExtendedGetItems[];
+extern const u8 kGetItemDrawGiParam[];
+extern const char* const kItemNames[];
 
 #endif
 

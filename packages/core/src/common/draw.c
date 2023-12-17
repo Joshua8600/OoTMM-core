@@ -23,18 +23,7 @@ static u8 playerDrawGiParam;
 
 static u8 paramForGi(s16 gi)
 {
-    u8 param;
-
-#if defined(GAME_MM)
-    gi ^= MASK_FOREIGN_GI;
-#endif
-
-    if (gi & MASK_FOREIGN_GI)
-        param = kGetItemDrawGiParamMm[(gi ^ MASK_FOREIGN_GI) - 1];
-    else
-        param = kGetItemDrawGiParamOot[gi - 1];
-
-    return param;
+    return kGetItemDrawGiParam[gi - 1];
 }
 
 static void drawGiParamDrawId(GameState_Play* play, u8 drawGiId, u8 param)
@@ -75,12 +64,9 @@ void comboDrawGI(GameState_Play* play, Actor* actor, s16 gi, int flags)
     drawGiParam(play, gi);
 }
 
-void comboPlayerDrawGI(GameState_Play* play)
+void comboPlayerDrawGI(GameState_Play* play, int drawGiMinusOne)
 {
-    Actor_Player* link;
-
-    link = GET_LINK(play);
-    drawGiParamDrawId(play, link->drawGiId, playerDrawGiParam);
+    drawGiParamDrawId(play, (u8)(drawGiMinusOne + 1), playerDrawGiParam);
 }
 
 void comboPlayerSetDrawGi(Actor_Player* link)
