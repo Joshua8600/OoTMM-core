@@ -99,12 +99,13 @@ static const u8 kItemSlotsMm[] = {
     ITS_MM_ARROW_FIRE,
     ITS_MM_ARROW_ICE,
     ITS_MM_ARROW_LIGHT,
-    ITS_MM_OCARINA,
+    ITS_MM_OCARINA, // needed padding??
     ITS_MM_BOMBS,
     ITS_MM_BOMBCHU,
     ITS_MM_STICKS,
     ITS_MM_NUTS,
     ITS_MM_BEANS,
+    ITS_MM_OCARINA, // needed padding??
     ITS_MM_KEG,
     ITS_MM_PICTOBOX,
     ITS_MM_LENS,
@@ -296,12 +297,12 @@ static int addItemRupeesMm(GameState_Play* play, u8 itemId, s16 gi, u16 param)
 
 static void addWalletRawOot(u16 index)
 {
-    if (index == 0)
+    if (index == 1)
     {
         gOotExtraFlags.childWallet = 1;
         gOotMaxRupees[0] = 99;
     }
-    else if (index == 4)
+    else if (index == 5)
     {
         gOotExtraFlags.bottomlessWallet = 1;
         gOotMaxRupees[3] = 9999;
@@ -310,17 +311,17 @@ static void addWalletRawOot(u16 index)
 #endif
     }
     else
-        gOotSave.inventory.upgrades.wallet = index;
+        gOotSave.inventory.upgrades.wallet = (index - 1);
 }
 
 static void addWalletRawMm(u16 index)
 {
-    if (index == 0)
+    if (index == 1)
     {
         gMmExtraFlags2.childWallet = 1;
         gMmMaxRupees[0] = 99;
     }
-    else if (index == 4)
+    else if (index == 5)
     {
         gMmExtraFlags3.bottomlessWallet = 1;
         gMmMaxRupees[3] = 9999;
@@ -329,7 +330,7 @@ static void addWalletRawMm(u16 index)
 #endif
     }
     else
-        gMmSave.inventory.upgrades.wallet = index;
+        gMmSave.inventory.upgrades.wallet = (index - 1);
 }
 
 static void addWalletRawShared(u16 index)
@@ -1304,7 +1305,7 @@ static int addItemSkeletonKeyOot(GameState_Play* play, u8 itemId, s16 gi, u16 pa
     for (int j = 0; j < ARRAY_SIZE(g.maxKeysOot); ++j)
     {
         for (int i = 0; i < g.maxKeysOot[j]; ++i)
-            addSmallKeyOot(param);
+            addSmallKeyOot(j);
     }
     return 0;
 }
@@ -1314,7 +1315,7 @@ static int addItemSkeletonKeyMm(GameState_Play* play, u8 itemId, s16 gi, u16 par
     for (int j = 0; j < ARRAY_SIZE(g.maxKeysMm); ++j)
     {
         for (int i = 0; i < g.maxKeysMm[j]; ++i)
-            addSmallKeyMm(param);
+            addSmallKeyMm(j);
     }
     return 0;
 }
@@ -1766,6 +1767,9 @@ static const SharedItem kSimpleSharedItems[] = {
     { CFG_SHARED_SOULS_ENEMY, GI_OOT_SOUL_ENEMY_FLOORMASTER, GI_MM_SOUL_ENEMY_FLOORMASTER },
     { CFG_SHARED_SOULS_ENEMY, GI_OOT_SOUL_ENEMY_LEEVER, GI_MM_SOUL_ENEMY_LEEVER },
     { CFG_SHARED_SOULS_ENEMY, GI_OOT_SOUL_ENEMY_STALCHILD, GI_MM_SOUL_ENEMY_STALCHILD },
+    { CFG_SHARED_SHIELDS, GI_OOT_SHIELD_HYLIAN, GI_MM_SHIELD_HERO },
+    { CFG_SHARED_SHIELDS, GI_OOT_SHIELD_MIRROR, GI_MM_SHIELD_MIRROR },
+    { CFG_SHARED_SHIELDS, GI_OOT_PROGRESSIVE_SHIELD_HYLIAN, GI_MM_PROGRESSIVE_SHIELD_HERO },
 };
 
 static int addItem(GameState_Play* play, s16 gi)

@@ -532,7 +532,7 @@ export class LogicPassWorldTransform {
     this.mergeHearts();
   }
 
-  private shareItems(defs: ItemSharedDef[]) {
+  private shareItems(defs: ItemSharedDef[], policy: 'max' | 'sum') {
     for (let playerId = 0; playerId < this.state.worlds.length; ++playerId) {
       for (const def of defs) {
         const piShared = makePlayerItem(def.shared, playerId);
@@ -540,7 +540,11 @@ export class LogicPassWorldTransform {
         const piMm = makePlayerItem(def.mm, playerId);
         const amountOot = this.pool.get(piOot) || 0;
         const amountMm = this.pool.get(piMm) || 0;
-        const newAmount = (amountOot + amountMm) / 2;
+        let newAmount: number;
+        switch (policy) {
+        case 'max': newAmount = Math.max(amountOot, amountMm); break;
+        case 'sum': newAmount = amountOot + amountMm; break;
+        }
         this.removePlayerItem(piOot);
         this.removePlayerItem(piMm);
         this.addPlayerItem(piShared, newAmount);
@@ -749,15 +753,21 @@ export class LogicPassWorldTransform {
     }
 
     if (settings.sharedSoulsEnemy) {
-      this.shareItems(SharedItemGroups.SOULS_ENEMY);
+      this.shareItems(SharedItemGroups.SOULS_ENEMY, 'max');
     }
 
     if (settings.sharedSkeletonKey) {
-      this.shareItems(SharedItemGroups.SKELETON_KEY);
+      this.shareItems(SharedItemGroups.SKELETON_KEY, 'max');
     }
 
     if (settings.sharedOcarinaButtons) {
-      this.shareItems(SharedItemGroups.OCARINA_BUTTONS);
+      this.shareItems(SharedItemGroups.OCARINA_BUTTONS, 'max');
+    }
+
+    if (settings.sharedShields) {
+      this.shareItems(SharedItemGroups.SHIELDS, 'max');
+      this.replaceItem(Items.OOT_SHIELD_HYLIAN, Items.SHARED_SHIELD_HYLIAN);
+      this.replaceItem(Items.MM_SHIELD_HERO,    Items.SHARED_SHIELD_HYLIAN);
     }
 
     /* Triforce hunt */
