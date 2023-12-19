@@ -132,7 +132,7 @@
 "Spirit Temple Top Floor":
   dungeon: Spirit
   events:
-    SPIRIT_TEMPLE_LIGHT: "can_play_zelda && can_hammer && can_reflect_light"
+    SPIRIT_TEMPLE_LIGHT: "can_play_zelda && can_hammer && has_mirror_shield"
   locations:
     "MQ Spirit Temple Topmost Chest": "can_play_zelda && can_hammer && has_lens"
     "MQ Spirit Temple GS Top Floor Left Wall": "small_keys_spirit(7) && soul_iron_knuckle"
