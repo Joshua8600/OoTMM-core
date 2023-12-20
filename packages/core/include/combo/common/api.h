@@ -76,6 +76,7 @@ u32     GetCollectibleFlag(GameState_Play* play, int flag);
 void    SetCollectibleFlag(GameState_Play* play, int flag);
 u32     GetSwitchFlag(GameState_Play* play, int flag);
 u32     SetSwitchFlag(GameState_Play* play, int flag);
+void    ClearSwitchFlag(GameState_Play* play, int flag);
 void    SetRoomClear(GameState_Play* play, int flag);
 
 #if defined(GAME_MM)
@@ -249,6 +250,7 @@ void DrawGi_Scale(GameState_Play*, s16);
 void DrawGi_SoldOut(GameState_Play*, s16);
 void DrawGi_Spell(GameState_Play*, s16);
 void DrawGi_MoonTear(GameState_Play*, s16);
+void DrawGi_BottleFairy(GameState_Play*, s16);
 
 void SpawnRoomActors(GameState_Play* play, int id);
 

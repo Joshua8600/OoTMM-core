@@ -62,6 +62,7 @@
 "can_boomerang": "age_boomerang && has(BOOMERANG)"
 "can_hammer": "age_hammer && has(HAMMER)"
 "has_bottle": "true"
+"has_big_poe": "has_bottle && (event(BIG_POE) || renewable(BOTTLE_BIG_POE) || renewable(BIG_POE))"
 "can_use_beans": "is_child && has(MAGIC_BEAN)"
 
 # Age macros

@@ -652,6 +652,9 @@ export const BOTTLES_OOT = new Set([
   Items.OOT_BOTTLE_POTION_RED,
   Items.OOT_BOTTLE_POTION_GREEN,
   Items.OOT_BOTTLE_POTION_BLUE,
+  Items.OOT_BOTTLE_FAIRY,
+  Items.OOT_BOTTLE_POE,
+  Items.OOT_BOTTLE_BIG_POE,
 ]);
 
 export const BOTTLES_MM = new Set([
@@ -661,6 +664,9 @@ export const BOTTLES_MM = new Set([
   Items.MM_BOTTLE_POTION_RED,
   Items.MM_BOTTLE_POTION_GREEN,
   Items.MM_BOTTLE_POTION_BLUE,
+  Items.MM_BOTTLE_FAIRY,
+  Items.MM_BOTTLE_POE,
+  Items.MM_BOTTLE_BIG_POE,
 ]);
 
 export const FISHING_POND_FISH = new Set([

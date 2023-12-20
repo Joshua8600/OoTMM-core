@@ -69,6 +69,9 @@ int isItemFastBuy(s16 gi)
     case GI_MM_CHATEAU:
     case GI_MM_FISH:
     case GI_MM_BUGS:
+    case GI_MM_POE:
+    case GI_OOT_BIG_POE:
+    case GI_MM_BIG_POE:
         return 1;
     default:
         return 0;
