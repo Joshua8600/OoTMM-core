@@ -24,7 +24,7 @@ export const TRICKS = {
   OOT_PASS_COLLISION: "Pass through Visible One-Way Collisions",
   OOT_DMT_RED_ROCK_GS: "DMT Red Rock Skulls without Hammer",
   OOT_DEAD_HAND_STICKS: "Child Dead Hand without Kokiri Sword",
-  OOT_BFA_MUDWALLS: "Break Mud Walls with Blue Fire Arrows",
+  OOT_BFA_MUDWALLS: "Break mud walls with blue fire arrows",
   OOT_JABU_BOSS_HOVER: "Access Jabu-Jabu Pre-Boss using Hover Boots",
   OOT_SPIRIT_CHILD_HOVER: "Access Adult Spirit as Child using Hover Boots",
   OOT_VALLEY_GATE_HOVER: "Reach Gerudo Fortress as Child using Hover Boots",
@@ -48,8 +48,6 @@ export const TRICKS = {
   OOT_GTG_CHILD_TT: "Enter Gerudo Training Grounds as Child with Time Travel",
   OOT_REVERSE_DAMPE: "Navigate Dampe's Grave in Reverse",
   OOT_GANON_FAIRY_TT: "Ganon's Great Fairy with Age Swap and without Gold Gauntlets",
-  OOT_GANON_CASTLE_ENTRY: "Enter Ganon's Castle with Longshot Anywhere",
-  OOT_SHADOW_TEMPLE_STICKS: "Enter Shadow Temple with Sticks & Fire Arrows",
   MM_LENS: "Fewer Lens Requirements (MM)",
   MM_PALACE_BEAN_SKIP: "Skip Planting Beans in Deku Palace",
   MM_DARMANI_WALL: "Climb Mountain Village Wall Blind",
@@ -85,9 +83,12 @@ export const TRICKS = {
   MM_ESCAPE_CAGE: "Escape the Monkey Cage with Hookshot Anywhere",
   MM_GBT_FAIRY2_HOOK: "GBT First Underwater Fairy with Short Hookshot Anywhere",
   MM_GBT_CENTRAL_GEYSER: "GBT Central Room without Zora using Fire & Ice Arrows",
+<<<<<<< HEAD
+  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
+=======
   MM_BANK_ONE_WALLET: "Bank Rewards Require One Less Wallet",
   MM_BANK_NO_WALLET: "Bank Rewards Require No Wallets",
-  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
+>>>>>>> develop
 };
 
 export type Trick = keyof typeof TRICKS;
