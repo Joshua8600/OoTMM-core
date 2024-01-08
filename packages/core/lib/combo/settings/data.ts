@@ -1925,4 +1925,12 @@ export const SETTINGS = [{
   description: 'Shuffle the two owl flights among one-way entrances.',
   default: false,
   cond: (x: any) => x.erOneWays !== 'none'
+}, {
+  key: 'erOneWaysVoids',
+  name: 'Shuffle Void points',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle some void among one-way entrances.',
+  default: false,
+  cond: (x: any) => x.erOneWays !== 'none'
 }] as const;
