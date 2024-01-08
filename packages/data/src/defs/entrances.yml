@@ -314,3 +314,8 @@ MM_WALLMASTER_BTW_FOUNTAIN:                     { game: mm,  id: 0xff02, type: w
 MM_WALLMASTER_BTW_EXIT:                         { game: mm,  id: 0xff03, type: wallmaster, areas: ["MM Beneath The Well Wallmaster Near Exit", "MM VOID"] }
 MM_CLOCK_TOWN:                                  { game: mm,  id: 0xd800, type: none, debug: ['COMMON', 'Clock Town'] }
 MM_MOON:                                        { game: mm,  id: 0xc800, type: none, debug: ['COMMON', 'Moon'] }
+MM_VOID_GREAT_BAY_COAST:                        { game: mm,  id: 0x6820, type: one-way-void, areas: ["MM Great Bay Coast", "MM VOID"] }
+MM_VOID_PINNACLE_ROCK:                          { game: mm,  id: 0x4410, type: one-way-void, areas: ["MM Pinnacle Rock Void", "MM VOID"] }
+MM_VOID_ZORA_CAPE:                              { game: mm,  id: 0x6a30, type: one-way-void, areas: ["MM Zora Cape", "MM VOID"] }
+MM_VOID_SEWERS:                                 { game: mm,  id: 0x7030, type: one-way-void, areas: ["MM Pirate Fortress Sewers Void", "MM VOID"] }
+
