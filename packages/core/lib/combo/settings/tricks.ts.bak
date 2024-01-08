@@ -24,7 +24,7 @@ export const TRICKS = {
   OOT_PASS_COLLISION: "Pass through Visible One-Way Collisions",
   OOT_DMT_RED_ROCK_GS: "DMT Red Rock Skulls without Hammer",
   OOT_DEAD_HAND_STICKS: "Child Dead Hand without Kokiri Sword",
-  OOT_BFA_MUDWALLS: "Break Mud Walls with Blue Fire Arrows",
+  OOT_BFA_MUDWALLS: "Break mud walls with blue fire arrows",
   OOT_JABU_BOSS_HOVER: "Access Jabu-Jabu Pre-Boss using Hover Boots",
   OOT_SPIRIT_CHILD_HOVER: "Access Adult Spirit as Child using Hover Boots",
   OOT_VALLEY_GATE_HOVER: "Reach Gerudo Fortress as Child using Hover Boots",
@@ -36,7 +36,7 @@ export const TRICKS = {
   OOT_ENTER_JABU: "Enter Jabu-Jabu with Head Collision",
   OOT_JABU_BOSS_HIGH_SWITCH: "Jabu Boss Switch without Boomerang or Climb Anywhere",
   OOT_WATER_REVERSE_RIVER: "Water Temple Reverse River with Hookshot Anywhere",
-  OOT_WATER_PIT_GS_CHU: "Water Temple Large Pit GS with Bombchu",
+  OOT_WATER_PIT_GS_CHU: "Water Temple Large Pit GS with Bombchus",
   OOT_SHADOW_BOAT_EARLY: "Reach Shadow Temple Boat with Climb Anywhere",
   OOT_SPIRIT_BOSS_CLIMB_NO_HOOK: "Reach Twinrova using Climb Anywhere and Hover Boots",
   OOT_DC_BOULDER: "Skip Dodongo Cavern's Boulder using Ageless Hookshot Anywhere",
@@ -48,8 +48,6 @@ export const TRICKS = {
   OOT_GTG_CHILD_TT: "Enter Gerudo Training Grounds as Child with Time Travel",
   OOT_REVERSE_DAMPE: "Navigate Dampe's Grave in Reverse",
   OOT_GANON_FAIRY_TT: "Ganon's Great Fairy with Age Swap and without Gold Gauntlets",
-  OOT_GANON_CASTLE_ENTRY: "Enter Ganon's Castle with Longshot Anywhere",
-  OOT_SHADOW_TEMPLE_STICKS: "Enter Shadow Temple with Sticks & Fire Arrows",
   MM_LENS: "Fewer Lens Requirements (MM)",
   MM_PALACE_BEAN_SKIP: "Skip Planting Beans in Deku Palace",
   MM_DARMANI_WALL: "Climb Mountain Village Wall Blind",
@@ -63,7 +61,7 @@ export const TRICKS = {
   MM_BOMBER_SKIP: "Guess Bomber Code",
   MM_CAPTAIN_SKIP: "Guess Oceanside Spider House Code",
   MM_ISTT_ENTRY_JUMP: "Inverted Stone Tower Temple Long Jump to Death Armos",
-  MM_HARD_HOOKSHOT: "Precise Hookshot Usage",
+  MM_SHORT_HOOK_HARD: "Precise Short Hookshot Usage",
   MM_PFI_BOAT_HOOK: "Enter Pirate Fortress Interior using Hookshot from the Boats",
   MM_PALACE_GUARD_SKIP: "Backflip over Deku Palace Guards",
   MM_SHT_FIRELESS: "Complete Snowhead Temple without Fire Arrows",
@@ -85,10 +83,12 @@ export const TRICKS = {
   MM_ESCAPE_CAGE: "Escape the Monkey Cage with Hookshot Anywhere",
   MM_GBT_FAIRY2_HOOK: "GBT First Underwater Fairy with Short Hookshot Anywhere",
   MM_GBT_CENTRAL_GEYSER: "GBT Central Room without Zora using Fire & Ice Arrows",
+<<<<<<< HEAD
+  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
+=======
   MM_BANK_ONE_WALLET: "Bank Rewards Require One Less Wallet",
   MM_BANK_NO_WALLET: "Bank Rewards Require No Wallets",
-  MM_CLOCK_TOWER_WAIT: "Wait for the Clock Tower to Open When Shuffled",
-  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
+>>>>>>> develop
 };
 
 export type Trick = keyof typeof TRICKS;
