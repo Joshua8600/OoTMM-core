@@ -1109,7 +1109,7 @@
     "Road to Southern Swamp Grotto": "true"
     "Tingle Swamp": "has_weapon_range"
   locations:
-    "Road to Southern Swamp HP": "has_weapon_range || has_bombchu"
+    "Road to Southern Swamp HP": "has_weapon_range"
     "Road to Southern Swamp Grass Pack 1 Grass 01": "true"
     "Road to Southern Swamp Grass Pack 1 Grass 02": "true"
     "Road to Southern Swamp Grass Pack 1 Grass 03": "true"
@@ -2585,8 +2585,13 @@
     RUPEES: "can_use_light_arrows && is_night && soul_bubble"
     FAIRY: "can_get_gossip_fairy || scarecrow_hookshot || short_hook_anywhere"
   exits:
+<<<<<<< HEAD:packages/data/src/world/mm/overworld.yml
+    "Road to Ikana Front": "can_play_epona || short_hook_anywhere || (can_goron_bomb_jump && has_bombs)"
+    "Road to Ikana Top": "((has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_HARD_HOOKSHOT)))) || short_hook_anywhere"
+=======
     "Road to Ikana Front": "can_jump_fences"
-    "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_HARD_HOOKSHOT))) || short_hook_anywhere"
+    "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))) || short_hook_anywhere"
+>>>>>>> Merge-attempt:packages/core/data/mm/world/overworld.yml
     "Ikana Graveyard": "true"
   locations:
     "Road to Ikana Stone Mask": "can_use_lens_strict && has_red_or_blue_potion"
