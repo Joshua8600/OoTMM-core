@@ -2586,7 +2586,7 @@
     FAIRY: "can_get_gossip_fairy || scarecrow_hookshot || short_hook_anywhere"
   exits:
     "Road to Ikana Front": "can_jump_fences"
-    "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_SHORT_HOOK_HARD))) || short_hook_anywhere"
+    "Road to Ikana Top": "(has(MASK_GARO) || has(MASK_GIBDO)) && (can_hookshot || (can_hookshot_short && trick(MM_HARD_HOOKSHOT))) || short_hook_anywhere"
     "Ikana Graveyard": "true"
   locations:
     "Road to Ikana Stone Mask": "can_use_lens_strict && has_red_or_blue_potion"
