@@ -1,5 +1,15 @@
 #include <combo.h>
 
+/* Resize */
+PATCH_START 0x800e775c
+.int 0x1a4
+PATCH_END
+
+/* Use custom init */
+PATCH_START 0x800e7760
+.int EnItem00_InitWrapper
+PATCH_END
+
 /* Make small keys use the same draw function as heart pieces */
 PATCH_START 0x80105fe0
 .int 0x80013014
@@ -31,14 +41,46 @@ PATCH_START 0x80012174
 PATCH_END
 
 /* Draw bombchu drops */
-PATCH_START 0x800e77dc
+PATCH_START 0x800e7800
 .int 0x0403fd80
 PATCH_END
 
+ChuDropSelectTex:
+  /* Replaced code */
+  lh    v1,0x1c(t7)
+  beq   v1,at,ChuDropSelectTex_SpecialBombs
+   nop
+  li    at,0x05
+  beq   v1,at,ChuDropSelectTex_Bombchu
+   nop
+  j     0x800132c8
+   slti at,v1,0x8
+
+ChuDropSelectTex_SpecialBombs:
+  j   0x800132d4
+   li a2,1
+
+ChuDropSelectTex_Bombchu:
+  j   0x800132d4
+   li a2,11
+
+PATCH_START 0x800132b0
+  j ChuDropSelectTex
+   nop
+PATCH_END
+
+/* Give chus */
 PATCH_START 0x800120be
 .short ITEM_OOT_BOMBCHU_5
 PATCH_END
 
 PATCH_START 0x80012d6e
 .short ITEM_OOT_BOMBCHU_5
+PATCH_END
+
+/* use our custom type 0 add hook */
+PATCH_START 0x80012cac
+  move a0,s0
+  jal EnItem00_AddXflag
+   move a1,s1
 PATCH_END
