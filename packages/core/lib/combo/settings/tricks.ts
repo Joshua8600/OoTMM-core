@@ -88,6 +88,8 @@ export const TRICKS = {
   MM_BANK_ONE_WALLET: "Bank Rewards Require One Less Wallet",
   MM_BANK_NO_WALLET: "Bank Rewards Require No Wallets",
   MM_CLOCK_TOWER_WAIT: "Wait for the Clock Tower to Open When Shuffled",
+  MM_WFT_RUPEES_ICE: "Collect the Pillar Rupees in Woodfall Temple using Ice Arrows",
+  MM_ISTT_RUPEES_GORON: "Collect the Floating Rupees in ISTT as Goron",
   MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
 };
 

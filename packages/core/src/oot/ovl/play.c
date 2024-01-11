@@ -7,7 +7,7 @@ GameState_Play* gPlay;
 static void debugCheat(GameState_Play* play)
 {
 #if defined(DEBUG)
-    if (play->gs.input[0].current.buttons & L_TRIG)
+    if (!gSaveContext.gameMode && play->gs.input[0].current.buttons & L_TRIG)
     {
         SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
         SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
@@ -77,7 +77,8 @@ static void debugCheat(GameState_Play* play)
 
         gSave.playerData.magicUpgrade = 1;
         gSave.playerData.magicUpgrade2 = 1;
-        gSave.playerData.magicAmount = 0x60;
+        gOotSave.playerData.magicSize = 0;
+        gSaveContext.magicFillTarget = 0x60;
 
         gSave.inventory.dungeonKeys[SCE_OOT_TEMPLE_FOREST] = 9;
         gSave.inventory.dungeonKeys[SCE_OOT_INSIDE_GANON_CASTLE] = 9;
@@ -363,7 +364,7 @@ void hookPlay_Init(GameState_Play* play)
     }
 
 #if defined(DEBUG)
-    if (play->gs.input[0].current.buttons & R_TRIG)
+    if (!gSaveContext.gameMode && (play->gs.input[0].current.buttons & R_TRIG))
     {
         gComboCtx.shuffledEntrance = 0;
         comboGameSwitch(play, 0xd800);
