@@ -748,4 +748,3 @@ export class LogicPassEntrances {
     }
   }
 };
-
