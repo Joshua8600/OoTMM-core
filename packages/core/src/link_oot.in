@@ -42,6 +42,7 @@ DisplayTextBox2 = 0x800dce80;
 
 RequestDma = 0x80000d28;
 kObjectsTable = 0x800f8ff8;
+Audio_PlayFanfare = 0x800c69a0;
 
 DrawGi_Opa0_Xlu1        = 0x800582c0;
 DrawGi_Opa0_Xlu12       = 0x80058584;
@@ -217,8 +218,6 @@ gDmaData = 0x8000b140;
 
 DmaCompressed = 0x80001254;
 osSetThreadPri = 0x80004480;
-
-SetTextFlags = 0x800c69a0;
 
 EnItem00_Init = 0x80011b4c;
 Item_DropCollectible = 0x80013678;

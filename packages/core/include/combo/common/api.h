@@ -51,9 +51,9 @@ typedef struct Actor Actor;
 
 int    LoadFile(void* dst, u32 vromAddr, u32 size);
 
-Actor*  SpawnActor(void* const_1, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable);
+Actor*  SpawnActor(ActorContext* actorCtx, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable);
 #if defined(GAME_MM)
-Actor*  SpawnActorEx(void* const_1, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, int ex1, int ex2, int ex3);
+Actor*  SpawnActorEx(ActorContext* actorCtx, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, int ex1, int ex2, int ex3);
 #endif
 
 void    SkelAnime_DrawFlexOpa(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount,
@@ -80,11 +80,9 @@ void    ClearSwitchFlag(GameState_Play* play, int flag);
 void    SetRoomClear(GameState_Play* play, int flag);
 u32     GetRoomClearFlag(GameState_Play* play, int flag);
 
-void Actor_ProcessInitChain(Actor* this, void* data);
+void Audio_PlayFanfare(int fanfareId);
 
-#if defined(GAME_MM)
-Actor*  SpawnActorEx(void* const_1, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, int, int, int);
-#endif
+void Actor_ProcessInitChain(Actor* this, void* data);
 
 void DMARomToRam(u32 romAddr, void* dramAddr, u32 size);
 void DmaCompressed(u32 pstart, void* dst, u32 size);
@@ -204,7 +202,6 @@ void LoadIcon(u32 vaddr, int iconId, void* buffer, int size);
 int Player_UsingItem(Actor_Player* link);
 
 void PlaySound(u16 soundId);
-void PlaySoundSpecial(u16 soundId);
 void PlayMusic(int arg0, int arg1, int arg2, int arg3, int arg4);
 void Actor_PlaySfx(Actor* actor, u32 id);
 void PlayLoopingSfxAtActor(Actor* actor, u32 id);
@@ -356,9 +353,6 @@ s32 Health_ChangeBy(GameState_Play* play, s16 amount);
 s32 Magic_RequestChange(GameState_Play* play, s16 amount, s16 type);
 void Magic_Update(GameState_Play* play);
 void Magic_Refill(GameState_Play*);
-
-/* Unsure what this does */
-void SetTextFlags(u16 bits);
 
 typedef struct ObjectContext ObjectContext;
 int GetObjectSlot(ObjectContext* ctx, int objectId);

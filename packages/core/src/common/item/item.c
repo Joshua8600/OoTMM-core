@@ -328,6 +328,7 @@ void comboPlayerAddItem(GameState_Play* play, s16 gi)
     Actor* chest;
     Actor_Player* player;
     ComboItemQuery q = ITEM_QUERY_INIT;
+    ComboItemOverride o;
 
     /* Check for a chest */
     player = GET_LINK(play);
@@ -356,5 +357,16 @@ void comboPlayerAddItem(GameState_Play* play, s16 gi)
     if (q.gi < 0)
         q.gi = -q.gi;
 
+    comboItemOverride(&o, &q);
     comboAddItemEx(play, &q, 1);
+    comboPlayItemFanfare(o.gi, 0);
+}
+
+u8 comboItemType(s16 gi)
+{
+    if (gi == 0)
+        return ITT_NONE;
+    if (gi < 0)
+        gi = -gi;
+    return kExtendedGetItems[gi - 1].type;
 }
