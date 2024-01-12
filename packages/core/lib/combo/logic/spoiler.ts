@@ -268,11 +268,11 @@ export class LogicPassSpoiler {
       }
       
       const niceEntrances = new Array();
-      world.entranceOverrides.forEach((src, dst) => {
+      for (const [src, dst] of world.entranceOverrides) {
         const srcEntry = ENTRANCES[src as keyof typeof ENTRANCES];
         const dstEntry = ENTRANCES[dst as keyof typeof ENTRANCES];
-        niceEntrances.push(`${srcEntry.from} to ${srcEntry.to} -> ${dstEntry.to} from ${dstEntry.from}`);
-      })
+        niceEntrances.push(`${srcEntry.from} to ${srcEntry.to} (${src}) -> ${dstEntry.to} from ${dstEntry.from} (${dst})`);
+      }
       for (const niceE of niceEntrances.sort()) {
         this.write(`${niceE}`);
       }
