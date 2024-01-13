@@ -9,6 +9,7 @@ static void debugCheat(GameState_Play* play)
 #if defined(DEBUG)
     if (!gSaveContext.gameMode && play->gs.input[0].current.buttons & L_TRIG)
     {
+        MM_SET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI);
         SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
         SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
         gSave.playerData.swordHealth = 8;
@@ -345,7 +346,7 @@ void hookPlay_Init(GameState_Play* play)
     if (gSave.entrance == 0x0530)
     {
         gComboCtx.shuffledEntrance = 0;
-        comboGameSwitch(play, 0xd800);
+        comboGameSwitch(play, ENTR_MM_CLOCK_TOWN);
         return;
     }
 
@@ -367,7 +368,7 @@ void hookPlay_Init(GameState_Play* play)
     if (!gSaveContext.gameMode && (play->gs.input[0].current.buttons & R_TRIG))
     {
         gComboCtx.shuffledEntrance = 0;
-        comboGameSwitch(play, 0xd800);
+        comboGameSwitch(play, ENTR_MM_CLOCK_TOWN);
         return;
     }
 #endif

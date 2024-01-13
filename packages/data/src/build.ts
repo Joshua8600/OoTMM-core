@@ -3,13 +3,10 @@ import { join } from 'path';
 import { parse as parseYaml } from 'yaml';
 import * as CSV from 'csv/sync';
 
-let importBuf: string[] = [];
-
 function emit(name: string, filename: string, data: any) {
   const dir = join(__dirname, '..', 'dist');
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, `${filename}.json`), JSON.stringify(data));
-  importBuf.push(`export { default as ${name} } from './${filename}.json';`);
 }
 
 function loadYaml(name: string): any {
@@ -98,30 +95,15 @@ const HINTS_DATA = {
   mm: loadCsv('hints/hints_mm.csv'),
 };
 
-const ENTRANCES = loadYaml('defs/entrances.yml');
-for (const e of Object.values(ENTRANCES)) {
-  const ee = e as any;
-  if (ee.flags === undefined) {
-    ee.flags = [];
-  }
-  if (ee.areas) {
-    ee.from = ee.areas[0];
-    ee.to = ee.areas[1];
-    delete ee.areas;
-  }
-}
-
 emit('WORLD', 'data-world', DATA_WORLD);
 emit('SCENES', 'data-scenes', loadYaml('defs/scenes.yml'));
 emit('NPC', 'data-npc', loadYaml('defs/npc.yml'));
 emit('REGIONS', 'data-regions', loadYaml('defs/regions.yml'));
 emit('HINTS', 'data-hints', loadYaml('defs/hints.yml'));
-emit('ENTRANCES', 'data-entrances', ENTRANCES);
+emit('ENTRANCES', 'data-entrances', loadYaml('defs/entrances.yml'));
 emit('RAW_GI', 'data-gi', loadYaml('defs/gi.yml'));
 emit('RAW_DRAWGI', 'data-drawgi', loadYaml('defs/drawgi.yml'));
 emit('FILES', 'data-files', DATA_FILES);
 emit('MACROS', 'data-macros', MACROS);
 emit('POOL', 'data-pool', POOL);
 emit('RAW_HINTS_DATA', 'data-hints-raw', HINTS_DATA);
-
-writeFileSync(join(__dirname, '..', 'dist', 'index.ts'), importBuf.join('\n') + '\n');
