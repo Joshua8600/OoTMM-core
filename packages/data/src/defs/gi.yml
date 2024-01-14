@@ -407,6 +407,21 @@
 - { id: OOT_MASK_BLAST, type: MASK, add: [OOT_TRADE_CHILD, XITEM_OOT_CHILD_MASK_BLAST], flags: 0x80, draw: MM_MASK_BLAST, object: [mm, 0x026d], name: "the <C1>Blast Mask" }
 - { id: OOT_MASK_STONE, type: MASK, add: [OOT_TRADE_CHILD, XITEM_OOT_CHILD_MASK_STONE], flags: 0x80, draw: MM_MASK_STONE, object: [mm, 0x0254], name: "the <C1>Stone Mask" }
 - { id: OOT_TRAP_RUPOOR, add: [OOT_RUPEE, -10], flags: 0x80, draw: RUPOOR, name: "a <C4>Rupoor" }
+- { id: OOT_SOUL_NPC_LAKESIDE_PROFESSOR, type: SOUL, add: [OOT_SOUL, 0x2022], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c],  name: "the <C1>Soul of the Lakeside Professor" }
+- { id: OOT_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [OOT_SOUL, 0x2023], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Beans Salesman" }
+- { id: OOT_SOUL_NPC_DOG, type: SOUL, add: [OOT_SOUL, 0x2024], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Dogs" }
+- { id: OOT_SOUL_NPC_MAGIC_CARPET_MAN, type: SOUL, add: [OOT_SOUL, 0x2025], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Carpet Seller" }
+- { id: OOT_SOUL_NPC_INGO, type: SOUL, add: [OOT_SOUL, 0x2026], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Ingo" }
+- { id: OOT_SOUL_NPC_BUSINESS_SCRUB, type: SOUL, add: [OOT_SOUL, 0x2027], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Business Scrubs" }
+- { id: OOT_SOUL_NPC_OWL, type: SOUL, add: [OOT_SOUL, 0x2028], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Kaepora Gaebora" }
+- { id: OOT_SOUL_NPC_EPONA, type: SOUL, add: [OOT_SOUL, 0x2029], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Epona" }
+- { id: OOT_SOUL_NPC_POTION_WITCH, type: SOUL, add: [OOT_SOUL, 0x202a], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Old Hag" }
+- { id: OOT_SOUL_NPC_COMPOSER_BROS, type: SOUL, add: [OOT_SOUL, 0x202b], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Composer Brothers" }
+- { id: OOT_SOUL_NPC_CUCCO, type: SOUL, add: [OOT_SOUL, 0x202c], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Cuccos" }
+- { id: OOT_SOUL_ENEMY_POE, type: SOUL, add: [OOT_SOUL, 0x0029], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Poes" }
+- { id: OOT_SOUL_ENEMY_SPIKE_TRAPS, type: SOUL, add: [OOT_SOUL, 0x002a], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Spike Traps" }
+- { id: OOT_SOUL_ENEMY_GOLD_SKULLTULA, type: SOUL, add: [OOT_SOUL, 0x002b], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Golden Skulltulas" }
+- { id: OOT_SOUL_BOSS_GANONDORF, type: SOUL, add: [OOT_SOUL, 0x1008], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Ganondorf" }
 - { id: MM_RUPEE_GREEN, item: MM_RUPEE_GREEN, type: RUPEE, add: [MM_RUPEE, 1], flags: 0x00, draw: MM_RUPEE_GREEN, object: [mm, 0x013f], name: "a <C0>Green Rupee" }
 - { id: MM_RUPEE_BLUE, item: MM_RUPEE_BLUE, type: RUPEE, add: [MM_RUPEE, 5], flags: 0x01, draw: MM_RUPEE_BLUE, object: [mm, 0x013f], name: "a <C0>Blue Rupee" }
 - { id: MM_RUPEE_RED_10, item: MM_RUPEE_RED10, type: RUPEE, add: [MM_RUPEE, 10], flags: 0x02, draw: MM_RUPEE_RED, object: [mm, 0x013f], name: "a <C0>Red Rupee" }

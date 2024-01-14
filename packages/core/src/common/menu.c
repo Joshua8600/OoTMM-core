@@ -188,6 +188,9 @@ static const char* const kSoulsEnemyOot[] = {
     "Wolfos",
     "Stalchildren",
     "Guays",
+    "Poes",
+    "Spike Traps",
+    "Gold Skulltulas"
 };
 
 static const char* const kSoulsBossOot[] = {
@@ -199,6 +202,7 @@ static const char* const kSoulsBossOot[] = {
     "Morpha",
     "Bongo-Bongo",
     "Twinrova",
+    "Ganondorf",
 };
 
 static const char* const kSoulsNpcOot[] = {
@@ -235,6 +239,17 @@ static const char* const kSoulsNpcOot[] = {
     "Dampe",
     "Graveyard Kid",
     "Poe Collector",
+    "Lakeside Professor",
+    "Beans Salesman",
+    "Dogs",
+    "Bombchu Merchant",
+    "Ingo",
+    "Business Merchant",
+    "Kaepora Gaebora",
+    "Epona",
+    "Potion Witch",
+    "Composer Brothers",
+    "Cuccos"
 };
 
 static const char* const kSoulsEnemyMm[] = {
