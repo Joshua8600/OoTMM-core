@@ -123,7 +123,11 @@
 #Magic Item Macros
 "has_green_potion": "has_bottle && (renewable(POTION_GREEN) || renewable(BOTTLE_POTION_GREEN))"
 "has_blue_potion": "has_bottle && (renewable(POTION_BLUE) || renewable(BOTTLE_POTION_BLUE))"
+<<<<<<< HEAD:packages/data/src/macros/macros_oot.yml
+"has_magic": "(has(MAGIC_UPGRADE) || has(SHARED_MAGIC_UPGRADE)) && (event(MAGIC) || has_magic_jar || (setting(sharedMagic) && event(MM_MAGIC)) || has_green_potion || has_blue_potion)"
+=======
 "has_magic": "true"
+>>>>>>> Merge-attempt:packages/core/data/oot/macros.yml
 "can_use_din": "has_magic && has(SPELL_FIRE)"
 "can_use_nayru": "has_magic && has(SPELL_LOVE)"
 "has_light_arrows": "can_use_bow && (has(ARROW_LIGHT) || has(SHARED_ARROW_LIGHT)) && has_magic"
@@ -154,14 +158,14 @@
 "can_jump_slash": "has_weapon || can_use_sticks || can_hammer"
 
 # Bottle contents
-"has_bugs": "has_bottle && (renewable(BUG) || event(BUGS))"
+"has_bugs": "has_bottle && (renewable(BUGS) || event(BUGS))"
 "has_fish": "has_bottle && (renewable(FISH) || event(FISH))"
 
 #Specific Interaction Macros:
 "can_ride_epona": "is_adult && can_play_epona"
-"gs_soil": "is_child && has_bugs"
+"gs_soil": "is_child && has_bottle && (renewable(BUGS) || event(BUGS))"
 "adult_trade(x)": "is_adult && has(x)"
-"has_blue_fire": "has_blue_fire_arrows || (has_bottle && (event(BLUE_FIRE) || renewable(BLUE_FIRE) || renewable(BOTTLE_BLUE_FIRE)))"
+"has_blue_fire": "has_blue_fire_arrows || (has_bottle && (event(BLUE_FIRE) || renewable(BLUE_FIRE)))"
 "can_ride_bean(x)": "is_adult && event(x)"
 "can_damage": "true"
 "can_damage_skull": "true"
@@ -256,7 +260,7 @@
 "glitch_equip_swap": "glitch(OOT_EQUIP_SWAP) && (has(SPELL_FIRE) || (has_sticks && (is_child || setting(agelessSticks))))"
 "glitch_equip_swap_anyage": "glitch(OOT_EQUIP_SWAP) && (has(SPELL_FIRE) || (has_sticks && setting(agelessSticks)))"
 "glitch_ocarina_items": "glitch(OOT_OCARINA_ITEMS) && (has_bugs || has_fish)"
-"glitch_megaflip": "glitch(OOT_MEGAFLIP) && has_explosives && has_one_hand_shield"
+"glitch_megaflip": "glitch(OOT_MEGAFLIP) && has_bombs && has_one_hand_shield"
 
 # Misc
 "soul_enemy(x)": "(!setting(soulsEnemyOot)) || has(x)"
@@ -274,7 +278,3 @@
 "ganon_trial_shadow": "!setting(ganonTrials, Shadow) || event(GANON_TRIAL_SHADOW)"
 "ganon_trial_spirit": "!setting(ganonTrials, Spirit) || event(GANON_TRIAL_SPIRIT)"
 "ganon_barrier": "ganon_trial_light && ganon_trial_forest && ganon_trial_fire && ganon_trial_water && ganon_trial_shadow && ganon_trial_spirit"
-
-"rainbow_bridge_vanilla": "has(MEDALLION_SPIRIT) && has(MEDALLION_SHADOW) && (has(ARROW_LIGHT) || has(SHARED_ARROW_LIGHT))"
-"rainbow_bridge_medallions": "has(MEDALLION_LIGHT) && has(MEDALLION_FOREST) && has(MEDALLION_FIRE) && has(MEDALLION_WATER) && has(MEDALLION_SHADOW) && has(MEDALLION_SPIRIT)"
-"rainbow_bridge": "setting(rainbowBridge, open) || (setting(rainbowBridge, vanilla) && rainbow_bridge_vanilla) || (setting(rainbowBridge, medallions) && rainbow_bridge_medallions) || (setting(rainbowBridge, custom) && special(BRIDGE))"
