@@ -6,6 +6,7 @@
     "Ice Cavern End": "has_iron_boots && (climb_anywhere || hookshot_anywhere)"
   locations:
     "Ice Cavern Rupee Ice": "has_blue_fire"
+    "Ice Cavern Entrance Big Fairy": "can_play_storms"
 "Ice Cavern Scythe":
   dungeon: IC
   exits:

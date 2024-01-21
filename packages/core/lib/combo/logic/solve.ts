@@ -1017,7 +1017,10 @@ export class LogicPassSolver {
       throw new LogicError(`Unreachable locations: ${unreachableLocs.join(', ')}`);
     }
 
+    /* Try to find an item that unlocks at least two locations */
     let item: PlayerItem | null = null;
+    const availableLocsCount = [...this.pathfinderState.locations].filter(x => !this.state.items.has(x)).length;
+
     for (const candidate of VALIDATION_CRITICAL_ITEMS) {
       for (let playerId = 0; playerId < this.input.settings.players; ++playerId) {
         const pi = makePlayerItem(candidate, 0);
@@ -1028,6 +1031,29 @@ export class LogicPassSolver {
       }
       if (item)
         break;
+    }
+
+    if (item && availableLocsCount < 5) {
+      /* We want to place a validation critical item, but there are few locations left */
+
+      for (const pi of pool.keys()) {
+        /* Ignore critical renewables right now */
+        if (ItemHelpers.isItemCriticalRenewable(pi.item)) {
+          continue;
+        }
+
+        /* Pathfind to see how many locations this item unlocks */
+        const assumedItems: PlayerItems = new Map;
+        assumedItems.set(pi, 1);
+        const pathfindState = this.pathfinder.run(null, { recursive: true, items: this.state.items, assumedItems, stopAtGoal: true });
+        const newAvailableLocsCount = [...pathfindState.locations].filter(x => !this.state.items.has(x)).length;
+        const netGain = newAvailableLocsCount - availableLocsCount - 1;
+
+        if (netGain > 0) {
+          item = pi;
+          break;
+        }
+      }
     }
 
     if (!item) {

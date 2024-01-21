@@ -14,6 +14,7 @@ const PRESET_BLITZ = makeSettings({
   bossKeyShuffleMm: 'ownDungeon',
   strayFairyChestShuffle: 'starting',
   strayFairyOtherShuffle: 'vanilla',
+  rainbowBridge: 'custom',
   shuffleMasterSword: false,
   shuffleGerudoCard: false,
   shuffleMerchantsMm: false,
@@ -141,6 +142,7 @@ const PRESET_BLITZ_PRECOMPLETED = makeSettings({
   smallKeyShuffleMm: "removed",
   smallKeyShuffleHideout: "vanilla",
   strayFairyChestShuffle: "starting",
+  rainbowBridge: 'custom',
   shuffleMasterSword: false,
   shuffleGerudoCard: false,
   startingAge: "random",
@@ -248,16 +250,6 @@ const PRESET_BLITZ_PRECOMPLETED = makeSettings({
       "stones": true,
       "medallions": false,
       "remains": true
-    },
-    "GANON_BK": {
-      "count": 5,
-      "stones": true
-    },
-    MAJORA: {
-      "count": 4,
-      "stones": true,
-      "medallions": false,
-      "remains": true
     }
   },
   plando: {
@@ -290,6 +282,7 @@ const PRESET_TRIFORCE_BLITZ = makeSettings({
   smallKeyShuffleMm: "removed",
   smallKeyShuffleHideout: "vanilla",
   strayFairyChestShuffle: "starting",
+  rainbowBridge: 'custom',
   shuffleMasterSword: false,
   shuffleGerudoCard: false,
   startingAge: "random",
@@ -434,6 +427,7 @@ const PRESET_ALLSANITY = makeSettings({
   strayFairyChestShuffle: 'anywhere',
   strayFairyOtherShuffle: 'anywhere',
   ganonBossKey: 'anywhere',
+  rainbowBridge: 'medallions',
   dungeonRewardShuffle: 'anywhere',
   scrubShuffleOot: true,
   cowShuffleOot: true,
@@ -508,6 +502,7 @@ const PRESET_HELL = makeSettings({
   strayFairyChestShuffle: 'anywhere',
   strayFairyOtherShuffle: 'anywhere',
   ganonBossKey: 'custom',
+  rainbowBridge: 'medallions',
   majoraChild: 'custom',
   dungeonRewardShuffle: 'anywhere',
   scrubShuffleOot: true,

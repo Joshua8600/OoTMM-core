@@ -5,6 +5,7 @@
 #include <combo/game_state.h>
 #include <combo/common/actor.h>
 #include <combo/oot/regs.h>
+#include <combo/common/color.h>
 
 #define AGE_ADULT 0
 #define AGE_CHILD 1
@@ -36,7 +37,8 @@ typedef struct PACKED
     char unk_e3e6[0x06];
     u16  lastSongPlayed;
     u16  ocarinaMode;
-    char unk_e3f0[0x28];
+    u16  ocarinaAction;
+    char unk_e3f2[0x26];
 }
 MessageContext;
 
@@ -284,9 +286,11 @@ ASSERT_OFFSET(PauseContext, pad_27B,                    0x27b);
 _Static_assert(sizeof(PauseContext) == 0x2b4, "OoT PauseContext size is wrong");
 
 /* Start: 0x11d30 */
-typedef struct PACKED
+typedef struct
 {
-    char    unk_000[0xb8];
+    char    unk_000[0x70];
+    float   billboardMtxF[16];
+    char    unk_0b0[0x08];
     u8      age;
     char    unk_0b9[0x01];
     u8      spawnId;
@@ -299,6 +303,21 @@ typedef struct PACKED
     char    unk_12f[0x1];
 }
 TransitionContext;
+
+_Static_assert(sizeof(TransitionContext) == 0x130, "OoT TransitionContext size is wrong");
+ASSERT_OFFSET(TransitionContext, unk_000,       0x000);
+ASSERT_OFFSET(TransitionContext, billboardMtxF, 0x070);
+ASSERT_OFFSET(TransitionContext, unk_0b0,       0x0b0);
+ASSERT_OFFSET(TransitionContext, age,           0x0b8);
+ASSERT_OFFSET(TransitionContext, unk_0b9,       0x0b9);
+ASSERT_OFFSET(TransitionContext, spawnId,       0x0ba);
+ASSERT_OFFSET(TransitionContext, unk_0bb,       0x0bb);
+ASSERT_OFFSET(TransitionContext, type,          0x0e5);
+ASSERT_OFFSET(TransitionContext, unk_0e6,       0x0e6);
+ASSERT_OFFSET(TransitionContext, entrance,      0x0ea);
+ASSERT_OFFSET(TransitionContext, unk_0ec,       0x0ec);
+ASSERT_OFFSET(TransitionContext, gfx,           0x12e);
+ASSERT_OFFSET(TransitionContext, unk_12f,       0x12f);
 
 typedef struct
 {
@@ -356,15 +375,48 @@ ObjectContext; // size = 0x518
 
 _Static_assert(sizeof(ObjectContext) == 0x518, "ObjectContext size is wrong");
 
+typedef struct {
+    /* 0x00 */ Vec3f    pos;
+    /* 0x0C */ f32      unk_0C; // radius?
+    /* 0x10 */ Color_RGB8 color;
+} TargetContextEntry; // size = 0x14
+
+_Static_assert(sizeof(TargetContextEntry) == 0x14, "TargetContextEntry size is wrong");
+
+typedef struct {
+    /* 0x00 */ Vec3f    naviRefPos; // possibly wrong
+    /* 0x0C */ Vec3f    targetCenterPos;
+    /* 0x18 */ Color_RGBAf naviInner;
+    /* 0x28 */ Color_RGBAf naviOuter;
+    /* 0x38 */ Actor*   arrowPointedActor;
+    /* 0x3C */ Actor*   targetedActor;
+    /* 0x40 */ f32      unk_40;
+    /* 0x44 */ f32      unk_44;
+    /* 0x48 */ s16      unk_48;
+    /* 0x4A */ u8       activeCategory;
+    /* 0x4B */ u8       unk_4B;
+    /* 0x4C */ s8       unk_4C;
+    /* 0x4D */ char     unk_4D[0x03];
+    /* 0x50 */ TargetContextEntry arr_50[3];
+    /* 0x8C */ Actor*   unk_8C;
+    /* 0x90 */ Actor*   bgmEnemy; // The nearest enemy to player with the right flags that will trigger NA_BGM_ENEMY
+    /* 0x94 */ Actor*   unk_94;
+} TargetContext; // size = 0x98
+
+_Static_assert(sizeof(TargetContext) == 0x98, "TargetContext size is wrong");
+
 typedef struct ActorContext
 {
-    /* 0x000 */ char unk_000[0xb];
+    /* 0x000 */ char unk_000[0xc];
     /* 0x00c */ ActorList actors[12];
-    /* 0x06c */ char unk_06c[0xd4];
+    /* 0x06c */ TargetContext targetCtx;
+    /* 0x104 */ char unk_104[0x3c];
 }
 ActorContext;
 
 ASSERT_OFFSET(ActorContext, actors, 0x00c);
+ASSERT_OFFSET(ActorContext, targetCtx, 0x06c);
+ASSERT_OFFSET(ActorContext, unk_104, 0x104);
 _Static_assert(sizeof(ActorContext) == 0x140, "OOT ActorContext size is wrong");
 
 #define TRANS_TYPE_NONE     0x00

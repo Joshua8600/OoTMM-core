@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/net.h>
 
 GameState_Play* gPlay;
 int gNoTimeFlow;
@@ -42,6 +43,9 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.items[ITS_MM_BOTTLE + 4] = ITEM_MM_BOTTLE_EMPTY;
         gSave.inventory.items[ITS_MM_BOTTLE + 5] = ITEM_MM_BOTTLE_EMPTY;
 
+        gSave.inventory.items[ITS_MM_STICKS] = ITEM_MM_STICK;
+        gSave.inventory.ammo[ITS_MM_STICKS] = 30;
+
         gSave.inventory.items[ITS_MM_MASK_POSTMAN] = ITEM_MM_MASK_POSTMAN;
         gSave.inventory.items[ITS_MM_MASK_ALL_NIGHT] = ITEM_MM_MASK_ALL_NIGHT;
         gSave.inventory.items[ITS_MM_MASK_BLAST] = ITEM_MM_MASK_BLAST;
@@ -69,6 +73,7 @@ static void debugCheat(GameState_Play* play)
 
         gSave.playerData.rupees = 9999;
 
+        gSave.inventory.quest.notebook = 1;
         gSave.inventory.quest.songHealing = 1;
         gSave.inventory.quest.songTime = 1;
         gSave.inventory.quest.songSoaring = 1;
@@ -87,6 +92,7 @@ static void debugCheat(GameState_Play* play)
         gMmSave.playerData.doubleMagic = 1;
         gMmSave.playerData.magicAmount = 2 * 0x30;
         gSaveContext.magicFillTarget = 0x60;
+
         gSave.inventory.ammo[ITS_MM_STICKS] = 30;
         gSave.inventory.ammo[ITS_MM_NUTS] = 40;
         gSave.inventory.ammo[ITS_MM_KEG] = 1;
@@ -135,6 +141,35 @@ static u32 entranceForOverride(u32 entrance)
     }
 }
 
+
+static void sendSelfMajorasMask(void)
+{
+    NetContext* net;
+    int npc;
+    s16 gi;
+
+    if (!comboConfig(CFG_MULTIPLAYER))
+        return;
+
+    gi = GI_MM_MASK_MAJORA;
+    npc = NPC_MM_MAJORA;
+
+    net = netMutexLock();
+    netWaitCmdClear();
+    bzero(&net->cmdOut, sizeof(net->cmdOut));
+    net->cmdOut.op = NET_OP_ITEM_SEND;
+    net->cmdOut.itemSend.playerFrom = gComboData.playerId;
+    net->cmdOut.itemSend.playerTo = gComboData.playerId;
+    net->cmdOut.itemSend.game = 1;
+    net->cmdOut.itemSend.gi = gi;
+    net->cmdOut.itemSend.key = ((u32)OV_NPC << 24) | npc;
+    net->cmdOut.itemSend.flags = 0;
+    netMutexUnlock();
+
+    /* Mark the NPC as obtained */
+    BITMAP8_SET(gSharedCustomSave.mm.npc, npc);
+}
+
 void hookPlay_Init(GameState_Play* play)
 {
     int isEndOfGame;
@@ -144,8 +179,12 @@ void hookPlay_Init(GameState_Play* play)
 
     /* Init */
     gActorCustomTriggers = NULL;
-    g.customItemsList = NULL;
+    gMultiMarkChests = 0;
+    gMultiMarkCollectibles = 0;
+    gMultiMarkSwitch0 = 0;
+    gMultiMarkSwitch1 = 0;
     g.keatonGrassMax = -1;
+    comboMultiResetWisps();
 
     /* Handle transition override */
     if (g.inGrotto)
@@ -245,6 +284,7 @@ void hookPlay_Init(GameState_Play* play)
     {
         /* End game */
         gMmExtraFlags2.majora = 1;
+        sendSelfMajorasMask();
         if (!comboGoalCond() && !g.isCreditWarp)
         {
             gSave.playerForm = MM_PLAYER_FORM_HUMAN;
@@ -273,5 +313,4 @@ void Play_DrawWrapper(GameState_Play* play)
     comboCacheGarbageCollect();
     comboObjectsGC();
     Play_Draw(play);
-    comboDpadDraw(play);
 }

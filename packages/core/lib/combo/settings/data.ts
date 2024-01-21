@@ -18,6 +18,7 @@ export const SETTINGS = [{
   description: 'The game mode.',
   values: [
     { value: 'single', name: 'Singleplayer', description: 'A regular, one player seed' },
+    { value: 'coop', name: 'Co-op', description: 'Everyone plays the same seed, all items are shared' },
     { value: 'multi', name: 'Multiworld', description: 'A multiplayer settings where players can find each other\'s items' },
   ],
   default: 'single'
@@ -578,6 +579,13 @@ export const SETTINGS = [{
   description: 'Controls whether or not fairies in fairy fountains are shuffled (MM).',
   default: false
 }, {
+  key: 'fairySpotShuffleOot',
+  name: 'Fairy Spot Shuffle (OoT)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not big fairies in fairy spots are shuffled (OoT).',
+  default: false
+}, {
   key: 'eggShuffle',
   name: 'Weird / Pocket Egg Content Shuffle',
   category: 'main.shuffle',
@@ -732,6 +740,19 @@ export const SETTINGS = [{
   ],
   default: 'vanilla'
 }, {
+  key: 'rainbowBridge',
+  name: 'Rainbow Bridge',
+  category: 'main.events',
+  type: 'enum',
+  description: 'Alters how the Rainbow Bridge should be triggered',
+  values: [
+    { value: 'open', name: 'Open', description: 'Always open' },
+    { value: 'vanilla', name: 'Vanilla', description: 'Opens when you have the Light Arrows, Shadow Medallion, and Spirit Medallion' },
+    { value: 'medallions', name: 'Medallions', description: 'Opens when you have all Medallions' },
+    { value: 'custom', name: 'Custom', description: 'You will need to meet a special condition to open the bridge' },
+  ],
+  default: 'medallions',
+}, {
   key: 'majoraChild',
   name: 'Majora Child Requirements',
   category: 'main.events',
@@ -768,7 +789,7 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'Allow dungeons to be pre-completed depending on rules.',
   default: false,
-  cond: (s: any) => ((s.mode !== 'multi' || s.distinctWorlds) && !s.erMajorDungeons),
+  cond: (s: any) => (s.mode !== 'multi' || s.distinctWorlds),
 }, {
   key: 'preCompletedDungeonsMajor',
   name: 'Pre-Completed Dungeons (Major)',
@@ -1485,7 +1506,7 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'If turned on, it means the boss-containing dungeons and uninverted Stone Tower Temple will be shuffled.',
   default: false,
-  cond: (x: any) => (x.erDungeons !== 'none' && !x.preCompletedDungeons)
+  cond: (x: any) => x.erDungeons !== 'none',
 }, {
   key: 'erMinorDungeons',
   name: 'Shuffle OoT Minor Dungeons with Dungeons',

@@ -3,17 +3,19 @@
 #include <combo/player.h>
 
 #if defined(GAME_OOT)
-#define EN_ELF_INIT_VROM 0x808862f4
-#define EN_ELF_UPDATE_VROM 0x8088957c
-#define EN_ELF_DEFAULT_GI GI_OOT_FAIRY
-#define EN_ELF_SFX_HEAL 0x20A8
-#define EN_ELF_SFX_ICE_TRAP 0x31F1
+# define EN_ELF_INIT_VROM        0x808862f4
+# define EN_ELF_UPDATE_VROM      0x8088957c
+# define EN_ELF_DEFAULT_GI       GI_OOT_FAIRY
+# define EN_ELF_BIG_GI           GI_OOT_FAIRY_BIG
+# define EN_ELF_SFX_HEAL         0x20a8
+# define EN_ELF_SFX_ICE_TRAP     0x31f1
 #else
-#define EN_ELF_INIT_VROM 0x8088cdac
-#define EN_ELF_UPDATE_VROM 0x80890438
-#define EN_ELF_DEFAULT_GI GI_MM_FAIRY
-#define EN_ELF_SFX_HEAL 0x20A8
-#define EN_ELF_SFX_ICE_TRAP 0x31A4
+# define EN_ELF_INIT_VROM        0x8088cdac
+# define EN_ELF_UPDATE_VROM      0x80890438
+# define EN_ELF_DEFAULT_GI       GI_MM_FAIRY
+# define EN_ELF_BIG_GI           GI_MM_FAIRY_BIG
+# define EN_ELF_SFX_HEAL         0x20a8
+# define EN_ELF_SFX_ICE_TRAP     0x31a4
 #endif
 
 void EnElf_Aliases(Actor_EnElf* this, GameState_Play* play)
@@ -61,10 +63,10 @@ void EnElf_Aliases(Actor_EnElf* this, GameState_Play* play)
 #endif
 }
 
-static void EnElf_ItemQuery(ComboItemQuery* q, Actor_EnElf* this)
+void EnElf_ItemQuery(ComboItemQuery* q, Actor_EnElf* this)
 {
-    comboXflagItemQuery(q, &this->xflag, EN_ELF_DEFAULT_GI);
-    q->giRenew = EN_ELF_DEFAULT_GI;
+    comboXflagItemQuery(q, &this->xflag, this->extendedGi);
+    q->giRenew = this->extendedGi;
     if (comboXflagsGet(&this->xflag)) {
         q->ovFlags = OVF_RENEW;
     }
@@ -135,11 +137,15 @@ void EnElf_GiveItem(Actor_EnElf* this, GameState_Play* play)
     EnElf_ItemQuery(&q, this);
     comboItemOverride(&o, &q);
 
-    if (o.gi == EN_ELF_DEFAULT_GI)
+    if (o.gi == this->extendedGi)
     {
         Health_ChangeBy(play, 0x80);
 #if defined(GAME_MM)
         gSaveContext.save.jinxTimer = 0;
+#else
+        if (this->extendedGi == EN_ELF_BIG_GI) {
+            Magic_Refill(play);
+        }
 #endif
         return;
     }
@@ -177,6 +183,15 @@ void EnElf_InitWrapper(Actor_EnElf* this, GameState_Play* play)
 
     init = actorAddr(AC_EN_ELF, EN_ELF_INIT_VROM);
     init(&this->base, play);
+
+    if (this->fairyFlags & 0x200)
+    {
+        this->extendedGi = EN_ELF_BIG_GI;
+    }
+    else
+    {
+        this->extendedGi = EN_ELF_DEFAULT_GI;
+    }
 }
 
 void EnElf_SpawnFairyGroupMember(Actor_EnElf* spawner, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, u8 count)
@@ -198,7 +213,7 @@ void EnElf_SpawnFairyGroupMember(Actor_EnElf* spawner, GameState_Play* play, s16
     EnElf_ItemQuery(&q, fairy);
     comboItemOverride(&o, &q);
 
-    if (o.gi != EN_ELF_DEFAULT_GI)
+    if (o.gi != fairy->extendedGi)
     {
         fairy->itemGiven = 0;
         fairy->extendedGiDraw = o.gi;
@@ -244,7 +259,7 @@ void Fairy_SetHealthAccumulator(Actor_EnElf* this, GameState_Play* play)
     this->unk_246++;
     // End displaced code
 
-    if (this->extendedGiDraw == EN_ELF_DEFAULT_GI)
+    if (this->extendedGiDraw == 0 || this->extendedGiDraw == this->extendedGi)
     {
         gSaveContext.healthDelta = 0xA0;
     }

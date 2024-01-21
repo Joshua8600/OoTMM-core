@@ -24,22 +24,24 @@
 # include <combo/npc.h>
 # include <combo/text.h>
 # include <combo/common/ocarina.h>
+# include <combo/common/color.h>
 # include <combo/common/actors/Obj_Mure2.h>
 # include <combo/common/actors/Obj_Mure3.h>
+# include <combo/common/actors/Obj_Tsubo.h>
+# include <combo/common/actors/En_Tubo_Trap.h>
 
 # if defined(GAME_OOT)
 #  include <combo/oot/play.h>
 #  include <combo/oot/player.h>
 #  include <combo/oot/pause_state.h>
 #  include <combo/oot/actors/Item_Etcetera.h>
-#  include <combo/oot/actors/Obj_Tsubo.h>
 #  include <combo/oot/actors/Obj_Timeblock_Warp2Block.h>
 #  include <combo/oot/actors/En_Kusa.h>
-#  include <combo/oot/actors/En_Tubo_Trap.h>
 #  include <combo/oot/actors/En_Ossan.h>
 #  include <combo/oot/actors/En_Ex_Ruppy.h>
 #  include <combo/oot/actors/En_Diving_Game.h>
 #  include <combo/oot/actors/En_Elf.h>
+#  include <combo/oot/actors/Shot_Sun.h>
 # endif
 
 # if defined(GAME_MM)
@@ -52,10 +54,8 @@
 #  include <combo/mm/actor_ensuttari.h>
 #  include <combo/mm/actor_arms_hook.h>
 #  include <combo/mm/actor_objboat.h>
-#  include <combo/mm/actors/Obj_Tsubo.h>
 #  include <combo/mm/actors/Obj_Grass.h>
 #  include <combo/mm/actors/Obj_Grass_Carry.h>
-#  include <combo/mm/actors/En_Tubo_Trap.h>
 #  include <combo/mm/actors/En_Kusa.h>
 #  include <combo/mm/actors/En_Elf.h>
 # endif
@@ -63,8 +63,6 @@
 # include <combo/common/actors/En_Item00.h>
 # include <combo/common/actors/En_GirlA.h>
 # include <combo/common/actor_init.h>
-# include <combo/common/actor_item_custom.h>
-# include <combo/common/actors/Custom_Item.h>
 # include <combo/common/actors/Custom_Triggers.h>
 # include <combo/common/api.h>
 #endif
@@ -211,7 +209,7 @@ void swapFarore(void);
 #define OV_SHOP         0x07
 #define OV_SCRUB        0x08
 #define OV_SR           0x09
-#define OV_FISH         0x0A
+#define OV_FISH         0x0a
 
 #define OV_XFLAG0       0x10
 #define OV_XFLAG1       0x11
@@ -229,6 +227,13 @@ void swapFarore(void);
 #define OVF_RENEW             (1 << 2)
 #define OVF_PRECOND           (1 << 3)
 
+/* Net */
+void comboMultiDrawWisps(GameState_Play* play);
+void comboMultiResetWisps(void);
+void comboMultiProcessMessages(GameState_Play* play);
+
+void shaderFlameEffectColor(GameState_Play* play, u32 color, float scale, float offsetY);
+
 /* Text */
 int  comboMultibyteCharSize(u8 c);
 void comboTextExtra(char** b, GameState_Play* play, s16 gi);
@@ -244,6 +249,17 @@ void comboTextHijackFishCaught(GameState_Play* play, const ComboItemOverride* o)
 void comboTextHijackDungeonRewardHints(GameState_Play* play, int hint);
 void comboTextHijackOathToOrder(GameState_Play* play);
 #endif
+
+/* Multi */
+extern u32 gMultiMarkChests;
+extern u32 gMultiMarkCollectibles;
+extern u32 gMultiMarkSwitch0;
+extern u32 gMultiMarkSwitch1;
+
+void    multiSetMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id);
+void    multiSetMarkedMm(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id);
+int     multiIsMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id);
+int     multiIsMarkedMm(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id);
 
 /* Progressive */
 s16 comboProgressive(s16 gi, int ovflags);
@@ -266,6 +282,8 @@ void comboSpawnCustomWarps(GameState_Play*);
 
 /* Util */
 int comboStrayFairyIndex(void);
+int comboOotDungeonScene(GameState_Play* play, int isBossKey);
+int comboMmDungeonIndex(void);
 int comboIsChateauActive(void);
 
 /* Draw */
@@ -418,7 +436,6 @@ typedef struct
     u8                      maxKeysMm[4];
     u8                      actorIndex;
     u8                      sceneSetupId;
-    Actor_CustomItem*       customItemsList;
     s8                      keatonGrassMax;
 }
 ComboGlobal;

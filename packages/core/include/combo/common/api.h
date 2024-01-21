@@ -70,6 +70,8 @@ void    Actor_SetCollisionCylinder(GameState_Play* play, Actor* actor, float unk
 void    ActorUpdateVelocity(Actor* actor);
 int     ActorTalkedTo(Actor* actor);
 
+void    EnableOwl(u8 owlId);
+
 u32     GetChestFlag(GameState_Play* play, int flag);
 void    SetChestFlag(GameState_Play* play, int flag);
 u32     GetCollectibleFlag(GameState_Play* play, int flag);
@@ -260,6 +262,7 @@ void DrawGi_SoldOut(GameState_Play*, s16);
 void DrawGi_Spell(GameState_Play*, s16);
 void DrawGi_MoonTear(GameState_Play*, s16);
 void DrawGi_BottleFairy(GameState_Play*, s16);
+void DrawGi_BottleBlueFire(GameState_Play*, s16);
 
 void SpawnRoomActors(GameState_Play* play, int id);
 
@@ -372,6 +375,8 @@ Actor* ActorFind(void* actorCtx, s32 actorId, s32 actorCategory);
 void Play_InitEnvironment(GameState_Play *play, u16 skyboxId);
 extern u8 gFogState;
 #endif
+
+Actor* SpawnCollectible(GameState_Play* play, const Vec3f* pos, u16 param);
 
 #if defined(GAME_MM)
 void SpawnCollectible2(GameState_Play* play, int unk, void* unk2, u16 unk3);

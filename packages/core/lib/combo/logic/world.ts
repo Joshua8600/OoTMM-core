@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep, mapValues } from 'lodash';
 import { MACROS, WORLD, REGIONS, POOL, ENTRANCES } from '@ootmm/data';
 
 import { Game, GAMES } from '../config';
@@ -99,7 +99,7 @@ export type WorldArea = {
 };
 
 type WorldCheckNumeric = {
-  type: 'chest' | 'collectible' | 'gs' | 'sf' | 'cow' | 'shop' | 'scrub' | 'sr' | 'pot' | 'grass' | 'fish' | 'fairy' | 'rupee' | 'heart';
+  type: 'chest' | 'collectible' | 'gs' | 'sf' | 'cow' | 'shop' | 'scrub' | 'sr' | 'pot' | 'grass' | 'fish' | 'fairy' | 'rupee' | 'heart' | 'fairy_spot';
   id: number;
 };
 
@@ -193,11 +193,27 @@ function cloneChecks(checks: { [k: string]: WorldCheck }): { [k: string]: WorldC
   return result;
 }
 
+function cloneWorldArea(worldArea: WorldArea): WorldArea {
+  return {
+    game: worldArea.game,
+    boss: worldArea.boss,
+    ageChange: worldArea.ageChange,
+    dungeon: worldArea.dungeon,
+    exits: { ...worldArea.exits },
+    events: { ...worldArea.events },
+    locations: { ...worldArea.locations },
+    gossip: { ...worldArea.gossip },
+    stay: worldArea.stay ? [...worldArea.stay] : null,
+    time: worldArea.time,
+    region: worldArea.region,
+  };
+}
+
 export function cloneWorld(world: World): World {
   return {
-    areas: cloneDeep(world.areas),
+    areas: mapValues(world.areas, cloneWorldArea),
     checks: cloneChecks(world.checks),
-    dungeons: cloneDeep(world.dungeons),
+    dungeons: mapValues(world.dungeons, x => new Set(x)),
     regions: cloneDeep(world.regions),
     gossip: cloneDeep(world.gossip),
     checkHints: cloneDeep(world.checkHints),
@@ -396,7 +412,10 @@ export class LogicPassWorld {
         }
 
         for (const loc in locations) {
-          this.world.regions[loc] = region;
+          const prevRegion = this.world.regions[loc];
+          if (!prevRegion || prevRegion === 'NONE') {
+            this.world.regions[loc] = region;
+          }
           this.world.locations.add(loc);
         }
 

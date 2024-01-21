@@ -1,6 +1,6 @@
 const ITEM_IDS = [
   'OOT_ICE_TRAP',
-  'OOT_BUGS',
+  'OOT_BOTTLE_BLUE_FIRE',
   'OOT_DEFENSE_UPGRADE',
   'MM_DEFENSE_UPGRADE',
   'SHARED_DEFENSE_UPGRADE',
@@ -675,6 +675,9 @@ const ITEM_IDS = [
   'SHARED_MAGIC_JAR_SMALL',
   'SHARED_MAGIC_JAR_LARGE',
   'NOTHING',
+  'OOT_FAIRY_BIG',
+  'MM_FAIRY_BIG',
+  'SHARED_FAIRY_BIG',
 ] as const;
 
 export type ItemID = typeof ITEM_IDS[number];

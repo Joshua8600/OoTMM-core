@@ -215,7 +215,7 @@ const ITEM_NAMES: {[k in ItemID]: string} = {
   OOT_ARROWS_10: "10 Arrows (OoT)",
   OOT_ARROWS_30: "30 Arrows (OoT)",
   OOT_ARROWS_5: "5 Arrows (OoT)",
-  OOT_BLUE_FIRE: "Bottle - Blue Fire",
+  OOT_BLUE_FIRE: "Blue Fire",
   OOT_BOMB_BAG: "Bomb Bag (OoT)",
   OOT_BOMB: "Bomb (OoT)",
   OOT_BOMBCHU_10: "10 Bombchu (OoT)",
@@ -238,8 +238,7 @@ const ITEM_NAMES: {[k in ItemID]: string} = {
   OOT_BOTTLE_MILK: "Bottle of Milk (OoT)",
   OOT_BOW: "Fairy Bow (OoT)",
   OOT_BROKEN_GORON_SWORD: "Broken Goron's Sword",
-  OOT_BUG: "Bottle - Bugs (OoT)",
-  OOT_BUGS: "Bugs (OoT)",
+  OOT_BUG: "Bugs (OoT)",
   OOT_CHICKEN: "Chicken",
   OOT_CLAIM_CHECK: "Claim Check",
   OOT_COIN_BLUE: "Coin (Blue)",
@@ -675,6 +674,10 @@ const ITEM_NAMES: {[k in ItemID]: string} = {
   SHARED_MAGIC_JAR_SMALL: "Small Magic Jar",
   SHARED_MAGIC_JAR_LARGE: "Large Magic Jar",
   NOTHING: 'Nothing',
+  OOT_FAIRY_BIG: 'Big Fairy (OoT)',
+  MM_FAIRY_BIG: 'Big Fairy (MM)',
+  SHARED_FAIRY_BIG: 'Big Fairy',
+  OOT_BOTTLE_BLUE_FIRE: "Bottle of Blue Fire",
 };
 
 export function itemName(item: string) {

@@ -492,6 +492,8 @@ s16 comboRenewable(s16 gi, s16 def)
     case GI_OOT_POE:
     case GI_OOT_MAGIC_JAR_SMALL:
     case GI_OOT_MAGIC_JAR_LARGE:
+    case GI_OOT_FAIRY_BIG:
+    case GI_MM_FAIRY_BIG:
     case GI_MM_RECOVERY_HEART:
     case GI_MM_STICK:
     case GI_MM_NUT:
@@ -567,6 +569,9 @@ s16 comboRenewable(s16 gi, s16 def)
         break;
     case GI_MM_BOTTLE_BIG_POE:
         gi = GI_MM_BIG_POE;
+        break;
+    case GI_OOT_BOTTLE_BLUE_FIRE:
+        gi = GI_OOT_BLUE_FIRE;
         break;
     default:
         return def;

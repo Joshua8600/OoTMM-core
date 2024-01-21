@@ -189,6 +189,8 @@
 - { id: MM_CHATEAU, func: CustomPotion, params: [4] }
 - { id: MM_OWL, func: CustomOwl, params: [0x6003770] }
 - { id: TRIFORCE, func: Triforce, params: [TRIFORCE_0] }
+- { id: TRIFORCE_FULL, func: TriforceFull, params: [TRIFORCE_0] }
+- { id: MASK_MAJORA, func: MaskMajora, params: [GI_MASK_MAJORA_0] }
 - { id: OOT_RUPEE_SILVER, func: SilverRupee, params: [0] }
 - { id: SOUL, func: CustomGS, params: [3] }
 - { id: SKELETON_KEY, func: CustomSmallKey, params: [0x6000800, 1] }
@@ -211,3 +213,5 @@
 - { id: BUTTON_C_DOWN, func: Button, params: [1, 1, BTN_C_VERTICAL_0] }
 - { id: SOUL_NPC, func: CustomGS, params: [5] }
 - { id: BOMBCHU_BAG, func: BombchuBag, params: [BOMBCHU_BAG_0, BOMBCHU_BAG_1, BOMBCHU_BAG_2] }
+- { id: FAIRY_BIG, func: BigFairy, params: [0x6000bd0, 0x6000db8, 0x6000ef0] }
+- { id: BOTTLE_BLUE_FIRE, func: BottleBlueFire, params: [0x6000670, 0x6000750] }

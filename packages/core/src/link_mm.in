@@ -6,6 +6,9 @@ DMARomToRam = 0x80080790;
 
 EnItem00_Init = 0x800a5d70;
 EnItem00_CollectedHandler = 0x800a6a40;
+EnItem00_Update = 0x800a6b98;
+
+Play_DrawHudButtons = 0x80117100;
 
 Actor_ProcessInitChain = 0x800ffadc;
 
@@ -166,6 +169,7 @@ PlayMusic = 0x801a3238;
 
 Player_UsingItem = 0x801240dc;
 Player_DrawHookshotReticle = 0x80124cc4;
+GetChestFlag = 0x800b5c78;
 SetChestFlag = 0x800b5c90;
 Audio_PlayFanfare = 0x801a3098;
 
@@ -215,6 +219,9 @@ ActorUpdateVelocity = 0x800b6a88;
 
 Item_DropCollectible = 0x800a7730;
 SpawnCollectible2 = 0x800a7d28;
+SpawnCollectible = 0x800a7730;
+
+EnableOwl = 0x80143a10;
 
 VectDist = 0x800ff92c;
 

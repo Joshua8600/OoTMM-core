@@ -1,5 +1,6 @@
 #include <combo.h>
 #include <combo/souls.h>
+#include <combo/net.h>
 
 extern void* gMmMag;
 GameState_Play* gPlay;
@@ -9,7 +10,7 @@ static void debugCheat(GameState_Play* play)
 #if defined(DEBUG)
     if (!gSaveContext.gameMode && play->gs.input[0].current.buttons & L_TRIG)
     {
-        MM_SET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI);
+        //MM_SET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI);
         SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
         SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
         gSave.playerData.swordHealth = 8;
@@ -50,7 +51,7 @@ static void debugCheat(GameState_Play* play)
         gSave.inventory.upgrades.bombBag = 3;
         gSave.inventory.upgrades.quiver = 3;
         gSave.inventory.upgrades.dive = 2;
-        gSave.inventory.upgrades.wallet = 2;
+        gSave.inventory.upgrades.wallet = 3;
         gSave.inventory.upgrades.strength = 3;
 
         gSave.inventory.ammo[ITS_OOT_STICKS] = 10;
@@ -117,6 +118,31 @@ static void debugCheat(GameState_Play* play)
 #endif
 }
 
+static int isRainbowBridgeOpen(void)
+{
+    if (comboConfig(CFG_OOT_BRIDGE_CUSTOM) && !comboSpecialCond(SPECIAL_BRIDGE))
+        return 0;
+
+    if (comboConfig(CFG_OOT_BRIDGE_VANILLA) && !(
+        gOotSave.inventory.quest.medallionShadow
+        && gOotSave.inventory.quest.medallionSpirit
+        && gOotSave.inventory.items[ITS_OOT_ARROW_LIGHT] == ITEM_OOT_ARROW_LIGHT
+    ))
+        return 0;
+
+    if (comboConfig(CFG_OOT_BRIDGE_MEDALLIONS) && !(
+        gOotSave.inventory.quest.medallionLight
+        && gOotSave.inventory.quest.medallionForest
+        && gOotSave.inventory.quest.medallionFire
+        && gOotSave.inventory.quest.medallionWater
+        && gOotSave.inventory.quest.medallionShadow
+        && gOotSave.inventory.quest.medallionSpirit
+    ))
+        return 0;
+
+    return 1;
+}
+
 static void eventFixes(GameState_Play* play)
 {
     /* Skip forest temple cutscene */
@@ -156,10 +182,38 @@ static void eventFixes(GameState_Play* play)
     }
 
     /* Set the rainbow bridge flag */
-    if (comboSpecialCond(SPECIAL_BRIDGE))
+    if (isRainbowBridgeOpen())
     {
         SetEventChk(EV_OOT_CHK_RAINBOW_BRIDGE);
     }
+}
+
+static void sendSelfTriforce(void)
+{
+    NetContext* net;
+    int npc;
+    s16 gi;
+
+    if (!comboConfig(CFG_MULTIPLAYER))
+        return;
+
+    gi = GI_OOT_TRIFORCE_FULL;
+    npc = NPC_OOT_GANON;
+
+    net = netMutexLock();
+    netWaitCmdClear();
+    bzero(&net->cmdOut, sizeof(net->cmdOut));
+    net->cmdOut.op = NET_OP_ITEM_SEND;
+    net->cmdOut.itemSend.playerFrom = gComboData.playerId;
+    net->cmdOut.itemSend.playerTo = gComboData.playerId;
+    net->cmdOut.itemSend.game = 0;
+    net->cmdOut.itemSend.gi = gi;
+    net->cmdOut.itemSend.key = ((u32)OV_NPC << 24) | npc;
+    net->cmdOut.itemSend.flags = 0;
+    netMutexUnlock();
+
+    /* Mark the NPC as obtained */
+    BITMAP8_SET(gSharedCustomSave.oot.npc, npc);
 }
 
 static void endGame(void)
@@ -176,6 +230,9 @@ static void endGame(void)
 
     /* Flag ganon as beaten */
     gOotExtraFlags.ganon = 1;
+
+    /* Send self triforce */
+    sendSelfTriforce();
 
     /* Save tmp gameplay values (in case majora was beaten too) */
     tmpAge = gSave.age;
@@ -236,7 +293,11 @@ void hookPlay_Init(GameState_Play* play)
 
     /* Init */
     gActorCustomTriggers = NULL;
-    g.customItemsList = NULL;
+    gMultiMarkChests = 0;
+    gMultiMarkCollectibles = 0;
+    gMultiMarkSwitch0 = 0;
+    gMultiMarkSwitch1 = 0;
+    comboMultiResetWisps();
 
     /* Register play */
     gPlay = play;
@@ -386,7 +447,7 @@ void Play_DrawWrapper(GameState_Play* play)
         gDPSetCycleType(OVERLAY_DISP++, G_CYC_FILL);
         gDPSetRenderMode(OVERLAY_DISP++, G_RM_NOOP, G_RM_NOOP2);
         gDPSetFillColor(OVERLAY_DISP++, 0);
-        gDPFillRectangle(OVERLAY_DISP++, 0, 0, 0xfff, 0xfff);
+        gDPFillRectangle(OVERLAY_DISP++, 0, 0, 319, 239);
         CLOSE_DISPS();
     }
     else
