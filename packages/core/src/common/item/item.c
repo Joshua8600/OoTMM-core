@@ -4,10 +4,8 @@
 #include <combo/dma.h>
 
 #if defined(GAME_OOT)
-# define multiIsMarked multiIsMarkedOot
 u16 gMmMaxRupees[] = { 0, 200, 500, 999 };
 #else
-# define multiIsMarked multiIsMarkedMm
 u16 gOotMaxRupees[] = { 0, 200, 500, 999 };
 #endif
 
@@ -53,6 +51,13 @@ void comboSyncItems(void)
         gForeignSave.playerData.health = gSave.playerData.health;
         gForeignSave.inventory.quest.heartPieces = gSave.inventory.quest.heartPieces;
     }
+    /*
+    if (comboConfig(CFG_SHARED_SPELL_LOVE))
+    {
+        // TODO
+        // gForeignSave.nayrusLoveTimer = gSave.nayrusLoveTimer;
+    }
+    */
 }
 
 int comboItemPrecondEx(const ComboItemQuery* q, s16 price)
@@ -73,7 +78,7 @@ int comboItemPrecondEx(const ComboItemQuery* q, s16 price)
     return SC_OK;
 }
 
-void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
+static void comboGiveItemRaw(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
 {
     static ComboItemQuery sItemQ;
     static ComboItemQuery sItemQBox;
@@ -93,6 +98,21 @@ void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, 
             g.itemQuery = &sItemQ;
         }
     }
+}
+
+void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
+{
+    ComboItemQuery qNothing = ITEM_QUERY_INIT;
+    const ComboItemQuery* qPtr;
+
+    if (multiIsMarked(play, q->ovType, q->sceneId, q->roomId, q->id))
+    {
+        qNothing.gi = GI_NOTHING;
+        qPtr = &qNothing;
+    }
+    else
+        qPtr = q;
+    comboGiveItemRaw(actor, play, qPtr, a, b);
 }
 
 void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float a, float b)
@@ -268,12 +288,7 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
     dst->giRaw = gi;
 
     if (isPlayerSelf(dst->player))
-    {
-        if (q->ovType != OV_NONE && !(q->ovFlags & OVF_RENEW) && multiIsMarked(gPlay, q->ovType, q->sceneId, q->roomId, q->id))
-            gi = GI_NOTHING;
-        else
-            gi = comboProgressive(gi, q->ovFlags);
-    }
+        gi = comboProgressive(gi, q->ovFlags);
 
     if (neg)
         gi = -gi;
@@ -283,7 +298,7 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
 }
 
 
-int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText)
+int comboAddItemRawEx(GameState_Play* play, const ComboItemQuery* q, int updateText)
 {
     ComboItemOverride o;
     NetContext* net;
@@ -294,7 +309,7 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText
 
     /* Add the item if it's for us */
     if (isPlayerSelf(o.player))
-        count = comboAddItem(play, o.gi);
+        count = comboAddItemRaw(play, o.gi);
 
     /* Update text */
     if (updateText)
@@ -346,6 +361,21 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText
     return -1;
 }
 
+int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText)
+{
+    ComboItemQuery qNothing = ITEM_QUERY_INIT;
+    const ComboItemQuery* qPtr;
+
+    if (multiIsMarked(play, q->ovType, q->sceneId, q->roomId, q->id))
+    {
+        qNothing.gi = GI_NOTHING;
+        qPtr = &qNothing;
+    }
+    else
+        qPtr = q;
+    return comboAddItemRawEx(play, qPtr, updateText);
+}
+
 void comboPlayerAddItem(GameState_Play* play, s16 gi)
 {
 #if defined(GAME_MM)
@@ -387,7 +417,7 @@ void comboPlayerAddItem(GameState_Play* play, s16 gi)
         q.gi = -q.gi;
 
     comboItemOverride(&o, &q);
-    comboAddItemEx(play, &q, 1);
+    comboAddItemRawEx(play, &q, 1);
     comboPlayItemFanfare(o.gi, 0);
 }
 

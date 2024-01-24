@@ -104,9 +104,9 @@ static void debugCheat(GameState_Play* play)
         gSave.playerData.healthMax = 0x10 * 20;
         gSave.playerData.health = gSave.playerData.healthMax;
 
-        gMmExtraTrade.trade1 = 0x1f;
-        gMmExtraTrade.trade2 = 0x03;
-        gMmExtraTrade.trade3 = 0x03;
+        gMmExtraTrade.trade1 = 0x3f;
+        gMmExtraTrade.trade2 = 0x07;
+        gMmExtraTrade.trade3 = 0x07;
 
         gSave.inventory.items[ITS_MM_TRADE1] = ITEM_MM_DEED_LAND;
         gSave.inventory.items[ITS_MM_TRADE2] = ITEM_MM_ROOM_KEY;
@@ -262,6 +262,24 @@ void hookPlay_Init(GameState_Play* play)
     MM_SET_EVENT_WEEK(MM_EV(82, 0));
     MM_SET_EVENT_WEEK(MM_EV(82, 1));
 
+    /* Raise Woodfall Temple with setting enabled */
+    if (comboConfig(CFG_MM_OPEN_WF))
+    {
+        MM_SET_EVENT_WEEK(EV_MM_WEEK_WOODFALL_TEMPLE_RISE);
+    }
+
+    /* Make Biggoron move with setting enabled */
+    if (comboConfig(CFG_MM_OPEN_SH))
+    {
+        MM_SET_EVENT_WEEK(EV_MM_WEEK_SNOWHEAD_BLIZZARD);
+    }
+
+    /* Make turtle surface with setting enabled */
+    if (comboConfig(CFG_MM_OPEN_GB))
+    {
+        MM_SET_EVENT_WEEK(EV_MM_WEEK_GREAT_BAY_TURTLE);
+    }
+
     Play_Init(play);
     gPlay = play;
     gLastEntrance = gSave.entranceIndex;
@@ -295,7 +313,7 @@ void hookPlay_Init(GameState_Play* play)
             Sram_SaveNewDay(play);
             play->nextEntrance = entranceForOverride(g.initialEntrance);
             play->transitionTrigger = TRANS_TRIGGER_NORMAL;
-            play->transitionType = TRANS_TYPE_BLACK;
+            play->transitionType = TRANS_TYPE_FADE_BLACK;
             return;
         }
     }
