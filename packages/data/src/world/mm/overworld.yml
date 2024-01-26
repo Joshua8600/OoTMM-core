@@ -574,7 +574,7 @@
     "Clock Town East": "true"
     "Clock Town West": "true"
     "Road to Southern Swamp": "true"
-    "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf || short_hook_anywhere"
+    "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
     "Milk Road": "true"
     "Great Bay Fence": "can_jump_fences"
     "Road to Ikana Front": "true"
@@ -1614,7 +1614,7 @@
 "Behind Large Icicles":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "(has(BOW) || has(SHARED_BOW)) || has_hot_water_mtn || has_hot_water_er || can_isg_ow || short_hook_anywhere"
+    "Termina Field": "(has(BOW) || has(SHARED_BOW)) || has_hot_water_mtn || has_hot_water_er || can_isg_ow || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
     "Mountain Village Path Lower": "true"
 "Mountain Village Path Lower":
   region: PATH_TO_MOUNTAIN_VILLAGE
@@ -1624,7 +1624,7 @@
     FAIRY: "can_get_gossip_fairy"
   exits:
     "Behind Large Icicles": "true"
-    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD) || short_hook_anywhere"
+    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD) || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
   gossip:
     "Mountain Village Path Gossip": "true"
 "Mountain Village Path Upper":
