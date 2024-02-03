@@ -7,7 +7,7 @@
   dungeon: SH
   exits:
     "Snowhead Temple": "true"
-    "Snowhead Temple Main": "has_mask_goron || has_mask_zora"
+    "Snowhead Temple Main": "true"
     "Snowhead Temple Boss Access": "setting(bossWarpPads, remains) && has(REMAINS_GOHT)"
 "Snowhead Temple Main":
   dungeon: SH
@@ -31,7 +31,7 @@
     RUPEES: "true"
   exits:
     "Snowhead Temple Main": "true"
-    "Snowhead Temple Bridge Back": "goron_fast_roll || can_hookshot || short_hook_anywhere || has_hover_boots"
+    "Snowhead Temple Bridge Back": "true"
   locations:
     "Snowhead Temple Bridge Room": "soul_freezard && (can_hookshot_short || has_hover_boots)"
     "Snowhead Temple SF Bridge Under Platform": "(has_arrows || can_hookshot) && has(MASK_GREAT_FAIRY)"
