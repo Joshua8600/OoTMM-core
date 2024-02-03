@@ -87,7 +87,7 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_RR:
         return comboHasSoulOot(GI_OOT_SOUL_ENEMY_LIKE_LIKE);
     case AC_EN_NY:
-        return comboHasSoulOot(GI_OOT_SOUL_ENEMY_SPIKE);
+        return opt(comboHasSoulOot(GI_OOT_SOUL_ENEMY_SPIKE));
     case AC_EN_ANUBICE_TAG:
     case AC_EN_ANUBICE:
         return comboHasSoulOot(GI_OOT_SOUL_ENEMY_ANUBIS);
