@@ -50,6 +50,7 @@ const u8 kOotTradeChild[] = {
     ITEM_OOT_ZORA_MASK,
     ITEM_OOT_GERUDO_MASK,
     ITEM_OOT_MASK_OF_TRUTH,
+    ITEM_OOT_MASK_BLAST,
 };
 
 const u8 kMmTrade1[] = {
@@ -307,18 +308,14 @@ static void addWalletRawOot(u16 index)
     if (index == 1)
     {
         gOotExtraFlags.childWallet = 1;
-        gOotMaxRupees[0] = 99;
     }
     else if (index == 5)
     {
         gOotExtraFlags.bottomlessWallet = 1;
-        gOotMaxRupees[3] = 9999;
-#if defined(GAME_OOT)
-        gWalletDigits[3] = 4;
-#endif
     }
     else
         gOotSave.inventory.upgrades.wallet = (index - 1);
+    comboWalletRefresh();
 }
 
 static void addWalletRawMm(u16 index)
@@ -326,18 +323,14 @@ static void addWalletRawMm(u16 index)
     if (index == 1)
     {
         gMmExtraFlags2.childWallet = 1;
-        gMmMaxRupees[0] = 99;
     }
     else if (index == 5)
     {
         gMmExtraFlags3.bottomlessWallet = 1;
-        gMmMaxRupees[3] = 9999;
-#if defined(GAME_MM)
-        gWalletDigits[3] = 4;
-#endif
     }
     else
         gMmSave.inventory.upgrades.wallet = (index - 1);
+    comboWalletRefresh();
 }
 
 static void addWalletRawShared(u16 index)
@@ -1976,6 +1969,7 @@ static const SharedItem kSimpleSharedItems[] = {
     { CFG_SHARED_BOOTS_HOVER, GI_OOT_BOOTS_HOVER, GI_MM_BOOTS_HOVER },
     { CFG_SHARED_TUNIC_GORON, GI_OOT_TUNIC_GORON, GI_MM_TUNIC_GORON },
     { CFG_SHARED_TUNIC_ZORA, GI_OOT_TUNIC_ZORA, GI_MM_TUNIC_ZORA },
+    { CFG_SHARED_MASK_BLAST, GI_OOT_MASK_BLAST, GI_MM_MASK_BLAST },
 };
 
 static int addItem(GameState_Play* play, s16 gi)

@@ -17,6 +17,19 @@
 #define PLAYER_ACTOR_STATE_USE_ITEM             0x10000000
 #define PLAYER_ACTOR_STATE_CUTSCENE_FROZEN      0x20000000
 
+#if defined(GAME_OOT)
+# define PLAYER_MASK_NONE               0x00
+# define PLAYER_MASK_KEATON             0x01
+# define PLAYER_MASK_SKULL              0x02
+# define PLAYER_MASK_SPOOKY             0x03
+# define PLAYER_MASK_BUNNY              0x04
+# define PLAYER_MASK_GORON              0x05
+# define PLAYER_MASK_ZORA               0x06
+# define PLAYER_MASK_GERUDO             0x07
+# define PLAYER_MASK_TRUTH              0x08
+# define PLAYER_MASK_BLAST              0x09
+#endif
+
 #if defined(GAME_MM)
 # define PLAYER_MASK_NONE               0x00
 # define PLAYER_MASK_TRUTH              0x01
@@ -95,6 +108,8 @@ void MatrixRotation(u16 angle, int unk_1);
 void DisplayTextBox(GameState_Play* play, u16 textId);
 void DisplayTextBox2(GameState_Play* play, u16 textId);
 void DisplayTextBox3(GameState_Play* play, Actor* actor, u16 textId);
+
+void DrawLink(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots, s32 face, void* overrideLimbDraw, void* postLimbDraw, void* data);
 
 int GiveItem(Actor* actor, GameState_Play* play, s16 itemId, float a, float b);
 void GiveItemDefaultRange(Actor* actor, GameState_Play* play, s16 itemId);

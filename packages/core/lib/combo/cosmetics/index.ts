@@ -23,6 +23,7 @@ const OBJECTS_TABLE_ADDR = 0x800f8ff8;
 export async function cosmeticsAssets(opts: Options) {
   return {
     MASK_TUNIC: await png(opts, 'masks/tunic', 'bitmask'),
+    MASK_OOT_SHIELD_MIRROR: await png(opts, 'masks/oot_shield_mirror', 'bitmask'),
   }
 }
 
@@ -32,6 +33,13 @@ export type CosmeticsOutput = {
   patch: Patchfile;
   overrides: {[k: string]: Buffer};
 };
+
+function brightness(color: number, bright: number): number {
+  const r = (color >>> 16) * bright;
+  const g = ((color >>> 8) & 0xff) * bright;
+  const b = (color & 0xff) * bright;
+  return (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff);
+}
 
 class CosmeticsPass {
   private vrom: number;
@@ -96,6 +104,19 @@ class CosmeticsPass {
     }
   }
 
+  private colorArgNew(c: ColorArg, auto?: () => number | null): number | null {
+    switch (c) {
+    case 'default':
+      return null;
+    case 'random':
+      return sample(this.random, Object.values(COLORS)).value;
+    case 'auto':
+      return auto ? auto() : null;
+    default:
+      return COLORS[c].value;
+    }
+  }
+
   private colorBufferRGB(color: number) {
     const buffer = Buffer.alloc(3);
     buffer.writeUInt8(color >>> 16, 0);
@@ -111,6 +132,14 @@ class CosmeticsPass {
     buffer.writeUInt8((color >>> 8) & 0xff, 1);
     buffer.writeUInt8(color & 0xff, 2);
     this.patch.addDataPatch(game, paddr, buffer);
+  }
+
+  private patchColorRGB_VROM(game: Game, addr: number, color: number) {
+    const buffer = Buffer.alloc(3);
+    buffer.writeUInt8(color >>> 16, 0);
+    buffer.writeUInt8((color >>> 8) & 0xff, 1);
+    buffer.writeUInt8(color & 0xff, 2);
+    this.patch.addDataPatch(game, addr, buffer);
   }
 
   private patchOotTunic(index: number, color: number) {
@@ -138,6 +167,20 @@ class CosmeticsPass {
     const icon = this.roms.oot.rom.subarray(paddr, paddr + 0x1000);
     const newIcon = recolorImage('rgba32', icon, this.assets.MASK_TUNIC, defaultColorIcon, color);
     this.patch.addDataPatch('oot', paddr, newIcon);
+
+    /* Patch the GI */
+    if (index !== 0) {
+      let giBase = 0x1638000 + 0x14e0 + (index - 1) * 0x20;
+      const colorPrim1 = brightness(color, 0.76);
+      const colorEnv1 = brightness(color, 0.53)
+      const colorPrim2 = color;
+      const colorEnv2 = brightness(color, 0.59);
+
+      this.patchColorRGB_VROM('oot', giBase + 0x0c, colorPrim1);
+      this.patchColorRGB_VROM('oot', giBase + 0x14, colorEnv1);
+      this.patchColorRGB_VROM('oot', giBase + 0x4c, colorPrim2);
+      this.patchColorRGB_VROM('oot', giBase + 0x54, colorEnv2);
+    }
   }
 
   private async patchOotChildModel() {
@@ -266,6 +309,31 @@ class CosmeticsPass {
     this.patch.addDataPatch('mm', paddr + lutOff, newLut);
   }
 
+  private patchOotShieldMirror(color: number | null) {
+    if (color === null)
+      return;
+    const buffer = this.colorBufferRGB(color);
+
+    /* Patch the field model */
+    const objLinkBoyVrom = 0xf86000;
+    for (const off of [0x21270, 0x21768, 0x24278, 0x26560, 0x26980, 0x28DD0]) {
+      this.patch.addDataPatch('oot', objLinkBoyVrom + off + 4, buffer);
+    }
+
+    /* Patch icon */
+    const iconVrom = 0x7fd000;
+    const icon = this.roms.oot.rom.subarray(iconVrom, iconVrom + 0x1000);
+    const newIcon = recolorImage('rgba32', icon, this.assets.MASK_OOT_SHIELD_MIRROR, 0xff1313, color);
+    this.patch.addDataPatch('oot', iconVrom, newIcon);
+
+    /* Patch gi */
+    const giObj = 0x01616000;
+    const primColor = this.colorBufferRGB(color);
+    const envColor = this.colorBufferRGB(brightness(color, 0.2));
+    this.patch.addDataPatch('oot', giObj + 0xfc8 + 4, primColor);
+    this.patch.addDataPatch('oot', giObj + 0xfd0 + 4, envColor);
+  }
+
   async run(): Promise<CosmeticsOutput> {
     const { cosmetics } = this.opts;
     this.assets = await cosmeticsAssets(this.opts);
@@ -279,11 +347,13 @@ class CosmeticsPass {
     const colorMmTunicGoron = this.colorArg(cosmetics.mmTunicGoron, 'kokirigreen', () => colorMmTunicHuman);
     const colorMmTunicZora = this.colorArg(cosmetics.mmTunicZora, 'kokirigreen', () => colorMmTunicHuman);
     const colorMmTunicFierceDeity = this.colorArg(cosmetics.mmTunicFierceDeity, 'white', () => 'white');
+    const colorOotShieldMirror = this.colorArgNew(this.opts.cosmetics.ootShieldMirror);
 
     /* OoT tunics */
     this.patchOotTunic(0, colorOotTunicKokiri);
     this.patchOotTunic(1, colorOotTunicGoron);
     this.patchOotTunic(2, colorOotTunicZora);
+    this.patchOotShieldMirror(colorOotShieldMirror);
 
     /* MM tunics */
     this.patchMmTunic(0x0115b000, 'kokirigreen', colorMmTunicHuman, [0xb39c, 0xb8c4, 0xbdcc, 0xbfa4, 0xc064, 0xc66c, 0xcae4, 0xcd1c, 0xcea4, 0xd1ec, 0xd374]);

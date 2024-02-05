@@ -219,20 +219,20 @@ static void setStrayFairyMarkMm(GameState_Play* play, int sceneId, int id)
         setSwitch0MarkMm(play, sceneId, id & 0x1f);
 }
 
-static int getFiskMark(GameState_Play* play, int sceneId, int id)
+static int getFiskMark(GameState_Play* play, int id)
 {
     if (id >= 17)
-        return getCollectibleMarkOot(play, sceneId, id & 0x1f);
+        return getCollectibleMarkOot(play, SCE_OOT_FISHING_POND, id & 0x1f);
     else
-        return getChestMarkOot(play, sceneId, id & 0x1f);
+        return getChestMarkOot(play, SCE_OOT_FISHING_POND, id & 0x1f);
 }
 
-static void setFishMark(GameState_Play* play, int sceneId, int id)
+static void setFishMark(GameState_Play* play, int id)
 {
     if (id >= 17)
-        setCollectibleMarkOot(play, sceneId, id & 0x1f);
+        setCollectibleMarkOot(play, SCE_OOT_FISHING_POND, id & 0x1f);
     else
-        setChestMarkOot(play, sceneId, id & 0x1f);
+        setChestMarkOot(play, SCE_OOT_FISHING_POND, id & 0x1f);
 }
 
 static void markXflag(Xflag* xf, int sliceId, int sceneId, int roomId, int id)
@@ -313,7 +313,7 @@ void multiSetMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u
         BITMAP8_SET(gSharedCustomSave.oot.sr, id);
         break;
     case OV_FISH:
-        setFishMark(play, sceneId, id);
+        setFishMark(play, id);
         break;
     default:
         setXflagsMarkOot(play, ovType - OV_XFLAG0, sceneId, roomId, id);
@@ -390,7 +390,7 @@ int multiIsMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 
     case OV_SR:
         return BITMAP8_GET(gSharedCustomSave.oot.sr, id);
     case OV_FISH:
-        return getFiskMark(play, sceneId, id);
+        return getFiskMark(play, id);
     default:
         return getXflagsMarkOot(play, ovType - OV_XFLAG0, sceneId, roomId, id);
     }
@@ -465,9 +465,9 @@ static void processMessagesSendPlayerPos(GameState_Play* play, NetContext* net)
 #if defined(GAME_MM)
     msg->playerPos.sceneKey |= 0x8000;
 #endif
-    msg->playerPos.x = (s16)link->base.position.x;
-    msg->playerPos.y = (s16)link->base.position.y;
-    msg->playerPos.z = (s16)link->base.position.z;
+    msg->playerPos.x = (s16)link->base.world.pos.x;
+    msg->playerPos.y = (s16)link->base.world.pos.y;
+    msg->playerPos.z = (s16)link->base.world.pos.z;
     net->msgOutSize[index] = 0x10;
 }
 

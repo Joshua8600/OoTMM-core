@@ -84,6 +84,7 @@
 "can_break_snowballs": "can_break_boulders || can_use_fire_short_range"
 "can_use_lens": "can_use_lens_strict || trick(MM_LENS)"
 "can_use_lens_strict": "has_magic && (has(LENS) || has(SHARED_LENS))"
+"has_mask_blast": "cond(setting(sharedMaskBlast), has(SHARED_MASK_BLAST), has(MASK_BLAST))"
 "has_explosives": "true"
 "can_use_fire_arrows": "has_magic && has_arrows && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE))"
 "can_use_ice_arrows": "has_magic && has_arrows && (has(ARROW_ICE) || has(SHARED_ARROW_ICE))"

@@ -1,5 +1,6 @@
 #include <combo.h>
 #include <combo/util.h>
+#include <combo/item.h>
 
 u32 popcount(u32 x)
 {
