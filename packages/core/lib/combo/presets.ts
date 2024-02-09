@@ -6,9 +6,11 @@ export type Presets = { [k: string]: Settings };
 const PRESET_DEFAULT = DEFAULT_SETTINGS;
 
 const BLITZ_BASE: PartialDeep<Settings> = {
+  clearStateDungeonsMm: 'both',
   tingleShuffle: 'starting',
   openMaskShop: true,
   hintImportance: true,
+  strayFairyChestShuffle: 'starting',
   mapCompassShuffle: 'starting',
   smallKeyShuffleMm: 'removed',
   smallKeyShuffleHideout: 'vanilla',
@@ -73,6 +75,10 @@ const BLITZ_BASE: PartialDeep<Settings> = {
   blastMaskOot: true,
   sharedMaskBlast: true,
   agelessChildTrade: true,
+  scalesMm: true,
+  strengthMm: true,
+  sharedScales: true,
+  sharedStrength: true,
   startingItems: {
     OOT_NUTS_10: 2,
     OOT_SHIELD_DEKU: 1,
@@ -573,10 +579,26 @@ const PRESET_HELL = makeSettings({
     'MM_NCT_TINGLE',
     'MM_GBT_FIRELESS',
     'MM_IGOS_DINS',
+    'MM_BIO_BABA_CHU',
+    'MM_BIO_BABA_LUCK',
+    'MM_WF_SHRINE_HOVERS',
+    'MM_WFT_LOBBY_HOVERS',
+    'MM_SOARING_ZORA',
+    'MM_SOARING_HOVERS',
+    'MM_LULLABY_SKIP_IRONS',
+    'MM_PATH_SNOWHEAD_HOVERS',
+    'MM_GBT_WATERWHEEL_HOVERS',
+    'MM_GBT_CENTER_POT_IRONS',
+    'MM_GBT_RED1_HOVERS',
+    'MM_GBT_GREEN2_UPPER_HOVERS',
+    'MM_GYORG_IRONS',
+    'MM_STT_LAVA_BLOCK_HOVERS',
+    'MM_ISTT_ENTRY_HOVER'
   ]
 });
 
 const PRESET_BEGINNER = makeSettings({
+  clearStateDungeonsMm: 'both',
   hintImportance: true,
   tingleShuffle: 'starting',
   mapCompassShuffle: 'starting',
@@ -587,7 +609,6 @@ const PRESET_BEGINNER = makeSettings({
   startingAge: 'random',
   doorOfTime: 'open',
   dekuTree: 'closed',
-  clearStateDungeonsMm: 'both',
   kakarikoGate: 'open',
   gerudoFortress: 'single',
   skipZelda: true,

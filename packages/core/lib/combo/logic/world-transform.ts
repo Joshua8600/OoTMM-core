@@ -178,6 +178,8 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.MM_BOOTS_HOVER,
   Items.MM_TUNIC_GORON,
   Items.MM_TUNIC_ZORA,
+  Items.MM_SCALE,
+  Items.MM_STRENGTH,
   Items.SHARED_BOW,
   Items.SHARED_BOMB_BAG,
   Items.SHARED_MAGIC_UPGRADE,
@@ -222,6 +224,8 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.SHARED_BOOTS_HOVER,
   Items.SHARED_TUNIC_GORON,
   Items.SHARED_TUNIC_ZORA,
+  Items.SHARED_SCALE,
+  Items.SHARED_STRENGTH,
   Items.SHARED_TRIFORCE_POWER,
   Items.SHARED_TRIFORCE_COURAGE,
   Items.SHARED_TRIFORCE_WISDOM,
@@ -735,6 +739,18 @@ export class LogicPassWorldTransform {
       this.replaceItem(Items.OOT_TUNIC_ZORA, Items.SHARED_TUNIC_ZORA);
     } else if (settings.tunicZoraMm) {
       this.addItem(Items.MM_TUNIC_ZORA);
+    }
+
+    if (settings.sharedScales) {
+      this.replaceItem(Items.OOT_SCALE, Items.SHARED_SCALE);
+    } else if (settings.scalesMm) {
+      this.addItem(Items.MM_SCALE, 2);
+    }
+
+    if (settings.sharedStrength) {
+      this.replaceItem(Items.OOT_STRENGTH, Items.SHARED_STRENGTH);
+    } else if (settings.strengthMm) {
+      this.addItem(Items.MM_STRENGTH, 3);
     }
 
     if (settings.sharedMaskBlast) {

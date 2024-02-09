@@ -24,60 +24,6 @@ static const u8 kMmSwords[] = {
     ITEM_MM_SWORD_GILDED,
 };
 
-const u8 kOotTradeAdult[] = {
-    ITEM_OOT_POCKET_EGG,
-    ITEM_OOT_POCKET_CUCCO,
-    ITEM_OOT_COJIRO,
-    ITEM_OOT_ODD_MUSHROOM,
-    ITEM_OOT_ODD_POTION,
-    ITEM_OOT_POACHER_SAW,
-    ITEM_OOT_GORON_SWORD_BROKEN,
-    ITEM_OOT_PRESCRIPTION,
-    ITEM_OOT_EYEBALL_FROG,
-    ITEM_OOT_EYE_DROPS,
-    ITEM_OOT_CLAIM_CHECK
-};
-
-const u8 kOotTradeChild[] = {
-    ITEM_OOT_WEIRD_EGG,
-    ITEM_OOT_CHICKEN,
-    ITEM_OOT_ZELDA_LETTER,
-    ITEM_OOT_KEATON_MASK,
-    ITEM_OOT_SKULL_MASK,
-    ITEM_OOT_SPOOKY_MASK,
-    ITEM_OOT_BUNNY_HOOD,
-    ITEM_OOT_GORON_MASK,
-    ITEM_OOT_ZORA_MASK,
-    ITEM_OOT_GERUDO_MASK,
-    ITEM_OOT_MASK_OF_TRUTH,
-    ITEM_OOT_MASK_BLAST,
-};
-
-const u8 kMmTrade1[] = {
-    ITEM_MM_SPELL_FIRE,
-    ITEM_MM_MOON_TEAR,
-    ITEM_MM_DEED_LAND,
-    ITEM_MM_DEED_SWAMP,
-    ITEM_MM_DEED_MOUNTAIN,
-    ITEM_MM_DEED_OCEAN,
-};
-
-const u8 kMmTrade2[] = {
-    ITEM_MM_SPELL_WIND,
-    ITEM_MM_BOOTS_IRON,
-    ITEM_MM_TUNIC_GORON,
-    ITEM_MM_ROOM_KEY,
-    ITEM_MM_LETTER_TO_MAMA,
-};
-
-const u8 kMmTrade3[] = {
-    ITEM_MM_SPELL_LOVE,
-    ITEM_MM_BOOTS_HOVER,
-    ITEM_MM_TUNIC_ZORA,
-    ITEM_MM_LETTER_TO_KAFEI,
-    ITEM_MM_PENDANT_OF_MEMORIES,
-};
-
 static const u8 kItemSlotsOot[] = {
     ITS_OOT_STICKS,
     ITS_OOT_NUTS,
@@ -1084,17 +1030,31 @@ static int addItemBoots(GameState_Play* play, u8 itemId, s16 gi, u16 param)
     return 0;
 }
 
-static int addItemStrength(GameState_Play* play, u8 itemId, s16 gi, u16 param)
+static int addItemStrengthOot(GameState_Play* play, u8 itemId, s16 gi, u16 param)
 {
     if (param > gOotSave.inventory.upgrades.strength)
         gOotSave.inventory.upgrades.strength = param;
     return 0;
 }
 
-static int addItemScale(GameState_Play* play, u8 itemId, s16 gi, u16 param)
+static int addItemStrengthMm(GameState_Play* play, u8 itemId, s16 gi, u16 param)
+{
+    if (param > gMmSave.inventory.upgrades.strength)
+        gMmSave.inventory.upgrades.strength = param;
+    return 0;
+}
+
+static int addItemScaleOot(GameState_Play* play, u8 itemId, s16 gi, u16 param)
 {
     if (param > gOotSave.inventory.upgrades.dive)
         gOotSave.inventory.upgrades.dive = param;
+    return 0;
+}
+
+static int addItemScaleMm(GameState_Play* play, u8 itemId, s16 gi, u16 param)
+{
+    if (param > gMmSave.inventory.upgrades.scale)
+        gMmSave.inventory.upgrades.scale = param;
     return 0;
 }
 
@@ -1543,6 +1503,7 @@ static int addItemStrayFairy(GameState_Play* play, u8 itemId, s16 gi, u16 param)
         param = comboStrayFairyIndex();
 #endif
 
+    addHealthMm(play, 3);
     if (param == 4)
     {
         MM_SET_EVENT_WEEK(EV_MM_WEEK_TOWN_FAIRY);
@@ -1849,8 +1810,8 @@ static const AddItemFunc kAddItemHandlers[] = {
     addItemShieldMm,
     addItemTunic,
     addItemBoots,
-    addItemStrength,
-    addItemScale,
+    addItemStrengthOot,
+    addItemScaleOot,
     addItemQuestOot,
     addItemQuestMm,
     addItemHeartOot,
@@ -1897,6 +1858,8 @@ static const AddItemFunc kAddItemHandlers[] = {
     addItemBombchuBagMm,
     addItemBigFairyOot,
     addItemBigFairyMm,
+    addItemScaleMm,
+    addItemStrengthMm,
     addItemEndgame,
 };
 
@@ -1970,6 +1933,11 @@ static const SharedItem kSimpleSharedItems[] = {
     { CFG_SHARED_TUNIC_GORON, GI_OOT_TUNIC_GORON, GI_MM_TUNIC_GORON },
     { CFG_SHARED_TUNIC_ZORA, GI_OOT_TUNIC_ZORA, GI_MM_TUNIC_ZORA },
     { CFG_SHARED_MASK_BLAST, GI_OOT_MASK_BLAST, GI_MM_MASK_BLAST },
+    { CFG_SHARED_SCALES, GI_OOT_SCALE_SILVER, GI_MM_SCALE_SILVER },
+    { CFG_SHARED_SCALES, GI_OOT_SCALE_GOLDEN, GI_MM_SCALE_GOLDEN },
+    { CFG_SHARED_STRENGTH, GI_OOT_GORON_BRACELET, GI_MM_GORON_BRACELET },
+    { CFG_SHARED_STRENGTH, GI_OOT_SILVER_GAUNTLETS, GI_MM_SILVER_GAUNTLETS },
+    { CFG_SHARED_STRENGTH, GI_OOT_GOLDEN_GAUNTLETS, GI_MM_GOLDEN_GAUNTLETS },
 };
 
 static int addItem(GameState_Play* play, s16 gi)

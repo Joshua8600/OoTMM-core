@@ -697,7 +697,7 @@ export const SETTINGS = [{
   name: 'Clear State Dungeons (MM)',
   category: 'main.events',
   type: 'enum',
-  description: 'Make some MM dungeons open during clear state..',
+  description: 'Make some MM dungeons open during clear state.',
   values: [
     { value: 'none', name: 'None' },
     { value: 'WF', name: 'Woodfall Temple' },
@@ -1205,6 +1205,20 @@ export const SETTINGS = [{
   description: "Adds Zora Tunic in Majora's Mask.",
   default: false
 }, {
+  key: 'scalesMm',
+  name: "Scales (MM)",
+  category: 'items.extensions',
+  type: 'boolean',
+  description: "Adds Silver Scale and Golden Scale in Majora's Mask.",
+  default: false
+}, {
+  key: 'strengthMm',
+  name: "Strength (MM)",
+  category: 'items.extensions',
+  type: 'boolean',
+  description: "Adds Goron's Bracelet, Silver Gauntlets and Golden Gauntlets in Majora's Mask.",
+  default: false
+}, {
   key: 'blastMaskOot',
   name: "Blast Mask (OoT)",
   category: 'items.extensions',
@@ -1539,6 +1553,20 @@ export const SETTINGS = [{
   type: 'boolean',
   default: false,
   cond: (s: any) => s.tunicZoraMm,
+}, {
+  key: 'sharedScales',
+  name: "Shared Scales",
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => s.scalesMm,
+}, {
+  key: 'sharedStrength',
+  name: "Shared Strength",
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => s.strengthMm,
 }, {
   key: 'agelessSwords',
   name: 'Ageless Swords',
