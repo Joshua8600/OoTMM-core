@@ -4,8 +4,6 @@
 #include <combo/dma.h>
 #include <combo/item.h>
 
-
-
 static int checkItemToggle(GameState_Play* play)
 {
     PauseContext* p;
@@ -40,7 +38,7 @@ static int checkItemToggle(GameState_Play* play)
     u32 flags;
     const u8* table;
     u32 tableSize;
-    if (comboGetSlotExtras(itemCursor, &itemPtr, &flags, &table, &tableSize) >= 0 && play->pauseCtx.cursorItem[0] != 999 && popcount(flags))
+    if (comboGetSlotExtras(itemCursor, &itemPtr, &flags, &table, &tableSize) >= 0 && play->pauseCtx.cursorItem[0] != 999 && popcount(flags) > 1)
     {
         ret = 1;
         if (press)
