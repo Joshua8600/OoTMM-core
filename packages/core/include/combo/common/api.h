@@ -190,6 +190,7 @@ void Sram_SaveEndOfCycle(GameState_Play* play);
 void Sram_SaveNewDay(GameState_Play* play);
 #endif
 
+void Grayscale(void* buffer, u16 size);
 s16 RandIntRange(s16 base, s16 amplitude);
 
 extern u32 gSegments[16];
@@ -209,7 +210,7 @@ void  ActorFree(void* data);
 void Sram_CopySave(void*, void*);
 
 void Play_Init(GameState_Play*);
-void Play_Draw(GameState_Play*);
+void Play_Update(GameState_Play*);
 
 s32 Player_InCsMode(GameState_Play*);
 void Interface_LoadItemIconImpl(GameState_Play* play, int slot);
@@ -294,6 +295,9 @@ void DrawGi_Spell(GameState_Play*, s16);
 void DrawGi_MoonTear(GameState_Play*, s16);
 void DrawGi_BottleFairy(GameState_Play*, s16);
 void DrawGi_BottleBlueFire(GameState_Play*, s16);
+
+/* GFX */
+Gfx* Gfx_TexScroll(GfxContext* ctx, u32 x, u32 y, s32 width, s32 height);
 
 void SpawnRoomActors(GameState_Play* play, int id);
 
@@ -474,5 +478,7 @@ s32 SysFlashrom_IsInit(void);
 s32 SysFlashrom_InitFlash(void);
 s32 SysFlashrom_ReadData(void* addr, u32 pageNum, u32 pageCount);
 s32 SysFlashrom_ExecWrite(void* addr, u32 pageNum, u32 pageCount);
+
+EntranceTableEntry* Entrance_GetTableEntry(u16 entrance);
 
 extern OSPiHandle* gCartHandle;

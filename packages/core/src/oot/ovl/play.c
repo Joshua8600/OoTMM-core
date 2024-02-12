@@ -1,6 +1,8 @@
 #include <combo.h>
 #include <combo/souls.h>
 #include <combo/net.h>
+#include <combo/menu.h>
+#include <combo/entrance.h>
 
 extern void* gMmMag;
 GameState_Play* gPlay;
@@ -299,8 +301,6 @@ static u32 entranceForOverride(u32 entrance)
 
 void hookPlay_Init(GameState_Play* play)
 {
-    s32 override;
-
     /* Init */
     gActorCustomTriggers = NULL;
     gMultiMarkChests = 0;
@@ -311,29 +311,6 @@ void hookPlay_Init(GameState_Play* play)
 
     /* Register play */
     gPlay = play;
-
-    /* Handle transition override */
-    if (g.inGrotto)
-        gIsEntranceOverride = 0;
-    if (gIsEntranceOverride)
-    {
-        gIsEntranceOverride = 0;
-        override = comboEntranceOverride(entranceForOverride(gSave.entrance));
-        if (override != -1)
-        {
-            if (override >= 0)
-                gSave.entrance = override;
-            else
-            {
-                gSave.entrance = gLastEntrance;
-                Play_Init(play);
-                gComboCtx.shuffledEntrance = 1;
-                comboClearEpona(play);
-                comboGameSwitch(play, override);
-                return;
-            }
-        }
-    }
 
     /* Handle custom entrance IDs */
     switch (gSave.entrance)
@@ -445,11 +422,13 @@ void hookPlay_Init(GameState_Play* play)
 #endif
 }
 
-void Play_DrawWrapper(GameState_Play* play)
+void Play_UpdateWrapper(GameState_Play* play)
 {
+    comboMenuTick();
+    Debug_Input();
     comboCacheGarbageCollect();
     comboObjectsGC();
-    Play_Draw(play);
+    Play_Update(play);
 
     if (gComboCtx.valid)
     {
@@ -465,6 +444,8 @@ void Play_DrawWrapper(GameState_Play* play)
         /* Need to draw dpad */
         comboDpadDraw(play);
     }
+
+    Debug_Update();
 }
 
 static void Play_LoadKaleidoScopeHook(void* unk)
@@ -488,5 +469,44 @@ void comboClearEpona(GameState_Play* play)
 
         /* Reload the B button icon */
         Interface_LoadItemIconImpl(play, 0);
+    }
+}
+
+NORETURN static void Play_GameSwitch(GameState_Play* play, s32 entrance)
+{
+    gComboCtx.shuffledEntrance = 1;
+    comboClearEpona(play);
+    comboGameSwitch(play, entrance);
+}
+
+void Play_TransitionDone(GameState_Play* play)
+{
+    u32 entrance;
+    s32 override;
+
+    /* Resolve extended entrance */
+    entrance = play->nextEntranceIndex;
+    if (entrance == ENTR_EXTENDED)
+        entrance = g.nextEntrance;
+
+    /* Handle transition override */
+    if (g.inGrotto)
+        gIsEntranceOverride = 0;
+    if (gIsEntranceOverride)
+    {
+        gIsEntranceOverride = 0;
+        override = comboEntranceOverride(entranceForOverride(entrance));
+        if (override != -1)
+            entrance = (u32)override;
+    }
+
+    /* Check for foreign */
+    if (entrance & MASK_FOREIGN_ENTRANCE)
+    {
+        Play_GameSwitch(play, entrance & ~MASK_FOREIGN_ENTRANCE);
+    }
+    else
+    {
+        play->nextEntranceIndex = entrance & 0xffff;
     }
 }
