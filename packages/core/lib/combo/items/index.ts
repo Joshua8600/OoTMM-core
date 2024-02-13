@@ -11,10 +11,10 @@ export type { PlayerItems, PlayerItem, ItemsCount } from './util';
 export function itemByID(id: string): Item {
   /* HARDCODED */
   if (['OOT_FLEXIBLE', 'OOT_RANDOM'].includes(id)) {
-    id = 'OOT_RUPEE_GREEN';
+    id = 'OOT_TRAP_RUPOOR';
   }
   if (['MM_???', 'MM_RANDOM'].includes(id)) {
-    id = 'MM_RUPEE_GREEN';
+    id = 'MM_TRAP_RUPOOR';
   }
   if (['MM_ARROWS_20'].includes(id)) {
     id = 'MM_ARROWS_30';

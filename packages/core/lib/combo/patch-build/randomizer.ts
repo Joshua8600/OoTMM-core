@@ -837,6 +837,8 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     MM_MOON_CRASH_CYCLE: settings.moonCrash === 'cycle',
     OOT_OPEN_ZD_SHORTCUT: settings.openZdShortcut,
     MM_CLOCKS: settings.clocks,
+    MM_SOULS_NPC: settings.soulsNpcMm,
+    SHARED_SOULS_NPC: settings.sharedSoulsNpc,
   };
 
   for (const v in exprs) {

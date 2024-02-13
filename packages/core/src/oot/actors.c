@@ -75,7 +75,7 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return comboHasSoulOot(GI_OOT_SOUL_ENEMY_REDEAD_GIBDO);
     case AC_EN_SW:
         if (variable & 0xe000)
-            return comboHasSoulOot(GI_OOT_SOUL_ENEMY_GOLD_SKULLTULA);
+            return comboHasSoulOot(GI_OOT_SOUL_ENEMY_CURSE_SPIDER);
         return comboHasSoulOot(GI_OOT_SOUL_ENEMY_SKULLWALLTULA);
     case AC_EN_FD:
         return comboHasSoulOot(GI_OOT_SOUL_ENEMY_FLARE_DANCER);
@@ -139,7 +139,7 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_KZ:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_KING_ZORA));
     case AC_EN_NIW_LADY:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CUCCO_LADY));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ANJU));
     case AC_EN_TORYO:
     case AC_EN_DAIKU:
     case AC_EN_DAIKU_KAKARIKO:
@@ -168,11 +168,11 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_HEISHI4:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_HYLIAN_GUARD));
     case AC_EN_HY:
-    case AC_EN_ANI:
     case AC_EN_MU:
-    case AC_EN_TG:
     case AC_EN_NIW_GIRL:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_HYLIAN_CITIZEN));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CITIZEN));
+    case AC_EN_TG:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_HONEY_DARLING));
     case AC_EN_MA1:
     case AC_EN_MA2:
     case AC_EN_MA3:
@@ -220,7 +220,7 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_ZL3:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ZELDA));
     case AC_EN_MK:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_LAKESIDE_PROFESSOR));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_MARINE_SCIENTIST));
     case AC_EN_MS:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BEAN_SALESMAN));
     case AC_EN_DOG:
@@ -231,7 +231,7 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_INGO));
     case AC_EN_DNS:
     case AC_EN_SHOPNUTS:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BUSINESS_SCRUB));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BUSINESS_SCRUBS));
     case AC_EN_OWL:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_OWL));
     case AC_EN_HORSE:
@@ -241,9 +241,9 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         else
             return 1;
     case AC_EN_DS:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_POTION_WITCH));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_OLD_HAG));
     case AC_EN_TRAP:
-        return comboHasSoulOot(GI_OOT_SOUL_ENEMY_SPIKE_TRAPS);
+        return opt(comboHasSoulOot(GI_OOT_SOUL_ENEMY_SPIKE_TRAPS));
     case AC_EN_POH:
         switch(variable)
         {
@@ -260,6 +260,11 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CUCCO));
     case AC_BOSS_GANON:
         return comboHasSoulOot(GI_OOT_SOUL_BOSS_GANONDORF);
+    case AC_EN_ANI:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ROOFTOP_MAN));
+    case AC_EN_HS:
+    case AC_EN_HS2:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_GROG));
     default:
         return 1;
     }

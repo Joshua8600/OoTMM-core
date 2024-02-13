@@ -10,7 +10,8 @@
 #define MENU_SOULS_OOT_NPC      4
 #define MENU_SOULS_MM_ENEMY     5
 #define MENU_SOULS_MM_BOSS      6
-#define MENU_MAX                7
+#define MENU_SOULS_MM_NPC      7
+#define MENU_MAX                8
 
 typedef struct GameState_Play GameState_Play;
 
