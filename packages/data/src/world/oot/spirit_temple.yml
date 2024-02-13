@@ -92,7 +92,7 @@
     "Spirit Temple SR Sun 3": "true"
     "Spirit Temple SR Sun 4": "true"
     "Spirit Temple SR Sun 5": "true"
-    "Spirit Temple GS Iron Knuckle": "soul_gs && (event(SPIRIT_CHILD_DOOR) && has_explosives && can_collect_distance) || (event(SPIRIT_ADULT_DOOR) && can_collect_distance) || cond(climb_anywhere, ((has_explosives && can_reflect_light && small_keys_spirit(1)) || small_keys_spirit(3)) && (can_collect_distance || has_ranged_weapon || has_explosives || can_use_din), can_collect_ageless && (has_explosives || small_keys_spirit(2)))"
+    "Spirit Temple GS Iron Knuckle": "soul_gs && ((event(SPIRIT_CHILD_DOOR) && has_explosives && can_collect_distance) || (event(SPIRIT_ADULT_DOOR) && can_collect_distance) || cond(climb_anywhere, ((has_explosives && can_reflect_light && small_keys_spirit(1)) || small_keys_spirit(3)) && (can_collect_distance || has_ranged_weapon || has_explosives || can_use_din), can_collect_ageless && (has_explosives || small_keys_spirit(2))))"
     "Spirit Temple Pot Child Hand Stairway 1": "true"
     "Spirit Temple Pot Child Hand Stairway 2": "true"
 "Spirit Temple Child Hand":
