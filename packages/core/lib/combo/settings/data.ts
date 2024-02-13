@@ -613,6 +613,17 @@ export const SETTINGS = [{
   ],
   default: 'none'
 }, {
+  key: 'moonCrash',
+  name: 'Moon Crash Behavior',
+  category: 'main.events',
+  type: 'enum',
+  description: 'Change the behavior of moon crashing',
+  values: [
+    { value: 'reset', name:  'Reset',  description: 'Moon Crash will restore the last save. No progress will be kept.' },
+    { value: 'cycle', name:  'New Cycle',  description: 'Moon Crash will initiate a new cycle, keeping progress.' },
+  ],
+  default: 'reset'
+}, {
   key: 'startingAge',
   name: 'Starting Age',
   category: 'main.events',
@@ -716,6 +727,13 @@ export const SETTINGS = [{
     { value: 'open', name: 'Open' },
   ],
   default: 'closed'
+}, {
+  key: 'openZdShortcut',
+  name: 'Open Zora\'s Domain Shortcut',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Removes the ice blocking Zora\'s Domain in Lake Hylia as adult',
+  default: false
 }, {
   key: 'zoraKing',
   name: 'King Zora',
@@ -1292,6 +1310,13 @@ export const SETTINGS = [{
   category: 'items.extensions',
   type: 'boolean',
   description: 'Add NPC souls into the item pool. NPCs won\'t spawn unless their soul is obtained.',
+  default: false
+}, {
+  key: 'clocks',
+  name: 'Clocks as Items',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Add items representing every Majora\'s Mask half day into the pool. The moon will crash early unless you collect these items.',
   default: false
 }, {
   key: 'lenientSpikes',
