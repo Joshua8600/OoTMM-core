@@ -27,6 +27,7 @@
   exits:
     "Pirate Fortress Entrance": "true"
     "Pirate Fortress Sewers Cage Room": "has_mask_zora || (underwater_walking_strict && can_lift_silver)"
+    "Pirate Fortress Sewers Void": "has_mask_zora || (underwater_walking_strict && can_lift_silver)"
   locations:
     "Pirate Fortress Sewers Chest 1": "underwater_walking_strict"
 "Pirate Fortress Sewers Cage Room":
@@ -51,6 +52,7 @@
   exits:
     "Pirate Fortress Entrance": "true"
     "Pirate Fortress Sewers End": "has_weapon_range || has_bombs || has_bombchu"
+    "Pirate Fortress Sewers Void": "true"
   locations:
     "Pirate Fortress Sewers Pot Waterway 1": "true"
     "Pirate Fortress Sewers Pot Waterway 2": "true"
@@ -70,6 +72,10 @@
     "Pirate Fortress Sewers Rupee Water Elevator 1": "true"
     "Pirate Fortress Sewers Rupee Water Elevator 2": "true"
     "Pirate Fortress Sewers Rupee Water Elevator 3": "true"
+"Pirate Fortress Sewers Void":
+  region: NONE
+  exits:
+    "VOID": "true"
 "Pirate Fortress Interior":
   region: PIRATE_FORTRESS_INTERIOR
   events:

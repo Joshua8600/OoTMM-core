@@ -204,6 +204,8 @@ const ITEM_POOL_PLENTIFUL = new Set([
   ...ItemGroups.OOT_SOULS_BOSS,
   ...ItemGroups.MM_SOULS_BOSS,
   ...ItemGroups.OOT_SOULS_NPC,
+  ...ItemGroups.MM_SOULS_NPC,
+  ...ItemGroups.SHARED_SOULS_NPC,
   ...ItemGroups.SHARED_SOULS_ENEMY,
   Items.OOT_BUTTON_A,
   Items.OOT_BUTTON_C_RIGHT,
@@ -828,12 +830,14 @@ export class LogicPassWorldTransform {
       this.replaceItem(Items.OOT_RUPEE_RED,     Items.SHARED_RUPEE_RED);
       this.replaceItem(Items.OOT_RUPEE_PURPLE,  Items.SHARED_RUPEE_PURPLE);
       this.replaceItem(Items.OOT_RUPEE_HUGE,    Items.SHARED_RUPEE_GOLD);
+      this.replaceItem(Items.OOT_TRAP_RUPOOR,   Items.SHARED_TRAP_RUPOOR);
       this.replaceItem(Items.MM_RUPEE_GREEN,    Items.SHARED_RUPEE_GREEN);
       this.replaceItem(Items.MM_RUPEE_BLUE,     Items.SHARED_RUPEE_BLUE);
       this.replaceItem(Items.MM_RUPEE_RED,      Items.SHARED_RUPEE_RED);
       this.replaceItem(Items.MM_RUPEE_PURPLE,   Items.SHARED_RUPEE_PURPLE);
       this.replaceItem(Items.MM_RUPEE_SILVER,   Items.SHARED_RUPEE_SILVER);
       this.replaceItem(Items.MM_RUPEE_GOLD,     Items.SHARED_RUPEE_GOLD);
+      this.replaceItem(Items.MM_TRAP_RUPOOR,    Items.SHARED_TRAP_RUPOOR);
     }
 
     if (settings.sharedHealth) {
@@ -865,6 +869,10 @@ export class LogicPassWorldTransform {
 
     if (settings.sharedSoulsEnemy) {
       this.shareItems(SharedItemGroups.SOULS_ENEMY, 'max');
+    }
+
+    if (settings.sharedSoulsNpc) {
+      this.shareItems(SharedItemGroups.SOULS_NPC, 'max');
     }
 
     if (settings.sharedSkeletonKey) {
@@ -1104,6 +1112,7 @@ export class LogicPassWorldTransform {
     if (settings.soulsBossOot) this.addItems(ItemGroups.OOT_SOULS_BOSS);
     if (settings.soulsBossMm) this.addItems(ItemGroups.MM_SOULS_BOSS);
     if (settings.soulsNpcOot) this.addItems(ItemGroups.OOT_SOULS_NPC);
+    if (settings.soulsNpcMm) this.addItems(ItemGroups.MM_SOULS_NPC);
 
     /* Add skeleton keys */
     if (settings.skeletonKeyOot) {
