@@ -312,12 +312,13 @@ MM_WALLMASTER_DAMPE:                            { game: mm,  id: 0xff00, type: w
 MM_WALLMASTER_BTW_ENTRANCE:                     { game: mm,  id: 0xff01, type: wallmaster, areas: ["MM Beneath The Well Wallmaster Near Entrance", "MM VOID"] }
 MM_WALLMASTER_BTW_FOUNTAIN:                     { game: mm,  id: 0xff02, type: wallmaster, areas: ["MM Beneath The Well Wallmaster Near Fountain", "MM VOID"] }
 MM_WALLMASTER_BTW_EXIT:                         { game: mm,  id: 0xff03, type: wallmaster, areas: ["MM Beneath The Well Wallmaster Near Exit", "MM VOID"] }
-MM_CLOCK_TOWN:                                  { game: mm,  id: 0xd800, type: none, debug: ['COMMON', 'Clock Town'] }
-MM_MOON:                                        { game: mm,  id: 0xc800, type: none, debug: ['COMMON', 'Moon'] }
-MM_VOID_GREAT_BAY_COAST:                        { game: mm,  id: 0x6820, type: one-way-void, areas: ["MM Great Bay Coast", "MM VOID"] }
+MM_VOID_GREAT_BAY_COAST_LEFT:                   { game: mm,  id: 0x6820, type: one-way-void, areas: ["MM Great Bay Coast", "MM VOID"] }
+MM_VOID_GREAT_BAY_COAST_RIGHT:                  { game: mm,  id: 0x6860, type: one-way-void, areas: ["MM Great Bay Coast", "MM VOID"] }
 MM_VOID_PINNACLE_ROCK:                          { game: mm,  id: 0x4410, type: one-way-void, areas: ["MM Pinnacle Rock Void", "MM VOID"] }
 MM_VOID_ZORA_CAPE:                              { game: mm,  id: 0x6a30, type: one-way-void, areas: ["MM Zora Cape", "MM VOID"] }
 MM_VOID_SEWERS:                                 { game: mm,  id: 0x7030, type: one-way-void, areas: ["MM Pirate Fortress Sewers Void", "MM VOID"] }
+MM_CLOCK_TOWN:                                  { game: mm,  id: 0xd800, type: none, debug: ['COMMON', 'Clock Town'] }
+MM_MOON:                                        { game: mm,  id: 0xc800, type: none, debug: ['COMMON', 'Moon'] }
 
 MM_WCT_FROM_SCT_LOW:                            { game: mm,  id: 0xd410, type: region-full, areas: ["MM Clock Town South Lower West", "MM Clock Town West"], reverse: MM_SCT_FROM_WCT_LOW }
 MM_SCT_FROM_WCT_LOW:                            { game: mm,  id: 0xd850, type: overworld,   areas: ["MM Clock Town South Lower West", "MM Clock Town South"], reverse: MM_WCT_FROM_SCT_LOW }
@@ -382,7 +383,7 @@ MM_EXTERIOR_GATE_FROM_SEWERS:                   { game: mm, id: 0x7020, type: ov
 MM_SEWERS_FROM_EXTERIOR_DOOR:                   { game: mm, id: 0x40a0, type: interior-extra, areas: ["MM Pirate Fortress Entrance Balcony", "MM Pirate Fortress Sewers End"], reverse: MM_EXTERIOR_DOOR_FROM_SEWERS }
 MM_EXTERIOR_DOOR_FROM_SEWERS:                   { game: mm, id: 0x7060, type: interior-exit, areas: ["MM Pirate Fortress Sewers End", "MM Pirate Fortress Entrance Balcony"], reverse: MM_SEWERS_FROM_EXTERIOR_DOOR }
 MM_PIRATE_FORTRESS_INTERIOR:                    { game: mm, id: 0x2200, type: region-full, areas: ["MM Pirate Fortress Entrance Balcony", "MM Pirate Fortress Interior"], reverse: MM_PIRATE_FORTRESS_INTERIOR_FROM_EXTERIOR }
-MM_PIRATE_FORTRESS_INTERIOR_FROM_EXTERIOR:      { game: mm, id: 0x7010, type: overworld, areas: ["MM Pirate Fortress Entrance Lookout", "MM Pirate Fortress Barrel Maze Entry"], reverse: MM_PIRATE_FORTRESS_INTERIOR }
+MM_PIRATE_FORTRESS_INTERIOR_FROM_EXTERIOR:      { game: mm, id: 0x7010, type: overworld, areas: ["MM Pirate Fortress Interior", "MM Pirate Fortress Entrance Balconyy"], reverse: MM_PIRATE_FORTRESS_INTERIOR }
 MM_PIRATE_FORTRESS_INTERIOR_FROM_LOOKOUT:       { game: mm, id: 0x22c0, type: region-full, areas: ["MM Pirate Fortress Entrance Lookout", "MM Pirate Fortress Barrel Maze Entry"], reverse: MM_PIRATE_FORTRESS_EXTERIOR_LOOKOUT}
 MM_PIRATE_FORTRESS_EXTERIOR_LOOKOUT:            { game: mm, id: 0x7050, type: overworld, areas: ["MM Pirate Fortress Barrel Maze Entry", "MM Pirate Fortress Entrance Lookout"], reverse: MM_PIRATE_FORTRESS_INTERIOR_FROM_LOOKOUT }
 MM_IKANA_CASTLE_GARDENS:                        { game: mm, id: 0x3410, type: region-full, areas: ["MM Ikana Canyon", "MM Ikana Castle Entrance"], reverse: MM_IKANA_CANYON_FROM_CASTLE_GARDENS }
