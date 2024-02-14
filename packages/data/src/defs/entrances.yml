@@ -382,8 +382,8 @@ MM_SEWERS_FROM_EXTERIOR_GATE:                   { game: mm, id: 0x4090, type: re
 MM_EXTERIOR_GATE_FROM_SEWERS:                   { game: mm, id: 0x7020, type: overworld, areas: ["MM Pirate Fortress Sewers", "MM Pirate Fortress Entrance"], reverse: MM_SEWERS_FROM_EXTERIOR_GATE }
 MM_SEWERS_FROM_EXTERIOR_DOOR:                   { game: mm, id: 0x40a0, type: interior-extra, areas: ["MM Pirate Fortress Entrance Balcony", "MM Pirate Fortress Sewers End"], reverse: MM_EXTERIOR_DOOR_FROM_SEWERS }
 MM_EXTERIOR_DOOR_FROM_SEWERS:                   { game: mm, id: 0x7060, type: interior-exit, areas: ["MM Pirate Fortress Sewers End", "MM Pirate Fortress Entrance Balcony"], reverse: MM_SEWERS_FROM_EXTERIOR_DOOR }
-MM_PIRATE_FORTRESS_INTERIOR:                    { game: mm, id: 0x2200, type: region-full, areas: ["MM Pirate Fortress Entrance Balcony", "MM Pirate Fortress Interior"], reverse: MM_PIRATE_FORTRESS_INTERIOR_FROM_EXTERIOR }
-MM_PIRATE_FORTRESS_INTERIOR_FROM_EXTERIOR:      { game: mm, id: 0x7010, type: overworld, areas: ["MM Pirate Fortress Interior", "MM Pirate Fortress Entrance Balconyy"], reverse: MM_PIRATE_FORTRESS_INTERIOR }
+MM_PIRATE_FORTRESS_INTERIOR:                    { game: mm, id: 0x2200, type: region-full, areas: ["MM Pirate Fortress Entrance Balcony", "MM Pirate Fortress Interior"], reverse: MM_PIRATE_FORTRESS_EXTERIOR_FROM_INTERIOR }
+MM_PIRATE_FORTRESS_EXTERIOR_FROM_INTERIOR:      { game: mm, id: 0x7010, type: overworld, areas: ["MM Pirate Fortress Interior", "MM Pirate Fortress Entrance Balcony"], reverse: MM_PIRATE_FORTRESS_INTERIOR }
 MM_PIRATE_FORTRESS_INTERIOR_FROM_LOOKOUT:       { game: mm, id: 0x22c0, type: region-full, areas: ["MM Pirate Fortress Entrance Lookout", "MM Pirate Fortress Barrel Maze Entry"], reverse: MM_PIRATE_FORTRESS_EXTERIOR_LOOKOUT}
 MM_PIRATE_FORTRESS_EXTERIOR_LOOKOUT:            { game: mm, id: 0x7050, type: overworld, areas: ["MM Pirate Fortress Barrel Maze Entry", "MM Pirate Fortress Entrance Lookout"], reverse: MM_PIRATE_FORTRESS_INTERIOR_FROM_LOOKOUT }
 MM_IKANA_CASTLE_GARDENS:                        { game: mm, id: 0x3410, type: region-full, areas: ["MM Ikana Canyon", "MM Ikana Castle Entrance"], reverse: MM_IKANA_CANYON_FROM_CASTLE_GARDENS }
@@ -404,8 +404,10 @@ OOT_CRATER_FROM_TRAIL_SUMMIT:                   { game: oot, id: 0x147, type: re
 OOT_TRAIL_SUMMIT_FROM_CRATER:                   { game: oot, id: 0x1bd, type: overworld, areas: ["OOT Death Mountain Crater Top", "OOT Death Mountain Summit"], reverse: OOT CRATER_FROM_TRAIL_SUMMIT }
 OOT_LOST_WOODS:                                 { game: oot, id: 0x11e, type: region-full, areas: ["OOT Kokiri Forest", "OOT Lost Woods"], reverse: OOT_FOREST_FROM_LOST_WOODS }
 OOT_FOREST_FROM_LOST_WOODS:                     { game: oot, id: 0x286, type: overworld, areas: ["OOT Lost Woods", "OOT Kokiri Forest"], reverse: OOT LOST_WOODS }
-OOT_FOREST_FROM_LOST_WOODS_BRDIGE:              { game: oot, id: 0x5e0, type: region-full, areas: ["OOT  Lost Woods Bridge", "OOT Kokiri Forest"], reverse: OOT_LOST_WOODS_BRIDGE_FROM_FOREST }
+OOT_FOREST_FROM_LOST_WOODS_BRDIGE:              { game: oot, id: 0x5e0, type: region-full, areas: ["OOT Lost Woods Bridge", "OOT Kokiri Forest"], reverse: OOT_LOST_WOODS_BRIDGE_FROM_FOREST }
 OOT_LOST_WOODS_BRIDGE_FROM_FOREST:              { game: oot, id: 0x20d, type: overworld, areas: ["OOT Kokiri Forest", "OOT Lost Woods Bridge from Forest"], reverse: OOT FOREST_FROM_LOST_WOODS_BRDIGE }
+OOT_GRAVEYARD:                                  { game: oot, id: 0x0e4, type: region-full, areas: ["OOT Kakariko", "OOT Graveyard"], revers: OOT_KAKARIKO_FROM_GRAVEYARD }
+OOT_KAKARIKO_FROM_GRAVEYARD:                    { game: oot, id: 0x195, type: overworld, areas: ["OOT Graveyard", "OOT Kakariko"], revers: OOT_GRAVEYARD }
 
 OOT_WASTELAND:                                  { game: oot, id: 0x130, type: region-sand, areas: ["OOT Fortress Near Wasteland", "OOT Haunted Wasteland Start"], reverse: OOT_FORTRESS_FROM_WASTELAND }
 OOT_FORTRESS_FROM_WASTELAND:                    { game: oot, id: 0x365, type: overworld, areas: ["OOT Haunted Wasteland Start", "OOT Fortress Near Wasteland"], reverse: OOT WASTELAND }
