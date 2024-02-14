@@ -408,8 +408,6 @@ OOT_FOREST_FROM_LOST_WOODS_BRDIGE:              { game: oot, id: 0x5e0, type: re
 OOT_LOST_WOODS_BRIDGE_FROM_FOREST:              { game: oot, id: 0x20d, type: overworld, areas: ["OOT Kokiri Forest", "OOT Lost Woods Bridge from Forest"], reverse: OOT FOREST_FROM_LOST_WOODS_BRDIGE }
 OOT_GRAVEYARD:                                  { game: oot, id: 0x0e4, type: region-full, areas: ["OOT Kakariko", "OOT Graveyard"], revers: OOT_KAKARIKO_FROM_GRAVEYARD }
 OOT_KAKARIKO_FROM_GRAVEYARD:                    { game: oot, id: 0x195, type: overworld, areas: ["OOT Graveyard", "OOT Kakariko"], revers: OOT_GRAVEYARD }
-OOT_SACRED_MEADOW:                              { game: oot, id: 0x1a9, type: region-full, areas: ["OOT Lost Woods Deep", "OOT Sacred Meadow Entryway"], revers: OOT_LOST_WOODS_FROM_MEADOW }
-OOT_LOST_WOODS_FROM_MEADOW:                     { game: oot, id: 0x0fc, type: overworld, areas: ["OOT Sacred Meadow Entryway", "OOT Lost Woods Deep"], revers: OOT_SACRED_MEADOW }
 
 OOT_WASTELAND:                                  { game: oot, id: 0x130, type: region-sand, areas: ["OOT Fortress Near Wasteland", "OOT Haunted Wasteland Start"], reverse: OOT_FORTRESS_FROM_WASTELAND }
 OOT_FORTRESS_FROM_WASTELAND:                    { game: oot, id: 0x365, type: overworld, areas: ["OOT Haunted Wasteland Start", "OOT Fortress Near Wasteland"], reverse: OOT WASTELAND }
