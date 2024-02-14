@@ -413,7 +413,7 @@
   exits:
     "Laundry Pool": "true"
   events:
-    MEET_KAFEI: "event(MAIL_LETTER) && before(DAY3_AM_06_00)"
+    MEET_KAFEI: "event(MAIL_LETTER) && between(DAY2_PM_02_00, DAY3_AM_06_00)"
   locations:
     "Kafei Hideout Pendant of Memories": "soul_npc(SOUL_NPC_KAFEI) && event(MAIL_LETTER) && (before(DAY3_AM_06_00) || event(SAKON_BOMB_BAG) || event(SAKON_BOOM))"
     "Kafei Hideout Owner Reward 1": "soul_npc(SOUL_NPC_SAKON_BUNDLE) && event(MEET_KAFEI) && between(DAY3_AM_06_00, NIGHT3_PM_10_00)"
@@ -446,7 +446,7 @@
   exits:
     "Clock Town West": "true"
 #  locations:
-#    "Lottery Prize": "event(PLAY_LOTTERY) && (before(NIGHT1_PM_11_00) || between(NIGHT2_PM_06_00, NIGHT2_PM_11_00) || between(NIGHT3_PM_06_00, NIGHT3_PM_11_00))"
+#    "Lottery Prize": "event(PLAY_LOTTERY) && (between(NIGHT1_PM_06_00, NIGHT1_PM_11_00) || between(NIGHT2_PM_06_00, NIGHT2_PM_11_00) || between(NIGHT3_PM_06_00, NIGHT3_PM_11_00))"
 "Mayor's Office":
   region: ENTRANCE
   exits:
@@ -2102,7 +2102,7 @@
 "Romani Ranch":
   region: ROMANI_RANCH
   events:
-    ALIENS: "before(NIGHT1_AM_02_30) && has_arrows"
+    ALIENS: "at(NIGHT1_AM_02_30) && has_arrows"
     ARROWS: "true"
     MAGIC: "true"
     FAIRY: "can_get_gossip_fairy"
@@ -2208,9 +2208,9 @@
   exits:
     "Romani Ranch": "true"
   locations:
-    "Romani Ranch Barn Cow Left": "(before(NIGHT1_AM_02_30) || event(ALIENS)) && can_play_epona"
-    "Romani Ranch Barn Cow Right Front": "(before(NIGHT1_AM_02_30) || event(ALIENS)) && can_play_epona"
-    "Romani Ranch Barn Cow Right Back": "(before(NIGHT1_AM_02_30) || event(ALIENS)) && can_play_epona"
+    "Romani Ranch Barn Cow Left": "(between(NIGHT1_PM_06_00, NIGHT1_AM_02_30) || event(ALIENS)) && can_play_epona"
+    "Romani Ranch Barn Cow Right Front": "(between(NIGHT1_PM_06_00, NIGHT1_AM_02_30) || event(ALIENS)) && can_play_epona"
+    "Romani Ranch Barn Cow Right Back": "(between(NIGHT1_PM_06_00, NIGHT1_AM_02_30) || event(ALIENS)) && can_play_epona"
     # TODO: Wonder items?
     #"Romani Ranch Barn Invisible Rupee 1": "true"
     #"Romani Ranch Barn Invisible Rupee 2": "true"
