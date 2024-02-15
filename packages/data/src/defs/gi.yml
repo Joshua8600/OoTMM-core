@@ -701,7 +701,6 @@
 - { id: MM_TRAP_RUPOOR, type: RUPEE, add: [MM_RUPEE, -10], flags: 0x80, draw: [RUPEE, 0], object: [mm, 0x013f], name: "a <COLOR_BLUE>Rupoor" }
 - { id: MM_MASK_MAJORA, type: MAJOR, add: [ENDGAME, 1], flags: 0xa0, draw: MASK_MAJORA, object: GI_MASK_MAJORA, name: "<C3>Majora's Mask" }
 - { id: MM_SOLD_OUT, flags: 0xa0, draw: OOT_SOLD_OUT, object: [mm, 0x0113] }
-- { id: MM_TRAP_RUPOOR, add: [MM_RUPEE, -10], flags: 0x80, draw: RUPOOR, name: "a <COLOR_BLUE>Rupoor" }
 - { id: MM_SOUL_NPC_MOON_CHILDREN, type: SOUL, add: [MM_SOUL, 0x2000], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Moon Children" }
 - { id: MM_SOUL_NPC_SHOOTING_GALLERY_OWNER, type: SOUL, add: [MM_SOUL, 0x2001], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Archery Owners" }
 - { id: MM_SOUL_NPC_AROMA, type: SOUL, add: [MM_SOUL, 0x2002], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Madame Aroma" }
