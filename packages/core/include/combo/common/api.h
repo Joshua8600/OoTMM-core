@@ -77,6 +77,8 @@ Actor*  SpawnActorEx(ActorContext* actorCtx, GameState_Play* play, s16 actorId, 
 void    SkelAnime_DrawFlexOpa(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount,
                            void* overrideLimbDraw, void* postLimbDraw, void* arg);
 
+void    AudioSeq_QueueSeqCmd(u32 unk);
+
 void    ActorDestroy(Actor* actor);
 int     Actor_HasParent(Actor* actor);
 void    ActorSetScale(Actor* actor, float scale);
@@ -211,6 +213,12 @@ void RemoveItem(s16 item, s16 slot);
 
 void* ActorAlloc(u32 size);
 void  ActorFree(void* data);
+
+#if defined(GAME_OOT)
+void Sram_OpenSave(void*);
+#else
+void Sram_OpenSave(void*, void*);
+#endif
 
 void Sram_CopySave(void*, void*);
 
