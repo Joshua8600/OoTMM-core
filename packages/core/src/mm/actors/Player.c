@@ -257,15 +257,17 @@ void Player_Action_CastingSpell(Actor_Player* this, GameState_Play* play)
             {
                 gFwPointerPos = this->base.world.pos;
                 gSaveContext.save.fw.set = 1;
-                gSaveContext.save.fw.pos.x = gSaveContext.respawn[RESPAWN_MODE_DOWN].pos.x;
-                gSaveContext.save.fw.pos.y = gSaveContext.respawn[RESPAWN_MODE_DOWN].pos.y;
-                gSaveContext.save.fw.pos.z = gSaveContext.respawn[RESPAWN_MODE_DOWN].pos.z;
+                gSaveContext.save.fw.pos = gSaveContext.respawn[RESPAWN_MODE_DOWN].pos;
                 gSaveContext.save.fw.yaw = gSaveContext.respawn[RESPAWN_MODE_DOWN].yaw;
                 gSaveContext.save.fw.playerParams = 0x6FF;
                 gSaveContext.save.fw.entranceIndex = gSaveContext.respawn[RESPAWN_MODE_DOWN].entrance;
                 gSaveContext.save.fw.roomIndex = gSaveContext.respawn[RESPAWN_MODE_DOWN].roomIndex;
                 gSaveContext.save.fw.tempSwchFlags = gSaveContext.respawn[RESPAWN_MODE_DOWN].tempSwitchFlags;
                 gSaveContext.save.fw.tempCollectFlags = gSaveContext.respawn[RESPAWN_MODE_DOWN].tempCollectFlags;
+
+                // Copy Game Over / Soar to Entrance respawn data.
+                gSaveContext.save.fwRespawnTop = gSaveContext.respawn[RESPAWN_MODE_TOP];
+
                 this->av2.actionVar2 = 2;
             }
         }
@@ -365,7 +367,7 @@ void Player_Action_FaroresWindText(Actor_Player* this, GameState_Play* play)
         {
             s32 entrance = gSaveContext.save.fw.entranceIndex & 0xFF00;
             Vec3f* pos = &gSaveContext.save.fw.pos;
-            if (entrance == 0x8a00 || entrance == 0x9400) // Goron Village (Spring) or Goron Village (Winter)
+            if (entrance == ENTR_MM_GORON_VILLAGE_FROM_TWIN_SPRING || entrance == ENTR_MM_GORON_VILLAGE_FROM_TWIN_WINTER) // Goron Village (Spring) or Goron Village (Winter)
             {
                 if (MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_SH) && pos->x > 1100.0f) // from Lens Cave
                 {
@@ -374,7 +376,7 @@ void Player_Action_FaroresWindText(Actor_Player* this, GameState_Play* play)
                     pos->z = -911.0f;
                 }
             }
-            else if (entrance == 0x8600) // Woodfall
+            else if (entrance == ENTR_MM_WOODFALL_FROM_SWAMP) // Woodfall
             {
                 if (!MM_GET_EVENT_WEEK(EV_MM_WEEK_WOODFALL_TEMPLE_RISE) && ABS(pos->z) < 500.0f)
                 {
@@ -406,6 +408,9 @@ void Player_Action_FaroresWindText(Actor_Player* this, GameState_Play* play)
             gSaveContext.respawn[RESPAWN_MODE_DOWN].roomIndex = gSaveContext.save.fw.roomIndex;
             gSaveContext.respawn[RESPAWN_MODE_DOWN].tempSwitchFlags = gSaveContext.save.fw.tempSwchFlags;
             gSaveContext.respawn[RESPAWN_MODE_DOWN].tempCollectFlags = gSaveContext.save.fw.tempCollectFlags;
+
+            // Restore Game Over / Soar to Entrance respawn data.
+            gSaveContext.respawn[RESPAWN_MODE_TOP] = gSaveContext.save.fwRespawnTop;
 
             // TODO cancel timers?
 

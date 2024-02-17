@@ -77,6 +77,8 @@ Actor*  SpawnActorEx(ActorContext* actorCtx, GameState_Play* play, s16 actorId, 
 void    SkelAnime_DrawFlexOpa(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount,
                            void* overrideLimbDraw, void* postLimbDraw, void* arg);
 
+void    AudioSeq_QueueSeqCmd(u32 unk);
+
 void    ActorDestroy(Actor* actor);
 int     Actor_HasParent(Actor* actor);
 void    ActorSetScale(Actor* actor, float scale);
@@ -212,6 +214,12 @@ void RemoveItem(s16 item, s16 slot);
 void* ActorAlloc(u32 size);
 void  ActorFree(void* data);
 
+#if defined(GAME_OOT)
+void Sram_OpenSave(void*);
+#else
+void Sram_OpenSave(void*, void*);
+#endif
+
 void Sram_CopySave(void*, void*);
 
 void Play_Init(GameState_Play*);
@@ -293,14 +301,13 @@ void DrawGi_Medallion(GameState_Play*, s16);
 void DrawGi_MirrorShield(GameState_Play*, s16);
 void DrawGi_Poe(GameState_Play*, s16);
 void DrawGi_Potion(GameState_Play*, s16);
-void DrawGi_Rupee(GameState_Play*, s16);
 void DrawGi_Scale(GameState_Play*, s16);
 void DrawGi_SoldOut(GameState_Play*, s16);
 void DrawGi_Spell(GameState_Play*, s16);
 void DrawGi_MoonTear(GameState_Play*, s16);
 void DrawGi_BottleFairy(GameState_Play*, s16);
 void DrawGi_BottleBlueFire(GameState_Play*, s16);
-void DrawGi_Clock(GameState_Play*, s16);
+void DrawGi_VanillaRupee(GameState_Play*, s16);
 
 void Interface_StartMoonCrash(GameState_Play* play);
 

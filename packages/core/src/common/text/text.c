@@ -281,6 +281,7 @@ static int isItemAmbiguous(s16 gi)
     case GI_OOT_RUPEE_RED:
     case GI_OOT_RUPEE_PURPLE:
     case GI_OOT_RUPEE_HUGE:
+    case GI_OOT_TRAP_RUPOOR:
     case GI_MM_WALLET:
     case GI_MM_WALLET2:
     case GI_MM_WALLET3:
@@ -292,6 +293,7 @@ static int isItemAmbiguous(s16 gi)
     case GI_MM_RUPEE_PURPLE:
     case GI_MM_RUPEE_SILVER:
     case GI_MM_RUPEE_GOLD:
+    case GI_MM_TRAP_RUPOOR:
         return !comboConfig(CFG_SHARED_WALLETS);
     case GI_OOT_HEART_CONTAINER:
     case GI_OOT_HEART_CONTAINER2:
@@ -745,8 +747,9 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
                 ambiguous = 0;
             }
             break;
-        case GI_MM_CLOCK2:
-            itemName = "a " TEXT_C1 "Progressive Clock";
+        case GI_MM_CLOCK1:
+            if (comboConfig(CFG_MM_CLOCKS_PROGRESSIVE))
+                itemName = "a " TEXT_C1 "Progressive Clock";
             break;
         }
 
