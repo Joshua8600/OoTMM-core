@@ -1,65 +1,20 @@
 # Time
-"clock_separate(x)": "!setting(clocks) || (setting(progressiveClocks, separate) && has(x))"
-"clock_ascending(x)": "!setting(clocks) || (setting(progressiveClocks, ascending) && has(CLOCK, x))"
-"clock_descending(x)": "!setting(clocks) || (setting(progressiveClocks, descending) && has(CLOCK, x))"
-
-"clock_day1":   "clock_separate(CLOCK1) || clock_ascending(0) || clock_descending(5)"
-"clock_night1": "clock_separate(CLOCK2) || clock_ascending(1) || clock_descending(4)"
-"clock_day2":   "clock_separate(CLOCK3) || clock_ascending(2) || clock_descending(3)"
-"clock_night2": "clock_separate(CLOCK4) || clock_ascending(3) || clock_descending(2)"
-"clock_day3":   "clock_separate(CLOCK5) || clock_ascending(4) || clock_descending(1)"
-"clock_night3": "clock_separate(CLOCK6) || clock_ascending(5) || clock_descending(0)"
-
-"raw_at(x)": "mm_time(at, x)"
-"raw_after(x)": "mm_time(after, x)"
-"raw_before(x)": "mm_time(before, x)"
-"raw_between(a, b)": "mm_time(between, a, b)"
-
-"is_day1": "raw_before(NIGHT1_PM_06_00) && clock_day1"
-"is_night1": "raw_between(NIGHT1_PM_06_00, DAY2_AM_06_00) && clock_night1"
-"is_day2": "raw_between(DAY2_AM_06_00, NIGHT2_PM_06_00) && clock_day2"
-"is_night2": "raw_between(NIGHT2_PM_06_00, DAY3_AM_06_00) && clock_night2"
-"is_day3": "raw_between(DAY3_AM_06_00, NIGHT3_PM_06_00) && clock_day3"
-"is_night3": "raw_after(NIGHT3_PM_06_00) && clock_night3"
-
-"clock_filter": "!setting(clocks) || is_day1 || is_night1 || is_day2 || is_night2 || is_day3 || is_night3"
-
+"at(x)": "mm_time(at, x)"
+"after(x)": "mm_time(after, x)"
+"before(x)": "mm_time(before, x)"
+"between(a, b)": "mm_time(between, a, b)"
+"is_day1": "before(NIGHT1_PM_06_00)"
+"is_day2": "between(DAY2_AM_06_00, NIGHT2_PM_06_00)"
+"is_day3": "between(DAY3_AM_06_00, NIGHT3_PM_06_00)"
 "is_day": "is_day1 || is_day2 || is_day3"
+"is_night1": "between(NIGHT1_PM_06_00, DAY2_AM_06_00)"
+"is_night2": "between(NIGHT2_PM_06_00, DAY3_AM_06_00)"
+"is_night3": "after(NIGHT3_PM_06_00)"
 "is_night": "is_night1 || is_night2 || is_night3"
-"first_day": "is_day1 || is_night1"
-"second_day": "is_day2 || is_night2"
-"final_day": "is_day3 || is_night3"
-
-"between(a, b)": "raw_between(a, b) && clock_filter"
-"after(a)": "raw_after(a) && clock_filter"
-"before(a)": "raw_before(a) && clock_filter"
-"at(a)": "raw_at(a) && clock_filter"
-
+"first_day": "before(DAY2_AM_06_00)"
+"second_day": "between(DAY2_AM_06_00, DAY3_AM_06_00)"
+"final_day": "after(DAY3_AM_06_00)"
 "midnight": "between(NIGHT1_AM_12_00, DAY2_AM_06_00) || between(NIGHT2_AM_12_00, DAY3_AM_06_00) || after(NIGHT3_AM_12_00)"
-
-# Spells
-"can_use_din": "setting(spellFireMm) && can_use_din_raw"
-"can_use_farore": "setting(spellWindMm) && can_use_farore_raw"
-"can_use_nayru": "setting(spellLoveMm) && can_use_nayru_raw"
-
-# Boots
-"has_iron_boots": "setting(bootsIronMm) && has_iron_boots_raw"
-"has_hover_boots": "setting(bootsHoverMm) && has_hover_boots_raw"
-
-# Tunics
-"has_tunic_goron_strict": "setting(tunicGoronMm) && has_tunic_goron_raw"
-"has_tunic_zora_strict": "setting(tunicZoraMm) && has_tunic_zora_raw"
-"has_tunic_goron": "has_tunic_goron_strict || trick(MM_TUNICS)"
-"has_tunic_zora": "has_tunic_zora_strict || trick(MM_TUNICS)"
-
-# Scales
-"can_dive_small": "setting(scalesMm) && has_scale_raw(1)"
-"can_dive_big": "setting(scalesMm) && has_scale_raw(2)"
-
-# Strength
-"can_lift_bracelet": "!setting(strengthMm) || has_strength_raw(1)"
-"can_lift_silver": "setting(strengthMm) && has_strength_raw(2)"
-"can_lift_gold": "setting(strengthMm) && has_strength_raw(3)"
 
 # Ocarina
 "ocarina_button(x, y)": "cond(setting(ocarinaButtonsShuffleMm), cond(setting(sharedOcarinaButtons), has(y), has(x)), true)"
@@ -110,12 +65,8 @@
 "keaton_grass_hard": "keaton_grass_easy && (has(SPIN_UPGRADE) || has(GREAT_FAIRY_SWORD) || has(SWORD, 3))"
 
 "can_break_boulders": "true"
-"can_use_fire_short_range": "can_use_fire_arrows || can_use_din"
-"can_break_snowballs": "can_break_boulders || can_use_fire_short_range"
 "can_use_lens": "can_use_lens_strict || trick(MM_LENS)"
 "can_use_lens_strict": "has_magic && (has(LENS) || has(SHARED_LENS))"
-"has_mask_stone": "cond(setting(sharedMaskStone), has(SHARED_MASK_STONE), has(MASK_STONE))"
-"has_mask_blast": "cond(setting(sharedMaskBlast), has(SHARED_MASK_BLAST), has(MASK_BLAST))"
 "has_explosives": "true"
 "can_use_fire_arrows": "has_magic && has_arrows && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE))"
 "can_use_ice_arrows": "has_magic && has_arrows && (has(ARROW_ICE) || has(SHARED_ARROW_ICE))"
@@ -147,7 +98,7 @@
 "has_goron_song": "cond(setting(progressiveGoronLullaby, progressive), has(SONG_GORON_HALF, 2), has(SONG_GORON))"
 "can_lullaby_half": "has_mask_goron && can_play_goron_half"
 "can_lullaby": "has_mask_goron && can_play_goron"
-"has_shield": "cond(setting(sharedShields), renewable(SHARED_SHIELD_HYLIAN), renewable(SHIELD_HERO)) || true"
+"has_shield": "true"
 "can_activate_crystal": "true"
 "can_evade_gerudo": "true"
 "can_goron_bomb_jump": "trick(MM_GORON_BOMB_JUMP) && has_mask_goron && (has_bombs || trick_keg_explosives)"
@@ -155,37 +106,34 @@
 "can_hookshot_short": "can_hookshot_n(1)"
 "can_hookshot": "cond(setting(shortHookshotMm), can_hookshot_n(2), can_hookshot_n(1))"
 "trick_keg_explosives": "can_use_keg && trick(MM_KEG_EXPLOSIVES)"
-"trick_sht_fireless": "((has_hot_water_distance && has(OWL_SNOWHEAD)) || has_hot_water_er_spring || has_hot_water_farore) && trick(MM_SHT_FIRELESS)"
-"trick_sht_fireless_er": "(has_hot_water_er_spring || has_hot_water_farore) && trick(MM_SHT_FIRELESS)"
-"can_reset_time": "setting(moonCrash, cycle) || can_play_time || (event(MAJORA) && trick(MM_MAJORA_LOGIC) && !is_goal_triforce) || (true && trick(MM_NO_SOT_RESET))"
-"can_reset_time_on_moon": "can_play_time || (event(MAJORA) && trick(MM_MAJORA_LOGIC) && !is_goal_triforce)"
+"trick_sht_fireless": "((has_hot_water_distance && has(OWL_SNOWHEAD)) || has_hot_water_er) && trick(MM_SHT_FIRELESS)"
+"trick_sht_fireless_er": "has_hot_water_er && trick(MM_SHT_FIRELESS)"
+"can_reset_time": "can_play_time || (event(MAJORA) && trick(MM_MAJORA_LOGIC) && !is_goal_triforce) || (true && trick(MM_NO_SOT_RESET))"
 "has_sticks": "event(STICKS) || renewable(STICK) || renewable(SHARED_STICK) || renewable(SHARED_STICKS_5) || renewable(SHARED_STICKS_10) || (setting(sharedNutsSticks) && event(OOT_STICKS))"
 "has_nuts": "event(NUTS) || renewable(NUT) || renewable(NUTS_5) || renewable(NUTS_10) || renewable(SHARED_NUT) || renewable(SHARED_NUTS_5) || renewable(SHARED_NUTS_10) || (setting(sharedNutsSticks) && event(OOT_NUTS))"
+<<<<<<< HEAD:packages/data/src/macros/macros_mm.yml
+"has_bow": "has(BOW) || has(SHARED_BOW)"
+"has_arrows": "has_bow && (event(ARROWS) || renewable(ARROWS_10) || renewable(ARROWS_30) || renewable(ARROWS_40) || renewable(SHARED_ARROWS_5) || renewable(SHARED_ARROWS_10) || renewable(SHARED_ARROWS_30) || renewable(SHARED_ARROWS_40))"
+"has_bombs": "has_bomb_bag && (event(BOMBS) || event(BOMBS_OR_BOMBCHU) || (setting(sharedBombBags) && (event(OOT_BOMBS) || event(OOT_BOMBS_OR_BOMBCHU))) || renewable(BOMBS_5) || renewable(BOMBS_10) || renewable(BOMBS_20) || renewable(BOMBS_30) || renewable(SHARED_BOMBS_5) || renewable(SHARED_BOMBS_10) || renewable(SHARED_BOMBS_20) || renewable(SHARED_BOMBS_30))"
+"has_magic": "(has(MAGIC_UPGRADE) || has(SHARED_MAGIC_UPGRADE)) && (event(MAGIC) || has_magic_jar || has_green_potion || has_blue_potion || event(CHATEAU))"
+=======
 "has_bow": "true"
 "has_arrows": "true"
 "has_bombs": "true"
 "has_magic": "true"
+>>>>>>> Merge-attempt:packages/core/data/mm/macros.yml
 "has_double_magic": "(has(MAGIC_UPGRADE, 2) || has(SHARED_MAGIC_UPGRADE, 2)) && (event(MAGIC) || has_green_potion || has_blue_potion || event(CHATEAU))"
 "has_rupees": "event(RUPEES)"
 "can_kill_baba_nuts": "soul_deku_baba"
 "can_kill_baba_sticks": "soul_deku_baba"
 "can_kill_baba_both_sticks": "soul_deku_baba"
-"bombers1": "event(BOMBERS_NORTH1) && event(BOMBERS_EAST1) && event(BOMBERS_WEST1) && soul_npc(SOUL_NPC_BOMBERS)"
-"bombers2": "event(BOMBERS_NORTH2) && event(BOMBERS_EAST2) && event(BOMBERS_WEST2) && soul_npc(SOUL_NPC_BOMBERS)"
-"bombers3": "event(BOMBERS_NORTH3) && event(BOMBERS_EAST3) && event(BOMBERS_WEST3) && soul_npc(SOUL_NPC_BOMBERS)"
-"has_fire_sticks": "has_sticks || can_use_fire_short_range"
+"bombers1": "event(BOMBERS_NORTH1) && event(BOMBERS_EAST1) && event(BOMBERS_WEST1)"
+"bombers2": "event(BOMBERS_NORTH2) && event(BOMBERS_EAST2) && event(BOMBERS_WEST2)"
+"bombers3": "event(BOMBERS_NORTH3) && event(BOMBERS_EAST3) && event(BOMBERS_WEST3)"
+"has_fire_sticks": "has_sticks || can_use_fire_arrows"
 "can_pass_gibdo": "has(MASK_GIBDO) && soul_redead_gibdo"
 "can_get_gossip_fairy": "can_play_healing || can_play_epona"
 "can_jumpslash": "has_weapon || has_sticks || has_mask_zora"
-"can_enter_zora_door_before_gb_clear": "has_mask_zora || (short_hook_anywhere && trick(MM_ZORA_HALL_DOORS))"
-"woodfall_raised": "event(OPEN_WOODFALL_TEMPLE) || setting(openDungeonsMm, WF) || ((setting(clearStateDungeonsMm, WF) || setting(clearStateDungeonsMm, both)) && event(CLEAN_SWAMP))"
-"blizzard_stopped": "event(OPEN_SNOWHEAD_TEMPLE) || setting(openDungeonsMm, SH) || event(BOSS_SNOWHEAD)"
-"turtle_woken": "(can_play_zora && has_mask_zora) || setting(openDungeonsMm, GB) || ((setting(clearStateDungeonsMm, GB) || setting(clearStateDungeonsMm, both)) && event(BOSS_GREAT_BAY))"
-"can_kill_freezard_short_range": "can_fight || can_use_light_arrows || can_use_fire_short_range || has_explosives || can_hookshot_short"
-
-"underwater_walking": "has_mask_zora || (has_tunic_zora && has_iron_boots)"
-"underwater_walking_strict": "has_mask_zora || (has_tunic_zora_strict && has_iron_boots)"
-"can_ride_epona": "can_play_epona && soul_epona"
 
 # Bottles
 "has_bottle": "true"
@@ -201,11 +149,10 @@
 "has_hot_water_mtn": "has_bottle && event(GORON_GRAVEYARD_HOT_WATER)"
 "has_hot_water_mtn_spring": "has_bottle && (event(GORON_GRAVEYARD_HOT_WATER) || event(TWIN_ISLANDS_HOT_WATER))" # Temporary hack until we have something better
 "has_hot_water_well": "has_bottle && event(WELL_HOT_WATER)"
-"has_hot_water_distance": "(can_play_soaring || can_use_farore) && (has_hot_water_mtn || has_hot_water_well)"
-"has_hot_water_distance_spring": "(can_play_soaring || can_use_farore) && (has_hot_water_mtn_spring || has_hot_water_well)"
+"has_hot_water_distance": "can_play_soaring && (has_hot_water_mtn || has_hot_water_well)"
+"has_hot_water_distance_spring": "can_play_soaring && (has_hot_water_mtn_spring || has_hot_water_well)"
 "has_hot_water_er": "er_enabled && (has_hot_water_mtn || has_hot_water_well)"
 "has_hot_water_er_spring": "er_enabled && (has_hot_water_mtn_spring || has_hot_water_well)"
-"has_hot_water_farore": "can_use_farore && (has_hot_water_mtn_spring || has_hot_water_well)"
 "has_bugs": "has_bottle && event(BUGS)"
 "has_fish": "has_bottle && event(FISH)"
 "has_water": "has_bottle && event(WATER)"
@@ -249,7 +196,5 @@
 # Misc
 "soul_enemy(x)": "(!setting(soulsEnemyMm)) || has(x)"
 "soul_boss(x)": "(!setting(soulsBossMm)) || has(x)"
-"soul_npc(x)": "(!setting(soulsNpcMm)) || has(x)"
 "short_hook_anywhere": "false"
 "hookshot_anywhere": "false"
-"can_shop_at_trading_post": "(soul_fishing_pond_owner && (between(DAY1_AM_06_00, NIGHT1_PM_09_00) || between(DAY2_AM_06_00, NIGHT2_PM_09_00))) || (soul_rooftop_man && (between(NIGHT1_PM_10_00, DAY2_AM_06_00) || between(NIGHT2_PM_10_00, NIGHT3_PM_09_00)))"
