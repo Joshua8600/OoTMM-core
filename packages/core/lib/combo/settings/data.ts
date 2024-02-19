@@ -1022,6 +1022,20 @@ export const SETTINGS = [{
   description: 'In vanilla OoT, some actors fails to load properly in some rooms due to errors in the room files. When this is on, these actors will load.',
   default: false
 }, {
+  key: 'alterLostWoodsExits',
+  name: 'Alter Lost Woods Exits',
+  category: 'main.misc',
+  type: 'boolean',
+  description: 'There are unused exits in the Lost Woods that return you to the lost woods. When this is on, all the "got lost" exits in the Lost Woods that would normally take you to Kokiri Forest instead take you back to the Lost Woods, keeping your compass direction intact.',
+  default: false
+}, {
+  key: 'voidWarpMm',
+  name: 'Void Warp in MM',
+  category: 'main.misc',
+  type: 'boolean',
+  description: 'In vanilla OoT, various code only checks for transitionTrigger, but in MM it also checks for transitionMode. When this is on, MM will no longer check transitionMode in those circumstances.',
+  default: false
+}, {
   key: 'autoInvert',
   name: 'Auto-Invert Time (MM)',
   category: 'main.misc',
@@ -1964,6 +1978,14 @@ export const SETTINGS = [{
   description: 'Shuffle the two owl flights among one-way entrances.',
   default: false,
   cond: (x: any) => x.erOneWays !== 'none'
+}, {
+  key: 'erOneWaysWoods',
+  name: 'Shuffle Altered Lost Woods Exits',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle the Lost Woods entrances added by "Alter Lost Woods Exits" among one-way entrances.',
+  default: false,
+  cond: (x: any) => x.erOneWays !== 'none' && x.alterLostWoodsExits
 }, {
   key: 'erOneWaysVoids',
   name: 'Shuffle Void points',
