@@ -67,15 +67,21 @@ float Actor_WorldDistXZToActor(Actor* a, Actor* b);
 float Actor_HeightDiff(Actor* a, Actor* b);
 u16   Actor_Angle(Actor* a, Actor* b);
 
+void Interface_UpdateButtonsPart2(GameState_Play* play);
+
 int    LoadFile(void* dst, u32 vromAddr, u32 size);
 
 Actor*  SpawnActor(ActorContext* actorCtx, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable);
 #if defined(GAME_MM)
 Actor*  SpawnActorEx(ActorContext* actorCtx, GameState_Play* play, s16 actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, int ex1, int ex2, int ex3);
+
+int Schedule_CheckMiscS(GameState_Play* play, void* unk);
 #endif
 
 void    SkelAnime_DrawFlexOpa(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount,
                            void* overrideLimbDraw, void* postLimbDraw, void* arg);
+
+void    AudioSeq_QueueSeqCmd(u32 unk);
 
 void    ActorDestroy(Actor* actor);
 int     Actor_HasParent(Actor* actor);
@@ -211,6 +217,12 @@ void RemoveItem(s16 item, s16 slot);
 
 void* ActorAlloc(u32 size);
 void  ActorFree(void* data);
+
+#if defined(GAME_OOT)
+void Sram_OpenSave(void*);
+#else
+void Sram_OpenSave(void*, void*);
+#endif
 
 void Sram_CopySave(void*, void*);
 

@@ -511,6 +511,9 @@ export class LogicPassEntrances {
     if (this.input.settings.erOneWaysOwls) {
       pool.add('one-way-owl');
     }
+    if (this.input.settings.erOneWaysWoods) {
+      pool.add('one-way-woods');
+    }
     if (this.input.settings.erOneWaysVoids) {
       pool.add('one-way-void');
     }
@@ -769,4 +772,3 @@ export class LogicPassEntrances {
     }
   }
 };
-

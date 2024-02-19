@@ -50,6 +50,7 @@ export const TRICKS = {
   OOT_GANON_FAIRY_TT: "Ganon's Great Fairy with Age Swap and without Gold Gauntlets",
   OOT_GANON_CASTLE_ENTRY: "Enter Ganon's Castle with Longshot Anywhere",
   OOT_SHADOW_TEMPLE_STICKS: "Enter Shadow Temple with Sticks & Fire Arrows",
+  OOT_WATER_GOLD_SCALE: "Enter Water Temple with Gold Scale and Longshot",
   MM_LENS: "Fewer Lens Requirements (MM)",
   MM_TUNICS: "Fewer Tunic Requirements (MM)",
   MM_PALACE_BEAN_SKIP: "Skip Planting Beans in Deku Palace",
@@ -75,7 +76,9 @@ export const TRICKS = {
   MM_MAJORA_LOGIC: "Fight Majora to Reset Time",
   MM_SOUTHERN_SWAMP_SCRUB_HP_GORON: "Southern Swamp Scrub HP as Goron",
   MM_ZORA_HALL_SCRUB_HP_NO_DEKU: "Zora Hall Scrub HP without Deku",
+  MM_ZORA_HALL_DOORS: "Access the doors in Zora Hall using Short Hookshot Anywhere",
   MM_IKANA_ROOF_PARKOUR: "Jump from Ikana Castle's Roof Interior to Exterior",
+  MM_IKANA_PILLAR_TO_ENTRANCE: "Jump from Ikana Castle's roof pillars to get over the entrance sun block with Nothing",
   MM_POST_OFFICE_GAME: "Post Office Timing Game without Bunny Hood",
   MM_WELL_HSW: "Well's Hot Spring Water without Killing Dexihand",
   MM_ISTT_CHUCHU_LESS: "ISTT Block Room without Chuchu jellies",
@@ -112,7 +115,7 @@ export const TRICKS = {
   MM_ISTT_ENTRY_HOVER: "Inverted Stone Tower Temple Death Armos using Hover Boots and Bunny Hood",
   MM_GYORG_POTS_DIVE: "Dive down to the pots in Gyorg's Lair, break the pots with a Blast Mask explosion, and collect the item before it before it lands on the ground.",
   MM_STT_POT_BOMBCHU_DIVE: "Position yourself precisely to launch a Bombchu that breaks the shallow underwater pots, then collect the items with a dive.",
-  OOT_WATER_GOLD_SCALE: "Enter Water Temple with Gold Scale and Longshot",
+  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
 };
 
 export type Trick = keyof typeof TRICKS;
