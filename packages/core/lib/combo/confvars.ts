@@ -159,6 +159,8 @@ export const CONFVARS = [
   'MM_CLOCKS',
   'MM_SOULS_NPC',
   'SHARED_SOULS_NPC',
+  'MM_CLOCKS_PROGRESSIVE',
+  'MM_CLOCKS_PROGRESSIVE_REVERSE',
 ] as const;
 
 export type Confvar = typeof CONFVARS[number];

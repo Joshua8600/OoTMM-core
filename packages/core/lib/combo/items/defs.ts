@@ -828,6 +828,12 @@ const ITEM_IDS = [
   'SHARED_SOUL_NPC_THIEVES',
   'SHARED_SOUL_ENEMY_THIEVES',
   'SHARED_SOUL_NPC_FISHING_POND_OWNER',
+  'MM_CLOCK1',
+  'MM_CLOCK2',
+  'MM_CLOCK3',
+  'MM_CLOCK4',
+  'MM_CLOCK5',
+  'MM_CLOCK6',
 ] as const;
 
 export type ItemID = typeof ITEM_IDS[number];

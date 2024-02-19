@@ -514,6 +514,9 @@ export class LogicPassEntrances {
     if (this.input.settings.erOneWaysVoids) {
       pool.add('one-way-void');
     }
+    if (this.input.settings.erOneWaysWoods) {
+      pool.add('one-way-woods');
+    }
 
     this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erOneWays === 'ownGame' });
   }
@@ -769,4 +772,3 @@ export class LogicPassEntrances {
     }
   }
 };
-
