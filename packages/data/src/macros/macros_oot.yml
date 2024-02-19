@@ -162,7 +162,7 @@
 "has_fish": "has_bottle && (renewable(FISH) || event(FISH))"
 
 #Specific Interaction Macros:
-"can_ride_epona": "is_adult && can_play_epona"
+"can_ride_epona": "is_adult && can_play_epona && soul_epona"
 "gs_soil": "is_child && has_bugs"
 "adult_trade(x)": "is_adult && has(x)"
 "has_blue_fire": "has_blue_fire_arrows || (has_bottle && (event(BLUE_FIRE) || renewable(BLUE_FIRE) || renewable(BOTTLE_BLUE_FIRE)))"
@@ -173,7 +173,7 @@
 "can_cut_grass": "true"
 "can_kill_baba_sticks": "soul_deku_baba"
 "can_kill_baba_nuts": "soul_deku_baba"
-"can_hit_scrub": "true"
+"can_hit_scrub": "soul_business_scrubs"
 "can_rescue_carpenter": "small_keys_hideout_all && (has_weapon || ((can_boomerang || has_nuts) && can_use_sticks)) && soul_npc(SOUL_NPC_CARPENTERS)"
 "carpenters_rescued": "setting(gerudoFortress, open) || (event(CARPENTER_1) && (setting(gerudoFortress, single) || (event(CARPENTER_2) && event(CARPENTER_3) && event(CARPENTER_4))))"
 
