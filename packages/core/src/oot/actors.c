@@ -218,6 +218,7 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_SHEIK));
     case AC_EN_ZL1:
     case AC_EN_ZL3:
+    case AC_EN_ZL4:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ZELDA));
     case AC_EN_MK:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_MARINE_SCIENTIST));
