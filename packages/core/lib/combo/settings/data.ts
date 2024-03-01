@@ -1811,6 +1811,7 @@ export const SETTINGS = [{
   name: 'Shuffle Clock Tower with Dungeons',
   category: 'entrances',
   type: 'boolean',
+  description: 'If paired with another dungeon shuffle, allows saving from the Quest Menu with L/C-Up while on the Clock Tower Roof.',
   default: false,
   cond: (x: any) => x.erDungeons !== 'none'
 }, {
