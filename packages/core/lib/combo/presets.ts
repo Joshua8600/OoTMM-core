@@ -74,8 +74,10 @@ const BLITZ_BASE: PartialDeep<Settings> = {
   sharedTunicZora: true,
   blastMaskOot: true,
   stoneMaskOot: true,
+  elegyOot: true,
   sharedMaskBlast: true,
   sharedMaskStone: true,
+  sharedSongElegy: true,
   agelessChildTrade: true,
   scalesMm: true,
   strengthMm: true,
@@ -165,12 +167,16 @@ const PRESET_BLITZ = makeBlitz({
     'OOT Skulltula House 50 Tokens'
   ],
   hints: [
-    { type: 'foolish', amount: 8, extra: 1 },
-    { type: 'always', amount: 'max', extra: 1 },
-    { type: 'sometimes', amount: 4, extra: 1 },
-    { type: 'playthrough', amount: 4, extra: 1 },
-    { type: 'woth', amount: 9, extra: 1 },
-    { type: 'sometimes', amount: 'max', extra: 1 },
+    { type: "foolish", amount: 8, extra: 1 },
+    { type: "always", amount: "max", extra: 1 },
+    { type: "sometimes", amount: 4, extra: 1 },
+    { type: "item", amount: 1, extra: 1, item: "SHARED_SHIELD_MIRROR" },
+    { type: "item", amount: 1, extra: 1, item: "MM_MASK_CAPTAIN" },
+    { type: "item", amount: 1, extra: 1, item: "MM_POWDER_KEG" },
+    { type: "item", amount: 1, extra: 1, item: "SHARED_ARROW_ICE" },
+    { type: "playthrough", amount: 1, extra: 1 },
+    { type: "woth", amount: 9, extra: 1 },
+    { type: "sometimes", amount: "max", extra: 1 }
   ]
 });
 
@@ -223,6 +229,7 @@ const PRESET_BLITZ_PRECOMPLETED = makeBlitz({
     { type: "item", amount: 1, extra: 1, item: "SHARED_SHIELD_MIRROR" },
     { type: "item", amount: 1, extra: 1, item: "MM_MASK_CAPTAIN" },
     { type: "item", amount: 1, extra: 1, item: "MM_POWDER_KEG" },
+    { type: "item", amount: 1, extra: 1, item: "SHARED_ARROW_ICE" },
     { type: "playthrough", amount: 1, extra: 1 },
     { type: "woth", amount: 9, extra: 1 },
     { type: "sometimes", amount: "max", extra: 1 }
@@ -273,7 +280,7 @@ const PRESET_TRIFORCE_BLITZ = makeBlitz({
   hints: [
     { type: "foolish", amount: 8, extra: 1 },
     { type: "always", amount: "max", extra: 1 },
-    { type: "sometimes", amount: 3, extra: 1 },
+    { type: "sometimes", amount: 4, extra: 1 },
     { type: "item", amount: 1, extra: 1, item: "MM_MASK_CAPTAIN" },
     { type: "item", amount: 1, extra: 1, item: "MM_POWDER_KEG" },
     { type: "item", amount: 1, extra: 1, item: "SHARED_SHIELD_MIRROR" },

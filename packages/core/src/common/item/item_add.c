@@ -53,13 +53,13 @@ static const u8 kItemSlotsMm[] = {
     ITS_MM_ARROW_FIRE,
     ITS_MM_ARROW_ICE,
     ITS_MM_ARROW_LIGHT,
-    ITS_MM_OCARINA, // needed padding??
+    ITS_MM_OCARINA, /* needed padding?? */
     ITS_MM_BOMBS,
     ITS_MM_BOMBCHU,
     ITS_MM_STICKS,
     ITS_MM_NUTS,
     ITS_MM_BEANS,
-    ITS_MM_OCARINA, // needed padding??
+    ITS_MM_OCARINA, /* needed padding?? */
     ITS_MM_KEG,
     ITS_MM_PICTOBOX,
     ITS_MM_LENS,
@@ -687,7 +687,7 @@ static void addHookshotRawMm(GameState_Play* play, int level)
     if (level >= 2)
         itemId = ITEM_MM_HOOKSHOT;
     else
-        itemId = 0x11; // ITEM_MM_BOTTLE_POTION_RED but that enum is wrong
+        itemId = 0x11; /* ITEM_MM_BOTTLE_POTION_RED but that enum is wrong */
     gMmSave.inventory.items[ITS_MM_HOOKSHOT] = itemId;
     gMmExtraItems.hookshot |= (1 << (level - 1));
     reloadSlotMm(play, ITS_MM_HOOKSHOT);
@@ -1774,6 +1774,12 @@ static int addItemEndgame(GameState_Play* play, u8 itemId, s16 gi, u16 param)
     return 0;
 }
 
+static int addElegyOot(GameState_Play* play, u8 itemId, s16 gi, u16 param)
+{
+    gSharedCustomSave.oot.hasElegy = 1;
+    return 0;
+}
+
 static const AddItemFunc kAddItemHandlers[] = {
     addItemRupeesOot,
     addItemRupeesMm,
@@ -1872,6 +1878,7 @@ static const AddItemFunc kAddItemHandlers[] = {
     addItemStrengthMm,
     addItemClock,
     addItemEndgame,
+    addElegyOot,
 };
 
 extern const u8 kAddItemFuncs[];
@@ -1950,6 +1957,7 @@ static const SharedItem kSimpleSharedItems[] = {
     { CFG_SHARED_STRENGTH, GI_OOT_GORON_BRACELET, GI_MM_GORON_BRACELET },
     { CFG_SHARED_STRENGTH, GI_OOT_SILVER_GAUNTLETS, GI_MM_SILVER_GAUNTLETS },
     { CFG_SHARED_STRENGTH, GI_OOT_GOLDEN_GAUNTLETS, GI_MM_GOLDEN_GAUNTLETS },
+    { CFG_SHARED_SONG_EMPTINESS, GI_OOT_SONG_EMPTINESS, GI_MM_SONG_EMPTINESS },
 };
 
 static int addItem(GameState_Play* play, s16 gi)
