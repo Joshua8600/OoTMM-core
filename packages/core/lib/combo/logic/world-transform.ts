@@ -208,6 +208,8 @@ const ITEM_POOL_PLENTIFUL = new Set([
   ...ItemGroups.OOT_SOULS_BOSS,
   ...ItemGroups.MM_SOULS_BOSS,
   ...ItemGroups.OOT_SOULS_NPC,
+  ...ItemGroups.MM_SOULS_NPC,
+  ...ItemGroups.SHARED_SOULS_NPC,
   ...ItemGroups.SHARED_SOULS_ENEMY,
   Items.OOT_BUTTON_A,
   Items.OOT_BUTTON_C_RIGHT,
@@ -233,6 +235,9 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.SHARED_TUNIC_ZORA,
   Items.SHARED_SCALE,
   Items.SHARED_STRENGTH,
+  Items.SHARED_TRIFORCE_POWER,
+  Items.SHARED_TRIFORCE_COURAGE,
+  Items.SHARED_TRIFORCE_WISDOM,
 ]);
 
 const ITEMS_HEART_PIECES_CONTAINERS_BY_GAME = {
@@ -851,6 +856,10 @@ export class LogicPassWorldTransform {
       this.shareItems(SharedItemGroups.SOULS_ENEMY, 'max');
     }
 
+    if (settings.sharedSoulsNpc) {
+      this.shareItems(SharedItemGroups.SOULS_NPC, 'max');
+    }
+
     if (settings.sharedSkeletonKey) {
       this.shareItems(SharedItemGroups.SKELETON_KEY, 'max');
     }
@@ -1088,6 +1097,7 @@ export class LogicPassWorldTransform {
     if (settings.soulsBossOot) this.addItems(ItemGroups.OOT_SOULS_BOSS);
     if (settings.soulsBossMm) this.addItems(ItemGroups.MM_SOULS_BOSS);
     if (settings.soulsNpcOot) this.addItems(ItemGroups.OOT_SOULS_NPC);
+    if (settings.soulsNpcMm) this.addItems(ItemGroups.MM_SOULS_NPC);
 
     /* Add skeleton keys */
     if (settings.skeletonKeyOot) {
