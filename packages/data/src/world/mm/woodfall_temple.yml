@@ -12,11 +12,11 @@
     FAIRY: "true"
   exits:
     "Woodfall Temple": "true"
-    "Woodfall Temple Main": "has(MASK_DEKU) || can_hookshot_short || (has_hover_boots && has_weapon && has_explosives && has_mask_bunny && (has_arrows || has_mask_stone) && trick(MM_WFT_LOBBY_HOVERS))"
+    "Woodfall Temple Main": "true"
     "Woodfall Temple Boss Access": "setting(bossWarpPads, remains) && has(REMAINS_ODOLWA)"
     "WARP_SONGS": "true"
   locations:
-    "Woodfall Temple Entrance Chest": "has(MASK_DEKU) || can_hookshot_short"
+    "Woodfall Temple Entrance Chest": "true"
     "Woodfall Temple SF Entrance": "true"
     "Woodfall Temple Pot Entrance": "true"
     "Woodfall Temple Grass Entrance Bottom 1": "true"
@@ -30,7 +30,7 @@
     "Woodfall Temple Entrance": "true"
     "Woodfall Temple Water Room": "true"
     "Woodfall Temple Maze": "small_keys_wf(1)"
-    "Woodfall Temple Main Ledge": "event(WOODFALL_TEMPLE_MAIN_FLOWER) || event(WOODFALL_TEMPLE_MAIN_LADDER) || can_hookshot_short"
+    "Woodfall Temple Main Ledge": "true"
     "WARP_SONGS": "true"
   events:
     WOODFALL_TEMPLE_MAIN_FLOWER: "can_use_fire_short_range"
@@ -186,7 +186,7 @@
     "WARP_SONGS": "true"
   locations:
     "Woodfall Temple SF Pre-Boss Bottom Right": "true"
-    "Woodfall Temple SF Pre-Boss Left": "has(MASK_DEKU) || has(MASK_GREAT_FAIRY) || short_hook_anywhere"
+    "Woodfall Temple SF Pre-Boss Left": "true"
     "Woodfall Temple SF Pre-Boss Top Right": "true"
     "Woodfall Temple SF Pre-Boss Pillar": "has(MASK_DEKU) || has(MASK_GREAT_FAIRY) || short_hook_anywhere"
     "Woodfall Temple Grass Pre-Boss 1": "true"
