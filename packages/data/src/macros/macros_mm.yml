@@ -91,7 +91,7 @@
 "can_play_goron_half": "has_ocarina && has_goron_song_half && ocarina_button_a && ocarina_button_right && ocarina_button_left"
 "can_play_goron": "has_ocarina && has_goron_song && ocarina_button_a && ocarina_button_right && ocarina_button_left"
 "can_play_zora": "can_play(SONG_ZORA) && ocarina_button_left && ocarina_button_right && ocarina_button_up && ocarina_button_down"
-"can_play_emptiness": "can_play(SONG_EMPTINESS) && ocarina_button_left && ocarina_button_right && ocarina_button_up && ocarina_button_down"
+"can_play_emptiness": "has_ocarina && has_elegy_raw && ocarina_button_left && ocarina_button_right && ocarina_button_up && ocarina_button_down"
 "can_play_order": "can_play(SONG_ORDER) && ocarina_button_right && ocarina_button_down && ocarina_button_up && ocarina_button_a"
 
 "can_play_evan": "has_ocarina && ocarina_button_a && ocarina_button_right && ocarina_button_down && ocarina_button_left"
@@ -158,6 +158,7 @@
 "trick_sht_fireless": "((has_hot_water_distance && has(OWL_SNOWHEAD)) || has_hot_water_er_spring || has_hot_water_farore) && trick(MM_SHT_FIRELESS)"
 "trick_sht_fireless_er": "(has_hot_water_er_spring || has_hot_water_farore) && trick(MM_SHT_FIRELESS)"
 "can_reset_time": "setting(moonCrash, cycle) || can_play_time || (event(MAJORA) && trick(MM_MAJORA_LOGIC) && !is_goal_triforce) || (true && trick(MM_NO_SOT_RESET))"
+"can_reset_time_dungeon": "cond(setting(erMoon), (((trick(MM_MAJORA_LOGIC) && event(MAJORA) && !is_goal_triforce) || setting(moonCrash, cycle)) && (before(NIGHT3_AM_12_00) || can_use_farore || setting(autoInvert, always))) || can_play_time, can_reset_time)"
 "can_reset_time_on_moon": "can_play_time || (event(MAJORA) && trick(MM_MAJORA_LOGIC) && !is_goal_triforce)"
 "has_sticks": "event(STICKS) || renewable(STICK) || renewable(SHARED_STICK) || renewable(SHARED_STICKS_5) || renewable(SHARED_STICKS_10) || (setting(sharedNutsSticks) && event(OOT_STICKS))"
 "has_nuts": "event(NUTS) || renewable(NUT) || renewable(NUTS_5) || renewable(NUTS_10) || renewable(SHARED_NUT) || renewable(SHARED_NUTS_5) || renewable(SHARED_NUTS_10) || (setting(sharedNutsSticks) && event(OOT_NUTS))"
@@ -248,5 +249,5 @@
 # Misc
 "soul_enemy(x)": "(!setting(soulsEnemyMm)) || has(x)"
 "soul_boss(x)": "(!setting(soulsBossMm)) || has(x)"
-"short_hook_anywhere": "false"
-"hookshot_anywhere": "false"
+"short_hook_anywhere": "can_hookshot_short && setting(hookshotAnywhereMm, logical)"
+"hookshot_anywhere": "can_hookshot && setting(hookshotAnywhereMm, logical)"

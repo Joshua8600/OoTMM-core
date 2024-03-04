@@ -39,6 +39,7 @@ export const TRICKS = {
   OOT_WATER_PIT_GS_CHU: "Water Temple Large Pit GS with Bombchu",
   OOT_SHADOW_BOAT_EARLY: "Reach Shadow Temple Boat with Climb Anywhere",
   OOT_SPIRIT_BOSS_CLIMB_NO_HOOK: "Reach Twinrova using Climb Anywhere and Hover Boots",
+  OOT_ZR_FALLS_HOOK: "Use Hookshot Anywhere to get past the Zora's River Waterfall",
   OOT_DC_BOULDER: "Skip Dodongo Cavern's Boulder using Ageless Hookshot Anywhere",
   OOT_LAKE_SHORTCUT: "Move Between Lake Hylia and Zora's Domain with Ageless Hookshot Anywhere",
   OOT_JJB_BOXLESS: "Access Jabu-Jabu pre-boss without the box",
@@ -115,6 +116,10 @@ export const TRICKS = {
   MM_ISTT_ENTRY_HOVER: "Inverted Stone Tower Temple Death Armos using Hover Boots and Bunny Hood",
   MM_GYORG_POTS_DIVE: "Dive down to the pots in Gyorg's Lair, break the pots with a Blast Mask explosion, and collect the item before it before it lands on the ground.",
   MM_STT_POT_BOMBCHU_DIVE: "Position yourself precisely to launch a Bombchu that breaks the shallow underwater pots, then collect the items with a dive.",
+  MM_STOCK_POT_WAIT: "Wait outside Stock Pot Inn's roof for closing",
+  MM_STAGE_LIGHTS_DIN: "Light the Zora Hall Stage Lights using Din's Fire, Bow, and Hookshot",
+  MM_RANCH_FARORE: "Romani's Ranch locations using Farore's Wind and Time Reset",
+  MM_EVAN_FARORE: "Evan's Piece of Heart using Farore's Wind and Time Reset",
   MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
 };
 
