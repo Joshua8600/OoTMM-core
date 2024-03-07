@@ -399,8 +399,8 @@ OOT_SACRED_FOREST_MEADOW:                       { game: oot, id: 0x0fc, type: re
 OOT_LOST_WOODS_FROM_MEADOW:                     { game: oot, id: 0x1a9, type: overworld, areas: ["OOT Sacred Meadow Entryway", "OOT Lost Woods Deep"], reverse: OOT SACRED_FOREST_MEADOW }
 OOT_GORON_CITY:                                 { game: oot, id: 0x14d, type: region-full, areas: ["OOT Death Mountain", "OOT Goron City"], reverse: OOT_TRAIL_FROM_GORON_CITY }
 OOT_TRAIL_FROM_GORON_CITY:                      { game: oot, id: 0x1b9, type: overworld, areas: ["OOT Goron City", "OOT Death Mountain"], reverse: OOT GORON_CITY }
-OOT_ZORA_DOMAIN:                                { game: oot, id: 0x108, type: region-full, areas: ["OOT Zora River", "OOT Zora Domain"], reverse: OOT_RIVER_FROM_DOMAIN }
-OOT_RIVER_FROM_DOMAIN:                          { game: oot, id: 0x19d, type: overworld, areas: ["OOT Zora Domain", "OOT Zora River"], reverse: OOT ZORA_DOMAIN }
+OOT_ZORA_DOMAIN:                                { game: oot, id: 0x108, type: region-full, areas: ["OOT Zora River Behind Falls", "OOT Zora Domain"], reverse: OOT_RIVER_FROM_DOMAIN }
+OOT_RIVER_FROM_DOMAIN:                          { game: oot, id: 0x19d, type: overworld, areas: ["OOT Zora Domain", "OOT Zora River Behind Falls"], reverse: OOT ZORA_DOMAIN }
 OOT_FOUNTAIN_ZORA:                              { game: oot, id: 0x225, type: region-full, areas: ["OOT Zora Domain Back", "OOT Zora Fountain"], reverse: OOT_DOMAIN_FROM_FOUNTAIN }
 OOT_DOMAIN_FROM_FOUNTAIN:                       { game: oot, id: 0x1a1, type: overworld, areas: ["OOT Zora Fountain", "OOT Zora Domain Back"], reverse: OOT FOUNTAIN_ZORA }
 OOT_CRATER_FROM_GORON_CITY:                     { game: oot, id: 0x1c1, type: region-full, areas: ["OOT Darunia Chamber", "OOT Death Mountain Crater Bottom"], reverse: OOT_GORON_CITY_FROM_CRATER }
