@@ -463,6 +463,9 @@ export class LogicPassEntrances {
     if (this.input.settings.erRegionsShortcuts) {
       pool.add('region-shortcut');
     }
+    if (this.input.settings.erRegionsFull) {
+      pool.add('region-full')
+    }
     this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erRegions === 'ownGame' });
   }
 
@@ -508,6 +511,9 @@ export class LogicPassEntrances {
     if (this.input.settings.erOneWaysOwls) {
       pool.add('one-way-owl');
     }
+    if (this.input.settings.erOneWaysVoids) {
+      pool.add('one-way-void');
+    }
     if (this.input.settings.erOneWaysWoods) {
       pool.add('one-way-woods');
     }
@@ -519,7 +525,7 @@ export class LogicPassEntrances {
     let pool: string[] = [];
 
     if (this.input.settings.erOneWays !== 'none') {
-      pool = [...pool, 'one-way', 'one-way-ikana', 'one-way-song', 'one-way-statue', 'one-way-owl'];
+      pool = [...pool, 'one-way', 'one-way-ikana', 'one-way-song', 'one-way-statue', 'one-way-owl', 'one-way-void'];
     }
 
     if (this.input.settings.erDungeons !== 'none') {
@@ -528,6 +534,10 @@ export class LogicPassEntrances {
 
     if (this.input.settings.erBoss !== 'none') {
       pool = [...pool, 'boss'];
+    }
+
+    if (this.input.settings.erRegionsFull) {
+      pool = [...pool, 'region-full', 'region']
     }
 
     if (pool.length === 0) {
@@ -695,7 +705,7 @@ export class LogicPassEntrances {
         this.placeWallmasters(i);
       }
 
-      if (this.input.settings.erRegions !== 'none') {
+      if (this.input.settings.erRegions !== 'none' || this.input.settings.erRegionsFull) {
         anyEr = true;
         this.placeRegions(i);
       }
@@ -762,4 +772,3 @@ export class LogicPassEntrances {
     }
   }
 };
-
