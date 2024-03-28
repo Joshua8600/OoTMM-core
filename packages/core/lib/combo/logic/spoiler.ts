@@ -266,7 +266,7 @@ export class LogicPassSpoiler {
       if (worlds.length > 1) {
         this.indent(`World ${i + 1}`);
       }
-      
+
       const niceEntrances = new Array();
       for (const [src, dst] of world.entranceOverrides) {
         const srcEntry = ENTRANCES[src as keyof typeof ENTRANCES];

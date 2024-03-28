@@ -78,6 +78,8 @@ Actor*  SpawnActorEx(ActorContext* actorCtx, GameState_Play* play, s16 actorId, 
 int Schedule_CheckMiscS(GameState_Play* play, void* unk);
 #endif
 
+void Fault_AddHungupAndCrashImpl(const char* str1, const char* str2);
+
 void    SkelAnime_DrawFlexOpa(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount,
                            void* overrideLimbDraw, void* postLimbDraw, void* arg);
 
@@ -202,6 +204,7 @@ void Interface_LoadActionLabelB(GameState_Play* play, u16 action);
 
 #if defined(GAME_MM)
 void PrepareSave(SramContext* sram);
+void _Sram_SaveEndOfCycle(GameState_Play* play);
 void Sram_SaveEndOfCycle(GameState_Play* play);
 void Sram_SaveNewDay(GameState_Play* play);
 #endif
@@ -244,6 +247,7 @@ s32 Play_CamIsNotFixed(GameState_Play* play);
 
 void Player_Update(Actor_Player* this, GameState_Play* play);
 void Play_SetupRespawnPoint(GameState_Play* this, s32 respawnMode, s32 playerParams);
+void Play_SetRespawnData(GameState_Play *play, s32 respawnMode, u16 entrance, s32 roomIndex, s32 playerParams, const Vec3f* pos, s16 yaw);
 
 void* OverlayAddr(u32 addr);
 void KaleidoManager_LoadOvl(void* ovl);

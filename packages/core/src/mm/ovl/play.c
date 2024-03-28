@@ -146,6 +146,7 @@ static int sTimeSkipFlag;
 
 static void checkTimeSkip(GameState_Play* play)
 {
+    Actor_Player* link;
     int currentHalfDay;
     int nextHalfDay;
     u32 linearTime;
@@ -230,7 +231,8 @@ static void checkTimeSkip(GameState_Play* play)
             gSave.isNight = !!(nextHalfDay & 1);
 
             /* Need a reload */
-            Play_SetupRespawnPoint(play, 1, 0xdff);
+            link = GET_LINK(play);
+            Play_SetRespawnData(play, 1, gSave.entranceIndex, play->roomCtx.curRoom.id, 0xdff, &link->base.world.pos, link->base.rot2.y);
             gSaveContext.respawnFlag = 2;
             gSaveContext.nextCutscene = 0;
             comboTransition(play, gSave.entranceIndex);
@@ -284,6 +286,76 @@ static void sendSelfMajorasMask(void)
     BITMAP8_SET(gSharedCustomSave.mm.npc, npc);
 }
 
+void fixupOriginalSceneSetup(void)
+{
+    u32 entranceKey;
+    u32 entrance;
+
+    entrance = gSave.entranceIndex;
+    entranceKey = (entrance >> 9);
+
+    /* Swamp State */
+    if (MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF))
+    {
+        switch (entranceKey)
+        {
+        case 0x42: /* Swamp */
+            entranceKey = 0x06;
+            break;
+        case 0x43: /* Woodfall */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
+        }
+    }
+
+    /* Snowhead State */
+    if (MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_SH))
+    {
+        switch (entranceKey)
+        {
+        case 0x4d: /* Mountain Village */
+            entranceKey = 0x57;
+            break;
+        case 0x5a: /* Twin Island */
+            entranceKey = 0x5b;
+            break;
+        case 0x4a: /* Goron Village */
+            entranceKey = 0x45;
+            break;
+        case 0x59: /* Snowhead */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
+        }
+    }
+
+    /* Great Bay */
+    if (MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_GB))
+    {
+        switch (entranceKey)
+        {
+        case 0x34: /* Great Bay */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
+        case 0x35: /* Zora Cape */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
+        }
+    }
+
+    /* Ikana */
+    if (MM_GET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_ST))
+    {
+        switch (entranceKey)
+        {
+        case 0x10: /* Ikana Canyon */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
+        }
+    }
+
+    gSave.entranceIndex = (entranceKey << 9) | (entrance & 0x1ff);
+}
+
 void preInitTitleScreen(void)
 {
     if (!gComboCtx.valid)
@@ -307,6 +379,9 @@ void preInitTitleScreen(void)
     else
         g.initialEntrance = ENTR_MM_CLOCK_TOWN;
 
+    /* Fixup the scene/setup */
+    fixupOriginalSceneSetup();
+
     /* Handle shuffled entrance */
     switch (gSave.entranceIndex)
     {
@@ -328,6 +403,7 @@ void hookPlay_Init(GameState_Play* play)
     int isEndOfGame;
 
     /* Pre-init */
+    gIsEntranceOverride = 0;
     preInitTitleScreen();
 
     /* Init */

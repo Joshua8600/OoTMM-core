@@ -4,8 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [21.0] - 2024-03-28
+
 ### Added
 
+- Prettier "Entrances" section in the spoiler log.
+- New trick to reach Zelda's Courtyard using Age Swap in Ganon's Castle.
 - Adult Link in Majora's Mask.
 - New trick to wait on the roof for Stock Pot Inn to close.
 - Add tricks for using Farore's Wind and resetting time to get the Romani Ranch checks.
@@ -14,6 +18,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Soaring from an MM boss now always returns to the entrance of the dungeon, even if it's a cross-dungeon.
 - OOT Warp Songs can now be logically used within MM dungeons.
 - Farore's Wind is now logical for Romani's Song, Aliens, and Cremia Escort.
 - Farore's Wind is now logical for Stock Pot Inn night access.
@@ -27,9 +32,20 @@ All notable changes to this project will be documented in this file.
 - Make Zora Hall stage lights with Din's Fire a trick.
 - Make resetting time with Farore's Wind for Evan a trick.
 - Hookshot Anywhere to go behind the waterfall in Zora's River is now a trick.
+- Din's Fire is now logical to defeat the Big Octo in Deku Palace.
+- Nayru's Love is now logical for various routing in Woodfall.
 
 ### Fixed
 
+- Fix Soaring from OoT being able to cancel the GI animation.
+- Fix OoT Blast/Stone mask behaving oddly with scene restrictions.
+- Fix clock transitions breaking grottos.
+- Fix minor discrepancies between song of time and moon crash cycle.
+- Fix various bugs with swordless & age swap equips.
+- Fix region states in MM being incorrect when coming from OoT.
+- Fix Woods of Mystery grass patches being labeled wrong and having incorrect day logic.
+- Fix Diving Minigame Purple and Huge Rupees being swapped.
+- Fix a very persistent wrong warp issue.
 - Fix a weird interaction between plentiful item pool and OoT elegy.
 - Fix some items not being received in multi.
 - Fix an issue where the grace period could cause a buggy cycle-reset.
@@ -37,6 +53,7 @@ All notable changes to this project will be documented in this file.
 - Some logic issues involving Shared Din's Fire not being accounted for in some situations.
 - Fixed an issue where logic thought you could get Pendant of Memories after 10pm on night 2.
 - Fix Farore's Wind in MM not being properly dispelled when used.
+- Fixed logic for the hearts in MQ Bottom of the Well.
 
 ## [20.0] - 2024-02-19
 
@@ -1083,7 +1100,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v20.0...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v21.0...HEAD
+[21.0]: https://github.com/OoTMM/OoTMM/compare/v20.0...v21.0
 [20.0]: https://github.com/OoTMM/OoTMM/compare/v19.2...v20.0
 [19.2]: https://github.com/OoTMM/OoTMM/compare/v19.1...v19.2
 [19.1]: https://github.com/OoTMM/OoTMM/compare/v19.0...v19.1
