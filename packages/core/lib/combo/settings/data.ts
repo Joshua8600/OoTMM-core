@@ -1373,7 +1373,14 @@ export const SETTINGS = [{
   default: false
 }, {
   key: 'soulsNpcOot',
-  name: 'NPC Souls (OoT) (EXPERIMENTAL)',
+  name: 'NPC Souls (OoT)',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Add NPC souls into the item pool. NPCs won\'t spawn unless their soul is obtained.',
+  default: false
+}, {
+  key: 'soulsNpcMm',
+  name: 'NPC Souls (MM) (EXPERIMENTAL)',
   category: 'items.extensions',
   type: 'boolean',
   description: 'Add NPC souls into the item pool. NPCs won\'t spawn unless their soul is obtained.',
@@ -1615,6 +1622,13 @@ export const SETTINGS = [{
   type: 'boolean',
   default: false,
   cond: (s: any) => s.soulsEnemyOot && s.soulsEnemyMm,
+}, {
+  key: 'sharedSoulsNpc',
+  name: 'Shared NPC Souls',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => s.soulsNpcOot && s.soulsNpcMm,
 }, {
   key: 'sharedOcarinaButtons',
   name: 'Shared Ocarina Buttons',
@@ -1872,6 +1886,13 @@ export const SETTINGS = [{
   default: false,
   cond: (x: any) => x.erDungeons !== 'none'
 }, {
+  key: 'erRegionsFull',
+  name: 'Full Region Shuffle',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle (almost) all the overworld entrances',
+  default: false
+}, {
   key: 'erRegions',
   name: 'Shuffle Major Regions',
   category: 'entrances',
@@ -1994,6 +2015,13 @@ export const SETTINGS = [{
   description: 'Shuffle the two owl flights among one-way entrances.',
   default: false,
   cond: (x: any) => x.erOneWays !== 'none'
+}, {
+  key: 'erOneWaysVoids',
+  name: 'Shuffle Void points',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle some void among one-way entrances.',
+  default: false,
 }, {
   key: 'erOneWaysWoods',
   name: 'Shuffle Altered Lost Woods Exits',
