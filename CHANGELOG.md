@@ -8,6 +8,11 @@ All notable changes to this project will be documented in this file.
 
 - (**April Fools**) Implement "Daylight Saving Time in MM", removing one hour every night.
 
+### Added
+
+- Misc. Souls for both games, which can be shared.
+- Added a validator for Special Conditions (web-wise).
+
 ### Changed
 
 - Saving is now enabled on the Clock Tower with Moon Crash set to New Cycle.
