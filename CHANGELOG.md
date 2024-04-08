@@ -10,12 +10,17 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add Grotto/Grave entrance randomizer, for Ocarina of Time.
 - Misc. Souls for both games, which can be shared.
 - Added a validator for Special Conditions (web-wise).
 
 ### Changed
 
 - Saving is now enabled on the Clock Tower with Moon Crash set to New Cycle.
+
+### Fixed
+
+- Ruto's Soul is now accounted in logic for the Big Octo in Jabu-Jabu.
 
 ## [21.0] - 2024-03-28
 
