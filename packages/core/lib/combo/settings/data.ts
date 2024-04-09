@@ -1809,7 +1809,7 @@ export const SETTINGS = [{
   default: 'none'
 }, {
   key: 'erGrottos',
-  name: 'Grotto Shuffle (EXPERIMENTAL - OOT ONLY)',
+  name: 'Grotto Shuffle',
   category: 'entrances',
   type: 'enum',
   values: [
@@ -1819,6 +1819,49 @@ export const SETTINGS = [{
   ],
   description: 'Shuffle grottos and graves.',
   default: 'none'
+}, {
+  key: 'erDecoupled',
+  name: 'Decoupled Entrances',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Makes the entrances decoupled from the exits. This means that the entrance you take does not have to be the same as the exit you take.',
+  default: false,
+}, {
+  key: 'erMixed',
+  name: 'Mixed Pools',
+  category: 'entrances',
+  type: 'enum',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'ownGame', name: 'Own Game' },
+    { value: 'full', name: 'Full' },
+  ],
+  description: 'Allow shuffling multiple pools together.',
+  default: 'none'
+}, {
+  key: 'erMixedRegions',
+  name: 'Mixed Pools - Regions',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'If turned on, regions will be shuffled with other mixed pools.',
+  default: false,
+  cond: (x: any) => x.erMixed !== 'none' && x.erMixed === x.erRegions,
+}, {
+  key: 'erMixedIndoors',
+  name: 'Mixed Pools - Interiors',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'If turned on, interiors will be shuffled with other mixed pools.',
+  default: false,
+  cond: (x: any) => x.erMixed !== 'none' && x.erMixed === x.erIndoors,
+}, {
+  key: 'erMixedGrottos',
+  name: 'Mixed Pools - Grottos',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'If turned on, grottos will be shuffled with other mixed pools.',
+  default: false,
+  cond: (x: any) => x.erMixed !== 'none' && x.erMixed === x.erGrottos,
 }, {
   key: 'erWallmasters',
   name: 'Wallmaster Shuffle',

@@ -1710,9 +1710,9 @@
 "Near Village Grotto":
   region: MOUNTAIN_VILLAGE
   exits:
-    "Mountain Village Grotto": "true"
+    "Mountain Village Grotto": "is_spring"
     "Mountain Village": "true"
-    "Near Goron Graveyard": "has_mask_goron || short_hook_anywhere"
+    "Near Goron Graveyard": "is_spring && (has_mask_goron || short_hook_anywhere)"
 "Mountain Village Grotto":
   region: ENTRANCE
   exits:
@@ -2323,7 +2323,7 @@
     ARROWS: "true"
     RUPEES: "true"
   exits:
-    "Great Bay Coast": "true"
+    "GBC Near Cow Grotto": "true"
   locations:
     "Great Bay Coast Cow Front": "can_play_epona"
     "Great Bay Coast Cow Back": "can_play_epona"
@@ -2478,7 +2478,7 @@
     FISH: "true"
     BUGS: "true"
   exits:
-    "Great Bay Coast": "true"
+    "Zora Cape": "true"
   locations:
     "Zora Cape Grotto": "true"
     "Zora Cape Grotto Grass 01": "true"
@@ -2746,7 +2746,7 @@
     ARROWS: "true"
   exits:
     "Ikana Graveyard": "true"
-    "Beneath The Graveyard Night 2": "short_hook_anywhere || has_hover_boots"
+    "Beneath The Graveyard Night 1/2 Exchange": "short_hook_anywhere || has_hover_boots"
   locations:
     "Beneath The Graveyard Chest": "soul_enemy(SOUL_ENEMY_BAD_BAT) && (can_fight || has_explosives || has_arrows || can_hookshot_short || has(MASK_DEKU))"
     "Beneath The Graveyard Song of Storms": "soul_iron_knuckle && (has_weapon || has_mask_goron || has_explosives) && has_fire_sticks"
@@ -2755,6 +2755,11 @@
     "Beneath The Graveyard Pot Night 1 Bats 1": "true"
     "Beneath The Graveyard Pot Night 1 Bats 2": "true"
     "Beneath The Graveyard Pot Night 1 Bats 3": "true"
+"Beneath The Graveyard Night 1/2 Exchange":
+  region: NONE
+  exits:
+    "Beneath The Graveyard Night 1": "true"
+    "Beneath The Graveyard Night 2": "true"
 "Beneath The Graveyard Night 2":
   region: ENTRANCE
   events:
@@ -2762,7 +2767,7 @@
     ARROWS: "true"
   exits:
     "Ikana Graveyard": "true"
-    "Beneath The Graveyard Night 1": "short_hook_anywhere || has_hover_boots"
+    "Beneath The Graveyard Night 1/2 Exchange": "short_hook_anywhere || has_hover_boots"
   locations:
     "Beneath The Graveyard HP": "soul_iron_knuckle && (has_explosives || trick_keg_explosives) && (can_use_lens || short_hook_anywhere)"
     "Beneath The Graveyard Pot Night 2 Early": "true"
@@ -2779,6 +2784,10 @@
     "Beneath The Graveyard Rupee 5": "true"
     "Beneath The Graveyard Rupee 6": "true"
     "Beneath The Graveyard Rupee 7": "true"
+"Beneath The Graveyard Night 3 Fake Exit":
+  region: NONE
+  exits:
+    "Ikana Graveyard": "true"
 "Beneath The Graveyard Night 3":
   region: ENTRANCE
   events:
