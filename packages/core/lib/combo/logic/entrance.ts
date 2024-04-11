@@ -567,7 +567,7 @@ export class LogicPassEntrances {
     if (this.input.settings.erRegionsFull) {
       pool.add('region-full')
     }
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erRegions === 'ownGame' });
+    this.placePools(worldId, Array.from(pool), { ownGame: this.input.settings.erRegions === 'ownGame' });
   }
 
   private poolIndoors(worldId: number) {
