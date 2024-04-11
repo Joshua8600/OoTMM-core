@@ -40,7 +40,7 @@
 "soul_leever": "soul_enemy(SOUL_ENEMY_LEEVER) || soul_enemy(SHARED_SOUL_ENEMY_LEEVER)"
 "soul_stalchild": "soul_enemy(SOUL_ENEMY_STALCHILD) || soul_enemy(SHARED_SOUL_ENEMY_STALCHILD)"
 #"soul_gs": "soul_enemy(SOUL_ENEMY_CURSE_SPIDER) || soul_enemy(SHARED_SOUL_ENEMY_CURSE_SPIDER)"
-"soul_poe": "soul_enemy(SOUL_ENEMY_POE) || soul_enemy(SHARED_SOUL_ENEMY_CURSE_SPIDER)"
+"soul_poe": "soul_enemy(SOUL_ENEMY_POE) || soul_enemy(SHARED_SOUL_ENEMY_POE)"
 
 "soul_gallery_owner" : "soul_npc(SOUL_NPC_SHOOTING_GALLERY_OWNER) || soul_npc(SHARED_SOUL_NPC_SHOOTING_GALLERY_OWNER)"
 "soul_baby_goron" : "soul_npc(SOUL_NPC_GORON_CHILD) || soul_npc(SHARED_SOUL_NPC_GORON_CHILD)"
