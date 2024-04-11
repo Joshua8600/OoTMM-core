@@ -215,7 +215,7 @@
     "Laundry Pool": "true"
     "Owl Clock Town": "true"
   events:
-    CLOCK_TOWN_SCRUB: "soul_business_scrubs && has(MOON_TEAR)"
+    CLOCK_TOWN_SCRUB: "soul_business_scrub && has(MOON_TEAR)"
     MAIL_LETTER: "has(LETTER_TO_KAFEI) && before(DAY2_AM_11_30)"
   locations:
     "Clock Town South Chest Lower": "can_hookshot || (is_adult && can_hookshot_short) || short_hook_anywhere || (has(MASK_DEKU) && event(CLOCK_TOWN_SCRUB)) || trick(MM_SCT_NOTHING) || can_goron_bomb_jump"
@@ -931,7 +931,7 @@
   exits:
     "Termina Field": "true"
   locations:
-    "Termina Field Scrub": "soul_business_scrubs && event(SCRUB_TELESCOPE) && can_use_wallet(2)"
+    "Termina Field Scrub": "soul_business_scrub && event(SCRUB_TELESCOPE) && can_use_wallet(2)"
     "Termina Field Scrub Pot": "true"
 "Termina Field Cow Grotto":
   region: ENTRANCE
