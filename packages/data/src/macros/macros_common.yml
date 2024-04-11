@@ -75,5 +75,9 @@
 "soul_bombchu_man": "soul_npc(SOUL_NPC_MAGIC_CARPET_MAN) || soul_npc(SHARED_SOUL_NPC_MAGIC_CARPET_MAN)"
 "soul_old_hag": "soul_npc(SOUL_NPC_OLD_HAG) || soul_npc(SHARED_SOUL_NPC_OLD_HAG)"
 
+"shared_soul_misc(a,b)": "cond(setting(sharedSoulsMisc), soul_misc(b), soul_misc(a))"
+"soul_gs": "shared_soul_misc(SOUL_MISC_GS, SHARED_SOUL_MISC_GS)"
+"soul_business_scrub": "shared_soul_misc(SOUL_MISC_BUSINESS_SCRUB, SHARED_SOUL_MISC_BUSINESS_SCRUB)"
+
 # Settings
 "is_goal_triforce": "setting(goal, triforce) || setting(goal, triforce3)"

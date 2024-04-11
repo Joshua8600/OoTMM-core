@@ -18,6 +18,11 @@ void EnTab_AfterTextBox(Actor* this, GameState_Play* play, s16 messageId);
 
 static Actor* sByteCodeActor;
 
+static int opt(int x)
+{
+    return x > 0 ? 1 : -1;
+}
+
 /* TODO: Patch every bytecode and remove this */
 static s16 convertGi(s16 initial)
 {
@@ -272,8 +277,10 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_REDEAD_GIBDO);
     case AC_EN_SW:
         if (variable & 0x03)
-            return comboHasSoulMm(GI_MM_SOUL_ENEMY_CURSE_SPIDER);
+            return opt(comboHasSoulMm(GI_MM_SOUL_MISC_GS));
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SKULLWALLTULA);
+    case AC_OBJ_MAKEKINSUTA:
+        return opt(comboHasSoulMm(GI_MM_SOUL_MISC_GS));
     case AC_EN_SB:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SHELL_BLADE);
     case AC_EN_RR:
@@ -495,9 +502,6 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_OWL));
     case AC_EN_GB2:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_POE_COLLECTOR));
-    case AC_EN_SCOPENUTS:
-    case AC_EN_AKINDONUTS:
-        return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BUSINESS_SCRUBS));
     case AC_EN_OT:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_SEAHORSES));
     case AC_EN_KBT:
@@ -542,6 +546,10 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_OLD_HAG));
     case AC_EN_SHN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_TOURIST_CENTER));
+    case AC_EN_SELLNUTS:
+    case AC_EN_SCOPENUTS:
+    case AC_EN_AKINDONUTS:
+        return opt(comboHasSoulMm(GI_MM_SOUL_MISC_BUSINESS_SCRUB));
     default:
         return 1;
     }

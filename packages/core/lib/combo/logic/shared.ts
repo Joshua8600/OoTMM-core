@@ -32,10 +32,9 @@ const SOULS_ENEMY: ItemSharedDef[] = [
   { shared: Items.SHARED_SOUL_ENEMY_FLOORMASTER,         oot: Items.OOT_SOUL_ENEMY_FLOORMASTER,        mm: Items.MM_SOUL_ENEMY_FLOORMASTER },
   { shared: Items.SHARED_SOUL_ENEMY_LEEVER,              oot: Items.OOT_SOUL_ENEMY_LEEVER,             mm: Items.MM_SOUL_ENEMY_LEEVER },
   { shared: Items.SHARED_SOUL_ENEMY_STALCHILD,           oot: Items.OOT_SOUL_ENEMY_STALCHILD,          mm: Items.MM_SOUL_ENEMY_STALCHILD },
-  { shared: Items.SHARED_SOUL_ENEMY_CURSE_SPIDER,        oot: Items.OOT_SOUL_ENEMY_CURSE_SPIDER,       mm: Items.MM_SOUL_ENEMY_CURSE_SPIDER },
   { shared: Items.SHARED_SOUL_ENEMY_POE,                 oot: Items.OOT_SOUL_ENEMY_POE,                mm: Items.MM_SOUL_ENEMY_POE },
-  { shared: Items.SHARED_SOUL_ENEMY_SPIKE_TRAPS,                 oot: Items.OOT_SOUL_ENEMY_SPIKE_TRAPS,                mm: Items.MM_SOUL_ENEMY_SPIKE_TRAPS },
-  { shared: Items.SHARED_SOUL_ENEMY_THIEVES,                 oot: Items.OOT_SOUL_ENEMY_THIEVES,                mm: Items.MM_SOUL_ENEMY_THIEVES },
+  { shared: Items.SHARED_SOUL_ENEMY_SPIKE_TRAPS,         oot: Items.OOT_SOUL_ENEMY_SPIKE_TRAPS,        mm: Items.MM_SOUL_ENEMY_SPIKE_TRAPS },
+  { shared: Items.SHARED_SOUL_ENEMY_THIEVES,             oot: Items.OOT_SOUL_ENEMY_THIEVES,            mm: Items.MM_SOUL_ENEMY_THIEVES },
 ];
 
 const SOULS_NPC: ItemSharedDef[] = [
@@ -53,7 +52,6 @@ const SOULS_NPC: ItemSharedDef[] = [
   { shared: Items.SHARED_SOUL_NPC_TALON,                    oot: Items.OOT_SOUL_NPC_TALON,                    mm: Items.MM_SOUL_NPC_TALON },
   { shared: Items.SHARED_SOUL_NPC_OWL,                      oot: Items.OOT_SOUL_NPC_OWL,                      mm: Items.MM_SOUL_NPC_OWL },
   { shared: Items.SHARED_SOUL_NPC_POE_COLLECTOR,            oot: Items.OOT_SOUL_NPC_POE_COLLECTOR,            mm: Items.MM_SOUL_NPC_POE_COLLECTOR },
-  { shared: Items.SHARED_SOUL_NPC_BUSINESS_SCRUBS,          oot: Items.OOT_SOUL_NPC_BUSINESS_SCRUBS,          mm: Items.MM_SOUL_NPC_BUSINESS_SCRUBS },
   { shared: Items.SHARED_SOUL_NPC_BOMBCHU_BOWLING_LADY,     oot: Items.OOT_SOUL_NPC_BOMBCHU_BOWLING_LADY,     mm: Items.MM_SOUL_NPC_BOMBCHU_BOWLING_LADY },
   { shared: Items.SHARED_SOUL_NPC_ZORA,                     oot: Items.OOT_SOUL_NPC_ZORA,                     mm: Items.MM_SOUL_NPC_ZORA },
   { shared: Items.SHARED_SOUL_NPC_ZORA_SHOPKEEPER,          oot: Items.OOT_SOUL_NPC_ZORA_SHOPKEEPER,          mm: Items.MM_SOUL_NPC_ZORA_SHOPKEEPER },
@@ -70,7 +68,12 @@ const SOULS_NPC: ItemSharedDef[] = [
   { shared: Items.SHARED_SOUL_NPC_MAGIC_CARPET_MAN,         oot: Items.OOT_SOUL_NPC_MAGIC_CARPET_MAN,         mm: Items.MM_SOUL_NPC_MAGIC_CARPET_MAN },
   { shared: Items.SHARED_SOUL_NPC_OLD_HAG,                  oot: Items.OOT_SOUL_NPC_OLD_HAG,                  mm: Items.MM_SOUL_NPC_OLD_HAG },
   { shared: Items.SHARED_SOUL_NPC_FISHING_POND_OWNER,       oot: Items.OOT_SOUL_NPC_FISHING_POND_OWNER,       mm: Items.MM_SOUL_NPC_FISHING_POND_OWNER },
-]
+];
+
+const SOULS_MISC: ItemSharedDef[] = [
+  { shared: Items.SHARED_SOUL_MISC_GS,              oot: Items.OOT_SOUL_MISC_GS,              mm: Items.MM_SOUL_MISC_GS },
+  { shared: Items.SHARED_SOUL_MISC_BUSINESS_SCRUB,  oot: Items.OOT_SOUL_MISC_BUSINESS_SCRUB,  mm: Items.MM_SOUL_MISC_BUSINESS_SCRUB },
+];
 
 const SKELETON_KEY: ItemSharedDef[] = [
   { shared: Items.SHARED_SKELETON_KEY, oot: Items.OOT_SKELETON_KEY, mm: Items.MM_SKELETON_KEY },
@@ -91,4 +94,4 @@ const SHIELDS: ItemSharedDef[] = [
 ];
 
 
-export const SharedItemGroups = { SOULS_ENEMY, SOULS_NPC, SKELETON_KEY, OCARINA_BUTTONS, SHIELDS };
+export const SharedItemGroups = { SOULS_ENEMY, SOULS_NPC, SOULS_MISC, SKELETON_KEY, OCARINA_BUTTONS, SHIELDS };

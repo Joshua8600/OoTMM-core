@@ -600,6 +600,11 @@ export const OOT_SOULS_NPC = new Set([
   Items.OOT_SOUL_NPC_THIEVES,
 ]);
 
+export const OOT_SOULS_MISC = new Set([
+  Items.OOT_SOUL_MISC_GS,
+  Items.OOT_SOUL_MISC_BUSINESS_SCRUB,
+]);
+
 export const MM_SOULS_ENEMY = new Set([
   Items.MM_SOUL_ENEMY_OCTOROK,
   Items.MM_SOUL_ENEMY_WALLMASTER,
@@ -722,6 +727,11 @@ export const MM_SOULS_NPC = new Set([
   Items.MM_SOUL_NPC_CHILD_MAJORA,
 ]);
 
+export const MM_SOULS_MISC = new Set([
+  Items.MM_SOUL_MISC_GS,
+  Items.MM_SOUL_MISC_BUSINESS_SCRUB,
+]);
+
 export const SHARED_SOULS_ENEMY = new Set([
   Items.SHARED_SOUL_ENEMY_OCTOROK,
   Items.SHARED_SOUL_ENEMY_WALLMASTER,
@@ -786,6 +796,11 @@ export const SHARED_SOULS_NPC = new Set([
   Items.SHARED_SOUL_NPC_MAGIC_CARPET_MAN,
   Items.SHARED_SOUL_NPC_OLD_HAG,
   Items.SHARED_SOUL_NPC_FISHING_POND_OWNER
+]);
+
+export const SHARED_SOULS_MISC = new Set([
+  Items.SHARED_SOUL_MISC_GS,
+  Items.SHARED_SOUL_MISC_BUSINESS_SCRUB,
 ]);
 
 export const NAMED_TRIFORCE = new Set([
@@ -894,11 +909,14 @@ export const REQUIRED = new Set([
   ...OOT_SOULS_ENEMY,
   ...OOT_SOULS_BOSS,
   ...OOT_SOULS_NPC,
+  ...OOT_SOULS_MISC,
   ...MM_SOULS_ENEMY,
   ...MM_SOULS_BOSS,
   ...MM_SOULS_NPC,
+  ...MM_SOULS_MISC,
   ...SHARED_SOULS_ENEMY,
   ...SHARED_SOULS_NPC,
+  ...SHARED_SOULS_MISC,
   ...STRAY_FAIRIES_DUNGEON,
   ...DUNGEON_REWARDS,
   ...SMALL_KEYS_OOT,

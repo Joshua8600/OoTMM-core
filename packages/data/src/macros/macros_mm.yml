@@ -253,10 +253,13 @@
 
 "er_enabled": "setting(erMajorDungeons) || setting(erMinorDungeons) || setting(erSpiderHouses) || setting(erGanonCastle) || setting(erGanonTower) || setting(erBeneathWell) || setting(erPirateFortress) || setting(erSecretShrine) || setting(erIkanaCastle) || setting(erMoon) || setting(erIndoorsMajor) || setting(erIndoorsExtra) || !setting(erRegions, none) || !setting(erBoss, none) || !setting(erWarps, none) || setting(erOneWaysMajor) || setting(erOneWaysIkana) || setting(erOneWaysSongs) || setting(erOneWaysStatues) || setting(erOneWaysOwls) || !setting(erWallmasters, none)"
 "dungeon_er": "setting(erMajorDungeons) || setting(erSpiderHouses) || setting(erBeneathWell) || setting(erPirateFortress) || setting(erSecretShrine) || setting(erIkanaCastle) || (setting(erDungeons, full) && (setting(erMinorDungeons) || setting(erGanonCastle) || setting(erGanonTower)))"
+
 # Misc
 "soul_enemy(x)": "(!setting(soulsEnemyMm)) || has(x)"
 "soul_boss(x)": "(!setting(soulsBossMm)) || has(x)"
 "soul_npc(x)": "(!setting(soulsNpcMm)) || has(x)"
 "can_shop_at_trading_post": "(soul_fishing_pond_owner && (between(DAY1_AM_06_00, NIGHT1_PM_09_00) || between(DAY2_AM_06_00, NIGHT2_PM_09_00))) || (soul_rooftop_man && (between(NIGHT1_PM_10_00, DAY2_AM_06_00) || between(NIGHT2_PM_10_00, NIGHT3_PM_09_00)))"
+"soul_misc(x)": "(!setting(soulsMiscMm)) || has(x)"
 "short_hook_anywhere": "can_hookshot_short && setting(hookshotAnywhereMm, logical)"
 "hookshot_anywhere": "can_hookshot && setting(hookshotAnywhereMm, logical)"
+"gs": "soul_gs"

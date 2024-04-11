@@ -1386,6 +1386,20 @@ export const SETTINGS = [{
   description: 'Add NPC souls into the item pool. NPCs won\'t spawn unless their soul is obtained.',
   default: false
 }, {
+  key: 'soulsMiscOot',
+  name: 'Misc. Souls (OoT)',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Add misc. souls into the item pool. Corresponding actors won\'t spawn unless their soul is obtained.',
+  default: false
+}, {
+  key: 'soulsMiscMm',
+  name: 'Misc. Souls (MM)',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Add misc. souls into the item pool. Corresponding actors won\'t spawn unless their soul is obtained.',
+  default: false
+}, {
   key: 'clocks',
   name: 'Clocks as Items',
   category: 'items.extensions',
@@ -1630,6 +1644,13 @@ export const SETTINGS = [{
   default: false,
   cond: (s: any) => s.soulsNpcOot && s.soulsNpcMm,
 }, {
+  key: 'sharedSoulsMisc',
+  name: 'Shared Misc. Souls',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => s.soulsMiscOot && s.soulsMiscMm,
+}, {
   key: 'sharedOcarinaButtons',
   name: 'Shared Ocarina Buttons',
   category: 'items.shared',
@@ -1799,6 +1820,18 @@ export const SETTINGS = [{
     { value: 'full', name: 'Full' },
   ],
   description: 'Enable the ability to shuffle dungeons within their own game or across both.',
+  default: 'none'
+}, {
+  key: 'erGrottos',
+  name: 'Grotto Shuffle (EXPERIMENTAL - OOT ONLY)',
+  category: 'entrances',
+  type: 'enum',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'ownGame', name: 'Own Game' },
+    { value: 'full', name: 'Full' },
+  ],
+  description: 'Shuffle grottos and graves.',
   default: 'none'
 }, {
   key: 'erWallmasters',
