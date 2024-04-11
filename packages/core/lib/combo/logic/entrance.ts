@@ -815,13 +815,13 @@ export class LogicPassEntrances {
       if (this.input.settings.erRegions !== 'none' || this.input.settings.erRegionsFull) {
         anyEr = true;
         pools.REGIONS = this.poolRegions(i);
-        this.placeRegions(i);
+        /* this.placeRegions(i); */
       }
 	  
       if (this.input.settings.erGrottos !== 'none') {
         anyEr = true;
         pools.GROTTOS = this.poolGrottos()
-        this.placeGrottos(i);
+        /* this.placeGrottos(i); */
       }
 
       if (this.input.settings.erIndoors !== 'none') {
