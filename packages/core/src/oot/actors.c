@@ -233,9 +233,6 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_MAGIC_CARPET_MAN));
     case AC_EN_IN:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_INGO));
-    case AC_EN_DNS:
-    case AC_EN_SHOPNUTS:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BUSINESS_SCRUBS));
     case AC_EN_OWL:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_OWL));
     case AC_EN_HORSE:
