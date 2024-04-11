@@ -828,12 +828,12 @@ const ITEM_NAMES: {[k in ItemID]: string} = {
   MM_SOUL_NPC_MOON_CHILDREN: 'Soul of the Moon Children',
   MM_SOUL_NPC_GORON: 'Soul of Gorons (MM)',
   SHARED_SOUL_NPC_GORON: 'Soul of Gorons'
-  OOT_SOUL_MISC_GS: "Soul of Gold Skulltulas (OoT)",
-  OOT_SOUL_MISC_BUSINESS_SCRUB: "Soul of Business Scrubs (OoT)",
-  MM_SOUL_MISC_GS: "Soul of Gold Skulltulas (MM)",
-  MM_SOUL_MISC_BUSINESS_SCRUB: "Soul of Business Scrubs (MM)",
-  SHARED_SOUL_MISC_GS: "Soul of Gold Skulltulas",
-  SHARED_SOUL_MISC_BUSINESS_SCRUB: "Soul of Business Scrubs",
+  OOT_SOUL_MISC_GS: 'Soul of Gold Skulltulas (OoT)',
+  OOT_SOUL_MISC_BUSINESS_SCRUB: 'Soul of Business Scrubs (OoT)',
+  MM_SOUL_MISC_GS: 'Soul of Gold Skulltulas (MM)',
+  MM_SOUL_MISC_BUSINESS_SCRUB: 'Soul of Business Scrubs (MM)',
+  SHARED_SOUL_MISC_GS: 'Soul of Gold Skulltulas',
+  SHARED_SOUL_MISC_BUSINESS_SCRUB: 'Soul of Business Scrubs',
 };
 
 export function itemName(item: string) {
