@@ -60,9 +60,10 @@ const DUNGEON_INDEX = {
 } as {[k: string]: number};;
 
 type PlaceOpts = {
-  overworld?: boolean;
   ownGame?: boolean;
 };
+
+type EntrancePools = {[k: string]: { pool: string[], opts: PlaceOpts }};
 
 export class LogicPassEntrances {
   private pathfinder!: Pathfinder;
@@ -153,6 +154,43 @@ export class LogicPassEntrances {
     /* Ganon's tower check */
     if (dungeon === 'Tower' && ['ganon', 'both'].includes(this.input.settings.goal) && !pathfinderState.ws[worldId].events.has('OOT_GANON'))
       return false;
+
+    return true;
+  }
+
+  private isAssignable(worldId: number, aShuffledEntrances: Set<Entrance>, original: Entrance, replacement: Entrance) {
+    const world = this.worlds[worldId];
+    const originalEntrance = ENTRANCES[original];
+    const replacementEntrance = ENTRANCES[replacement];
+    const shuffledEntrances = new Set(aShuffledEntrances);
+
+    /* Not all locations */
+    if (this.input.settings.logic !== 'allLocations') {
+      return true;
+    }
+
+    /* Apply an override */
+    shuffledEntrances.delete(replacement);
+    world.areas[originalEntrance.from].exits[replacementEntrance.to] = this.getExpr(worldId, original);
+    world.areas.TMP = { game: 'mm', region: 'NONE', exits: {}, locations: {}, events: {}, boss: false, ageChange: false, gossip: {}, dungeon: null, stay: null, time: 'flow' };
+    for (const e of shuffledEntrances) {
+      const target = ENTRANCES[e].to;
+      world.areas.TMP.exits[target] = exprTrue();
+    }
+    world.areas['OOT SPAWN'].exits['TMP'] = exprTrue();
+
+    /* Check if the new world is valid */
+    const pathfinderState = this.pathfinder.run(null, { singleWorld: worldId, ignoreItems: true, recursive: true });
+
+    /* Restore the override */
+    delete world.areas[originalEntrance.from].exits[replacementEntrance.to];
+    delete world.areas['OOT SPAWN'].exits['TMP'];
+    delete world.areas.TMP;
+
+    /* Get the number of locs */
+    if (pathfinderState.locations.size < world.locations.size) {
+      return false;
+    }
 
     return true;
   }
@@ -400,7 +438,7 @@ export class LogicPassEntrances {
     /* Change the world */
     let expr = this.getExpr(worldId, original);
     if ((entranceOriginal.game === 'oot' || entranceOriginal.type === 'one-way-statue') && entranceReplacement.game === 'mm') {
-      if (entranceOriginal.game === 'oot' && opts.overworld) {
+      if (entranceOriginal.game === 'oot' && entranceReplacement.game === 'mm' && ['overworld', 'region'].includes(entranceReplacement.type)) {
         world.areas[entranceOriginal.from].exits['MM GLOBAL'] = expr;
       }
       if (!((entranceReplacement.flags as string[]).includes('no-sot'))) {
@@ -414,7 +452,6 @@ export class LogicPassEntrances {
   }
 
   private place(worldId: number, original: Entrance, replacement: Entrance, opts?: PlaceOpts) {
-    const world = this.worlds[worldId];
     const entranceOriginal = ENTRANCES[original];
     const entranceReplacement = ENTRANCES[replacement];
 
@@ -424,38 +461,101 @@ export class LogicPassEntrances {
     }
   }
 
-  private placePool(worldId: number, pool: string[], opts?: PlaceOpts) {
+  private placePools(worldId: number, pools: EntrancePools) {
     const world = this.worlds[worldId];
-    /* Get overworld entrances */
-    const entrances = new Set((Object.keys(ENTRANCES) as Entrance[]).filter(x => pool.includes(ENTRANCES[x].type)));
+    const poolEntrances: {[k: string]: { src: Entrance[]; dst: Set<Entrance>; }} = {};
 
-    /* Delete the overworld entrances from the world */
-    for (const eName of entrances) {
+    /* Get entrances */
+    const poolNames = new Set(Object.keys(pools));
+    const entrancesTypes = new Set<string>();
+    const entrancesAll = new Set<Entrance>();
+    for (const name of poolNames) {
+      const types = pools[name].pool;
+      for (const t of types) {
+        entrancesTypes.add(t);
+      }
+      const entrances = new Set((Object.keys(ENTRANCES) as Entrance[]).filter(x => types.includes(ENTRANCES[x].type)));
+      const reverseEntrances = new Set<Entrance>();
+      for (const e of entrances) {
+        entrancesAll.add(e);
+        if (this.input.settings.erDecoupled) {
+          const reverse = (ENTRANCES[e] as any).reverse as Entrance | undefined;
+          if (reverse) {
+            reverseEntrances.add(reverse);
+            entrancesAll.add(reverse);
+          }
+        }
+      }
+      for (const e of reverseEntrances) {
+        entrances.add(e);
+      }
+      poolEntrances[name] = { src: shuffle(this.input.random, [...entrances]), dst: new Set([...entrances]) };
+    }
+
+    /* Delete the entrances from the world */
+    for (const eName of entrancesAll) {
       const e = ENTRANCES[eName];
       delete world.areas[e.from].exits[e.to!];
-      const reverse = (e as any).reverse as Entrance | undefined;
-      if (reverse) {
-        const r = ENTRANCES[reverse];
-        delete world.areas[r.from!].exits[r.to!];
+      if (!this.input.settings.erDecoupled) {
+        const reverse = (e as any).reverse as Entrance | undefined;
+        if (reverse) {
+          const r = ENTRANCES[reverse];
+          delete world.areas[r.from!].exits[r.to!];
+        }
       }
     }
 
-    /* Shuffle the entrances */
-    const shuffledEntrances = shuffle(this.input.random, [...entrances]);
-
-    /* Apply the entrances */
-    for (let e of shuffledEntrances) {
-      let candidates = [...entrances];
-      if (opts?.ownGame) {
-        candidates = candidates.filter(c => ENTRANCES[c].game === ENTRANCES[e].game);
+    /* Remove any empty pools */
+    for (const name of poolNames) {
+      if (poolEntrances[name].src.length === 0) {
+        delete poolEntrances[name];
       }
-      const newE = sample(this.input.random, candidates);
-      this.place(worldId, e, newE, opts);
-      entrances.delete(newE);
+    }
+
+    /* Shuffle */
+    while (Object.keys(poolEntrances).length > 0) {
+      /* Select a pool */
+      const poolName = sample(this.input.random, Object.keys(poolEntrances));
+      const pool = poolEntrances[poolName];
+
+      /* Select an entrance */
+      const src = pool.src.pop()!;
+
+      /* Select candidates */
+      let dstCandidates = pool.dst;
+      if (pools[poolName].opts?.ownGame) {
+        dstCandidates = new Set([...dstCandidates].filter(x => ENTRANCES[x].game === ENTRANCES[src].game));
+      }
+
+      let dst: Entrance;
+      for (;;) {
+        if (dstCandidates.size === 0) {
+          throw new LogicEntranceError(`No destination for ${src}`);
+        }
+        dst = sample(this.input.random, [...dstCandidates]);
+        dstCandidates.delete(dst);
+        if (this.isAssignable(worldId, entrancesAll, src, dst)) {
+          break;
+        }
+      }
+
+      /* Place */
+      entrancesAll.delete(dst);
+      if (this.input.settings.erDecoupled) {
+        this.placeSingle(worldId, src, dst, pools[poolName].opts);
+      } else {
+        this.place(worldId, src, dst, pools[poolName].opts);
+      }
+      pool.dst.delete(dst);
+
+      /* Remove the pool if empty */
+      if (pool.src.length === 0) {
+        delete poolEntrances[poolName];
+      }
     }
   }
 
-  private placeRegions(worldId: number) {
+  private poolRegions(worldId: number) {
     const pool = new Set(['region']);
     if (this.input.settings.erRegionsExtra) {
       pool.add('region-extra');
@@ -463,13 +563,14 @@ export class LogicPassEntrances {
     if (this.input.settings.erRegionsShortcuts) {
       pool.add('region-shortcut');
     }
+    #return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erRegions === 'ownGame' } };
     if (this.input.settings.erRegionsFull) {
       pool.add('region-full')
     }
     this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erRegions === 'ownGame' });
   }
 
-  private placeIndoors(worldId: number) {
+  private poolIndoors(worldId: number) {
     const pool = new Set(['indoors']);
     if (!this.input.settings.erIndoorsMajor) {
       pool.delete('indoors');
@@ -477,10 +578,10 @@ export class LogicPassEntrances {
     if (this.input.settings.erIndoorsExtra) {
       pool.add('indoors-extra');
     }
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erIndoors === 'ownGame' });
+    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erIndoors === 'ownGame' } };
   }
 
-  private placeWarps(worldId: number) {
+  private poolWarps(worldId: number) {
     const pool = new Set(['one-way-song', 'one-way-statue']);
 
     if (this.input.settings.erWarps === 'ootOnly') {
@@ -490,10 +591,10 @@ export class LogicPassEntrances {
       pool.delete('one-way-song');
     }
 
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erWarps === 'ownGame' });
+    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erWarps === 'ownGame' } };
   }
 
-  private placeOneWays(worldId: number) {
+  private poolOneWays(worldId: number) {
     const pool = new Set(['one-way']);
 
     if (!this.input.settings.erOneWaysMajor) {
@@ -518,7 +619,7 @@ export class LogicPassEntrances {
       pool.add('one-way-woods');
     }
 
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erOneWays === 'ownGame' });
+    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erOneWays === 'ownGame' } };
   }
 
   private shuffledPools(def?: string[]) {
@@ -579,9 +680,19 @@ export class LogicPassEntrances {
     }
   }
 
-  private placeGrottos(worldId: number) {
-    const pool = new Set(['grotto', 'grave']);
-    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erGrottos === 'ownGame' });
+  private poolGrottos() {
+    const pool = ['grotto', 'grave'];
+    return { pool, opts: { ownGame: this.input.settings.erGrottos === 'ownGame' } };
+  }
+
+  private changeRegion(worldId: number, area: string, newRegion: string) {
+    const world = this.worlds[worldId];
+    world.areas[area].region = newRegion;
+    for (const loc of Object.keys(world.areas[area].locations)) {
+      if (world.regions[loc] === 'ENTRANCE') {
+        world.regions[loc] = newRegion;
+      }
+    }
   }
 
   private propagateRegionsStep(worldId: number) {
@@ -598,12 +709,7 @@ export class LogicPassEntrances {
           throw new LogicEntranceError(`Unknown exit: ${exitName}`);
         }
         if (exitArea.region === 'ENTRANCE') {
-          exitArea.region = a.region;
-          for (const loc of Object.keys(exitArea.locations)) {
-            if (world.regions[loc] === 'ENTRANCE') {
-              world.regions[loc] = a.region;
-            }
-          }
+          this.changeRegion(worldId, exitName, a.region);
           changed = true;
         }
       }
@@ -617,6 +723,17 @@ export class LogicPassEntrances {
       for (;;) {
         if (!this.propagateRegionsStep(i)) {
           break;
+        }
+      }
+    }
+
+    /* Check for unassigned regions */
+    for (let i = 0; i < this.worlds.length; ++i) {
+      const world = this.worlds[i];
+      for (const areaName of Object.keys(world.areas)) {
+        const a = world.areas[areaName];
+        if (a.region === 'ENTRANCE') {
+          this.changeRegion(i, areaName, 'NAMELESS');
         }
       }
     }
@@ -663,27 +780,6 @@ export class LogicPassEntrances {
       }
     }
 
-    const forbiddenAreasChild = [];
-    const forbiddenAreasAdult = [];
-
-    if (this.input.settings.ageChange === 'none') {
-      /* We don't want child to reach the Fairy OGC exit, and the other way around too */
-      forbiddenAreasChild.push('OOT Near Fairy Fountain Defense');
-      forbiddenAreasAdult.push('OOT Near Fairy Fountain Din');
-    }
-
-    for (const area of forbiddenAreasChild) {
-      if (pathfinderState.ws[0].areas.child.has(area)) {
-        throw new LogicEntranceError(`Child can reach ${area}`);
-      }
-    }
-
-    for (const area of forbiddenAreasAdult) {
-      if (pathfinderState.ws[0].areas.adult.has(area)) {
-        throw new LogicEntranceError(`Adult can reach ${area}`);
-      }
-    }
-
     /* Validate using the solver */
     const solver = new LogicPassSolver({ ...this.input, worlds: this.worlds });
     solver.validate();
@@ -709,6 +805,8 @@ export class LogicPassEntrances {
     this.pathfinder = new Pathfinder(this.worlds, this.input.settings, this.input.startingItems);
 
     for (let i = 0; i < worldsCount; ++i) {
+      const pools: EntrancePools = {};
+
       if (this.input.settings.erWallmasters !== 'none') {
         anyEr = true;
         this.placeWallmasters(i);
@@ -716,28 +814,51 @@ export class LogicPassEntrances {
 
       if (this.input.settings.erRegions !== 'none' || this.input.settings.erRegionsFull) {
         anyEr = true;
+        pools.REGIONS = this.poolRegions(i);
         this.placeRegions(i);
       }
 	  
       if (this.input.settings.erGrottos !== 'none') {
         anyEr = true;
+        pools.GROTTOS = this.poolGrottos()
         this.placeGrottos(i);
       }
 
       if (this.input.settings.erIndoors !== 'none') {
         anyEr = true;
-        this.placeIndoors(i);
+        pools.INDOORS = this.poolIndoors(i);
+      }
+
+      if (this.input.settings.erMixed !== 'none') {
+        pools.MIXED = { pool: [], opts: { ownGame: this.input.settings.erMixed === 'ownGame' } };
+
+        if (this.input.settings.erMixedGrottos) {
+          pools.MIXED.pool = [...pools.MIXED.pool, ...pools.GROTTOS.pool];
+          delete pools.GROTTOS;
+        }
+
+        if (this.input.settings.erMixedRegions) {
+          pools.MIXED.pool = [...pools.MIXED.pool, ...pools.REGIONS.pool];
+          delete pools.REGIONS;
+        }
+
+        if (this.input.settings.erMixedIndoors) {
+          pools.MIXED.pool = [...pools.MIXED.pool, ...pools.INDOORS.pool];
+          delete pools.INDOORS;
+        }
       }
 
       if (this.input.settings.erWarps !== 'none') {
+        pools.WARPS = this.poolWarps(i);
         anyEr = true;
-        this.placeWarps(i);
       }
 
       if (this.input.settings.erOneWays !== 'none') {
+        pools.ONE_WAYS = this.poolOneWays(i);
         anyEr = true;
-        this.placeOneWays(i);
       }
+
+      this.placePools(i, pools);
 
       if (this.input.settings.erDungeons !== 'none') {
         anyEr = true;
