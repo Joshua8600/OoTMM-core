@@ -827,7 +827,7 @@ const ITEM_NAMES: {[k in ItemID]: string} = {
   SHARED_SOUL_NPC_FISHING_POND_OWNER: 'Soul of Fishing Pond and Trading Post Owner',
   MM_SOUL_NPC_MOON_CHILDREN: 'Soul of the Moon Children',
   MM_SOUL_NPC_GORON: 'Soul of Gorons (MM)',
-  SHARED_SOUL_NPC_GORON: 'Soul of Gorons'
+  SHARED_SOUL_NPC_GORON: 'Soul of Gorons',
   OOT_SOUL_MISC_GS: 'Soul of Gold Skulltulas (OoT)',
   OOT_SOUL_MISC_BUSINESS_SCRUB: 'Soul of Business Scrubs (OoT)',
   MM_SOUL_MISC_GS: 'Soul of Gold Skulltulas (MM)',
