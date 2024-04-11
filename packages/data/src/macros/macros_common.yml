@@ -57,7 +57,7 @@
 "soul_talon" : "soul_npc(SOUL_NPC_TALON) || soul_npc(SHARED_SOUL_NPC_TALON)"
 "soul_owl" : "soul_npc(SOUL_NPC_OWL) || soul_npc(SHARED_SOUL_NPC_OWL)"
 "soul_poe_collector" : "soul_npc(SOUL_NPC_POE_COLLECTOR) || soul_npc(SHARED_SOUL_NPC_POE_COLLECTOR)"
-"soul_business_scrubs" : "soul_npc(SOUL_NPC_BUSINESS_SCRUBS) || soul_npc(SHARED_SOUL_NPC_BUSINESS_SCRUBS)"
+#"soul_business_scrubs" : "soul_npc(SOUL_NPC_BUSINESS_SCRUBS) || soul_npc(SHARED_SOUL_NPC_BUSINESS_SCRUBS)"
 "soul_minigame_lady" : "soul_npc(SOUL_NPC_BOMBCHU_BOWLING_LADY) || soul_npc(SHARED_SOUL_NPC_BOMBCHU_BOWLING_LADY)"
 "soul_zora" : "soul_npc(SOUL_NPC_ZORA) || soul_npc(SHARED_SOUL_NPC_ZORA)"
 "soul_zora_shopkeeper" : "soul_npc(SOUL_NPC_ZORA_SHOPKEEPER) || soul_npc(SHARED_SOUL_NPC_ZORA_SHOPKEEPER)"
