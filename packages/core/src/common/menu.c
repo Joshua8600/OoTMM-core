@@ -188,6 +188,10 @@ static const char* const kSoulsEnemyOot[] = {
     "Wolfos",
     "Stalchildren",
     "Guays",
+    "Poes",
+    "Spike Traps",
+    "Gold Skulltulas",
+    "Gerudo Thieves"
 };
 
 static const char* const kSoulsBossOot[] = {
@@ -199,6 +203,7 @@ static const char* const kSoulsBossOot[] = {
     "Morpha",
     "Bongo-Bongo",
     "Twinrova",
+    "Ganondorf",
 };
 
 static const char* const kSoulsNpcOot[] = {
@@ -235,6 +240,22 @@ static const char* const kSoulsNpcOot[] = {
     "Dampe",
     "Graveyard Kid",
     "Poe Collector",
+    "Lakeside Professor",
+    "Beans Salesman",
+    "Dogs",
+    "Bombchu Merchant",
+    "Ingo",
+    "Business Merchant",
+    "Kaepora Gaebora",
+    "Epona",
+    "Potion Witch",
+    "Composer Brothers",
+    "Cuccos",
+    "Honey and Darling",
+    "Man on Roof",
+    "Richard's Owner",
+    "Patrolling Gerudos",
+    "Grog"
 };
 
 static const char* const kSoulsEnemyMm[] = {
@@ -284,6 +305,11 @@ static const char* const kSoulsEnemyMm[] = {
     "Snappers",
     "Warts",
     "Captain Keeta",
+    "Fighting Pirates",
+    "Giant Bees",
+    "Poes",
+    "Spike Traps",
+    "Spider/Ocean Spiders"
 };
 
 static const char* const kSoulsBossMm[] = {
@@ -292,6 +318,77 @@ static const char* const kSoulsBossMm[] = {
     "Gyorg",
     "Twinmold",
     "Igos",
+    "Majora"
+};
+
+
+static const char* const kSoulsNpcMm[] = {
+    // "Moon Children",
+    "Madame Aroma",
+    "Baby Goron",
+    "Bomb Shopkeeper",
+    "Bombers' Kids",
+    "Deku Butler",
+    "Clock Town Citizen",
+    "Composer Bros",
+    "Dampe",
+    "Darmani",
+    "Deku King",
+    "Deku Princess",
+    "Playground Scrubs",
+    "Goron Elder",
+    "Epona",
+    "Fisherman",
+    "Gorman Brothers",
+    "Goron Racers",
+    "Goron Shopkeeper",
+    "Honey and Darling",
+    "Indie Go-Go",
+    "Kafei",
+    "Keaton",
+    "Koume and Kotake",
+    "Mayor Dotour",
+    "Medigoron",
+    "Mikau",
+    "Mr Barten",
+    "Monkeys",
+    "Astral Observer",
+    "Owl",
+    "Poe Hut Owner",
+    "Business Scrubs",
+    "Seahorses",
+    "Blacksmiths",
+    "Chest Game Lady",
+    "Tingle",
+    "Toilet Hand",
+    "Trading Post Owner",
+    "Trading Post Part Timer",
+    "Turtle",
+    "Zoras",
+    "Zora Shopkeepr",
+    "Cremia and Romani",
+    "Beans Salesman",
+    "Carpenters",
+    "Anju",
+    "Dogs",
+    "Cuccos",
+    "Guru-Guru",
+    "Marine Scientist",
+    "Fighting Pirates",
+    "Patrolling Pirates",
+    "Sakon Bundle",
+    "Gorman",
+    "grog",
+    "Gorons",
+    "Racetrack Owner",
+    "Swordsman",
+    "Anju's Grandmother",
+    "Tingle's Dad",
+    "Majora Child",
+    "Odolwa Child",
+    "Goht Child",
+    "Gyorg Child",
+    "Twinmold Child",
 };
 
 static const char* const kSoulsMiscOot[] = {
@@ -932,6 +1029,9 @@ void comboMenuUpdate(GameState_Play* play)
     case MENU_SOULS_MM_BOSS:
         g.menuCursorMax = ARRAY_SIZE(kSoulsBossMm);
         break;
+    case MENU_SOULS_MM_NPC:
+        g.menuCursorMax = ARRAY_SIZE(kSoulsNpcMm);
+		break;
     case MENU_SOULS_MM_MISC:
         g.menuCursorMax = ARRAY_SIZE(kSoulsMiscMm);
         break;
@@ -1023,6 +1123,9 @@ void comboMenuDraw(GameState_Play* play)
     case MENU_SOULS_MM_BOSS:
         drawMenuSouls(play, "MM Boss Souls", kSoulsBossMm, GI_MM_SOUL_BOSS_ODOLWA, 1);
         break;
+    case MENU_SOULS_MM_NPC:
+        drawMenuSouls(play, "MM NPC Souls", kSoulsNpcMm, GI_MM_SOUL_NPC_AROMA, 1);
+		break;
     case MENU_SOULS_MM_MISC:
         drawMenuSouls(play, "MM Misc. Souls", kSoulsMiscMm, GI_MM_SOUL_MISC_GS, 1);
         break;
@@ -1054,6 +1157,8 @@ void comboMenuNext(void)
         g.menuScreen++;
     if (g.menuScreen == MENU_SOULS_MM_BOSS && !comboConfig(CFG_MM_SOULS_BOSS))
         g.menuScreen++;
+    if (g.menuScreen == MENU_SOULS_MM_NPC && !comboConfig(CFG_MM_SOULS_NPC))
+		g.menuScreen++;
     if (g.menuScreen == MENU_SOULS_MM_MISC && !comboConfig(CFG_MM_SOULS_MISC))
         g.menuScreen++;
 

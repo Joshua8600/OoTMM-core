@@ -183,6 +183,8 @@ static void addRupeesRawOot(s16 delta)
     u16 max;
 
     max = gOotMaxRupees[gOotSave.inventory.upgrades.wallet];
+    if (gOotSave.playerData.rupees + delta < 0)
+        gOotSave.playerData.rupees = 0;
     gOotSave.playerData.rupees += delta;
     if (gOotSave.playerData.rupees > max)
         gOotSave.playerData.rupees = max;
@@ -196,6 +198,8 @@ static void addRupeesRawMm(s16 delta)
     gMmSave.playerData.rupees += delta;
     if (gMmSave.playerData.rupees > max)
         gMmSave.playerData.rupees = max;
+    if (gMmSave.playerData.rupees < 0)
+        gMmSave.playerData.rupees = 0;
 }
 
 static void addRupeesOot(GameState_Play* play, s16 delta)
@@ -293,7 +297,7 @@ static int addItemWalletOot(GameState_Play* play, u8 itemId, s16 gi, u16 param)
         addWalletRawOot(param);
 
     if (comboConfig(CFG_FILL_WALLETS))
-        addRupeesOot(play, gOotMaxRupees[gOotSave.inventory.upgrades.wallet]);
+        addRupeesRawOot(gOotMaxRupees[gOotSave.inventory.upgrades.wallet]);
 
     return 0;
 }
@@ -306,7 +310,7 @@ static int addItemWalletMm(GameState_Play* play, u8 itemId, s16 gi, u16 param)
         addWalletRawMm(param);
 
     if (comboConfig(CFG_FILL_WALLETS))
-        addRupeesMm(play, gMmMaxRupees[gMmSave.inventory.upgrades.wallet]);
+        addRupeesRawMm(gMmMaxRupees[gMmSave.inventory.upgrades.wallet]);
 
     return 0;
 }

@@ -1,0 +1,50 @@
+"Jabu-Jabu":
+  dungeon: JJ
+  exits:
+    "Zora Fountain": "true"
+    "Jabu-Jabu Main": "has_ranged_weapon || has_explosives"
+"Jabu-Jabu Main":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu": "true"
+    "Jabu-Jabu Pre-Boss": "event(BIG_OCTO) || (has_hover_boots && (trick(OOT_JABU_BOSS_HOVER) || can_play_elegy)) || climb_anywhere || (glitch_megaflip && ((trick(OOT_JJB_BOXLESS) && can_jump_slash) || can_play_elegy))"
+  events:
+    BIG_OCTO: "soul_octorok && event(PARASITE) && soul_npc(SOUL_NPC_RUTO) && (has_weapon || can_use_sticks)"
+    PARASITE: "soul_enemy(SOUL_ENEMY_PARASITE) && can_boomerang && (soul_npc(SOUL_NPC_RUTO) || can_play_elegy)"
+  locations:
+    "Jabu-Jabu Map Chest": "event(PARASITE)"
+    "Jabu-Jabu Compass Chest": "event(PARASITE) && soul_enemy(SOUL_ENEMY_SHABOM)"
+    "Jabu-Jabu Boomerang Chest": "soul_enemy(SOUL_ENEMY_STINGER) && soul_npc(SOUL_NPC_RUTO)"
+<<<<<<< HEAD
+    "Jabu-Jabu GS Bottom Lower": "soul_gs && (can_collect_distance || climb_anywhere)"
+    "Jabu-Jabu GS Bottom Upper": "soul_gs && (can_collect_distance || climb_anywhere)"
+    "Jabu-Jabu GS Water Switch": "soul_gs"
+    "Jabu-Jabu Scrub": "(is_child || can_dive_small || time_travel_at_will) && can_hit_scrub && scrub_price(0x20)"
+=======
+    "Jabu-Jabu GS Bottom Lower": "gs && (can_collect_distance || climb_anywhere)"
+    "Jabu-Jabu GS Bottom Upper": "gs && (can_collect_distance || climb_anywhere)"
+    "Jabu-Jabu GS Water Switch": "gs"
+    "Jabu-Jabu Scrub": "(is_child || can_dive_small || time_travel_at_will) && business_scrub(0x20)"
+>>>>>>> master
+    "Jabu-Jabu Pot Big Octo Room 1": "event(BIG_OCTO) || climb_anywhere"
+    "Jabu-Jabu Pot Big Octo Room 2": "event(BIG_OCTO) || climb_anywhere"
+    "Jabu-Jabu Pot Big Octo Room 3": "event(BIG_OCTO) || climb_anywhere"
+    "Jabu-Jabu Pot Muscle Block Room 1": "can_boomerang || climb_anywhere"
+    "Jabu-Jabu Pot Muscle Block Room 2": "can_boomerang || climb_anywhere"
+    "Jabu-Jabu Pot Muscle Block Room 3": "can_boomerang || climb_anywhere"
+    "Jabu-Jabu Pot Muscle Block Room 4": "can_boomerang || climb_anywhere"
+    "Jabu-Jabu Pot Muscle Block Room 5": "can_boomerang || climb_anywhere"
+    "Jabu-Jabu Pot Alcove 1": "true"
+    "Jabu-Jabu Pot Alcove 2": "true"
+    "Jabu-Jabu Pot Alcove 3": "true"
+"Jabu-Jabu Pre-Boss":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Boss": "can_boomerang || (trick(OOT_JABU_BOSS_HIGH_SWITCH) && ((has_hover_boots && has_bombs) || can_hit_triggers_distance || can_longshot || has_bombchu)) || (climb_anywhere && (has_weapon || can_use_sticks || has_ranged_weapon || has_explosives_or_hammer))"
+    "Jabu-Jabu Main": "true"
+  locations:
+<<<<<<< HEAD
+    "Jabu-Jabu GS Near Boss": "soul_gs"
+=======
+    "Jabu-Jabu GS Near Boss": "gs"
+>>>>>>> master

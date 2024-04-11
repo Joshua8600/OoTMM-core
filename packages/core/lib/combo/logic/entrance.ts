@@ -563,7 +563,11 @@ export class LogicPassEntrances {
     if (this.input.settings.erRegionsShortcuts) {
       pool.add('region-shortcut');
     }
-    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erRegions === 'ownGame' } };
+    #return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erRegions === 'ownGame' } };
+    if (this.input.settings.erRegionsFull) {
+      pool.add('region-full')
+    }
+    this.placePool(worldId, Array.from(pool), { ownGame: this.input.settings.erRegions === 'ownGame' });
   }
 
   private poolIndoors(worldId: number) {
@@ -608,6 +612,9 @@ export class LogicPassEntrances {
     if (this.input.settings.erOneWaysOwls) {
       pool.add('one-way-owl');
     }
+    if (this.input.settings.erOneWaysVoids) {
+      pool.add('one-way-void');
+    }
     if (this.input.settings.erOneWaysWoods) {
       pool.add('one-way-woods');
     }
@@ -619,7 +626,7 @@ export class LogicPassEntrances {
     let pool: string[] = [];
 
     if (this.input.settings.erOneWays !== 'none') {
-      pool = [...pool, 'one-way', 'one-way-ikana', 'one-way-song', 'one-way-statue', 'one-way-owl'];
+      pool = [...pool, 'one-way', 'one-way-ikana', 'one-way-song', 'one-way-statue', 'one-way-owl', 'one-way-void'];
     }
 
     if (this.input.settings.erDungeons !== 'none') {
@@ -630,6 +637,10 @@ export class LogicPassEntrances {
       pool = [...pool, 'boss'];
     }
 
+    if (this.input.settings.erRegionsFull) {
+      pool = [...pool, 'region-full', 'region']
+    }
+	
     if (this.input.settings.erGrottos !== 'none') {
       pool = [...pool, 'grotto', 'grave'];
     }
@@ -801,14 +812,16 @@ export class LogicPassEntrances {
         this.placeWallmasters(i);
       }
 
-      if (this.input.settings.erGrottos !== 'none') {
-        anyEr = true;
-        pools.GROTTOS = this.poolGrottos();
-      }
-
-      if (this.input.settings.erRegions !== 'none') {
+      if (this.input.settings.erRegions !== 'none' || this.input.settings.erRegionsFull) {
         anyEr = true;
         pools.REGIONS = this.poolRegions(i);
+        this.placeRegions(i);
+      }
+	  
+      if (this.input.settings.erGrottos !== 'none') {
+        anyEr = true;
+        pools.GROTTOS = this.poolGrottos()
+        this.placeGrottos(i);
       }
 
       if (this.input.settings.erIndoors !== 'none') {
@@ -894,4 +907,3 @@ export class LogicPassEntrances {
     }
   }
 };
-
