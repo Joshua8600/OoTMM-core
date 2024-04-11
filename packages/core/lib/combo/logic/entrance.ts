@@ -563,7 +563,7 @@ export class LogicPassEntrances {
     if (this.input.settings.erRegionsShortcuts) {
       pool.add('region-shortcut');
     }
-    # return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erRegions === 'ownGame' } };
+    /* return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erRegions === 'ownGame' } }; */
     if (this.input.settings.erRegionsFull) {
       pool.add('region-full')
     }
