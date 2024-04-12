@@ -388,18 +388,18 @@ MM_IKANA_CASTLE_GARDENS:                        { game: mm, id: 0x3410, type: re
 MM_IKANA_CANYON_FROM_CASTLE_GARDENS:            { game: mm, id: 0x2080, type: overworld, areas: ["MM Ikana Castle Entrance", "MM Ikana Canyon"], reverse: MM_IKANA_CASTLE_GARDENS }
 MM_STONE_TOWER:                                 { game: mm, id: 0xaa00, type: region-full, areas: ["MM Ikana Canyon", "MM Stone Tower"], reverse: MM_IKANA_CANYON_FROM_STONE_TOWER }
 MM_IKANA_CANYON_FROM_STONE_TOWER:               { game: mm, id: 0x2030, type: overworld, areas: ["MM Stone Tower", "MM Ikana Canyon"], reverse: MM_STONE_TOWER }
-OOT_SACRED_FOREST_MEADOW:                       { game: oot, id: 0x0fc, type: region-full, areas: ["OOT Lost Woods Deep", "OOT Sacred Meadow Entryway"], reverse: OOT_LOST_WOODS_FROM_MEADOW }
-OOT_LOST_WOODS_FROM_MEADOW:                     { game: oot, id: 0x1a9, type: overworld, areas: ["OOT Sacred Meadow Entryway", "OOT Lost Woods Deep"], reverse: OOT SACRED_FOREST_MEADOW }
-OOT_GORON_CITY:                                 { game: oot, id: 0x14d, type: region-full, areas: ["OOT Death Mountain", "OOT Goron City"], reverse: OOT_TRAIL_FROM_GORON_CITY }
-OOT_TRAIL_FROM_GORON_CITY:                      { game: oot, id: 0x1b9, type: overworld, areas: ["OOT Goron City", "OOT Death Mountain"], reverse: OOT GORON_CITY }
+OOT_SACRED_MEADOW:                              { game: oot, id: 0x0fc, type: region-full, areas: ["OOT Lost Woods Deep", "OOT Sacred Meadow Entryway"], reverse: OOT_LOST_WOODS_FROM_MEADOW }
+OOT_LOST_WOODS_FROM_MEADOW:                     { game: oot, id: 0x1a9, type: overworld, areas: ["OOT Sacred Meadow Entryway", "OOT Lost Woods Deep"], reverse: OOT_SACRED_MEADOW }
+OOT_GORON_CITY:                                 { game: oot, id: 0x14d, type: region-full, areas: ["OOT Death Mountain", "OOT Goron City"], reverse: OOT_DEATH_MOUNTAIN_FROM_GORON_CITY }
+OOT_DEATH_MOUNTAIN_FROM_GORON_CITY:             { game: oot, id: 0x1b9, type: overworld, areas: ["OOT Goron City", "OOT Death Mountain"], reverse: OOT_GORON_CITY }
 OOT_ZORA_DOMAIN:                                { game: oot, id: 0x108, type: region-full, areas: ["OOT Zora River Behind Falls", "OOT Zora Domain"], reverse: OOT_RIVER_FROM_DOMAIN }
 OOT_RIVER_FROM_DOMAIN:                          { game: oot, id: 0x19d, type: overworld, areas: ["OOT Zora Domain", "OOT Zora River Behind Falls"], reverse: OOT ZORA_DOMAIN }
 OOT_FOUNTAIN_ZORA:                              { game: oot, id: 0x225, type: region-full, areas: ["OOT Zora Domain Back", "OOT Zora Fountain"], reverse: OOT_DOMAIN_FROM_FOUNTAIN }
 OOT_DOMAIN_FROM_FOUNTAIN:                       { game: oot, id: 0x1a1, type: overworld, areas: ["OOT Zora Fountain", "OOT Zora Domain Back"], reverse: OOT FOUNTAIN_ZORA }
-OOT_CRATER_FROM_GORON_CITY:                     { game: oot, id: 0x1c1, type: region-full, areas: ["OOT Darunia Chamber", "OOT Death Mountain Crater Bottom"], reverse: OOT_GORON_CITY_FROM_CRATER }
-OOT_GORON_CITY_FROM_CRATER:                     { game: oot, id: 0x246, type: overworld, areas: ["OOT Death Mountain Crater Bottom", "OOT Darunia Chamber"], reverse: OOT CRATER_FROM_GORON_CITY }
-OOT_CRATER_FROM_TRAIL_SUMMIT:                   { game: oot, id: 0x147, type: region-full, areas: ["OOT Death Mountain Summit", "OOT Death Mountain Crater Top"], reverse: OOT_TRAIL_SUMMIT_FROM_CRATER }
-OOT_TRAIL_SUMMIT_FROM_CRATER:                   { game: oot, id: 0x1bd, type: overworld, areas: ["OOT Death Mountain Crater Top", "OOT Death Mountain Summit"], reverse: OOT CRATER_FROM_TRAIL_SUMMIT }
+OOT_DEATH_MOUNTAIN_CRATER_FROM_GORON_CITY:      { game: oot, id: 0x1c1, type: region-full, areas: ["OOT Darunia Chamber", "OOT Death Mountain Crater Bottom"], reverse: OOT_GORON_CITY_FROM_CRATER }
+OOT_GORON_CITY_FROM_CRATER:                     { game: oot, id: 0x246, type: overworld, areas: ["OOT Death Mountain Crater Bottom", "OOT Darunia Chamber"], reverse: OOT_DEATH_MOUNTAIN_CRATER_FROM_GORON_CITY }
+OOT_DEATH_MOUNTAIN_CRATER:                      { game: oot, id: 0x147, type: region-full, areas: ["OOT Death Mountain Summit", "OOT Death Mountain Crater Top"], reverse: OOT_TRAIL_SUMMIT_FROM_CRATER }
+OOT_TRAIL_SUMMIT_FROM_CRATER:                   { game: oot, id: 0x1bd, type: overworld, areas: ["OOT Death Mountain Crater Top", "OOT Death Mountain Summit"], reverse: OOT_DEATH_MOUNTAIN_CRATER }
 OOT_LOST_WOODS:                                 { game: oot, id: 0x11e, type: region-full, areas: ["OOT Kokiri Forest", "OOT Lost Woods"], reverse: OOT_FOREST_FROM_LOST_WOODS }
 OOT_FOREST_FROM_LOST_WOODS:                     { game: oot, id: 0x286, type: overworld, areas: ["OOT Lost Woods", "OOT Kokiri Forest"], reverse: OOT LOST_WOODS }
 OOT_FOREST_FROM_LOST_WOODS_BRDIGE:              { game: oot, id: 0x5e0, type: region-full, areas: ["OOT Lost Woods Bridge", "OOT Kokiri Forest"], reverse: OOT_LOST_WOODS_BRIDGE_FROM_FOREST }
