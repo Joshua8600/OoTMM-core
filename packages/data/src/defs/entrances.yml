@@ -334,12 +334,12 @@ MM_WCT_FROM_SCT_TOP:                            { game: mm, id: 0xd420, type: re
 MM_SCT_FROM_WCT_TOP:                            { game: mm, id: 0xd830, type: overworld, areas: ["MM Clock Town South Upper West", "MM Clock Town South"], reverse: MM_WCT_FROM_SCT_TOP }
 MM_FIELD_FROM_WCT:                              { game: mm, id: 0x5400, type: region-full, areas: ["MM Clock Town West", "MM Termina Field"], reverse: MM_WCT_FROM_FIELD }
 MM_WCT_FROM_FIELD:                              { game: mm, id: 0xd400, type: overworld, areas: ["MM Termina Field", "MM Clock Town West"], reverse: MM_FIELD_FROM_WCT }
-MM_FIELD_FROM_SCT:                              { game: mm, id: 0x5460, type: region-full, areas: ["MM Clock Town South", "MM Termina Field"], reverse: MM_SCT_FROM_FIELD }
-MM_SCT_FROM_FIELD:                              { game: mm, id: 0xd810, type: overworld, areas: ["MM Termina Field", "MM Clock Town South"], reverse: MM_FIELD_FROM_SCT }
-MM_FIELD_FROM_ECT:                              { game: mm, id: 0x5470, type: region-full, areas: ["MM Clock Town East", "MM Termina Field"], reverse: MM_ECT_FROM_FIELD }
-MM_ECT_FROM_FIELD:                              { game: mm, id: 0xd200, type: overworld, areas: ["MM Termina Field", "MM Clock Town East"], reverse: MM_FIELD_FROM_ECT }
-MM_FIELD_FROM_NCT:                              { game: mm, id: 0x5480, type: region-full, areas: ["MM Clock Town North", "MM Termina Field"], reverse: MM_NCT_FROM_FIELD }
-MM_NCT_FROM_FIELD:                              { game: mm, id: 0xd600, type: overworld, areas: ["MM Termina Field", "MM Clock Town North"], reverse: MM_FIELD_FROM_NCT }
+MM_TERMINA_FIELD_FROM_CLOCK_TOWN_SOUTH:         { game: mm, id: 0x5460, type: region-full, areas: ["MM Clock Town South", "MM Termina Field"], reverse: MM_SCT_FROM_FIELD }
+MM_SCT_FROM_FIELD:                              { game: mm, id: 0xd810, type: overworld, areas: ["MM Termina Field", "MM Clock Town South"], reverse: MM_TERMINA_FIELD_FROM_CLOCK_TOWN_SOUTH }
+MM_TERMINA_FIELD_FROM_CLOCK_TOWN_EAST:          { game: mm, id: 0x5470, type: region-full, areas: ["MM Clock Town East", "MM Termina Field"], reverse: MM_ECT_FROM_FIELD }
+MM_ECT_FROM_FIELD:                              { game: mm, id: 0xd200, type: overworld, areas: ["MM Termina Field", "MM Clock Town East"], reverse: MM_TERMINA_FIELD_FROM_CLOCK_TOWN_EAST }
+MM_TERMINA_FIELD_FROM_CLOCK_TOWN_NORTH:         { game: mm, id: 0x5480, type: region-full, areas: ["MM Clock Town North", "MM Termina Field"], reverse: MM_NCT_FROM_FIELD }
+MM_NCT_FROM_FIELD:                              { game: mm, id: 0xd600, type: overworld, areas: ["MM Termina Field", "MM Clock Town North"], reverse: MM_TERMINA_FIELD_FROM_CLOCK_TOWN_NORTH }
 MM_IKANA_ROAD_FROM_FIELD:                       { game: mm, id: 0xa000, type: region-full, areas: ["MM Termina Field", "MM Road to Ikana Front"], reverse: MM_FIELD_FROM_IKANA_ROAD }
 MM_FIELD_FROM_IKANA_ROAD:                       { game: mm, id: 0x5440, type: overworld, areas: ["MM Road to Ikana Front", "MM Termina Field"], reverse: MM_IKANA_ROAD_FROM_FIELD }
 MM_MOUNTAIN_PATH_FROM_FIELD:                    { game: mm, id: 0x3200, type: region-full, areas: ["MM Behind Large Icicles", "MM Mountain Village Path Lower"], reverse: MM_FIELD_FROM_MOUNTAIN_PATH }
@@ -354,12 +354,12 @@ MM_GORMAN_BACK_FROM_MILK_ROAD:                  { game: mm, id: 0xce30, type: re
 MM_MILK_ROAD_FROM_GORMAN_BACK:                  { game: mm, id: 0x3e20, type: overworld, areas: ["MM Gorman Track Back", "MM Behind Gorman Fence"], reverse: MM_GORMAN_BACK_FROM_MILK_ROAD }
 MM_SNOWHEAD_PATH_FROM_MOUNTAIN_VILLAGE:         { game: mm, id: 0xb000, type: region-full, areas: ["MM Mountain Village", "MM Path to Snowhead Front"], reverse: MM_MOUNTAIN_VILLAGE_FROM_SNOWHEAD_PATH }
 MM_MOUNTAIN_VILLAGE_FROM_SNOWHEAD_PATH:         { game: mm, id: 0x9a40, type: overworld, areas: ["MM Path to Snowhead Front", "MM Mountain Village"], reverse: MM_SNOWHEAD_PATH_FROM_MOUNTAIN_VILLAGE }
-MM_SNOWHEAD_FROM_SNOWHEAD_PATH:                 { game: mm, id: 0xb200, type: region-full, areas: ["MM Path to Snowhead Back", "MM Snowhead Entrance"], reverse: MM_SNOWHEAD_PATH_FROM_SNOWHEAD }
-MM_SNOWHEAD_PATH_FROM_SNOWHEAD:                 { game: mm, id: 0xb010, type: overworld, areas: ["MM Snowhead Entrance", "MM Path to Snowhead Back"], reverse: MM_SNOWHEAD_FROM_SNOWHEAD_PATH }
+MM_SNOWHEAD_FROM_SNOWHEAD_PATH:                 { game: mm, id: 0xb200, type: region-full, areas: ["MM Path to Snowhead Back", "MM Snowhead Entrance"], reverse: MM_PATH_SNOWHEAD_FROM_SNOWHEAD }
+MM_PATH_SNOWHEAD_FROM_SNOWHEAD:                 { game: mm, id: 0xb010, type: overworld, areas: ["MM Snowhead Entrance", "MM Path to Snowhead Back"], reverse: MM_SNOWHEAD_FROM_SNOWHEAD_PATH }
 MM_IKANA_GRAVEYARD:                             { game: mm, id: 0x8000, type: region-full, areas: ["MM Road to Ikana Center", "MM Ikana Graveyard"], reverse: MM_IKANA_ROAD_FROM_IKANA_GRAVEYARD }
 MM_IKANA_ROAD_FROM_IKANA_GRAVEYARD:             { game: mm, id: 0xa020, type: overworld, areas: ["MM Ikana Graveyard", "MM Road to Ikana Center"], reverse: MM_IKANA_GRAVEYARD }
-MM_ZORA_CAPE_FROM_GREAT_BAY:                    { game: mm, id: 0x6a00, type: region-full, areas: ["MM Great Bay Coast", "MM Zora Cape"], reverse: MM_GREAT_BAY_FROM_ZORA_CAPE }
-MM_GREAT_BAY_FROM_ZORA_CAPE:                    { game: mm, id: 0x6810, type: overworld, areas: ["MM Zora Cape", "MM Great Bay Coast"], reverse: MM_ZORA_CAPE_FROM_GREAT_BAY }
+MM_ZORA_CAPE_FROM_COAST:                        { game: mm, id: 0x6a00, type: region-full, areas: ["MM Great Bay Coast", "MM Zora Cape"], reverse: MM_GREAT_BAY_FROM_ZORA_CAPE }
+MM_GREAT_BAY_FROM_ZORA_CAPE:                    { game: mm, id: 0x6810, type: overworld, areas: ["MM Zora Cape", "MM Great Bay Coast"], reverse: MM_ZORA_CAPE_FROM_COAST }
 MM_PINNACLE_ROCK:                               { game: mm, id: 0x4400, type: region-full, areas: ["MM Great Bay Coast", "MM Pinnacle Rock Entrance"], reverse: MM_GREAT_BAY_FROM_PINNACLE_ROCK }
 MM_GREAT_BAY_FROM_PINNACLE_ROCK:                { game: mm, id: 0x6830, type: overworld, areas: ["MM Pinnacle Rock Entrance", "MM Great Bay Coast"], reverse: MM_PINNACLE_ROCK}
 MM_ZORA_CAPE_FROM_HALL_WATER:                   { game: mm, id: 0x6a10, type: region-full, areas: ["MM Zora Hall", "MM Zora Hall Entrance"], reverse: MM_ZORA_HALL_UNDERWATER }
@@ -374,8 +374,8 @@ MM_DEKU_PALACE_LEDGE:                           { game: mm, id: 0x5050, type: re
 MM_SWAMP_FROM_PALACE_LEDGE:                     { game: mm, id: 0x8440, type: overworld, areas: ["MM Deku Palace Cliff", "MM Swamp Canopy Front"], reverse: MM_DEKU_PALACE_LEDGE }
 MM_WOODFALL:                                    { game: mm, id: 0x8600, type: region-full, areas: ["MM Swamp Canopy Back", "MM Woodfall"], reverse: MM_SWAMP_FROM_WOODFALL }
 MM_SWAMP_FROM_WOODFALL:                         { game: mm, id: 0x8420, type: overworld, areas: ["MM Woodfall", "MM Swamp Canopy Back"], reverse: MM_WOODFALL }
-MM_MYSTERY_WOODS:                               { game: mm, id: 0xc200, type: region-full, areas: ["MM Swamp Front", "MM Woods of Mystery"], reverse: MM_SWAMP_FROM_MYSTERY_WOODS }
-MM_SWAMP_FROM_MYSTERY_WOODS:                    { game: mm, id: 0x8470, type: overworld, areas: ["MM Woods of Mystery", "MM Swamp Front"], reverse: MM_MYSTERY_WOODS }
+MM_WOODS_OF_MYSTERY:                            { game: mm, id: 0xc200, type: region-full, areas: ["MM Swamp Front", "MM Woods of Mystery"], reverse: MM_SWAMP_FROM_MYSTERY_WOODS }
+MM_SWAMP_FROM_MYSTERY_WOODS:                    { game: mm, id: 0x8470, type: overworld, areas: ["MM Woods of Mystery", "MM Swamp Front"], reverse: MM_WOODS_OF_MYSTERY }
 MM_SEWERS_FROM_EXTERIOR_GATE:                   { game: mm, id: 0x4090, type: region-full, areas: ["MM Pirate Fortress Entrance", "MM Pirate Fortress Sewers"], reverse: MM_EXTERIOR_GATE_FROM_SEWERS }
 MM_EXTERIOR_GATE_FROM_SEWERS:                   { game: mm, id: 0x7020, type: overworld, areas: ["MM Pirate Fortress Sewers", "MM Pirate Fortress Entrance"], reverse: MM_SEWERS_FROM_EXTERIOR_GATE }
 MM_SEWERS_FROM_EXTERIOR_DOOR:                   { game: mm, id: 0x40a0, type: interior-extra, areas: ["MM Pirate Fortress Entrance Balcony", "MM Pirate Fortress Sewers End"], reverse: MM_EXTERIOR_DOOR_FROM_SEWERS }
