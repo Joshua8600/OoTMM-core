@@ -190,7 +190,6 @@ static const char* const kSoulsEnemyOot[] = {
     "Guays",
     "Poes",
     "Spike Traps",
-    "Gold Skulltulas",
     "Gerudo Thieves"
 };
 
@@ -309,7 +308,6 @@ static const char* const kSoulsEnemyMm[] = {
     "Giant Bees",
     "Poes",
     "Spike Traps",
-    "Spider/Ocean Spiders"
 };
 
 static const char* const kSoulsBossMm[] = {
@@ -355,7 +353,6 @@ static const char* const kSoulsNpcMm[] = {
     "Astral Observer",
     "Owl",
     "Poe Hut Owner",
-    "Business Scrubs",
     "Seahorses",
     "Blacksmiths",
     "Chest Game Lady",
