@@ -232,11 +232,6 @@ static void Actor_ByteCode_DisplayTextBox2_Hook(GameState_Play* play, s16 messag
 
 PATCH_CALL(0x8010af50, Actor_ByteCode_DisplayTextBox2_Hook);
 
-static int opt(int x)
-{
-    return x > 0 ? 1 : -1;
-}
-
 static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
 {
     switch (actorId)
