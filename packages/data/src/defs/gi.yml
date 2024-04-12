@@ -712,21 +712,21 @@
 - { id: MM_SOUL_NPC_BOMBCHU_SHOPKEEPER, type: SOUL, add: [MM_SOUL, 0x2004], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Bombs Shopkeeper" }
 - { id: MM_SOUL_NPC_BOMBERS, type: SOUL, add: [MM_SOUL, 0x2005], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Bombers' Kids" }
 - { id: MM_SOUL_NPC_BUTLER_DEKU, type: SOUL, add: [MM_SOUL, 0x2006], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Deku Butler" }
-- { id: MM_SOUL_NPC_CITIZEN, type: SOUL, add: [MM_SOUL, 0x2007], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Clock Town Cizizen" }
+- { id: MM_SOUL_NPC_CITIZEN, type: SOUL, add: [MM_SOUL, 0x2007], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Clock Town Citizen" }
 - { id: MM_SOUL_NPC_COMPOSER_BROS, type: SOUL, add: [MM_SOUL, 0x2008], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Composer Bros" }
-- { id: MM_SOUL_NPC_DAMPE, type: SOUL, add: [MM_SOUL, 0x2009], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Dampe" }
+- { id: MM_SOUL_NPC_DAMPE, type: SOUL, add: [MM_SOUL, 0x2009], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Dampe (MM)" }
 - { id: MM_SOUL_NPC_DARUNIA, type: SOUL, add: [MM_SOUL, 0x200a], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Darmani" }
 - { id: MM_SOUL_NPC_DEKU_KING, type: SOUL, add: [MM_SOUL, 0x200b], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Deku King" }
 - { id: MM_SOUL_NPC_DEKU_PRINCESS, type: SOUL, add: [MM_SOUL, 0x200c], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Deku Princess" }
 - { id: MM_SOUL_NPC_DEKU_PLAYGROUND_SCRUBS, type: SOUL, add: [MM_SOUL, 0x200d], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Deku Playground Scrubs" }
 - { id: MM_SOUL_NPC_GORON_ELDER, type: SOUL, add: [MM_SOUL, 0x200e], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Goron Elder" }
-- { id: MM_SOUL_NPC_EPONA, type: SOUL, add: [MM_SOUL, 0x200f], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Epona" }
+- { id: MM_SOUL_NPC_EPONA, type: SOUL, add: [MM_SOUL, 0x200f], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Epona (MM)" }
 - { id: MM_SOUL_NPC_FISHERMAN, type: SOUL, add: [MM_SOUL, 0x2010], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Fisherman" }
 - { id: MM_SOUL_NPC_GORMAN_BROS, type: SOUL, add: [MM_SOUL, 0x2011], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Gorman Brothers" }
 - { id: MM_SOUL_NPC_GORON_RACERS, type: SOUL, add: [MM_SOUL, 0x2012], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Goron Racers" }
 - { id: MM_SOUL_NPC_GORON_SHOPKEEPER, type: SOUL, add: [MM_SOUL, 0x2013], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Goron Shopkeeper" }
 - { id: MM_SOUL_NPC_HONEY_DARLING, type: SOUL, add: [MM_SOUL, 0x2014], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Honey & Darling" }
-- { id: MM_SOUL_NPC_INDIE_GO_GO, type: SOUL, add: [MM_SOUL, 0x2015], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Indie Go-Go" }
+- { id: MM_SOUL_NPC_INDIE_GO_GO, type: SOUL, add: [MM_SOUL, 0x2015], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Indie Go-Go's" }
 - { id: MM_SOUL_NPC_KAFEI, type: SOUL, add: [MM_SOUL, 0x2016], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Kafei" }
 - { id: MM_SOUL_NPC_KEATON, type: SOUL, add: [MM_SOUL, 0x2017], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Keaton" }
 - { id: MM_SOUL_NPC_KOUME_KOTAKE, type: SOUL, add: [MM_SOUL, 0x2018], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Koume & Kotake" }
@@ -743,17 +743,17 @@
 - { id: MM_SOUL_NPC_BOMBCHU_BOWLING_LADY, type: SOUL, add: [MM_SOUL, 0x2024], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Treasure Chest Game Lady" }
 - { id: MM_SOUL_NPC_TINGLE, type: SOUL, add: [MM_SOUL, 0x2025], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Tingle" }
 - { id: MM_SOUL_NPC_TOILET_HAND, type: SOUL, add: [MM_SOUL, 0x2026], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Toilet Hand" }
-- { id: MM_SOUL_NPC_FISHING_POND_OWNER, type: SOUL, add: [MM_SOUL, 0x2027], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Trading Post DAY Tender" }
+- { id: MM_SOUL_NPC_FISHING_POND_OWNER, type: SOUL, add: [MM_SOUL, 0x2027], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Trading Post Day Tender" }
 - { id: MM_SOUL_NPC_ROOFTOP_MAN, type: SOUL, add: [MM_SOUL, 0x2028], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Trading Post Night Tender" }
 - { id: MM_SOUL_NPC_TURTLE, type: SOUL, add: [MM_SOUL, 0x2029], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Turtle" }
 - { id: MM_SOUL_NPC_ZORA, type: SOUL, add: [MM_SOUL, 0x202a], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Zoras" }
 - { id: MM_SOUL_NPC_ZORA_SHOPKEEPER, type: SOUL, add: [MM_SOUL, 0x202b], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Zora Shopkeeper" }
 - { id: MM_SOUL_NPC_MALON, type: SOUL, add: [MM_SOUL, 0x202c], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Cremia and Romani" }
-- { id: MM_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [MM_SOUL, 0x202d], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Beans Salesman" }
+- { id: MM_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [MM_SOUL, 0x202d], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Beans Salesman (MM)" }
 - { id: MM_SOUL_NPC_CARPENTERS, type: SOUL, add: [MM_SOUL, 0x202e], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Carpenters" }
 - { id: MM_SOUL_NPC_ANJU, type: SOUL, add: [MM_SOUL, 0x202f], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Anju" }
-- { id: MM_SOUL_NPC_DOG, type: SOUL, add: [MM_SOUL, 0x2030], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Dogs" }
-- { id: MM_SOUL_NPC_CUCCO, type: SOUL, add: [MM_SOUL, 0x2031], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Cuccos" }
+- { id: MM_SOUL_NPC_DOG, type: SOUL, add: [MM_SOUL, 0x2030], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Dogs (MM)" }
+- { id: MM_SOUL_NPC_CUCCO, type: SOUL, add: [MM_SOUL, 0x2031], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Cuccos (MM)" }
 - { id: MM_SOUL_NPC_GURU_GURU, type: SOUL, add: [MM_SOUL, 0x2032], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Guru-Guru" }
 - { id: MM_SOUL_NPC_MARINE_SCIENTIST, type: SOUL, add: [MM_SOUL, 0x2033], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Marine Scientist" }
 - { id: MM_SOUL_ENEMY_THIEVES, type: SOUL, add: [MM_SOUL, 0x002e], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Fighting Pirates" }
