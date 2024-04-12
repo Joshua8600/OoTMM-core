@@ -427,7 +427,7 @@
 - { id: OOT_SOUL_NPC_OLD_HAG, type: SOUL, add: [OOT_SOUL, 0x202a], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Old Hag" }
 - { id: OOT_SOUL_NPC_COMPOSER_BROS, type: SOUL, add: [OOT_SOUL, 0x202b], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Composer Brothers" }
 - { id: OOT_SOUL_NPC_CUCCO, type: SOUL, add: [OOT_SOUL, 0x202c], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Cuccos (OoT)" }
-- { id: OOT_SOUL_ENEMY_POE, type: SOUL, add: [OOT_SOUL, 0x0029], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Poes" }
+- { id: OOT_SOUL_ENEMY_POE, type: SOUL, add: [OOT_SOUL, 0x0029], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Poes (OoT)" }
 - { id: OOT_SOUL_ENEMY_SPIKE_TRAPS, type: SOUL, add: [OOT_SOUL, 0x002a], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Spike Traps" }
 - { id: OOT_SOUL_BOSS_GANONDORF, type: SOUL, add: [OOT_SOUL, 0x1008], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Ganondorf" }
 - { id: OOT_SOUL_NPC_HONEY_DARLING, type: SOUL, add: [OOT_SOUL, 0x202d], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Honey & Darling" }
@@ -768,7 +768,7 @@
 - { id: MM_SOUL_NPC_TOURIST_CENTER, type: SOUL, add: [MM_SOUL, 0x203c], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Tingle's Dad" }
 - { id: MM_SOUL_NPC_CHILD_MAJORA, type: SOUL, add: [MM_SOUL, 0x203d], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Majora Child" }
 - { id: MM_SOUL_ENEMY_BEE, type: SOUL, add: [MM_SOUL, 0x002f], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Giant Bees" }
-- { id: MM_SOUL_ENEMY_POE, type: SOUL, add: [MM_SOUL, 0x0030], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Poes" }
+- { id: MM_SOUL_ENEMY_POE, type: SOUL, add: [MM_SOUL, 0x0030], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Poes (MM)" }
 - { id: MM_SOUL_ENEMY_SPIKE_TRAPS, type: SOUL, add: [MM_SOUL, 0x0031], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Spiky Traps" }
 - { id: MM_SOUL_BOSS_MAJORA, type: SOUL, add: [MM_SOUL, 0x1005], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Majora" }
 - { id: NOTHING,  flags: 0xa0, name: "<C0>Nothing" }
