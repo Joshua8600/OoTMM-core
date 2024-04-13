@@ -648,6 +648,15 @@ class WorldShuffler {
     if (this.settings.erWarps !== 'none') {
       pools.WARPS = this.poolWarps();
     }
+    if (this.input.settings.erRegionsShortcuts) {
+      pool.add('region-shortcut');
+    }
+    if (this.input.settings.erRegionsFull) {
+      pool.add('region-full')
+    }
+    /* this.placePools(worldId, Array.from(pool), { ownGame: this.input.settings.erRegions === 'ownGame' } ); */
+    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erRegions === 'ownGame' } };
+  }
 
     if (this.settings.erOneWays !== 'none') {
       pools.ONE_WAYS = this.poolOneWays();
@@ -658,6 +667,66 @@ class WorldShuffler {
     let world = this.changedWorld(this.overrides);
     if (this.settings.erBoss !== 'none') {
       world = this.legacyFixBosses(world);
+    }
+    if (this.input.settings.erWarps === 'ootOnly') {
+      pool.delete('one-way-statue');
+    }
+    if (this.input.settings.erWarps === 'mmOnly') {
+      pool.delete('one-way-song');
+    }
+
+    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erWarps === 'ownGame' } };
+  }
+
+  private poolOneWays(worldId: number) {
+    const pool = new Set(['one-way']);
+
+    if (!this.input.settings.erOneWaysMajor) {
+      pool.delete('one-way');
+    }
+    if (this.input.settings.erOneWaysIkana) {
+      pool.add('one-way-ikana');
+    }
+    if (this.input.settings.erOneWaysSongs) {
+      pool.add('one-way-song');
+    }
+    if (this.input.settings.erOneWaysStatues) {
+      pool.add('one-way-statue');
+    }
+    if (this.input.settings.erOneWaysOwls) {
+      pool.add('one-way-owl');
+    }
+    if (this.input.settings.erOneWaysVoids) {
+      pool.add('one-way-void');
+    }
+    if (this.input.settings.erOneWaysWoods) {
+      pool.add('one-way-woods');
+    }
+
+    return { pool: Array.from(pool), opts: { ownGame: this.input.settings.erOneWays === 'ownGame' } };
+  }
+
+  private shuffledPools(def?: string[]) {
+    let pool: string[] = [];
+
+    if (this.input.settings.erOneWays !== 'none') {
+      pool = [...pool, 'one-way', 'one-way-ikana', 'one-way-song', 'one-way-statue', 'one-way-owl', 'one-way-void'];
+    }
+
+    if (this.input.settings.erDungeons !== 'none') {
+      pool = [...pool, 'dungeon'];
+    }
+
+    if (this.input.settings.erBoss !== 'none') {
+      pool = [...pool, 'boss'];
+    }
+
+    if (this.input.settings.erRegionsFull) {
+      pool = [...pool, 'region-full', 'region']
+    }
+	
+    if (this.input.settings.erGrottos !== 'none') {
+      pool = [...pool, 'grotto', 'grave'];
     }
 
     return world;
@@ -794,6 +863,30 @@ export class LogicPassEntrances {
         const newWorld = shuffler.run();
         this.worlds.push(newWorld);
       }
+    for (let i = 0; i < worldsCount; ++i) {
+      const pools: EntrancePools = {};
+
+      if (this.input.settings.erWallmasters !== 'none') {
+        anyEr = true;
+        this.placeWallmasters(i);
+      }
+
+      if (this.input.settings.erRegions !== 'none' || this.input.settings.erRegionsFull) {
+        anyEr = true;
+        pools.REGIONS = this.poolRegions(i);
+        /* this.placeRegions(i); */
+      }
+	  
+      if (this.input.settings.erGrottos !== 'none') {
+        anyEr = true;
+        pools.GROTTOS = this.poolGrottos()
+        /* this.placeGrottos(i); */
+      }
+
+      if (this.input.settings.erIndoors !== 'none') {
+        anyEr = true;
+        pools.INDOORS = this.poolIndoors(i);
+      }
     } else {
       /* Shared world */
       const shuffler = new WorldShuffler(this.input.random, 0, this.input.worlds, this.input.settings, this.input.startingItems);
@@ -839,4 +932,3 @@ export class LogicPassEntrances {
     }
   }
 };
-

@@ -121,6 +121,7 @@ export const TRICKS = {
   MM_STAGE_LIGHTS_DIN: "Light the Zora Hall Stage Lights using Din's Fire, Bow, and Hookshot",
   MM_RANCH_FARORE: "Romani's Ranch locations using Farore's Wind and Time Reset",
   MM_EVAN_FARORE: "Evan's Piece of Heart using Farore's Wind and Time Reset",
+  MM_NO_SOT_RESET: "Trick for NNL for the 'CanResetTime' macro to not include SoT",
 };
 
 export type Trick = keyof typeof TRICKS;
