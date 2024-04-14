@@ -123,6 +123,13 @@ export const SETTINGS = [{
   description: 'Prevents items that are part of a plando from being hinted',
   default: true
 }, {
+  key: 'extraHintRegions',
+  name: 'Extra Hint Regions',
+  category: 'main',
+  type: 'boolean',
+  description: 'Make the region hints more granular: Makes Goron Racetrack and Butler Race into their own regions, and splits Ganon Castle/Tower and Normal/Inverted Stone Tower Temple.',
+  default: false
+}, {
   key: 'hintImportance',
   name: 'Hint Importance',
   category: 'main',
@@ -620,7 +627,7 @@ export const SETTINGS = [{
   description: 'Change the behavior of moon crashing',
   values: [
     { value: 'reset', name:  'Reset',  description: 'Moon Crash will restore the last save. No progress will be kept.' },
-    { value: 'cycle', name:  'New Cycle',  description: 'Moon Crash will initiate a new cycle, keeping progress.' },
+    { value: 'cycle', name:  'New Cycle',  description: 'Moon Crash will initiate a new cycle, keeping progress. Saving is enabled on the Clock Tower Roof.' },
   ],
   default: 'reset'
 }, {
@@ -907,6 +914,14 @@ export const SETTINGS = [{
     { value: 'full', name: 'Child & Adult', description: 'Song of Soaring in OOT is enabled and logical for both Child and Adult' },
   ],
   default: 'none'
+}, {
+  key: 'crossGameFw',
+  name: 'Cross-Games Farore\'s Wind',
+  category: 'main.cross',
+  type: 'boolean',
+  description: 'Controls whether you can use Farore\'s Wind to warp between OOT and MM.',
+  default: false,
+  cond: (x: any) => x.spellWindMm,
 }, {
   key: 'csmc',
   name: 'Container Appearance Matches Content',
@@ -1839,6 +1854,14 @@ export const SETTINGS = [{
   description: 'Allow shuffling multiple pools together.',
   default: 'none'
 }, {
+  key: 'erMixedDungeons',
+  name: 'Mixed Pools - Dungeons',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'If turned on, dungeons will be shuffled with other mixed pools.',
+  default: false,
+  cond: (x: any) => x.erMixed !== 'none' && x.erMixed === x.erDungeons,
+}, {
   key: 'erMixedRegions',
   name: 'Mixed Pools - Regions',
   category: 'entrances',
@@ -1874,6 +1897,13 @@ export const SETTINGS = [{
   ],
   description: 'Enables the ability for Wallmasters to take you to random locations within their own game or across both games, based on other entrance settings',
   default: 'none'
+}, {
+  key: 'erSpawns',
+  name: 'Spawn Shuffle',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle the starting positions of the player.',
+  default: false
 }, {
   key: 'erMajorDungeons',
   name: 'Shuffle Major Dungeons with Dungeons',
@@ -2000,7 +2030,7 @@ export const SETTINGS = [{
   name: 'Shuffle Extra Interiors',
   category: 'entrances',
   type: 'boolean',
-  description: 'Shuffle additional, more complex interiors. These include:<br>- OOT: Link\'s House, Temple of Time, Windmill, Kak Potion Shop<br>- MM: Stock Pot Inn, Astral Observatory/Bombers\' Hideout, Swamp Tourist Hut, Ikana Spring Cave',
+  description: 'Shuffle additional, more complex interiors. These include:<br>- OOT: Link\'s House, Temple of Time, Windmill, Kak Potion Shop<br>- MM: Stock Pot Inn, Astral Observatory/Bombers\' Hideout, Swamp Tourist Hut, Ikana Spring Cave, Music Box House',
   default: false,
   cond: (x: any) => x.erIndoors !== 'none'
 }, {

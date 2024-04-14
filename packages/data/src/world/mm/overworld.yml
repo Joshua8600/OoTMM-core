@@ -580,7 +580,7 @@
     "Clock Town East": "true"
     "Clock Town West": "true"
     "Road to Southern Swamp": "true"
-    "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_er || can_isg_tf || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
+    "Behind Large Icicles": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_CLOCK_TOWN)) || has_hot_water_farore || has_hot_water_er || can_isg_tf || || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
     "Milk Road": "true"
     "Great Bay Fence": "can_jump_fences"
     "Road to Ikana Front": "true"
@@ -1256,8 +1256,8 @@
   exits:
     "Swamp Front": "true"
     "Deku Palace Front": "true"
-    "Near Swamp Spider House": "has(MASK_DEKU) || is_tall || event(CLEAN_SWAMP) || short_hook_anywhere || can_use_nayru || has_hover_boots"
-    "Swamp Canopy Back": "event(CLEAN_SWAMP) || short_hook_anywhere"
+    "Near Swamp Spider House": "has(MASK_DEKU) || is_tall || is_swamp_cleared || short_hook_anywhere || can_use_nayru || has_hover_boots"
+    "Swamp Canopy Back": "is_swamp_cleared || short_hook_anywhere"
     "Swamp Canopy Front": "short_hook_anywhere"
   locations:
     "Southern Swamp Song of Soaring": "has_mask_zora && has_explosives && trick(MM_SOARING_ZORA)" # add adult to this trick?
@@ -1265,16 +1265,16 @@
   region: SOUTHERN_SWAMP
   exits:
     "Swamp Spider House": "has_sticks || has_arrows"
-    "Swamp Back": "has(MASK_DEKU) || is_tall || event(CLEAN_SWAMP) || short_hook_anywhere || can_use_nayru || has_hover_boots"
-    "Near Swamp Grotto": "has(MASK_DEKU) || is_tall || event(CLEAN_SWAMP) || short_hook_anywhere || has_hover_boots"
+    "Swamp Back": "has(MASK_DEKU) || is_tall || is_swamp_cleared || short_hook_anywhere || can_use_nayru || has_hover_boots"
+    "Near Swamp Grotto": "has(MASK_DEKU) || is_tall || is_swamp_cleared || short_hook_anywhere || has_hover_boots"
     "Swamp Canopy Front": "short_hook_anywhere"
 "Near Swamp Grotto":
   region: ENTRANCE
   events:
     MUSHROOM: "has(MASK_SCENTS)"
   exits:
-    "Swamp Front": "(has_arrows || can_hookshot) && has_mask_goron"
-    "Near Swamp Spider House": "has(MASK_DEKU) || is_tall || event(CLEAN_SWAMP) || can_hookshot_short || can_use_nayru || has_hover_boots"
+    "Swamp Front": "((has_arrows || can_hookshot || event(BOAT_RIDE)) && (has_mask_goron || is_tall || can_use_nayru)) || (is_adult && can_use_din)"
+    "Near Swamp Spider House": "has(MASK_DEKU) || is_tall || is_swamp_cleared || can_hookshot_short || can_use_nayru || has_hover_boots"
     "Southern Swamp Grotto": "true"
     "Swamp Canopy Front": "short_hook_anywhere"
 "Southern Swamp Grotto":
@@ -1313,13 +1313,13 @@
     "Swamp Front": "true"
     "Swamp Back": "event(BOAT_RIDE)"
   events:
-     BOAT_RIDE: "event(PICTURE_SWAMP) || event(KOUME)"
+     BOAT_RIDE: "(event(PICTURE_SWAMP) || (event(KOUME) && (!setting(erIndoorsExtra) || can_use_wallet(1)))) && is_swamp_poisoned"
   locations:
-    "Tourist Information Pictobox": "event(KOUME)"
-    "Tourist Information Boat Archery": "event(KOUME) && event(CLEAN_SWAMP) && has_bow"
-    "Tourist Information Tingle Picture": "event(PICTURE_TINGLE) || event(PICTURE_DEKU_KING)"
-#    "Tourist Information Big Octo Picture": "event(PICTURE_BIG_OCTO)"
-#    "Tourist Information Consolation Prize": "event(PICTURE_SWAMP)"
+    "Tourist Information Pictobox": "event(KOUME) && is_swamp_poisoned"
+    "Tourist Information Boat Archery": "event(KOUME) && is_swamp_cleared && has_bow"
+    "Tourist Information Tingle Picture": "(event(PICTURE_TINGLE) || event(PICTURE_DEKU_KING)) && is_swamp_poisoned"
+#    "Tourist Information Big Octo Picture": "event(PICTURE_BIG_OCTO) && is_swamp_poisoned"
+#    "Tourist Information Consolation Prize": "event(PICTURE_SWAMP) && is_swamp_poisoned"
 "Woods of Mystery":
   region: SOUTHERN_SWAMP
   exits:
@@ -1400,11 +1400,11 @@
   exits:
     "Swamp Back": "true"
     "Deku Palace Cliff": "has(MASK_DEKU) || short_hook_anywhere"
-    "Near Deku Shrine": "event(CLEAN_SWAMP) || (can_use_nayru && (has_mask_zora || (is_adult && (has_arrows || can_hookshot_short || can_use_din)))) || (has_hover_boots && (has_arrows || can_hookshot_short || can_use_din))"
+    "Near Deku Shrine": "is_swamp_cleared || (can_use_nayru && (has_mask_zora || (is_adult && (has_arrows || can_hookshot_short || can_use_din)))) || (has_hover_boots && (has_arrows || can_hookshot_short || can_use_din))"
     "Deku Palace Main": "has(MASK_DEKU) || trick(MM_PALACE_GUARD_SKIP) || short_hook_anywhere"
-    "Deku Palace Upper": "(event(CLEAN_SWAMP) || has(MASK_DEKU) || can_use_nayru) && can_use_beans"
+    "Deku Palace Upper": "(is_swamp_cleared || has(MASK_DEKU) || can_use_nayru) && can_use_beans"
   events:
-    NUTS: "soul_deku_baba && (has(MASK_DEKU) || short_hook_anywhere || ((event(CLEAN_SWAMP) || has_hover_boots) && (can_fight || has_arrows || has_explosives || can_hookshot_short)))"
+    NUTS: "soul_deku_baba && (has(MASK_DEKU) || short_hook_anywhere || ((is_swamp_cleared || has_hover_boots) && (can_fight || has_arrows || has_explosives || can_hookshot_short)))"
 "Deku Palace Main":
   region: DEKU_PALACE
   exits:
@@ -1455,7 +1455,7 @@
     "Deku Palace Cage": "event(RETURN_PRINCESS) && short_hook_anywhere"
   events:
     PICTURE_DEKU_KING: "has(PICTOGRAPH_BOX) && has(MASK_DEKU)"
-    RETURN_PRINCESS: "has_deku_princess && has(MASK_DEKU)"
+    RETURN_PRINCESS: "is_swamp_cleared && has_deku_princess && has(MASK_DEKU)"
 "Deku Palace Near Cage":
   region: DEKU_PALACE
   exits:
@@ -1468,7 +1468,7 @@
     "Deku Palace Near Cage": "true"
     "Deku Palace Throne": "short_hook_anywhere && trick(MM_ESCAPE_CAGE) && has(MASK_DEKU)"
   locations:
-    "Deku Palace Sonata of Awakening": "has(MASK_DEKU) && has_ocarina"
+    "Deku Palace Sonata of Awakening": "is_swamp_poisoned && has(MASK_DEKU) && has_ocarina"
 "Deku Palace Grotto":
   region: ENTRANCE
   exits:
@@ -1498,7 +1498,7 @@
 "Deku Palace Cliff":
   region: DEKU_PALACE
   exits:
-    "Deku Palace Front": "has(MASK_DEKU) || event(CLEAN_SWAMP) || short_hook_anywhere || can_use_nayru || has_hover_boots"
+    "Deku Palace Front": "has(MASK_DEKU) || is_swamp_cleared || short_hook_anywhere || can_use_nayru || has_hover_boots"
     "Swamp Canopy Front": "true"
 "Swamp Canopy Front":
   region: SOUTHERN_SWAMP
@@ -1511,8 +1511,8 @@
 "Swamp Canopy Back":
   region: SOUTHERN_SWAMP
   exits:
-    "Swamp Front": "(has(MASK_DEKU) || has_mask_goron) && (can_hookshot || has_arrows)"
-    "Swamp Back": "has(MASK_DEKU) || is_tall || event(CLEAN_SWAMP) || can_use_nayru || has_hover_boots"
+    "Swamp Front": "(has(MASK_DEKU) || has_mask_goron || is_tall || has_hover_boots || can_use_nayru) && (can_hookshot || has_arrows || event(BOAT_RIDE))"
+    "Swamp Back": "has(MASK_DEKU) || is_tall || is_swamp_cleared || can_use_nayru || has_hover_boots"
     "Woodfall": "true"
     "Swamp Canopy Front": "has(MASK_DEKU) || short_hook_anywhere"
   locations:
@@ -1523,31 +1523,31 @@
     MAGIC: "true"
   exits:
     "Swamp Canopy Back": "true"
-    "Woodfall Shrine": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP))) || hookshot_anywhere"
-    "Woodfall Temple Princess Jail": "event(CLEAN_SWAMP) && woodfall_raised"
-    "Woodfall Near Fairy Fountain": "(event(CLEAN_SWAMP) || can_use_nayru) && short_hook_anywhere"
+    "Woodfall Shrine": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared)) || hookshot_anywhere"
+    "Woodfall Temple Princess Jail": "is_swamp_cleared && woodfall_raised"
+    "Woodfall Near Fairy Fountain": "(is_swamp_cleared || can_use_nayru) && short_hook_anywhere"
   locations:
-    "Woodfall Entrance Chest": "has(MASK_DEKU) || can_hookshot || event(CLEAN_SWAMP) || can_use_nayru || has_hover_boots"
-    "Woodfall HP Chest": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP))) || can_hookshot || (is_adult && can_hookshot_short && (event(CLEAN_SWAMP) || can_use_nayru))"
-    "Woodfall Near Owl Chest": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP))) || (event(CLEAN_SWAMP) && can_hookshot) || (is_adult && can_hookshot_short && (event(CLEAN_SWAMP) || can_use_nayru)) || hookshot_anywhere"
+    "Woodfall Entrance Chest": "has(MASK_DEKU) || can_hookshot || is_swamp_cleared || can_use_nayru || has_hover_boots"
+    "Woodfall HP Chest": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared)) || can_hookshot || (is_adult && can_hookshot_short && (is_swamp_cleared || can_use_nayru))"
+    "Woodfall Near Owl Chest": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared)) || (is_swamp_cleared && can_hookshot) || (is_adult && can_hookshot_short && (is_swamp_cleared || can_use_nayru)) || hookshot_anywhere"
     "Woodfall Grass 1": "true"
     "Woodfall Grass 2": "true"
     "Woodfall Grass 3": "true"
     "Woodfall Grass 4": "true"
     "Woodfall Grass 5": "true"
     "Woodfall Grass 6": "true"
-    "Woodfall Rupee": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP))) || hookshot_anywhere || has_hover_boots"
+    "Woodfall Rupee": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared)) || hookshot_anywhere || has_hover_boots"
 "Woodfall Front of Temple":
   region: WOODFALL
   exits:
-    "Woodfall Temple": "true"
+    "Woodfall Temple": "woodfall_raised"
     "Woodfall Shrine": "cond(setting(openDungeonsMm, WF) || setting(clearStateDungeonsMm, WF) || setting(clearStateDungeonsMm, both), has(MASK_DEKU) || hookshot_anywhere, true)"
-    "Woodfall": "event(CLEAN_SWAMP) || can_use_nayru"
+    "Woodfall": "is_swamp_cleared || can_use_nayru"
 "Woodfall Shrine":
   region: WOODFALL
   exits:
-    "Woodfall": "(has(MASK_DEKU) && soul_deku_scrub) || event(CLEAN_SWAMP) || hookshot_anywhere || can_use_nayru"
-    "Woodfall Near Fairy Fountain": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP) || short_hook_anywhere)) || hookshot_anywhere"
+    "Woodfall": "(has(MASK_DEKU) && soul_deku_scrub) || is_swamp_cleared || hookshot_anywhere || can_use_nayru"
+    "Woodfall Near Fairy Fountain": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared || short_hook_anywhere)) || hookshot_anywhere"
     "Woodfall Front of Temple": "woodfall_raised && (has(MASK_DEKU) || hookshot_anywhere)"
     "Owl Woodfall": "true"
   events:
@@ -1557,11 +1557,11 @@
 "Woodfall Near Fairy Fountain":
   region: WOODFALL
   exits:
-    "Woodfall": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP))) || event(CLEAN_SWAMP) || hookshot_anywhere || can_use_nayru"
-    "Woodfall Shrine": "(has(MASK_DEKU) && (soul_deku_scrub || event(CLEAN_SWAMP))) || hookshot_anywhere"
+    "Woodfall": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared)) || is_swamp_cleared || hookshot_anywhere || can_use_nayru"
+    "Woodfall Shrine": "(has(MASK_DEKU) && (soul_deku_scrub || is_swamp_cleared)) || hookshot_anywhere"
     "Woodfall Fairy Fountain": "true"
   locations:
-    "Woodfall Near Owl Chest": "can_hookshot || (is_adult && can_hookshot_short && (event(CLEAN_SWAMP) || can_use_nayru))"
+    "Woodfall Near Owl Chest": "can_hookshot || (is_adult && can_hookshot_short && (is_swamp_cleared || can_use_nayru))"
 "Woodfall Fairy Fountain":
   region: ENTRANCE
   exits:
@@ -1571,15 +1571,15 @@
 "Near Deku Shrine":
   region: DEKU_PALACE
   exits:
-    "Deku Palace Front": "event(CLEAN_SWAMP) || has(MASK_DEKU) || can_use_nayru || has_hover_boots"
+    "Deku Palace Front": "is_swamp_cleared || has(MASK_DEKU) || can_use_nayru || has_hover_boots"
     "Deku Shrine": "true"
 "Deku Shrine":
-  region: ENTRANCE
+  region: BUTLER_RACE
   exits:
     "Near Deku Shrine": "true"
     "Deku Shrine Main": "event(RETURN_PRINCESS)"
 "Deku Shrine Main":
-  region: ENTRANCE
+  region: BUTLER_RACE
   exits:
     "Deku Shrine End": "true" # You can just jump to the crystal and spin it as deku
   locations:
@@ -1606,7 +1606,7 @@
     "Deku Shrine Rupee Main 19": "true"
     "Deku Shrine Rupee Main 20": "true"
 "Deku Shrine End":
-  region: ENTRANCE
+  region: BUTLER_RACE
   locations:
     "Deku Shrine Mask of Scents": "true"
     "Deku Shrine Rupee End 01": "true"
@@ -1622,17 +1622,17 @@
 "Behind Large Icicles":
   region: TERMINA_FIELD
   exits:
-    "Termina Field": "(has(BOW) || has(SHARED_BOW)) || has_hot_water_mtn || has_hot_water_er || can_isg_ow || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
+    "Termina Field": "(has(BOW) || has(SHARED_BOW)) || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE)) || can_isg_ow || has_hot_water_farore || has_hot_water_mtn || has_hot_water_er || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
     "Mountain Village Path Lower": "true"
 "Mountain Village Path Lower":
   region: PATH_TO_MOUNTAIN_VILLAGE
   events:
     RUPEES: "can_use_light_arrows && soul_tektite && (is_day || (can_break_snowballs))"
-    MAGIC: "event(BOSS_SNOWHEAD)"
+    MAGIC: "is_spring"
     FAIRY: "can_get_gossip_fairy"
   exits:
     "Behind Large Icicles": "true"
-    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || event(BOSS_SNOWHEAD) || short_hook_anywhere || (has(MAGIC_UPGRADE) && can_use_din)"
+    "Mountain Village Path Upper": "((has(BOMB_BAG) || has(SHARED_BOMB_BAG)) || has(MASK_GORON) || has(MASK_BLAST)) || ((has(BOW) || has(SHARED_BOW)) && (has(ARROW_FIRE) || has(SHARED_ARROW_FIRE)) && has(MAGIC_UPGRADE)) || is_spring || short_hook_anywhere"
   gossip:
     "Mountain Village Path Gossip": "true"
 "Mountain Village Path Upper":
@@ -1648,65 +1648,65 @@
   exits:
     "Mountain Village Path Upper": "true"
     "Twin Islands": "true"
-    "Near Goron Graveyard": "can_use_lens_strict || trick(MM_DARMANI_WALL) || event(GORON_GRAVE_FARORE) || (event(BOSS_SNOWHEAD) && (has_mask_goron || has_mask_zora || short_hook_anywhere))"
+    "Near Goron Graveyard": "(is_winter && (can_use_lens_strict || trick(MM_DARMANI_WALL))) || event(GORON_GRAVE_FARORE) || (is_spring && (has_mask_goron || has_mask_zora || can_hookshot || short_hook_anywhere))"
     "Path to Snowhead Front": "true"
     "Blacksmith": "true"
-    "Near Village Grotto": "event(BOSS_SNOWHEAD) && (has_mask_goron || short_hook_anywhere)"
+    "Near Village Grotto": "is_spring && (has_mask_goron || short_hook_anywhere)"
     "Owl Mountain": "true"
   gossip:
-    "Mountain Village Gossip Outside": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Gossip Tunnel": "event(BOSS_SNOWHEAD) && (has_mask_goron || short_hook_anywhere)"
+    "Mountain Village Gossip Outside": "is_spring"
+    "Mountain Village Gossip Tunnel": "is_spring && (has_mask_goron || short_hook_anywhere)"
   events:
     MAGIC: "true"
     ARROWS: "true"
     BOMBS_OR_BOMBCHU: "true"
-    RUPEES: "event(BOSS_SNOWHEAD) || (can_break_snowballs && (second_day || final_day)) || (can_break_snowballs && can_use_light_arrows && first_day && soul_tektite)"
+    RUPEES: "is_spring || (can_break_snowballs && (second_day || final_day)) || (can_break_snowballs && can_use_light_arrows && first_day && soul_tektite)"
     FAIRY: "true"
   locations:
-    "Mountain Village Waterfall Chest": "event(BOSS_SNOWHEAD) && can_use_lens"
-    "Mountain Village Don Gero Mask": "event(GORON_FOOD)"
-    "Mountain Village Frog Choir HP": "event(BOSS_SNOWHEAD) && event(FROG_1) && event(FROG_2) && event(FROG_3) && event(FROG_4)"
+    "Mountain Village Waterfall Chest": "is_spring && can_use_lens"
+    "Mountain Village Don Gero Mask": "is_winter && event(GORON_FOOD)"
+    "Mountain Village Frog Choir HP": "is_spring && event(FROG_1) && event(FROG_2) && event(FROG_3) && event(FROG_4)"
     "Mountain Village Pot": "scarecrow_hookshot || short_hook_anywhere"
-    "Mountain Village Grass 1": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass 2": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass 3": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 1": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 2": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 3": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 4": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 5": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 6": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 7": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 8": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 1 Grass 9": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 1": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 2": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 3": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 4": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 5": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 6": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 7": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 8": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 2 Grass 9": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 1": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 2": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 3": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 4": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 5": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 6": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 7": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 8": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Grass Pack 3 Grass 9": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Keaton Grass Reward 1": "event(BOSS_SNOWHEAD)"
-    "Mountain Village Keaton Grass Reward 2": "event(BOSS_SNOWHEAD) && keaton_grass_easy"
-    "Mountain Village Keaton Grass Reward 3": "event(BOSS_SNOWHEAD) && keaton_grass_easy"
-    "Mountain Village Keaton Grass Reward 4": "event(BOSS_SNOWHEAD) && keaton_grass_easy"
-    "Mountain Village Keaton Grass Reward 5": "event(BOSS_SNOWHEAD) && keaton_grass_easy"
-    "Mountain Village Keaton Grass Reward 6": "event(BOSS_SNOWHEAD) && keaton_grass_hard"
-    "Mountain Village Keaton Grass Reward 7": "event(BOSS_SNOWHEAD) && keaton_grass_hard"
-    "Mountain Village Keaton Grass Reward 8": "event(BOSS_SNOWHEAD) && keaton_grass_hard"
-    "Mountain Village Keaton Grass Reward 9": "event(BOSS_SNOWHEAD) && keaton_grass_hard"
-    "Mountain Village Rupee": "event(BOSS_SNOWHEAD) && has_mask_goron"
+    "Mountain Village Grass 1": "is_spring"
+    "Mountain Village Grass 2": "is_spring"
+    "Mountain Village Grass 3": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 1": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 2": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 3": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 4": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 5": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 6": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 7": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 8": "is_spring"
+    "Mountain Village Grass Pack 1 Grass 9": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 1": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 2": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 3": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 4": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 5": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 6": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 7": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 8": "is_spring"
+    "Mountain Village Grass Pack 2 Grass 9": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 1": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 2": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 3": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 4": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 5": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 6": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 7": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 8": "is_spring"
+    "Mountain Village Grass Pack 3 Grass 9": "is_spring"
+    "Mountain Village Keaton Grass Reward 1": "is_spring"
+    "Mountain Village Keaton Grass Reward 2": "is_spring && keaton_grass_easy"
+    "Mountain Village Keaton Grass Reward 3": "is_spring && keaton_grass_easy"
+    "Mountain Village Keaton Grass Reward 4": "is_spring && keaton_grass_easy"
+    "Mountain Village Keaton Grass Reward 5": "is_spring && keaton_grass_easy"
+    "Mountain Village Keaton Grass Reward 6": "is_spring && keaton_grass_hard"
+    "Mountain Village Keaton Grass Reward 7": "is_spring && keaton_grass_hard"
+    "Mountain Village Keaton Grass Reward 8": "is_spring && keaton_grass_hard"
+    "Mountain Village Keaton Grass Reward 9": "is_spring && keaton_grass_hard"
+    "Mountain Village Rupee": "is_spring && has_mask_goron"
 "Near Village Grotto":
   region: MOUNTAIN_VILLAGE
   exits:
@@ -1748,7 +1748,7 @@
   exits:
     "Mountain Village": "true"
   events:
-    BLACKSMITH_ENABLED: "true"
+    BLACKSMITH_ENABLED: "is_spring || (is_winter && (can_use_fire_short_range || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))))"
     GOLD_DUST_USED: "can_use_wallet(2) && has(BOTTLED_GOLD_DUST) && event(BLACKSMITH_ENABLED)"
   locations:
     "Blacksmith Razor Blade": "can_use_wallet(2) && event(BLACKSMITH_ENABLED)"
@@ -1758,34 +1758,34 @@
   events:
     PICTURE_TINGLE: "has(PICTOGRAPH_BOX)"
     MAGIC: "true"
-    RUPEES: "(can_use_light_arrows && (soul_tektite || soul_wolfos || (can_break_snowballs && soul_enemy(SOUL_ENEMY_SNAPPER)))) || event(BOSS_SNOWHEAD)"
+    RUPEES: "(can_use_light_arrows && (soul_tektite || soul_wolfos || (can_break_snowballs && soul_enemy(SOUL_ENEMY_SNAPPER)))) || is_spring"
   exits:
     "Mountain Village": "true"
     "Goron Village": "true"
     "Near Goron Race": "has_mask_goron || scarecrow_hookshot || short_hook_anywhere"
     "Near Ramp Grotto": "has_mask_goron || short_hook_anywhere"
-    "Twin Islands Frozen Grotto": "can_use_fire_short_range || event(BOSS_SNOWHEAD) || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))"
+    "Twin Islands Frozen Grotto": "is_spring || (is_winter && (can_use_fire_short_range || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))))"
     "Tingle Mountain": "has_weapon_range"
   locations:
-    "Twin Islands Underwater Chest 1": "event(BOSS_SNOWHEAD) && underwater_walking"
-    "Twin Islands Underwater Chest 2": "event(BOSS_SNOWHEAD) && underwater_walking"
-    "Goron Elder": "has_mask_goron && cond(!setting(erBoss, none), can_use_fire_short_range || (setting(bossWarpPads, bossBeaten) && has_hot_water_er), can_use_fire_short_range || has_hot_water_mtn || has_hot_water_er || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE))) && (first_day || second_day)"
-    "Twin Islands Grass 01": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 02": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 03": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 04": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 05": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 06": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 07": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 08": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 09": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 10": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 11": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Grass 12": "event(BOSS_SNOWHEAD)"
-    "Twin Islands Rupee 1": "event(BOSS_SNOWHEAD) && (underwater_walking || can_dive_small)"
-    "Twin Islands Rupee 2": "event(BOSS_SNOWHEAD) && (underwater_walking || can_dive_small)"
-    "Twin Islands Rupee 3": "event(BOSS_SNOWHEAD) && (underwater_walking || can_dive_small)"
-    "Twin Islands Rupee 4": "event(BOSS_SNOWHEAD) && (underwater_walking || can_dive_small)"
+    "Twin Islands Underwater Chest 1": "is_spring && underwater_walking"
+    "Twin Islands Underwater Chest 2": "is_spring && underwater_walking"
+    "Goron Elder": "is_winter && (first_day || second_day) && has_mask_goron && (can_use_fire_short_range || has_hot_water_er || has_hot_water_mtn || has_hot_water_farore || (has_hot_water_distance && has(OWL_MOUNTAIN_VILLAGE)))"
+    "Twin Islands Grass 01": "is_spring"
+    "Twin Islands Grass 02": "is_spring"
+    "Twin Islands Grass 03": "is_spring"
+    "Twin Islands Grass 04": "is_spring"
+    "Twin Islands Grass 05": "is_spring"
+    "Twin Islands Grass 06": "is_spring"
+    "Twin Islands Grass 07": "is_spring"
+    "Twin Islands Grass 08": "is_spring"
+    "Twin Islands Grass 09": "is_spring"
+    "Twin Islands Grass 10": "is_spring"
+    "Twin Islands Grass 11": "is_spring"
+    "Twin Islands Grass 12": "is_spring"
+    "Twin Islands Rupee 1": "is_spring && (underwater_walking || can_dive_small)"
+    "Twin Islands Rupee 2": "is_spring && (underwater_walking || can_dive_small)"
+    "Twin Islands Rupee 3": "is_spring && (underwater_walking || can_dive_small)"
+    "Twin Islands Rupee 4": "is_spring && (underwater_walking || can_dive_small)"
 "Twin Islands Ramp Grotto":
   region: ENTRANCE
   exits:
@@ -1821,7 +1821,9 @@
   exits:
     "Twin Islands": "true"
   events:
-    TWIN_ISLANDS_HOT_WATER: "true"
+    HOT_WATER_NORTH_WINTER: "is_winter"
+    HOT_WATER_NORTH_SPRING: "is_spring"
+    HOT_WATER_NORTH: "is_spring_or_winter"
     WATER: "true"
     STICKS: "can_kill_baba_sticks"
     MUSHROOM: "has(MASK_SCENTS)"
@@ -1844,10 +1846,10 @@
   region: GORON_VILLAGE
   exits:
     "Twin Islands": "true"
-    "Front of Lone Peak Shrine": "true"
+    "Front of Lone Peak Shrine": "is_winter"
     "Goron Shrine": "first_day || has_mask_goron"
   events:
-    POWDER_KEG_TRIAL: "(event(BOSS_SNOWHEAD) || can_use_fire_short_range) && has_mask_goron"
+    POWDER_KEG_TRIAL: "(is_spring || can_use_fire_short_range) && has_mask_goron"
     BUY_KEG: "event(POWDER_KEG_TRIAL) && has(POWDER_KEG) && can_use_wallet(2)"
     MAGIC: "true"
     ARROWS: "true"
@@ -1864,7 +1866,7 @@
 "Front of Lone Peak Shrine":
   region: GORON_VILLAGE
   exits:
-    "Goron Village": "can_use_lens"
+    "Goron Village": "(is_winter && can_use_lens)" # || is_spring // for when the cave is shuffled and the spawn changed
     "Lone Peak Shrine": "true"
 "Lone Peak Shrine":
   region: ENTRANCE
@@ -1907,31 +1909,38 @@
   exits:
     "Mountain Village": "true"
     "Goron Graveyard": "true"
-    "Near Village Grotto": "event(BOSS_SNOWHEAD)"
+    "Near Village Grotto": "is_spring"
   events:
     MAGIC: "true"
-    ARROWS: "event(BOSS_SNOWHEAD)"
+    ARROWS: "is_spring"
     GORON_GRAVE_FARORE: "can_use_farore"
 "Goron Graveyard":
   region: ENTRANCE
   exits:
     "Near Goron Graveyard": "true"
+    "Goron Graveyard Water": "has_mask_goron || can_lift_gold"
   locations:
     "Goron Graveyard Mask": "can_use_lens_strict && can_play_healing"
+"Goron Graveyard Water":
+  region: ENTRANCE
+  exits:
+    "Goron Graveyard": "true"
   events:
-    GORON_GRAVEYARD_HOT_WATER: "has_bottle && (has_mask_goron || can_lift_gold)"
-    WATER: "has_bottle && (has_mask_goron || can_lift_gold)"
+    WATER: "true"
+    HOT_WATER_NORTH_WINTER: "is_winter"
+    HOT_WATER_NORTH_SPRING: "is_spring"
+    HOT_WATER_NORTH: "is_spring_or_winter"
 "Goron Shrine":
   region: GORON_VILLAGE
   exits:
     "Goron Village": "true"
     "Goron Shop": "true"
   events:
-    GORON_FOOD: "goron_fast_roll && (can_use_fire_arrows || can_lullaby_half)"
+    GORON_FOOD: "is_winter && goron_fast_roll && (can_use_fire_arrows || can_lullaby_half)"
     STICKS: "true"
     MAGIC: "true"
   locations:
-    "Goron Baby": "has_mask_goron && can_lullaby_half"
+    "Goron Baby": "is_winter && has_mask_goron && can_lullaby_half"
     "Goron Shrine Pot 01": "true"
     "Goron Shrine Pot 02": "true"
     "Goron Shrine Pot 03": "true"
@@ -2023,7 +2032,7 @@
 "Snowhead Near Fairy Fountain":
   region: SNOWHEAD
   events:
-    MAGIC: "((blizzard_stopped || has_iron_boots) && can_break_boulders) || event(BOSS_SNOWHEAD)"
+    MAGIC: "((blizzard_stopped || has_iron_boots) && can_break_boulders) || is_spring"
     RUPEES: "blizzard_stopped && can_use_light_arrows && soul_wolfos"
   exits:
     "Snowhead Entrance": "true"
@@ -2036,13 +2045,13 @@
   locations:
     "Snowhead Great Fairy": "has(STRAY_FAIRY_SH, 15)"
 "Goron Race":
-  region: ENTRANCE
+  region: GORON_RACETRACK
   events:
     MAGIC: "true"
   exits:
     "Near Goron Race": "true"
   locations:
-    "Goron Race Reward": "event(BOSS_SNOWHEAD) && goron_fast_roll"
+    "Goron Race Reward": "is_spring && goron_fast_roll"
     "Goron Race Pot 01": "true"
     "Goron Race Pot 02": "true"
     "Goron Race Pot 03": "true"
@@ -2253,7 +2262,7 @@
   locations:
     "Great Bay Coast Zora Mask": "can_play_healing"
     "Great Bay Coast HP": "(can_use_beans && scarecrow_hookshot) || short_hook_anywhere"
-    "Great Bay Coast Fisherman HP": "can_use_wallet(1) && (can_hookshot_short || can_use_ice_arrows) && event(BOSS_GREAT_BAY) && (between(DAY1_AM_07_00, NIGHT1_AM_04_00) || between(DAY2_AM_07_00, NIGHT2_AM_04_00) || between(DAY3_AM_07_00, NIGHT3_AM_04_00))"
+    "Great Bay Coast Fisherman HP": "can_use_wallet(1) && (can_hookshot_short || can_use_ice_arrows) && is_ocean_cleared && (between(DAY1_AM_07_00, NIGHT1_AM_04_00) || between(DAY2_AM_07_00, NIGHT2_AM_04_00) || between(DAY3_AM_07_00, NIGHT3_AM_04_00))"
     "Great Bay Coast Pot Ledge 1": "can_hookshot || short_hook_anywhere"
     "Great Bay Coast Pot Ledge 2": "can_hookshot || short_hook_anywhere"
     "Great Bay Coast Pot Ledge 3": "can_hookshot || short_hook_anywhere"
@@ -2539,10 +2548,10 @@
     "Zora Hall Entrance": "true"
     "Zora Cape Peninsula": "true"
     "Zora Shop": "true"
-    "Tijo's Room": "can_enter_zora_door_before_gb_clear || event(BOSS_GREAT_BAY)"
-    "Japas' Room": "can_enter_zora_door_before_gb_clear || event(BOSS_GREAT_BAY)"
-    "Evan's Room": "can_enter_zora_door_before_gb_clear || event(BOSS_GREAT_BAY)"
-    "Lulu's Room": "can_enter_zora_door_before_gb_clear || event(BOSS_GREAT_BAY)"
+    "Tijo's Room": "can_enter_zora_door"
+    "Japas' Room": "can_enter_zora_door"
+    "Evan's Room": "can_enter_zora_door"
+    "Lulu's Room": "can_enter_zora_door"
   locations:
     "Zora Hall Scene Lights": "can_use_fire_arrows || (trick(MM_STAGE_LIGHTS_DIN) && has_arrows && can_use_din && can_hookshot)"
 "Zora Shop":
@@ -2566,7 +2575,7 @@
   exits:
     "Zora Hall": "true"
   locations:
-    "Zora Hall Evan HP": "can_play_evan && (can_enter_zora_door_before_gb_clear || (trick(MM_EVAN_FARORE) && can_use_farore))" #Evan is not here in GB clear state, so we need to guarantee room-entry-before-clear to ensure check is accessible.
+    "Zora Hall Evan HP": "can_play_evan && (is_ocean_cursed || (trick(MM_EVAN_FARORE) && can_use_farore))"
 "Lulu's Room":
   region: ENTRANCE
   exits:
@@ -2885,7 +2894,7 @@
     "Ikana Valley": "true"
     "Ikana Fairy Fountain": "true"
     "Ikana Spring Water Cave": "true"
-    "Music Box House": "event(IKANA_CURSE_LIFTED) && (has_explosives || has_mask_stone)"
+    "Music Box House": "(event(IKANA_CURSE_LIFTED) && (has_explosives || has_mask_stone)) || is_valley_cleared"
     "Ghost Hut": "true"
     "Beneath The Well Entrance": "true"
     "Ikana Castle Entrance": "true"
@@ -2912,19 +2921,19 @@
   exits:
     "Ikana Canyon": "true"
   events:
-    IKANA_CURSE_LIFTED: "can_play_storms"
+    IKANA_CURSE_LIFTED: "is_valley_cursed && can_play_storms"
 "Music Box House":
   region: ENTRANCE
   exits:
     "Ikana Canyon": "true"
   locations:
-    "Music Box House Gibdo Mask": "can_play_healing"
+    "Music Box House Gibdo Mask": "is_valley_cursed && can_play_healing"
 "Ghost Hut":
   region: ENTRANCE
   exits:
     "Ikana Canyon": "true"
   locations:
-    "Ghost Hut HP": "(has_arrows || can_hookshot_short || can_use_deku_bubble) && can_use_wallet(1)"
+    "Ghost Hut HP": "(has_arrows || can_hookshot_short || can_use_deku_bubble) && can_use_wallet(1) && is_valley_cursed"
 "Ikana Castle Entrance":
   region: IKANA_CASTLE
   exits:
