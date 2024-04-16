@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add full overworld ER.
 - Add random starting positions.
 - Add a setting to allow more granular hint regions.
 - Add decoupled entrances.
@@ -24,9 +25,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Rework how the sirloin function in indoor ER (+ new overworld ER) to allow shuffling the North in MM.
 - Saving is now enabled on the Clock Tower Roof with Moon Crash set to New Cycle.
 - Farore's Wind in MM is now tied to Link's age, like in OoT.
 - Logic for MM's cursed and cleared states has received an overhaul and is now more robust.
+- Powder Keg Trial with Short Hook Anywhere and without thawing the ice is now a trick.
+- Clock Town Post Box, Goron Elder, and Keaton Quiz can now be logically obtained in their alternate locations.
+- Guessing the Bomber Code for the notebook check is now logical in East Clock Town.
 
 ### Fixed
 
