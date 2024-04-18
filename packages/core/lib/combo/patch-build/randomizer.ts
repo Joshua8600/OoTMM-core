@@ -801,6 +801,8 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     MM_PROGRESSIVE_LULLABY: settings.progressiveGoronLullaby === 'progressive',
     DOOR_OF_TIME_OPEN: settings.doorOfTime === 'open',
     OOT_OPEN_DEKU: settings.dekuTree === 'open',
+    OOT_CLOSED_DEKU: settings.dekuTree === 'closed',
+    OOT_ADULT_DEKU: settings.dekuTreeAdult,
     ER_DUNGEONS: settings.erDungeons !== 'none',
     ER_MAJOR_DUNGEONS: settings.erMajorDungeons,
     ER_BOSS: settings.erBoss !== 'none',
@@ -960,6 +962,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     ER_INDOORS: settings.erIndoors !== 'none',
     ER_REGIONS_OVERWORLD: settings.erRegions !== 'none' || settings.erOverworld !== 'none',
     CROSS_GAME_FW: settings.crossGameFw,
+    RUPEE_SCALING: settings.rupeeScaling,
   };
 
   for (const v in exprs) {

@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add rupee scaling, a setting where rupees are worth more if you have an upgraded wallet.
 - Add full overworld ER.
 - Add random starting positions.
 - Add a setting to allow more granular hint regions.
@@ -25,6 +26,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Rework how Deku Tree behaves (it's now either always open or strictly opened by Mido).
 - Rework how the sirloin function in indoor ER (+ new overworld ER) to allow shuffling the North in MM.
 - Saving is now enabled on the Clock Tower Roof with Moon Crash set to New Cycle.
 - Farore's Wind in MM is now tied to Link's age, like in OoT.
@@ -40,6 +42,7 @@ All notable changes to this project will be documented in this file.
 - Fix Goron Ruby looking odd in MM.
 - Ruto's Soul is now accounted in logic for the Big Octo in Jabu-Jabu.
 - Logic for entering Woodfall Temple if exiting the temple itself has been fixed.
+- The "GBT without Fire Arrows" trick now correctly accounts for being tall and no longer requires Ice Arrows.
 
 ## [21.0] - 2024-03-28
 

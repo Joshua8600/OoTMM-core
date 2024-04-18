@@ -66,6 +66,8 @@ export const CONFVARS = [
   'FILL_WALLETS',
   'CHILD_WALLET',
   'OOT_OPEN_DEKU',
+  'OOT_CLOSED_DEKU',
+  'OOT_ADULT_DEKU',
   'OOT_ADULT_WELL',
   'COLOSSAL_WALLET',
   'BOTTOMLESS_WALLET',
@@ -170,6 +172,7 @@ export const CONFVARS = [
   'ER_INDOORS',
   'ER_REGIONS_OVERWORLD',
   'CROSS_GAME_FW',
+  'RUPEE_SCALING',
 ] as const;
 
 export type Confvar = typeof CONFVARS[number];
