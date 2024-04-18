@@ -641,7 +641,7 @@
 - { id: MM_SOUL_BOSS_GYORG, type: SOUL, add: [MM_SOUL, 0x1002], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Gyorg" }
 - { id: MM_SOUL_BOSS_TWINMOLD, type: SOUL, add: [MM_SOUL, 0x1003], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Twinmold" }
 - { id: MM_SOUL_BOSS_IGOS, type: SOUL, add: [MM_SOUL, 0x1004], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Igos" }
-- { id: MM_SOUL_MISC_GS, type: SOUL, add: [MM_SOUL, 0x3000], flags: 0xa0, draw: SOUL_MISC, object: [mm, 0x0125], name: "the <C1>Soul of Gold Skulltulas" }
+- { id: MM_SOUL_MISC_GS, type: SOUL, add: [MM_SOUL, 0x3000], flags: 0xa0, draw: SOUL_MISC, object: [mm, 0x0125], name: "the <C1>Soul of Swamp and Ocean Skulltulas" }
 - { id: MM_SOUL_MISC_BUSINESS_SCRUB, type: SOUL, add: [MM_SOUL, 0x3001], flags: 0xa0, draw: SOUL_MISC, object: [mm, 0x0125], name: "the <C1>Soul of Business Scrubs" }
 - { id: MM_KEY_RING, type: KEY, add: [MM_KEY_RING, 0xffff], flags: 0xa0, draw: SMALL_KEY, object: [mm, 0x0086], name: "the <C0>Key Ring" }
 - { id: MM_KEY_RING_WF, type: KEY, add: [MM_KEY_RING, 0], flags: 0xa0, draw: SMALL_KEY, object: [mm, 0x0086], name: "the <C0>Key Ring (Woodfall)" }
