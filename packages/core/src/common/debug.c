@@ -1,9 +1,11 @@
 #include <combo.h>
+#include <combo/debug.h>
 #include <combo/custom.h>
 #include <combo/entrance.h>
+#include <combo/player.h>
+#include <combo/global.h>
 
 #if defined(DEBUG)
-
 #define DEBUGMENU_PAGE_NONE     0
 #define DEBUGMENU_PAGE_MAIN     1
 #define DEBUGMENU_PAGE_CHEATS   2
@@ -99,7 +101,7 @@ static void debugDrawChar(int x, int y, char c)
     y = DEBUG_Y + (y * 12);
 
     OPEN_DISPS(gPlay->gs.gfx);
-    gSPSegment(POLY_OPA_DISP++, 0x09, (char*)gCustomKeep + CUSTOM_KEEP_FONT + ((c - ' ') * 0x30));
+    gSPSegment(POLY_OPA_DISP++, 0x09, (char*)g.customKeep + CUSTOM_KEEP_FONT + ((c - ' ') * 0x30));
     gSPDisplayList(POLY_OPA_DISP++, kDlistLoadIA4_8x12);
     gSPTextureRectangle(
         POLY_OPA_DISP++,
@@ -589,7 +591,7 @@ static void cheatAllItems(GameState_Play* play)
     SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
     SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
     gSave.playerData.swordHealth = 8;
-    gSave.isBiggoronSword = 1;
+    //gSave.isBiggoronSword = 1;
 
     //MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF);
     //MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_SH);
@@ -621,6 +623,8 @@ static void cheatAllItems(GameState_Play* play)
     gSave.inventory.items[ITS_OOT_SPELL_WIND] = ITEM_OOT_SPELL_WIND;
     gSave.inventory.items[ITS_OOT_SPELL_FIRE] = ITEM_OOT_SPELL_FIRE;
     gSave.inventory.items[ITS_OOT_SPELL_LOVE] = ITEM_OOT_SPELL_LOVE;
+
+    gOotExtraItems.ocarina = 3;
 
     gSave.inventory.equipment.swords = 0x7;
     gSave.inventory.equipment.shields = 0x7;

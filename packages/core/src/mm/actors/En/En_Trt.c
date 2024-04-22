@@ -1,12 +1,13 @@
 #include <combo.h>
 #include <combo/item.h>
+#include <combo/shop.h>
 
 static int EnTrt_HasGivenItem(Actor_EnTrt* this, GameState_Play* play)
 {
     if (!Actor_HasParent(&this->base))
         return 0;
 
-    comboShopAfterBuy(play, this->items[this->itemIndex]);
+    Shop_AfterBuy(play, this->items[this->itemIndex]);
     return 1;
 }
 
@@ -14,14 +15,14 @@ PATCH_CALL(0x80a8dfcc, EnTrt_HasGivenItem);
 
 static void EnTrt_DisplayShopTextBoxConfirm(Actor_EnTrt* this)
 {
-    comboShopDisplayTextBoxConfirm(gPlay, this->items[this->itemIndex]);
+    Shop_DisplayTextBoxConfirm(gPlay, this->items[this->itemIndex]);
 }
 
 PATCH_FUNC(0x80a8bb3c, EnTrt_DisplayShopTextBoxConfirm);
 
 static void EnTrt_DisplayShopTextBox(Actor_EnTrt* this)
 {
-    comboShopDisplayTextBox(gPlay, this->items[this->itemIndex]);
+    Shop_DisplayTextBox(gPlay, this->items[this->itemIndex]);
 }
 
 PATCH_FUNC(0x80a8baf8, EnTrt_DisplayShopTextBox);
@@ -33,6 +34,18 @@ void EnTrt_GiveItem_BottledRedPotion(Actor* actor, GameState_Play* play, s16 gi,
 
 PATCH_CALL(0x80a8c54c, EnTrt_GiveItem_BottledRedPotion);
 PATCH_CALL(0x80ad4094, EnTrt_GiveItem_BottledRedPotion); /* En_Trt2 */
+
+static int EnTrt_HasGivenItemBottleRedPotion(Actor* this, GameState_Play* play)
+{
+    if (MM_CHECK_EVENT_INF(EV_MM_WEEK_BOTTLE_RED_POTION))
+        return 1;
+    if (Actor_HasParent(this))
+        return 1;
+    return 0;
+}
+
+PATCH_CALL(0x80a8c49c, EnTrt_HasGivenItemBottleRedPotion);
+PATCH_CALL(0x80ad4000, EnTrt_HasGivenItemBottleRedPotion); /* En_Trt2 */
 
 static void EnTrt_GiveItem(Actor_EnTrt* this, GameState_Play* play, s16 gi, float a, float b)
 {

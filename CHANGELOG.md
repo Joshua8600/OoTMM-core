@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add ageless strength upgrades.
+- Add a setting to travel through time without the Master Sword.
+- Add a setting to play as swordless adult link.
+- Render most of the ageless items.
 - Add rupee scaling, a setting where rupees are worth more if you have an upgraded wallet.
 - Add full overworld ER.
 - Add random starting positions.
@@ -26,6 +30,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Change the fishing pond fish model.
+- Kotake no longer gives red potion refills when Koume isn't rescued.
 - Rework how Deku Tree behaves (it's now either always open or strictly opened by Mido).
 - Rework how the sirloin function in indoor ER (+ new overworld ER) to allow shuffling the North in MM.
 - Saving is now enabled on the Clock Tower Roof with Moon Crash set to New Cycle.

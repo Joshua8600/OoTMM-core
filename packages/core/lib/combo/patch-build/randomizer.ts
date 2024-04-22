@@ -865,6 +865,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     COLOSSAL_WALLET: settings.colossalWallets,
     BOTTOMLESS_WALLET: settings.bottomlessWallets,
     OOT_AGELESS_BOOTS: settings.agelessBoots,
+    OOT_AGELESS_STRENGTH: settings.agelessStrength,
     MM_OWL_SHUFFLE: settings.owlShuffle === 'anywhere',
     OOT_CARPENTERS_ONE: settings.gerudoFortress === 'single',
     OOT_CARPENTERS_NONE: settings.gerudoFortress === 'open',
@@ -963,6 +964,8 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     ER_REGIONS_OVERWORLD: settings.erRegions !== 'none' || settings.erOverworld !== 'none',
     CROSS_GAME_FW: settings.crossGameFw,
     RUPEE_SCALING: settings.rupeeScaling,
+    OOT_SWORDLESS_ADULT: settings.swordlessAdult,
+    OOT_TIME_TRAVEL_REQUIRES_MS: settings.timeTravelSword,
   };
 
   for (const v in exprs) {

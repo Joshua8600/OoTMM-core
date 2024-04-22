@@ -3,6 +3,11 @@
 #include <combo/menu.h>
 #include <combo/dma.h>
 #include <combo/item.h>
+#include <combo/player.h>
+#include <combo/math.h>
+#include <combo/config.h>
+#include <combo/global.h>
+#include <combo/dpad.h>
 
 static int checkItemToggle(GameState_Play* play)
 {
@@ -111,7 +116,7 @@ void KaleidoSetCursorColor(GameState_Play* play)
     b = 0xff;
 
     /* Update dpad */
-    comboDpadUpdate(play);
+    Dpad_Update(play);
 
     /* Not on Z/R */
     if (p->cursorSpecialPos == 0)
@@ -1554,7 +1559,7 @@ u32 GetItemTexture(u32 slotId, u8 item, u32 index)
             {
                 sExtraIconTradeChildItem[index] = item;
                 comboItemIcon(sExtraIconTradeChild[index], sExtraIconTradeChildItem[index]);
-                if (!comboConfig(CFG_OOT_AGELESS_CHILD_TRADE) && gSave.age != AGE_CHILD)
+                if (!Config_Flag(CFG_OOT_AGELESS_CHILD_TRADE) && gSave.age != AGE_CHILD)
                     Grayscale(sExtraIconTradeChild[index], 0x400);
             }
             return (u32)sExtraIconTradeChild[index] & 0x00ffffff;

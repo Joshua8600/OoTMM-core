@@ -1,6 +1,8 @@
 #include <combo.h>
 #include <combo/item.h>
 #include <combo/player.h>
+#include <combo/config.h>
+#include <combo/draw.h>
 
 static void EnItem00_ItemQuery(ComboItemQuery* q, Actor_EnItem00* this, GameState_Play* play, s16 gi)
 {
@@ -77,7 +79,7 @@ void EnItem00_DrawHeartPieceSmallKey(Actor_EnItem00* this, GameState_Play* play)
     EnItem00_ItemQuery(&q, this, play, -1);
     comboItemOverride(&o, &q);
     ModelViewScale(scale, scale, scale, MAT_MUL);
-    comboDrawGI(play, &this->base, o.gi, 0);
+    Draw_Gi(play, &this->base, o.gi, 0);
 }
 
 PATCH_FUNC(0x80013498, EnItem00_DrawHeartPieceSmallKey);
@@ -89,7 +91,7 @@ static s16 bombDrop(s16 dropId)
     u8  bombCount;
     u8  bombchuCount;
 
-    if (!comboConfig(CFG_OOT_BOMBCHU_BAG))
+    if (!Config_Flag(CFG_OOT_BOMBCHU_BAG))
         return dropId;
 
     hasChuBag = (gOotSave.inventory.items[ITS_OOT_BOMBCHU] == ITEM_OOT_BOMBCHU_10);

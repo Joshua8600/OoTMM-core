@@ -1284,7 +1284,7 @@ export class LogicPassWorldTransform {
     }
 
     /* Handle OoT swords */
-    if (settings.startingAge === 'adult') {
+    if (settings.startingAge === 'adult' && !settings.swordlessAdult) {
       this.removeItem(Items.OOT_SWORD_MASTER);
     }
     if (settings.progressiveSwordsOot === 'progressive') {

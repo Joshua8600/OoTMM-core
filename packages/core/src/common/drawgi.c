@@ -1,5 +1,7 @@
 #include <combo.h>
 #include <combo/custom.h>
+#include <combo/global.h>
+#include <combo/draw.h>
 
 #define M_PI            3.14159265358979323846
 #define M_SQRT1_2       0.707106781186547524401
@@ -600,7 +602,7 @@ void DrawGi_CustomStrayFairy(GameState_Play* play, s16 drawGiId)
     const DrawGi* drawGi;
     int index;
     u8 r;
-    u8 g;
+    u8 gg;
     u8 b;
     u8 a;
 
@@ -617,15 +619,15 @@ void DrawGi_CustomStrayFairy(GameState_Play* play, s16 drawGiId)
 #endif
 
     OPEN_DISPS(play->gs.gfx);
-    gSPSegment(POLY_XLU_DISP++, 0x08, gCustomKeep);
-    comboSetObjectSegment(play->gs.gfx, &kStrayFairyObj);
+    gSPSegment(POLY_XLU_DISP++, 0x08, g.customKeep);
+    Draw_SetObjectSegment(play->gs.gfx, &kStrayFairyObj);
     ModelViewUnkTransform(&play->billboardMtxF);
     gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     InitListPolyXlu(play->gs.gfx);
-    color4(&r, &g, &b, &a, kEnvColors[index - 1]);
-    gDPSetEnvColor(POLY_XLU_DISP++, r, g, b, a);
-    color4(&r, &g, &b, &a, kPrimColors[index - 1]);
-    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, r, g, b, a);
+    color4(&r, &gg, &b, &a, kEnvColors[index - 1]);
+    gDPSetEnvColor(POLY_XLU_DISP++, r, gg, b, a);
+    color4(&r, &gg, &b, &a, kPrimColors[index - 1]);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, r, gg, b, a);
     gSPDisplayList(POLY_XLU_DISP++, offsetof(CustomStrayFairyObj, dlist) | 0x06000000);
     CLOSE_DISPS();
 }
@@ -1346,6 +1348,26 @@ void DrawGi_Clock(GameState_Play* play, s16 index)
     ModelViewTranslate(0.f, 1100.f, -50.f, MAT_MUL);
     gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, drawGi->lists[3]);
+    CLOSE_DISPS();
+}
+
+void DrawGi_PondFish(GameState_Play* play, s16 index, u8 param)
+{
+    const DrawGi* drawGi;
+    float scaleBase;
+    float scaleActual;
+    float scale;
+
+    drawGi = &kDrawGi[index];
+    scaleBase = FISH_WEIGHT_TO_LENGTH(2);
+    scaleActual = FISH_WEIGHT_TO_LENGTH(param * 0.2f + 2.f);
+    scale = scaleActual / scaleBase;
+
+    OPEN_DISPS(play->gs.gfx);
+    InitListPolyOpa(play->gs.gfx);
+    ModelViewScale(scale, scale, scale, MAT_MUL);
+    gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gSPDisplayList(POLY_OPA_DISP++, drawGi->lists[0]);
     CLOSE_DISPS();
 }
 

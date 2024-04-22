@@ -72,6 +72,7 @@ export const CONFVARS = [
   'COLOSSAL_WALLET',
   'BOTTOMLESS_WALLET',
   'OOT_AGELESS_BOOTS',
+  'OOT_AGELESS_STRENGTH',
   'MM_OWL_SHUFFLE',
   'CSMC_AGONY',
   'OOT_CARPENTERS_ONE',
@@ -173,6 +174,8 @@ export const CONFVARS = [
   'ER_REGIONS_OVERWORLD',
   'CROSS_GAME_FW',
   'RUPEE_SCALING',
+  'OOT_SWORDLESS_ADULT',
+  'OOT_TIME_TRAVEL_REQUIRES_MS',
 ] as const;
 
 export type Confvar = typeof CONFVARS[number];

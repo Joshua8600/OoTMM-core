@@ -643,6 +643,21 @@ export const SETTINGS = [{
   ],
   default: 'child'
 }, {
+  key: 'swordlessAdult',
+  name: 'Allow adult link to be swordless',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Choose whether or not adult Link can be swordless',
+  default: false
+}, {
+  key: 'timeTravelSword',
+  name: 'Time Travel requires Master Sword',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Choose whether or not Link needs the Master Sword to travel through time',
+  default: true,
+  cond: (s: any) => s.swordlessAdult,
+}, {
   key: 'doorOfTime',
   name: 'Door of Time',
   category: 'main.events',
@@ -1806,6 +1821,13 @@ export const SETTINGS = [{
   category: 'items.ageless',
   type: 'boolean',
   description: 'Allows Link to use the child trade items independently of his age',
+  default: false
+}, {
+  key: 'agelessStrength',
+  name: 'Ageless Strength',
+  category: 'items.ageless',
+  type: 'boolean',
+  description: 'Allows Child Link to use adult strength upgrades',
   default: false
 }, {
   key: 'erBoss',
