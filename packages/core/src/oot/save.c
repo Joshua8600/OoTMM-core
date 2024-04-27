@@ -5,8 +5,7 @@
 #include <combo/dma.h>
 #include <combo/time.h>
 #include <combo/config.h>
-
-#define ENTRANCE_MARKET       0x1d1
+#include <combo/context.h>
 
 static const u16 kDungeonEntrances[] = {
     ENTR_OOT_DEKU_TREE,
@@ -121,6 +120,9 @@ static void fixSpawn(void)
 
 void Sram_AfterOpenSave(void)
 {
+    if (Config_Flag(CFG_ONLY_MM))
+        comboGameSwitch(NULL, ENTR_MM_CLOCK_TOWN);
+
 #if defined(DEBUG) && defined(DEBUG_OOT_ENTRANCE)
     gSave.entrance = DEBUG_OOT_ENTRANCE;
 #endif
@@ -313,6 +315,8 @@ void comboCreateSave(void* unk, void* buffer)
         memset(gSharedCustomSave.soulsBossMm, 0xff, sizeof(gSharedCustomSave.soulsBossMm));
     if (!Config_Flag(CFG_OOT_SOULS_NPC))
         memset(gSharedCustomSave.soulsNpcOot, 0xff, sizeof(gSharedCustomSave.soulsNpcOot));
+    if (!Config_Flag(CFG_MM_SOULS_NPC))
+        memset(gSharedCustomSave.soulsNpcMm, 0xff, sizeof(gSharedCustomSave.soulsNpcMm));
     if (!Config_Flag(CFG_OOT_SOULS_MISC))
         memset(gSharedCustomSave.soulsMiscOot, 0xff, sizeof(gSharedCustomSave.soulsMiscOot));
     if (!Config_Flag(CFG_MM_SOULS_MISC))
@@ -424,3 +428,18 @@ void Save_DoSave(GameState_Play* play, int saveFlags)
         Save_Write();
     }
 }
+
+static u8 sHoldTarget;
+COSMETIC(HOLD_TARGET, sHoldTarget);
+
+static void Save_CopySettings(void* dst, const void* src, size_t size)
+{
+    memcpy(dst, src, size);
+
+    if (sHoldTarget)
+    {
+        ((u8*)dst)[1] = 1;
+    }
+}
+
+PATCH_CALL(0x80091258, Save_CopySettings);

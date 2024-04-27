@@ -5,6 +5,7 @@
 #include <combo/mask.h>
 #include <combo/config.h>
 #include <combo/global.h>
+#include <combo/actor.h>
 
 static s16 sActorIdToSpawn;
 
@@ -17,6 +18,31 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
 {
     switch (actorId)
     {
+    case AC_EN_DS:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_OLD_HAG));
+    case AC_EN_JS:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CARPET_MAN));
+    case AC_EN_HS:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_GROG));
+    case AC_EN_IN:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_GORMAN));
+    case AC_EN_MK:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_SCIENTIST));
+    case AC_EN_MS:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BEAN_SALESMAN));
+    case AC_EN_TG:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_HONEY_DARLING));
+    case AC_EN_TAKARA_MAN:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CHEST_GAME_OWNER));
+    case AC_EN_POH:
+        switch (variable)
+        {
+        case 2:
+        case 3:
+            return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_COMPOSER_BROS));
+        default:
+            return 1;
+        }
     case AC_EN_DNS:
     case AC_EN_SHOPNUTS:
         return opt(comboHasSoulOot(GI_OOT_SOUL_MISC_BUSINESS_SCRUB));
@@ -146,9 +172,10 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_KZ:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_KING_ZORA));
     case AC_EN_NIW_LADY:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CUCCO_LADY));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ANJU));
     case AC_EN_TORYO:
     case AC_EN_DAIKU:
+    case AC_EN_DAIKU_KAKARIKO:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CARPENTERS));
     case AC_EN_FU:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_GURU_GURU));
@@ -173,9 +200,19 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_HEISHI3:
     case AC_EN_HEISHI4:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_HYLIAN_GUARD));
-    case AC_EN_HY:
     case AC_EN_ANI:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_HYLIAN_CITIZEN));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ROOFTOP_MAN));
+    case AC_EN_MU:
+    case AC_EN_NIW_GIRL:
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CITIZEN));
+    case AC_EN_HY:
+        switch (variable & 0x3f)
+        {
+        case 0x00: return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_DOG_LADY));
+        case 0x05: return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BANKER));
+        case 0x07: return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_ASTRONOMER));
+        default: return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_CITIZEN));
+        }
     case AC_EN_MA1:
     case AC_EN_MA2:
     case AC_EN_MA3:
@@ -206,15 +243,13 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
     case AC_EN_BOM_BOWL_MAN:
     case AC_BG_BOWL_WALL:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BOMBCHU_BOWLING_LADY));
-    case AC_EN_TAKARA_MAN:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_TRASURE_CHEST_GAME_OWNER));
     case AC_EN_SYATEKI_MAN:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_SHOOTING_GALLERY_OWNER));
     case AC_EN_TK:
     case AC_EN_PO_RELAY:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_DAMPE));
     case AC_EN_CS:
-        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_GRAVEYARD_KID));
+        return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_BOMBERS));
     case AC_EN_GB:
         return opt(comboHasSoulOot(GI_OOT_SOUL_NPC_POE_COLLECTOR));
     case AC_EN_XC:
@@ -239,6 +274,8 @@ static int canSpawnActor(GameState_Play* play, s16 actorId, u16 valid)
             return 1;
         else
             return 0;
+    case AC_BG_JYA_BLOCK:
+        return !Config_Flag(CFG_OOT_AGELESS_STRENGTH);
     default:
         return 1;
     }
@@ -347,6 +384,39 @@ static int shouldActorIgnorePlayer(Actor* this, Actor_Player* link)
     }
 }
 
+static int GetDamage(DamageTable* tbl, int type)
+{
+    return tbl->attack[type] & 0xf;
+}
+
+static void SetDamage(DamageTable* tbl, int type, int value)
+{
+    tbl->attack[type] = (tbl->attack[type] & 0xf0) | (value & 0xf);
+}
+
+static void Actor_UpdateDamageTable(Actor* this)
+{
+    DamageTable* tbl;
+    int dmg;
+
+    tbl = this->colChkInfo.damageTable;
+    if (!tbl)
+        return;
+    if (GetDamage(tbl, 10) != 4)
+        return; /* Weird table, better not touch */
+    if (GetDamage(tbl, 8) == 0 && !gSharedCustomSave.extraSwordsOot)
+        return;
+    dmg = 1 + gSharedCustomSave.extraSwordsOot;
+
+    /* Dead hand takes MS-level damage from KS */
+    if (dmg < 2 && (this->id == AC_EN_DH || this->id == AC_EN_DHA))
+        dmg = 2;
+
+    SetDamage(tbl, 8, dmg);
+    SetDamage(tbl, 22, dmg);
+    SetDamage(tbl, 25, dmg * 2);
+}
+
 void Actor_RunUpdate(Actor* this, GameState_Play* play, ActorFunc update)
 {
     int ignorePlayer;
@@ -355,6 +425,7 @@ void Actor_RunUpdate(Actor* this, GameState_Play* play, ActorFunc update)
     f32 xzDistanceFromLink;
     f32 yDistanceFromLink;
 
+    Actor_UpdateDamageTable(this);
     ignorePlayer = shouldActorIgnorePlayer(this, GET_LINK(play));
     if (ignorePlayer)
     {

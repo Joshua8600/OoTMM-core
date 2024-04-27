@@ -62,7 +62,7 @@ static u32 kFairyColors[] = {
     0xbc702dff,
 };
 
-static DungeonDef gDungeonDefs[] = {
+static const DungeonDef kDungeonDefsOot[] = {
     { "Deku",           SCE_OOT_INSIDE_DEKU_TREE,       DUNGEONID_DEKU_TREE, DD_OOT | DD_MAP_COMPASS },
     { "Dodongo",        SCE_OOT_DODONGO_CAVERN,         DUNGEONID_DODONGOS_CAVERN, DD_OOT | DD_MAP_COMPASS },
     { "Jabu",           SCE_OOT_INSIDE_JABU_JABU,       DUNGEONID_JABU_JABU, DD_OOT | DD_MAP_COMPASS },
@@ -77,74 +77,53 @@ static DungeonDef gDungeonDefs[] = {
     { "GTG",            SCE_OOT_GERUDO_TRAINING_GROUND, DUNGEONID_GERUDO_TRAINING_GROUNDS, DD_OOT },
     { "Ganon",          SCE_OOT_INSIDE_GANON_CASTLE,    DUNGEONID_GANON_CASTLE, DD_OOT | DD_BOSS_KEY },
     { "Chest Game",     SCE_OOT_TREASURE_SHOP,          -1, DD_OOT },
+};
+
+static const DungeonDef kDungeonDefsMm[] = {
     { "Woodfall",       0,                              DUNGEONID_TEMPLE_WOODFALL, DD_MM  | DD_MAP_COMPASS | DD_BOSS_KEY | DD_FAIRIES },
     { "Snowhead",       1,                              DUNGEONID_TEMPLE_SNOWHEAD, DD_MM  | DD_MAP_COMPASS | DD_BOSS_KEY | DD_FAIRIES },
     { "Great Bay",      2,                              DUNGEONID_TEMPLE_GREAT_BAY, DD_MM  | DD_MAP_COMPASS | DD_BOSS_KEY | DD_FAIRIES },
     { "Stone Tower",    3,                              DUNGEONID_TEMPLE_STONE_TOWER, DD_MM  | DD_MAP_COMPASS | DD_BOSS_KEY | DD_FAIRIES },
     { "Clock Town",     0,                              -1, DD_MISC },
-    { "Tokens",         1,                              -1, DD_MISC },
-    {},
-    {},
-    {},
-    {},
-    {},
 };
 
-static int gDungeonDefCount = 20;
+static const DungeonDef kDungeonDataTokens = { "Tokens", 1, -1, DD_MISC };
+static const DungeonDef kDungeonDataTriforce = { "Triforce", 2, -1, DD_MISC };
+
+static const DungeonDef kDungeonDefsCoins[] = {
+    { "Red Coins",      3, -1, DD_MISC },
+    { "Green Coins",    4, -1, DD_MISC },
+    { "Blue Coins",     5, -1, DD_MISC },
+    { "Yellow Coins",   6, -1, DD_MISC },
+};
+
+static const DungeonDef* gDungeonDefs[32];
+static int gDungeonDefCount = 0;
+
+static void addDefs(const DungeonDef* defs, int count)
+{
+    for (int i = 0; i < count; ++i)
+    {
+        gDungeonDefs[gDungeonDefCount + i] = defs + i;
+    }
+    gDungeonDefCount += count;
+}
 
 void menuInit()
 {
-    DungeonDef* d;
+    gDungeonDefCount = 0;
 
-    d = gDungeonDefs + gDungeonDefCount;
+    if (!Config_Flag(CFG_ONLY_MM)) addDefs(kDungeonDefsOot, ARRAY_SIZE(kDungeonDefsOot));
+    if (!Config_Flag(CFG_ONLY_OOT)) addDefs(kDungeonDefsMm, ARRAY_SIZE(kDungeonDefsMm));
+    addDefs(&kDungeonDataTokens, 1);
+
     if (Config_Flag(CFG_GOAL_TRIFORCE) || Config_Flag(CFG_GOAL_TRIFORCE3))
-    {
-        d->name = "Triforce";
-        d->id = 2;
-        d->dungeonId = -1;
-        d->flags = DD_MISC;
-        gDungeonDefCount++;
-        d++;
-    }
+        addDefs(&kDungeonDataTriforce, 1);
 
-    if (gComboConfig.maxCoins[0])
+    for (int i = 0; i < 4; ++i)
     {
-        d->name = "Red Coins";
-        d->id = 3;
-        d->dungeonId = -1;
-        d->flags = DD_MISC;
-        gDungeonDefCount++;
-        d++;
-    }
-
-    if (gComboConfig.maxCoins[1])
-    {
-        d->name = "Green Coins";
-        d->id = 4;
-        d->dungeonId = -1;
-        d->flags = DD_MISC;
-        gDungeonDefCount++;
-        d++;
-    }
-
-    if (gComboConfig.maxCoins[2])
-    {
-        d->name = "Blue Coins";
-        d->id = 5;
-        d->dungeonId = -1;
-        d->flags = DD_MISC;
-        gDungeonDefCount++;
-        d++;
-    }
-
-    if (gComboConfig.maxCoins[3])
-    {
-        d->name = "Yellow Coins";
-        d->id = 6;
-        d->dungeonId = -1;
-        d->flags = DD_MISC;
-        gDungeonDefCount++;
-        d++;
+        if (gComboConfig.maxCoins[i])
+            addDefs(kDungeonDefsCoins + i, 1);
     }
 }
 
@@ -232,11 +211,22 @@ static const char* const kSoulsNpcOot[] = {
     "Bombchu Shopkeeper",
     "Potion Shopkeeper",
     "Bombchu Bowling Lady",
-    "Treasure Chest Game Owner",
+    "Chest Game Owner",
     "Shooting Gallery Owner",
     "Dampe",
     "Graveyard Kid",
     "Poe Collector",
+    "Composer Bros.",
+    "Lovers",
+    "Astronomer",
+    "Bean Salesman",
+    "Scientist",
+    "Ingo",
+    "Punk Boy",
+    "Dog Lady",
+    "Carpet Man",
+    "Old Hag",
+    "Beggar",
 };
 
 static const char* const kSoulsEnemyMm[] = {
@@ -294,6 +284,60 @@ static const char* const kSoulsBossMm[] = {
     "Gyorg",
     "Twinmold",
     "Igos",
+};
+
+static const char* const kSoulsNpcMm[] = {
+    "Madame Aroma",
+    "Town Archery Owner",
+    "Swamp Archery Owner",
+    "Gorons",
+    "Baby Goron",
+    "Bombs Shopkeeper",
+    "Bombers' Kids",
+    "Deku Butler",
+    "Clock Town Cizizen",
+    "Composer Bros",
+    "Dampe",
+    "Deku King",
+    "Deku Princess",
+    "Playground Scrubs",
+    "Goron Elder",
+    "Fisherman",
+    "Goron Shopkeeper",
+    "Honey & Darling",
+    "Toto",
+    "Lulu",
+    "Zora Musicians",
+    "Kafei",
+    "Keaton",
+    "Koume & Kotake",
+    "Mayor Dotour",
+    "Keg Trial Goron",
+    "Mr. Barten",
+    "Astronomer",
+    "Poe Hut Owner",
+    "Blacksmiths",
+    "Chest Game Lady",
+    "Tingle",
+    "Toilet Hand",
+    "Trading Post Owner",
+    "Part-Timer",
+    "Zoras",
+    "Zora Shopkeeper",
+    "Romani/Cremia",
+    "Bean Salesman",
+    "Carpenters",
+    "Anju",
+    "Guru-Guru",
+    "Marine Scientist",
+    "Gorman & Bros.",
+    "Grog",
+    "Dog Lady",
+    "Swordsman",
+    "Anju\'s Grandmother",
+    "Boat Cruise Man",
+    "Banker",
+    "Moon Children",
 };
 
 static const char* const kSoulsMiscOot[] = {
@@ -721,12 +765,11 @@ static void printDungeonData(GameState_Play* play, int base, int index)
     triforceMax = Config_Flag(CFG_GOAL_TRIFORCE3) ? 3 : (gOotExtraFlags.triforceWin ? gComboConfig.triforcePieces : gComboConfig.triforceGoal);
     triforceDigits = digitCount(triforceMax);
 
-    offX = 0.f;
-    if (Config_Flag(CFG_OOT_SILVER_RUPEE_SHUFFLE) && ((base + index) < 13))
-        offX = -30.f;
-
     OPEN_DISPS(play->gs.gfx);
-    def = gDungeonDefs + base + index;
+    def = gDungeonDefs[base + index];
+    offX = 0.f;
+    if (Config_Flag(CFG_OOT_SILVER_RUPEE_SHUFFLE) && def->flags & DD_OOT)
+        offX = -30.f;
 
     switch (base + index)
     {
@@ -793,20 +836,26 @@ static void printDungeonData(GameState_Play* play, int base, int index)
             printNumColored(play, !!MM_GET_EVENT_WEEK(EV_MM_WEEK_TOWN_FAIRY), 1, 2, x + 186.f, y, 0);
             break;
         case 1:
-            /* OoT skulls */
-            gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
-            drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 104.f, y);
-            printNumColored(play, gOotSave.inventory.goldTokens, 100, 3, x + 116.f, y, 0);
+            if (!Config_Flag(CFG_ONLY_MM))
+            {
+                /* OoT skulls */
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
+                drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 104.f, y);
+                printNumColored(play, gOotSave.inventory.goldTokens, 100, 3, x + 116.f, y, 0);
+            }
 
-            /* MM skulls - swamp */
-            gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 255, 0, 255);
-            drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 144.f, y);
-            printNumColored(play, gMmSave.skullCountSwamp, 30, 2, x + 156.f, y, 0);
+            if (!Config_Flag(CFG_ONLY_OOT))
+            {
+                /* MM skulls - swamp */
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 255, 0, 255);
+                drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 144.f, y);
+                printNumColored(play, gMmSave.skullCountSwamp, 30, 2, x + 156.f, y, 0);
 
-            /* MM skulls - ocean */
-            gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 0, 255, 255);
-            drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 184.f, y);
-            printNumColored(play, gMmSave.skullCountOcean, 30, 2, x + 196.f, y, 0);
+                /* MM skulls - ocean */
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 0, 255, 255);
+                drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 184.f, y);
+                printNumColored(play, gMmSave.skullCountOcean, 30, 2, x + 196.f, y, 0);
+            }
             break;
         case 2:
             /* Triforce */
@@ -934,6 +983,9 @@ void comboMenuUpdate(GameState_Play* play)
     case MENU_SOULS_MM_BOSS:
         g.menuCursorMax = ARRAY_SIZE(kSoulsBossMm);
         break;
+    case MENU_SOULS_MM_NPC:
+        g.menuCursorMax = ARRAY_SIZE(kSoulsNpcMm);
+        break;
     case MENU_SOULS_MM_MISC:
         g.menuCursorMax = ARRAY_SIZE(kSoulsMiscMm);
         break;
@@ -1025,6 +1077,9 @@ void comboMenuDraw(GameState_Play* play)
     case MENU_SOULS_MM_BOSS:
         drawMenuSouls(play, "MM Boss Souls", kSoulsBossMm, GI_MM_SOUL_BOSS_ODOLWA, 1);
         break;
+    case MENU_SOULS_MM_NPC:
+        drawMenuSouls(play, "MM NPC Souls", kSoulsNpcMm, GI_MM_SOUL_NPC_AROMA, 1);
+        break;
     case MENU_SOULS_MM_MISC:
         drawMenuSouls(play, "MM Misc. Souls", kSoulsMiscMm, GI_MM_SOUL_MISC_GS, 1);
         break;
@@ -1055,6 +1110,8 @@ void comboMenuNext(void)
     if (g.menuScreen == MENU_SOULS_MM_ENEMY && !Config_Flag(CFG_MM_SOULS_ENEMY))
         g.menuScreen++;
     if (g.menuScreen == MENU_SOULS_MM_BOSS && !Config_Flag(CFG_MM_SOULS_BOSS))
+        g.menuScreen++;
+    if (g.menuScreen == MENU_SOULS_MM_NPC && !Config_Flag(CFG_MM_SOULS_NPC))
         g.menuScreen++;
     if (g.menuScreen == MENU_SOULS_MM_MISC && !Config_Flag(CFG_MM_SOULS_MISC))
         g.menuScreen++;

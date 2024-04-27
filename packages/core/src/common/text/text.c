@@ -368,6 +368,77 @@ static int isItemAmbiguous(s16 gi)
     case GI_MM_SOUL_ENEMY_LEEVER:
     case GI_MM_SOUL_ENEMY_STALCHILD:
         return !Config_Flag(CFG_SHARED_SOULS_ENEMY);
+    case GI_OOT_SOUL_NPC_SHOOTING_GALLERY_OWNER:
+    case GI_OOT_SOUL_NPC_BAZAAR_SHOPKEEPER:
+    case GI_OOT_SOUL_NPC_GORON:
+    case GI_OOT_SOUL_NPC_GORON_CHILD:
+    case GI_OOT_SOUL_NPC_BOMBCHU_SHOPKEEPER:
+    case GI_OOT_SOUL_NPC_BOMBERS:
+    case GI_OOT_SOUL_NPC_CITIZEN:
+    case GI_OOT_SOUL_NPC_COMPOSER_BROS:
+    case GI_OOT_SOUL_NPC_DAMPE:
+    case GI_OOT_SOUL_NPC_CHEST_GAME_OWNER:
+    case GI_OOT_SOUL_NPC_GORON_SHOPKEEPER:
+    case GI_OOT_SOUL_NPC_HONEY_DARLING:
+    case GI_OOT_SOUL_NPC_RUTO:
+    case GI_OOT_SOUL_NPC_MEDIGORON:
+    case GI_OOT_SOUL_NPC_BIGGORON:
+    case GI_OOT_SOUL_NPC_TALON:
+    case GI_OOT_SOUL_NPC_ASTRONOMER:
+    case GI_OOT_SOUL_NPC_POE_COLLECTOR:
+    case GI_OOT_SOUL_NPC_BOMBCHU_BOWLING_LADY:
+    case GI_OOT_SOUL_NPC_FISHING_POND_OWNER:
+    case GI_OOT_SOUL_NPC_ROOFTOP_MAN:
+    case GI_OOT_SOUL_NPC_ZORA:
+    case GI_OOT_SOUL_NPC_ZORA_SHOPKEEPER:
+    case GI_OOT_SOUL_NPC_MALON:
+    case GI_OOT_SOUL_NPC_BEAN_SALESMAN:
+    case GI_OOT_SOUL_NPC_CARPENTERS:
+    case GI_OOT_SOUL_NPC_ANJU:
+    case GI_OOT_SOUL_NPC_GURU_GURU:
+    case GI_OOT_SOUL_NPC_SCIENTIST:
+    case GI_OOT_SOUL_NPC_GORMAN:
+    case GI_OOT_SOUL_NPC_GROG:
+    case GI_OOT_SOUL_NPC_DOG_LADY:
+    case GI_OOT_SOUL_NPC_CARPET_MAN:
+    case GI_OOT_SOUL_NPC_OLD_HAG:
+    case GI_OOT_SOUL_NPC_BANKER:
+    case GI_MM_SOUL_NPC_SHOOTING_GALLERY_OWNER:
+    case GI_MM_SOUL_NPC_BAZAAR_SHOPKEEPER:
+    case GI_MM_SOUL_NPC_GORON:
+    case GI_MM_SOUL_NPC_GORON_CHILD:
+    case GI_MM_SOUL_NPC_BOMBCHU_SHOPKEEPER:
+    case GI_MM_SOUL_NPC_BOMBERS:
+    case GI_MM_SOUL_NPC_CITIZEN:
+    case GI_MM_SOUL_NPC_COMPOSER_BROS:
+    case GI_MM_SOUL_NPC_DAMPE:
+    case GI_MM_SOUL_NPC_CHEST_GAME_OWNER:
+    case GI_MM_SOUL_NPC_GORON_SHOPKEEPER:
+    case GI_MM_SOUL_NPC_HONEY_DARLING:
+    case GI_MM_SOUL_NPC_RUTO:
+    case GI_MM_SOUL_NPC_MEDIGORON:
+    case GI_MM_SOUL_NPC_BIGGORON:
+    case GI_MM_SOUL_NPC_TALON:
+    case GI_MM_SOUL_NPC_ASTRONOMER:
+    case GI_MM_SOUL_NPC_POE_COLLECTOR:
+    case GI_MM_SOUL_NPC_BOMBCHU_BOWLING_LADY:
+    case GI_MM_SOUL_NPC_FISHING_POND_OWNER:
+    case GI_MM_SOUL_NPC_ROOFTOP_MAN:
+    case GI_MM_SOUL_NPC_ZORA:
+    case GI_MM_SOUL_NPC_ZORA_SHOPKEEPER:
+    case GI_MM_SOUL_NPC_MALON:
+    case GI_MM_SOUL_NPC_BEAN_SALESMAN:
+    case GI_MM_SOUL_NPC_CARPENTERS:
+    case GI_MM_SOUL_NPC_ANJU:
+    case GI_MM_SOUL_NPC_GURU_GURU:
+    case GI_MM_SOUL_NPC_SCIENTIST:
+    case GI_MM_SOUL_NPC_GORMAN:
+    case GI_MM_SOUL_NPC_GROG:
+    case GI_MM_SOUL_NPC_DOG_LADY:
+    case GI_MM_SOUL_NPC_CARPET_MAN:
+    case GI_MM_SOUL_NPC_OLD_HAG:
+    case GI_MM_SOUL_NPC_BANKER:
+        return !Config_Flag(CFG_SHARED_SOULS_NPC);
     case GI_OOT_SOUL_MISC_GS:
     case GI_OOT_SOUL_MISC_BUSINESS_SCRUB:
     case GI_MM_SOUL_MISC_GS:
@@ -425,17 +496,14 @@ static int isItemAmbiguous(s16 gi)
     case GI_OOT_TUNIC_GORON:
     case GI_MM_TUNIC_GORON:
         return (Config_Flag(CFG_MM_TUNIC_GORON) && !Config_Flag(CFG_SHARED_TUNIC_GORON));
-        break;
     case GI_OOT_TUNIC_ZORA:
     case GI_MM_TUNIC_ZORA:
         return (Config_Flag(CFG_MM_TUNIC_ZORA) && !Config_Flag(CFG_SHARED_TUNIC_ZORA));
-        break;
     case GI_OOT_SCALE_SILVER:
     case GI_OOT_SCALE_GOLDEN:
     case GI_MM_SCALE_SILVER:
     case GI_MM_SCALE_GOLDEN:
         return (Config_Flag(CFG_MM_SCALES) && !Config_Flag(CFG_SHARED_SCALES));
-        break;
     case GI_OOT_GORON_BRACELET:
     case GI_OOT_SILVER_GAUNTLETS:
     case GI_OOT_GOLDEN_GAUNTLETS:
@@ -443,11 +511,17 @@ static int isItemAmbiguous(s16 gi)
     case GI_MM_SILVER_GAUNTLETS:
     case GI_MM_GOLDEN_GAUNTLETS:
         return (Config_Flag(CFG_MM_STRENGTH) && !Config_Flag(CFG_SHARED_STRENGTH));
-        break;
+    case GI_OOT_SWORD_KOKIRI:
+    case GI_MM_SWORD_KOKIRI:
+        return !Config_Flag(CFG_SHARED_SWORDS);
+    case GI_OOT_SWORD_RAZOR:
+    case GI_OOT_SWORD_GILDED:
+    case GI_MM_SWORD_RAZOR:
+    case GI_MM_SWORD_GILDED:
+        return Config_Flag(CFG_OOT_EXTRA_CHILD_SWORDS) && !Config_Flag(CFG_SHARED_SWORDS);
     case GI_OOT_MAGIC_BEAN:
     case GI_OOT_BOTTLE_EMPTY:
     case GI_OOT_BOTTLE_MILK:
-    case GI_OOT_SWORD_KOKIRI:
     case GI_OOT_MILK:
     case GI_OOT_POTION_RED:
     case GI_OOT_POTION_GREEN:
@@ -471,7 +545,6 @@ static int isItemAmbiguous(s16 gi)
     case GI_MM_BOTTLE_POE:
     case GI_MM_BOTTLE_BIG_POE:
     case GI_MM_BOTTLE_EMPTY:
-    case GI_MM_SWORD_KOKIRI:
     case GI_MM_BOTTLE_MILK:
     case GI_MM_MILK:
     case GI_MM_POTION_RED:
@@ -670,10 +743,83 @@ void comboTextAppendItemName(char** b, s16 gi, int flags)
     comboTextAppendItemNameEx(b, gi, flags, -1);
 }
 
+static const char* nameOverride(s16 gi)
+{
+    if (Config_Flag(CFG_SHARED_SOULS_NPC))
+    {
+        switch (gi)
+        {
+        case GI_OOT_SOUL_NPC_SHOOTING_GALLERY_OWNER:
+        case GI_MM_SOUL_NPC_SHOOTING_GALLERY_OWNER:
+            return "the " TEXT_C1 "Soul of the Shooting Gallery/Town Archery Owner";
+        case GI_OOT_SOUL_NPC_BAZAAR_SHOPKEEPER:
+        case GI_MM_SOUL_NPC_BAZAAR_SHOPKEEPER:
+            return "the " TEXT_C1 "Soul of the Bazaar/Swamp Archery Owner";
+        case GI_OOT_SOUL_NPC_GORON_CHILD:
+        case GI_MM_SOUL_NPC_GORON_CHILD:
+            return "the " TEXT_C1 "Soul of the Goron Child/Baby";
+        case GI_OOT_SOUL_NPC_BOMBCHU_SHOPKEEPER:
+        case GI_MM_SOUL_NPC_BOMBCHU_SHOPKEEPER:
+            return "the " TEXT_C1 "Soul of the Bombchu/Bomb Shop Owner";
+        case GI_OOT_SOUL_NPC_BOMBERS:
+        case GI_MM_SOUL_NPC_BOMBERS:
+            return "the " TEXT_C1 "Soul of the Graveyard Kid/Bombers";
+        case GI_OOT_SOUL_NPC_CHEST_GAME_OWNER:
+        case GI_MM_SOUL_NPC_CHEST_GAME_OWNER:
+            return "the " TEXT_C1 "Soul of the Chest Game Owner/Fisherman";
+        case GI_OOT_SOUL_NPC_RUTO:
+        case GI_MM_SOUL_NPC_RUTO:
+            return "the " TEXT_C1 "Soul of Ruto/Lulu";
+        case GI_OOT_SOUL_NPC_MEDIGORON:
+        case GI_MM_SOUL_NPC_MEDIGORON:
+            return "the " TEXT_C1 "Soul of Medigoron/Keg Trial Goron";
+        case GI_OOT_SOUL_NPC_TALON:
+        case GI_MM_SOUL_NPC_TALON:
+            return "the " TEXT_C1 "Soul of Talon/Mr. Barten";
+        case GI_OOT_SOUL_NPC_POE_COLLECTOR:
+        case GI_MM_SOUL_NPC_POE_COLLECTOR:
+            return "the " TEXT_C1 "Soul of Poe Collector/Ghost Hut Owner";
+        case GI_OOT_SOUL_NPC_BOMBCHU_BOWLING_LADY:
+        case GI_MM_SOUL_NPC_BOMBCHU_BOWLING_LADY:
+            return "the " TEXT_C1 "Soul of Bombchu Bowling/Chest Game Lady";
+        case GI_OOT_SOUL_NPC_FISHING_POND_OWNER:
+        case GI_MM_SOUL_NPC_FISHING_POND_OWNER:
+            return "the " TEXT_C1 "Soul of Fishing Pond/Trading Post Owner";
+        case GI_OOT_SOUL_NPC_ROOFTOP_MAN:
+        case GI_MM_SOUL_NPC_ROOFTOP_MAN:
+            return "the " TEXT_C1 "Soul of Rooftop Man/Part-Timer";
+        case GI_OOT_SOUL_NPC_MALON:
+        case GI_MM_SOUL_NPC_MALON:
+            return "the " TEXT_C1 "Soul of Malon/Romani/Cremia";
+        case GI_OOT_SOUL_NPC_ANJU:
+        case GI_MM_SOUL_NPC_ANJU:
+            return "the " TEXT_C1 "Soul of Cucco Lady/Anju";
+        case GI_OOT_SOUL_NPC_GORMAN:
+        case GI_MM_SOUL_NPC_GORMAN:
+            return "the " TEXT_C1 "Soul of Ingo/Gorman & Bros.";
+        case GI_OOT_SOUL_NPC_GROG:
+        case GI_MM_SOUL_NPC_GROG:
+            return "the " TEXT_C1 "Soul of the Punk Kid/Grog";
+        case GI_OOT_SOUL_NPC_CARPET_MAN:
+        case GI_MM_SOUL_NPC_CARPET_MAN:
+            return "the " TEXT_C1 "Soul of the Carpet Man/Swordsman";
+        case GI_OOT_SOUL_NPC_OLD_HAG:
+        case GI_MM_SOUL_NPC_OLD_HAG:
+            return "the " TEXT_C1 "Soul of the Old Hag/Anju's Grandmother";
+        case GI_OOT_SOUL_NPC_BANKER:
+        case GI_MM_SOUL_NPC_BANKER:
+            return "the " TEXT_C1 "Soul of the Beggar/Banker";
+        }
+    }
+
+    return NULL;
+}
+
 void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
 {
     char* start;
     const char* itemName;
+    const char* tmp;
     int ambiguous;
 
     ambiguous = isItemAmbiguous(gi);
@@ -697,20 +843,25 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
         }
     }
 
-    if(gi == GI_MM_BOMBER_NOTEBOOK)
+    if (gi == GI_MM_BOMBER_NOTEBOOK)
     {
         if(Config_Flag(CFG_MENU_NOTEBOOK))
             itemName = "the " TEXT_C1 "Bombers' Tracker";
     }
+
+    tmp = nameOverride(gi);
+    if (tmp)
+        itemName = tmp;
+
     if (flags & TF_PROGRESSIVE)
     {
         switch (gi)
         {
         case GI_OOT_SWORD_KOKIRI:
-            if (Config_Flag(CFG_OOT_PROGRESSIVE_SWORDS))
+            if (Config_Flag(CFG_OOT_PROGRESSIVE_SWORDS) || Config_Flag(CFG_OOT_EXTRA_CHILD_SWORDS))
             {
                 itemName = "a " TEXT_C1 "Progressive Sword";
-                ambiguous = 1;
+                ambiguous = !Config_Flag(CFG_SHARED_SWORDS);
             }
             break;
         case GI_OOT_SWORD_KNIFE:
@@ -721,7 +872,7 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
             break;
         case GI_MM_SWORD_KOKIRI:
             itemName = "a " TEXT_C1 "Progressive Sword";
-            ambiguous = 1;
+            ambiguous = !Config_Flag(CFG_SHARED_SWORDS);
             break;
         case GI_OOT_PROGRESSIVE_SHIELD_DEKU:
         case GI_MM_PROGRESSIVE_SHIELD_HERO:
@@ -789,7 +940,7 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
     comboTextAppendStr(b, itemName);
     comboTextAppendClearColor(b);
 
-    if (ambiguous)
+    if (ambiguous && !Config_Flag(CFG_ONLY_OOT) && !Config_Flag(CFG_ONLY_MM))
     {
         comboTextAppendStr(b, " (");
         if (gi >= GI_MM_RUPEE_GREEN)

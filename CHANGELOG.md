@@ -4,12 +4,28 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Add NPC souls to MM, more NPC souls in OoT, shared NPC souls.
+- Woods of Mystery has been logically reorganized to allow for leaving from the Day 2 Grotto in ER.
+
+### Fixed
+
+- Fix some silver blocks being only able to be pushed once in ageless strength.
+- Fix Koume/Kotake still giving red potions when they shouldn't.
+- Fix damage being wrong against Dead Hand in some cases.
+- Fix death after leaving a grotto in MM in ER leading to wrong warps in some cases.
+
+## [22.0] - 2024-04-24
+
 ### Jokes
 
 - (**April Fools**) Implement "Daylight Saving Time in MM", removing one hour every night.
 
 ### Added
 
+- Add Majora's Mask swords to Ocarina of Time.
+- Add the ability to play a single game.
 - Add ageless strength upgrades.
 - Add a setting to travel through time without the Master Sword.
 - Add a setting to play as swordless adult link.
@@ -32,7 +48,7 @@ All notable changes to this project will be documented in this file.
 
 - Change the fishing pond fish model.
 - Kotake no longer gives red potion refills when Koume isn't rescued.
-- Rework how Deku Tree behaves (it's now either always open or strictly opened by Mido).
+- Rework how Deku Tree behaves (it's now either always open, strictly opened by Mido, or vanilla behavior).
 - Rework how the sirloin function in indoor ER (+ new overworld ER) to allow shuffling the North in MM.
 - Saving is now enabled on the Clock Tower Roof with Moon Crash set to New Cycle.
 - Farore's Wind in MM is now tied to Link's age, like in OoT.
@@ -49,6 +65,7 @@ All notable changes to this project will be documented in this file.
 - Ruto's Soul is now accounted in logic for the Big Octo in Jabu-Jabu.
 - Logic for entering Woodfall Temple if exiting the temple itself has been fixed.
 - The "GBT without Fire Arrows" trick now correctly accounts for being tall and no longer requires Ice Arrows.
+- Fixed logic for reaching Swamp Canopy Front in MM.
 
 ## [21.0] - 2024-03-28
 
@@ -1146,7 +1163,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v21.0...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v22.0...HEAD
+[22.0]: https://github.com/OoTMM/OoTMM/compare/v21.0...v22.0
 [21.0]: https://github.com/OoTMM/OoTMM/compare/v20.0...v21.0
 [20.0]: https://github.com/OoTMM/OoTMM/compare/v19.2...v20.0
 [19.2]: https://github.com/OoTMM/OoTMM/compare/v19.1...v19.2

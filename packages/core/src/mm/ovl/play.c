@@ -10,6 +10,7 @@
 #include <combo/item.h>
 #include <combo/global.h>
 #include <combo/multi.h>
+#include <combo/context.h>
 
 GameState_Play* gPlay;
 int gNoTimeFlow;
@@ -321,8 +322,9 @@ static void applyGrottoExit(u32* entrance, const GrottoExit* ge)
     rs->unk_18 = 0;
     rs->tempCollectFlags = 0;
 
-    /* Copy to the void respawn */
+    /* Copy to the void and death respawn */
     memcpy(&gSaveContext.respawn[0], rs, sizeof(RespawnData));
+    memcpy(&gSaveContext.respawn[2], rs, sizeof(RespawnData));
 
     /* Set the respawn flags */
     gSaveContext.respawnFlag = 4;
@@ -774,12 +776,6 @@ void hookPlay_Init(GameState_Play* play)
         }
         g.isCredits = 1;
     }
-
-    if (gSave.entranceIndex == ENTR_MM_CLOCK_TOWER_FROM_CLOCK_TOWN)
-    {
-        comboGameSwitch(play, ENTR_OOT_MARKET_FROM_MASK_SHOP);
-        return;
-    }
 }
 
 void Play_UpdateWrapper(GameState_Play* play)
@@ -814,6 +810,15 @@ void Play_TransitionDone(GameState_Play* play)
         entrance = gForeignSave.fw.entranceIndex | MASK_FOREIGN_ENTRANCE;
         gComboCtx.isFwSpawn = 1;
         break;
+    }
+
+    /* Game switch */
+    if (entrance == ENTR_MM_CLOCK_TOWER_FROM_CLOCK_TOWN)
+    {
+        if (!Config_Flag(CFG_ONLY_MM))
+            entrance = ENTR_OOT_MARKET_FROM_MASK_SHOP | MASK_FOREIGN_ENTRANCE;
+        else
+            entrance = ENTR_MM_CLOCK_TOWN;
     }
 
     /* Handle grotto exits */

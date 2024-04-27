@@ -103,6 +103,7 @@
 #define IA_MM_CLOCK             0x5f
 #define IA_ENDGAME              0x60
 #define IA_OOT_SONG_EMPTINESS   0x61
+#define IA_OOT_SWORD_EXTRA      0x62
 #define IA_NONE                 0xff
 
 #define ITT_NONE        0x00
@@ -223,5 +224,7 @@ u8 comboSceneKey(u8 sceneId);
 void comboPlayItemFanfare(s16 gi, int isShort);
 
 s16 comboItemResolve(GameState_Play* play, s16 gi);
+
+s16 comboProgressive(s16 gi, int ovflags);
 
 #endif
