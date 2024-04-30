@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Add Free Scarecrow for MM.
+- Add NPC souls to MM, more NPC souls in OoT, shared NPC souls.
+
 ### Changed
 
-- Add NPC souls to MM, more NPC souls in OoT, shared NPC souls.
 - Woods of Mystery has been logically reorganized to allow for leaving from the Day 2 Grotto in ER.
 
 ### Fixed
