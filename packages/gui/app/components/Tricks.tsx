@@ -1,53 +1,67 @@
 import React from 'react';
+import { DoubleList } from './DoubleList';
 import { TRICKS } from '@ootmm/core';
-
+import { TrickKey } from '@ootmm/core/lib/combo/settings';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faFileLines } from '@fortawesome/free-solid-svg-icons';
 import { useSettings } from '../contexts/GeneratorContext';
-import { ArrayList } from './ArrayList';
-import { Group } from './Group';
-import { Text } from './Text';
+import { Tooltip } from './Tooltip';
+import { GameName } from './GameName';
 
-const NAMES = {
-  OOT: 'Ocarina of Time',
-  MM: 'Majora\'s Mask',
+const GAMES_NAMES = {
+  oot: "Ocarina of Time",
+  mm: "Majora's Mask",
 };
 
-export function GameTricks({ game }: { game: keyof typeof NAMES }) {
-  const [settings, setSettings] = useSettings();
-  const tricks = Object.keys(TRICKS).filter(x => x.startsWith(game));
-  const options = tricks.map(trick => ({ value: trick, label: TRICKS[trick as keyof typeof TRICKS] }));
+function trickExtra(trick: TrickKey) {
+  const t = TRICKS[trick];
+  return (
+    <>
+      {t.linkVideo && <a target="_blank" href={t.linkVideo} title="Video Example"><FontAwesomeIcon icon={faYoutube}/></a>}
+      {t.linkText && <a target="_blank" href={t.linkText} title="Relevant Written Documentation"><FontAwesomeIcon icon={faFileLines}/></a>}
+      {t.tooltip && <Tooltip>{t.tooltip}</Tooltip>}
+    </>
+  );
+}
 
-  const add = (trick: string) => {
-    setSettings({ tricks: { add: [trick as keyof typeof TRICKS] } });
+type GameTricksProps = {
+  game: 'oot' | 'mm';
+}
+function GameTricks({ game }: GameTricksProps) {
+  const [settings, setSettings] = useSettings();
+  const gameTricks = Object.keys(TRICKS).filter((x) => x.startsWith(game.toUpperCase()));
+  const selectedGameTricks = gameTricks.filter((x) => settings.tricks.includes(x));
+  const options = gameTricks.map((trickKey) => ({ key: trickKey, label: TRICKS[trickKey].name, extra: trickExtra(trickKey) }));
+
+  const add = (t: string[]) => {
+    setSettings({ tricks: { add: t } });
   };
 
-  const remove = (trick: string) => {
-    setSettings({ tricks: { remove: [trick as keyof typeof TRICKS] } });
-  }
+  const remove = (t: string[]) => {
+    setSettings({ tricks: { remove: t } });
+  };
+
+  const reset = () => {
+    setSettings({ tricks: { set: [] } });
+  };
 
   return (
-    <Group direction='vertical' spacing='xs'>
-      <Text size="jb">{NAMES[game]}</Text>
-      <ArrayList options={options} selected={settings.tricks.filter(x => tricks.includes(x))} add={add} remove={remove}/>
-    </Group>
+    <div>
+      <GameName game={game}/>
+      <DoubleList onAdd={add} onRemove={remove} onReset={reset} options={options} selected={selectedGameTricks}/>
+    </div>
   );
 }
 
 export function Tricks() {
-  const [_, setSettings] = useSettings();
-  const clear = () => {
-    setSettings({ tricks: { set: [] } });
-  }
-
   return (
-    <Group direction='vertical' spacing='xxl'>
-      <Text size="mg">Tricks</Text>
-      <Group direction='vertical' spacing='xl'>
-        <button className="btn-danger" onClick={clear} style={{width: '120px'}}>Remove All</button>
-        <div className="two-column-grid">
-          <GameTricks game="OOT"/>
-          <GameTricks game="MM"/>
-        </div>
-      </Group>
-    </Group>
-  )
+    <main>
+      <h1>Tricks</h1>
+      <div className="dual-panels">
+        <GameTricks game="oot"/>
+        <GameTricks game="mm"/>
+      </div>
+    </main>
+  );
 }

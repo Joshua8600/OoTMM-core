@@ -37,7 +37,8 @@ const VALIDATION_CRITICAL_ITEMS = [
 
 export type ItemPlacement = Map<Location, PlayerItem>;
 
-const NORMAL_DUNGEONS = ['DT', 'DC', 'JJ', 'Forest', 'Fire', 'Water', 'Shadow', 'Spirit', 'WF', 'SH', 'GB', 'ST'];
+const NORMAL_DUNGEONS_OOT = ['DT', 'DC', 'JJ', 'Forest', 'Fire', 'Water', 'Shadow', 'Spirit'];
+const NORMAL_DUNGEONS_MM = ['WF', 'SH', 'GB', 'ST'];
 
 const DUNGEON_ITEMS = {
   DT: [
@@ -200,7 +201,7 @@ const DUNGEON_ITEMS = {
   Moon: [],
 }
 
-const REWARDS_DUNGEONS = [
+const REWARDS_DUNGEONS_OOT = [
   'DT',
   'DC',
   'JJ',
@@ -209,13 +210,16 @@ const REWARDS_DUNGEONS = [
   'Water',
   'Shadow',
   'Spirit',
+  'BotW',
+  'IC',
+  'GTG',
+];
+
+const REWARDS_DUNGEONS_MM = [
   'WF',
   'SH',
   'GB',
   'ST',
-  'BotW',
-  'IC',
-  'GTG',
   'SSH',
   'OSH',
   'PF',
@@ -231,6 +235,17 @@ type ItemPools = {
   junk: PlayerItems,
   nothing: PlayerItems,
 };
+
+function normalDungeons(settings: Settings) {
+  const dungeons: string[] = [];
+  if (settings.games !== 'mm') {
+    dungeons.push(...NORMAL_DUNGEONS_OOT);
+  }
+  if (settings.games !== 'oot') {
+    dungeons.push(...NORMAL_DUNGEONS_MM);
+  }
+  return dungeons;
+}
 
 const removeItemPools = (pools: ItemPools, item: PlayerItem) => {
   const keys = ['extra', 'required', 'nice', 'junk', 'nothing'] as const;
@@ -742,7 +757,7 @@ export class LogicPassSolver {
 
   private selectPreCompletedDungeonsItem(worldId: number, items: PlayerItems, count: number, group: Set<Item>) {
     const world = this.worlds[worldId];
-    const dungeons = shuffle(this.input.random, [...NORMAL_DUNGEONS]);
+    const dungeons = shuffle(this.input.random, normalDungeons(this.input.settings));
 
     while (dungeons.length) {
       const stoneCount = Array.from(items.keys()).filter(x => group.has(x.item)).length;
@@ -771,7 +786,7 @@ export class LogicPassSolver {
 
   private selectPreCompletedDungeonsMajor(worldId: number) {
     const world = this.worlds[worldId];
-    let dungeons = shuffle(this.input.random, [...NORMAL_DUNGEONS]);
+    let dungeons = shuffle(this.input.random, normalDungeons(this.input.settings));
 
     while (dungeons.length) {
       if (world.preCompleted.size >= this.input.settings.preCompletedDungeonsMajor) {
@@ -933,7 +948,15 @@ export class LogicPassSolver {
   private placeDungeonRewardsInDungeons() {
     const allDungeons: Set<string>[] = [];
     for (let i = 0; i < this.input.settings.players; ++i) {
-      allDungeons.push(new Set([...REWARDS_DUNGEONS]));
+      if (this.input.settings.games === 'oot') {
+        allDungeons.push(new Set([...REWARDS_DUNGEONS_OOT]));
+      }
+      if (this.input.settings.games === 'mm') {
+        allDungeons.push(new Set([...REWARDS_DUNGEONS_MM]));
+      }
+      else {
+        allDungeons.push(new Set([...REWARDS_DUNGEONS_OOT, ...REWARDS_DUNGEONS_MM]));
+      }
     }
 
     const rewards = shuffle(this.input.random, countMapArray(this.state.pools.required)

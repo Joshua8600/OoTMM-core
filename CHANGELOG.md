@@ -6,19 +6,42 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add a setting to display custom music names in-game.
 - Add Free Scarecrow for MM.
 - Add NPC souls to MM, more NPC souls in OoT, shared NPC souls.
+- Add cutscenes speed-ups for the end of Ganon's Castle Trials.
+- Add new junk hints.
+- Ruto now spawns on first floor of Jabu-Jabu if it's vanilla layout (not MQ!).
 
 ### Changed
 
+- Make the medallion fanfare and the mask fanfare cross-games.
+- Allow compatible OoTR music to play in MM.
+- Allow compatible MMR music to play in OoT.
 - Woods of Mystery has been logically reorganized to allow for leaving from the Day 2 Grotto in ER.
+- Reduced Meg spawn timer after being hit.
+- Removed the camera lock upon throwing a bomb-flower onto the rock locking Dodongo's Cavern.
+- Boat Archery now ends right as you reach 20 points.
+- Hyrulian Castle Guards now ignores you if you are wearing Stone Mask.
 
 ### Fixed
 
+- Fix Tricks section in spoiler log.
+- Fix some actors (Part-Timer in Termina Field, Running Man, Punk Kid) not being properly filtered.
+- Fix rupee scaling affecting bank withdraws.
+- Fix one fish not being properly flagged when obtained in pond fish shuffle.
 - Fix some silver blocks being only able to be pushed once in ageless strength.
 - Fix Koume/Kotake still giving red potions when they shouldn't.
 - Fix damage being wrong against Dead Hand in some cases.
 - Fix death after leaving a grotto in MM in ER leading to wrong warps in some cases.
+- Fix an issue with rewards within dungeons using only OOT or only MM.
+- Fix logic issue for Spirit Temple Statue Upper Right chest not checking for Hookshot or Hover Boots in certain conditions.
+- Fix possible softlock on Volvagia when damaging her second hitbox after death cutscene was initiated.
+- Update blitz presets.
+- Fix crash when trying to calm the council without the souls of all involved parties.
+- Fix crash in Twinmold Arena when trying to transform into Giant without Twinmold's soul.
+- Fix logic issue with Laundry Pool freestanding rupees checking for Day 2 and Night 2 instead of Night 2 only.
+- Fix Farore's Wind in MM not being correctly restricted.
 
 ## [22.0] - 2024-04-24
 

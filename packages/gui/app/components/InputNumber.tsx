@@ -1,7 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { Group } from './Group';
+
+import { Tooltip } from './Tooltip';
 
 type InputNumberProps = {
   label?: string;
@@ -9,16 +8,16 @@ type InputNumberProps = {
   onChange: (value: number) => void;
   min?: number;
   max?: number;
-  tooltip?: string;
+  tooltip?: React.ReactNode;
 }
 
 export const InputNumber = ({ label, value, onChange, min, max, tooltip }: InputNumberProps) => {
   return (
     <label>
-       <Group direction='vertical' spacing='xs'>
+       <>
         <span>
           {label}
-          {tooltip && <a className="tooltip-link" id={tooltip} href="#"><FontAwesomeIcon icon={faQuestionCircle}/></a>}
+          {tooltip && <Tooltip>{tooltip}</Tooltip>}
         </span>
         <input
           type="number"
@@ -27,7 +26,7 @@ export const InputNumber = ({ label, value, onChange, min, max, tooltip }: Input
           value={value}
           onChange={(e) => onChange(e.target.valueAsNumber)}
         />
-       </Group>
+       </>
     </label>
   );
 };

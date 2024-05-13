@@ -4,6 +4,8 @@ import { merge } from 'lodash';
 
 import * as API from '../api';
 
+let settingsTicket = 0;
+
 type GeneratorState = {
   romConfig: {
     files: {
@@ -17,8 +19,10 @@ type GeneratorState = {
   generator: {
     isGenerating: boolean;
     message: string | null;
+    progress: number | null;
     error: string | null;
     result: GeneratorOutput | null;
+    archive: API.ResultFile | null;
   },
   isPatch: boolean;
   settings: Settings;
@@ -66,8 +70,10 @@ function createState(): GeneratorState {
     generator: {
       isGenerating: false,
       message: null,
+      progress: null,
       error: null,
       result: null,
+      archive: null,
     }
   };
 }
@@ -91,15 +97,27 @@ export function GeneratorContextProvider({ children }: { children: React.ReactNo
     setState(state => ({ ...state, isPatch }));
   };
 
-  const setSettings = (patch: SettingsPatch) => {
-    const newSettings = mergeSettings(state.settings, patch);
-    setState(state => ({ ...state, settings: newSettings }));
-    return newSettings;
+  const overrideSettings = (settings: Settings) => {
+    const ticket = ++settingsTicket;
+    setState(state => ({ ...state, settings }));
+    localStorage.setItem('settings', JSON.stringify(settings));
+    API.itemPoolFromSettings(settings).then((itemPool) => {
+      if (ticket !== settingsTicket) {
+        return;
+      }
+      setState((state) => {
+        const startingItems = API.restrictItemsByPool(state.settings.startingItems, itemPool);
+        const newSettings = { ...state.settings, startingItems };
+        localStorage.setItem('settings', JSON.stringify(newSettings));
+        return { ...state, settings: makeSettings(newSettings), itemPool };
+      });
+    });
+    return settings;
   };
 
-  const overrideSettings = (settings: Settings) => {
-    setState(state => ({ ...state, settings }));
-    return settings;
+  const setSettings = (patch: SettingsPatch) => {
+    const newSettings = mergeSettings(state.settings, patch);
+    return overrideSettings(newSettings);
   };
 
   const setCosmetics = (patch: Partial<Cosmetics>) => {
@@ -141,41 +159,44 @@ export function useIsPatch() {
 export function useGenerator() {
   const { state, setState } = useContext(GeneratorContext);
   const { generator } = state;
-  const { isGenerating, message, error, result } = generator;
+  const { isGenerating, message, progress, error, result, archive } = generator;
 
   const generate = async () => {
-    setState((state) => ({ ...state, generator: { ...state.generator, isGenerating: true } }));
+    setState((state) => ({ ...state, generator: { ...state.generator, isGenerating: true, archive: null, result: null, error: null } }));
     const { oot, mm, patch } = state.romConfig.files;
     const options: OptionsInput = { seed: state.romConfig.seed, settings: state.settings, cosmetics: state.cosmetics, random: state.random };
     try {
-      const result = await API.generate({ oot: oot!, mm: mm!, patch: patch ? patch : undefined }, options, (message) => {
+      const onMessage = (message: string) => {
         console.log(message);
-        setState((state) => ({ ...state, generator: { ...state.generator, message } }));
-      });
+        setState((state) => ({ ...state, generator: { ...state.generator, message, progress: null } }));
+      };
+
+      const onProgress = (progress: number, total: number) => {
+        let newProgress: number | null;
+        if (total === 0) {
+          newProgress = null;
+        } else {
+          newProgress = Math.floor(progress * 1000 / total) * 0.1;
+        }
+
+        setState((state) => ({ ...state, generator: { ...state.generator, progress: newProgress } }));
+      };
+
+      const result = await API.generate({ oot: oot!, mm: mm!, patch: patch ? patch : undefined }, options, onMessage, onProgress);
       setState((state) => ({ ...state, generator: { ...state.generator, isGenerating: false, result } }));
+      const archive = await API.archive(result);
+      setState((state) => ({ ...state, generator: { ...state.generator, archive } }));
     } catch (e: any) {
       setState((state) => ({ ...state, generator: { ...state.generator, isGenerating: false, error: e.toString() } }));
     }
   };
 
-  return { isGenerating, message, error, result, generate };
+  return { isGenerating, message, error, result, archive, generate, progress };
 }
 
 export function useSettings() {
   const ctx = useContext(GeneratorContext);
-  const setSettings = (patch: SettingsPatch) => {
-    const newSettings = ctx.setSettings(patch);
-    localStorage.setItem('settings', JSON.stringify(newSettings));
-    API.itemPoolFromSettings(newSettings).then((itemPool) => {
-      ctx.setState((state) => {
-        const startingItems = API.restrictItemsByPool(state.settings.startingItems, itemPool);
-        const newSettings = { ...state.settings, startingItems };
-        localStorage.setItem('settings', JSON.stringify(newSettings));
-        return { ...state, settings: makeSettings(newSettings), itemPool };
-      });
-    });
-  };
-  return [ctx.state.settings, setSettings] as const;
+  return [ctx.state.settings, ctx.setSettings] as const;
 }
 
 export function useRandomSettings() {

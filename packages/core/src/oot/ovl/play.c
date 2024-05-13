@@ -10,6 +10,8 @@
 #include <combo/dpad.h>
 #include <combo/multi.h>
 #include <combo/context.h>
+#include <combo/dungeon.h>
+#include <combo/audio.h>
 
 GameState_Play* gPlay;
 
@@ -59,6 +61,10 @@ static void eventFixes(GameState_Play* play)
         if (!(tmp & 0xff))
             tmp |= 0x1e;
         gSave.eventsMisc[20] = tmp;
+
+        /* Places Ruto on first floor */
+        if (!(gComboConfig.mq & (1 << MQ_JABU_JABU)))
+            BITMAP16_SET(gSave.eventsMisc, EV_OOT_INF_RUTO_TOP_FLOOR);
 
         /* Ruto kidnap fixes */
         if (BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED) || BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE))
@@ -543,6 +549,7 @@ void Play_UpdateWrapper(GameState_Play* play)
     comboObjectsGC();
     Play_Update(play);
     Dpad_Draw(play);
+    Audio_DisplayMusicName(play);
     Debug_Update();
 }
 
