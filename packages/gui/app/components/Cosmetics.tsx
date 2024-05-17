@@ -9,7 +9,7 @@ import { Checkbox } from './Checkbox';
 const COLOR_OPTIONS: { name: string, value: string}[] = [{ value: 'default', name: 'Default' }, { value: 'auto', name: 'Auto' }, { value: 'random', name: 'Random' }, ...Object.entries(COLORS).map(([key, x]) => ({ name: x.name, value: key }))];
 
 function Cosmetic({ cosmetic }: { cosmetic: keyof Cosmetics }) {
-  const [cosmetics, setCosmetics] = useCosmetics();
+  const [cosmetics, setCosmetic] = useCosmetics();
   const data = COSMETICS.find(x => x.key === cosmetic)!;
 
   switch (data.type) {
@@ -20,27 +20,17 @@ function Cosmetic({ cosmetic }: { cosmetic: keyof Cosmetics }) {
         value={cosmetics[cosmetic] as string}
         label={data.name}
         options={COLOR_OPTIONS}
-        onChange={v => setCosmetics({ [cosmetic]: v })}
+        onChange={v => setCosmetic(cosmetic, v)}
       />
     );
-  case 'zobj':
+  case 'file':
     return (
       <FileSelect
         logo="oot"
         label={data.name}
-        accept=".zobj"
-        file={`cosmetics.${cosmetic}`}
-        onChange={(f) => setCosmetics({ [cosmetic]: f })}
-      />
-    );
-  case 'zip':
-    return (
-      <FileSelect
-        logo="oot"
-        label={data.name}
-        accept=".zip"
-        file={`cosmetics.${cosmetic}`}
-        onChange={(f) => setCosmetics({ [cosmetic]: f })}
+        accept={`.${data.ext}`}
+        file={cosmetics[cosmetic] as File | null}
+        onChange={(f) => setCosmetic(cosmetic, f)}
       />
     );
   case 'boolean':
@@ -48,7 +38,7 @@ function Cosmetic({ cosmetic }: { cosmetic: keyof Cosmetics }) {
       <Checkbox
         label={data.name}
         checked={!!(cosmetics[cosmetic])}
-        onChange={(v) => setCosmetics({ [cosmetic]: v })}
+        onChange={(v) => setCosmetic(cosmetic, v)}
       />
     );
   default:
@@ -59,9 +49,8 @@ function Cosmetic({ cosmetic }: { cosmetic: keyof Cosmetics }) {
 export function CosmeticsEditor() {
   const options: { name: string, value: string}[] = Object.entries(COLORS).map(([key, x]) => ({ name: x.name, value: key }));
   options.push({ name: "Random", value: "random" });
-  const fileTypes = ['zobj', 'zip'];
-  const nonFiles = COSMETICS.filter(c => !fileTypes.includes(c.type));
-  const files = COSMETICS.filter(c => fileTypes.includes(c.type));
+  const nonFiles = COSMETICS.filter(c => c.type !== 'file');
+  const files = COSMETICS.filter(c => c.type === 'file');
 
   return <main>
     <h1>Cosmetics</h1>

@@ -15,7 +15,9 @@ type MusicEntry = {
 }
 
 const MUSIC: {[k: string]: MusicEntry} = {
+  OOT_FILE_SELECT: { type: 'bgm', name: 'File Select', oot: [0x57] },
   OOT_HYRULE_FIELD: { type: 'bgm', name: 'Hyrule Field', oot: [0x02] },
+  OOT_DODONGO_CAVERN: { type: 'bgm', name: 'Dodongo Cavern', oot: [0x18] },
   OOT_KAKARIKO_ADULT: { type: 'bgm', name: 'Kakariko Adult', oot: [0x19] },
   OOT_BATTLE: { type: 'bgm', name: 'Battle (OoT)', oot: [0x1a] },
   OOT_BATTLE_BOSS: { type: 'bgm', name: 'Boss Battle (OoT)', oot: [0x1b] },
@@ -25,7 +27,7 @@ const MUSIC: {[k: string]: MusicEntry} = {
   OOT_HOUSES: { type: 'bgm', name: 'Houses', oot: [0x1f] },
   OOT_JABU_JABU: { type: 'bgm', name: 'Jabu Jabu', oot: [0x26] },
   OOT_KAKARIKO_CHILD: { type: 'bgm', name: 'Kakariko Child', oot: [0x27] },
-  OOT_FAIRY_FOUNTAIN: { type: 'bgm', name: 'Fairy Fountain', oot: [0x28, 0x57] },
+  OOT_FAIRY_FOUNTAIN: { type: 'bgm', name: 'Fairy Fountain', oot: [0x28] },
   OOT_ZELDA_THEME: { type: 'bgm', name: 'Zelda Theme', oot: [0x29] },
   OOT_TEMPLE_FIRE: { type: 'bgm', name: 'Fire Temple', oot: [0x2a] },
   OOT_TEMPLE_FOREST: { type: 'bgm', name: 'Forest Temple', oot: [0x2c] },
@@ -58,8 +60,12 @@ const MUSIC: {[k: string]: MusicEntry} = {
   OOT_ESCAPE_CASTLE: { type: 'bgm', name: 'Castle Escape', oot: [0x62] },
   OOT_UNDERGROUND_CASTLE: { type: 'bgm', name: 'Castle Underground', oot: [0x63] },
   OOT_BATTLE_GANONDORF: { type: 'bgm', name: 'Ganondorf Battle', oot: [0x64] },
+  OOT_BATTLE_GANON: { type: 'bgm', name: 'Ganon Battle', oot: [0x65] },
   OOT_BATTLE_BOSS_FIRE: { type: 'bgm', name: 'Fire Temple Boss', oot: [0x6b] },
   OOT_MINIGAME: { type: 'bgm', name: 'Minigame', oot: [0x6c] },
+  OOT_GROTTOS: { type: 'bgm', name: 'OoT Grottos', oot: [0x6e] },
+  OOT_GRAVES: { type: 'bgm', name: 'OoT Graves', oot: [0x6f] },
+  OOT_GERUDO_TRAINING_GROUNDS: { type: 'bgm', name: 'Gerudo Training Grounds', oot: [0x70] },
   MM_TERMINA_FIELD: { type: 'bgm', name: 'Termina Field', mm: [0x02] },
   MM_TEMPLE_STONE_TOWER: { type: 'bgm', name: 'Stone Tower Temple', mm: [0x06] },
   MM_TEMPLE_STONE_TOWER_INVERTED: { type: 'bgm', name: 'Stone Tower Temple Inverted', mm: [0x07] },
@@ -81,7 +87,7 @@ const MUSIC: {[k: string]: MusicEntry} = {
   MM_MINIGAME2: { type: 'bgm', name: 'Minigame 2 (MM)', mm: [0x25] },
   MM_GORON_RACE: { type: 'bgm', name: 'Goron Race', mm: [0x26] },
   MM_MUSIC_BOX_HOUSE: { type: 'bgm', name: 'Music Box House', mm: [0x27] },
-  MM_FAIRYS_FOUNTAIN: { type: 'bgm', name: 'Fairy\'s Fountain', mm: [0x28] },
+  MM_FAIRYS_FOUNTAIN: { type: 'bgm', name: 'Fairy\'s Fountain', mm: [0x28] /* 0x18 = File Select */ },
   MM_MARINE_RESEARCH_LABORATORY: { type: 'bgm', name: 'Marine Research Laboratory', mm: [0x2c] },
   MM_ROMANI_RANCH: { type: 'bgm', name: 'Romani Ranch', mm: [0x2f] },
   MM_GORON_VILLAGE: { type: 'bgm', name: 'Goron Village', mm: [0x30] },
@@ -90,7 +96,7 @@ const MUSIC: {[k: string]: MusicEntry} = {
   MM_MINIBOSS: { type: 'bgm', name: 'Mini Boss', mm: [0x38] },
   MM_ASTRAL_OBSERVATORY: { type: 'bgm', name: 'Astral Observatory', mm: [0x3a] },
   MM_BOMBERS_HIDEOUT: { type: 'bgm', name: 'Bombers Hideout', mm: [0x3b] },
-  MM_MILK_BAR_LATTE: { type: 'bgm', name: 'Milk Bar Latte', mm: [0x3c] },
+  MM_MILK_BAR: { type: 'bgm', name: 'Milk Bar', mm: [0x3c, 0x56] },
   MM_WOODS_OF_MYSTERY: { type: 'bgm', name: 'Woods of Mystery', mm: [0x3e] },
   MM_GORMAN_RACE: { type: 'bgm', name: 'Gorman Race', mm: [0x40] },
   MM_GORMAN_BROS: { type: 'bgm', name: 'Gorman Bros.', mm: [0x42] },
@@ -98,7 +104,7 @@ const MUSIC: {[k: string]: MusicEntry} = {
   MM_STORE: { type: 'bgm', name: 'Store', mm: [0x44] },
   MM_TARGET_PRACTICE: { type: 'bgm', name: 'Target Practice', mm: [0x46] },
   MM_SWORD_TRAINING: { type: 'bgm', name: 'Sword Training', mm: [0x50] },
-  MM_FINAL_HOURS: { type: 'bgm', name: 'Final Hours', mm: [0x57] },
+  MM_FINAL_HOURS: { type: 'bgm', name: 'Final Hours', mm: [0x57, 0x60] /* Not clear why there are two versions */ },
   MM_TEMPLE_SNOWHEAD: { type: 'bgm', name: 'Snowhead Temple', mm: [0x65] },
   MM_TEMPLE_GREAT_BAY: { type: 'bgm', name: 'Great Bay Temple', mm: [0x66] },
   MM_BATTLE_MAJORA3: { type: 'bgm', name: 'Majora\'s Wrath', mm: [0x69] },
@@ -114,6 +120,8 @@ const MUSIC: {[k: string]: MusicEntry} = {
   FANFARE_SHARED_ITEM_STONE: { type: 'fanfare', name: 'Fanfare Item Stone', oot: [0x32], mm: [] },
   FANFARE_SHARED_ITEM_MEDALLION: { type: 'fanfare', name: 'Fanfare Item Medallion', oot: [0x43], mm: [] },
   FANFARE_SHARED_ITEM_OCARINA: { type: 'fanfare', name: 'Fanfare Item Ocarina', oot: [0x3d], mm: [0x52] },
+  FANFARE_OOT_GAME_OVER: { type: 'fanfare', name: 'Fanfare Game Over (OoT)', oot: [0x20] },
+  FANFARE_OOT_BOSS_CLEAR: { type: 'fanfare', name: 'Fanfare Boss Clear (OoT)', oot: [0x21] },
 };
 
 type MusicFile = {
@@ -127,81 +135,69 @@ type MusicFile = {
   games: Game[];
 };
 
+const DIACRITICS_BASES = {
+  'á': 'a',
+  'à': 'a',
+  'â': 'a',
+  'ä': 'a',
+  'Á': 'A',
+  'À': 'A',
+  'Â': 'A',
+  'Ä': 'A',
+  'é': 'e',
+  'è': 'e',
+  'ê': 'e',
+  'ë': 'e',
+  'É': 'E',
+  'È': 'E',
+  'Ê': 'E',
+  'Ë': 'E',
+  'í': 'i',
+  'ì': 'i',
+  'î': 'i',
+  'ï': 'i',
+  'Í': 'I',
+  'Ì': 'I',
+  'Î': 'I',
+  'Ï': 'I',
+  'ó': 'o',
+  'ò': 'o',
+  'ô': 'o',
+  'ö': 'o',
+  'Ó': 'O',
+  'Ò': 'O',
+  'Ô': 'O',
+  'Ö': 'O',
+  'ú': 'u',
+  'ù': 'u',
+  'û': 'u',
+  'ü': 'u',
+  'Ú': 'U',
+  'Ù': 'U',
+  'Û': 'U',
+  'Ü': 'U',
+  'ý': 'y',
+  'ÿ': 'y',
+  'Ý': 'Y',
+  'Ÿ': 'Y',
+  'ç': 'c',
+  'Ç': 'C',
+  'ñ': 'n',
+  'Ñ': 'N',
+  'æ': 'ae',
+  'Æ': 'AE',
+  'œ': 'oe',
+  'Œ': 'OE',
+};
+
 function saneName(name: string) {
   /* Force NFC */
   name = name.normalize('NFC');
 
-  /* A diacritics */
-  for (const m of ['á', 'à', 'â', 'ä']) {
-    name = name.replace(m, 'a');
+  /* Remove diacritics */
+  for (const [base, repl] of Object.entries(DIACRITICS_BASES)) {
+    name = name.replaceAll(base, repl);
   }
-  for (const m of ['Á', 'À', 'Â', 'Ä']) {
-    name = name.replace(m, 'A');
-  }
-
-  /* E diacritics */
-  for (const m of ['é', 'è', 'ê', 'ë']) {
-    name = name.replace(m, 'e');
-  }
-  for (const m of ['É', 'È', 'Ê', 'Ë']) {
-    name = name.replace(m, 'E');
-  }
-
-  /* I diacritics */
-  for (const m of ['í', 'ì', 'î', 'ï']) {
-    name = name.replace(m, 'i');
-  }
-  for (const m of ['Í', 'Ì', 'Î', 'Ï']) {
-    name = name.replace(m, 'I');
-  }
-
-  /* O diacritics */
-  for (const m of ['ó', 'ò', 'ô', 'ö']) {
-    name = name.replace(m, 'o');
-  }
-  for (const m of ['Ó', 'Ò', 'Ô', 'Ö']) {
-    name = name.replace(m, 'O');
-  }
-
-  /* U diacritics */
-  for (const m of ['ú', 'ù', 'û', 'ü']) {
-    name = name.replace(m, 'u');
-  }
-  for (const m of ['Ú', 'Ù', 'Û', 'Ü']) {
-    name = name.replace(m, 'U');
-  }
-
-  /* Y diacritics */
-  for (const m of ['ý', 'ÿ']) {
-    name = name.replace(m, 'y');
-  }
-  for (const m of ['Ý', 'Ÿ']) {
-    name = name.replace(m, 'Y');
-  }
-
-  /* C diacritics */
-  for (const m of ['ç']) {
-    name = name.replace(m, 'c');
-  }
-  for (const m of ['Ç']) {
-    name = name.replace(m, 'C');
-  }
-
-  /* N diacritics */
-  for (const m of ['ñ']) {
-    name = name.replace(m, 'n');
-  }
-  for (const m of ['Ñ']) {
-    name = name.replace(m, 'N');
-  }
-
-  /* AE */
-  name = name.replace('æ', 'ae');
-  name = name.replace('Æ', 'AE');
-
-  /* OE */
-  name = name.replace('œ', 'oe');
-  name = name.replace('Œ', 'OE');
 
   /* Remove every other non-ascii */
   name = name.replace(/[^ -~]/g, '');
@@ -411,7 +407,7 @@ class MusicInjector {
         continue;
       }
       const categoriesData = await categoriesTxt.async('text');
-      const categories = categoriesData.trim().split(',');
+      const categories = categoriesData.split(/[,-]/).map(x => x.trim());
 
       /* Extract the bank ID from the zseq filename */
       let zseqFilename = zseqFiles[0].name;

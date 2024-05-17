@@ -352,27 +352,23 @@ export const TRICKS: Tricks = {
     name: 'Precise Hookshot Usage',
     tooltip:
       'Using the short hookshot gives you logical access to:<br>- the Deku Palace Bean Grotto chest<br>- the Road to Ikana chest and tree',
-    linkVideo: 'Needs Link',
   },
   MM_PFI_BOAT_HOOK: {
     name: 'Enter Pirate Fortress Interior using Hookshot from the Boats',
     tooltip: 'From the boats, you can make a precise hookshot to a barrel',
-    linkVideo: 'Needs Link',
   },
   MM_PALACE_GUARD_SKIP: {
     name: 'Backflip over Deku Palace Guards',
     tooltip: 'With a precise backflip on the fence, jump over the guards as human link',
     linkVideo: 'https://www.youtube.com/watch?v=-4F9lzES7tM&ab_channel=Pokemongenius88',
   },
-  MM_SHT_FIRELESS: {
-    name: 'Complete Snowhead Temple without Fire Arrows',
-    tooltip: 'Using torches and jumps, melt the ice with normal arrows',
-    linkVideo: 'https://youtu.be/arkzqsYWHWg?list=PL0NLeF-0sduxYgyvvamWsX9IfZpd4smNr',
+  MM_SHT_HOT_WATER: {
+    name: 'Complete Snowhead Temple using Hot Spring Water',
+    tooltip: 'Use Hot Spring Water to melt all the ice instead of Fire Arrows or Din\'s Fire.',
   },
   MM_SHT_STICKS_RUN: {
     name: 'Access SHT Pillar Fireless with Precise Stick Run',
-    tooltip: 'With a precise path, light the three torches (or use flame storage for a glitched run)',
-    linkVideo: 'https://www.youtube.com/watch?v=vuP_vRb6ZTI&ab_channel=Pokemongenius88',
+    tooltip: 'With a precise path, light the three torches.',
   },
   MM_SHT_PILLARLESS: {
     name: 'Snowhead Temple Skip Raising Pillar',
@@ -426,13 +422,11 @@ export const TRICKS: Tricks = {
   MM_WELL_HSW: {
     name: "Well's Hot Spring Water without Killing Dexihand",
     tooltip: 'Grab the water before the hand grabs you.',
-    linkVideo: 'Needs Link',
   },
   MM_ISTT_CHUCHU_LESS: {
     name: 'ISTT Block Room without Chuchu Jellies',
     tooltip:
       'Normally the room contains Chuchu Jellies to restock your arrows and magic. With this trick on, logic can expect to do this room without the Soul of Chuchus.',
-    linkVideo: 'Needs Link',
   },
   MM_GBT_WATERWHEEL_GORON: {
     name: 'Cross GBT Waterwheel Room as Goron',

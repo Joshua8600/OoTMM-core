@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add a setting to allow the player to keep ammo/rupees/etc. through cycles.
 - Add the ability to use music with custom banks.
 - Add the ability to use custom fanfares.
 - Add fanfares for cross-game items.
@@ -18,6 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Update MM only preset.
 - Improved custom music support.
 - Make the medallion fanfare and the mask fanfare cross-games.
 - Allow compatible OoTR music to play in MM.
@@ -27,9 +29,12 @@ All notable changes to this project will be documented in this file.
 - Removed the camera lock upon throwing a bomb-flower onto the rock locking Dodongo's Cavern.
 - Boat Archery now ends right as you reach 20 points.
 - Hyrulian Castle Guards now ignores you if you are wearing Stone Mask.
+- Renamed the "Snowhead Temple without Fire Arrows" trick to "...using Hot Spring Water" to reflect its purpose.
 
 ### Fixed
 
+- Fixed a bug with region-state flags that could create unbeatable seeds.
+- Fix minor bugs with swordless link.
 - Fix phantom shields being equipped on age travel in some very rare cases.
 - Fix Tricks section in spoiler log.
 - Fix some actors (Part-Timer in Termina Field, Running Man, Punk Kid) not being properly filtered.
@@ -47,6 +52,7 @@ All notable changes to this project will be documented in this file.
 - Fix crash in Twinmold Arena when trying to transform into Giant without Twinmold's soul.
 - Fix logic issue with Laundry Pool freestanding rupees checking for Day 2 and Night 2 instead of Night 2 only.
 - Fix Farore's Wind in MM not being correctly restricted.
+- Fix logic issue regarding the barrier in Ganon's Castle and certain ER cases.
 
 ## [22.0] - 2024-04-24
 
