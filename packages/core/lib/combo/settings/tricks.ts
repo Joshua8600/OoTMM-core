@@ -584,6 +584,9 @@ export const TRICKS: Tricks = {
   MM_KEG_TRIAL_HEATLESS: {
     name: 'Powder Keg Trial without Thawing Ice using Hookshot Anywhere',
   },
+  MM_NO_SOT_RESET: {
+    name: 'Trick for NNL for the "CanResetTime" macro to not include SoT',
+  },
 };
 
 export const DEFAULT_TRICKS: TrickKey[] = ['OOT_NIGHT_GS'];
