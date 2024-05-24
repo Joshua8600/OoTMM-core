@@ -9,6 +9,7 @@
 #include <combo/dpad.h>
 #include <combo/multi.h>
 #include <combo/global.h>
+#include <combo/mask.h>
 #include "../actors.h"
 
 void ArrowCycle_Handle(Actor_Player* link, GameState_Play* play);
@@ -1517,10 +1518,96 @@ s32 Player_OverrideLimbDrawGameplayDefault_Custom(GameState_Play* play, s32 limb
     return 0;
 }
 
+static void Player_FormChangeResetState(Actor_Player* this)
+{
+    this->base.speedXZ = 0.f;
+    this->base.velocity.x = 0.f;
+    this->base.velocity.y = 0.f;
+    this->base.velocity.z = 0.f;
+
+    /*
+     * KLUDGE: This is a workaround for various glitches related to fast-masking
+     * quickly on a shore. Should be fixed properly someday.
+     */
+    this->state ^= 0x08000000;
+    this->state3 &= ~0x8000;
+}
+
+static void Player_ToggleForm(Actor_Player* link, int form)
+{
+    /* Sanity checks */
+    if (link->base.draw == NULL)
+        return;
+    if (link->state & 0x7c7080)
+        return;
+    if (link->state3 & 0x1000)
+        return;
+
+    /* Toggle form */
+    if (gSave.playerForm == form)
+        gSave.playerForm = MM_PLAYER_FORM_HUMAN;
+    else
+        gSave.playerForm = (u8)form;
+
+    /* Start the process */
+    *((u8*)link + 0xae7) = 0;
+    link->base.update = Player_UpdateForm;
+    link->base.draw = NULL;
+    link->state |= PLAYER_ACTOR_STATE_FROZEN;
+    Player_FormChangeResetState(link);
+}
+
+static s8 sNextForm = -1;
+
+void Player_TryUpdateForm(Actor_Player* this, GameState_Play* play)
+{
+    if (sNextForm != -1)
+    {
+        Player_ToggleForm(this, sNextForm);
+        sNextForm = -1;
+    }
+    else if (this->base.update == Player_UpdateForm)
+    {
+        Player_FormChangeResetState(this);
+        Player_UpdateForm(this, play);
+        if (this->base.update != Player_UpdateForm)
+            this->state &= ~PLAYER_ACTOR_STATE_FROZEN;
+    }
+}
+
 void Player_UseItem(GameState_Play* play, Actor_Player* this, s16 itemId)
 {
     void (*Player_UseItemImpl)(GameState_Play* play, Actor_Player* this, s16 itemId);
+    u8 useDefault;
 
-    Player_UseItemImpl = OverlayAddr(0x80831990);
-    Player_UseItemImpl(play, this, itemId);
+    useDefault = 1;
+
+    if (Config_Flag(CFG_MM_FAST_MASKS))
+    {
+        switch (itemId)
+        {
+        case ITEM_MM_MASK_DEKU:
+            sNextForm = MM_PLAYER_FORM_DEKU;
+            useDefault = 0;
+            break;
+        case ITEM_MM_MASK_GORON:
+            sNextForm = MM_PLAYER_FORM_GORON;
+            useDefault = 0;
+            break;
+        case ITEM_MM_MASK_ZORA:
+            sNextForm = MM_PLAYER_FORM_ZORA;
+            useDefault = 0;
+            break;
+        case ITEM_MM_MASK_FIERCE_DEITY:
+            sNextForm = MM_PLAYER_FORM_FIERCE_DEITY;
+            useDefault = 0;
+            break;
+        }
+    }
+
+    if (useDefault)
+    {
+        Player_UseItemImpl = OverlayAddr(0x80831990);
+        Player_UseItemImpl(play, this, itemId);
+    }
 }

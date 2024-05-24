@@ -6,6 +6,20 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add many bank QoL.
+- Add a setting to automatically plant beans in OoT.
+
+### Changed
+
+- The rupee counter now goes much faster when large amounts of rupees are obtained/lost.
+- Fill Wallets is now almost instantaneous.
+- Using Deku Mask or Hover Boots to float from Ikana Castle to the sun block entrance is now a trick.
+
+## [23.0] - 2024-05-22
+
+### Added
+
+- Add a fast mask transforms setting.
 - Add a setting to allow the player to keep ammo/rupees/etc. through cycles.
 - Add the ability to use music with custom banks.
 - Add the ability to use custom fanfares.
@@ -19,6 +33,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Make the sun song check actually swap day/night like in vanilla.
 - Update MM only preset.
 - Improved custom music support.
 - Make the medallion fanfare and the mask fanfare cross-games.
@@ -33,6 +48,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fixed the special conditions validator to account for the extra added masks in OoT.
 - Fixed a bug with region-state flags that could create unbeatable seeds.
 - Fix minor bugs with swordless link.
 - Fix phantom shields being equipped on age travel in some very rare cases.
@@ -1201,7 +1217,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v22.0...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v23.0...HEAD
+[23.0]: https://github.com/OoTMM/OoTMM/compare/v22.0...v23.0
 [22.0]: https://github.com/OoTMM/OoTMM/compare/v21.0...v22.0
 [21.0]: https://github.com/OoTMM/OoTMM/compare/v20.0...v21.0
 [20.0]: https://github.com/OoTMM/OoTMM/compare/v19.2...v20.0

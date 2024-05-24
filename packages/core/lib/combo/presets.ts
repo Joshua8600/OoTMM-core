@@ -86,6 +86,7 @@ const BLITZ_BASE: PartialDeep<Settings> = {
   sharedScales: true,
   sharedStrength: true,
   keepItemsReset: true,
+  fastMasks: true,
   startingItems: {
     OOT_NUTS_10: 2,
     OOT_SHIELD_DEKU: 1,
@@ -581,7 +582,8 @@ const PRESET_HELL = makeSettings({
     'MM_ZORA_HALL_SCRUB_HP_NO_DEKU',
     'MM_ZORA_HALL_DOORS',
     'MM_IKANA_ROOF_PARKOUR',
-    'MM_IKANA_PILLAR_TO_ENTRANCE',
+    'MM_IKANA_PILLAR_ENTRANCE_FLOAT',
+    'MM_IKANA_PILLAR_ENTRANCE_JUMP',
     'MM_POST_OFFICE_GAME',
     'MM_WELL_HSW',
     'MM_GBT_WATERWHEEL_GORON',

@@ -1,6 +1,6 @@
 import { Item, ItemGroups, Items, ItemsCount } from '../items';
 import { ItemID } from '../items/defs';
-import { GLITCHES, SETTINGS, Settings, TRICKS, TrickKey } from '../settings';
+import { SETTINGS, Settings, TRICKS, TrickKey } from '../settings';
 import { Age } from './pathfind';
 import { PRICE_RANGES } from './price';
 import { ResolvedWorldFlags, WORLD_FLAGS, World } from './world';
@@ -64,6 +64,13 @@ const CONSTRAINT_FLAGS = [
 ];
 
 type RecursiveArray<T> = Array<T | RecursiveArray<T>>;
+
+type ExprDependencies = {
+  items: Set<Item>;
+  events: Set<string>;
+};
+
+const DEPENDENCIES_EMPTY: ExprDependencies = { items: new Set(), events: new Set() };
 
 type ExprResultFalse = {
   result: false;
@@ -149,7 +156,6 @@ type State = {
   licenses: ItemsCount;
   age: Age;
   events: Set<string>;
-  ignoreItems: boolean;
   areaData: AreaData;
   world: World;
   settings: Settings;
@@ -194,19 +200,14 @@ export const exprRestrictionsOr = (exprs: ExprResult[]): ExprRestrictions => {
 const itemCount = (state: State, item: Item): number => state.items.get(item) || 0;
 const itemsCount = (state: State, items: Item[]): number => items.reduce((acc, item) => acc + itemCount(state, item), 0);
 
-function resolveSpecialCond(settings: Settings, state: State, special: string): ExprResult {
+function specialCondSets(settings: Settings, special: string) {
   const { specialConds } = settings;
   if (!specialConds.hasOwnProperty(special)) {
     throw new Error(`Unknown special condition: ${special}`);
   }
-
-  if (state.ignoreItems) {
-    return RESULT_TRUE;
-  }
-
+  const cond = specialConds[special as keyof typeof specialConds];
   let items = new Set<Item>();
   let itemsUnique = new Set<Item>();
-  const cond = specialConds[special as keyof typeof specialConds];
 
   if (cond.stones) itemsUnique = new Set([...itemsUnique, ...ItemGroups.STONES]);
   if (cond.medallions) itemsUnique = new Set([...itemsUnique, ...ItemGroups.MEDALLIONS]);
@@ -228,6 +229,14 @@ function resolveSpecialCond(settings: Settings, state: State, special: string): 
   if (cond.coinsBlue) items.add(Items.OOT_COIN_BLUE);
   if (cond.coinsYellow) items.add(Items.OOT_COIN_YELLOW);
 
+  return { items, itemsUnique };
+}
+
+function resolveSpecialCond(settings: Settings, state: State, special: string): ExprResult {
+  const { items, itemsUnique } = specialCondSets(settings, special);
+  const { specialConds } = settings;
+  const cond = specialConds[special as keyof typeof specialConds];
+
   const countUnique = [...itemsUnique].filter((item) => itemCount(state, item) > 0).length;
   const result = itemsCount(state, [...items]) + countUnique >= cond.count;
 
@@ -236,6 +245,22 @@ function resolveSpecialCond(settings: Settings, state: State, special: string): 
 
 const exprMap = new Map<string, Expr>();
 const exprKeyId = new Map<string, number>();
+
+function mergeDependencies(deps: ExprDependencies[]): ExprDependencies {
+  const items = new Set<Item>();
+  const events = new Set<string>();
+
+  for (const d of deps) {
+    for (const i of d.items) {
+      items.add(i);
+    }
+    for (const e of d.events) {
+      events.add(e);
+    }
+  }
+
+  return { items, events };
+}
 
 export abstract class Expr {
   readonly key: string;
@@ -369,78 +394,103 @@ export class ExprAge extends Expr {
   }
 }
 
-class ExprHas extends Expr {
+export class ExprHas extends Expr {
   readonly item: Item;
   readonly count: number;
+  private readonly resultFalse: ExprResultFalse;
 
   constructor(item: Item, count: number) {
     const key = `HAS(${item.id},${count})`;
     super(key);
     this.item = item;
     this.count = count;
+    this.resultFalse = { result: false, depItems: [item], depEvents: [] };
   }
 
   eval(state: State): ExprResult {
-    const result = state.ignoreItems || itemCount(state, this.item) >= this.count;
-    return { result, depItems: [this.item], depEvents: [] };
+    if (itemCount(state, this.item) >= this.count) {
+      return RESULT_TRUE;
+    } else {
+      return this.resultFalse;
+    }
   }
 }
 
-class ExprRenewable extends Expr {
+export class ExprRenewable extends Expr {
   readonly item: Item;
+  readonly resultFalse: ExprResultFalse;
 
   constructor(item: Item) {
     const key = `RENEWABLE(${item.id})`;
     super(key);
     this.item = item;
+    this.resultFalse = { result: false, depItems: [item], depEvents: [] };
   }
 
   eval(state: State): ExprResult {
-    const result = state.ignoreItems || (state.renewables.get(this.item) || 0) > 0;
-    return { result, depItems: [this.item], depEvents: [] };
+    if ((state.renewables.get(this.item) || 0) > 0) {
+      return RESULT_TRUE;
+    } else {
+      return this.resultFalse;
+    }
   }
 }
 
-class ExprLicense extends Expr {
+export class ExprLicense extends Expr {
   readonly item: Item;
+  readonly resultFalse: ExprResultFalse;
 
   constructor(item: Item) {
     const key = `LICENSE(${item.id})`;
     super(key);
     this.item = item;
+    this.resultFalse = { result: false, depItems: [item], depEvents: [] };
   }
 
   eval(state: State): ExprResult {
-    const result = state.ignoreItems || (state.licenses.get(this.item) || 0) > 0;
-    return { result, depItems: [this.item], depEvents: [] };
+    if ((state.licenses.get(this.item) || 0) > 0) {
+      return RESULT_TRUE;
+    } else {
+      return this.resultFalse;
+    }
   }
 }
 
 class ExprEvent extends Expr {
   readonly event: string;
+  readonly resultFalse: ExprResultFalse;
 
   constructor(event: string) {
     super(`EVENT(${event})`);
     this.event = event;
+    this.resultFalse = { result: false, depItems: [], depEvents: [event] };
   }
 
   eval(state: State): ExprResult {
-    const result = state.events.has(this.event);
-    return { result, depItems: [], depEvents: [this.event] };
+    if (state.events.has(this.event)) {
+      return RESULT_TRUE;
+    } else {
+      return this.resultFalse;
+    }
   }
 }
 
 class ExprMasks extends Expr {
   readonly count: number;
+  readonly resultFalse: ExprResultFalse;
 
   constructor(count: number) {
     super(`MASKS(${count})`);
     this.count = count;
+    this.resultFalse = { result: false, depItems: [...ItemGroups.MASKS_REGULAR], depEvents: [] };
   }
 
   eval(state: State): ExprResult {
-    const result = state.ignoreItems || itemsCount(state, [...ItemGroups.MASKS_REGULAR]) >= this.count;
-    return { result, depItems: [...ItemGroups.MASKS_REGULAR], depEvents: [] };
+    if (itemsCount(state, [...ItemGroups.MASKS_REGULAR]) >= this.count) {
+      return RESULT_TRUE;
+    } else {
+      return this.resultFalse;
+    }
   }
 }
 
@@ -448,7 +498,7 @@ class ExprSpecial extends Expr {
   readonly type = 'special';
   readonly special: string;
 
-  constructor(special: string) {
+  constructor(settings: Settings, special: string) {
     super(`SPECIAL(${special})`);
     this.special = special;
   }
@@ -474,11 +524,7 @@ class ExprTimeOot extends Expr {
       restrictions.oot[negation] = true;
       return { result: true, depItems: [], depEvents: [], restrictions };
     } else {
-      return {
-        result: false,
-        depItems: [],
-        depEvents: [],
-      };
+      return RESULT_FALSE;
     }
   }
 }
@@ -500,11 +546,7 @@ class ExprTimeMm extends Expr {
       restrictions.mmTime2 = ~this.value2 >>> 0;
       return { result: true, restrictions, depItems: [], depEvents: [] };
     } else {
-      return {
-        result: false,
-        depItems: [],
-        depEvents: [],
-      };
+      return RESULT_FALSE;
     }
   }
 }
@@ -521,8 +563,7 @@ class ExprPrice extends Expr {
 
   eval(state: State): ExprResult {
     const price = state.world.prices[this.slot];
-    const result = price <= this.max;
-    return { result, depItems: [], depEvents: [] };
+    return price <= this.max ? RESULT_TRUE : RESULT_FALSE;
   }
 }
 
@@ -680,8 +721,8 @@ export const exprMasks = (count: number): Expr => {
   return exprMemo(new ExprMasks(count));
 };
 
-export const exprSpecial = (special: string): Expr => {
-  return exprMemo(new ExprSpecial(special));
+export const exprSpecial = (settings: Settings, special: string): Expr => {
+  return exprMemo(new ExprSpecial(settings, special));
 };
 
 export const exprSetting = (settings: Settings, resolvedFlags: ResolvedWorldFlags, setting: string, value: any): Expr => {
@@ -716,13 +757,6 @@ export const exprTrick = (settings: Settings, trick: string): Expr => {
     throw new Error(`Trick ${trick} not found`);
   }
   return settings.tricks.includes(trick as TrickKey) ? EXPR_TRUE : EXPR_FALSE;
-};
-
-export const exprGlitch = (settings: Settings, glitch: string): Expr => {
-  if (!GLITCHES.hasOwnProperty(glitch)) {
-    throw new Error(`Glitch ${glitch} not found`);
-  }
-  return settings.glitches.includes(glitch as keyof typeof GLITCHES) ? EXPR_TRUE : EXPR_FALSE;
 };
 
 export const exprOotTime = (time: string): Expr => {

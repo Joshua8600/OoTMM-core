@@ -9,6 +9,7 @@ import { Location, isLocationChestFairy, isLocationOtherFairy, isLocationRenewab
 import { Item, ItemGroups, ItemHelpers, Items, ItemsCount, PlayerItem, PlayerItems, itemByID, makePlayerItem } from '../items';
 import { exprTrue } from './expr';
 import { ItemProperties } from './item-properties';
+import { optimizeWorld } from './optimizer';
 
 const VALIDATION_CRITICAL_ITEMS = [
   Items.MM_SONG_TIME,
@@ -318,7 +319,7 @@ export class LogicPassSolver {
       placedCount: 0,
     }
     this.pathfinder = new Pathfinder(this.worlds, this.input.settings, this.state.startingItems);
-    this.pathfinderState = this.pathfinder.run(null);
+    this.pathfinderState = this.pathfinder.run(null, { recursive: true });
     this.makeItemPools();
   }
 
@@ -392,11 +393,11 @@ export class LogicPassSolver {
     /* Place required items */
     if (this.input.settings.logic !== 'none') {
       this.retry(() => {
-        this.pathfinderState = this.pathfinder.run(null);
+        this.pathfinderState = this.pathfinder.run(null, { recursive: true });
 
         for (;;) {
           /* Pathfind */
-          this.pathfinderState = this.pathfinder.run(this.pathfinderState, { ganonMajora: this.input.settings.goal === 'triforce3', inPlace: true, recursive: true, items: this.state.items });
+          this.pathfinderState = this.pathfinder.run(this.pathfinderState, { inPlace: true, recursive: true, items: this.state.items });
 
           let goal = true;
           if (this.input.settings.logic === 'allLocations') {
@@ -592,7 +593,7 @@ export class LogicPassSolver {
 
     for (;;) {
       pathfinderState = this.pathfinder.run(pathfinderState, { inPlace: true, items: this.state.items });
-      if (!pathfinderState.changed) {
+      if (!pathfinderState.newLocations.size) {
         break;
       }
       for (const l of pathfinderState.newLocations) {
@@ -885,8 +886,9 @@ export class LogicPassSolver {
     }
 
     /* We need to reset the pathfinder as we changed the starting items and the world */
+    this.worlds.forEach(x => optimizeWorld(x));
     this.pathfinder = new Pathfinder(this.worlds, this.input.settings, this.state.startingItems);
-    this.pathfinderState = this.pathfinder.run(null);
+    this.pathfinderState = this.pathfinder.run(null, { recursive: true });
   }
 
   private placeSemiShuffled() {
@@ -1071,7 +1073,7 @@ export class LogicPassSolver {
         /* Pathfind to see how many locations this item unlocks */
         const assumedItems: PlayerItems = new Map;
         assumedItems.set(pi, 1);
-        const pathfindState = this.pathfinder.run(null, { recursive: true, items: this.state.items, assumedItems, stopAtGoal: true });
+        const pathfindState = this.pathfinder.run(null, { recursive: true, items: this.state.items, assumedItems });
         const newAvailableLocsCount = [...pathfindState.locations].filter(x => !this.state.items.has(x)).length;
         const netGain = newAvailableLocsCount - availableLocsCount - 1;
 
@@ -1161,7 +1163,7 @@ export class LogicPassSolver {
         const loc = unplacedLocs.pop()!;
         const newPlacement = new Map(this.state.items);
         newPlacement.set(loc, requiredItem);
-        const result = this.pathfinder.run(null, { recursive: true, stopAtGoal: true, items: newPlacement, assumedItems: pool, ganonMajora: this.input.settings.goal === 'triforce3' });
+        const result = this.pathfinder.run(null, { recursive: true, items: newPlacement, assumedItems: pool });
         let goal: boolean;
         if (this.input.settings.goal === 'triforce3') {
           goal = result.ganonMajora;

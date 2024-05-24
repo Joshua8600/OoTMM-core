@@ -240,6 +240,9 @@ PATCH_CALL(0x8010af50, Actor_ByteCode_DisplayTextBox2_Hook);
 
 static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
 {
+    if (g.isCredits)
+        return 1;
+
     switch (actorId)
     {
     case AC_EN_GINKO_MAN:
@@ -532,7 +535,7 @@ static int canSpawnActor(GameState_Play* play, s16 actorId, u16 variable)
     switch (actorId)
     {
     case AC_EN_SYATEKI_OKUTA:
-        if (play->sceneId == SCE_MM_SHOOTING_GALLERY && gSave.day > 3)
+        if (play->sceneId == SCE_MM_SHOOTING_GALLERY && (gSave.day > 3 || gSave.day < 1))
             return 0;
         /* Fallthrough */
     default:

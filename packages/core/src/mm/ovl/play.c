@@ -394,6 +394,45 @@ void preInitTitleScreen(void)
     gComboCtx.valid = 0;
 }
 
+static void Play_FixupSpawnTime(void)
+{
+    int firstHalfDay;
+
+    /* Check if we need to skip forward in time */
+    if (!(gSave.day == 0 || (gSave.day == 1 && gSave.time == 0x4000)))
+        return;
+
+    firstHalfDay = 6;
+    for (int i = 0; i < 6; ++i)
+    {
+        if (gSharedCustomSave.mm.halfDays & (1 << i))
+        {
+            firstHalfDay = i;
+            break;
+        }
+    }
+
+    if (firstHalfDay == 0)
+    {
+        /* Work around a vanilla bug */
+        if (gSave.entranceIndex != ENTR_MM_CLOCK_TOWN)
+            gSave.time = CLOCK_TIME(6, 1);
+        return;
+    }
+
+    /* We start on a later clock */
+    if (firstHalfDay & 1)
+    {
+        gSave.day = (firstHalfDay / 2) + 1;
+        gSave.time = 0xc000;
+    }
+    else
+    {
+        gSave.day = (firstHalfDay / 2);
+        gSave.time = 0x3fff;
+    }
+}
+
 void hookPlay_Init(GameState_Play* play)
 {
     u32 entrance;
@@ -616,6 +655,7 @@ void hookPlay_Init(GameState_Play* play)
     if (gSave.entranceIndex == ENTR_MM_CLOCK_TOWER || gSave.entranceIndex == ENTR_MM_MOON)
         gNoTimeFlow = 1;
 
+    Play_FixupSpawnTime();
     Play_Init(play);
 
     gLastEntrance = gSave.entranceIndex;
@@ -672,6 +712,7 @@ void hookPlay_Init(GameState_Play* play)
 
 void Play_UpdateWrapper(GameState_Play* play)
 {
+    Actor_Player* link;
     /* Auto-press A during credits */
     if (g.isCredits)
         play->gs.input[0].pressed.buttons = (play->gs.frameCount & 1) ? A_BUTTON : 0;
@@ -681,6 +722,8 @@ void Play_UpdateWrapper(GameState_Play* play)
     malloc_check();
     comboCacheGarbageCollect();
     comboObjectsGC();
+    link = GET_LINK(play);
+    Player_TryUpdateForm(link, play);
     Play_Update(play);
     Audio_DisplayMusicName(play);
     Debug_Update();

@@ -998,6 +998,14 @@ export const SETTINGS = [{
   default: false,
   cond: hasOoTMM,
 }, {
+  key: 'ootPreplantedBeans',
+  name: 'Pre-Planted beans (OoT)',
+  category: 'main.events',
+  type: 'boolean',
+  description: 'Automatically plants beans for ',
+  default: false,
+  cond: hasOoT,
+}, {
   key: 'crossAge',
   name: 'Cross-Games Age',
   category: 'main.cross',
@@ -1113,6 +1121,14 @@ export const SETTINGS = [{
   category: 'main.misc',
   type: 'boolean',
   description: 'Keep items through a cycle reset',
+  default: false,
+  cond: hasMM,
+}, {
+  key: 'fastMasks',
+  name: 'Fast Form Transitions',
+  category: 'main.misc',
+  type: 'boolean',
+  description: 'Makes the mask transitions very fast',
   default: false,
   cond: hasMM,
 }, {

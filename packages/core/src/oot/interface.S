@@ -43,6 +43,8 @@ PATCH_START _Interface_UpdateButtonsPart2
 PATCH_END
 
 /* Handle swordless better */
+/* FIXME: Doesn't work very well, hence the PG */
+PATCH_GROUP PG_OOT_SWORDLESS_ADULT
 PATCH_START 0x8006e400
   nop
   nop
@@ -56,4 +58,15 @@ PATCH_END
 PATCH_START 0x8006e450
   nop
   nop
+PATCH_END
+PATCH_GROUP_END
+
+/* Don't use the default rupee delta code */
+PATCH_START 0x80078748
+  b .+0x158
+PATCH_END
+
+/* Use our wrapper */
+PATCH_START 0x8009bef8
+  jal Interface_Update
 PATCH_END
