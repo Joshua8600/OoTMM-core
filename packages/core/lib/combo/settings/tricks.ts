@@ -692,6 +692,10 @@ export const TRICKS: Tricks = {
     game: 'mm',
     name: 'Powder Keg Trial without Thawing Ice using Hookshot Anywhere',
   },
+  MM_NO_SOT_RESET: {
+    game: 'mm',
+    name: 'Trick for NNL for the "CanResetTime" macro to not include SoT',
+  },
   GLITCH_OOT_EQUIP_SWAP: {
     game: 'oot',
     name: "Equip Swap (OoT)",
