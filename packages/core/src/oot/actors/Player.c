@@ -9,6 +9,7 @@
 #include <combo/dpad.h>
 #include <combo/multi.h>
 #include <combo/actor.h>
+#include <combo/hint.h>
 
 void ArrowCycle_Handle(Actor_Player* link, GameState_Play* play);
 void Ocarina_HandleCustomSongs(Actor_Player* link, GameState_Play* play);
@@ -329,6 +330,10 @@ void Player_TalkDisplayTextBox(GameState_Play* play, s16 textId, Actor* actor)
     /* Ruto's Sapphire */
     if (textId == 0x4050)
         DemoEffect_TextRutoSapphire(play);
+
+    /* Navi */
+    if (textId == 0x0141)
+        Hint_DisplayJunkRandom(play);
 }
 
 PATCH_CALL(0x80838464, Player_TalkDisplayTextBox);

@@ -1,5 +1,6 @@
 #include <combo.h>
 #include <combo/item.h>
+#include <combo/hint.h>
 
 void EnGs_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
 {
@@ -38,7 +39,7 @@ void EnGs_MessageBox(GameState_Play* play, Actor* this)
         }
     }
     PlayerDisplayTextBox(play, 0x20d0, this);
-    comboHintGossip(key, play);
+    Hint_Display(play, key);
 }
 
 PATCH_CALL(0x80997e98, EnGs_MessageBox);

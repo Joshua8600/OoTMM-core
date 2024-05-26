@@ -622,6 +622,11 @@ export class LogicPassSolver {
           locs = new Map(this.locations.map(x => [x, 1] as const));
         }
         locs = new Map(Array.from(locs.entries()).filter(x => locationData(x[0]).world === worldId && !this.state.items.has(x[0])));
+        const medianSphere = Array.from(locs.values()).sort((a, b) => a - b)[Math.floor(locs.size / 2)];
+        const underMedian = Array.from(locs.keys()).filter(x => locs.get(x)! < medianSphere);
+        for (const l of underMedian) {
+          locs.delete(l);
+        }
         let locsArray = shuffle(this.input.random, countMapArray(locs));
         const triforces = [
           makePlayerItem(Items.SHARED_TRIFORCE_POWER, worldId),

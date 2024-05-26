@@ -7,6 +7,7 @@
 #include <combo/config.h>
 #include <combo/global.h>
 #include <combo/context.h>
+#include <combo/hint.h>
 
 ComboGlobal g;
 
@@ -27,7 +28,7 @@ void comboInit(void)
     comboInitData();
     comboInitObjects();
     comboInitOverride();
-    comboInitHints();
+    Hint_Init();
     comboInitEntrances();
     comboSilverRupeesInit();
     netInit();

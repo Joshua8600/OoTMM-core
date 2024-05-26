@@ -134,19 +134,6 @@ int toupper(int c);
 
 int comboDoorIsUnlocked(GameState_Play* play, Actor* actor);
 
-/* Hints */
-#define HINT_GOSSIP         0x00
-#define HINT_GOSSIP_GROTTO  0x01
-
-#define HINT_TYPE_PATH          0x00
-#define HINT_TYPE_FOOLISH       0x01
-#define HINT_TYPE_ITEM_EXACT    0x02
-#define HINT_TYPE_ITEM_REGION   0x03
-#define HINT_TYPE_JUNK          0x04
-
-void comboInitHints(void);
-void comboHintGossip(u8 key, GameState_Play* play);
-
 /* Entrance */
 void comboInitEntrances(void);
 s32 comboEntranceOverride(u32 entranceId);
