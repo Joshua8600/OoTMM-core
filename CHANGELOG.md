@@ -6,11 +6,22 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add a setting to shuffle Wonder Items (OoT, non-MQ).
+
+### Changed
+
+- The angle of interaction of MM gossip stones is more tolerant.
+
+## [23.1] - 2024-05-30
+
+### Added
+
 - Add many bank QoL.
 - Add a setting to automatically plant beans in OoT.
 
 ### Changed
 
+- Make multiworld items much faster to obtain.
 - Make triforce pieces in triforce quest land in slightly more challenging locations.
 - Make Navi give random junk hints when talked to.
 - Make OoT use the correct minimap state for fortress, graveyard and lake.
@@ -20,6 +31,10 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fix multiple pathfind bugs, leading to odd age-swap logic and very odd sometimes hints.
+- Fix MM swords in OoT not working against some ennemies.
+- Fix a crash when doing cremia's escort without gorman soul.
+- Fix moon crashing having odd side-effects with the clock sometimes.
 - Fix custom wisps rarely despawning sometimes.
 - Fix Fast Masks softlocks.
 - Fix a Fast Mask crash when deku link petals are on screen while transforming.
@@ -1226,7 +1241,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v23.0...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v23.1...HEAD
+[23.1]: https://github.com/OoTMM/OoTMM/compare/v23.0...v23.1
 [23.0]: https://github.com/OoTMM/OoTMM/compare/v22.0...v23.0
 [22.0]: https://github.com/OoTMM/OoTMM/compare/v21.0...v22.0
 [21.0]: https://github.com/OoTMM/OoTMM/compare/v20.0...v21.0

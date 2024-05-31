@@ -6,6 +6,7 @@
 #include <combo/config.h>
 #include <combo/global.h>
 #include <combo/inventory.h>
+#include <combo/multi.h>
 
 void EnGo_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
 void EnDnh_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
@@ -380,8 +381,6 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_SCIENTIST));
     case AC_EN_IN:
     case AC_EN_GM:
-        if (gSaveContext.gameMode || gSaveContext.minigameState == 1)
-            return 1;
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GORMAN));
     case AC_EN_HS:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GROG));
@@ -551,6 +550,10 @@ Actor* comboSpawnActorEx(ActorContext* actorCtx, GameState_Play *play, short act
 
     if (!canSpawnActor(play, actorId, variable))
         return NULL;
+
+    /* Patch for gorman on donkeys */
+    if (actorId == AC_EN_HORSE && ((variable & 0x1fff) == 0x13 || (variable & 0x1fff) == 0x14) && !comboHasSoulMm(GI_MM_SOUL_NPC_GORMAN))
+        variable = (variable & 0xe000);
 
     ret = canSpawnSoul(play, actorId, variable);
     if (ret <= 0)
@@ -818,6 +821,7 @@ void Actor_AfterDrawAll(GameState_Play* play)
     }
 
     Actor_DrawFaroresWindPointer(play);
+    Multi_DrawWisps(play);
 }
 
 typedef struct

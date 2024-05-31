@@ -6,6 +6,7 @@
 #include <combo/config.h>
 #include <combo/global.h>
 #include <combo/actor.h>
+#include <combo/multi.h>
 
 static s16 sActorIdToSpawn;
 
@@ -398,21 +399,37 @@ static int GetDamage(DamageTable* tbl, int type)
     return tbl->attack[type] & 0xf;
 }
 
+static int GetDamageEffect(DamageTable* tbl, int type)
+{
+    return tbl->attack[type] >> 4;
+}
+
 static void SetDamage(DamageTable* tbl, int type, int value)
 {
     tbl->attack[type] = (tbl->attack[type] & 0xf0) | (value & 0xf);
+}
+
+static void SetDamageEffect(DamageTable* tbl, int type, int value)
+{
+    tbl->attack[type] = (tbl->attack[type] & 0xf) | (value << 4);
 }
 
 static void Actor_UpdateDamageTable(Actor* this)
 {
     DamageTable* tbl;
     int dmg;
+    int dmgEffectKokiri;
+    int dmgEffectGiant;
 
     tbl = this->colChkInfo.damageTable;
     if (!tbl)
         return;
     if (GetDamage(tbl, 10) != 4)
         return; /* Weird table, better not touch */
+
+    dmgEffectKokiri = GetDamageEffect(tbl, 8);
+    dmgEffectGiant = GetDamageEffect(tbl, 10);
+
     if (GetDamage(tbl, 8) == 0 && !gSharedCustomSave.extraSwordsOot)
         return;
     dmg = 1 + gSharedCustomSave.extraSwordsOot;
@@ -424,6 +441,13 @@ static void Actor_UpdateDamageTable(Actor* this)
     SetDamage(tbl, 8, dmg);
     SetDamage(tbl, 22, dmg);
     SetDamage(tbl, 25, dmg * 2);
+
+    if (gSharedCustomSave.extraSwordsOot && (dmgEffectKokiri != dmgEffectGiant))
+    {
+        SetDamageEffect(tbl, 8, dmgEffectGiant);
+        SetDamageEffect(tbl, 22, dmgEffectGiant);
+        SetDamageEffect(tbl, 25, dmgEffectGiant);
+    }
 }
 
 void Actor_RunUpdate(Actor* this, GameState_Play* play, ActorFunc update)
@@ -456,4 +480,9 @@ void Actor_RunUpdate(Actor* this, GameState_Play* play, ActorFunc update)
         this->xzDistanceFromLink = xzDistanceFromLink;
         this->yDistanceFromLink = yDistanceFromLink;
     }
+}
+
+void Actor_AfterDrawAll(void)
+{
+    Multi_DrawWisps(gPlay);
 }
