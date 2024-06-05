@@ -6,11 +6,21 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Can now shuffle the rewards for selling the OoT masks.
 - Add a setting to shuffle Wonder Items (non-MQ).
+- Add a setting to make some OoT dungeons open.
 
 ### Changed
 
+- Castle Courtyard can now be revisited.
+- Zelda's Soul is now required for the OoT/SoT check.
 - The angle of interaction of MM gossip stones is more tolerant.
+- If a dungeon is pre-completed, you now start with the boss soul, keys and silver rupees of the dungeon.
+
+## Fixed
+
+- Fix Ikana Wisp showing up even if you did not beat Stone Tower Temple.
+- Fix some names in spoiler having their game as a suffix when they're unique.
 
 ## [23.1] - 2024-05-30
 

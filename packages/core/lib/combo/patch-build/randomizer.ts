@@ -9,7 +9,7 @@ import { DUNGEONS, Settings, SPECIAL_CONDS, SPECIAL_CONDS_FIELDS } from '../sett
 import { HINTS_PATHS, HintGossip, WorldHints } from '../logic/hints';
 import { countMapAdd, gameId, padBuffer16, toI8Buffer, toU16Buffer, toU32Buffer, toU8Buffer } from '../util';
 import { Patchfile } from './patchfile';
-import { LOCATIONS_ZELDA, makeLocation, makePlayerLocations } from '../logic/locations';
+import { locationsZelda, makeLocation, makePlayerLocations } from '../logic/locations';
 import { CONFVARS_VALUES, Confvar } from '../confvars';
 import { Region, regionData } from '../logic/regions';
 import { Item, ItemGroups, ItemHelpers, Items, ItemsCount } from '../items';
@@ -72,6 +72,7 @@ const SHARED_ITEMS_OOT = new Map([
   ['SHARED_RUPEE_PURPLE',     'OOT_RUPEE_PURPLE'],
   ['SHARED_RUPEE_SILVER',     'MM_RUPEE_SILVER'], /* OoT lacks silver rupee */
   ['SHARED_RUPEE_GOLD',       'OOT_RUPEE_HUGE'], /* Equivalent */
+  ['SHARED_RUPEE_RAINBOW',    'OOT_RUPEE_RAINBOW'],
   ['SHARED_HEART_PIECE',      'OOT_HEART_PIECE'],
   ['SHARED_HEART_CONTAINER',  'OOT_HEART_CONTAINER'],
   ['SHARED_RECOVERY_HEART',   'OOT_RECOVERY_HEART'],
@@ -143,6 +144,7 @@ const SHARED_ITEMS_MM = new Map([
   ['SHARED_RUPEE_PURPLE',     'MM_RUPEE_PURPLE'],
   ['SHARED_RUPEE_SILVER',     'MM_RUPEE_SILVER'],
   ['SHARED_RUPEE_GOLD',       'MM_RUPEE_GOLD'],
+  ['SHARED_RUPEE_RAINBOW',    'OOT_RUPEE_RAINBOW'], /* No MM equivalent */
   ['SHARED_HEART_PIECE',      'MM_HEART_PIECE'],
   ['SHARED_HEART_CONTAINER',  'MM_HEART_CONTAINER'],
   ['SHARED_RECOVERY_HEART',   'MM_RECOVERY_HEART'],
@@ -806,7 +808,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     DOOR_OF_TIME_OPEN: settings.doorOfTime === 'open',
     OOT_OPEN_DEKU: settings.dekuTree === 'open',
     OOT_CLOSED_DEKU: settings.dekuTree === 'closed',
-    OOT_ADULT_DEKU: settings.dekuTreeAdult,
+    OOT_ADULT_DEKU:  world.resolvedFlags.openDungeonsOot.has('dekuTreeAdult'),
     ER_DUNGEONS: settings.erDungeons !== 'none',
     ER_MAJOR_DUNGEONS: settings.erMajorDungeons,
     ER_BOSS: settings.erBoss !== 'none',
@@ -867,7 +869,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     MM_MAJORA_CHILD_CUSTOM: settings.majoraChild === 'custom',
     FILL_WALLETS: settings.fillWallets,
     CHILD_WALLET: settings.childWallets,
-    OOT_ADULT_WELL: settings.wellAdult,
+    OOT_ADULT_WELL: world.resolvedFlags.openDungeonsOot.has('wellAdult'),
     COLOSSAL_WALLET: settings.colossalWallets,
     BOTTOMLESS_WALLET: settings.bottomlessWallets,
     OOT_AGELESS_BOOTS: settings.agelessBoots,
@@ -897,6 +899,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     SHARED_SKELETON_KEY: settings.sharedSkeletonKey,
     OOT_SHUFFLE_GRASS: settings.shuffleGrassOot,
     MM_SHUFFLE_GRASS: settings.shuffleGrassMm,
+    OOT_SHUFFLE_MASK_TRADES: settings.shuffleMaskTrades,
     MENU_NOTEBOOK: settings.menuNotebook,
     OOT_AGELESS_CHILD_TRADE: settings.agelessChildTrade,
     OOT_START_ADULT: settings.startingAge === 'adult',
@@ -980,6 +983,11 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     ONLY_OOT: settings.games === 'oot',
     ONLY_MM: settings.games === 'mm',
     OOT_PLANTED_BEANS: settings.ootPreplantedBeans,
+    OOT_OPEN_JABU_JABU: world.resolvedFlags.openDungeonsOot.has('JJ'),
+    OOT_OPEN_SHADOW_TEMPLE: world.resolvedFlags.openDungeonsOot.has('Shadow'),
+    OOT_OPEN_DODONGO_CAVERN: world.resolvedFlags.openDungeonsOot.has('DC'),
+    OOT_OPEN_WATER_TEMPLE: world.resolvedFlags.openDungeonsOot.has('Water'),
+    OOT_OPEN_WELL: world.resolvedFlags.openDungeonsOot.has('BotW'),
   };
 
   for (const v in exprs) {
@@ -1098,7 +1106,7 @@ const effectiveStartingItems = (worldId: number, logic: LogicResult): ItemsCount
     }
   }
 
-  if (settings.skipZelda) addStartingItemLocsWorld(worldId, logic, LOCATIONS_ZELDA, itemsCount);
+  if (settings.skipZelda) addStartingItemLocsWorld(worldId, logic, locationsZelda(settings), itemsCount);
   if (settings.gerudoFortress === 'open') addStartingItemLocsWorld(worldId, logic, ['OOT Gerudo Member Card'], itemsCount);
 
   return itemsCount;

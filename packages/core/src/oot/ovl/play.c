@@ -75,13 +75,6 @@ static void eventFixes(GameState_Play* play)
         }
     }
 
-    /* Skip Zelda's cutscene when having all the spiritual stones */
-    if (gSave.inventory.quest.stoneEmerald && gSave.inventory.quest.stoneRuby && gSave.inventory.quest.stoneSapphire)
-    {
-        SetEventChk(EV_OOT_CHK_ZELDA_FLED);
-        SetEventChk(EV_OOT_CHK_ZELDA_FLED_BRIDGE);
-    }
-
     /* Set the rainbow bridge flag */
     if (isRainbowBridgeOpen())
     {
@@ -101,6 +94,22 @@ static void eventFixes(GameState_Play* play)
         gOotSave.perm[SCE_OOT_DEATH_MOUNTAIN_CRATER].switches |= 0x00000008;
         gOotSave.inventory.items[ITS_OOT_MAGIC_BEAN] = ITEM_OOT_MAGIC_BEAN;
     }
+
+    if(Config_Flag(CFG_OOT_OPEN_JABU_JABU))
+        SetEventChk(EV_OOT_CHK_JABU_JABU_OPEN);
+
+    if(Config_Flag(CFG_OOT_OPEN_SHADOW_TEMPLE))
+        gSave.perm[SCE_OOT_GRAVEYARD].switches |= 0xc0000000;
+
+    if(Config_Flag(CFG_OOT_OPEN_DODONGO_CAVERN))
+        gSave.perm[SCE_OOT_DEATH_MOUNTAIN_TRAIL].switches |= 0x00000010;
+
+    if(Config_Flag(CFG_OOT_OPEN_WATER_TEMPLE))
+        gSave.perm[SCE_OOT_LAKE_HYLIA].switches |= 0x80000000;
+
+    if(Config_Flag(CFG_OOT_OPEN_WELL))
+        SetEventChk(EV_OOT_CHK_WELL_DRAINED);
+
 }
 
 static void sendSelfTriforce(void)
@@ -465,10 +474,7 @@ static void playAdjustEntrance(GameState_Play* play)
         gSave.entrance = ENTR_OOT_LOST_WOODS_FROM_KOKIRI_FOREST;
         break;
     case ENTR_OOT_CASTLE_STEALTH:
-        if (GetEventChk(EV_OOT_CHK_ZELDA_LETTER))
-            gSave.entrance = ENTR_OOT_CASTLE_CAUGHT;
-        else
-            gSave.entrance = ENTR_OOT_CASTLE_COURTYARD;
+        gSave.entrance = ENTR_OOT_CASTLE_COURTYARD;
         break;
     case ENTR_OOT_CASTLE_STEALTH_FROM_COURTYARD:
         gSave.entrance = ENTR_OOT_GANON_CASTLE_EXTERIOR_FROM_CASTLE; /* Stealth exit as child */
@@ -506,6 +512,20 @@ static void masterSwordFix(GameState_Play* play)
     EV_OOT_UNSET_SWORDLESS();
 }
 
+static void Play_AfterInit(GameState_Play* play)
+{
+    gLastEntrance = gSave.entrance;
+    g.inGrotto = (play->sceneId == SCE_OOT_GROTTOS || play->sceneId == SCE_OOT_FAIRY_FOUNTAIN);
+    if (!g.inGrotto)
+    {
+        gLastScene = play->sceneId;
+    }
+
+    /* Spawn Custom Triggers */
+    CustomTriggers_Spawn(play);
+    comboSpawnCustomWarps(play);
+}
+
 void hookPlay_Init(GameState_Play* play)
 {
     /* Pre-init */
@@ -534,17 +554,7 @@ void hookPlay_Init(GameState_Play* play)
     masterSwordFix(play);
 
     Play_Init(play);
-
-    gLastEntrance = gSave.entrance;
-    g.inGrotto = (play->sceneId == SCE_OOT_GROTTOS || play->sceneId == SCE_OOT_FAIRY_FOUNTAIN);
-    if (!g.inGrotto)
-    {
-        gLastScene = play->sceneId;
-    }
-
-    /* Spawn Custom Triggers */
-    CustomTriggers_Spawn(play);
-    comboSpawnCustomWarps(play);
+    Play_AfterInit(play);
 
     if (!g.customKeep)
     {

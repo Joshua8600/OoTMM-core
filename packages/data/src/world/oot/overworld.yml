@@ -180,7 +180,7 @@
   region: KOKIRI_FOREST
   exits:
     "Kokiri Forest": "can_bypass_mido"
-    "Deku Tree": "(setting(dekuTree, open) || (is_child && setting(dekuTree, vanilla)) || event(MIDO_MOVED)) && (is_child || setting(dekuTreeAdult))"
+    "Deku Tree": "(setting(dekuTree, open) || (is_child && setting(dekuTree, vanilla)) || event(MIDO_MOVED)) && (is_child || setting(openDungeonsOot, dekuTreeAdult))"
   events:
     STICKS: "is_child && soul_deku_baba && (can_boomerang || has_weapon)"
     MIDO_MOVED: "can_move_mido"
@@ -293,8 +293,9 @@
     ARROWS: "is_adult"
     MAGIC: "true"
   locations:
-    "Hyrule Field Ocarina of Time": "is_child && has_spiritual_stones"
-    "Hyrule Field Song of Time": "is_child && has_spiritual_stones"
+    "Hyrule Field Ocarina of Time": "is_child && has_spiritual_stones && soul_npc(SOUL_NPC_ZELDA)"
+    "Hyrule Field Song of Time": "is_child && has_spiritual_stones && soul_npc(SOUL_NPC_ZELDA)"
+    "Hyrule Field Sell Bunny Mask": "is_child && has_spiritual_stones && has_mask_bunny"
     "Hyrule Field River Big Fairy": "can_play_storms"
     "Hyrule Field Wonder Item 1": "is_child"
     "Hyrule Field Wonder Item 2": "is_child"
@@ -829,6 +830,7 @@
   locations:
     "Zelda's Letter": "met_zelda"
     "Zelda's Song": "met_zelda"
+    "Castle Courtyard Wonder Item": "can_use_slingshot"
 "Near Fairy Fountain Din":
   region: HYRULE_CASTLE
   age_change: false
@@ -936,6 +938,7 @@
   locations:
     "Lost Woods Target": "can_use_slingshot"
     "Lost Woods Skull Kid": "is_child && can_play_saria"
+    "Lost Woods Sell Skull Mask": "is_child && can_play_saria && has(MASK_SKULL)"
     "Lost Woods Memory Game": "is_child && can_play_minigame"
     "Lost Woods Scrub Sticks Upgrade": "is_child && business_scrub(0x00)"
     "Lost Woods Odd Mushroom": "soul_grog && adult_trade(COJIRO)"
@@ -1115,7 +1118,7 @@
     "Hyrule Field": "true"
     "Kakariko Trail Start": "setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN) || is_adult || climb_anywhere || hookshot_anywhere"
     "Graveyard": "true"
-    "Bottom of the Well": "(event(WELL_DRAIN) && cond(setting(wellAdult), true, is_child)) || (is_child)"
+    "Bottom of the Well": "((setting(openDungeonsOot, BotW) || event(WELL_DRAIN)) && cond(setting(openDungeonsOot, wellAdult), true, is_child)) || is_child || (time_travel_at_will && trick(OOT_WELL_ADULT_TT))"
     "Skulltula House": "true"
     "Shooting Gallery Adult": "(is_adult && is_day) || (time_travel_at_will && trick(OOT_ADULT_GALLERY_TT))"
     "Kakariko Rooftop": "(is_child && is_day) || can_hookshot || (is_adult && trick(OOT_PASS_COLLISION)) || climb_anywhere"
@@ -1132,6 +1135,7 @@
     "Kakariko Anju Cojiro": "event(TALON_AWAKE) && is_day && soul_anju"
     "Kakariko Song Shadow": "is_adult && soul_npc(SOUL_NPC_SHEIK) && has(MEDALLION_FOREST) && has(MEDALLION_FIRE) && has(MEDALLION_WATER)"
     "Kakariko Man on Roof": "(can_hookshot || trick(OOT_MAN_ON_ROOF) || climb_anywhere) && soul_rooftop_man"
+    "Kakariko Sell Keaton Mask": "is_child && (setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN)) && has_mask_keaton"
     "Kakariko GS Shooting Gallery": "gs_night && is_child"
     "Kakariko GS Tree": "gs_night && is_child"
     "Kakariko GS House of Skulltula": "gs_night && is_child"
@@ -1320,6 +1324,7 @@
     MAGIC: "can_cut_grass"
   locations:
     "Graveyard Dampe Game": "is_child && can_use_wallet(1) && is_dusk && soul_dampe"
+    "Graveyard Sell Spooky Mask": "is_child && soul_bombers && has(MASK_SPOOKY)"
     "Graveyard Crate HP": "can_ride_bean(BEAN_GRAVEYARD) || can_longshot || climb_anywhere || hookshot_anywhere"
     "Graveyard GS Soil": "gs_soil && can_damage_skull"
     "Graveyard GS Wall": "is_child && gs_night && (can_collect_distance || (climb_anywhere && (has_ranged_weapon || has_explosives || can_use_din)))"
@@ -1339,7 +1344,7 @@
   region: GRAVEYARD
   exits:
     "Graveyard": "true"
-    "Shadow Temple": "can_use_din || (has_fire_arrows && (trick(OOT_SHADOW_FIRE_ARROW) || (trick(OOT_SHADOW_TEMPLE_STICKS) && can_use_sticks)))"
+    "Shadow Temple": "setting(openDungeonsOot, Shadow) || can_use_din || (has_fire_arrows && (trick(OOT_SHADOW_FIRE_ARROW) || (trick(OOT_SHADOW_TEMPLE_STICKS) && can_use_sticks)))"
   gossip:
     "Graveyard Gossip": "true"
 "Graveyard Royal Tomb":
@@ -1429,7 +1434,7 @@
   time: flow
   exits:
     "Goron City": "true"
-    "Dodongo Cavern": "has_bombflowers || is_adult || (trick(OOT_DC_BOULDER) && hookshot_anywhere) || time_travel_at_will"
+    "Dodongo Cavern": "has_bombflowers || is_adult || (trick(OOT_DC_BOULDER) && hookshot_anywhere) || time_travel_at_will || setting(openDungeonsOot, DC)"
     "Kakariko Trail Start": "true"
     "Death Mountain Summit": "event(BOULDER_DEATH_MOUNTAIN) || can_ride_bean(BEAN_DEATH_MOUNTAIN) || climb_anywhere || hookshot_anywhere"
     "Death Mountain Storms Grotto": "hidden_grotto_storms"
@@ -1799,7 +1804,7 @@
     "Hyrule Field Drawbridge": "is_child"
     "Zora Domain": "(is_child && (can_dive_small || longshot_anywhere || (trick(OOT_LAKE_SHORTCUT) && hookshot_anywhere))) || time_travel_at_will || (is_adult && setting(openZdShortcut))"
     "Laboratory": "true"
-    "Water Temple": "(has_iron_boots && has_tunic_zora && can_hookshot) || (trick(OOT_WATER_GOLD_SCALE) && is_adult && can_longshot && has_scale_raw(2))"
+    "Water Temple": "(has_iron_boots && has_tunic_zora && (can_hookshot || setting(openDungeonsOot, Water))) || (trick(OOT_WATER_GOLD_SCALE) && is_adult && (can_longshot || setting(openDungeonsOot, Water)) && has_scale_raw(2))"
     "Fishing Pond": "is_child || event(WATER_TEMPLE_CLEARED) || (is_adult && scarecrow_hookshot) || can_ride_bean(BEAN_LAKE_HYLIA) || hookshot_anywhere || climb_anywhere || time_travel_at_will"
     "Lake Hylia Grotto": "true"
   events:
@@ -1939,7 +1944,7 @@
   region: ZORA_FOUNTAIN
   exits:
     "Zora Domain Back": "true"
-    "Jabu-Jabu": "is_child && (has_fish || (trick(OOT_ENTER_JABU) && (climb_anywhere || hookshot_anywhere || has_weapon || can_use_sticks || time_travel_at_will)))"
+    "Jabu-Jabu": "is_child && (setting(openDungeonsOot, JJ) || has_fish || (trick(OOT_ENTER_JABU) && (climb_anywhere || hookshot_anywhere || has_weapon || can_use_sticks || time_travel_at_will)))"
     "Zora Fountain Frozen": "is_adult || climb_anywhere || longshot_anywhere"
     "Fairy Fountain Farore": "has_explosives"
     "Zora Fountain Deep": "is_adult && has_tunic_zora && has_iron_boots"
@@ -2073,7 +2078,7 @@
 "Death Mountain Crater Warp":
   region: DEATH_MOUNTAIN_CRATER
   exits:
-    "Death Mountain Crater Near Temple": "has_tunic_goron && (is_adult || setting(fireChild) || has_hover_boots || climb_anywhere || hookshot_anywhere)"
+    "Death Mountain Crater Near Temple": "has_tunic_goron && (is_adult || setting(openDungeonsOot, fireChild) || has_hover_boots || climb_anywhere || hookshot_anywhere)"
     "Death Mountain Crater Bottom": "can_hookshot || has_hover_boots || can_ride_bean(BEAN_DEATH_MOUNTAIN_CRATER)"
     "Death Mountain Crater Bottom Child": "is_child"
     "Death Mountain Crater Bottom Adult Rupees": "is_adult && scarecrow_longshot"
@@ -2087,7 +2092,7 @@
   region: DEATH_MOUNTAIN_CRATER
   exits:
     "Fire Temple": "true"
-    "Death Mountain Crater Warp": "has_tunic_goron_strict && (is_adult || setting(fireChild) || has_hover_boots || climb_anywhere || hookshot_anywhere)"
+    "Death Mountain Crater Warp": "has_tunic_goron_strict && (is_adult || setting(openDungeonsOot, fireChild) || has_hover_boots || climb_anywhere || hookshot_anywhere)"
 "Death Mountain Crater Generic Grotto":
   region: ENTRANCE
   age_change: false

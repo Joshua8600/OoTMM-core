@@ -7,7 +7,7 @@ import { sample, Random, randomInt } from '../random';
 import { Settings } from '../settings';
 import { countMapAdd, gameId } from '../util';
 import { exprTrue } from './expr';
-import { LOCATIONS_ZELDA, Location, isLocationOtherFairy, isLocationRenewable, locationData, makeLocation } from './locations';
+import { Location, isLocationOtherFairy, isLocationRenewable, locationData, locationsZelda, makeLocation } from './locations';
 import { ItemSharedDef, SharedItemGroups } from './shared';
 import { World } from './world';
 import { ItemProperties } from './item-properties';
@@ -22,6 +22,13 @@ const BROKEN_ACTORS_CHECKS = [
   'OOT Hyrule Castle Pot 2',
   'OOT MQ Dodongo Cavern Grass Vanilla Bomb Bag Room',
   'OOT MQ Dodongo Cavern Grass Room Before Miniboss',
+];
+
+const SELL_MASKS_CHECKS = [
+  'OOT Kakariko Sell Keaton Mask',
+  'OOT Lost Woods Sell Skull Mask',
+  'OOT Graveyard Sell Spooky Mask',
+  'OOT Hyrule Field Sell Bunny Mask',
 ];
 
 const EXTRA_ITEMS_OOT = new Set([
@@ -829,6 +836,7 @@ export class LogicPassWorldTransform {
       this.replaceItem(Items.OOT_RUPEE_RED,     Items.SHARED_RUPEE_RED);
       this.replaceItem(Items.OOT_RUPEE_PURPLE,  Items.SHARED_RUPEE_PURPLE);
       this.replaceItem(Items.OOT_RUPEE_HUGE,    Items.SHARED_RUPEE_GOLD);
+      this.replaceItem(Items.OOT_RUPEE_RAINBOW, Items.SHARED_RUPEE_RAINBOW);
       this.replaceItem(Items.OOT_TRAP_RUPOOR,   Items.SHARED_TRAP_RUPOOR);
       this.replaceItem(Items.MM_RUPEE_GREEN,    Items.SHARED_RUPEE_GREEN);
       this.replaceItem(Items.MM_RUPEE_BLUE,     Items.SHARED_RUPEE_BLUE);
@@ -1006,6 +1014,11 @@ export class LogicPassWorldTransform {
     /* Broken actors */
     if (!settings.restoreBrokenActors) {
       this.removeLocations(BROKEN_ACTORS_CHECKS);
+    }
+
+    /* Sell Masks */
+    if (!settings.shuffleMaskTrades) {
+      this.removeLocations(SELL_MASKS_CHECKS);
     }
 
     /* Pond */
@@ -1383,7 +1396,7 @@ export class LogicPassWorldTransform {
     /* Handle Skip Zelda */
     if (this.state.settings.skipZelda) {
       this.removeItem(Items.OOT_CHICKEN);
-      this.makeLocationStarting(LOCATIONS_ZELDA);
+      this.makeLocationStarting(locationsZelda(this.state.settings));
     }
 
     /* Handle open gate */

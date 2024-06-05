@@ -595,7 +595,7 @@ export const SETTINGS = [{
   category: 'main.shuffle',
   type: 'boolean',
   description: 'Controls whether or not the wonder items are shuffled (MM)',
-  cond: hasOoT,
+  cond: hasMM,
   default: false
 }, {
   key: 'shuffleOcarinasOot',
@@ -621,6 +621,14 @@ export const SETTINGS = [{
   description: 'Controls whether or not the Gerudo Membership Card is shuffled',
   cond: hasOoT,
   default: true
+}, {
+  key: 'shuffleMaskTrades',
+  name: 'Mask Trade Shuffle',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not trading the masks are checks',
+  cond: hasOoT,
+  default: false,
 }, {
   key: 'shuffleMerchantsMm',
   name: 'Merchants Shuffle (MM)',
@@ -778,28 +786,22 @@ export const SETTINGS = [{
   default: 'open',
   cond: hasOoT,
 }, {
-  key: 'dekuTreeAdult',
-  name: 'Deku Tree as Adult',
+  key: 'openDungeonsOot',
+  name: 'Open Dungeons (OoT)',
   category: 'main.events',
-  type: 'boolean',
-  description: 'Allows access to the Deku Tree as adult.',
-  default: false,
-  cond: hasOoT,
-}, {
-  key: 'wellAdult',
-  name: 'Well as Adult',
-  category: 'main.events',
-  type: 'boolean',
-  description: 'Allows access to the Well as adult.',
-  default: false,
-  cond: hasOoT,
-}, {
-  key: 'fireChild',
-  name: 'Fire Temple as Child',
-  category: 'main.events',
-  type: 'boolean',
-  description: 'Allows access to the Fire Temple as child.',
-  default: false,
+  type: 'set',
+  description: 'Opens the entrance to the chosen dungeons',
+  values: [
+    { value: 'dekuTreeAdult', name: 'Deku Tree as Adult' },
+    { value: 'wellAdult', name: 'Bottom of the Well as Adult' },
+    { value: 'fireChild', name: 'Fire Temple as Child' },
+    { value: 'DC', name: 'Dodongo\'s Cavern' },
+    { value: 'BotW', name: 'Bottom of the Well' },
+    { value: 'JJ', name: 'Jabu-Jabu' },
+    { value: 'Shadow', name: 'Shadow Temple' },
+    { value: 'Water', name: 'Water Temple' },
+  ],
+  default: 'none',
   cond: hasOoT,
 }, {
   key: 'openDungeonsMm',
