@@ -295,7 +295,7 @@
   locations:
     "Hyrule Field Ocarina of Time": "is_child && has_spiritual_stones && soul_npc(SOUL_NPC_ZELDA)"
     "Hyrule Field Song of Time": "is_child && has_spiritual_stones && soul_npc(SOUL_NPC_ZELDA)"
-    "Hyrule Field Sell Bunny Mask": "is_child && has_spiritual_stones && has_mask_bunny"
+    "Hyrule Field Sell Bunny Mask": "is_child && has_spiritual_stones && has_mask_bunny && soul_citizen"
     "Hyrule Field River Big Fairy": "can_play_storms"
     "Hyrule Field Wonder Item 1": "is_child"
     "Hyrule Field Wonder Item 2": "is_child"
@@ -875,7 +875,7 @@
     "Ganon Castle Exterior After Bridge": "rainbow_bridge || (longshot_anywhere && trick(OOT_GANON_CASTLE_ENTRY))"
     "Near Fairy Fountain Defense": "can_lift_gold"
   locations:
-    "Ganon Castle Exterior GS": "gs"
+    "Ganon Castle Exterior GS": "gs && (has_ranged_weapon || can_use_sword)"
 "Ganon Castle Exterior After Bridge":
   region: GANON_CASTLE_EXTERIOR
   age_change: false
