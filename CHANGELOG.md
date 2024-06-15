@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Counter upon getting a Piece of Heart, showing your progression until your next heart container.
 - Can now shuffle the rewards for selling the OoT masks.
 - Add a setting to shuffle Wonder Items (non-MQ).
 - Add a setting to make some OoT dungeons open.
@@ -19,6 +20,7 @@ All notable changes to this project will be documented in this file.
 
 ## Fixed
 
+- Fix Dungeon Rewards Shuffle not generating with some settings. 
 - Fix Ikana Wisp showing up even if you did not beat Stone Tower Temple.
 - Fix some names in spoiler having their game as a suffix when they're unique.
 - Fix Moon Crash sometimes causing the Clock UI to disappear.
