@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add ageless Slingshot and Bow.
+- Add CAMC to cows, where the cow ring hints at the item. If off, cow rings are collection markers instead.
+- Add an optional CAMC setting for maps and compasses.
 - Counter upon getting a Piece of Heart, showing your progression until your next heart container.
 - Can now shuffle the rewards for selling the OoT masks.
 - Add a setting to shuffle Wonder Items (non-MQ).
@@ -13,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Hookshot is now visible on child.
 - Castle Courtyard can now be revisited.
 - Zelda's Soul is now required for the OoT/SoT check.
 - The angle of interaction of MM gossip stones is more tolerant.
@@ -21,7 +25,7 @@ All notable changes to this project will be documented in this file.
 
 ## Fixed
 
-- Fix Dungeon Rewards Shuffle not generating with some settings. 
+- Fix Dungeon Rewards Shuffle not generating with some settings.
 - Fix Ikana Wisp showing up even if you did not beat Stone Tower Temple.
 - Fix some names in spoiler having their game as a suffix when they're unique.
 - Fix Moon Crash sometimes causing the Clock UI to disappear.
