@@ -50,6 +50,8 @@ int csmcFromItem(s16 gi)
         return CSMC_FAIRY;
     case ITT_HEART:
         return Config_Flag(CFG_CSMC_HEARTS) ? CSMC_HEART : CSMC_NORMAL;
+    case ITT_MAP_COMPASS:
+        return Config_Flag(CFG_CSMC_MAP_COMPASS) ? CSMC_MAP_COMPASS : CSMC_NORMAL;
     case ITT_SOUL:
         return CSMC_SOUL;
     case ITT_NONE:
@@ -66,7 +68,12 @@ int csmcEnabled(void)
     return (Config_Flag(CFG_CSMC) || (Config_Flag(CFG_CSMC_AGONY) && gOotSave.inventory.quest.agonyStone));
 }
 
-int csmcEnabledExtra(void)
+int csmcEnabledSkulltula(void)
 {
-    return csmcEnabled() && Config_Flag(CFG_CSMC_EXTRA);
+    return csmcEnabled() && Config_Flag(CFG_CSMC_SKULLTULA);
+}
+
+int csmcEnabledCow(void)
+{
+    return csmcEnabled() && Config_Flag(CFG_CSMC_COW);
 }
