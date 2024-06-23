@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Removed the deku shield in the spirit pot if restore broken actors is off, but make it logical if it's on.
 - Hookshot is now visible on child.
 - Castle Courtyard can now be revisited.
 - Zelda's Soul is now required for the OoT/SoT check.
@@ -25,6 +26,7 @@ All notable changes to this project will be documented in this file.
 
 ## Fixed
 
+- Fix a softlock with the Roza Sisters in some cases.
 - Fix Dungeon Rewards Shuffle not generating with some settings.
 - Fix Ikana Wisp showing up even if you did not beat Stone Tower Temple.
 - Fix some names in spoiler having their game as a suffix when they're unique.
