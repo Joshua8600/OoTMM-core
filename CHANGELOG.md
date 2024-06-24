@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Make dungeon reward shuffle with one reward per-dungeon respect plando.
 - Removed the deku shield in the spirit pot if restore broken actors is off, but make it logical if it's on.
 - Hookshot is now visible on child.
 - Castle Courtyard can now be revisited.
@@ -23,15 +24,22 @@ All notable changes to this project will be documented in this file.
 - The angle of interaction of MM gossip stones is more tolerant.
 - If a dungeon is pre-completed, you now start with the boss soul, keys and silver rupees of the dungeon.
 - Exiting Ganon's Castle is once again logical as child to reach Hyrule Castle (not the courtyard).
+- Logic for soaring and warping in MM with ER is now even more robust, allowing usage everywhere they can be used.
 
 ## Fixed
 
+- Fix song of time sometimes respawning the player in day-0 state until the next scene load.
+- Fix bottle issues when changing age.
+- Fix a weird interaction between scarecrow and clock shuffle.
+- Fix honey and darling behaving oddly when a clock shuffle transition occurs.
+- Fix some softlocks with instant transform.
 - Fix a softlock with the Roza Sisters in some cases.
 - Fix Dungeon Rewards Shuffle not generating with some settings.
 - Fix Ikana Wisp showing up even if you did not beat Stone Tower Temple.
 - Fix some names in spoiler having their game as a suffix when they're unique.
 - Fix Moon Crash sometimes causing the Clock UI to disappear.
 - MQ Fire Temple logic issue for the Flare Dancer Soul at the top of the temple.
+- Fix an issue where, in certain settings, the game could still expect you to do MM without a way to reset time.
 
 ## [23.1] - 2024-05-30
 

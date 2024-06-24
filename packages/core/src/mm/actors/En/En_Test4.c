@@ -3,6 +3,7 @@
 #include <combo/player.h>
 #include <combo/interface.h>
 #include <combo/environment.h>
+#include <combo/entrance.h>
 #include <combo/mm/actors/En_Test4.h>
 
 static int EnTest4_TimeSkip(GameState_Play* play, u8* day, u16* time)
@@ -68,6 +69,17 @@ static int isNight(u16 time)
     return !!((time < 0x4000) || (time >= 0xc000));
 }
 
+static void EnTest4_Reload(GameState_Play* play)
+{
+    Actor_Player* link;
+
+    link = GET_LINK(play);
+    Play_SetRespawnData(gPlay, 1, gSave.entranceIndex, gPlay->roomCtx.curRoom.id, 0xdff, &link->base.world.pos, link->base.rot2.y);
+    gSaveContext.respawnFlag = 2;
+    gSaveContext.nextCutscene = 0;
+    comboTransition(gPlay, gSave.entranceIndex);
+}
+
 static void EnTest4_CheckTimeSkip(Actor_EnTest4* this, GameState_Play* play)
 {
     u8 day;
@@ -82,6 +94,15 @@ static void EnTest4_CheckTimeSkip(Actor_EnTest4* this, GameState_Play* play)
     {
         gSave.day = day;
         gSave.time = time;
+
+        /* Some scenes should be reloaded */
+        switch (play->sceneId)
+        {
+        case SCE_MM_HONEY_DARLING:
+            EnTest4_Reload(play);
+            return;
+        }
+
         if (time == 0x4000)
         {
             this->daytimeIndex = 0;
@@ -102,7 +123,8 @@ static void EnTest4_UpdateWrapper(Actor_EnTest4* this, GameState_Play* play)
 {
     void (*EnTest4_Update)(Actor_EnTest4*, GameState_Play*);
 
-    EnTest4_CheckTimeSkip(this, play);
+    if (!BITMAP8_GET(gSave.eventInf, 0x0f))
+        EnTest4_CheckTimeSkip(this, play);
 
     EnTest4_Update = actorAddr(AC_EN_TEST4, 0x80a43274);
     EnTest4_Update(this, play);
