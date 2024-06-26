@@ -10,6 +10,7 @@ import { Item, ItemGroups, ItemHelpers, Items, ItemsCount, PlayerItem, PlayerIte
 import { exprTrue } from './expr';
 import { ItemProperties } from './item-properties';
 import { optimizeWorld } from './optimizer';
+import { isDungeonReward } from '../items/helpers';
 
 const VALIDATION_CRITICAL_ITEMS = [
   Items.MM_SONG_TIME,
@@ -1018,12 +1019,14 @@ export class LogicPassSolver {
   private placeDungeonRewardsInDungeons() {
     const allDungeons: Set<string>[] = [];
     for (let i = 0; i < this.input.settings.players; ++i) {
+      let dungeons: string[] = [];
       if (this.input.settings.games !== 'mm') {
-        allDungeons.push(new Set([...REWARDS_DUNGEONS_OOT]));
+        dungeons = [...dungeons, ...REWARDS_DUNGEONS_OOT];
       }
       if (this.input.settings.games !== 'oot') {
-        allDungeons.push(new Set([...REWARDS_DUNGEONS_MM]));
+        dungeons = [...dungeons, ...REWARDS_DUNGEONS_MM];
       }
+      allDungeons.push(new Set(dungeons));
     }
 
     const rewards = shuffle(this.input.random, countMapArray(this.state.pools.required)
@@ -1035,7 +1038,32 @@ export class LogicPassSolver {
       const pool = countMapCombine(this.state.pools.required);
       let error: LogicSeedError | null = null;
 
-      for (const c of candidates) {
+      /* If it's limited - filter dungeons that already have rewards (plando?) */
+      if (this.input.settings.dungeonRewardShuffle === 'dungeonsLimited') {
+        let validCandidates: typeof candidates = [];
+        for (const c of candidates) {
+          const world = this.worlds[c.player];
+          const locations = Array.from(world.dungeons[c.dungeon]).map(x => makeLocation(x, c.player));
+          let valid = true;
+          for (const l of locations) {
+            const pi = this.state.items.get(l);
+            if (pi && isDungeonReward(pi.item)) {
+              valid = false;
+              break;
+            }
+          }
+          if (valid) {
+            validCandidates.push(c);
+          }
+        }
+        candidates = validCandidates;
+      }
+
+      for (;;) {
+        if (!candidates.length) {
+          throw new LogicSeedError(`No valid candidates for ${reward.item}`);
+        }
+        const c = candidates.pop()!;
         const { player, dungeon } = c;
         const world = this.worlds[player];
         /* We have a reward and a dungeon - try to place it */
@@ -1062,16 +1090,10 @@ export class LogicPassSolver {
         }
 
         if (!error) {
-          /* We placed the reward */
-          removeItemPools(this.state.pools, reward);
-          if (this.input.settings.dungeonRewardShuffle === 'dungeonsLimited') {
-            allDungeons[player].delete(dungeon);
-          }
+          countMapRemove(this.state.pools.required, reward);
           break;
         }
       }
-
-      if (error) throw error;
     }
   }
 

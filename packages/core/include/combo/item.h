@@ -119,6 +119,7 @@
 #define ITT_HEART       0x09
 #define ITT_SOUL        0x0a
 #define ITT_MASK        0x0b
+#define ITT_MAP_COMPASS 0x0c
 
 #define OV_NONE         0x00
 #define OV_CHEST        0x01
@@ -228,6 +229,6 @@ s16 comboItemResolve(GameState_Play* play, s16 gi);
 
 s16 comboProgressive(s16 gi, int ovflags);
 
-Actor_ItemDecoy* Item_AddWithDecoy(GameState_Play* play, const ComboItemOverride* o);
+Actor_ItemDecoy* Item_AddWithDecoy(GameState_Play* play, const ComboItemQuery* q);
 
 #endif

@@ -62,10 +62,10 @@
 "has_bombchu_license_shared": "license(SHARED_BOMBCHU) || license(SHARED_BOMBCHU_5) || license(SHARED_BOMBCHU_10) || license(SHARED_BOMBCHU_20)"
 "has_bombchu_license": "cond(setting(bombchuBagOot), cond(setting(sharedBombchuBags), has_bombchu_license_shared, has_bombchu_license_nonshared), has_bomb_bag)"
 "has_bombchu": "has_bombchu_source && has_bombchu_license"
-"can_use_slingshot": "has(SLINGSHOT) && ((is_child && (event(SEEDS) || renewable(DEKU_SEEDS_30))) || (is_adult && glitch_equip_swap && can_use_bow))"
+"can_use_slingshot": "has(SLINGSHOT) && age_slingshot && (event(SEEDS) || renewable(DEKU_SEEDS_30))"
 "has_bow": "has(BOW) || has(SHARED_BOW)"
 "has_arrows": "has_bow && (event(ARROWS) || renewable(ARROWS_5) || renewable(ARROWS_10) || renewable(ARROWS_30) || renewable(SHARED_ARROWS_5) || renewable(SHARED_ARROWS_10) || renewable(SHARED_ARROWS_30) || renewable(SHARED_ARROWS_40) || (setting(sharedBows) && event(MM_ARROWS)))"
-"can_use_bow": "is_adult && has_arrows"
+"can_use_bow": "age_bow && has_arrows"
 "has_hookshot(x)": "has(HOOKSHOT, x) || has(SHARED_HOOKSHOT, x)"
 "can_hookshot_n(x)": "age_hookshot && has_hookshot(x)"
 "can_hookshot": "can_hookshot_n(1)"
@@ -90,6 +90,8 @@
 "age_tunics": "is_adult || setting(agelessTunics)"
 "age_boots": "is_adult || setting(agelessBoots)"
 "age_child_trade": "glitch_equip_swap || is_child || setting(agelessChildTrade)"
+"age_slingshot": "is_child || setting(agelessSlingshot) || glitch_equip_swap"
+"age_bow": "is_adult || setting(agelessBow) || glitch_equip_swap"
 
 # Swords
 "starts_with_master_sword": "setting(startingAge, adult) && !setting(swordlessAdult)"
@@ -106,11 +108,13 @@
 "can_use_sword_master": "age_sword_adult && has_sword_master"
 "can_use_sword_goron": "age_sword_adult && has_sword_goron"
 "can_use_sword": "can_use_sword_kokiri || can_use_sword_master || can_use_sword_goron"
+"can_use_sword_or_sticks": "can_use_sword || can_use_sticks"
 
 # Shields
+"has_shield_deku": "age_shield_child && (renewable(SHIELD_DEKU) || event(SHIELD_DEKU))"
 "has_shield_hylian": "cond(setting(sharedShields), renewable(SHARED_SHIELD_HYLIAN), renewable(SHIELD_HYLIAN))"
-"has_shield": "has_shield_hylian || has_mirror_shield || (age_shield_child && renewable(SHIELD_DEKU))"
-"has_shield_for_scrubs": "(is_adult && has_shield_hylian) || (age_shield_child && renewable(SHIELD_DEKU))"
+"has_shield": "has_shield_hylian || has_mirror_shield || has_shield_deku"
+"has_shield_for_scrubs": "(is_adult && has_shield_hylian) || has_shield_deku"
 "has_mirror_shield_raw_nonshared": "cond(setting(progressiveShieldsOot, progressive), has(SHIELD, 3), has(SHIELD_MIRROR))"
 "has_mirror_shield_raw_shared": "cond(setting(progressiveShieldsOot, progressive), has(SHARED_SHIELD, 3), has(SHARED_SHIELD_MIRROR))"
 "has_mirror_shield": "age_shield_adult && cond(setting(sharedShields), has_mirror_shield_raw_shared, has_mirror_shield_raw_nonshared)"

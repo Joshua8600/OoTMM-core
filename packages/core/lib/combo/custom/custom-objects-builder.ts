@@ -66,22 +66,14 @@ export class CustomObjectsBuilder {
     const b = 0x06014440;
     let list = editor.listData(b)!;
     //list = editor.stripList(list, 0x060242c8 - b, 0x060245a8 - b);
-
     editor.submitList(list);
+
+    const bSheath = 0x06015100;
+    let listSheath = editor.listData(bSheath)!;
+    listSheath = editor.stripList(listSheath, 0x06015130 - bSheath, 0x06015140 - bSheath);
+    editor.submitList(listSheath);
+
     return { name: 'EQ_SHIELD_DEKU', ...editor.build() };
-  }
-
-  private async makeEqSheathShieldDeku(): Promise<CustomObject> {
-    const editor = new ObjectEditor(0xa);
-    const object_link_child = await this.getFile('oot', 'objects/object_link_child');
-    editor.loadSegment(0x06, object_link_child);
-
-    const b = 0x06015100;
-    let list = editor.listData(b)!;
-    list = editor.stripList(list, 0x06015130 - b, 0x06015140 - b);
-
-    editor.submitList(list);
-    return { name: 'EQ_SHEATH_SHIELD_DEKU', ...editor.build() };
   }
 
   private async makeEqSheathShieldHylianChild(): Promise<CustomObject> {
@@ -315,6 +307,68 @@ export class CustomObjectsBuilder {
     return { name: 'EQ_BOOMERANG', ...editor.build() };
   }
 
+  private async makeEqHookshot(): Promise<CustomObject> {
+    const editor = new ObjectEditor(0xa);
+    const obj = await this.getFile('oot', 'objects/object_link_boy');
+    editor.loadSegment(0x06, obj);
+
+    editor.submitList(editor.listData(0x0602b288)!); /* Pointy end */
+    editor.submitList(editor.listData(0x0602aff0)!); /* Chain */
+    editor.submitList(editor.listData(0x0602cb48)!); /* Reticle */
+
+    const dataBodyFpAddr = 0x0602a738;
+    let dataBodyFp = editor.listData(dataBodyFpAddr)!;
+    dataBodyFp = editor.stripList(dataBodyFp, 0x0602AA68 - dataBodyFpAddr, 0x0602ad50 - dataBodyFpAddr);
+    editor.submitList(dataBodyFp);
+
+    const dataBodyTpAddr = 0x06024d70;
+    let dataBodyTp = editor.listData(dataBodyTpAddr)!;
+    dataBodyTp = editor.stripList(dataBodyTp, 0x06025030 - dataBodyTpAddr, 0x06025210 - dataBodyTpAddr);
+    editor.submitList(dataBodyTp);
+
+    return { name: 'EQ_HOOKSHOT', ...editor.build() };
+  }
+
+  private async makeEqSlingshot(): Promise<CustomObject> {
+    const editor = new ObjectEditor(0xa);
+    const obj = await this.getFile('oot', 'objects/object_link_child');
+    editor.loadSegment(0x06, obj);
+
+    const dataFPAddr = 0x06018048;
+    let dataFP = editor.listData(dataFPAddr)!;
+    dataFP = editor.stripList(dataFP, 0x06018128 - dataFPAddr, 0x06018470 - dataFPAddr);
+    editor.submitList(dataFP);
+
+    editor.submitList(editor.listData(0x060221a8)!); /* First person string */
+
+    const dataTPAddr = 0x06015df0;
+    let dataTP = editor.listData(dataFPAddr)!;
+    dataTP = editor.stripList(dataTP, 0x06015F18 - dataTPAddr, 0x06015FC8 - dataTPAddr);
+    editor.submitList(dataTP);
+
+    return { name: 'EQ_SLINGSHOT', ...editor.build() };
+  }
+
+  private async makeEqBow(): Promise<CustomObject> {
+    const editor = new ObjectEditor(0xa);
+    const obj = await this.getFile('oot', 'objects/object_link_boy');
+    editor.loadSegment(0x06, obj);
+
+    const dataFPAddr = 0x0602a248;
+    let dataFP = editor.listData(dataFPAddr)!;
+    dataFP = editor.stripList(dataFP, 0x0602A3F8 - dataFPAddr, 0x0602a730 - dataFPAddr);
+    editor.submitList(dataFP);
+
+    editor.submitList(editor.listData(0x0602b108)!); /* First person string */
+
+    const dataTPAddr = 0x06022da8;
+    let dataTP = editor.listData(dataTPAddr)!;
+    dataTP = editor.stripList(dataTP, 0x06022f00 - dataTPAddr, 0x06023158 - dataTPAddr);
+    editor.submitList(dataTP);
+
+    return { name: 'EQ_BOW', ...editor.build() };
+  }
+
   async build(): Promise<CustomObject[]> {
     return [
       await this.makeEqKokiriSword(),
@@ -326,7 +380,6 @@ export class CustomObjectsBuilder {
       await this.makeEqHammer(),
       await this.makeEqShieldDeku(),
       await this.makeEqShieldMirror(),
-      await this.makeEqSheathShieldDeku(),
       await this.makeEqSheathShieldHylianChild(),
       await this.makeEqSheathShieldHylianAdult(),
       await this.makeEqSheathShieldMirror(),
@@ -338,6 +391,9 @@ export class CustomObjectsBuilder {
       await this.makeEqSheathSwordGilded(),
       await this.makeEqOcarinaFairy(),
       await this.makeEqBoomerang(),
+      await this.makeEqHookshot(),
+      await this.makeEqSlingshot(),
+      await this.makeEqBow(),
       //await this.simpleExtract('LIMB_OOT_CHILD_LHAND_CLOSED', 'oot', 'objects/object_link_child', [], 0x06, 0x0a),
     ];
   }
