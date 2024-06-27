@@ -18,7 +18,7 @@
 - { id: OOT_POTION_BLUE, item: OOT_POTION_BLUE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: POTION_BLUE, object: [oot, 0x00eb], name: "a <C0>Blue Potion" }
 - { id: OOT_FAIRY, item: OOT_FAIRY, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: FAIRY, object: [oot, 0x0177], name: "a <C0>Fairy" }
 - { id: OOT_BOTTLE_MILK, item: OOT_MILK, type: MAJOR, add: OOT_BOTTLE_NEW, flags: 0x80, draw: BOTTLE_MILK, object: [oot, 0x00df], name: "a <C1>bottle of Lon Lon Milk" }
-- { id: OOT_RUTO_LETTER, item: OOT_RUTO_LETTER, type: MAJOR, add: OOT_BOTTLE_NEW, flags: 0x80, draw: OOT_RUTO_LETTER, object: [oot, 0x010b], name: "<C1>Ruto's Letter" }
+- { id: OOT_RUTO_LETTER, item: OOT_RUTO_LETTER, type: MAJOR, add: OOT_BOTTLE_NEW, flags: 0x80, draw: OOT_RUTO_LETTER, object: [oot, 0x010b], name: "<C1>the Spoiled Bratty Princess' Letter" }
 - { id: OOT_MAGIC_BEAN, item: OOT_MAGIC_BEAN, type: MAJOR, add: [OOT_BEANS, 10], flags: 0x80, draw: MAGIC_BEAN, object: [oot, 0x00f3], name: "a <C0>Magic Bean" }
 - { id: OOT_MASK_SKULL, item: OOT_SKULL_MASK, type: MASK, add: [OOT_TRADE_CHILD, 4], flags: 0x80, draw: OOT_MASK_SKULL, object: [oot, 0x0136], name: "the <C1>Skull Mask" }
 - { id: OOT_MASK_SPOOKY, item: OOT_SPOOKY_MASK, type: MASK, add: [OOT_TRADE_CHILD, 5], flags: 0x80, draw: OOT_MASK_SPOOKY, object: [oot, 0x0135], name: "the <C1>Spooky Mask" }
@@ -315,8 +315,8 @@
 - { id: OOT_KEY_RING_TCG, type: KEY, add: [OOT_KEY_RING, SCE_OOT_TREASURE_SHOP], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring (Chest Game)" }
 - { id: OOT_SOUL_NPC_SARIA, type: SOUL, add: [OOT_SOUL, 0x2000], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Saria" }
 - { id: OOT_SOUL_NPC_DARUNIA, type: SOUL, add: [OOT_SOUL, 0x2001], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Darunia" }
-- { id: OOT_SOUL_NPC_RUTO, type: SOUL, add: [OOT_SOUL, 0x2002], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Ruto" }
-- { id: OOT_SOUL_NPC_KING_ZORA, type: SOUL, add: [OOT_SOUL, 0x2003], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of King Zora" }
+- { id: OOT_SOUL_NPC_RUTO, type: SOUL, add: [OOT_SOUL, 0x2002], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Spoiled Bratty Princess" }
+- { id: OOT_SOUL_NPC_KING_ZORA, type: SOUL, add: [OOT_SOUL, 0x2003], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Mweep" }
 - { id: OOT_SOUL_NPC_ZELDA, type: SOUL, add: [OOT_SOUL, 0x2004], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Zelda" }
 - { id: OOT_SOUL_NPC_SHEIK, type: SOUL, add: [OOT_SOUL, 0x2005], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Sheik" }
 - { id: OOT_SOUL_NPC_ANJU, type: SOUL, add: [OOT_SOUL, 0x2006], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Cucco Lady" }
@@ -737,7 +737,7 @@
 - { id: MM_SPELL_LOVE, item: MM_SPELL_LOVE, type: MAJOR, add: [MM_TRADE3, XITEM_MM_TRADE3_SPELL_LOVE], flags: 0x80, draw: OOT_SPELL_LOVE, object: [oot, 0x015d], name: "<C1>Nayru's Love" }
 - { id: MM_BOOTS_IRON, item: MM_BOOTS_IRON, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_BOOTS_IRON], flags: 0x80, draw: OOT_BOOTS_IRON, object: [oot, 0x0118], name: "the <C1>Iron Boots" }
 - { id: MM_BOOTS_HOVER, item: MM_BOOTS_HOVER, type: MAJOR, add: [MM_TRADE3, XITEM_MM_TRADE3_BOOTS_HOVER], flags: 0x80, draw: OOT_BOOTS_HOVER, object: [oot, 0x0157], name: "the <C1>Hover Boots" }
-- { id: MM_TUNIC_GORON, item: MM_TUNIC_GORON, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_TUNIC_GORON], flags: 0xa0, draw: OOT_TUNIC_GORON, object: [oot, 0x00f2], name: "the <C1>Goron Tunic" }
+- { id: MM_TUNIC_GORON, item: MM_TUNIC_GORON, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_TUNIC_GORON], flags: 0xa0, draw: OOT_TUNIC_GORON, object: [oot, 0x00f2], name: "the <C1>Useless Tunic" }
 - { id: MM_TUNIC_ZORA, item: MM_TUNIC_ZORA, type: MAJOR, add: [MM_TRADE3, XITEM_MM_TRADE3_TUNIC_ZORA], flags: 0xa0, draw: OOT_TUNIC_ZORA, object: [oot, 0x00f2], name: "the <C1>Zora Tunic" }
 - { id: MM_SCALE_SILVER, type: MAJOR, add: [MM_SCALE, 1], flags: 0x80, draw: OOT_SCALE_SILVER, object: [oot, 0x00db], name: "the <C1>Silver Scale" }
 - { id: MM_SCALE_GOLDEN, type: MAJOR, add: [MM_SCALE, 2], flags: 0x80, draw: OOT_SCALE_GOLD, object: [oot, 0x00db], name: "the <C1>Golden Scale" }
