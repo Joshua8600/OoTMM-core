@@ -915,19 +915,23 @@
   region: LOST_WOODS
   exits:
     "Lost Woods": "true"
-"Lost Woods":
+"Lost Woods Lost Forest":
   region: LOST_WOODS
   exits:
     "Kokiri Forest": "true"
+"Lost Woods":
+  region: LOST_WOODS
+  exits:
+    "Lost Woods Lost Forest": "true"
     "Lost Woods Bridge": "can_longshot || has_hover_boots || can_ride_bean(BEAN_LOST_WOODS_EARLY) || climb_anywhere || hookshot_anywhere"
     "Lost Woods Deep": "is_child || can_play_saria || trick_mido || hookshot_anywhere || climb_anywhere"
     "Lost Woods Generic Grotto": "has_explosives_or_hammer"
     "Goron City Shortcut": "true"
     "Zora River": "true"
     "Lost Woods Rupee Arrow": "is_child && (can_dive_small || hookshot_anywhere || can_boomerang)"
-    "Lost Woods Lost North": "true"
-    "Lost Woods Lost South": "true"
-    "Lost Woods Lost West": "true"
+    "Lost Woods Lost North": "setting(alterLostWoodsExits)"
+    "Lost Woods Lost South": "setting(alterLostWoodsExits)"
+    "Lost Woods Lost West": "setting(alterLostWoodsExits)"
   events:
     BEAN_LOST_WOODS_EARLY: "can_use_beans"
     RUPEES: "true"
@@ -1005,11 +1009,11 @@
     "Sacred Meadow Entryway": "true"
     "Deku Theater": "true"
     "Lost Woods Scrub Grotto": "has_explosives_or_hammer"
-    "Kokiri Forest": "!setting(alterLostWoodsExits)"
-    "Lost Woods Lost North": "true"
-    "Lost Woods Lost East": "true"
-    "Lost Woods Lost South": "true"
-    "Lost Woods Lost West": "true"
+    "Lost Woods Lost Forest": "!setting(alterLostWoodsExits)"
+    "Lost Woods Lost North": "setting(alterLostWoodsExits)"
+    "Lost Woods Lost East": "setting(alterLostWoodsExits)"
+    "Lost Woods Lost South": "setting(alterLostWoodsExits)"
+    "Lost Woods Lost West": "setting(alterLostWoodsExits)"
   events:
     BEAN_LOST_WOODS_LATE: "can_use_beans"
     RUPEES: "can_cut_grass"
