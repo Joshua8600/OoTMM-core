@@ -512,10 +512,10 @@
 - { id: MM_MASK_BUNNY, item: MM_MASK_BUNNY, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_BUNNY, object: [mm, 0x0103], name: "the <C1>Bunny Hood" }
 - { id: MM_MASK_KEATON, item: MM_MASK_KEATON, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_KEATON, object: [mm, 0x0100], name: "the <C1>Kee-Something Character Mask" }
 - { id: MM_MASK_GARO, item: MM_MASK_GARO, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GARO, object: [mm, 0x0209], name: "the <C1>Garo's Mask" }
-- { id: MM_MASK_ROMANI, item: MM_MASK_ROMANI, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_ROMANI, object: [mm, 0x021f], name: "<C1>Romani's Mask" }
-- { id: MM_MASK_TROUPE_LEADER, item: MM_MASK_TROUPE_LEADER, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_TROUPE_LEADER, object: [mm, 0x0259], name: "the <C1>Circus Leader's Mask" }
+- { id: MM_MASK_ROMANI, item: MM_MASK_ROMANI, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_ROMANI, object: [mm, 0x021f], name: "<C1>Moo-Moo Mask" }
+- { id: MM_MASK_TROUPE_LEADER, item: MM_MASK_TROUPE_LEADER, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_TROUPE_LEADER, object: [mm, 0x0259], name: "the <C1>Crying Mask" }
 - { id: MM_MASK_POSTMAN, item: MM_MASK_POSTMAN, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_POSTMAN, object: [mm, 0x0225], name: "the <C1>Postman's Hat" }
-- { id: MM_MASK_COUPLE, item: MM_MASK_COUPLE, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_COUPLE, object: [mm, 0x0282], name: "the <C1>Couple's Mask" }
+- { id: MM_MASK_COUPLE, item: MM_MASK_COUPLE, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_COUPLE, object: [mm, 0x0282], name: "the <C1>Divorce Mask" }
 - { id: MM_MASK_GREAT_FAIRY, item: MM_MASK_GREAT_FAIRY, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GREAT_FAIRY, object: [mm, 0x020a], name: "the <C1>Great Fairy Mask" }
 - { id: MM_MASK_GIBDO, item: MM_MASK_GIBDO, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GIBDO, object: [mm, 0x020b], name: "the <C1>Gibdo Mask" }
 - { id: MM_MASK_DON_GERO, item: MM_MASK_DON_GERO, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_DON_GERO, object: [mm, 0x0266], name: "the <C1>Don Gero's Mask" }
