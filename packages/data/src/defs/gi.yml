@@ -23,7 +23,7 @@
 - { id: OOT_MASK_SKULL, item: OOT_SKULL_MASK, type: MASK, add: [OOT_TRADE_CHILD, 4], flags: 0x80, draw: OOT_MASK_SKULL, object: [oot, 0x0136], name: "the <C1>Skull Mask" }
 - { id: OOT_MASK_SPOOKY, item: OOT_SPOOKY_MASK, type: MASK, add: [OOT_TRADE_CHILD, 5], flags: 0x80, draw: OOT_MASK_SPOOKY, object: [oot, 0x0135], name: "the <C1>Spooky Mask" }
 - { id: OOT_CHICKEN, item: OOT_CHICKEN, type: MAJOR, add: [OOT_TRADE_CHILD, 1], flags: 0x80, draw: OOT_CHICKEN, object: [oot, 0x0109], name: "the <C1>Chicken" }
-- { id: OOT_MASK_KEATON, item: OOT_KEATON_MASK, type: MASK, add: [OOT_TRADE_CHILD, 3], flags: 0x80, draw: MASK_KEATON, object: [oot, 0x0134], name: "the <C1>Keaton Mask" }
+- { id: OOT_MASK_KEATON, item: OOT_KEATON_MASK, type: MASK, add: [OOT_TRADE_CHILD, 3], flags: 0x80, draw: MASK_KEATON, object: [oot, 0x0134], name: "the <C1>Kee-Something Character Mask" }
 - { id: OOT_MASK_BUNNY, item: OOT_BUNNY_HOOD, type: MASK, add: [OOT_TRADE_CHILD, 6], flags: 0x80, draw: MASK_BUNNY, object: [oot, 0x0137], name: "the <C1>Bunny Hood" }
 - { id: OOT_MASK_TRUTH, item: OOT_MASK_OF_TRUTH, type: MASK, add: [OOT_TRADE_CHILD, 10], flags: 0x80, draw: MASK_TRUTH, object: [oot, 0x0138], name: "the <C1>Mask of Truth" }
 - { id: OOT_POCKET_EGG, item: OOT_POCKET_EGG, type: MAJOR, add: [OOT_TRADE_ADULT, 0], flags: 0x80, draw: OOT_EGG, object: [oot, 0x00da], name: "the <C1>Pocket Egg" }
@@ -73,7 +73,7 @@
 - { id: OOT_ARROWS_5, item: OOT_ARROWS_5, type: MINOR, add: [OOT_ARROWS, 5], flags: 0x48, draw: ARROW, object: [oot, 0x00d8], name: "<C0>5 Arrows" }
 - { id: OOT_ARROWS_10, item: OOT_ARROWS_10, type: MINOR, add: [OOT_ARROWS, 10], flags: 0x49, draw: ARROW2, object: [oot, 0x00d8], name: "<C0>10 Arrows" }
 - { id: OOT_ARROWS_30, item: OOT_ARROWS_30, type: MINOR, add: [OOT_ARROWS, 30], flags: 0x4a, draw: ARROW3, object: [oot, 0x00d8], name: "<C0>30 Arrows" }
-- { id: OOT_RUPEE_GREEN, item: OOT_RUPEE_GREEN, type: RUPEE, add: [OOT_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Green Rupee" }
+- { id: OOT_RUPEE_GREEN, item: OOT_RUPEE_GREEN, type: RUPEE, add: [OOT_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Nax" }
 - { id: OOT_RUPEE_BLUE, item: OOT_RUPEE_BLUE, type: RUPEE, add: [OOT_RUPEE, 5], flags: 0x01, draw: [RUPEE, 2], object: [mm, 0x013f], name: "a <C0>Blue Rupee" }
 - { id: OOT_RUPEE_RED, item: OOT_RUPEE_RED, type: RUPEE, add: [OOT_RUPEE, 20], flags: 0x02, draw: [RUPEE, 3], object: [mm, 0x013f], name: "a <C0>Red Rupee" }
 - { id: OOT_HEART_CONTAINER2, item: OOT_HEART_CONTAINER, type: HEART, add: [OOT_HEART_PIECE, 4], flags: 0x80, draw: HEART_CONTAINER, object: [oot, 0x00bd], name: "a <C0>Heart Container" }
@@ -111,7 +111,7 @@
 - { id: OOT_POE, item: OOT_POE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: POE, object: [oot, 0x0176], name: "a <C0>Poe" }
 - { id: OOT_BIG_POE, item: OOT_BIG_POE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: BIG_POE, object: [oot, 0x0176], name: "a <C0>Big Poe" }
 - { id: OOT_TC_SMALL_KEY, item: OOT_SMALL_KEY, type: KEY, add: [OOT_SMALL_KEY, 0xffff], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key" }
-- { id: OOT_TC_RUPEE_GREEN, item: OOT_RUPEE_GREEN, type: RUPEE, add: [OOT_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Green Rupee" }
+- { id: OOT_TC_RUPEE_GREEN, item: OOT_RUPEE_GREEN, type: RUPEE, add: [OOT_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Nax" }
 - { id: OOT_TC_RUPEE_BLUE, item: OOT_RUPEE_BLUE, type: RUPEE, add: [OOT_RUPEE, 5], flags: 0x01, draw: [RUPEE, 2], object: [mm, 0x013f], name: "a <C0>Blue Rupee" }
 - { id: OOT_TC_RUPEE_RED, item: OOT_RUPEE_RED, type: RUPEE, add: [OOT_RUPEE, 20], flags: 0x02, draw: [RUPEE, 3], object: [mm, 0x013f], name: "a <C0>Red Rupee" }
 - { id: OOT_TC_RUPEE_PURPLE, item: OOT_RUPEE_PURPLE, type: RUPEE, add: [OOT_RUPEE, 50], flags: 0x14, draw: [RUPEE, 4], object: [mm, 0x013f], name: "a <C0>Purple Rupee" }
@@ -226,7 +226,7 @@
 - { id: OOT_SOUL_ENEMY_GOHMA_LARVA, type: SOUL, add: [OOT_SOUL, 0x0009], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Gohma Larvae" }
 - { id: OOT_SOUL_ENEMY_SHABOM, type: SOUL, add: [OOT_SOUL, 0x000a], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Shaboms" }
 - { id: OOT_SOUL_ENEMY_BABY_DODONGO, type: SOUL, add: [OOT_SOUL, 0x000b], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Baby Dodongos" }
-- { id: OOT_SOUL_ENEMY_DARK_LINK, type: SOUL, add: [OOT_SOUL, 0x000c], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Dark Link" }
+- { id: OOT_SOUL_ENEMY_DARK_LINK, type: SOUL, add: [OOT_SOUL, 0x000c], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Joshua8600" }
 - { id: OOT_SOUL_ENEMY_BIRI_BARI, type: SOUL, add: [OOT_SOUL, 0x000d], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Biris/Baris" }
 - { id: OOT_SOUL_ENEMY_TAILPASARN, type: SOUL, add: [OOT_SOUL, 0x000e], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Tailpasarans" }
 - { id: OOT_SOUL_ENEMY_PARASITE, type: SOUL, add: [OOT_SOUL, 0x000f], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Jabu-Jabu's Parasites" }
@@ -350,7 +350,7 @@
 - { id: OOT_SOUL_NPC_HONEY_DARLING, type: SOUL, add: [OOT_SOUL, 0x2023], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Honey & Darling" }
 - { id: OOT_SOUL_NPC_ASTRONOMER, type: SOUL, add: [OOT_SOUL, 0x2024], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Astronomer" }
 - { id: OOT_SOUL_NPC_ROOFTOP_MAN, type: SOUL, add: [OOT_SOUL, 0x2025], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Rooftop Man" }
-- { id: OOT_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [OOT_SOUL, 0x2026], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Bean Salesman" }
+- { id: OOT_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [OOT_SOUL, 0x2026], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Bean Daddy" }
 - { id: OOT_SOUL_NPC_SCIENTIST, type: SOUL, add: [OOT_SOUL, 0x2027], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Scientist" }
 - { id: OOT_SOUL_NPC_GORMAN, type: SOUL, add: [OOT_SOUL, 0x2028], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Ingo" }
 - { id: OOT_SOUL_NPC_GROG, type: SOUL, add: [OOT_SOUL, 0x2029], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of the Punk Boy" }
@@ -425,7 +425,7 @@
 - { id: OOT_MASK_STONE, type: MASK, add: [OOT_TRADE_CHILD, XITEM_OOT_CHILD_MASK_STONE], flags: 0x80, draw: MM_MASK_STONE, object: [mm, 0x0254], name: "the <C1>Stone Mask" }
 - { id: OOT_TRAP_RUPOOR, type: RUPEE, add: [OOT_RUPEE, -10], flags: 0x80, draw: [RUPEE, 0], object: [mm, 0x013f], name: "a <COLOR_BLUE>Rupoor" }
 - { id: OOT_SONG_EMPTINESS, type: MAJOR, add: OOT_SONG_EMPTINESS, flags: 0x80, draw: [NOTE, 0x84], object: [oot, 0x00b6], name: "the <C2>Elegy of Emptiness" }
-- { id: MM_RUPEE_GREEN, item: MM_RUPEE_GREEN, type: RUPEE, add: [MM_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Green Rupee" }
+- { id: MM_RUPEE_GREEN, item: MM_RUPEE_GREEN, type: RUPEE, add: [MM_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Nax" }
 - { id: MM_RUPEE_BLUE, item: MM_RUPEE_BLUE, type: RUPEE, add: [MM_RUPEE, 5], flags: 0x01, draw: [RUPEE, 2], object: [mm, 0x013f], name: "a <C0>Blue Rupee" }
 - { id: MM_RUPEE_RED_10, item: MM_RUPEE_RED10, type: RUPEE, add: [MM_RUPEE, 10], flags: 0x02, draw: [RUPEE, 3], object: [mm, 0x013f], name: "a <C0>Red Rupee" }
 - { id: MM_RUPEE_RED, item: MM_RUPEE_RED, type: RUPEE, add: [MM_RUPEE, 20], flags: 0x02, draw: [RUPEE, 3], object: [mm, 0x013f], name: "a <C0>Red Rupee" }
@@ -510,7 +510,7 @@
 - { id: MM_MASK_GIANT, item: MM_MASK_GIANT, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GIANT, object: [mm, 0x0226], name: "the <C1>Giant's Mask" }
 - { id: MM_MASK_ALL_NIGHT, item: MM_MASK_ALL_NIGHT, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_ALL_NIGHT, object: [mm, 0x0265], name: "the <C1>All Night Mask" }
 - { id: MM_MASK_BUNNY, item: MM_MASK_BUNNY, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_BUNNY, object: [mm, 0x0103], name: "the <C1>Bunny Hood" }
-- { id: MM_MASK_KEATON, item: MM_MASK_KEATON, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_KEATON, object: [mm, 0x0100], name: "the <C1>Keaton Mask" }
+- { id: MM_MASK_KEATON, item: MM_MASK_KEATON, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_KEATON, object: [mm, 0x0100], name: "the <C1>Kee-Something Character Mask" }
 - { id: MM_MASK_GARO, item: MM_MASK_GARO, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GARO, object: [mm, 0x0209], name: "the <C1>Garo's Mask" }
 - { id: MM_MASK_ROMANI, item: MM_MASK_ROMANI, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_ROMANI, object: [mm, 0x021f], name: "<C1>Romani's Mask" }
 - { id: MM_MASK_TROUPE_LEADER, item: MM_MASK_TROUPE_LEADER, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_TROUPE_LEADER, object: [mm, 0x0259], name: "the <C1>Circus Leader's Mask" }
@@ -676,9 +676,9 @@
 - { id: MM_SOUL_NPC_HONEY_DARLING, type: SOUL, add: [MM_SOUL, 0x2011], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Honey & Darling" }
 - { id: MM_SOUL_NPC_TOTO, type: SOUL, add: [MM_SOUL, 0x2012], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Toto" }
 - { id: MM_SOUL_NPC_RUTO, type: SOUL, add: [MM_SOUL, 0x2013], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Lulu" }
-- { id: MM_SOUL_NPC_ZORA_MUSICIANS, type: SOUL, add: [MM_SOUL, 0x2014], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Zora Musicians" }
+- { id: MM_SOUL_NPC_ZORA_MUSICIANS, type: SOUL, add: [MM_SOUL, 0x2014], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Indigo-Go's" }
 - { id: MM_SOUL_NPC_KAFEI, type: SOUL, add: [MM_SOUL, 0x2015], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Kafei" }
-- { id: MM_SOUL_NPC_KEATON, type: SOUL, add: [MM_SOUL, 0x2016], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Keaton" }
+- { id: MM_SOUL_NPC_KEATON, type: SOUL, add: [MM_SOUL, 0x2016], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Kee-Something Character" }
 - { id: MM_SOUL_NPC_KOUME_KOTAKE, type: SOUL, add: [MM_SOUL, 0x2017], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Koume & Kotake" }
 - { id: MM_SOUL_NPC_MAYOR_DOTOUR, type: SOUL, add: [MM_SOUL, 0x2018], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Mayor Dotour" }
 - { id: MM_SOUL_NPC_MEDIGORON, type: SOUL, add: [MM_SOUL, 0x2019], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Keg Trial Goron" }
@@ -695,7 +695,7 @@
 - { id: MM_SOUL_NPC_ZORA, type: SOUL, add: [MM_SOUL, 0x2024], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Zoras" }
 - { id: MM_SOUL_NPC_ZORA_SHOPKEEPER, type: SOUL, add: [MM_SOUL, 0x2025], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Zora Shopkeeper" }
 - { id: MM_SOUL_NPC_MALON, type: SOUL, add: [MM_SOUL, 0x2026], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Romani/Cremia" }
-- { id: MM_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [MM_SOUL, 0x2027], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Bean Salesman" }
+- { id: MM_SOUL_NPC_BEAN_SALESMAN, type: SOUL, add: [MM_SOUL, 0x2027], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Bean Daddy" }
 - { id: MM_SOUL_NPC_CARPENTERS, type: SOUL, add: [MM_SOUL, 0x2028], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Carpenters" }
 - { id: MM_SOUL_NPC_ANJU, type: SOUL, add: [MM_SOUL, 0x2029], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Anju" }
 - { id: MM_SOUL_NPC_GURU_GURU, type: SOUL, add: [MM_SOUL, 0x202a], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Guru-Guru" }
