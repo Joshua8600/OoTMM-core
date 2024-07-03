@@ -1260,6 +1260,14 @@ export const SETTINGS = [{
   default: false,
   cond: hasMM,
 }, {
+  key: 'shadowFastBoat',
+  name: 'Fast Shadw Temple Boat',
+  category: 'main.misc',
+  type: 'boolean',
+  description: 'Speeds up the Shadow Temple Boat before the last part of the dungeon',
+  default: false,
+  cond: hasOoT,
+}, {
   key: 'fillWallets',
   name: 'Fill Wallets',
   category: 'items.extensions',
@@ -1718,6 +1726,13 @@ export const SETTINGS = [{
   category: 'items.extensions',
   type: 'boolean',
   description: 'Add rupoors to the item pool. They remove 10 rupees when collected',
+  default: false
+}, {
+  key: 'songOfDoubleTimeOot',
+  name: 'Song of Double Time (OoT)',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Enables using Song of Double Time in OoT when you have Song of Time in OoT',
   default: false
 }, {
   key: 'sharedNutsSticks',
