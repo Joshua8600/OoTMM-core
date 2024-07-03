@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add a setting altering Shadow Temple boat speed.
 - Add ageless Slingshot and Bow.
 - Add CAMC to cows, where the cow ring hints at the item. If off, cow rings are collection markers instead.
 - Add an optional CAMC setting for maps and compasses.
@@ -13,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Can now shuffle the rewards for selling the OoT masks.
 - Add a setting to shuffle Wonder Items (non-MQ).
 - Add a setting to make some OoT dungeons open.
+- Add a setting to enable using Song of Double Time in OoT.
 
 ### Changed
 
@@ -28,6 +30,7 @@ All notable changes to this project will be documented in this file.
 
 ## Fixed
 
+- Fix Keaton Quiz music continuing at night if the received item was minor.
 - Fix song of time sometimes respawning the player in day-0 state until the next scene load.
 - Fix bottle issues when changing age.
 - Fix a weird interaction between scarecrow and clock shuffle.
@@ -42,6 +45,7 @@ All notable changes to this project will be documented in this file.
 - Fix an issue where, in certain settings, the game could still expect you to do MM without a way to reset time.
 - Fix logic issue pertaining to Lost Woods and Overworld ER.
 - Fix Milk Bar being able to appear in places that close at 10pm in All Locations logic.
+- Fix bugs from grass allowing Strength as an option to collect them; the bugs will not spawn by picking up and throwing the grass.
 
 ## [23.1] - 2024-05-30
 
