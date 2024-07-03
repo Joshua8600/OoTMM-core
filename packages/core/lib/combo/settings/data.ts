@@ -2457,4 +2457,20 @@ export const SETTINGS = [{
   description: 'Shuffle the Lost Woods entrances added by "Alter Lost Woods Exits" among one-way entrances.',
   default: false,
   cond: (x: any) => hasOoT(x) && x.erOneWays !== 'none' && x.alterLostWoodsExits
+}, {
+  key: 'erOneWaysWaterVoids',
+  name: 'Shuffle the Water Void Points in MM',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle the Water Void entrances among one-way entrances. These include:<br>- Zora Cape<br>- Great Bay Coast, south of Pinnacle Rock Entrance<br>- Great Bay Coast, north of Pinnacle Rock Entrance<br>- Pinnacle Rock',
+  default: false,
+  cond: (x: any) => hasMM(x) && x.erOneWays !== 'none'
+}, {
+  key: 'erOneWaysAnywhere',
+  name: 'Allow One-Ways to take you elsewhere than other one-ways',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Makes it so one-ways can take you to any place also shuffled',
+  default: false,
+  cond: (x: any) => x.erOneWays !== 'none'
 }] as const;

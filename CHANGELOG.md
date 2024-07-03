@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add a setting to allow one-ways to take you anywhere, alike wallmasters.
+- Add a setting to shuffle the few Water Void spots in MM. 
 - Add a setting altering Shadow Temple boat speed.
 - Add ageless Slingshot and Bow.
 - Add CAMC to cows, where the cow ring hints at the item. If off, cow rings are collection markers instead.
@@ -30,6 +32,7 @@ All notable changes to this project will be documented in this file.
 
 ## Fixed
 
+- Fix website tooltips no longer having breaklines.
 - Fix Keaton Quiz music continuing at night if the received item was minor.
 - Fix song of time sometimes respawning the player in day-0 state until the next scene load.
 - Fix bottle issues when changing age.
