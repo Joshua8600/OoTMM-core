@@ -4,11 +4,27 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- The boat cruise is now faster if you are not playing the archery.
+
+### Fixed
+
+- Minor collection delay for Bolero.
+- Long-standing issue where Anju's reservation worked inconsistently.
+- Title cards not being displayed on game transitions.
+- MQ Forest Temple freestanding hearts logic issue.
+
 ## [24.1] - 2024-07-11
 
 ### Added
 
 - The baby chickens in Cucco Shack are now displayed on the mini-map.
+
+### Changed
+
+- Made the Title Screen a little nicer.
+- Altered the patch format to support more features in the future.
 
 ### Fixed
 
