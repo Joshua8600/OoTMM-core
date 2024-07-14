@@ -8,6 +8,7 @@
 typedef struct Font Font;
 typedef struct GameState_Play GameState_Play;
 typedef struct ActorContext ActorContext;
+typedef struct TitleCardContext TitleCardContext;
 typedef struct Actor Actor;
 typedef struct Actor_Player Actor_Player;
 typedef struct DynaCollisionContext DynaCollisionContext;
@@ -18,6 +19,8 @@ typedef enum BombersNotebookPerson BombersNotebookPerson;
 typedef enum BombersNotebookEvent BombersNotebookEvent;
 typedef void (*ActorShadowFunc)(struct Actor* actor, struct Lights* mapper, GameState_Play* play);
 #endif
+
+int TitleCard_Clear(GameState_Play* play, TitleCardContext* titleCtx);
 
 float Actor_WorldDistXZToActor(Actor* a, Actor* b);
 float Actor_HeightDiff(Actor* a, Actor* b);
@@ -45,8 +48,6 @@ void            DynaPoly_InvalidateLookup(GameState_Play* play, DynaCollisionCon
 void            DynaPoly_UnsetAllInteractFlags(GameState_Play* play, DynaCollisionContext* dyna, Actor* actor);
 void            DynaPoly_UpdateContext(GameState_Play* play, DynaCollisionContext* dyna);
 void            DynaPoly_UpdateBgActorTransforms(GameState_Play* play, DynaCollisionContext* dyna);
-void            DynaPoly_DeleteBgActor(GameState_Play* play, DynaCollisionContext* dyna, s32 bgId);
-s32             DynaPoly_SetBgActor(GameState_Play* play, DynaCollisionContext* dyna, Actor* actor, CollisionHeader* colHeader);
 
 void    CollisionHeader_GetVirtual(void* colHeader, CollisionHeader** dest);
 void    Interface_UpdateButtonsPart2(GameState_Play* play);
@@ -81,7 +82,7 @@ int     Actor_HasNoParent(Actor* actor, GameState_Play* play);
 int     Actor_HasNoParentZ(Actor* actor);
 void    Actor_SetScale(Actor* actor, float scale);
 void    ActorSetUnk(Actor* actor, float unk);
-void    ActorEnableGrab(Actor* actor, GameState_Play* play);
+void    Actor_OfferCarry(Actor* actor, GameState_Play* play);
 void    ActorEnableTalk(Actor* actor, GameState_Play* play, float range);
 void    ActorEnableTalkEx(Actor* actor, GameState_Play* play, float range, u32 unk);
 void    Actor_UpdateBgCheckInfo(GameState_Play* play, Actor* actor, float unk_3, float unk_4, float unk_5, u32 unk_6);
@@ -171,7 +172,7 @@ void MatrixStackDup(void);
 void MatrixStackPop(void);
 void Matrix_MultVec3f(Vec3f* src, Vec3f* dest);
 
-void SomethingPotBreak(GameState_Play* play, Vec3f* pos, float unk1, int unk2, int unk3, int unk4, int unk5);
+void SpawnSomeDust(GameState_Play* play, Vec3f* pos, float unk1, int unk2, int unk3, int unk4, int unk5);
 
 f32 Rand_CenteredFloat(f32 scale);
 
@@ -245,7 +246,7 @@ void PlayLoopingSfxAtActor(Actor* actor, u32 id);
 void Actor_PlaySfx_FlaggedCentered1(Actor* actor, u16 sfxId);
 void Audio_PlaySfx_AtPos(Vec3f* pos, u16 sfxId);
 void Audio_PlaySfx_MessageDecide(void);
-void Audio_PlaySfx(u16 sfxId, Vec3f* pos, u8 token, f32* freqScale, f32* volume, s8* reverbAdd);
+void AudioSfx_PlaySfx(u16 sfxId, Vec3f* pos, u8 token, f32* freqScale, f32* volume, s8* reverbAdd);
 
 #if defined(GAME_MM)
 void AudioOcarina_SetInstrument(u8 ocarinaInstrumentId);
@@ -439,5 +440,40 @@ void Environment_Init(GameState_Play* play, EnvironmentContext* envCtx, int unus
 extern u8 gWeatherMode;
 
 #if defined(GAME_MM)
+extern u8 gSceneSeqState;
+extern s16 gSkyboxNumStars;
+extern Vec3f gZeroVec3f;
+
+Actor* SubS_FindActor(GameState_Play* play, Actor* actorListStart, u8 actorCategory, s16 actorId);
+void SubS_TimePathing_FillKnots(f32 knots[], s32 order, s32 numPoints);
+s32 SubS_TimePathing_Update(Path* path, f32* progress, s32* elapsedTime, s32 waypointTime, s32 totalTime, s32* waypoint, f32 knots[], Vec3f* targetPos, s32 timeSpeed);
+s16 CutsceneManager_GetCurrentCsId(void);
+void Environment_StartTime(void);
+void Environment_StopTime(void);
+void Audio_PlaySfx_MessageCancel(void);
+void Audio_PlaySfx_MessageDecide(void);
+void DynaPolyActor_LoadMesh(GameState_Play* play, DynaPolyActor* dynaActor, CollisionHeader* meshHeader);
+Path* SubS_GetAdditionalPath(GameState_Play* play, u8 pathIndex, s32 limit);
+void Math_Vec3s_ToVec3f(Vec3f* dest, Vec3s* src);
+void Interface_InitMinigame(GameState_Play* play);
+
+s32 DynaPolyActor_IsPlayerOnTop(DynaPolyActor* dynaActor);
+void DynaPolyActor_Init(DynaPolyActor* dynaActor, s32 transformFlags);
+
 void AudioSeq_QueueSeqCmd(u32 cmd);
+void DayTelop_Init(GameState_Play* play);
+void Audio_PlaySfx(u16 sfxId);
+void Audio_PlaySfx_2(u16 sfxId);
+
+void Message_DisplaySceneTitleCard(GameState_Play* play, u16 textId);
+void Sram_IncrementDay(void);
+s32 Play_IsDebugCamEnabled(void);
+u16 Entrance_CreateFromSpawn(s32 spawn);
+void func_80169EFC(GameState_Play* play);
+void Audio_PlaySfx_BigBells(Vec3f* pos, u8 volumeIndex);
+s16 CutsceneManager_IsNext(s16 csId);
+void CutsceneManager_Queue(s16 csId);
+s16 CutsceneManager_Start(s16 csId, Actor* actor);
+s16 CutsceneManager_Stop(s16 csId);
+CutsceneEntry* CutsceneManager_GetCutsceneEntry(s16 csId);
 #endif
