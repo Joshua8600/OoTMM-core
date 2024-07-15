@@ -120,7 +120,7 @@
   dungeon: DT
   exits:
     "Deku Tree Basement": "soul_deku_scrub && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && can_damage"
-    "Deku Tree Water Room": "event(DEKU_MQ_WATER_PATH_TORCH1)"
+    "Deku Tree Water Room Front": "event(DEKU_MQ_WATER_PATH_TORCH1)"
   events:
     DEKU_MQ_WATER_PATH_TORCH1: "has_fire"
   locations:
@@ -133,34 +133,46 @@
 
 
     
-"Deku Tree Water Room":
+"Deku Tree Water Room Front":
   dungeon: DT
   exits:
-    "Deku Tree Lobby": "true"
-    "Deku Tree Water Room Back": "(is_child && has_shield) || can_longshot || (can_hookshot && has_iron_boots)"
+    "Deku Tree Room Before Water Room": "true"
+    "Deku Tree Water Room Back": "true" #You can do this as both adult and child, without a shield, by rolling under the spike.
   events:
-    MQ_DEKU_WATER_TORCHES: "(is_child && has_shield && can_use_sticks) || (can_use_bow && can_play_elegy)"
+    MQ_DEKU_WATER_TORCHES: "(is_child && can_use_sticks) || (can_use_bow && can_play_elegy)" #You can do this as both adult and child, without a shield, by rolling under the spike.
   locations:
     "MQ Deku Tree Before Water Platform Chest": "true"
     "MQ Deku Tree Grass Spike Room Front 1": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Front 2": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Front 3": "can_cut_grass"
+
+
+    
 "Deku Tree Water Room Back":
   dungeon: DT
   exits:
-    "Deku Tree Backrooms": "soul_keese && soul_deku_scrub && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || has_ranged_weapon_child) && event(MQ_DEKU_WATER_TORCHES)"
+    "Deku Tree Water Room Front": "true"
+    "Deku Tree Room After Water Room": "event(MQ_DEKU_WATER_TORCHES) && (climb_anywhere || hookshot_anywhere || can_damage)"
   events:
     MQ_DEKU_WATER_TORCHES: "has_fire"
   locations:
     "MQ Deku Tree After Water Platform Chest": "can_play_time"
-    "MQ Deku Tree Before Water Platform Chest": "true"
     "MQ Deku Tree Grass Spike Room Back 1": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Back 2": "can_cut_grass"
+
+
+
+    "Deku Tree Backrooms": "soul_keese && soul_deku_scrub && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || has_ranged_weapon_child) && event(MQ_DEKU_WATER_TORCHES)"
+
+    
     "MQ Deku Tree Grass Larvae Room 1": "can_cut_grass && event(MQ_DEKU_WATER_TORCHES)" #This is placed here because you don't need the souls to get the grass like you do to reach the backrooms.
     "MQ Deku Tree Grass Larvae Room 2": "can_cut_grass && event(MQ_DEKU_WATER_TORCHES)" #This is placed here because you don't need the souls to get the grass like you do to reach the backrooms.
     "MQ Deku Tree Grass Spike Room Front 1": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Front 2": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Front 3": "can_cut_grass"
+
+
+    
 "Deku Tree Backrooms":
   dungeon: DT
   exits:
@@ -186,7 +198,8 @@
 "Deku Tree Basement Ledge":
   dungeon: DT
   exits:
-    "Deku Tree Before Boss": "can_use_sticks || has_fire"
+    "Deku Tree Basement": "true"
+    "Deku Tree Before Boss": "(can_use_sticks && (is_adult || (is_child && event(DEKU_BLLOCK)))) || has_fire"
     "Deku Tree Backrooms": "is_child"
   events:
     DEKU_BLOCK: "true"
