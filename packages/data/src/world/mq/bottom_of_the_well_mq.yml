@@ -31,7 +31,9 @@
   events:
     BOTW_MQ_CENTER_GATES_LOWERED: "can_play_zelda"
     BOTW_MQ_DRAIN_WATER: "has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword"
+    BOTW_MQ_EYE_GATE: "has_explosives_or_hammer && can_hit_triggers_distance"
   locations:
+    "MQ Bottom of the Well Pot Lobby Alcove": "event(BOTW_MQ_EYE_GATE)"
     "MQ Bottom of the Well Heart Main Room 1": "has_explosives"
     "MQ Bottom of the Well Heart Main Room 2": "has_explosives"
     "MQ Bottom of the Well Wonder Item Main Room Left 1": "can_use_slingshot"
@@ -59,7 +61,7 @@
     "Bottom of the Well Main Room Center Switch Corner": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP || hookshot_anywhere || climb_anywhere"
     "Bottom of the Well West Center Room": "event(BOTW_CENTER_WEST_TORCH)"
     "Bottom of the Well East Center Room": "event(BOTW_CENTER_EAST_TORCH)"
-    "Bottom of the Well Basement Switch Ledge": "event(BOTW_MQ_GATES_FROM_SWITCH)"
+    "Bottom of the Well Basement Switch Ledge": "event(BOTW_MQ_GATE_FROM_SWITCH)"
     "Bottom of the Well Basement": "true"
   events:
     BOTW_CENTER_EAST_TORCH: "can_hit_triggers_distance || can_hookshot || has_explosives || can_use_mask_blast"
@@ -165,14 +167,4 @@
   exits:
     "Bottom of the Well Pit Before Cage": "true"
   events:
-    BOTW_MQ_GATES_FROM_SWITCH: "has_explosives"
-  
-  
-
-
-
-
-
-    
-  locations:
-    "MQ Bottom of the Well Pot Lobby Alcove": "has_explosives_or_hammer && can_hit_triggers_distance"
+    BOTW_MQ_GATE_FROM_SWITCH: "has_explosives"
