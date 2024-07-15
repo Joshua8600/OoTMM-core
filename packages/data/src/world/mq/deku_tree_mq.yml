@@ -6,23 +6,60 @@
 "Deku Tree Lobby":
   dungeon: DT
   exits:
+    "Deku Tree": "true"
+    "Deku Tree 2nd Floor": "true"
+    "Deku Tree Basement": "has_fire || (can_use_stucks && event(DEKU_MQ_MAIN_TORCH))"
+  events:
+    STICKS: "can_kill_baba_sticks"
+    NUTS: "can_kill_baba_nuts"
+  locations:
+    "MQ Deku Tree Grass Entrance Lower 1": "can_cut_grass"
+    "MQ Deku Tree Grass Entrance Lower 2": "can_cut_grass"
+    "MQ Deku Tree Grass Entrance Lower 3": "can_cut_grass"
+    "MQ Deku Tree Grass Entrance Lower 4": "can_cut_grass"
+    "MQ Deku Tree Grass Entrance Lower 5": "can_cut_grass"
+
+
+"Deku Tree 2nd Floor":
+  dungeon: DT
+  exits:
+    "Deku Tree Lobby": "true"
+    "Deku Tree 3rd Floor": "true"
+    "Deku Tree Room Before Compass Room": "
+
+
+"Deku Tree 3rd Floor":
+  dungeon: DT
+  exits:
+    "Deku Tree 2rd Floor": "true"
+    "Deku Tree Lobby": "true"
+    "Deku Tree Basement": "true"
+    "Deku Tree MQ Slingshot Room": "
+  events:
+    DEKU_MQ_MAIN_TORCH: "true"
+
+
+"Deku Tree Room Before Compass Room":
+  dungeon: DT
+  exits:
+    "Deku Tree 2nd Floor": "
+    "Deku Tree MQ Compass Room": "
+
+
+
+
+  
     "Deku Tree Compass Room": "can_use_bow || (can_use_slingshot && (can_use_sticks || can_use_din))"
     "Deku Tree Water Room": "(can_use_slingshot || can_use_bow) && (can_use_sticks || has_fire)"
     "Deku Tree Basement Ledge": "is_adult || event(DEKU_BLOCK) || trick(OOT_DEKU_SKIP) || has_hover_boots"
-  events:
-    STICKS: "has_weapon || can_boomerang"
-    NUTS: "can_kill_baba_nuts"
+
+
   locations:
     "MQ Deku Tree Map Chest": "true"
     "MQ Deku Tree Slingshot Chest": "soul_deku_baba && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || can_use_sticks || has_ranged_weapon_child)" #Bombs and Din's work, but it's horrible.
     "MQ Deku Tree Slingshot Room Far Chest": "can_use_sticks || has_fire"
     "MQ Deku Tree Basement Chest": "can_use_sticks || has_fire"
     "MQ Deku Tree GS Lobby Crate": "gs && can_damage_skull"
-    "MQ Deku Tree Grass Entrance Lower 1": "can_cut_grass"
-    "MQ Deku Tree Grass Entrance Lower 2": "can_cut_grass"
-    "MQ Deku Tree Grass Entrance Lower 3": "can_cut_grass"
-    "MQ Deku Tree Grass Entrance Lower 4": "can_cut_grass"
-    "MQ Deku Tree Grass Entrance Lower 5": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Upper 1": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Upper 2": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Front 1": "can_cut_grass"
