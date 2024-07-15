@@ -15,35 +15,54 @@
   region: NONE
   exits:
     "VOID": "true"
+
+
+    
 "Bottom of the Well Main":
   dungeon: BotW
   exits:
-    "Bottom of the Well Main Room Center": "can_play_zelda || (has_explosives_or_hammer && has_hover_boots) || (has_explosives_or_hammer && trick(OOT_BOTW_MQ_BACKFLIP))"
+    "Bottom of the Well": "is_child"
+    "Bottom of the Well Main Room Center": "event(BOTW_MQ_CENTER_GATES_LOWERED)"
+    "Bottom of the Well Main Room Center Switch Corner": "has_explosives_or_hammer"
     "Bottom of the Well Basement": "true"
   events:
-    BOTW_CENTER_WEST_TORCH: "has_explosives_or_hammer"
     BOTW_MQ_CENTER_GATES_LOWERED: "can_play_zelda"
+    BOTW_MQ_DRAIN_WATER: "has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword"
+
+"Bottom of the Well Main Room Center Switch Corner":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main": "has_explosives_or_hammer"
+    "Bottom of the Well Main Room Center": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP || hookshot_anywhere || climb_anywhere"
+  events:
+    BOTW_CENTER_WEST_TORCH: "true"
 
 "Bottom of the Well Main Room Center":
   dungeon: BotW
   exits:
-    "Bottom of the Well Main": "(has_explosives_or_hammer && has_hover_boots) || (has_explosives_or_hammer && trick(OOT_BOTW_MQ_BACKFLIP)"
     "Bottom of the Well Wallmaster Main": "soul_wallmaster"
-    "Bottom of the Well Grave in Center": "event(BOTW_CENTER_WEST_TORCH)"
+    "Bottom of the Well Main Room Center Switch Corner": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP || hookshot_anywhere || climb_anywhere"
+    "Bottom of the Well Room With Grave in Center": "event(BOTW_CENTER_WEST_TORCH)"
+    "Bottom of the Well Jar Hallway Room": "event(BOTW_CENTER_EAST_TORCH)"
+    "Bottom of the Well Basement Switch Ledge": "event(HHH)"
+    "Bottom of the Well Basement": "true"
   events:
-    BOTW_CENTER_WEST_TORCH: "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP)"
-    BOTW_CENTER_EAST_TORCH: "can_hit_triggers_distance || can_hookshot || has_explosives || 
+    BOTW_CENTER_EAST_TORCH: "can_hit_triggers_distance || can_hookshot || has_explosives || can_use_mask_blast"
 
 "Bottom of the Well Basement":
   dungeon: BotW
   exits:
     "Bottom of the Well Main": "true"
+    "Bottom of the Well Wallmaster Basement": "soul_wallmaster"
+
 
 
     
-    "Bottom of the Well Wallmaster Basement": "soul_wallmaster"
     "Bottom of the Well Wallmaster Pit": "soul_wallmaster && (can_hit_triggers_distance || can_boomerang || has_explosives || can_hookshot)"
-    "Bottom of the Well": "true"
+
+
+
+    
   locations:
     "MQ Bottom of the Well Map Chest": "can_play_zelda || (has_explosives_or_hammer && has_hover_boots)"
     "MQ Bottom of the Well Compass Chest": "soul_enemy(SOUL_ENEMY_DEAD_HAND) && ((has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS))) && (has_ranged_weapon_child || has_explosives || can_play_zelda))"
