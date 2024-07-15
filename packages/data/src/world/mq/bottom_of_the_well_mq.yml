@@ -73,7 +73,7 @@
     "Bottom of the Well Basement Switch Ledge": "climb_anywhere || hookshot_anywhere"
     "Bottom of the Well Wallmaster Basement": "soul_wallmaster"
   locations:
-    "MQ Bottom of the Well Lens Chest": "has_weapon || can_use_sticks || can_use_din || has_iron_boots || can_play_sun" #Trying to get past these ReDeads/Wallmaster with actually nothing isn't fair.'
+    "MQ Bottom of the Well Lens Chest": "event(BOTW_MQ_REDEAD_CHEST) && (has_weapon || can_use_sticks || can_use_din || has_iron_boots || can_play_sun)" #Trying to get past these ReDeads/Wallmaster with actually nothing isn't fair.'
     "MQ Bottom of the Well Basement Big Fairy": "can_play_sun"
     "MQ Bottom of the Well GS Basement": "gs && can_damage_skull"
     "MQ Bottom of the Well Heart Basement 1": "true"
