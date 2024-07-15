@@ -30,6 +30,17 @@
   events:
     BOTW_MQ_CENTER_GATES_LOWERED: "can_play_zelda"
     BOTW_MQ_DRAIN_WATER: "has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword"
+  locations:
+    "MQ Bottom of the Well Heart Main Room 1": "has_explosives"
+    "MQ Bottom of the Well Heart Main Room 2": "has_explosives"
+    "MQ Bottom of the Well Wonder Item Main Room Left 1": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Left 2": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Left 3": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Left 4": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Right 1": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Right 2": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Right 3": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Main Room Right 4": "can_use_slingshot"
 
 "Bottom of the Well Main Room Center Switch Corner":
   dungeon: BotW
@@ -90,6 +101,10 @@
     "MQ Bottom of the Well Pot Side Room 1": "true"
     "MQ Bottom of the Well Pot Side Room 2": "true"
     "MQ Bottom of the Well Pot Side Room 3": "true"
+    "MQ Bottom of the Well Wonder Item Side Room 1": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Side Room 2": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Side Room 3": "can_use_slingshot"
+    "MQ Bottom of the Well Wonder Item Side Room 4": "can_use_slingshot"
 
 
 "Bottom of the Well Basement Switch Ledge":
@@ -141,17 +156,3 @@
     
   locations:
     "MQ Bottom of the Well Pot Lobby Alcove": "has_explosives_or_hammer && can_hit_triggers_distance"
-    "MQ Bottom of the Well Heart Main Room 1": "has_explosives"
-    "MQ Bottom of the Well Heart Main Room 2": "has_explosives"
-    "MQ Bottom of the Well Wonder Item Main Room Left 1": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Left 2": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Left 3": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Left 4": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Right 1": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Right 2": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Right 3": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Main Room Right 4": "can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Side Room 1": "(can_play_zelda || (has_explosives_or_hammer && has_hover_boots)) && has_lens && can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Side Room 2": "(can_play_zelda || (has_explosives_or_hammer && has_hover_boots)) && has_lens && can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Side Room 3": "(can_play_zelda || (has_explosives_or_hammer && has_hover_boots)) && has_lens && can_use_slingshot"
-    "MQ Bottom of the Well Wonder Item Side Room 4": "(can_play_zelda || (has_explosives_or_hammer && has_hover_boots)) && has_lens && can_use_slingshot"
