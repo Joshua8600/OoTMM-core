@@ -25,6 +25,8 @@
     "Bottom of the Well Main Room Center": "event(BOTW_MQ_CENTER_GATES_LOWERED)"
     "Bottom of the Well Main Room Center Switch Corner": "has_explosives_or_hammer"
     "Bottom of the Well Basement": "true"
+    "Bottom of the Well Coffin Room": "(event(BOTW_MQ_DRAIN_WATER) || can_dive_small) && small_keys_botw(2)"
+    "Bottom of the Well Before Dead Hand": "event(BOTW_MQ_DRAIN_WATER) && is_child"
   events:
     BOTW_MQ_CENTER_GATES_LOWERED: "can_play_zelda"
     BOTW_MQ_DRAIN_WATER: "has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword"
@@ -98,6 +100,33 @@
     BOTW_MQ_REDEAD_CHEST: "true"
 
 
+"Bottom of the Well Coffin Room":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main":
+
+
+"Bottom of the Well Before Dead Hand":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main":
+    "Bottom of the Well Dead Hand Room": "true"
+
+
+"Bottom of the Well Dead Hand Room":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Before Dead Hand": "soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
+  locations:
+    "MQ Bottom of the Well Compass Chest": "soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
+    "MQ Bottom of the Well Dead Hand Key": "has_explosives"
+    "MQ Bottom of the Well Grass Dead-Hand 1": "can_cut_grass"
+    "MQ Bottom of the Well Grass Dead-Hand 2": "can_cut_grass"
+    "MQ Bottom of the Well Grass Dead-Hand 3": "can_cut_grass"
+    "MQ Bottom of the Well Grass Dead-Hand 4": "can_cut_grass"
+  
+
+
 
     
     "Bottom of the Well Wallmaster Pit": "soul_wallmaster && (can_hit_triggers_distance || can_boomerang || has_explosives || can_hookshot)"
@@ -107,14 +136,8 @@
     
   locations:
     "MQ Bottom of the Well Map Chest": "can_play_zelda || (has_explosives_or_hammer && has_hover_boots)"
-    "MQ Bottom of the Well Compass Chest": "soul_enemy(SOUL_ENEMY_DEAD_HAND) && ((has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS))) && (has_ranged_weapon_child || has_explosives || can_play_zelda))"
-    "MQ Bottom of the Well Dead Hand Key": "has_explosives"
     "MQ Bottom of the Well GS Coffin Room": "gs && can_damage_skull && small_keys_botw(2)"
     "MQ Bottom of the Well Pot Lobby Alcove": "has_explosives_or_hammer && can_hit_triggers_distance"
-    "MQ Bottom of the Well Grass Dead-Hand 1": "can_cut_grass && (has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword)" #Many ways to lower the water.
-    "MQ Bottom of the Well Grass Dead-Hand 2": "can_cut_grass && (has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword)" #Many ways to lower the water.
-    "MQ Bottom of the Well Grass Dead-Hand 3": "can_cut_grass && (has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword)" #Many ways to lower the water.
-    "MQ Bottom of the Well Grass Dead-Hand 4": "can_cut_grass && (has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword)" #Many ways to lower the water.
     "MQ Bottom of the Well Heart Main Room 1": "has_explosives"
     "MQ Bottom of the Well Heart Main Room 2": "has_explosives"
     "MQ Bottom of the Well Heart Coffin 1": "small_keys_botw(2)"
