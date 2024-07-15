@@ -85,6 +85,19 @@
 "Deku Tree MQ Slingshot Room":
   dungeon: DT
   exits:
+    "Deku Tree 3rd Floor": "event(DEKU_MQ_SLINGSHOT_ENEMIES)"
+  events:
+    DEKU_MQ_SLINGSHOT_ENEMIES: "soul_deku_baba && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || can_use_sticks || has_ranged_weapon_child)" #Bombs and Din's work, but it's horrible.
+    DEKU_MQ_SLINGSHOT_TORCH: "has_fire || can_use_sticks"
+  locations:
+    "MQ Deku Tree Slingshot Chest": "event(DEKU_MQ_SLINGSHOT_ENEMIES)"
+    "MQ Deku Tree Slingshot Room Far Chest": "event(DEKU_MQ_SLINGSHOT_TORCH)"
+    "MQ Deku Tree Heart Slingshot Room": "true"
+    "MQ Deku Tree Grass Slingshot Room Front 1": "can_cut_grass"
+    "MQ Deku Tree Grass Slingshot Room Front 2": "can_cut_grass"
+    "MQ Deku Tree Grass Slingshot Room Back 1": "can_cut_grass"
+    "MQ Deku Tree Grass Slingshot Room Back 2": "can_cut_grass"
+    
 
 
 "Deku Tree Basement"
@@ -102,13 +115,7 @@
 
 
   locations:
-    "MQ Deku Tree Slingshot Chest": "soul_deku_baba && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || can_use_sticks || has_ranged_weapon_child)" #Bombs and Din's work, but it's horrible.
-    "MQ Deku Tree Slingshot Room Far Chest": "can_use_sticks || has_fire"
     "MQ Deku Tree Basement Chest": "can_use_sticks || has_fire"
-    "MQ Deku Tree Grass Slingshot Room Front 1": "can_cut_grass"
-    "MQ Deku Tree Grass Slingshot Room Front 2": "can_cut_grass"
-    "MQ Deku Tree Grass Slingshot Room Back 1": "can_cut_grass"
-    "MQ Deku Tree Grass Slingshot Room Back 2": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 1": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 2": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 3": "can_cut_grass"
@@ -117,7 +124,6 @@
     "MQ Deku Tree Grass Room Before Spike 2": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
     "MQ Deku Tree Grass Room Before Spike 3": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
     "MQ Deku Tree Grass Room Before Spike 4": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
-    "MQ Deku Tree Heart Slingshot Room": "true"
 
 
 
