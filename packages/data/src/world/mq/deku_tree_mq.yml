@@ -102,8 +102,6 @@
     "Deku Tree Room Before Water Room": "can_use_bow || can_use_slingshot"
   events:
     DEKU_MQ_WATER_PATH_TORCH1: "has_fire || can_use_sticks" #You need to go through the next room with fire sticks for this event.
-    #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
-    #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
   locations:
     "MQ Deku Tree Basement Chest": "can_use_sticks || has_fire"
     "MQ Deku Tree Grass Basement Lower 1": "can_cut_grass"
@@ -195,6 +193,8 @@
     "Deku Tree MQ Grave Room": "is_child"
   events:
     DEKU_BLOCK: "true"
+    #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
+    #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
   locations:
     "MQ Deku Tree Scrub": "business_scrub(0x1b)"
     "MQ Deku Tree Grass Basement Upper 1": "can_cut_grass"
