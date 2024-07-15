@@ -45,7 +45,7 @@
   dungeon: BotW
   exits:
     "Bottom of the Well Main": "has_explosives_or_hammer"
-    "Bottom of the Well Main Room Center": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP || hookshot_anywhere || climb_anywhere"
+    "Bottom of the Well Main Room Center": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP) || hookshot_anywhere || climb_anywhere"
     "Bottom of the Well Basement": "true"
   events:
     BOTW_CENTER_WEST_TORCH: "true"
