@@ -18,7 +18,29 @@
 "Bottom of the Well Main":
   dungeon: BotW
   exits:
-    "Bottom of the Well Wallmaster Main": "soul_wallmaster && (can_play_zelda || (has_explosives_or_hammer && has_hover_boots))"
+    "Bottom of the Well Main Room Center": "can_play_zelda || (has_explosives_or_hammer && has_hover_boots) || (has_explosives_or_hammer && trick(OOT_BOTW_MQ_BACKFLIP))"
+    "Bottom of the Well Basement": "true"
+  events:
+    BOTW_CENTER_WEST_TORCH: "has_explosives_or_hammer"
+    BOTW_MQ_CENTER_GATES_LOWERED: "can_play_zelda"
+
+"Bottom of the Well Main Room Center":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main": "(has_explosives_or_hammer && has_hover_boots) || (has_explosives_or_hammer && trick(OOT_BOTW_MQ_BACKFLIP)"
+    "Bottom of the Well Wallmaster Main": "soul_wallmaster"
+    "Bottom of the Well Grave in Center": "event(BOTW_CENTER_WEST_TORCH)"
+  events:
+    BOTW_CENTER_WEST_TORCH: "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP)"
+    BOTW_CENTER_EAST_TORCH: "can_hit_triggers_distance || can_hookshot || has_explosives || 
+
+"Bottom of the Well Basement":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main": "true"
+
+
+    
     "Bottom of the Well Wallmaster Basement": "soul_wallmaster"
     "Bottom of the Well Wallmaster Pit": "soul_wallmaster && (can_hit_triggers_distance || can_boomerang || has_explosives || can_hookshot)"
     "Bottom of the Well": "true"
