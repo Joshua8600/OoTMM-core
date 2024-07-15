@@ -53,7 +53,7 @@
   dungeon: BotW
   exits:
     "Bottom of the Well Wallmaster Main": "soul_wallmaster"
-    "Bottom of the Well Main Room Center Switch Corner": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP || hookshot_anywhere || climb_anywhere"
+    "Bottom of the Well Main Room Center Switch Corner": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP) || hookshot_anywhere || climb_anywhere"
     "Bottom of the Well West Center Room": "event(BOTW_CENTER_WEST_TORCH)"
     "Bottom of the Well East Center Room": "event(BOTW_CENTER_EAST_TORCH)"
     "Bottom of the Well Basement Switch Ledge": "event(BOTW_MQ_GATE_FROM_SWITCH)"
