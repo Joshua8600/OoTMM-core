@@ -18,8 +18,6 @@
     "MQ Deku Tree Grass Entrance Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Lower 4": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Lower 5": "can_cut_grass"
-
-
 "Deku Tree 2nd Floor":
   dungeon: DT
   exits:
@@ -37,10 +35,10 @@
 "Deku Tree 3rd Floor":
   dungeon: DT
   exits:
-    "Deku Tree 2rd Floor": "true"
+    "Deku Tree 2nd Floor": "true"
     "Deku Tree Lobby": "true"
     "Deku Tree Basement": "true"
-    "Deku Tree MQ Slingshot Room": "
+    "Deku Tree MQ Slingshot Room": "has_fire || event(DEKU_MQ_MAIN_TORCH)"
   events:
     DEKU_MQ_MAIN_TORCH: "true"
 
@@ -51,6 +49,7 @@
     "Deku Tree 2nd Floor": "true"
     "Deku Tree MQ Compass Room Entrance": "can_hit_triggers_distance"
   locations:
+    "MQ Deku Tree Heart Before Compass": "true"
     "MQ Deku Tree Grass Room Before Compass 1": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Compass 2": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Compass 3": "can_cut_grass"
@@ -118,7 +117,6 @@
     "MQ Deku Tree Grass Room Before Spike 2": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
     "MQ Deku Tree Grass Room Before Spike 3": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
     "MQ Deku Tree Grass Room Before Spike 4": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
-    "MQ Deku Tree Heart Before Compass": "can_use_bow || can_use_sticks || can_use_din"
     "MQ Deku Tree Heart Slingshot Room": "true"
 
 
