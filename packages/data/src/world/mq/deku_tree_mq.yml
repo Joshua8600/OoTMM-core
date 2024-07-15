@@ -30,8 +30,6 @@
     "MQ Deku Tree Heart Lobby": "true"
     "MQ Deku Tree Grass Entrance Upper 1": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Upper 2": "can_cut_grass"
-
-
 "Deku Tree 3rd Floor":
   dungeon: DT
   exits:
@@ -41,8 +39,6 @@
     "Deku Tree MQ Slingshot Room": "has_fire || event(DEKU_MQ_MAIN_TORCH)"
   events:
     DEKU_MQ_MAIN_TORCH: "true"
-
-
 "Deku Tree Room Before Compass Room":
   dungeon: DT
   exits:
@@ -83,8 +79,6 @@
   locations:
     "MQ Deku Tree GS Compass Room": "gs && can_collect_distance"
     "MQ Deku Tree Heart Compass Room": "true"
-
-
 "Deku Tree MQ Slingshot Room":
   dungeon: DT
   exits:
@@ -100,9 +94,6 @@
     "MQ Deku Tree Grass Slingshot Room Front 2": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Back 1": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Back 2": "can_cut_grass"
-    
-
-
 "Deku Tree Basement"
   dungeon: DT
   exits:
@@ -119,8 +110,6 @@
     "MQ Deku Tree Grass Basement Lower 2": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 4": "can_cut_grass"
-
-
 "Deku Tree Room Before Water Room"
   dungeon: DT
   exits:
@@ -166,19 +155,15 @@
   locations:
     "MQ Deku Tree Grass Larvae Room 1": "can_cut_grass"
     "MQ Deku Tree Grass Larvae Room 2": "can_cut_grass"
-
-
-
-    
 "Deku Tree MQ Grave Room":
   dungeon: DT
   exits:
     "Deku Tree Room After Water Room": "true"
     "Deku Tree Basement Ledge": "is_child && (can_use_sticks || can_use_din)"
     "Deku Tree Back Side Room": "can_use_sticks || has_fire"
-  #events:
-    #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
-    #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
+  events:
+    STICKS: "can_kill_baba_sticks"
+    NUTS: "can_kill_baba_nuts"
   locations:
     "MQ Deku Tree GS Song of Time Blocks": "gs && ((can_play_time && can_collect_distance) || can_longshot)"
     "MQ Deku Tree Grass Gravestone Room 1": "can_cut_grass"
@@ -190,21 +175,18 @@
     "MQ Deku Tree Wonder Item 2": "can_use_sword_or_sticks"
     "MQ Deku Tree Wonder Item 3": "can_use_sword_or_sticks"
     "MQ Deku Tree Wonder Item 4": "can_use_sword_or_sticks"
-
-
-
 "Deku Tree Back Side Room":
   dungeon: DT
   exits:
     "Deku Tree MQ Grave Room": "true" #One-sided collision for webbing; might need to be changed for door rando.
+  #events:
+    #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
+    #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
   locations:
     "MQ Deku Tree GS Back Room": "gs && can_collect_distance"
     "MQ Deku Tree Grass Back Room 1": "can_cut_grass"
     "MQ Deku Tree Grass Back Room 2": "can_cut_grass"
     "MQ Deku Tree Grass Back Room 3": "can_cut_grass"
-  
-
-    
 "Deku Tree Basement Ledge":
   dungeon: DT
   exits:
