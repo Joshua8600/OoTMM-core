@@ -27,6 +27,7 @@
     "Bottom of the Well Basement": "true"
     "Bottom of the Well Coffin Room": "(event(BOTW_MQ_DRAIN_WATER) || can_dive_small) && small_keys_botw(2)"
     "Bottom of the Well Before Dead Hand": "event(BOTW_MQ_DRAIN_WATER) && is_child"
+    "Bottom of the Well Main Side Room Before Pit": "is_child"
   events:
     BOTW_MQ_CENTER_GATES_LOWERED: "can_play_zelda"
     BOTW_MQ_DRAIN_WATER: "has_ranged_weapon || has_explosives_or_hammer || can_use_sticks || can_use_sword"
@@ -58,7 +59,7 @@
     "Bottom of the Well Main Room Center Switch Corner": "has_hover_boots || trick(OOT_BOTW_MQ_BACKFLIP || hookshot_anywhere || climb_anywhere"
     "Bottom of the Well West Center Room": "event(BOTW_CENTER_WEST_TORCH)"
     "Bottom of the Well East Center Room": "event(BOTW_CENTER_EAST_TORCH)"
-    "Bottom of the Well Basement Switch Ledge": "event(HHH)"
+    "Bottom of the Well Basement Switch Ledge": "event(BOTW_MQ_GATES_FROM_SWITCH)"
     "Bottom of the Well Basement": "true"
   events:
     BOTW_CENTER_EAST_TORCH: "can_hit_triggers_distance || can_hookshot || has_explosives || can_use_mask_blast"
@@ -144,12 +145,31 @@
     "MQ Bottom of the Well Grass Dead-Hand 2": "can_cut_grass"
     "MQ Bottom of the Well Grass Dead-Hand 3": "can_cut_grass"
     "MQ Bottom of the Well Grass Dead-Hand 4": "can_cut_grass"
+
+
+"Bottom of the Well Main Side Room Before Pit":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main": "is_child"
+    "Bottom of the Well Pit Before Cage": "can_hit_triggers_distance || can_boomerang || has_explosives || can_hookshot"
+
+"Bottom of the Well Pit Before Cage":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Main Side Room Before Pit": "true"
+    "Bottom of the Well Cage": "small_keys_botw(2)"
+    "Bottom of the Well Wallmaster Pit": "soul_wallmaster"
+
+"Bottom of the Well Cage":
+  dungeon: BotW
+  exits:
+    "Bottom of the Well Pit Before Cage": "true"
+  events:
+    BOTW_MQ_GATES_FROM_SWITCH: "has_explosives"
+  
   
 
 
-
-    
-    "Bottom of the Well Wallmaster Pit": "soul_wallmaster && (can_hit_triggers_distance || can_boomerang || has_explosives || can_hookshot)"
 
 
 
