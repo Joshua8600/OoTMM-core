@@ -47,7 +47,7 @@
   dungeon: DT
   exits:
     "Deku Tree 2nd Floor": "true"
-    "Deku Tree MQ Compass Room Entrance": "can_hit_triggers_distance"
+    "Deku Tree MQ Compass Room Entrance": "can_use_bow || can_use_slingshot"
   locations:
     "MQ Deku Tree Heart Before Compass": "true"
     "MQ Deku Tree Grass Room Before Compass 1": "can_cut_grass"
@@ -105,25 +105,29 @@
   exits:
     "Deku Tree Lobby": "true"
     "Deku Tree Basement Ledge": "is_adult || event(DEKU_BLOCK) || trick(OOT_DEKU_SKIP) || has_hover_boot || hookshot_anywhere || climb_anywhere"
-    "Deku Tree Room Before Water Room":
-
-
-
-
-  
-    "Deku Tree Water Room": "(can_use_slingshot || can_use_bow) && (can_use_sticks || has_fire)"
-
-
+    "Deku Tree Room Before Water Room": "can_use_bow || can_use_slingshot"
+  events:
+    DEKU_MQ_WATER_PATH_TORCH1: "has_fire || can_use_sticks" #You need to go through the next room with fire sticks for this event.
   locations:
     "MQ Deku Tree Basement Chest": "can_use_sticks || has_fire"
     "MQ Deku Tree Grass Basement Lower 1": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 2": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 4": "can_cut_grass"
-    "MQ Deku Tree Grass Room Before Spike 1": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
-    "MQ Deku Tree Grass Room Before Spike 2": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
-    "MQ Deku Tree Grass Room Before Spike 3": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
-    "MQ Deku Tree Grass Room Before Spike 4": "can_cut_grass && (can_use_bow || (can_use_slingshot && (can_use_sticks || has_fire)))"
+
+
+"Deku Tree Room Before Water Room"
+  dungeon: DT
+  exits:
+    "Deku Tree Basement": "soul_deku_scrub && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && can_damage"
+    "Deku Tree Water Room": "event(DEKU_MQ_WATER_PATH_TORCH1)"
+  events:
+    DEKU_MQ_WATER_PATH_TORCH1: "has_fire"
+  locations:
+    "MQ Deku Tree Grass Room Before Spike 1": "can_cut_grass"
+    "MQ Deku Tree Grass Room Before Spike 2": "can_cut_grass"
+    "MQ Deku Tree Grass Room Before Spike 3": "can_cut_grass"
+    "MQ Deku Tree Grass Room Before Spike 4": "can_cut_grass"
 
 
 
