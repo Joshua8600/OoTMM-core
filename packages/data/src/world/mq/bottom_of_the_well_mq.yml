@@ -52,6 +52,7 @@
   events:
     BOTW_CENTER_EAST_TORCH: "can_hit_triggers_distance || can_hookshot || has_explosives || can_use_mask_blast"
   locations:
+    "MQ Bottom of the Well Map Chest": "true"
     "MQ Bottom of the Well Pot Lobby Cage 1": "true"
     "MQ Bottom of the Well Pot Lobby Cage 2": "true"
     "MQ Bottom of the Well Pot Lobby Cage 3": "true"
@@ -103,7 +104,11 @@
 "Bottom of the Well Coffin Room":
   dungeon: BotW
   exits:
-    "Bottom of the Well Main":
+    "Bottom of the Well Main": "true"
+  locations:
+    "MQ Bottom of the Well GS Coffin Room": "gs && can_damage_skull"
+    "MQ Bottom of the Well Heart Coffin 1": "has_fire_or_sticks"
+    "MQ Bottom of the Well Heart Coffin 2": "has_fire_or_sticks"
 
 
 "Bottom of the Well Before Dead Hand":
@@ -135,13 +140,9 @@
 
     
   locations:
-    "MQ Bottom of the Well Map Chest": "can_play_zelda || (has_explosives_or_hammer && has_hover_boots)"
-    "MQ Bottom of the Well GS Coffin Room": "gs && can_damage_skull && small_keys_botw(2)"
     "MQ Bottom of the Well Pot Lobby Alcove": "has_explosives_or_hammer && can_hit_triggers_distance"
     "MQ Bottom of the Well Heart Main Room 1": "has_explosives"
     "MQ Bottom of the Well Heart Main Room 2": "has_explosives"
-    "MQ Bottom of the Well Heart Coffin 1": "small_keys_botw(2)"
-    "MQ Bottom of the Well Heart Coffin 2": "small_keys_botw(2)"
     "MQ Bottom of the Well Wonder Item Main Room Left 1": "can_use_slingshot"
     "MQ Bottom of the Well Wonder Item Main Room Left 2": "can_use_slingshot"
     "MQ Bottom of the Well Wonder Item Main Room Left 3": "can_use_slingshot"
