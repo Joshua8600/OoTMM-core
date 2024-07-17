@@ -2,13 +2,13 @@
   dungeon: DC
   exits:
     "Death Mountain": "true"
-    "Dodongo Cavern Main": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
-"Dodongo Cavern Main":
+    "Dodongo Cavern Main Room Lower": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
+"Dodongo Cavern Main Room Lower":
   dungeon: DC
   exits:
     "Dodongo Cavern": "has_explosives_or_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
     "Dodongo Cavern Skull": "event(MQ_DC_OPEN_SKULL)"
-    "Dodongo Cavern Staircase": "event(MQ_DC_STAIRCASE_SWITCH)"
+    "Dodongo Cavern Staircase Room Lower": "event(MQ_DC_STAIRCASE_SWITCH)"
     "Dodongo Cavern Main Room Upper Skull Side": "event(MQ_DC_PILLAR_RAISE) || climb_anywhere || longshot_anywhere"
 
 
@@ -40,30 +40,44 @@
     "MQ Dodongo Cavern Lobby Scrub Back": "business_scrub(0x1d)"
   gossip:
     "Dodongo Cavern Gossip": "has_bombflowers || can_hammer || has_blue_fire_arrows_mudwall"
-"Dodongo Cavern Staircase":
+
+
+
+    
+"Dodongo Cavern Staircase Room Lower":
   dungeon: DC
   exits:
-    "Dodongo Cavern Main": "true"
-    "Dodongo Cavern Upper Staircase": "has_bombflowers"
+    "Dodongo Cavern Main Room Lower": "true"
+    "Dodongo Cavern Staircase Room Upper": "event(DC_MQ_STAIRCASE) || climb_anywhere || hookshot_anywhere"
+    "Dodongo Cavern MQ Song of Time Block Room": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
   events:
-    STICKS: "soul_deku_baba && ((has_bombflowers || can_hammer) && (has_weapon || can_boomerang))"
+    STICKS: "soul_deku_baba && ((has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall) && (has_weapon || can_boomerang))"
+    DC_MQ_STAIRCASE: "has_bombflowers"
   locations:
-    "MQ Dodongo Cavern GS Time Blocks": "gs && can_play_time && can_damage_skull"
     "MQ Dodongo Cavern SR Beamos": "true"
     "MQ Dodongo Cavern SR Crate": "true"
     "MQ Dodongo Cavern Pot Stairs 1": "true"
     "MQ Dodongo Cavern Pot Stairs 2": "true"
     "MQ Dodongo Cavern Pot Stairs 3": "true"
     "MQ Dodongo Cavern Pot Stairs 4": "true"
-"Dodongo Cavern Upper Staircase":
+"Dodongo Cavern MQ Song of Time Block Room":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Staircase Room Lower": "true"
+  locations:
+    "MQ Dodongo Cavern GS Time Blocks": "gs && can_play_time && can_damage_skull"
+"Dodongo Cavern Staircase Room Upper":
   dungeon: DC
   exits:
     "Dodongo Cavern After Staircase": "silver_rupees_dc"
+    "Dodongo Cavern Staircase Room Lower": "true"
   locations:
     "MQ Dodongo Cavern SR Upper Corner Low": "true"
     "MQ Dodongo Cavern SR Vines": "true"
     "MQ Dodongo Cavern SR Upper Corner High": "true"
     "MQ Dodongo Cavern Staircase Scrub": "business_scrub(0x1f)"
+
+    
 "Dodongo Cavern After Staircase":
   dungeon: DC
   exits:
