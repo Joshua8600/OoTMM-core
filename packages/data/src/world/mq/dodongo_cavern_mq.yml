@@ -69,7 +69,7 @@
 "Dodongo Cavern Staircase Room Upper":
   dungeon: DC
   exits:
-    "Dodongo Cavern After Staircase": "silver_rupees_dc"
+    "Dodongo Cavern Room After Upper Staircase": "silver_rupees_dc"
     "Dodongo Cavern Staircase Room Lower": "true"
   locations:
     "MQ Dodongo Cavern SR Upper Corner Low": "true"
@@ -78,17 +78,31 @@
     "MQ Dodongo Cavern Staircase Scrub": "business_scrub(0x1f)"
 
     
-"Dodongo Cavern After Staircase":
+"Dodongo Cavern Room After Upper Staircase":
   dungeon: DC
   exits:
-    "Dodongo Cavern Upper Staircase": "true"
-    "Dodongo Cavern Torch Room": "soul_dodongo"
+    "Dodongo Cavern Staircase Room Upper": "true"
+    "Dodongo Cavern Main Room Upper Entrance Side": "event(DC_MQ_DEFEAT_DONDONGOS_AFTER_STAIRCASE)"
+  events:
+    DC_MQ_DEFEAT_DONDONGOS_AFTER_STAIRCASE: "soul_dodongo && can_damage" #Placeholder macro for defeating Dodongos
   locations:
-    "MQ Dodongo Cavern Compass Chest": "soul_dodongo"
+    "MQ Dodongo Cavern Compass Chest": "event(DC_MQ_DEFEAT_DONDONGOS_AFTER_STAIRCASE)"
     "MQ Dodongo Cavern Grass Compass Room 1": "can_cut_grass"
     "MQ Dodongo Cavern Grass Compass Room 2": "can_cut_grass"
     "MQ Dodongo Cavern Grass Compass Room 3": "can_cut_grass"
     "MQ Dodongo Cavern Grass Compass Room 4": "can_cut_grass"
+
+
+"Dodongo Cavern Main Room Upper Entrance Side":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Main Room Lower": "true"
+    "Dodongo Cavern Room After Upper Staircase": "true"
+    "Dodongo Cavern Main Room Upper Skull Side": "longshot_anywhere"
+    "Dodongo Cavern Vanilla Bomb Bag Room Lower": "true"
+
+
+    
 "Dodongo Cavern Torch Room":
   dungeon: DC
   exits:
