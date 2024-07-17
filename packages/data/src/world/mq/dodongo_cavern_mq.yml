@@ -30,11 +30,12 @@
   dungeon: DC
   exits:
     "Dodongo Cavern Main": "true"
-    "Dodongo Cavern Vanilla Bomb Bag Room Upper": "has_explosives_or_hammer || can_use_din || hookshot_anywhere || (climb_anywhere && can_jump_slash)"
+    "Dodongo Cavern Vanilla Bomb Bag Room Upper": "event(DC_MQ_SHORTCUT) || hookshot_anywhere || (climb_anywhere && can_jump_slash)"
     "Dodongo Cavern Main Room Upper Entrance Side": "longshot_anywhere"
   events:
     MQ_DC_OPEN_SKULL: "has_explosives"
     MQ_DC_STAIRCASE_SWITCH: "true"
+    DC_MQ_SHORTCUT: "has_explosives_or_hammer || can_use_din"
 
 
 
@@ -109,8 +110,10 @@
   dungeon: DC
   exits:
     "Dodongo Cavern Vanilla Bomb Bag Room Lower": "true"
-    "Dodongo Cavern Main Room Upper Skull Side": "has_bombflowers || has_fire || has_explosives_or_hammer"
+    "Dodongo Cavern Main Room Upper Skull Side": "event(DC_MQ_SHORTCUT) || climb_anywhere"
     "Dodongo Cavern Room After Upper Lizalfos": "true"
+  events:
+    DC_MQ_SHORTCUT: "has_bombflowers || has_fire || has_explosives_or_hammer"
   locations:
     "MQ Dodongo Cavern Upper Ledge Chest": "true"
     "MQ Dodongo Cavern Pot Vanilla Bomb Bag Room 1": "true"
