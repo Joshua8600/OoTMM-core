@@ -15,7 +15,7 @@
     "Dodongo Cavern Bomb Bag Ledge": "is_adult || climb_anywhere || hookshot_anywhere"
   events:
     MQ_DC_PILLAR_RAISE: "has_bombflowers || can_hammer"
-    MQ_DC_OPEN_SKULL: "hookshot_anywhere && has_explosives"
+    MQ_DC_OPEN_SKULL: "(hookshot_anywhere || climb_anywhere) && has_explosives"
   locations:
     "MQ Dodongo Cavern Map Chest": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
     "MQ Dodongo Cavern Lobby Scrub Front": "business_scrub(0x1c)"
@@ -217,10 +217,6 @@
   exits:
     "Dodongo Cavern Main Room Lower": "event(MQ_DC_OPEN_SKULL)"
     "Dodongo Cavern Pre-Boss Lobby": "true"
-
-
-
-    
 "Dodongo Cavern Pre-Boss Lobby":
   dungeon: DC
   exits:
@@ -235,28 +231,23 @@
   dungeon: DC
   exits:
     "Dodongo Cavern Pre-Boss Lobby": "true"
-    "Dodongo Cavern Boss Loop After Fire Wall": "is_adult || climb_anywhere || hookshot_anywhere || event(MQ_DC_BOSS_LOOP_FIRE_CRYSTAL)"
+    "Dodongo Cavern Boss Loop After Fire Wall": "is_adult || climb_anywhere || hookshot_anywhere || event(MQ_DC_BOSS_LOOP_FIRE_WALL_CRYSTAL)"
   events:
-    MQ_DC_BOSS_LOOP_FIRE_CRYSTAL: "has_bombs || has_bombchu"
+    MQ_DC_BOSS_LOOP_FIRE_WALL_CRYSTAL: "has_bombs || has_bombchu"
   locations:
     "MQ Dodongo Cavern Pot Before Boss Loop 1": "true"
     "MQ Dodongo Cavern Pot Before Boss Loop 2": "true"
-
-
 "Dodongo Cavern Boss Loop After Fire Wall":
   dungeon: DC
   exits:
     "Dodongo Cavern Boss Loop Side Room": "true"
-    "Dodongo Cavern Boss Loop Start": "event(MQ_DC_BOSS_LOOP_FIRE_CRYSTAL) || climb_anywhere || hookshot_anywhere"
-    "Dodongo Cavern Boss Loop After Armos Wall":
+    "Dodongo Cavern Boss Loop Start": "event(MQ_DC_BOSS_LOOP_FIRE_WALL_CRYSTAL) || climb_anywhere || hookshot_anywhere"
+    "Dodongo Cavern Boss Loop After Armos Wall": "climb_anywhere || hookshot_anywhere || has_fire || has_explosives"
   events:
-    MQ_DC_BOSS_LOOP_FIRE_CRYSTAL: "has_weapon || has_bombs || has_bombchu || can_use_bow || can_use_slingshot || can_hookshot || can_use_sticks || can_hammer || can_boomerang"
+    MQ_DC_BOSS_LOOP_FIRE_WALL_CRYSTAL: "has_weapon || has_bombs || has_bombchu || can_use_bow || can_use_slingshot || can_hookshot || can_use_sticks || can_hammer || can_boomerang"
   locations:
     "MQ Dodongo Cavern GS Near Boss": "gs && can_damage_skull"
     "MQ Dodongo Cavern Grass Boss Loop": "can_cut_grass"
-
-
-
 "Dodongo Cavern Boss Loop Side Room":
   dungeon: DC
   exits:
@@ -266,26 +257,18 @@
     "MQ Dodongo Cavern Pot Before Boss Loop Side Room 1": "true"
     "MQ Dodongo Cavern Pot Before Boss Loop Side Room 2": "true"
     "MQ Dodongo Cavern Grass Boss Loop Side Room": "can_cut_grass"
-
-
-
 "Dodongo Cavern Boss Loop After Armos Wall":
   dungeon: DC
   exits:
-    "Dodongo Cavern Boss Loop Ending Ledge":
-    "Dodongo Cavern Boss Loop After Fire Wall":
+    "Dodongo Cavern Boss Loop Ending Ledge": "true"
+    "Dodongo Cavern Boss Loop After Fire Wall": "true"
   locations:
     "MQ Dodongo Cavern Pot Before Boss Loop 3": "true"
     "MQ Dodongo Cavern Pot Before Boss Loop 4": "true"
-  
-
-
 "Dodongo Cavern Boss Loop Ending Ledge":
   dungeon: DC
   exits:
-    "Dodongo Cavern Pre-Boss Lobby":
+    "Dodongo Cavern Pre-Boss Lobby": "true"
     "Dodongo Cavern Boss Loop After Armos Wall": "true"
   events:
     MQ_DC_BOSS_SWITCH: "true"
-
-
