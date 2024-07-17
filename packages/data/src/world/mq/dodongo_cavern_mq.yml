@@ -25,7 +25,7 @@
 "Dodongo Cavern Main Room Upper Skull Side":
   dungeon: DC
   exits:
-    "Dodongo Cavern Main": "true"
+    "Dodongo Cavern Main Room Lower": "true"
     "Dodongo Cavern Vanilla Bomb Bag Room Upper": "event(DC_MQ_SHORTCUT) || hookshot_anywhere || (climb_anywhere && can_jump_slash)"
     "Dodongo Cavern Main Room Upper Entrance Side": "longshot_anywhere"
   events:
