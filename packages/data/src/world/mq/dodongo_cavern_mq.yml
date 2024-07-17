@@ -40,7 +40,7 @@
     "Dodongo Cavern MQ Song of Time Block Room": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
   events:
     STICKS: "soul_deku_baba && ((has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall) && (has_weapon || can_boomerang))"
-    DC_MQ_STAIRCASE: "has_bombflowers"
+    DC_MQ_STAIRCASE: "has_bombflowers || can_use_din"
   locations:
     "MQ Dodongo Cavern SR Beamos": "true"
     "MQ Dodongo Cavern SR Crate": "true"
@@ -200,7 +200,7 @@
 "Dodongo Cavern MQ Poe Room Side Room":
   dungeon: DC
   exits:
-    "Dodongo Cavern Poe Room": "soul_keese && soul_deku_scrub && can_damage)"
+    "Dodongo Cavern Poe Room": "soul_keese && soul_deku_scrub && can_damage"
   locations:
     "MQ Dodongo Cavern GS Poe Room Side": "gs && can_collect_distance"
     "MQ Dodongo Cavern Grass Green Corridor Side Room 1": "can_cut_grass"
