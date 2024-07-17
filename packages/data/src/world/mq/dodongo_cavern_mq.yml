@@ -22,10 +22,6 @@
     "MQ Dodongo Cavern Lobby Scrub Back": "business_scrub(0x1d)"
   gossip:
     "Dodongo Cavern Gossip": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
-
-
-
-
 "Dodongo Cavern Main Room Upper Skull Side":
   dungeon: DC
   exits:
@@ -36,11 +32,6 @@
     MQ_DC_OPEN_SKULL: "has_explosives"
     MQ_DC_STAIRCASE_SWITCH: "true"
     DC_MQ_SHORTCUT: "has_explosives_or_hammer || can_use_din"
-
-
-
-
-    
 "Dodongo Cavern Staircase Room Lower":
   dungeon: DC
   exits:
@@ -159,10 +150,6 @@
     "MQ Dodongo Cavern Pot Miniboss 2": "true"
     "MQ Dodongo Cavern Pot Miniboss 3": "true"
     "MQ Dodongo Cavern Pot Miniboss 4": "true"
-
-
-
-    
 "Dodongo Cavern Lower Tunnel":
   dungeon: DC
   exits:
@@ -176,26 +163,17 @@
     "MQ Dodongo Cavern Pot East Corridor 2": "true"
     "MQ Dodongo Cavern Pot East Corridor 3": "true"
     "MQ Dodongo Cavern Pot East Corridor 4": "true"
-
-
-
 "Dodongo Cavern Lower Tunnel Side Room":
   dungeon: DC
   exits:
-    "Dodongo Cavern Lower Tunnel": "
+    "Dodongo Cavern Lower Tunnel": "true"
   locations:
     "MQ Dodongo Cavern Tunnel Side Scrub": "business_scrub(0x1e)"
-
-
-
 "Dodongo Cavern Corridor Before Lower Lizalfos":
   dungeon: DC
   exits:
     "Dodongo Cavern Lower Lizalfos": "true"
     "Dodongo Cavern Lower Tunnel": "true"
-
-
-    
 "Dodongo Cavern Lower Lizalfos":
   dungeon: DC
   exits:
@@ -206,10 +184,6 @@
     MQ_DC_LOWER_LIZALFOS_CLEAR: "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
   locations:
     "MQ Dodongo Cavern Heart Lizalfos Room": "true"
-
-
-
-    
 "Dodongo Cavern Poe Room":
   dungeon: DC
   exits:
@@ -223,8 +197,6 @@
     "MQ Dodongo Cavern Pot Green Room 2": "true"
     "MQ Dodongo Cavern Pot Green Room 3": "true"
     "MQ Dodongo Cavern Pot Green Room 4": "true"
-
-
 "Dodongo Cavern MQ Poe Room Side Room":
   dungeon: DC
   exits:
@@ -233,9 +205,6 @@
     "MQ Dodongo Cavern GS Poe Room Side": "gs && can_collect_distance"
     "MQ Dodongo Cavern Grass Green Corridor Side Room 1": "can_cut_grass"
     "MQ Dodongo Cavern Grass Green Corridor Side Room 2": "can_cut_grass"
-
-
-    
 "Dodongo Cavern Bomb Bag Ledge":
   dungeon: DC
   exits:
