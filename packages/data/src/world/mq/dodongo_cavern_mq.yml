@@ -2,16 +2,38 @@
   dungeon: DC
   exits:
     "Death Mountain": "true"
-    "Dodongo Cavern Main": "has_bombflowers || can_hammer || has_blue_fire_arrows_mudwall"
+    "Dodongo Cavern Main": "has_bombflowers || can_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
 "Dodongo Cavern Main":
   dungeon: DC
   exits:
-    "Dodongo Cavern": "true"
-    "Dodongo Cavern Skull": "has_explosives"
-    "Dodongo Cavern Staircase": "has_bombflowers || can_hammer"
+    "Dodongo Cavern": "has_explosives_or_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
+    "Dodongo Cavern Skull": "event(MQ_DC_OPEN_SKULL)"
+    "Dodongo Cavern Staircase": "event(MQ_DC_STAIRCASE_SWITCH)"
+    "Dodongo Cavern Main Room Upper Skull Side": "event(MQ_DC_PILLAR_RAISE) || climb_anywhere || longshot_anywhere"
+
+
+
+    
     "Dodongo Cavern Upper Ledges": "has_explosives_or_hammer || can_use_din"
     "Dodongo Cavern Lower Tunnel": "has_explosives_or_hammer || (event(DC_MQ_SHORTCUT) && has_goron_bracelet)"
-    "Dodongo Cavern Bomb Bag Ledge": "is_adult"
+    "Dodongo Cavern Bomb Bag Ledge": "is_adult || climb_anywhere || hookshot_anywhere"
+  events:
+    MQ_DC_PILLAR_RAISE: "has_bombflowers || can_hammer"
+
+
+"Dodongo Cavern Main Room Upper Skull Side":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Main": "true"
+    "Dodongo Cavern Vanilla Bomb Bag Room Upper": "has_explosives_or_hammer || can_use_din || hookshot_anywhere || (climb_anywhere && can_jump_slash)"
+    "Dodongo Cavern Main Room Upper Entrance Side": "longshot_anywhere"
+  events:
+    MQ_DC_OPEN_SKULL: "has_explosives"
+    MQ_DC_STAIRCASE_SWITCH: "true"
+
+
+
+    
   locations:
     "MQ Dodongo Cavern Map Chest": "has_bombflowers || can_hammer || has_blue_fire_arrows_mudwall"
     "MQ Dodongo Cavern Lobby Scrub Front": "business_scrub(0x1c)"
