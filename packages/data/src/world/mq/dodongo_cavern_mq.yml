@@ -6,7 +6,7 @@
 "Dodongo Cavern Main Room Lower":
   dungeon: DC
   exits:
-    "Dodongo Cavern": "has_explosives_or_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
+    "Dodongo Cavern": "has_explosives_or_hammer || has_blue_fire || has_blue_fire_arrows_mudwall" #We need to see if you can go backwards without breaking it, like other mudwalls.
     "Dodongo Cavern Skull": "event(MQ_DC_OPEN_SKULL)"
     "Dodongo Cavern Staircase Room Lower": "event(MQ_DC_STAIRCASE_SWITCH)"
     "Dodongo Cavern Main Room Upper Skull Side": "event(MQ_DC_PILLAR_RAISE) || climb_anywhere || hookshot_anywhere" #You can use hook anywhere to get on top of the skull and again to get on the bridge without longshot.
@@ -148,8 +148,11 @@
 "Dodongo Cavern Upper Lizalfos":
   dungeon: DC
   exits:
-    "Dodongo Cavern Room After Upper Lizalfos": "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
+    "Dodongo Cavern Room Before Upper Lizalfos": "event(MQ_DC_UPPER_LIZALFOS_CLEAR)"
+    "Dodongo Cavern Room After Upper Lizalfos": "event(MQ_DC_UPPER_LIZALFOS_CLEAR)"
     "Dodongo Cavern Lower Lizalfos": "has_explosives_or_hammer || hookshot_anywhere || climb_anywhere"
+  events:
+    MQ_DC_UPPER_LIZALFOS_CLEAR: "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
   locations:
     "MQ Dodongo Cavern GS Upper Lizalfos": "gs && (has_explosives_or_hammer || longshot_anywhere)"
     "MQ Dodongo Cavern Pot Miniboss 1": "true"
@@ -158,33 +161,49 @@
     "MQ Dodongo Cavern Pot Miniboss 4": "true"
 
 
-    
-"Dodongo Cavern Upper Ledges":
-  dungeon: DC
-  events:
-    "DC_MQ_SHORTCUT": "true"
-
-    
 
     
 "Dodongo Cavern Lower Tunnel":
   dungeon: DC
   exits:
-    "Dodongo Cavern Lower Lizalfos": "can_use_bow || ((has_bombflowers || can_use_din) && can_use_slingshot)"
+    "Dodongo Cavern Corridor Before Lower Lizalfos": "event(MQ_DC_LOWER_TUNNEL_EYE_SWITCH)"
+    "Dodongo Cavern Main Room Lower": "true"
+    "Dodongo Cavern Lower Tunnel Side Room": "has_bombflowers || has_explosives_or_hammer || has_blue_fire || has_blue_fire_arrows_mudwall"
+  events:
+    MQ_DC_LOWER_TUNNEL_EYE_SWITCH: "can_use_bow || ((has_bombflowers || can_use_din) && can_use_slingshot)"
   locations:
-    "MQ Dodongo Cavern Tunnel Side Scrub": "business_scrub(0x1e)"
     "MQ Dodongo Cavern Pot East Corridor 1": "true"
     "MQ Dodongo Cavern Pot East Corridor 2": "true"
     "MQ Dodongo Cavern Pot East Corridor 3": "true"
     "MQ Dodongo Cavern Pot East Corridor 4": "true"
 
 
+
+"Dodongo Cavern Lower Tunnel Side Room":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Lower Tunnel": "
+  locations:
+    "MQ Dodongo Cavern Tunnel Side Scrub": "business_scrub(0x1e)"
+
+
+
+"Dodongo Cavern Corridor Before Lower Lizalfos":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Lower Lizalfos": "true"
+    "Dodongo Cavern Lower Tunnel": "true"
+
+
     
 "Dodongo Cavern Lower Lizalfos":
   dungeon: DC
   exits:
-    "Dodongo Cavern Lower Tunnel": "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
-    "Dodongo Cavern Poe Room": "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
+    "Dodongo Cavern Corridor Before Lower Lizalfos": "event(MQ_DC_LOWER_LIZALFOS_CLEAR)"
+    "Dodongo Cavern Poe Room": "event(MQ_DC_LOWER_LIZALFOS_CLEAR)"
+    "Dodongo Cavern Upper Lizalfos": "climb_anywhere || longshot_anywhere"
+  events:
+    MQ_DC_LOWER_LIZALFOS_CLEAR: "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
   locations:
     "MQ Dodongo Cavern Heart Lizalfos Room": "true"
 
@@ -195,15 +214,25 @@
   dungeon: DC
   exits:
     "Dodongo Cavern Lower Lizalfos": "true"
-    "Dodongo Cavern Bomb Bag Ledge": "can_use_bow || has_bombflowers || can_use_din"
+    "Dodongo Cavern Bomb Bag Ledge": "event(MQ_DC_POE_ROOM_BOMB_SWITCHES)"
+    "Dodongo Cavern MQ Poe Room Side Room": "event(MQ_DC_POE_ROOM_BOMB_SWITCHES)"
+  events:
+    MQ_DC_POE_ROOM_BOMB_SWITCHES: "can_use_bow || has_bombflowers || can_use_din"
   locations:
-    "MQ Dodongo Cavern GS Poe Room Side": "gs && can_collect_distance && (can_use_bow || has_bombflowers || can_use_din)"
     "MQ Dodongo Cavern Pot Green Room 1": "true"
     "MQ Dodongo Cavern Pot Green Room 2": "true"
     "MQ Dodongo Cavern Pot Green Room 3": "true"
     "MQ Dodongo Cavern Pot Green Room 4": "true"
-    "MQ Dodongo Cavern Grass Green Corridor Side Room 1": "(can_use_bow || has_bombflowers || can_use_din) && can_cut_grass"
-    "MQ Dodongo Cavern Grass Green Corridor Side Room 2": "(can_use_bow || has_bombflowers || can_use_din) && can_cut_grass"
+
+
+"Dodongo Cavern MQ Poe Room Side Room":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Poe Room": "soul_keese && soul_deku_scrub && can_damage)"
+  locations:
+    "MQ Dodongo Cavern GS Poe Room Side": "gs && can_collect_distance"
+    "MQ Dodongo Cavern Grass Green Corridor Side Room 1": "can_cut_grass"
+    "MQ Dodongo Cavern Grass Green Corridor Side Room 2": "can_cut_grass"
 
 
     
@@ -211,6 +240,7 @@
   dungeon: DC
   exits:
     "Dodongo Cavern Poe Room": "true"
+    "Dodongo Cavern Main Room Lower": "true"
   locations:
     "MQ Dodongo Cavern Bomb Bag Chest": "true"
 
