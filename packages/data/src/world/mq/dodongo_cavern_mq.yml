@@ -102,6 +102,18 @@
     "Dodongo Cavern Vanilla Bomb Bag Room Lower": "true"
 
 
+"Dodongo Cavern Vanilla Bomb Bag Room Lower":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Main Room Upper Entrance Side": "true"
+    "Dodongo Cavern Room Before Upper Lizalfos":
+    "Dodongo Cavern Vanilla Bomb Bag Room Upper":
+    "Dodongo Cavern MQ Larvae Room": "event(OPEN_MQ_DC_LARVAE_ROOM)"
+  events:
+    OPEN_MQ_DC_LARVAE_ROOM: "can_use_sticks || has_fire"
+    
+
+
     
 "Dodongo Cavern Torch Room":
   dungeon: DC
@@ -113,6 +125,9 @@
     "MQ Dodongo Cavern Larvae Room Chest": "soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (can_use_sticks || has_fire)"
     "MQ Dodongo Cavern GS Larve Room": "gs && (can_use_sticks || has_fire)"
     "MQ Dodongo Cavern Heart Vanilla Bomb Bag Room": "true"
+
+
+    
 "Dodongo Cavern Upper Lizalfos":
   dungeon: DC
   exits:
@@ -123,6 +138,9 @@
     "MQ Dodongo Cavern Pot Miniboss 2": "true"
     "MQ Dodongo Cavern Pot Miniboss 3": "true"
     "MQ Dodongo Cavern Pot Miniboss 4": "true"
+
+
+    
 "Dodongo Cavern Upper Ledges":
   dungeon: DC
   exits:
@@ -136,6 +154,10 @@
     "MQ Dodongo Cavern Pot Vanilla Bomb Bag Room 2": "true"
     # Fails to load
     "MQ Dodongo Cavern Grass Vanilla Bomb Bag Room": "can_cut_grass"
+
+
+
+    
 "Dodongo Cavern Lower Tunnel":
   dungeon: DC
   exits:
@@ -146,6 +168,9 @@
     "MQ Dodongo Cavern Pot East Corridor 2": "true"
     "MQ Dodongo Cavern Pot East Corridor 3": "true"
     "MQ Dodongo Cavern Pot East Corridor 4": "true"
+
+
+    
 "Dodongo Cavern Lower Lizalfos":
   dungeon: DC
   exits:
@@ -153,6 +178,10 @@
     "Dodongo Cavern Poe Room": "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
   locations:
     "MQ Dodongo Cavern Heart Lizalfos Room": "true"
+
+
+
+    
 "Dodongo Cavern Poe Room":
   dungeon: DC
   exits:
@@ -166,12 +195,19 @@
     "MQ Dodongo Cavern Pot Green Room 4": "true"
     "MQ Dodongo Cavern Grass Green Corridor Side Room 1": "(can_use_bow || has_bombflowers || can_use_din) && can_cut_grass"
     "MQ Dodongo Cavern Grass Green Corridor Side Room 2": "(can_use_bow || has_bombflowers || can_use_din) && can_cut_grass"
+
+
+    
 "Dodongo Cavern Bomb Bag Ledge":
   dungeon: DC
   exits:
     "Dodongo Cavern Poe Room": "true"
   locations:
     "MQ Dodongo Cavern Bomb Bag Chest": "true"
+
+
+
+    
 "Dodongo Cavern Skull":
   dungeon: DC
   exits:
@@ -190,6 +226,10 @@
     "MQ Dodongo Cavern Pot Before Boss Loop Side Room 2": "true"
     "MQ Dodongo Cavern Grass Boss Loop": "can_cut_grass"
     "MQ Dodongo Cavern Grass Boss Loop Side Room": "can_cut_grass"
+
+
+
+    
 "Dodongo Cavern Room Before Upper Lizalfos":
   dungeon: DC
   exits:
@@ -200,6 +240,10 @@
     "MQ Dodongo Cavern Pot Before Miniboss 2": "true"
     # Fails to load
     "MQ Dodongo Cavern Grass Room Before Miniboss": "can_cut_grass"
+
+
+
+    
 "Dodongo Cavern Room After Upper Lizalfos":
   dungeon: DC
   exits:
