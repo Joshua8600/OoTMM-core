@@ -239,6 +239,9 @@
   exits:
     "Dodongo Cavern Pre-Boss Lobby": "true"
     "Dodongo Cavern Boss Loop After Fire Wall": "is_adult || climb_anywhere || hookshot_anywhere || has_bombs || has_bombchu"
+  locations:
+    "MQ Dodongo Cavern Pot Before Boss Loop 1": "true"
+    "MQ Dodongo Cavern Pot Before Boss Loop 2": "true"
 
 
 "Dodongo Cavern Boss Loop After Fire Wall":
@@ -246,9 +249,10 @@
   exits:
     "Dodongo Cavern Boss Loop Side Room": "true"
     "Dodongo Cavern Boss Loop Start":
-    "Dodongo Cavern Boss Loop Ending Ledge":
+    "Dodongo Cavern Boss Loop After Armos Wall":
   locations:
     "MQ Dodongo Cavern GS Near Boss": "gs && can_damage_skull"
+    "MQ Dodongo Cavern Grass Boss Loop": "can_cut_grass"
 
 
 
@@ -263,24 +267,24 @@
     "MQ Dodongo Cavern Grass Boss Loop Side Room": "can_cut_grass"
 
 
+
+"Dodongo Cavern Boss Loop After Armos Wall":
+  dungeon: DC
+  exits:
+    "Dodongo Cavern Boss Loop Ending Ledge":
+    "Dodongo Cavern Boss Loop After Fire Wall":
+  locations:
+    "MQ Dodongo Cavern Pot Before Boss Loop 3": "true"
+    "MQ Dodongo Cavern Pot Before Boss Loop 4": "true"
+  
+
+
 "Dodongo Cavern Boss Loop Ending Ledge":
   dungeon: DC
   exits:
     "Dodongo Cavern Pre-Boss Lobby":
-    "Dodongo Cavern Boss Loop After Fire Wall":
+    "Dodongo Cavern Boss Loop After Armos Wall": "true"
   events:
     MQ_DC_BOSS_SWITCH: "true"
-
-
-
-
-
-    "MQ Dodongo Cavern Pot Before Boss 1": "true"
-    "MQ Dodongo Cavern Pot Before Boss 2": "true"
-    "MQ Dodongo Cavern Pot Before Boss Loop 1": "true"
-    "MQ Dodongo Cavern Pot Before Boss Loop 2": "true"
-    "MQ Dodongo Cavern Pot Before Boss Loop 3": "true"
-    "MQ Dodongo Cavern Pot Before Boss Loop 4": "true"
-    "MQ Dodongo Cavern Grass Boss Loop": "can_cut_grass"
 
 
