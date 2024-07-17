@@ -2,21 +2,27 @@
   dungeon: Ganon
   exits:
     "Ganon Castle Exterior After Bridge": "true"
-    "Ganon Castle Main": "soul_iron_knuckle && soul_armos && soul_bubble && (can_use_sword_master || can_use_sword_goron || (can_use_sticks && (has_ranged_weapon_child || can_use_bow)) || has_explosives_or_hammer)"
+    "Ganon Castle Main": "event(MQ_GANON_OPEN_MAIN)"
+  events:
+    MQ_GANON_OPEN_MAIN: "soul_iron_knuckle && soul_armos && soul_bubble && (can_use_sword_master || can_use_sword_goron || (can_use_sticks && (has_ranged_weapon_child || can_use_bow)) || has_explosives_or_hammer)"
 "Ganon Castle Spirit Wallmaster":
   region: NONE
   exits:
     "VOID": "true"
+
+
+
+
 "Ganon Castle Main":
   dungeon: Ganon
   exits:
     "Ganon Castle": "true"
-    "Ganon Castle Light": "can_lift_gold"
-    "Ganon Castle Forest": "true"
-    "Ganon Castle Fire": "true"
-    "Ganon Castle Water": "true"
-    "Ganon Castle Spirit": "true"
-    "Ganon Castle Shadow": "true"
+    "Ganon Castle Light Trial Entrance": "can_lift_gold"
+    "Ganon Castle Forest Trial Entrance": "true"
+    "Ganon Castle Fire Trial": "true"
+    "Ganon Castle Water Trial Entrance": "true"
+    "Ganon Castle Spirit Trial Entrance": "true"
+    "Ganon Castle Shadow Trial Entrance": "true"
     "Ganon Castle Stairs": "ganon_barrier"
     "Ganon Castle Fairy Fountain": "has_lens"
 "Ganon Castle Fairy Fountain":
@@ -35,16 +41,49 @@
     "MQ Ganon Castle Fairy Fountain Fairy 6": "true"
     "MQ Ganon Castle Fairy Fountain Fairy 7": "true"
     "MQ Ganon Castle Fairy Fountain Fairy 8": "true"
-"Ganon Castle Light":
+
+
+
+    
+"Ganon Castle Light Trial Entrance":
   dungeon: Ganon
+  exits:
+    "Ganon Castle Main": "true"
+    "Ganon Castle Light Trial Lullaby Hallway": "event(GANON_MQ_LIGHT_ENEMIES)"
   events:
-    GANON_TRIAL_LIGHT: "soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && can_use_light_arrows && has_lens && can_hookshot && small_keys_ganon(3)"
+    GANON_MQ_LIGHT_ENEMIES: "soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (has_weapon || (has_hammer && can_use_sticks))"
+"Ganon Castle Light Trial Lullaby Hallway":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Light Trial Entrance": "true"
+    "Ganon Castle Light Trial Round Boulder Room Before Flame Walls": "small_keys_ganon(3)"
   locations:
-    "MQ Ganon Castle Light Trial Chest": "soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && can_play_zelda && has_weapon"
-    "MQ Ganon Pot Light End 1": "soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && has_lens && can_hookshot && small_keys_ganon(3)"
-    "MQ Ganon Pot Light End 2": "soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && has_lens && can_hookshot && small_keys_ganon(3)"
-    "MQ Ganon Castle Heart Light 1": "small_keys_ganon(2) && soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && can_play_zelda && has_weapon"
-    "MQ Ganon Castle Heart Light 2": "small_keys_ganon(2) && soul_lizalfos_dinalfos && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && can_play_zelda && has_weapon"
+        "MQ Ganon Castle Light Trial Chest": "can_play_zelda"
+"Ganon Castle Light Trial Round Boulder Room Before Flame Walls":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Light Trial Lullaby Hallway": "small_keys_ganon(3)"
+    "Ganon Castle Light Trial Round Boulder Room After Flame Walls": "can_hookshot || climb_anywhere"
+"Ganon Castle Light Trial Round Boulder Room After Flame Walls":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Light Trial Round Boulder Room Before Flame Walls": "can_hookshot || climb_anywhere"
+    "Ganon Castle Light Trial Ending Room": "small_keys_ganon(3)"
+  locations:
+    "MQ Ganon Castle Heart Light 1": "true"
+    "MQ Ganon Castle Heart Light 2": "true"
+"Ganon Castle Light Trial Ending Room":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Light Trial Round Boulder Room After Flame Walls": "small_keys_ganon(3)"
+  events:
+    GANON_TRIAL_LIGHT: "can_use_light_arrows && has_lens"
+  locations:
+    "MQ Ganon Pot Light End 1": "true"
+    "MQ Ganon Pot Light End 2": "true"
+
+
+    
 "Ganon Castle Forest":
   dungeon: Ganon
   events:
