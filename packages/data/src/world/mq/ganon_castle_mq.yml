@@ -180,10 +180,6 @@
   locations:
     "MQ Ganon Pot Water End 1": "true"
     "MQ Ganon Pot Water End 2": "true"
-
-
-
-    
 "Ganon Castle Spirit Trial Entrance":
   dungeon: Ganon
   exits:
@@ -191,9 +187,6 @@
     "Ganon Castle Spirit Trial Sun Room Entrance Side": "event(GANON_MQ_SPIRIT_HAMMER_SWITCH)"
   events:
     GANON_MQ_SPIRIT_HAMMER_SWITCH: "((can_use_bow || can_use_slingshot) && soul_iron_knuckle && can_hammer) || (can_hammer && trick(OOT_HAMMER_WALLS))"
-
-
-
 "Ganon Castle Spirit Trial Sun Room Entrance Side":
   dungeon: Ganon
   exits:
@@ -202,33 +195,33 @@
   events:
     GANON_MQ_SPIRIT_CRYSTAL: "has_bombchu"
   locations:
-
-
+      "MQ Ganon Castle Spirit Trial First Chest": "true"
 "Ganon Castle Spirit Trial Sun Room Sun Side":
   dungeon: Ganon
   exits:
     "Ganon Castle Spirit Trial Sun Room Entrance Side": "event(GANON_MQ_SPIRIT_CRYSTAL) || climb_anywhere || hookshot_anywhere"
-    "Ganon Castle Spirit Trial Ending Room": "
-    "Ganon Castle Spirit Wallmaster": "soul_wallmaster && has_fire_arrows && can_reflect_light"
+    "Ganon Castle Spirit Trial Ending Room": "event(GANON_MQ_SPIRIT_ENDING_SUNS)"
+    "Ganon Castle Spirit Wallmaster": "soul_wallmaster && event(GANON_MQ_SPIRIT_ENDING_SUNS)"
   events:
     GANON_MQ_SPIRIT_CRYSTAL: "has_bombchu || can_use_bow || can_hookshot || can_use_slingshot || can_boomerang || has_bombs" #Many ways to hit the crystal from this side.
-    GANON_MQ_SPIRIT_ENDING_SUN:
-
-
-
-    
-  events:
-    GANON_TRIAL_SPIRIT: "can_use_light_arrows && has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
+    GANON_MQ_SPIRIT_ZOMBIES: "can_play_sun || has_weapon || can_use_din || can_hammer" #Trying to do this room with them there is not fair.
+    GANON_MQ_SPIRIT_ENDING_SUNS: "event(GANON_MQ_SPIRIT_ZOMBIES) && (has_sunlight_arrows || (has_fire_arrows && has_mirror_shield))"
   locations:
-    "MQ Ganon Castle Spirit Trial First Chest": "can_hammer && ((can_use_bow && soul_iron_knuckle) || trick(OOT_HAMMER_WALLS))"
-    "MQ Ganon Castle Spirit Trial Second Chest": "can_hammer && ((can_use_bow && soul_iron_knuckle) || trick(OOT_HAMMER_WALLS)) && has_bombchu && has_lens"
+    "MQ Ganon Castle Spirit Trial Second Chest": "has_lens"
     #Chests are named relative to facing the door to the end of the trial
-    "MQ Ganon Castle Spirit Trial Back Right Sun Chest": "can_hammer && has_fire_arrows && can_reflect_light && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-    "MQ Ganon Castle Spirit Trial Back Left Sun Chest": "can_hammer && has_fire_arrows && can_reflect_light && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-    "MQ Ganon Castle Spirit Trial Front Left Sun Chest": "can_hammer && has_fire_arrows && can_reflect_light && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-    "MQ Ganon Castle Spirit Trial Gold Gauntlets Chest": "can_hammer && has_fire_arrows && can_reflect_light && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-    "MQ Ganon Pot Spirit End 1": "has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-    "MQ Ganon Pot Spirit End 2": "has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
+    "MQ Ganon Castle Spirit Trial Back Right Sun Chest": "event(GANON_MQ_SPIRIT_ENDING_SUNS)"
+    "MQ Ganon Castle Spirit Trial Back Left Sun Chest": "event(GANON_MQ_SPIRIT_ENDING_SUNS)"
+    "MQ Ganon Castle Spirit Trial Front Left Sun Chest": "event(GANON_MQ_SPIRIT_ENDING_SUNS)"
+    "MQ Ganon Castle Spirit Trial Gold Gauntlets Chest": "event(GANON_MQ_SPIRIT_ENDING_SUNS)"
+"Ganon Castle Spirit Trial Ending Room":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Spirit Trial Sun Room Sun Side": "true"
+  events:
+    GANON_TRIAL_SPIRIT: "can_use_light_arrows"
+  locations:
+    "MQ Ganon Pot Spirit End 1": "true"
+    "MQ Ganon Pot Spirit End 2": "true"
 
 
 
