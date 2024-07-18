@@ -18,7 +18,7 @@
   exits:
     "Ice Cavern Room After Entrance Boulder": "event(ICE_MQ_FIRST_CRYSTAL)"
     "Ice Cavern Main Room": "true"
-  locations;
+  locations:
     "MQ Ice Cavern Pot First Room 1": "true"
     "MQ Ice Cavern Pot First Room 2": "true"
 "Ice Cavern Main Room":
