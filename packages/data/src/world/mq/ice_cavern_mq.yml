@@ -3,37 +3,48 @@
   exits:
     "Zora Fountain Frozen": "true"
     "Ice Cavern Room After Entrance Boulder": "true"
+  locations:
+    "MQ Ice Cavern Pot Entrance": "true"
 
 
 "Ice Cavern Room After Entrance Boulder":
   dungeon: IC
   exits:
     "Ice Cavern": "true"
-    "Ice Cavern Ledge After Shiek": "ckimb_anywhere || hookshot_anywhere"
+    "Ice Cavern Ledge After Shiek": "climb_anywhere || hookshot_anywhere"
     "Ice Cavern After Initial Ice Block": "event(ICE_MQ_FIRST_CRYSTAL)"
   events:
-    ICE_MQ_FIRST_CRYSTAL: "has_ranged_weapon || has_explosives || (is_adult && (has(SWORD_BIGGORON) || can_use_mask_blast))" #Biggoron Jump Slash as Adult hits it, so does Adult Blast Mask.
+    ICE_MQ_FIRST_CRYSTAL: "has_ranged_weapon || has_explosives || (is_adult && (has(SWORD_BIGGORON) || can_use_mask_blast))" #Biggoron Jump Slash as Adult hits it, so does Adult Blast Mask. The pot carry is very trick territory; this crystal switch is a problem.
 
 
-
-
-    
-    "Ice Cavern Main": "has_ranged_weapon || has_explosives" #The pot carry is very trick territory; this crystal switch is a problem.
-  locations:
-    "MQ Ice Cavern Pot Entrance": "true"
-"Ice Cavern Main":
+"Ice Cavern After Initial Ice Block":
   dungeon: IC
   exits:
-    "Ice Cavern Map Room": "soul_wolfos && soul_freezard && (has_weapon || can_use_sticks || has_explosives)"
-    "Ice Cavern Compass Room": "is_adult && has_blue_fire"
-    "Ice Cavern Big Room": "has_blue_fire"
-  locations:
+    "Ice Cavern Room After Entrance Boulder": "event(ICE_MQ_FIRST_CRYSTAL)"
+    "Ice Cavern Main Room": "true"
+  locations;
     "MQ Ice Cavern Pot First Room 1": "true"
     "MQ Ice Cavern Pot First Room 2": "true"
+
+
+
+"Ice Cavern Main Room":
+  dungeon: IC
+  exits:
+    "Ice Cavern Map Room": "event(ICE_MQ_MAIN_ENEMIES_CLEAR)"
+    "Ice Cavern Compass Room": "is_adult && has_blue_fire"
+    "Ice Cavern Big Room": "has_blue_fire"
+  events:
+    ICE_MQ_MAIN_ENEMIES_CLEAR: "soul_wolfos && soul_freezard && (has_weapon || can_use_sticks || has_explosives)"
+  locations:
     "MQ Ice Cavern Pot Main Room 1": "true"
     "MQ Ice Cavern Pot Main Room 2": "true"
     "MQ Ice Cavern Pot Main Room 3": "true"
     "MQ Ice Cavern Pot Main Room 4": "true"
+
+
+
+    
 "Ice Cavern Map Room":
   dungeon: IC
   events:
