@@ -22,7 +22,7 @@
   exits:
     "Jabu-Jabu": "true"
     "Jabu-Jabu Vanilla Ruto Falling Room": "event(JABU_MQ_UNDERWATER_ALCOVE_SWITCH)"
-    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "has_hover_boots || (can_use_slingshot && can_hookshot) || event(JABU_BIG_OCTO)"
+    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "has_hover_boots || (can_use_slingshot && can_hookshot) || event(JABU_BIG_OCTO) || climb_anywhere"
     "Jabu-Jabu Main Elevator Room Lower": "true"
   locations:
     "MQ Jabu-Jabu Heart 1": "true"
@@ -38,6 +38,7 @@
     "Jabu Jabu Basement Loop to Main Elevator": "event(JABU_MQ_WATER_SPOUTS)"
   locations:
     "MQ Jabu-Jabu Second Room B1 Chest": "true"
+    "MQ Jabu-Jabu Wonder Item Elevator Cow": "can_use_slingshot"
 
 
 "Jabu-Jabu Main Elevator Room Lower Switch Alcove":
@@ -53,6 +54,17 @@
     "MQ Jabu-Jabu Rupee Bottom": "(is_child && can_dive_small) || can_dive_big"
     "MQ Jabu-Jabu Rupee Middle": "can_dive_small"
     "MQ Jabu-Jabu Rupee Top": "is_child || can_dive_small"
+
+
+
+"Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Main Elevator Room Upper": "has_hover_boots || event(JABU_BIG_OCTO) || climb_anywhere"
+    "Jabu-Jabu Main Elevator Room Lower": "true"
+    "Jabu-Jabu Pre-Boss Start": "event(JABU_TENTACLE_RED)"
+  locations:
+    "MQ Jabu-Jabu Second Room 1F Chest": "can_use_slingshot"
 
 
 
@@ -137,8 +149,8 @@
   events:
     JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
   locations:
-    "MQ Jabu-Jabu Second Room 1F Chest": "can_use_slingshot && (has_hover_boots || can_hookshot || event(JABU_BIG_OCTO))"
     "MQ Jabu-Jabu Cow": "can_play_epona && event(JABU_BIG_OCTO) && can_use_slingshot"
+
 
 
   
@@ -148,7 +160,8 @@
 
 
     
-    "MQ Jabu-Jabu Wonder Item Elevator Cow": "can_use_slingshot"
+
+
     "MQ Jabu-Jabu Wonder Item After Big Octo": "event(JABU_BIG_OCTO) && can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item Platforms Cow": "event(JABU_BIG_OCTO) && can_use_slingshot"
 
@@ -162,7 +175,16 @@
 "Jabu-Jabu Back Forked Paths":
   dungeon: JJ
   exits:
-    "Jabu-Jabu Main": "true"
+    "Jabu-Jabu Vanilla Ruto Falling Room": "true"
+    "Jabu-Jabu Back Forked Paths Left 1":
+    "Jabu-Jabu Back Forked Paths Left 2":
+    "Jabu-Jabu Back Forked Paths Center":
+    "Jabu-Jabu Back Forked Paths Right 1":
+    "Jabu-Jabu Back Forked Paths Right 2":
+    
+
+
+    
   events:
     "JABU_TENTACLE_BLUE": "((can_use_sticks && soul_like_like && can_use_slingshot) || has_fire) && can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
     "JABU_TENTACLE_RED": "can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
@@ -194,9 +216,14 @@
 
 
     
-"Jabu-Jabu Pre-Boss":
+"Jabu-Jabu Pre-Boss Start":
   dungeon: JJ
   exits:
+    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "true" ##Not entirely true because of the Red Tantacle in the way for door rando, but that's easy to change later.
+
+
+
+    
     "Jabu-Jabu Boss": "event(JABU_MQ_END)"
     "Jabu-Jabu Main": "true"
   events:
