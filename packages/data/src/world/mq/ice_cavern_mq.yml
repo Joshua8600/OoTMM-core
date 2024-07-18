@@ -26,7 +26,7 @@
   exits:
     "Ice Cavern After Initial Ice Block": "true"
     "Ice Cavern Map Room": "event(ICE_MQ_MAIN_ENEMIES_CLEAR)"
-    "Ice Cavern Compass Room": "(has_blue_fire && is_adult) || climb_anywhere || hookshot_anywhere)"
+    "Ice Cavern Compass Room": "(has_blue_fire && is_adult) || climb_anywhere || hookshot_anywhere"
     "Ice Cavern Vanilla Push Block Room": "has_blue_fire || climb_anywhere || hookshot_anywhere"
   events:
     ICE_MQ_MAIN_ENEMIES_CLEAR: "soul_wolfos && soul_freezard && (has_weapon || can_use_sticks || has_explosives)"
