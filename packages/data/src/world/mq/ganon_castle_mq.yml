@@ -22,7 +22,7 @@
     "Ganon Castle Fire Trial Entrance Ledge": "true"
     "Ganon Castle Water Trial Entrance": "true"
     "Ganon Castle Spirit Trial Entrance": "true"
-    "Ganon Castle Shadow Trial Entrance": "true"
+    "Ganon Castle Shadow Trial Entrance Side": "true"
     "Ganon Castle Stairs": "ganon_barrier"
     "Ganon Castle Fairy Fountain": "has_lens"
 "Ganon Castle Fairy Fountain":
@@ -184,8 +184,17 @@
 
 
     
-"Ganon Castle Spirit":
+"Ganon Castle Spirit Trial Entrance":
   dungeon: Ganon
+  exits:
+    "Ganon Castle Main Room": "true"
+    "Ganon Castle Spirit Trial Sun Room Entrance Side": "event(GANON_MQ_SPIRIT_HAMMER_SWITCH)"
+  events:
+    GANON_MQ_SPIRIT_HAMMER_SWITCH: "((can_use_bow || can_use_slingshot) && soul_iron_knuckle && can_hammer) || (can_hammer && trick(OOT_HAMMER_WALLS))"
+
+
+
+    
   events:
     GANON_TRIAL_SPIRIT: "can_use_light_arrows && has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
   exits:
@@ -200,7 +209,11 @@
     "MQ Ganon Castle Spirit Trial Gold Gauntlets Chest": "can_hammer && has_fire_arrows && can_reflect_light && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
     "MQ Ganon Pot Spirit End 1": "has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
     "MQ Ganon Pot Spirit End 2": "has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-"Ganon Castle Shadow":
+
+
+
+    
+"Ganon Castle Shadow Trial Entrance Side":
   dungeon: Ganon
   events:
     GANON_TRIAL_SHADOW: "has_lens && can_use_light_arrows && (has_hover_boots || (can_hookshot && has_fire && can_use_bow)) && silver_rupees_ganon_shadow"
