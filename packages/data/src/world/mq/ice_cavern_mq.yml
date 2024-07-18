@@ -2,6 +2,22 @@
   dungeon: IC
   exits:
     "Zora Fountain Frozen": "true"
+    "Ice Cavern Room After Entrance Boulder": "true"
+
+
+"Ice Cavern Room After Entrance Boulder":
+  dungeon: IC
+  exits:
+    "Ice Cavern": "true"
+    "Ice Cavern Ledge After Shiek": "ckimb_anywhere || hookshot_anywhere"
+    "Ice Cavern After Initial Ice Block": "event(ICE_MQ_FIRST_CRYSTAL)"
+  events:
+    ICE_MQ_FIRST_CRYSTAL: "has_ranged_weapon || has_explosives || (is_adult && (has(SWORD_BIGGORON) || can_use_mask_blast))" #Biggoron Jump Slash as Adult hits it, so does Adult Blast Mask.
+
+
+
+
+    
     "Ice Cavern Main": "has_ranged_weapon || has_explosives" #The pot carry is very trick territory; this crystal switch is a problem.
   locations:
     "MQ Ice Cavern Pot Entrance": "true"
