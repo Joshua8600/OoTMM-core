@@ -21,9 +21,34 @@
   dungeon: JJ
   exits:
     "Jabu-Jabu": "true"
-    "Jabu-Jabu Vanilla Ruto Falling Room": "
+    "Jabu-Jabu Vanilla Ruto Falling Room": "event(ABU_MQ_UNDERWATER_ALCOVE_SWITCH)"
     "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss":
-    "Jabu-Jabu Main Elevator Room Lower":
+    "Jabu-Jabu Main Elevator Room Lower": "true"
+  locations:
+    "MQ Jabu-Jabu Heart 1": "true"
+    "MQ Jabu-Jabu Heart 2": "true"
+
+
+
+"Jabu-Jabu Main Elevator Room Lower":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Main Elevator Room Lower Switch Alcove": "is_child || (is_adult && can_dive_small)" #Adult cannot dive to the alcove without a scale.
+    #
+  locations:
+    "MQ Jabu-Jabu Second Room B1 Chest": "true"
+
+
+"Jabu-Jabu Main Elevator Room Lower Switch Alcove":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Main Elevator Room Lower": "is_child || (is_adult && can_dive_small)" #Adult cannot dive to the alcove without a scale.
+  events:
+    JABU_MQ_UNDERWATER_ALCOVE_SWITCH: "true"
+  locations:
+    "MQ Jabu-Jabu Compass Chest": "can_use_slingshot"
+    "MQ Jabu-Jabu Pot Underwater Alcove 1": "true"
+    "MQ Jabu-Jabu Pot Underwater Alcove 2": "true"
 
 
 
@@ -36,8 +61,6 @@
     JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
     JABU_MQ_BACK: "can_use_slingshot && has_explosives" #This allows adult to get to the back of Jabu.
   locations:
-    "MQ Jabu-Jabu Compass Chest": "can_use_slingshot && (is_child || (is_adult && can_dive_small))" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
-    "MQ Jabu-Jabu Second Room B1 Chest": "true"
     "MQ Jabu-Jabu Second Room 1F Chest": "can_use_slingshot && (has_hover_boots || can_hookshot || event(JABU_BIG_OCTO))"
     "MQ Jabu-Jabu Third Room West Chest": "can_use_slingshot && (is_child || (is_adult && can_dive_small))" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
     "MQ Jabu-Jabu Third Room East Chest": "can_use_slingshot && (is_child || (is_adult && can_dive_small))" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
@@ -45,8 +68,6 @@
     "MQ Jabu-Jabu Boomerang Chest": "(soul_ruto || can_play_elegy) && soul_lizalfos_dinalfos && soul_like_like && soul_enemy(SOUL_ENEMY_STINGER)" #You will always have an acceptable weapon for this.
     "MQ Jabu-Jabu GS SoT Block": "gs && (soul_ruto || can_play_elegy) && can_play_time && (is_child || (is_adult && can_dive_small))" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
     "MQ Jabu-Jabu Cow": "can_play_epona && event(JABU_BIG_OCTO) && can_use_slingshot"
-    "MQ Jabu-Jabu Pot Underwater Alcove 1": "is_child || (is_adult && can_dive_small)" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
-    "MQ Jabu-Jabu Pot Underwater Alcove 2": "is_child || (is_adult && can_dive_small)" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
     "MQ Jabu-Jabu Pot Boomerang Room 1": "(soul_ruto || can_play_elegy) && (is_child || (is_adult && can_dive_small))" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
     "MQ Jabu-Jabu Pot Boomerang Room 2": "(soul_ruto || can_play_elegy) && (is_child || (is_adult && can_dive_small))" #Future-proofing this for eventual ageless bow and slingshot. Adult cannot dive to the alcove without a scale.
     "MQ Jabu-Jabu Grass Main Room Top 1": "(is_child || (is_adult && can_dive_small)) && can_cut_grass && has_explosives_or_hammer"
@@ -61,8 +82,6 @@
     "MQ Jabu-Jabu Rupee Bottom": "(is_child && can_dive_small) || can_dive_big"
     "MQ Jabu-Jabu Rupee Middle": "can_dive_small"
     "MQ Jabu-Jabu Rupee Top": "is_child || can_dive_small"
-    "MQ Jabu-Jabu Heart 1": "true"
-    "MQ Jabu-Jabu Heart 2": "true"
     "MQ Jabu-Jabu Wonder Item Elevator Cow": "can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item Basement Right Cow 1": "can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item Basement Right Cow 2": "can_use_slingshot"
