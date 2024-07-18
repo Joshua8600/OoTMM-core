@@ -124,7 +124,7 @@
 "Ganon Castle Fire Trial Ending Ledge":
   dungeon: Ganon
   exits:
-    "Ganon Castle Fire Trial Entrance Ledge": "has_goron_tunic_strict && longshot_anywhere"
+    "Ganon Castle Fire Trial Entrance Ledge": "has_tunic_goron_strict && longshot_anywhere"
     "Ganon Castle Fire Trial Ending Room": "silver_rupees_ganon_fire"
 "Ganon Castle Fire Trial Ending Room":
   dungeon: Ganon
