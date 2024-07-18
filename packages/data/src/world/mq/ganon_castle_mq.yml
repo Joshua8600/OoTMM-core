@@ -19,7 +19,7 @@
     "Ganon Castle": "true"
     "Ganon Castle Light Trial Entrance": "can_lift_gold"
     "Ganon Castle Forest Trial Entrance": "true"
-    "Ganon Castle Fire Trial": "true"
+    "Ganon Castle Fire Trial Entrance Ledge": "true"
     "Ganon Castle Water Trial Entrance": "true"
     "Ganon Castle Spirit Trial Entrance": "true"
     "Ganon Castle Shadow Trial Entrance": "true"
@@ -112,21 +112,36 @@
   locations:
     "MQ Ganon Pot Forest End 1": "true"
     "MQ Ganon Pot Forest End 2": "true"
+"Ganon Castle Fire Trial Entrance Ledge":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Main": "true"
+    "Ganon Castle Fire Trial Ending Ledge": "has_goron_tunic_strict && (can_longshot || has_hover_boots)"
+  locations:
+    "MQ Ganon Castle SR Fire Under Pillar": "has_tunic_goron_strict && can_lift_gold"
+    "MQ Ganon Castle SR Fire Center-Left": "has_tunic_goron_strict"
+    "MQ Ganon Castle SR Fire Back-Left": "has_tunic_goron_strict"
+    "MQ Ganon Castle SR Fire High Above Lava": "has_tunic_goron_strict"
+    "MQ Ganon Castle SR Fire Front-Left": "has_tunic_goron_strict"
+"Ganon Castle Fire Trial Ending Ledge":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Fire Trial Entrance Ledge": "has_goron_tunic_strict && longshot_anywhere"
+    "Ganon Castle Fire Trial Ending Room": "silver_rupees_ganon_fire"
+"Ganon Castle Fire Trial Ending Room":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Fire Trial Ending Ledge": "true"
+  events:
+    GANON_TRIAL_FIRE: "can_use_light_arrows"
+  locations:
+    "MQ Ganon Pot Fire End 1": "true"
+    "MQ Ganon Pot Fire End 2": "true"
+
+
 
 
     
-"Ganon Castle Fire":
-  dungeon: Ganon
-  events:
-    GANON_TRIAL_FIRE: "can_use_light_arrows && has_tunic_goron_strict && (can_longshot || has_hover_boots) && silver_rupees_ganon_fire"
-  locations:
-    "MQ Ganon Castle SR Fire Under Pillar": "has_tunic_goron && can_lift_gold"
-    "MQ Ganon Castle SR Fire Center-Left": "has_tunic_goron_strict"
-    "MQ Ganon Castle SR Fire Back-Left": "has_tunic_goron_strict"
-    "MQ Ganon Castle SR Fire High Above Lava": "has_tunic_goron"
-    "MQ Ganon Castle SR Fire Front-Left": "has_tunic_goron_strict"
-    "MQ Ganon Pot Fire End 1": "has_tunic_goron_strict && (can_longshot || has_hover_boots) && silver_rupees_ganon_fire"
-    "MQ Ganon Pot Fire End 2": "has_tunic_goron_strict && (can_longshot || has_hover_boots) && silver_rupees_ganon_fire"
 "Ganon Castle Water":
   dungeon: Ganon
   events:
