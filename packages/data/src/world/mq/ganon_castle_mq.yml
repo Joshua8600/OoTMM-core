@@ -198,20 +198,20 @@
   dungeon: Ganon
   exits:
     "Ganon Castle Spirit Trial Entrance": "true"
-    "Ganon Castle Spirit Trial Sun Room Sun Side": "event(GANON_MQ_SPIRIT_CRYSTAL)"
+    "Ganon Castle Spirit Trial Sun Room Sun Side": "event(GANON_MQ_SPIRIT_CRYSTAL) || climb_anywhere || hookshot_anywhere"
   events:
-    GANON_MQ_SPIRIT_CRYSTAL:
+    GANON_MQ_SPIRIT_CRYSTAL: "has_bombchu"
   locations:
 
 
 "Ganon Castle Spirit Trial Sun Room Sun Side":
   dungeon: Ganon
   exits:
-    "Ganon Castle Spirit Trial Sun Room Entrance Side": "event(GANON_MQ_SPIRIT_CRYSTAL)"
+    "Ganon Castle Spirit Trial Sun Room Entrance Side": "event(GANON_MQ_SPIRIT_CRYSTAL) || climb_anywhere || hookshot_anywhere"
     "Ganon Castle Spirit Trial Ending Room": "
-    "Ganon Castle Spirit Wallmaster":
+    "Ganon Castle Spirit Wallmaster": "soul_wallmaster && has_fire_arrows && can_reflect_light"
   events:
-    GANON_MQ_SPIRIT_CRYSTAL:
+    GANON_MQ_SPIRIT_CRYSTAL: "has_bombchu || can_use_bow || can_hookshot || can_use_slingshot || can_boomerang || has_bombs" #Many ways to hit the crystal from this side.
     GANON_MQ_SPIRIT_ENDING_SUN:
 
 
@@ -219,8 +219,6 @@
     
   events:
     GANON_TRIAL_SPIRIT: "can_use_light_arrows && has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
-  exits:
-    "Ganon Castle Spirit Wallmaster": "soul_wallmaster && can_hammer && has_fire_arrows && can_reflect_light && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
   locations:
     "MQ Ganon Castle Spirit Trial First Chest": "can_hammer && ((can_use_bow && soul_iron_knuckle) || trick(OOT_HAMMER_WALLS))"
     "MQ Ganon Castle Spirit Trial Second Chest": "can_hammer && ((can_use_bow && soul_iron_knuckle) || trick(OOT_HAMMER_WALLS)) && has_bombchu && has_lens"
