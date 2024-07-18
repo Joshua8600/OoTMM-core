@@ -194,6 +194,28 @@
 
 
 
+"Ganon Castle Spirit Trial Sun Room Entrance Side":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Spirit Trial Entrance": "true"
+    "Ganon Castle Spirit Trial Sun Room Sun Side": "event(GANON_MQ_SPIRIT_CRYSTAL)"
+  events:
+    GANON_MQ_SPIRIT_CRYSTAL:
+  locations:
+
+
+"Ganon Castle Spirit Trial Sun Room Sun Side":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Spirit Trial Sun Room Entrance Side": "event(GANON_MQ_SPIRIT_CRYSTAL)"
+    "Ganon Castle Spirit Trial Ending Room": "
+    "Ganon Castle Spirit Wallmaster":
+  events:
+    GANON_MQ_SPIRIT_CRYSTAL:
+    GANON_MQ_SPIRIT_ENDING_SUN:
+
+
+
     
   events:
     GANON_TRIAL_SPIRIT: "can_use_light_arrows && has_fire_arrows && can_reflect_light && can_hammer && has_bombchu && (soul_iron_knuckle || trick(OOT_HAMMER_WALLS))"
