@@ -53,7 +53,7 @@
     BLUE_FIRE: "has_bottle"
   locations:
     "MQ Ice Cavern Compass Chest": "true"
-    "MQ Ice Cavern Piece of Heart": "has_explosives || (can_use_mask_blast && (is_child || (is_adult && has_shield)))" Blast Mask can only hit when adult if crouching with shield.
+    "MQ Ice Cavern Piece of Heart": "has_explosives || (can_use_mask_blast && (is_child || (is_adult && has_shield)))" #Blast Mask can only hit when adult if crouching with shield.
     "MQ Ice Cavern GS Compass Room": "gs && ((can_play_time && has_blue_fire && can_damage_skull) || has_blue_fire_arrows || can_boomerang)"
     "MQ Ice Cavern Pot Compass Room 1": "true"
     "MQ Ice Cavern Pot Compass Room 2": "true"
