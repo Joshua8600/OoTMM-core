@@ -64,10 +64,12 @@
   dungeon: IC
   exits:
     "Ice Cavern Main Room": "has_blue_fire || climb_anywhere || hookshot_anywhere" #Climbing works if you start further down the hall
+  events:
+    BLUE_FIRE: "has_bottle"
   locations:
     "MQ Ice Cavern Compass Chest": "true"
-    "MQ Ice Cavern Piece of Heart": "has_explosives"
-    "MQ Ice Cavern GS Compass Room": "gs && (can_play_time || has_blue_fire_arrows || can_boomerang)"
+    "MQ Ice Cavern Piece of Heart": "has_explosives || (can_use_mask_blast && (is_child || (is_adult && has_shield)))" Blast Mask can only hit when adult if crouching with shield.
+    "MQ Ice Cavern GS Compass Room": "gs && ((can_play_time && has_blue_fire && can_damage_skull) || has_blue_fire_arrows || can_boomerang)"
     "MQ Ice Cavern Pot Compass Room 1": "true"
     "MQ Ice Cavern Pot Compass Room 2": "true"
 
@@ -82,3 +84,11 @@
     "MQ Ice Cavern GS Clear Blocks": "gs && (has_ranged_weapon || has_explosives)" #Again, I'm not making people carry pots through boulder hell. Biggoron Sword also works here.
     "MQ Ice Cavern Pot Final Corridor 1": "is_adult || (can_play_time && has_hover_boots)"
     "MQ Ice Cavern Pot Final Corridor 2": "is_adult || (can_play_time && has_hover_boots)"
+
+
+"Ice Cavern Ledge After Shiek":
+  dungeon: IC
+  exits:
+    "Ice Cavern Room After Entrance Boulder": "true"
+    "Ice Cavern Serenade Room": "has_iron_boots"
+  locations:
