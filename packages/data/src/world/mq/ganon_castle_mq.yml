@@ -142,10 +142,17 @@
 
 
     
-"Ganon Castle Water":
+"Ganon Castle Water Trial Entrance":
   dungeon: Ganon
+  exits:
+    "Ganon Castle Water Trial Entrance Room Behind Red Ice": "has_blue_fire"
   events:
-    BLUE_FIRE: "has_bottle && (has_weapon || can_use_sticks || has_explosives_or_hammer)"
+    MQ_GANON_WATER_BF_SWITCH: "can_use_bow || can_use_slingshot || has_weapon || can_use_sticks || has_explosives_or_hammer" #Bow and Slingshot can hit the switch without killing the Dead Hand Arm
+    BLUE_FIRE: "has_bottle && event(MQ_GANON_WATER_BF_SWITCH)"
+
+
+
+    
   exits:
     "Ganon Castle Water Silver Rupees": "has_blue_fire && small_keys_ganon(3)"
   locations:
