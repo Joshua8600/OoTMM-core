@@ -232,8 +232,8 @@
     "Ganon Castle Shadow Trial Middle Beamos Area": "
     "Ganon Castle Main Room": "true"
   events:
-    GANON_MQ_SHADOW_BOMBFLOWER: "can_use_bow ||
-    GANON_MQ_SHADOW_PROGRESSION: has_lens &&
+    GANON_MQ_SHADOW_BOMBFLOWER: "(can_use_bow && (can_hookshot || has_hover_boots))  || (has_lens && (can_hookshot || has_hover_boots) && (can_use_din || has_bombflowers)) || (longshot_anywhere && (can_use_din || has_bombflowers))"
+    GANON_MQ_SHADOW_PROGRESSION: "longshot_anywhere || (has_lens && (can_hookshot || has_hover_boots)
   locations:
     "MQ Ganon Castle Shadow Trial Bomb Flower Chest": "(can_hookshot || has_hover_boots) && (can_use_bow || (has_lens && has_hover_boots && (can_use_din || has_bombflowers)))"
     "MQ Ganon Castle Wonder Item": "has_lens && (has_hover_boots || (can_use_bow && can_hookshot)) && (can_use_bow || has_explosives)"
@@ -259,7 +259,7 @@
   exits:
     "Ganon Castle Shadow Trial Ending Side": "true"
   events:
-    GANON_TRIAL_SHADOW: "has_lens && can_use_light_arrows && (has_hover_boots || (can_hookshot && has_fire && can_use_bow)) && silver_rupees_ganon_shadow"
+    GANON_TRIAL_SHADOW: "has_lens && can_use_light_arrows && (has_hover_boots || (can_hookshot && has_fire && can_use_bow))"
   locations:
     "MQ Ganon Pot Shadow End 1": "true"
     "MQ Ganon Pot Shadow End 2": "true"
