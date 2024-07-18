@@ -62,6 +62,7 @@
     "Jabu-Jabu Main Elevator Room Upper": "true"
     "Jabu-Jabu Back Forked Paths": "can_boomerang && event(JABU_MQ_BACK)"
     "Jabu-Jabu Ruto Section Bottom Floor": "true"
+    "Jabu-Jabu Basement Ledge Before Big Octo": "true"
   events:
     JABU_MQ_BACK: "can_use_slingshot && (has_explosives || (can_hammer && climb_anywhere))" #This allows adult to get to the back of Jabu.
   locations:
@@ -77,11 +78,14 @@
   exits:
     "Jabu-Jabu Vanilla Ruto Falling Room": "true"
     "Jabu-Jabu Basement Side Room": "event(JABU_TENTACLE_RED)"
-    "Jabu-Jabu Big Octo Room": "event(JABU_TENTACLE_GREEN)"
     "Jabu Jabu Basement Loop to Main Elevator": "soul_ruto || can_play_elegy"
+    "Jabu-Jabu Basement Ledge Before Big Octo": "climb_anywhere"
   locations:
     "MQ Jabu-Jabu Third Room West Chest": "can_use_slingshot"
     "MQ Jabu-Jabu Third Room East Chest": "can_use_slingshot"
+    "MQ Jabu-Jabu Grass Main Room Bottom 1": "can_cut_grass"
+    "MQ Jabu-Jabu Grass Main Room Bottom 2": "can_cut_grass"
+    "MQ Jabu-Jabu Grass Main Room Bottom 3": "can_cut_grass"
 
 
 
@@ -98,6 +102,30 @@
     "MQ Jabu-Jabu Pot Boomerang Room 1": "true"
     "MQ Jabu-Jabu Pot Boomerang Room 2": "true"
     "MQ Jabu-Jabu GS SoT Block": "gs && can_play_time && can_damage_skull"
+    "MQ Jabu-Jabu Grass Boomerang Room": "can_cut_grass"
+
+
+
+"Jabu-Jabu Basement Ledge Before Big Octo":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Ruto Section Bottom Floor": "true"
+    "Jabu-Jabu Big Octo Room": "event(JABU_TENTACLE_GREEN)"
+  locations:
+    "MQ Jabu-Jabu Wonder Item Basement Right Cow 1": "can_use_slingshot"
+    "MQ Jabu-Jabu Wonder Item Basement Right Cow 2": "can_use_slingshot"
+    "MQ Jabu-Jabu Wonder Item Basement Right Cow 3": "can_use_slingshot"
+    "MQ Jabu-Jabu Wonder Item Basement Left Cow 1": "can_use_slingshot"
+    "MQ Jabu-Jabu Wonder Item Basement Left Cow 2": "can_use_slingshot"
+    "MQ Jabu-Jabu Wonder Item Basement Left Cow 3": "can_use_slingshot"
+
+
+
+"Jabu-Jabu Big Octo Room":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Basement Ledge Before Big Octo": "true" #Not entirely true because of the Green Tantacle in the way for door rando, but that's easy to change later.
+    
     
 
 
@@ -106,7 +134,6 @@
 
 
     "Jabu-Jabu Pre-Boss": "event(JABU_TENTACLE_RED) && (event(JABU_BIG_OCTO) || can_hookshot || has_hover_boots)"
-    "Jabu-Jabu Basement Side Room": "event(JABU_TENTACLE_RED)"
   events:
     JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
   locations:
@@ -114,11 +141,7 @@
     "MQ Jabu-Jabu Cow": "can_play_epona && event(JABU_BIG_OCTO) && can_use_slingshot"
 
 
-    
-    "MQ Jabu-Jabu Grass Main Room Bottom 1": "(is_child || (is_adult && can_dive_small)) && can_cut_grass"
-    "MQ Jabu-Jabu Grass Main Room Bottom 2": "(is_child || (is_adult && can_dive_small)) && can_cut_grass"
-    "MQ Jabu-Jabu Grass Main Room Bottom 3": "(is_child || (is_adult && can_dive_small)) && can_cut_grass"
-    "MQ Jabu-Jabu Grass Boomerang Room": "(is_child || (is_adult && can_dive_small)) && can_cut_grass"
+  
     "MQ Jabu-Jabu Grass Big Octo Top 1": "event(JABU_BIG_OCTO) && can_cut_grass"
     "MQ Jabu-Jabu Grass Big Octo Top 2": "event(JABU_BIG_OCTO) && can_cut_grass"
     "MQ Jabu-Jabu Grass Room After Big Octo": "event(JABU_BIG_OCTO) && can_cut_grass && can_use_slingshot"
@@ -126,12 +149,6 @@
 
     
     "MQ Jabu-Jabu Wonder Item Elevator Cow": "can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Basement Right Cow 1": "can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Basement Right Cow 2": "can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Basement Right Cow 3": "can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Basement Left Cow 1": "can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Basement Left Cow 2": "can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Basement Left Cow 3": "can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item After Big Octo": "event(JABU_BIG_OCTO) && can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item Platforms Cow": "event(JABU_BIG_OCTO) && can_use_slingshot"
 
@@ -165,12 +182,18 @@
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 1": "has_explosives"
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 2": "has_explosives"
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 3": "has_explosives"
+
+
+    
 "Jabu-Jabu Basement Side Room":
   dungeon: JJ
   exits:
-    "Jabu-Jabu Main": "true"
+    "Jabu-Jabu Ruto Section Bottom Floor":
   locations:
     "MQ Jabu-Jabu GS Basement Side Room": "gs && ((has_lens && soul_keese && soul_enemy(SOUL_ENEMY_STINGER)) || (has_hover_boots && can_collect_distance) || (has_fire_arrows && can_longshot))"
+
+
+    
 "Jabu-Jabu Pre-Boss":
   dungeon: JJ
   exits:
