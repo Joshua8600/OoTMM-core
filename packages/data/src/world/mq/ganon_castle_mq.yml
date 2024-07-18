@@ -241,20 +241,33 @@
     "MQ Ganon Castle Wonder Item": "event(GANON_MQ_SHADOW_BOMBFLOWER) && event(GANON_MQ_SHADOW_PROGRESSION)"
 
 
-"Ganon Castle Shadow Trial Middle Beamos Area":
+"Ganon Castle Shadow Trial Middle Beamos Area 1":
   dungeon: Ganon
   exits:
     "Ganon Castle Shadow Trial Entrance Side": "event(GANON_MQ_SHADOW_PROGRESSION)"
-    "Ganon Castle Shadow Trial Ending Side": "(
+    "Ganon Castle Shadow Trial Middle Beamos Area 2": "event(GANON_MQ_SHADOW_TORCH_ICE_BLOCK) || has_hover_boots || hookshot_anywhere || (event(GANON_MQ_SHADOW_EYE_CHEST) && can_hookshot)"
+  events:
+    GANON_MQ_SHADOW_TORCH_ICE_BLOCK: "has_fire"
   locations:
     "MQ Ganon Castle SR Shadow Middle": "true"
+
+
+
+"Ganon Castle Shadow Trial Middle Beamos Area 2":
+  dungeon: Ganon
+  exits:
+    "Ganon Castle Shadow Trial Middle Beamos Area 1": "event(GANON_MQ_SHADOW_TORCH_ICE_BLOCK) || has_hover_boots || hookshot_anywhere"
+    "Ganon Castle Shadow Trial Ending Side":
+  events:
+    GANON_MQ_SHADOW_TORCH_ICE_BLOCK: "has_fire_arrows"
+    GANON_MQ_SHADOW_EYE_CHEST: "can_use_bow || can_use_slingshot"
   
 
 
 "Ganon Castle Shadow Trial Ending Side":
   dungeon: Ganon
   exits:
-    "Ganon Castle Shadow Trial Middle Beamos Area":
+    "Ganon Castle Shadow Trial Middle Beamos Area 2":
     "Ganon Castle Shaodw Trial Ending Room": "silver_rupees_ganon_shadow"
 
 
