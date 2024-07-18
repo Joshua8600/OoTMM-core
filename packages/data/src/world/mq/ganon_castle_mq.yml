@@ -257,7 +257,7 @@
   dungeon: Ganon
   exits:
     "Ganon Castle Shadow Trial Middle Beamos Area 2": "has_lens || hookshot_anywhere"
-    "Ganon Castle Shaodw Trial Ending Room": "silver_rupees_ganon_shadow"
+    "Ganon Castle Shadow Trial Ending Room": "silver_rupees_ganon_shadow"
 "Ganon Castle Shadow Trial Ending Room":
   dungeon: Ganon
   exits:
