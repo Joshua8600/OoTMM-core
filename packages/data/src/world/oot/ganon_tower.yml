@@ -9,7 +9,7 @@
     "Ganon Castle Tower": "event(GANON_TOWER_LIZALFOS_CLEAR)"
     "Ganon Castle Tower Stalfos Room": "event(GANON_TOWER_LIZALFOS_CLEAR)"
   events:
-    GANON_TOWER_LIZALFOS_CLEAR: "soul_lizalfos_dinalfos &&  && (can_use_sticks || has_weapon || can_use_slingshot)"
+    GANON_TOWER_LIZALFOS_CLEAR: "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
 "Ganon Castle Tower Stalfos Room":
   dungeon: Tower
   exits:
