@@ -21,7 +21,7 @@
   dungeon: JJ
   exits:
     "Jabu-Jabu": "true"
-    "Jabu-Jabu Vanilla Ruto Falling Room": "event(ABU_MQ_UNDERWATER_ALCOVE_SWITCH)"
+    "Jabu-Jabu Vanilla Ruto Falling Room": "event(JABU_MQ_UNDERWATER_ALCOVE_SWITCH)"
     "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "has_hover_boots || (can_use_slingshot && can_hookshot) || event(JABU_BIG_OCTO)"
     "Jabu-Jabu Main Elevator Room Lower": "true"
   locations:
