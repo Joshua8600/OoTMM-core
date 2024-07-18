@@ -34,7 +34,7 @@
     "Ice Cavern After Initial Ice Block": "true"
     "Ice Cavern Map Room": "event(ICE_MQ_MAIN_ENEMIES_CLEAR)"
     "Ice Cavern Compass Room": "(has_blue_fire && is_adult) || climb_anywhere || hookshot_anywhere)"
-    "Ice Cavern Big Room": "has_blue_fire || climb_anywhere || hookshot_anywhere"
+    "Ice Cavern Vanilla Push Block Room": "has_blue_fire || climb_anywhere || hookshot_anywhere"
   events:
     ICE_MQ_MAIN_ENEMIES_CLEAR: "soul_wolfos && soul_freezard && (has_weapon || can_use_sticks || has_explosives)"
   locations:
@@ -75,8 +75,15 @@
 
 
     
-"Ice Cavern Big Room":
+"Ice Cavern Vanilla Push Block Room":
   dungeon: IC
+  exits:
+    "Ice Cavern Main Room": "has_blue_fire || hookshot_anywhere"
+    "Ice Cavern Vanilla Push Block Room Scarecrow Ledge":
+    "Ice Cavern Past Red Ice Before Shiek": "climb_anywhere || hookshot_anywhere || (has_blue_fire && 
+  events:
+    BLUE_FIRE: "has_bottle && (climb_anywhere || hookshot_anywhere || can_play_time)
+    
   locations:
     "MQ Ice Cavern Iron Boots": "soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && (is_adult || (can_play_time && has_hover_boots))"
     "MQ Ice Cavern Sheik Song": "soul_npc(SOUL_NPC_SHEIK) && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && (is_adult || (can_play_time && has_hover_boots))"
