@@ -114,7 +114,7 @@
   dungeon: Ganon
   exits:
     "Ganon Castle Main Room": "true"
-    "Ganon Castle Fire Trial Ending Ledge": "has_goron_tunic_strict && (can_longshot || has_hover_boots)"
+    "Ganon Castle Fire Trial Ending Ledge": "has_tunic_goron_strict && (can_longshot || has_hover_boots)"
   locations:
     "MQ Ganon Castle SR Fire Under Pillar": "has_tunic_goron_strict && can_lift_gold"
     "MQ Ganon Castle SR Fire Center-Left": "has_tunic_goron_strict"
