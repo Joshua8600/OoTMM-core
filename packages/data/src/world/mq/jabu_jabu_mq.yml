@@ -2,7 +2,7 @@
   dungeon: JJ
   exits:
     "Zora Fountain": "true"
-    "Jabu-Jabu Main": "event(JABU_MQ_START)"
+    "Jabu-Jabu Main Elevator Room Upper": "event(JABU_MQ_START)"
   events:
     JABU_MQ_START: "can_use_slingshot"
   locations:
@@ -14,10 +14,21 @@
     "MQ Jabu-Jabu Grass Entrance 2": "can_cut_grass"
     "MQ Jabu-Jabu Wonder Item Entrance Left Cow": "can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item Entrance Right Cow": "can_use_slingshot"
-"Jabu-Jabu Main":
+
+
+    
+"Jabu-Jabu Main Elevator Room Upper":
   dungeon: JJ
   exits:
     "Jabu-Jabu": "true"
+    "Jabu-Jabu Vanilla Ruto Falling Room": "
+    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss":
+    "Jabu-Jabu Main Elevator Room Lower":
+
+
+
+
+    
     "Jabu-Jabu Back": "can_boomerang && event(JABU_MQ_BACK)"
     "Jabu-Jabu Pre-Boss": "event(JABU_TENTACLE_RED) && (event(JABU_BIG_OCTO) || can_hookshot || has_hover_boots)"
     "Jabu-Jabu Basement Side Room": "event(JABU_TENTACLE_RED)"
