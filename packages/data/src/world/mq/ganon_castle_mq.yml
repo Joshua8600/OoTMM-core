@@ -9,10 +9,6 @@
   region: NONE
   exits:
     "VOID": "true"
-
-
-
-
 "Ganon Castle Main Room":
   dungeon: Ganon
   exits:
@@ -222,10 +218,6 @@
   locations:
     "MQ Ganon Pot Spirit End 1": "true"
     "MQ Ganon Pot Spirit End 2": "true"
-
-
-
-    
 "Ganon Castle Shadow Trial Entrance Side":
   dungeon: Ganon
   exits:
@@ -238,9 +230,8 @@
   locations:
     "MQ Ganon Castle Shadow Trial Bomb Flower Chest": "event(GANON_MQ_SHADOW_BOMBFLOWER) && (can_hookshot || has_hover_boots)"
     "MQ Ganon Castle SR Shadow Front-Right": "event(GANON_MQ_SHADOW_PROGRESSION)"
+    "MQ Ganon Castle SR Shadow Front-Center": "event(GANON_MQ_SHADOW_PROGRESSION)"
     "MQ Ganon Castle Wonder Item": "event(GANON_MQ_SHADOW_BOMBFLOWER) && event(GANON_MQ_SHADOW_PROGRESSION)"
-
-
 "Ganon Castle Shadow Trial Middle Beamos Area 1":
   dungeon: Ganon
   exits:
@@ -250,48 +241,32 @@
     GANON_MQ_SHADOW_TORCH_ICE_BLOCK: "has_fire"
   locations:
     "MQ Ganon Castle SR Shadow Middle": "true"
-
-
-
 "Ganon Castle Shadow Trial Middle Beamos Area 2":
   dungeon: Ganon
   exits:
     "Ganon Castle Shadow Trial Middle Beamos Area 1": "event(GANON_MQ_SHADOW_TORCH_ICE_BLOCK) || has_hover_boots || hookshot_anywhere"
-    "Ganon Castle Shadow Trial Ending Side":
+    "Ganon Castle Shadow Trial Ending Side": "has_lens || hookshot_anywhere"
   events:
     GANON_MQ_SHADOW_TORCH_ICE_BLOCK: "has_fire_arrows"
     GANON_MQ_SHADOW_EYE_CHEST: "can_use_bow || can_use_slingshot"
-  
-
-
+  locations:
+    "MQ Ganon Castle Shadow Trial Switch Chest": "event(GANON_MQ_SHADOW_EYE_CHEST)"
+    "MQ Ganon Castle SR Shadow Back-Left": "has_lens || hookshot_anywhere"
+    "MQ Ganon Castle SR Shadow Back-Center": "has_lens"
 "Ganon Castle Shadow Trial Ending Side":
   dungeon: Ganon
   exits:
-    "Ganon Castle Shadow Trial Middle Beamos Area 2":
+    "Ganon Castle Shadow Trial Middle Beamos Area 2": "has_lens || hookshot_anywhere"
     "Ganon Castle Shaodw Trial Ending Room": "silver_rupees_ganon_shadow"
-
-
-
 "Ganon Castle Shadow Trial Ending Room":
   dungeon: Ganon
   exits:
     "Ganon Castle Shadow Trial Ending Side": "true"
   events:
-    GANON_TRIAL_SHADOW: "has_lens && can_use_light_arrows && (has_hover_boots || (can_hookshot && has_fire && can_use_bow))"
+    GANON_TRIAL_SHADOW: "can_use_light_arrows"
   locations:
     "MQ Ganon Pot Shadow End 1": "true"
-    "MQ Ganon Pot Shadow End 2": "true"
-
-
-    
-  locations:
-    "MQ Ganon Castle Shadow Trial Switch Chest": "can_use_bow && has_lens && (has_hover_boots || (can_hookshot && has_fire))"
-    "MQ Ganon Castle SR Shadow Back-Left": "has_lens && (has_hover_boots || (can_use_bow && can_hookshot && has_fire))"
-    "MQ Ganon Castle SR Shadow Back-Center": "has_lens && (has_hover_boots || (can_use_bow && can_hookshot && has_fire))"
-    "MQ Ganon Castle SR Shadow Front-Center": "has_lens && (has_hover_boots || (can_use_bow && can_hookshot))"
-
-
-    
+    "MQ Ganon Pot Shadow End 2": "true" 
 "Ganon Castle Stairs":
   region: GANON_CASTLE
   exits:
