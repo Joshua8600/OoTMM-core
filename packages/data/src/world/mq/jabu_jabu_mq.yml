@@ -196,9 +196,10 @@
     "Jabu-Jabu Back Forked Paths Left 2": "event(JABU_TENTACLE_BLUE)"
     "Jabu-Jabu Back Forked Paths Center After Rocks": "has_explosives_or_hammer || climb_anywhere" #These rocks can block in door rando, so it needs its own region.
     "Jabu-Jabu Back Forked Paths Right 1":
-    "Jabu-Jabu Back Forked Paths Right 2":
+    "Jabu-Jabu Back Forked Paths Right 2": "event(JABU_MQ_BACK_FIRE_WEB)"
   events:
     JABU_MQ_BACK_CENTER_SWITCH: "has_explosives_or_hammer" #Event is split up because of the rocks.
+    JABU_MQ_BACK_FIRE_WEB: "has_fire || (can_use_sticks && event(JABU_MQ_LIKE_LIKE_ROOM_CLEAR))" #Good for now, but can't use sticks method with door rando.
 "Jabu-Jabu Back Forked Paths Center After Rocks":
   dungeon: JJ
   exits:
@@ -206,16 +207,12 @@
     "Jabu-Jabu Back Forked Paths Center Room": "event(JABU_MQ_BACK_CENTER_SWITCH)"
   events:
     JABU_MQ_BACK_CENTER_SWITCH: "can_play_elegy" #Event is split up because of the rocks.
-
-
 "Jabu-Jabu Back Forked Paths Center Room":
   dungeon: JJ
   exits:
     "Jabu-Jabu Back Forked Paths Center After Rocks": "true"
   events:
     JABU_TENTACLE_RED: "can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
-
-
 "Jabu-Jabu Back Forked Paths Right 1":
   dungeon: JJ
   exits:
@@ -236,15 +233,24 @@
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 1": "has_explosives"
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 2": "has_explosives"
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 3": "has_explosives"
-    
-
-
-    
+"Jabu-Jabu Back Forked Paths Right 2":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Back Forked Paths": "true" #One-sided collision on the web
   events:
-    "JABU_TENTACLE_BLUE": "((can_use_sticks && soul_like_like && can_use_slingshot) || has_fire) && can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
-    "JABU_TENTACLE_GREEN": "event(JABU_TENTACLE_BLUE)"
+    JABU_TENTACLE_BLUE: "can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
+"Jabu-Jabu Back Forked Paths Left 1":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Back Forked Paths": "true"
+  events:
+    JABU_TENTACLE_GREEN: "can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
+"Jabu-Jabu Back Forked Paths Left 2":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Back Forked Paths": "true"
   locations:
-    "MQ Jabu-Jabu GS Back": "gs && event(JABU_TENTACLE_BLUE)"
+    "MQ Jabu-Jabu GS Back": "gs && (can_collect_distance && (has_explosives || (can_hammer && climb_anywhere)))"
 
 
     
