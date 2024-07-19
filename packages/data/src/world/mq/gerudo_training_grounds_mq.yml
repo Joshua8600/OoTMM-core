@@ -27,11 +27,7 @@
   exits:
     "Gerudo Training Grounds": "true"
     "Gerudo Training Grounds Maze Left Room 1": "true"
-    "Gerudo Training Grounds Maze Right Room 1: "event(
-
-
-
-
+    "Gerudo Training Grounds Maze Right Room 1: "event(GTG_ICE_ARROWS_SWITCH)"
 "Gerudo Training Grounds Maze Left Room 1":
   dungeon: GTG
   exits:
@@ -94,14 +90,6 @@
   locations:
     "MQ Gerudo Training Grounds Maze Right Side Middle Chest": "true"
     "MQ Gerudo Training Grounds Maze Right Side Right Chest": "true"
-
-
-  
-
-
-
-
-
 "Gerudo Training Grounds Right Path First Room":
   dungeon: GTG
   exits:
@@ -241,10 +229,12 @@
     "Gerudo Training Grounds Spinning Statue Room Statue Middle": "has_hover_boots || can_longshot || hookshot_anywhere"
 
 
+
 "Gerudo Training Grounds Spinning Statue Room Upper Side Door":
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Spinning Statue Room Upper":
+
 
   
 
@@ -258,8 +248,6 @@
     GTG_MQ_SPINNING_STATUE: "can_use_bow"
   locations:
     "MQ Gerudo Training Grounds Spinning Statue Chest": "event(GTG_MQ_SPINNING_STATUE)"
-
-
 "Gerudo Training Grounds Spinning Statue Statue Middle":
   dungeon: GTG
   exits:
@@ -267,6 +255,9 @@
     "Gerudo Training Grounds Spinning Statue Room Lower": "is_adult || (is_child && has_hover_boots) || hookshot_anywhere"
   locations:
     "MQ Gerudo Training Grounds Wonder Item Eye Statue": "true"
+
+
+
 
 
 "Gerudo Training Grounds Room After Spinning Statue":
