@@ -245,9 +245,11 @@
   exits:
     "Gerudo Training Grounds Spinning Statue Room Upper": "can_longshot || hookshot_anywhere || climb_anywhere"
     "Gerudo Training Grounds Spinning Statue Room Statue Middle": "hookshot_anywhere || (climb_anywhere && can_hookshot)"
-    "HHHHHHH
+    "Gerudo Training Grounds Room After Spinning Statue":
   events:
-    GTG_MQ_SPINNING_STATUE:
+    GTG_MQ_SPINNING_STATUE: "can_use_bow"
+  locations:
+    "MQ Gerudo Training Grounds Spinning Statue Chest": "event(GTG_MQ_SPINNING_STATUE)"
 
 
 "Gerudo Training Grounds Spinning Statue Statue Middle":
@@ -257,6 +259,19 @@
     "Gerudo Training Grounds Spinning Statue Room Lower": "is_adult || (is_child && has_hover_boots) || hookshot_anywhere"
   locations:
     "MQ Gerudo Training Grounds Wonder Item Eye Statue": "true"
+
+
+"Gerudo Training Grounds Room After Spinning Statue":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Spinning Statue Room Lower": "event(GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR)"
+    "Gerudo Training Grounds Lava Room Deep Side Ledge":
+  events:
+    GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR: "soul_iron_knuckle && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && has_weapon"
+    GTG_MQ_KNUCKLE_AND_SLUGS_CRYSTAL: "has_ranged_weapon || has_explosives"
+  locations:
+    "MQ Gerudo Training Grounds Torch Slug Room Clear Chest": "event(GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR)"
+    "MQ Gerudo Training Grounds Torch Slug Room Switch Chest": "event( GTG_MQ_KNUCKLE_AND_SLUGS_CRYSTAL)"
     
 
 
@@ -268,9 +283,6 @@
     GTG_LAVA_HAMMER: "can_hammer"
     GTG_LAVA_TARGETS: "silver_rupees_gtg_lava_mq"
   locations:
-    "MQ Gerudo Training Grounds Spinning Statue Chest": "can_use_bow"
-    "MQ Gerudo Training Grounds Torch Slug Room Clear Chest": "soul_iron_knuckle && soul_enemy(SOUL_ENEMY_TORCH_SLUG)"
-    "MQ Gerudo Training Grounds Torch Slug Room Switch Chest": "has_ranged_weapon" #You are no longer guaranteed a hook due to silver rupee shuffle.
     "MQ Gerudo Training Grounds Maze Right Side Middle Chest": "event(GTG_LAVA_HAMMER) && (can_longshot || (can_hookshot && (has_fire_arrows || (has_hover_boots && event(GTG_LAVA_TARGETS)) || trick(OOT_MQ_GTG_FLAMES))))"
     "MQ Gerudo Training Grounds Maze Right Side Right Chest": "event(GTG_LAVA_HAMMER) && (can_longshot || (can_hookshot && (has_fire_arrows || (has_hover_boots && event(GTG_LAVA_TARGETS)) || trick(OOT_MQ_GTG_FLAMES))))"
     "MQ Gerudo Training Grounds Ice Arrows Chest": "event(GTG_ICE_ARROWS)"
