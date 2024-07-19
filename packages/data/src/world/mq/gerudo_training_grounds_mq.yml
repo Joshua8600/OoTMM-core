@@ -22,14 +22,74 @@
 
 
 
-        GTG_ICE_ARROWS_SWITCH: "small_keys_gtg(3) && can_hammer"
+"Gerudo Training Grounds Maze Entrance Fork":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds": "true"
+    "Gerudo Training Grounds Maze Left Room 1": "true"
+    "Gerudo Training Grounds Maze Right Room 1: "event(
 
 
-    
-    "MQ Gerudo Training Grounds Maze First Chest": "has_lens"
+"Gerudo Training Grounds Maze Left Room 1":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Entrance Fork": "true"
+    "Gerudo Training Grounds Maze Left Room 2": "true"
+    "Gerudo Training Grounds Maze Left Hidden Room": "has_lens"
+
+
+"Gerudo Training Grounds Maze Left Hidden Room":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Left Room 1": "true"
+  locations:
+    "MQ Gerudo Training Grounds Maze First Chest": "true"
+
+
+"Gerudo Training Grounds Maze Left Room 2":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Left Room 1": "true"
+    "Gerudo Training Grounds Maze Left Room 3": "true"
+  locations:
     "MQ Gerudo Training Grounds Maze Second Chest": "true"
+
+
+"Gerudo Training Grounds Maze Left Room 3":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Left Room 2": "true"
+    "Gerudo Training Grounds Maze Left Room 4": "true"
+
+
+"Gerudo Training Grounds Maze Left Room 4":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Left Room 3": "true"
+    "Gerudo Training Grounds Maze Left Room 5": "small_keys_gtg(1)"
+  locations:
     "MQ Gerudo Training Grounds Maze Third Chest": "true"
-    "MQ Gerudo Training Grounds Maze Fourth Chest": "small_keys_gtg(1)"
+
+
+"Gerudo Training Grounds Maze Left Room 5":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Left Room 4": "small_keys_gtg(2)"
+    "Gerudo Training Grounds Maze Left Room 6": "small_keys_gtg(2)"
+  locations:
+    "MQ Gerudo Training Grounds Maze Fourth Chest": "true"
+
+
+"Gerudo Training Grounds Maze Left Room 6":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Maze Left Room 5": "small_keys_gtg(3)"
+    "Gerudo Training Grounds Maze Center Room": "small_keys_gtg(3)"
+  events:
+    GTG_ICE_ARROWS_SWITCH: "can_hammer"
+
+
+  
 
 
 
