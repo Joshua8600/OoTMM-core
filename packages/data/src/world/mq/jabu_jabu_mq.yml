@@ -16,9 +16,6 @@
     "MQ Jabu-Jabu Wonder Item Entrance Right Cow": "can_use_slingshot"
 
 
-#NOTES: 2 behind tentacle regions for door rando, 1 behind boomerang thing, and 1 behind rocks.
-
-
     
 "Jabu-Jabu Main Elevator Room Upper":
   dungeon: JJ
@@ -195,8 +192,8 @@
   dungeon: JJ
   exits:
     "Jabu-Jabu Vanilla Ruto Falling Room": "true"
-    "Jabu-Jabu Back Forked Paths Left 1":
-    "Jabu-Jabu Back Forked Paths Left 2":
+    "Jabu-Jabu Back Forked Paths Left 1": "event(JABU_TENTACLE_BLUE)"
+    "Jabu-Jabu Back Forked Paths Left 2": "event(JABU_TENTACLE_BLUE)"
     "Jabu-Jabu Back Forked Paths Center After Rocks": "has_explosives_or_hammer || climb_anywhere" #These rocks can block in door rando, so it needs its own region.
     "Jabu-Jabu Back Forked Paths Right 1":
     "Jabu-Jabu Back Forked Paths Right 2":
@@ -209,17 +206,24 @@
     "Jabu-Jabu Back Forked Paths Center Room": "event(JABU_MQ_BACK_CENTER_SWITCH)"
   events:
     JABU_MQ_BACK_CENTER_SWITCH: "can_play_elegy" #Event is split up because of the rocks.
-    
 
 
-    
+"Jabu-Jabu Back Forked Paths Center Room":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Back Forked Paths Center After Rocks": "true"
   events:
-    "JABU_TENTACLE_BLUE": "((can_use_sticks && soul_like_like && can_use_slingshot) || has_fire) && can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
-    "JABU_TENTACLE_RED": "can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
-    "JABU_TENTACLE_GREEN": "event(JABU_TENTACLE_BLUE)"
+    JABU_TENTACLE_RED: "can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
+
+
+"Jabu-Jabu Back Forked Paths Right 1":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Back Forked Paths": "event(JABU_MQ_LIKE_LIKE_ROOM_CLEAR)"
+  events:
+    JABU_MQ_LIKE_LIKE_ROOM_CLEAR: "soul_like_like && can_use_slingshot"
   locations:
-    "MQ Jabu-Jabu Back Chest": "soul_like_like && can_use_slingshot"
-    "MQ Jabu-Jabu GS Back": "gs && event(JABU_TENTACLE_BLUE)"
+    "MQ Jabu-Jabu Back Chest": "event(JABU_MQ_LIKE_LIKE_ROOM_CLEAR)"
     "MQ Jabu-Jabu Pot Like-Like Room 1": "true"
     "MQ Jabu-Jabu Pot Like-Like Room 2": "true"
     "MQ Jabu-Jabu Grass Torch Room": "can_cut_grass"
@@ -232,6 +236,15 @@
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 1": "has_explosives"
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 2": "has_explosives"
     "MQ Jabu-Jabu Wonder Item Falling Like-Likes Explosion 3": "has_explosives"
+    
+
+
+    
+  events:
+    "JABU_TENTACLE_BLUE": "((can_use_sticks && soul_like_like && can_use_slingshot) || has_fire) && can_boomerang && soul_enemy(SOUL_ENEMY_PARASITE)"
+    "JABU_TENTACLE_GREEN": "event(JABU_TENTACLE_BLUE)"
+  locations:
+    "MQ Jabu-Jabu GS Back": "gs && event(JABU_TENTACLE_BLUE)"
 
 
     
