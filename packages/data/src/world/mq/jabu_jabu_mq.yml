@@ -22,7 +22,7 @@
   exits:
     "Jabu-Jabu": "true"
     "Jabu-Jabu Vanilla Ruto Falling Room": "event(JABU_MQ_UNDERWATER_ALCOVE_SWITCH)"
-    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "has_hover_boots || (can_use_slingshot && can_hookshot) || event(JABU_BIG_OCTO) || climb_anywhere"
+    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "has_hover_boots || (can_use_slingshot && can_hookshot) || event(JABU_MQ_LOWER_BIG_OCTO_PLATFORM) || climb_anywhere"
     "Jabu-Jabu Main Elevator Room Lower": "true"
     "Jabu-Jabu Main Elevator Room High Ledge": "climb_anywhere"
   events:
