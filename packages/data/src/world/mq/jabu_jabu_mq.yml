@@ -191,11 +191,11 @@
 "Jabu-Jabu Back Forked Paths":
   dungeon: JJ
   exits:
-    "Jabu-Jabu Vanilla Ruto Falling Room": "true"
+    "Jabu-Jabu Vanilla Ruto Falling Room After Wiggling Thing": "true"
     "Jabu-Jabu Back Forked Paths Left 1": "event(JABU_TENTACLE_BLUE)"
     "Jabu-Jabu Back Forked Paths Left 2": "event(JABU_TENTACLE_BLUE)"
     "Jabu-Jabu Back Forked Paths Center After Rocks": "has_explosives_or_hammer || climb_anywhere" #These rocks can block in door rando, so it needs its own region.
-    "Jabu-Jabu Back Forked Paths Right 1":
+    "Jabu-Jabu Back Forked Paths Right 1": "true"
     "Jabu-Jabu Back Forked Paths Right 2": "event(JABU_MQ_BACK_FIRE_WEB)"
   events:
     JABU_MQ_BACK_CENTER_SWITCH: "has_explosives_or_hammer" #Event is split up because of the rocks.
@@ -250,7 +250,7 @@
   exits:
     "Jabu-Jabu Back Forked Paths": "true"
   locations:
-    "MQ Jabu-Jabu GS Back": "gs && (can_collect_distance && (has_explosives || (can_hammer && climb_anywhere)))"
+    "MQ Jabu-Jabu GS Back": "gs && ((climb_anywhere && (can_hammer || can_use_mask_blast)) || (has_explosives && can_collect_distance))"
 
 
     
