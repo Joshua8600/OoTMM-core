@@ -81,7 +81,7 @@
     "Jabu-Jabu Ruto Section Bottom Floor": "true"
     "Jabu-Jabu Basement Ledge Before Big Octo": "true"
   events:
-    JABU_MQ_BACK_UNLOCK: "can_use_slingshot && (has_explosives || (can_hammer && climb_anywhere))" #This allows adult to get to the back of Jabu.
+    JABU_MQ_BACK_UNLOCK: "can_use_slingshot && (has_explosives || (climb_anywhere && (can_hammer || can_use_mask_blast)))" #This allows adult to get to the back of Jabu.
   locations:
     "MQ Jabu-Jabu Grass Main Room Top 1": "can_cut_grass && has_explosives_or_hammer"
     "MQ Jabu-Jabu Grass Main Room Top 2": "can_cut_grass && has_explosives_or_hammer"
