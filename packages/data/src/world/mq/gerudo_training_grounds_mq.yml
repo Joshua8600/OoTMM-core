@@ -218,15 +218,48 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Stalfos Room Ledge Before Red Ice": "has_blue_fire" #Might not be solid from other side.
-    "Gerudo Training Grounds Spinning Statue Room": "event(GTG_MQ_STALFOS_CLEAR)"
+    "Gerudo Training Grounds Spinning Statue Room Upper": "event(GTG_MQ_STALFOS_CLEAR)"
 
 
 
 
     
-"Gerudo Training Grounds Spinning Statue Room":
+"Gerudo Training Grounds Spinning Statue Room Upper":
   dungeon: GTG
   exits:
+    "Gerudo Training Grounds Stalfos Room Ledge After Red Ice": "true"
+    "Gerudo Training Grounds Spinning Statue Room Upper Side Door":
+    "Gerudo Training Grounds Spinning Statue Room Lower":
+    "Gerudo Training Grounds Spinning Statue Room Statue Middle": "has_hover_boots || can_longshot || hookshot_anywhere"
+
+
+"Gerudo Training Grounds Spinning Statue Room Upper Side Door":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Spinning Statue Room Upper":
+
+  
+
+"Gerudo Training Grounds Spinning Statue Room Lower":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Spinning Statue Room Upper":
+    "Gerudo Training Grounds Spinning Statue Room Statue Middle":
+    "HHHHHHH
+
+
+"Gerudo Training Grounds Spinning Statue Statue Middle":
+  dungeon: GTG
+  exits:
+    "Gerudo Training Grounds Spinning Statue Room Upper": "can_hookshot && (is_adult || (is_child && has_hover_boots))"
+    "Gerudo Training Grounds Spinning Statue Room Lower":
+  locations:
+    "MQ Gerudo Training Grounds Wonder Item Eye Statue": "true"
+    
+
+
+
+  
     "Gerudo Training Grounds Lava Room": "can_longshot || (can_hookshot && (has_fire_arrows || trick(OOT_MQ_GTG_FLAMES))) || (has_hover_boots && trick(OOT_MQ_GTG_FLAMES) && event(GTG_LAVA_TARGETS))"
     "Gerudo Training Grounds Water Room": "silver_rupees_gtg_lava_mq && event(GTG_LAVA_TARGETS) && (can_hookshot || has_hover_boots || trick(OOT_MQ_GTG_FLAMES))"
   events:
@@ -241,4 +274,3 @@
     "MQ Gerudo Training Grounds Ice Arrows Chest": "event(GTG_ICE_ARROWS)"
     "MQ Gerudo Training Grounds SR Lava Back-Right": "has_fire_arrows"
     "MQ Gerudo Training Grounds SR Lava Center": "has_fire_arrows"
-    "MQ Gerudo Training Grounds Wonder Item Eye Statue": "has_hover_boots"
