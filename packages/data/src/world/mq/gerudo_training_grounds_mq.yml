@@ -229,7 +229,7 @@
   exits:
     "Gerudo Training Grounds Stalfos Room Ledge After Red Ice": "true"
     "Gerudo Training Grounds Spinning Statue Room Upper Side Door":
-    "Gerudo Training Grounds Spinning Statue Room Lower":
+    "Gerudo Training Grounds Spinning Statue Room Lower": "true"
     "Gerudo Training Grounds Spinning Statue Room Statue Middle": "has_hover_boots || can_longshot || hookshot_anywhere"
 
 
@@ -243,16 +243,18 @@
 "Gerudo Training Grounds Spinning Statue Room Lower":
   dungeon: GTG
   exits:
-    "Gerudo Training Grounds Spinning Statue Room Upper":
-    "Gerudo Training Grounds Spinning Statue Room Statue Middle":
+    "Gerudo Training Grounds Spinning Statue Room Upper": "can_longshot || hookshot_anywhere || climb_anywhere"
+    "Gerudo Training Grounds Spinning Statue Room Statue Middle": "hookshot_anywhere || (climb_anywhere && can_hookshot)"
     "HHHHHHH
+  events:
+    GTG_MQ_SPINNING_STATUE:
 
 
 "Gerudo Training Grounds Spinning Statue Statue Middle":
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Spinning Statue Room Upper": "can_hookshot && (is_adult || (is_child && has_hover_boots))"
-    "Gerudo Training Grounds Spinning Statue Room Lower":
+    "Gerudo Training Grounds Spinning Statue Room Lower": "is_adult || (is_child && has_hover_boots) || hookshot_anywhere"
   locations:
     "MQ Gerudo Training Grounds Wonder Item Eye Statue": "true"
     
