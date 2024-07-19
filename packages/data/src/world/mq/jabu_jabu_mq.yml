@@ -80,14 +80,19 @@
   dungeon: JJ
   exits:
     "Jabu-Jabu Main Elevator Room Upper": "true"
-    "Jabu-Jabu Back Forked Paths": "can_boomerang && event(JABU_MQ_BACK)"
+    "Jabu-Jabu Vanilla Ruto Falling Room After Wiggling Thing": "can_boomerang" #This can block in door rando, so it needs its own region.
     "Jabu-Jabu Ruto Section Bottom Floor": "true"
     "Jabu-Jabu Basement Ledge Before Big Octo": "true"
   events:
-    JABU_MQ_BACK: "can_use_slingshot && (has_explosives || (can_hammer && climb_anywhere))" #This allows adult to get to the back of Jabu.
+    JABU_MQ_BACK_UNLOCK: "can_use_slingshot && (has_explosives || (can_hammer && climb_anywhere))" #This allows adult to get to the back of Jabu.
   locations:
     "MQ Jabu-Jabu Grass Main Room Top 1": "can_cut_grass && has_explosives_or_hammer"
     "MQ Jabu-Jabu Grass Main Room Top 2": "can_cut_grass && has_explosives_or_hammer"
+"Jabu-Jabu Vanilla Ruto Falling Room After Wiggling Thing":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Vanilla Ruto Falling Room": "can_boomerang"
+    "Jabu-Jabu Back Forked Paths": "event(JABU_MQ_BACK_UNLOCK)"
 
 
 
