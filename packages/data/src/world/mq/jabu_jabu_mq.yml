@@ -14,9 +14,6 @@
     "MQ Jabu-Jabu Grass Entrance 2": "can_cut_grass"
     "MQ Jabu-Jabu Wonder Item Entrance Left Cow": "can_use_slingshot"
     "MQ Jabu-Jabu Wonder Item Entrance Right Cow": "can_use_slingshot"
-
-
-    
 "Jabu-Jabu Main Elevator Room Upper":
   dungeon: JJ
   exits:
@@ -30,9 +27,6 @@
   locations:
     "MQ Jabu-Jabu Heart 1": "true"
     "MQ Jabu-Jabu Heart 2": "true"
-
-
-
 "Jabu-Jabu Main Elevator Room Lower":
   dungeon: JJ
   exits:
@@ -42,8 +36,6 @@
   locations:
     "MQ Jabu-Jabu Second Room B1 Chest": "true"
     "MQ Jabu-Jabu Wonder Item Elevator Cow": "can_use_slingshot"
-
-
 "Jabu-Jabu Main Elevator Room Lower Switch Alcove":
   dungeon: JJ
   exits:
@@ -57,9 +49,6 @@
     "MQ Jabu-Jabu Rupee Bottom": "(is_child && can_dive_small) || can_dive_big"
     "MQ Jabu-Jabu Rupee Middle": "can_dive_small"
     "MQ Jabu-Jabu Rupee Top": "is_child || can_dive_small"
-
-
-
 "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss":
   dungeon: JJ
   exits:
@@ -72,10 +61,7 @@
   dungeon: JJ
   exits:
     "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "event(JABU_TENTACLE_RED)" #This tentacle can block in door rando, so it needs its own region.
-    "Jabu-Jabu Pre-Boss Start": "true"
-
-
-
+    "Jabu-Jabu Pre-Boss Room": "true"
 "Jabu-Jabu Vanilla Ruto Falling Room":
   dungeon: JJ
   exits:
@@ -93,11 +79,6 @@
   exits:
     "Jabu-Jabu Vanilla Ruto Falling Room": "can_boomerang"
     "Jabu-Jabu Back Forked Paths": "event(JABU_MQ_BACK_UNLOCK)"
-
-
-
-
-
 "Jabu-Jabu Ruto Section Bottom Floor":
   dungeon: JJ
   exits:
@@ -111,9 +92,6 @@
     "MQ Jabu-Jabu Grass Main Room Bottom 1": "can_cut_grass"
     "MQ Jabu-Jabu Grass Main Room Bottom 2": "can_cut_grass"
     "MQ Jabu-Jabu Grass Main Room Bottom 3": "can_cut_grass"
-
-
-
 "Jabu Jabu Basement Loop to Main Elevator":
   dungeon: JJ
   exits:
@@ -128,9 +106,6 @@
     "MQ Jabu-Jabu Pot Boomerang Room 2": "true"
     "MQ Jabu-Jabu GS SoT Block": "gs && can_play_time && can_damage_skull"
     "MQ Jabu-Jabu Grass Boomerang Room": "can_cut_grass"
-
-
-
 "Jabu-Jabu Basement Ledge Before Big Octo":
   dungeon: JJ
   exits:
@@ -148,10 +123,6 @@
   exits:
     "Jabu-Jabu Basement Ledge Before Big Octo": "event(JABU_TENTACLE_GREEN)" #This tentacle can block in door rando, so it needs its own region.
     "Jabu-Jabu Big Octo Room": "true"
-    
-
-
-
 "Jabu-Jabu Big Octo Room":
   dungeon: JJ
   exits:
@@ -159,8 +130,6 @@
     "Jabu-Jabu Above Big Octo Fight": "event(JABU_BIG_OCTO)"
   events:
     JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
-
-
 "Jabu-Jabu Above Big Octo Fight":
   dungeon: JJ
   exits:
@@ -169,9 +138,6 @@
     "MQ Jabu-Jabu Grass Big Octo Top 1": "can_cut_grass"
     "MQ Jabu-Jabu Grass Big Octo Top 2": "can_cut_grass"
     "MQ Jabu-Jabu Wonder Item After Big Octo": "can_use_slingshot"
-
-
-
 "Jabu-Jabu Room After Above Big Octo":
   dungeon: JJ
   exits:
@@ -181,9 +147,6 @@
     "MQ Jabu-Jabu Cow": "can_play_epona && can_use_slingshot"
     "MQ Jabu-Jabu Grass Room After Big Octo": "can_cut_grass"
     "MQ Jabu-Jabu Wonder Item Platforms Cow": "can_use_slingshot"
-
-
-
 "Jabu-Jabu Main Elevator Room High Ledge":
   dungeon: JJ
   exits:
@@ -192,23 +155,6 @@
     "Jabu-Jabu Main Elevator Room Lower": "true"
   events:
     JABU_MQ_LOWER_BIG_OCTO_PLATFORM: "true"
-    
-    
-
-
-
-
-
-
-    "Jabu-Jabu Pre-Boss": "event(JABU_TENTACLE_RED) && (event(JABU_BIG_OCTO) || can_hookshot || has_hover_boots)"
-
-
-
-
-
-
-
-    
 "Jabu-Jabu Back Forked Paths":
   dungeon: JJ
   exits:
@@ -272,9 +218,6 @@
     "Jabu-Jabu Back Forked Paths": "true"
   locations:
     "MQ Jabu-Jabu GS Back": "gs && ((climb_anywhere && (can_hammer || can_use_mask_blast)) || (has_explosives && can_collect_distance))"
-
-
-    
 "Jabu-Jabu Basement Side Room":
   dungeon: JJ
   exits:
@@ -284,19 +227,11 @@
     JABU_MQ_BASEMENT_SIDE_BUTTON: "true"
   locations:
     "MQ Jabu-Jabu GS Basement Side Room": "gs && ((event(JABU_MQ_BASEMENT_SIDE_PLATFORM) && can_collect_distance) || (has_hover_boots && can_collect_distance) || (has_fire_arrows && can_longshot) || (climb_anywhere && can_collect_distance))"
-
-
-    
-"Jabu-Jabu Pre-Boss Start":
+"Jabu-Jabu Pre-Boss Room":
   dungeon: JJ
   exits:
-    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "true" ##Not entirely true because of the Red Tantacle in the way for door rando, but that's easy to change later.
-
-
-
-    
+    "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss After Red Tentacle": "true"
     "Jabu-Jabu Boss": "event(JABU_MQ_END)"
-    "Jabu-Jabu Main": "true"
   events:
     "JABU_MQ_END": "can_use_slingshot"
   locations:
