@@ -24,6 +24,9 @@
     "Jabu-Jabu Vanilla Ruto Falling Room": "event(JABU_MQ_UNDERWATER_ALCOVE_SWITCH)"
     "Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "has_hover_boots || (can_use_slingshot && can_hookshot) || event(JABU_BIG_OCTO) || climb_anywhere"
     "Jabu-Jabu Main Elevator Room Lower": "true"
+    "Jabu-Jabu Main Elevator Room High Ledge": "climb_anywhere"
+  events:
+    JABU_MQ_LOWER_BIG_OCTO_PLATFORM: "climb_anywhere || longshot_anywhere" #This lowering platform actually has solid collision to longshot to.
   locations:
     "MQ Jabu-Jabu Heart 1": "true"
     "MQ Jabu-Jabu Heart 2": "true"
@@ -152,7 +155,43 @@
 "Jabu-Jabu Big Octo Room":
   dungeon: JJ
   exits:
-    "Jabu-Jabu Basement Ledge Before Big Octo": "true" #Not entirely true because of the Green Tantacle in the way for door rando, but that's easy to change later.
+    "Jabu-Jabu Basement Ledge Before Big Octo After Green Tentacle": "true"
+    "Jabu-Jabu Above Big Octo Fight": "event(JABU_BIG_OCTO)"
+  events:
+    JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
+
+
+"Jabu-Jabu Above Big Octo Fight":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Room After Above Big Octo": "can_use_slingshot"
+  locations:
+    "MQ Jabu-Jabu Grass Big Octo Top 1": "can_cut_grass"
+    "MQ Jabu-Jabu Grass Big Octo Top 2": "can_cut_grass"
+    "MQ Jabu-Jabu Wonder Item After Big Octo": "can_use_slingshot"
+
+
+
+"Jabu-Jabu Room After Above Big Octo":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Above Big Octo Fight": "true"
+    "Jabu-Jabu Main Elevator Room High Ledge": "(climb_anywhere && can_play_elegy) || can_boomerang"
+  locations:
+    "MQ Jabu-Jabu Cow": "can_play_epona && can_use_slingshot"
+    "MQ Jabu-Jabu Grass Room After Big Octo": "can_cut_grass"
+    "MQ Jabu-Jabu Wonder Item Platforms Cow": "can_use_slingshot"
+
+
+
+"Jabu-Jabu Main Elevator Room High Ledge":
+  dungeon: JJ
+  exits:
+    "Jabu-Jabu Room After Above Big Octo": "true"
+    "Jabu-Jabu Main Elevator Room Upper": "true"
+    "Jabu-Jabu Main Elevator Room Lower": "true"
+  events:
+    JABU_MQ_LOWER_BIG_OCTO_PLATFORM: "true"
     
     
 
@@ -162,24 +201,6 @@
 
 
     "Jabu-Jabu Pre-Boss": "event(JABU_TENTACLE_RED) && (event(JABU_BIG_OCTO) || can_hookshot || has_hover_boots)"
-  events:
-    JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
-  locations:
-    "MQ Jabu-Jabu Cow": "can_play_epona && event(JABU_BIG_OCTO) && can_use_slingshot"
-
-
-
-  
-    "MQ Jabu-Jabu Grass Big Octo Top 1": "event(JABU_BIG_OCTO) && can_cut_grass"
-    "MQ Jabu-Jabu Grass Big Octo Top 2": "event(JABU_BIG_OCTO) && can_cut_grass"
-    "MQ Jabu-Jabu Grass Room After Big Octo": "event(JABU_BIG_OCTO) && can_cut_grass && can_use_slingshot"
-
-
-    
-
-
-    "MQ Jabu-Jabu Wonder Item After Big Octo": "event(JABU_BIG_OCTO) && can_use_slingshot"
-    "MQ Jabu-Jabu Wonder Item Platforms Cow": "event(JABU_BIG_OCTO) && can_use_slingshot"
 
 
 
