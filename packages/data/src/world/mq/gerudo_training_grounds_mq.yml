@@ -170,9 +170,6 @@
     "Gerudo Training Grounds Slopes": "event(GTG_IRON_KNUCKLE)"
   locations:
    "MQ Gerudo Training Grounds Left Side Iron Knuckle Chest": "event(GTG_IRON_KNUCKLE)"
-
-
-   
 "Gerudo Training Grounds Slopes":
   dungeon: GTG
   exits:
@@ -187,9 +184,6 @@
     "MQ Gerudo Training Grounds SR Slopes Front": "can_longshot"
     "MQ Gerudo Training Grounds SR Slopes Front-Left": "true"
     "MQ Gerudo Training Grounds SR Slopes Front-Right": "true"
-
-
-    
 "Gerudo Training Grounds Stalfos Room":
   dungeon: GTG
   exits:
