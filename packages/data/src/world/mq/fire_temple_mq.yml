@@ -12,10 +12,12 @@
   dungeon: Fire
   exits:
     "Fire Temple": "event(FIRE_MQ_1ST_GORON_LIKELIKE)"
+    "Fire Temple Hammer Loop Goron Cell Map Chest Side": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
   events:
     FIRE_MQ_1ST_GORON_LIKELIKE: "can_damage && soul_like_like"
   locations:
     "MQ Fire Temple Early Lower Left Chest": "event(FIRE_MQ_1ST_GORON_LIKELIKE)"
+    "MQ Fire Temple Map Chest": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
 "Fire Temple Upper Lobby":
   dungeon: Fire
   exits:
@@ -66,8 +68,6 @@
     FIRE_MQ_HAMMER_LOOP_FIRST_CLEAR: "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
   locations:
     "MQ Fire Temple Hammer Loop Stalfos Big Fairy": "can_play_sun"
-
-
 "Fire Temple Vanilla Hammer Loop Iron Knuckle Room":
   dungeon: Fire
   exits:
@@ -85,14 +85,24 @@
     "MQ Fire Temple Pot Hammer Loop 7": "true"
     "MQ Fire Temple Pot Hammer Loop 8": "true"
     "MQ Fire Temple Hammer Loop Iron Knuckle Big Fairy": "can_play_sun"
-
-
-
-    
-  
+"Fire Temple Vanilla Hammer Loop Flare Dancer Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple Vanilla Hammer Loop Iron Knuckle Room": "true"
+    "Fire Temple Hammer Loop Goron Cell Map Chest Side": "event(FIRE_MQ_HAMMER_LOOP_FLARE_DANCER_CLEAR)"
+  events:
+    FIRE_MQ_HAMMER_LOOP_FLARE_DANCER_CLEAR: "soul_enemy(SOUL_ENEMY_FLARE_DANCER) && (has_bombs || can_use_mask_blast || can_hammer || can_hookshot) && has_weapon"
   locations:
-    "MQ Fire Temple Hammer Chest": "(is_adult || can_hookshot || climb_anywhere) && has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS) && soul_iron_knuckle && soul_enemy(SOUL_ENEMY_FLARE_DANCER) && (has_bombs || can_hammer || can_hookshot)"
-    "MQ Fire Temple Map Chest": "can_hammer && has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS) && soul_iron_knuckle && soul_enemy(SOUL_ENEMY_FLARE_DANCER)"
+    "MQ Fire Temple Hammer Chest": "event(FIRE_MQ_HAMMER_LOOP_FLARE_DANCER_CLEAR) && (is_adult || can_hookshot || climb_anywhere)"
+"Fire Temple Hammer Loop Goron Cell Map Chest Side":
+  dungeon: Fire
+  exits:
+    "Fire Temple Vanilla Hammer Loop Flare Dancer Room": "true"
+    "Fire Temple Hammer Loop Goron Cell Like Like Side": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
+  events:
+    FIRE_MQ_MAP_CHEST_HAMMER_SWITCH: "can_hammer"
+  locations:
+    "MQ Fire Temple Map Chest": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
 
 
 
