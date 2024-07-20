@@ -152,7 +152,7 @@
     "MQ Gerudo Training Grounds SR Lava Front-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
     "MQ Gerudo Training Grounds SR Lava Front-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
     "MQ Gerudo Training Grounds SR Lava Front": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
-"Gerudo Training Grounds Lava Room Deep Side Ledge"
+"Gerudo Training Grounds Lava Room Deep Side Ledge":
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Lava Room Near Beginning": "hookshot_anywhere || (event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (climb_anywhere || has_hover_boots)))"
