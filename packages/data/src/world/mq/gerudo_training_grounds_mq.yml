@@ -241,7 +241,7 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Stalfos Room Ledge After Red Ice": "true"
-    "Gerudo Training Grounds Spinning Statue Room Upper Side Door": "event(GTG_MQ_SPINNING_STATUE_CRYSTAL)
+    "Gerudo Training Grounds Spinning Statue Room Upper Side Door": "event(GTG_MQ_SPINNING_STATUE_CRYSTAL)"
     "Gerudo Training Grounds Spinning Statue Room Lower": "true"
     "Gerudo Training Grounds Spinning Statue Room Statue Middle": "has_hover_boots || can_longshot || hookshot_anywhere"
 "Gerudo Training Grounds Spinning Statue Room Upper Side Door":
@@ -272,7 +272,7 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Spinning Statue Room Lower": "event(GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR)"
-    "Gerudo Training Grounds Lava Room Deep Side Ledge": "event(GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR)
+    "Gerudo Training Grounds Lava Room Deep Side Ledge": "event(GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR)"
   events:
     GTG_MQ_KNUCKLE_AND_SLUGS_CLEAR: "soul_iron_knuckle && soul_enemy(SOUL_ENEMY_TORCH_SLUG) && has_weapon"
     GTG_MQ_KNUCKLE_AND_SLUGS_WALL_CRYSTAL: "has_ranged_weapon || has_explosives || (climb_anywhere && (can_use_mask_blast || can_jump_slash))"
