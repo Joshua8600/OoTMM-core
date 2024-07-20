@@ -231,7 +231,7 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Stalfos Room Ledge After Red Ice": "has_blue_fire"
-    ""Gerudo Training Grounds Stalfos Room": "has_lens"
+    "Gerudo Training Grounds Stalfos Room": "has_lens"
 "Gerudo Training Grounds Stalfos Room Ledge After Red Ice":
   dungeon: GTG
   exits:
