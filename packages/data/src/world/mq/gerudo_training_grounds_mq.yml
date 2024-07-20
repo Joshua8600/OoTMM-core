@@ -205,7 +205,7 @@
 "Gerudo Training Grounds Stalfos Room":
   dungeon: GTG
   exits:
-   "Gerudo Training Grounds Slopes": "true"
+    "Gerudo Training Grounds Slopes": "true"
     "Gerudo Training Grounds Stalfos Room Ledge Before Red Ice": "has_lens && ((can_play_time && is_adult) || climb_anywhere || hookshot_anywhere)"
     "Gerudo Training Grounds Stalfos Room After Silver Block": "event(GTG_MQ_SILVER_BLOCK_PUSH)"
   events:
