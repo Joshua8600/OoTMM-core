@@ -19,9 +19,6 @@
   region: NONE
   exits:
     "VOID": "true"
-
-
-
 "Gerudo Training Grounds Maze Entrance Fork":
   dungeon: GTG
   exits:
@@ -100,11 +97,6 @@
   locations:
     "MQ Gerudo Training Grounds Right Side Dinolfos Chest": "event(GTG_MQ_RIGHT_FIRST_CLEAR)"
     "MQ Gerudo Training Grounds Wonder Item Dodongo Room Wall": "can_use_bow"
-
-
-
-
-    
 "Gerudo Training Grounds Lava Room Near Beginning":
   dungeon: GTG
   exits:
@@ -118,8 +110,12 @@
     GTG_MQ_LAVA_TORCH_FAR: "has_fire_arrows"
     GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE: "(event(GTG_MQ_LAVA_TORCH_ENTRANCE_SIDE) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
   locations:
-
-
+    "MQ Gerudo Training Grounds SR Lava Back-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Back-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Center": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_ENTRANCE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
 "Gerudo Training Grounds Lava Room Ledge Before Water Room":
   dungeon: GTG
   exits:
@@ -131,9 +127,13 @@
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
     GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE: "has_fire"
     GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE: "(event(GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
-
-
-
+  locations:
+    "MQ Gerudo Training Grounds SR Lava Back-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Back-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Center": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
 "Gerudo Training Grounds Lava Room Maze Ledge":
   dungeon: GTG
   exits:
@@ -145,9 +145,13 @@
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
     GTG_MQ_LAVA_TORCH_FAR: "has_fire_arrows"
     GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR: "(event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
-
-
-
+  locations:
+    "MQ Gerudo Training Grounds SR Lava Back-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Back-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Center": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
 "Gerudo Training Grounds Lava Room Deep Side Ledge"
   dungeon: GTG
   exits:
@@ -159,28 +163,13 @@
     GTG_MQ_LAVA_HAMMER_SWITCH: "can_hammer"
     GTG_MQ_LAVA_TORCH_FAR: "has_fire_arrows"
     GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR: "(event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere)))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
-
-
-
-    
   locations:
-    "MQ Gerudo Training Grounds SR Lava Back-Left": "(has_hover_boots || event(GTG_LAVA_HOOK_TARGETS)) && (can_use_bow || ((can_longshot || (trick(OOT_MQ_GTG_FLAMES) && can_hookshot)) && has_fire) || (trick(OOT_MQ_GTG_FLAMES) && has_hover_boots && has_fire_or_sticks))"
-    "MQ Gerudo Training Grounds SR Lava Back-Right": "(has_hover_boots || event(GTG_LAVA_HOOK_TARGETS)) && (can_use_bow || ((can_longshot || (trick(OOT_MQ_GTG_FLAMES) && can_hookshot)) && has_fire) || (trick(OOT_MQ_GTG_FLAMES) && has_hover_boots && has_fire_or_sticks))"
-    "MQ Gerudo Training Grounds SR Lava Center": "(has_hover_boots || event(GTG_LAVA_HOOK_TARGETS)) && (can_use_bow || ((can_longshot || (trick(OOT_MQ_GTG_FLAMES) && can_hookshot)) && has_fire) || (trick(OOT_MQ_GTG_FLAMES) && has_hover_boots && has_fire_or_sticks))"
-    "MQ Gerudo Training Grounds SR Lava Front-Right": "can_use_bow || (can_longshot && has_fire) || (can_hookshot && trick(OOT_MQ_GTG_FLAMES)) || (has_hover_boots && trick(OOT_MQ_GTG_FLAMES) && has_fire_or_sticks)"
-    "MQ Gerudo Training Grounds SR Lava Front-Left": "can_use_bow || ((can_longshot || (can_hookshot && trick(OOT_MQ_GTG_FLAMES))) && has_fire) || (has_hover_boots && trick(OOT_MQ_GTG_FLAMES) && has_fire_or_sticks) || ((has_weapon || can_use_sticks || can_hammer) && trick(OOT_MQ_GTG_FLAMES))"
-    "MQ Gerudo Training Grounds SR Lava Front": "can_use_bow || (can_longshot && has_fire) || (can_hookshot && trick(OOT_MQ_GTG_FLAMES)) || (has_hover_boots && trick(OOT_MQ_GTG_FLAMES) && has_fire_or_sticks)"
-
-
-
-  locations:
-    "MQ Gerudo Training Grounds SR Lava Back-Right": "has_fire_arrows"
-    "MQ Gerudo Training Grounds SR Lava Center": "has_fire_arrows"
-
-
-
-
-    
+    "MQ Gerudo Training Grounds SR Lava Back-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Back-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Center": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR) || (settings.silverRupeeShuffle && hookshot_anywhere)" 
 "Gerudo Training Grounds Water Room":
   dungeon: GTG
   exits:
