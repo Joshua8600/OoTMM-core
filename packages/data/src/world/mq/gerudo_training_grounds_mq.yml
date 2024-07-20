@@ -130,7 +130,7 @@
   events:
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
     GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE: "has_fire"
-    GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE: "event(GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))"
+    GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE: "(event(GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
 
 
 
@@ -144,7 +144,7 @@
   events:
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
     GTG_MQ_LAVA_TORCH_FAR: "has_fire_arrows"
-    GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR: "event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))"
+    GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR: "(event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
 
 
 
@@ -158,7 +158,7 @@
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
     GTG_MQ_LAVA_HAMMER_SWITCH: "can_hammer"
     GTG_MQ_LAVA_TORCH_FAR: "has_fire_arrows"
-    GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR: "event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))"
+    GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_FAR: "(event(GTG_MQ_LAVA_TORCH_FAR) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere)))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
 
 
 
