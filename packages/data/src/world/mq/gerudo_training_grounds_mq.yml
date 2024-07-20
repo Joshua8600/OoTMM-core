@@ -109,27 +109,25 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Right Path First Room": "true"
-    "Gerudo Training Grounds Lava Room Ledge Before Water Room": "can_longshot || event(GTG_MQ_LAVA_TORCH) || (trick(OOT_MQ_GTG_FLAMES) && (can_hookshot || has_hover_boots)) || hookshot_anywhere || climb_anywhere"
+    "Gerudo Training Grounds Lava Room Ledge Before Water Room": "can_longshot || event(GTG_MQ_LAVA_TORCH_ENTRANCE_SIDE) || (trick(OOT_MQ_GTG_FLAMES) && (can_hookshot || has_hover_boots)) || hookshot_anywhere || climb_anywhere"
     "Gerudo Training Grounds Lava Room Maze Ledge": "(event(GTG_MQ_LAVA_HAMMER_SWITCH) && can_longshot) || (event(GTG_MQ_LAVA_TORCH) && event(GTG_MQ_LAVA_HAMMER_SWITCH) && can_hookshot) || hookshot_anywhere || climb_anywhere"
     "Gerudo Training Grounds Lava Room Deep Side Ledge": "hookshot_anywhere || climb_anywhere"
   events:
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
-    GTG_MQ_LAVA_TORCH_BOW: "can_use_bow || (can_use_din && ((trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || climb_anywhere)) || hookshot_anywhere))"
-    GTG_MQ_LAVA_TORCH_CLOSE:
-    GTG_MQ_LAVA_TORCH_FAR:
+    GTG_MQ_LAVA_TORCH_ENTRANCE_SIDE: "can_use_bow"
+    GTG_MQ_LAVA_TORCH_FAR: "has_fire_arrows"
 
 
 "Gerudo Training Grounds Lava Room Ledge Before Water Room":
   dungeon: GTG
   exits:
-    "Gerudo Training Grounds Lava Room Near Beginning": "can_longshot || event(GTG_MQ_LAVA_TORCH) || (trick(OOT_MQ_GTG_FLAMES) && (can_hookshot || has_hover_boots)) || hookshot_anywhere || climb_anywhere"
+    "Gerudo Training Grounds Lava Room Near Beginning": "can_longshot || event(GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || can_hookshot)) || hookshot_anywhere || climb_anywhere"
     "Gerudo Training Grounds Lava Room Maze Ledge": "(event(GTG_MQ_LAVA_HAMMER_SWITCH) && can_longshot) || hookshot_anywhere || (climb_anywhere && event(GTG_LAVA_HOOK_TARGETS) && event(GTG_MQ_LAVA_TORCH)) || (event(GTG_MQ_LAVA_HAMMER_SWITCH) && can_hookshot && event(GTG_MQ_LAVA_TORCH))"
     "Gerudo Training Grounds Lava Room Deep Side Ledge": "hookshot_anywhere || climb_anywhere"
     "Gerudo Training Grounds Water Room": "silver_rupees_gtg_lava_mq"
   events:
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
-    GTG_MQ_LAVA_TORCH_BOW:
-    GTG_MQ_LAVA_TORCH_CLOSE: "has_fire"
+    GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE: "has_fire"
 
 
 
