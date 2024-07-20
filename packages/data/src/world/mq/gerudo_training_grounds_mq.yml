@@ -128,12 +128,12 @@
     GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE: "has_fire"
     GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE: "(event(GTG_MQ_LAVA_TORCH_WATER_ROOM_SIDE) && (is_adult || (is_child && (has_hover_boots || climb_anywhere || ((event(GTG_LAVA_HOOK_TARGETS) && can_hookshot) || hookshot_anywhere))))) || (trick(OOT_MQ_GTG_FLAMES) && (has_hover_boots || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS)) || hookshot_anywhere))"
   locations:
-    "MQ Gerudo Training Grounds SR Lava Back-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
-    "MQ Gerudo Training Grounds SR Lava Back-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
-    "MQ Gerudo Training Grounds SR Lava Center": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
-    "MQ Gerudo Training Grounds SR Lava Front-Right": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
-    "MQ Gerudo Training Grounds SR Lava Front-Left": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
-    "MQ Gerudo Training Grounds SR Lava Front": "event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Back-Left": "(event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE)) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Back-Right": "(event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE)) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Center": "(event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE)) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Right": "(event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE)) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front-Left": "(event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE)) || (settings.silverRupeeShuffle && hookshot_anywhere)"
+    "MQ Gerudo Training Grounds SR Lava Front": "(event(GTG_MQ_LAVA_TORCH_COMMON_PLATFORMS_WATER_SIDE)) || (settings.silverRupeeShuffle && hookshot_anywhere)"
 "Gerudo Training Grounds Lava Room Maze Ledge":
   dungeon: GTG
   exits:
