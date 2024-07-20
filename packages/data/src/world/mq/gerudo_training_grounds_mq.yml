@@ -134,7 +134,7 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Lava Room Near Beginning":
-    "Gerudo Training Grounds Lava Room Ledge Before Water Room":
+    "Gerudo Training Grounds Lava Room Ledge Before Water Room": "can_longshot || hookshot_anywhere || event(GTG_MQ_LAVA_TORCH) || (can_hookshot && event(GTG_LAVA_HOOK_TARGETS))"
     "Gerudo Training Grounds Lava Room Deep Side Ledge":
     "Gerudo Training Grounds Maze Right Room 2": "true"
   events:
