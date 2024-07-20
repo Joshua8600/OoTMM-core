@@ -265,7 +265,7 @@
     GTG_MQ_SPINNING_STATUE_CRYSTAL: "can_use_bow || can_use_slingshot || can_hookshot || has_explosives || can_boomerang"
   locations:
     "MQ Gerudo Training Grounds Spinning Statue Chest": "event(GTG_MQ_SPINNING_STATUE_EYES)"
-"Gerudo Training Grounds Spinning Statue Statue Middle":
+"Gerudo Training Grounds Spinning Statue Room Statue Middle":
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Spinning Statue Room Upper": "can_hookshot && (is_adult || (is_child && has_hover_boots))"
