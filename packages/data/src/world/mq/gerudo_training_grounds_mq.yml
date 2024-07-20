@@ -148,7 +148,7 @@
   dungeon: GTG
   exits:
     "Gerudo Training Grounds Lava Room Near Beginning":
-    "Gerudo Training Grounds Lava Room Maze Ledge":
+    "Gerudo Training Grounds Lava Room Maze Ledge": "(event(GTG_MQ_LAVA_HAMMER_SWITCH) && can_longshot) || (event(GTG_LAVA_HOOK_TARGETS) && (is_adult || (is_child && has_hover_boots)) && can_hookshot) || hookshot_anywhere || climb_anywhere"
     "Gerudo Training Grounds Lava Room Ledge Before Water Room":
   events:
     GTG_LAVA_HOOK_TARGETS: "silver_rupees_gtg_lava_mq"
