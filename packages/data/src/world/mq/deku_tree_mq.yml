@@ -113,7 +113,7 @@
 "Deku Tree MQ Slingshot Room":
   dungeon: DT
   exits:
-    ""Deku Tree Slingshot Room Entry Door": "true"
+    "Deku Tree Slingshot Room Entry Door": "true"
   events:
     DEKU_MQ_SLINGSHOT_ENEMIES: "soul_deku_baba && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || can_use_sticks || has_ranged_weapon_child)" #Bombs and Din's work, but it's horrible.
     DEKU_MQ_SLINGSHOT_TORCH: "has_fire || can_use_sticks"
