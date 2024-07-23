@@ -18,10 +18,6 @@
     "MQ Deku Tree Grass Entrance Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Lower 4": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Lower 5": "can_cut_grass"
-
-
-
-    
 "Deku Tree 2nd Floor":
   dungeon: DT
   exits:
@@ -34,25 +30,16 @@
     "MQ Deku Tree Heart Lobby": "true"
     "MQ Deku Tree Grass Entrance Upper 1": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Upper 2": "can_cut_grass"
-
-
-
 "Deku Tree 2nd Floor Door":
   dungeon: DT
   exits:
     "Deku Tree 2nd Floor": "true"
     "Deku Tree Room Before Compass Room Entry Door": "true"
-
-
 "Deku Tree Room Before Compass Room Entry Door":
   dungeon: DT
   exits:
     "Deku Tree 2nd Floor Door": "true"
     "Deku Tree Room Before Compass Room": "true"
-
-
-
-    
 "Deku Tree Room Before Compass Room":
   dungeon: DT
   exits:
@@ -71,25 +58,16 @@
     "MQ Deku Tree Grass Room Before Compass 5": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Compass 6": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Compass 7": "can_cut_grass"
-
-
-
 "Deku Tree Room Before Compass Room Exit Door":
   dungeon: DT
   exits:
     "Deku Tree Room Before Compass Room": "true"
     "Deku Tree Compass Room Entry Door": "event(DEKU_MQ_BEFORE_COMPASS_EYE_SWITCH)"
-
-
 "Deku Tree Compass Room Entry Door":
   dungeon: DT
   exits:
     "Deku Tree Room Before Compass Room Exit Door": "true"
     "Deku Tree MQ Compass Room Entrance": "true
-
-
-
-    
 "Deku Tree MQ Compass Room Entrance":
   dungeon: DT
   exits:
