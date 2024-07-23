@@ -73,6 +73,14 @@ void    SkelAnime_DrawFlexOpa(GameState_Play* play, void** skeleton, Vec3s* join
 
 void    AudioSeq_QueueSeqCmd(u32 unk);
 
+#define SEQCMD_PLAY_SEQUENCE(seqPlayerIndex, fadeInDuration, seqId)                             \
+    AudioSeq_QueueSeqCmd((0 << 28) | ((seqPlayerIndex) << 24) | ((u32)(fadeInDuration) << 16) | \
+                         (u32)(seqId))
+
+#define SEQCMD_STOP_SEQUENCE(seqPlayerIndex, fadeOutDuration)              \
+    AudioSeq_QueueSeqCmd((1 << 28) | 0xFF | ((u8)(seqPlayerIndex) << 24) | \
+                         ((fadeOutDuration) << 16))
+
 void    ActorShadow_DrawCircle(Actor* actor, Lights* lights, GameState_Play* play);
 void    ActorShadow_DrawSquare(Actor* actor, Lights* lights, GameState_Play* play);
 
@@ -249,6 +257,8 @@ void Audio_PlaySfx_AtPos(Vec3f* pos, u16 sfxId);
 void Audio_PlaySfx_MessageDecide(void);
 void AudioSfx_PlaySfx(u16 sfxId, Vec3f* pos, u8 token, f32* freqScale, f32* volume, s8* reverbAdd);
 
+void* Lib_SegmentedToVirtual(void* ptr);
+
 #if defined(GAME_MM)
 void AudioOcarina_SetInstrument(u8 ocarinaInstrumentId);
 void Animation_PlayLoop(SkelAnime* skelAnime, AnimationHeader* animation);
@@ -258,7 +268,6 @@ void Message_BombersNotebookQueueEvent(GameState_Play* play, u8 event);
 s32 Player_IsFacingActor(Actor* actor, s16 maxAngleDiff, GameState_Play* play);
 s32 Actor_TrackPlayer(GameState_Play* play, Actor* actor, Vec3s* headRot, Vec3s* torsoRot, Vec3f focusPos);
 s16 Animation_GetLastFrame(void* animation);
-void* Lib_SegmentedToVirtual(void* ptr);
 s8 Play_InCsMode(GameState_Play* this);
 
 s32 Player_SetCsActionWithHaltedActors(GameState_Play* play, Actor* csActor, u8 csAction);
@@ -291,6 +300,7 @@ void ParseSceneRoomHeaders_SoundSettings(GameState_Play* play, void* cmd);
 void Interface_StartMoonCrash(GameState_Play* play);
 
 void SpawnRoomActors(GameState_Play* play, int id);
+void SpawnTransitionActors(GameState_Play* play, int id);
 
 extern u8 gPlayedOcarinaSong;
 extern u8 gIsOcarinaEnabled;
@@ -470,11 +480,82 @@ void Message_DisplaySceneTitleCard(GameState_Play* play, u16 textId);
 void Sram_IncrementDay(void);
 s32 Play_IsDebugCamEnabled(void);
 u16 Entrance_CreateFromSpawn(s32 spawn);
-void func_80169EFC(GameState_Play* play);
 void Audio_PlaySfx_BigBells(Vec3f* pos, u8 volumeIndex);
 s16 CutsceneManager_IsNext(s16 csId);
 void CutsceneManager_Queue(s16 csId);
 s16 CutsceneManager_Start(s16 csId, Actor* actor);
 s16 CutsceneManager_Stop(s16 csId);
 CutsceneEntry* CutsceneManager_GetCutsceneEntry(s16 csId);
+
+void Actor_ChangeCategory(GameState_Play* play, ActorContext* actorCtx, Actor* actor, u8 actorCategory);
+Actor* Actor_SpawnAsChild(ActorContext* actorCtx, Actor* parent, GameState_Play* play, s16 actorId, f32 posX, f32 posY, f32 posZ, s16 rotX, s16 rotY, s16 rotZ, s32 params);
+void Animation_MorphToLoop(SkelAnime* skelAnime, AnimationHeader* animation, f32 morphFrames);
+void Animation_MorphToPlayOnce(SkelAnime* skelAnime, AnimationHeader* animation, f32 morphFrames);
+s32 Animation_OnFrame(SkelAnime* skelAnime, f32 frame);
+
+s32 Collider_InitAndSetJntSph(GameState_Play* play, ColliderJntSph* sphereGroup, Actor* actor, ColliderJntSphInit* src, ColliderJntSphElement* elements);
+void Cutscene_StartManual(GameState_Play* play, CutsceneContext* csCtx);
+void Cutscene_StopManual(GameState_Play* play, CutsceneContext* csCtx);
+
+void Matrix_MultVecZ(f32 z, Vec3f* dest);
+void Matrix_RotateXS(s16 x, int mode);
+void Matrix_RotateXF(f32 x, int mode);
+void Matrix_RotateYS(s16 y, int mode);
+void Matrix_RotateYF(f32 y, int mode);
+void Matrix_RotateZS(s16 z, int mode);
+void Matrix_RotateZF(f32 z, int mode);
+void Matrix_MultZero(Vec3f* dest);
+void Matrix_RotateXFApply(f32 x);
+void Matrix_ReplaceRotation(MtxF* mf);
+void Matrix_RotateXFNew(f32 x);
+
+s16 Play_CreateSubCamera(GameState_Play* this);
+s32 Play_ChangeCameraStatus(GameState_Play* this, s16 camId, s16 status);
+s32 Play_SetCameraAtEye(GameState_Play* this, s16 camId, Vec3f* at, Vec3f* eye);
+s32 Play_SetCameraAtEyeUp(GameState_Play* this, s16 camId, Vec3f* at, Vec3f* eye, Vec3f* up);
+Gfx* Play_SetFog(GameState_Play* this, Gfx* gfx);
+
+void Rumble_Override(f32 distSq, u8 sourceIntensity, u8 decayTimer, u8 decayStep);
+
+void TitleCard_InitBossName(GameState* gameState, TitleCardContext* titleCtx, void* texture, s16 x, s16 y, u8 width, u8 height);
+void ShrinkWindow_Letterbox_SetSizeTarget(s32 target);
+
+void EffectSsKFire_Spawn(GameState_Play* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel, s16 scaleMax, u8 type);
+void EffectSsEnIce_Spawn(GameState_Play* play, Vec3f* pos, f32 scale, Vec3f* velocity, Vec3f* accel, Color_RGBA8* primColor, Color_RGBA8* envColor, s32 life);
+
+void SoundSource_InitAll(GameState_Play* play);
+void SoundSource_UpdateAll(GameState_Play* play);
+void SoundSource_PlaySfxAtFixedWorldPos(GameState_Play* play, Vec3f* worldPos, u32 duration, u16 sfxId);
+void SoundSource_PlaySfxEachFrameAtFixedWorldPos(GameState_Play* play, Vec3f* worldPos, u32 duration, u16 sfxId);
+
+Gfx* Gfx_TwoTexScroll(GfxContext* gfxCtx, s32 tile1, u32 x1, u32 y1, s32 width1, s32 height1, s32 tile2, u32 x2, u32 y2, s32 width2, s32 height2);
+Gfx* Gfx_SetFog(Gfx* gfx, s32 r, s32 g, s32 b, s32 a, s32 n, s32 f);
+void Gfx_SetupDL25_Xlu(GfxContext* gfxCtx);
+void Gfx_SetupDL44_Xlu(GfxContext* gfxCtx);
+Gfx* Gfx_SetupDL71(Gfx* gfx);
+Gfx* Gfx_SetupDL72(Gfx* gfx);
+
+s16 CutsceneManager_GetAdditionalCsId(s16 csId);
+void PlayerAnimation_Change(GameState_Play* play, SkelAnime* skelAnime, PlayerAnimationHeader* animation, f32 playSpeed, f32 startFrame, f32 endFrame, u8 mode, f32 morphFrames);
+s32 Actor_IsFacingPlayer(Actor* actor, s16 angle);
+void Actor_PlaySeq_FlaggedKamaroDance(Actor* actor);
+s16 CutsceneManager_StartWithPlayerCs(s16 csId, Actor* actor);
+void Scene_SetRenderModeXlu(GameState_Play* play, s32 index, u32 flags);
+
+typedef s32 (*OverrideLimbDraw)(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+                                Actor* thisx, Gfx** gfx);
+
+typedef void (*PostLimbDraw)(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3s* rot,
+                             Actor* thisx, Gfx** gfx);
+
+Gfx* SkelAnime_DrawFlex(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, struct Actor* actor, Gfx* gfx);
+
+// TODO: rename
+void func_80169EFC(GameState_Play* play);
+void func_800B0EB0(GameState_Play* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel, Color_RGBA8* primColor, Color_RGBA8* envColor, s16 scale, s16 scaleStep, s16 life);
+void func_80169AFC(GameState_Play* play, s16 camId, s16 timer);
+void func_800B8D50(GameState_Play* play, Actor* actor, f32 arg2, s16 yaw, f32 arg4, u32 arg5);
+void func_800B4AEC(GameState_Play* play, Actor* actor, f32 y);
+void func_800B3030(GameState_Play* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel, s16 scale, s16 scaleStep, s32 colorIndex);
+
 #endif

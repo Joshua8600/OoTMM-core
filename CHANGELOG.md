@@ -6,10 +6,20 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Skip Kamaro teaching the dance when healing him.
+- Fast elemental arrow equip in MM.
+- Ability to choose how many stray fairies are required to obtain a reward.
+- Choice to pre-activate owl statues.
+- Crates shuffle, for OoT and MM.
 - The boat cruise is now faster if you are not playing the archery.
+
+### Changed
+
+- Internal names of the music tracks, for an easier sorting in the cosmetics log.
 
 ### Fixed
 
+- Starting age no longer defaults to either child or adult after generating a random starting age seed.
 - Minor collection delay for Bolero.
 - Long-standing issue where Anju's reservation worked inconsistently.
 - Title cards not being displayed on game transitions.

@@ -19,6 +19,7 @@ export const WORLD_FLAGS = [
   'silverRupeePouches',
   'openDungeonsMm',
   'openDungeonsOot',
+  'mmPreActivatedOwls'
 ] as const;
 
 type WorldFlag = typeof WORLD_FLAGS[number];
@@ -119,7 +120,7 @@ export type WorldArea = WorldAreaExprs & {
 };
 
 type WorldCheckNumeric = {
-  type: 'chest' | 'collectible' | 'gs' | 'sf' | 'cow' | 'shop' | 'scrub' | 'sr' | 'pot' | 'grass' | 'wonder' | 'fish' | 'fairy' | 'rupee' | 'heart' | 'fairy_spot';
+  type: 'chest' | 'collectible' | 'gs' | 'sf' | 'cow' | 'shop' | 'scrub' | 'sr' | 'pot' | 'crate' | 'grass' | 'wonder' | 'fish' | 'fairy' | 'rupee' | 'heart' | 'fairy_spot';
   id: number;
 };
 
@@ -370,6 +371,9 @@ export class LogicPassWorld {
       this.loadMacros(g, parser);
       exprParsers[g] = parser;
     }
+
+    /* Expr parser settings */
+    exprParsers.mm.addVar('STRAY_FAIRY_COUNT', this.state.settings.strayFairyRewardCount);
 
     /* MQ */
     const mq = new Set<string>;

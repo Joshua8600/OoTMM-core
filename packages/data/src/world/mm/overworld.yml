@@ -47,16 +47,16 @@
 "SOARING":
   region: NONE
   exits:
-    "Owl Clock Town": "has(OWL_CLOCK_TOWN)"
-    "Owl Milk Road": "has(OWL_MILK_ROAD)"
-    "Owl Swamp": "has(OWL_SOUTHERN_SWAMP)"
-    "Owl Woodfall": "has(OWL_WOODFALL)"
-    "Owl Mountain": "has(OWL_MOUNTAIN_VILLAGE)"
-    "Owl Snowhead": "has(OWL_SNOWHEAD)"
-    "Owl Great Bay": "has(OWL_GREAT_BAY)"
-    "Owl Zora Cape": "has(OWL_ZORA_CAPE)"
-    "Owl Ikana": "has(OWL_IKANA_CANYON)"
-    "Owl Stone Tower": "has(OWL_STONE_TOWER)"
+    "Owl Clock Town": "has(OWL_CLOCK_TOWN) || setting(mmPreActivatedOwls, clocktown)"
+    "Owl Milk Road": "has(OWL_MILK_ROAD) || setting(mmPreActivatedOwls, milkroad)"
+    "Owl Swamp": "has(OWL_SOUTHERN_SWAMP) || setting(mmPreActivatedOwls, swamp)"
+    "Owl Woodfall": "has(OWL_WOODFALL) || setting(mmPreActivatedOwls, woodfall)"
+    "Owl Mountain": "has(OWL_MOUNTAIN_VILLAGE) || setting(mmPreActivatedOwls, mountain)"
+    "Owl Snowhead": "has(OWL_SNOWHEAD) || setting(mmPreActivatedOwls, snowhead)"
+    "Owl Great Bay": "has(OWL_GREAT_BAY) || setting(mmPreActivatedOwls, greatbay)"
+    "Owl Zora Cape": "has(OWL_ZORA_CAPE) || setting(mmPreActivatedOwls, zoracape)"
+    "Owl Ikana": "has(OWL_IKANA_CANYON) || setting(mmPreActivatedOwls, canyon)"
+    "Owl Stone Tower": "has(OWL_STONE_TOWER) || setting(mmPreActivatedOwls, tower)"
 "Owl Clock Town":
   region: CLOCK_TOWN_SOUTH
   exits:
@@ -89,6 +89,8 @@
     WATER: "true"
   locations:
     "Southern Swamp Owl Statue": "has_sticks || has_weapon"
+    "Southern Swamp Grass Owl 1": "true"
+    "Southern Swamp Grass Owl 2": "true"
 "Owl Woodfall":
   region: WOODFALL
   exits:
@@ -129,7 +131,7 @@
   region: GREAT_BAY_COAST
   exits:
     "Great Bay Coast": "can_reset_time"
-    "Tingle Great Bay": "soul_npc(SOUL_NPC_TINGLE) && (can_hookshot || has_arrows)"
+    "Tingle Great Bay": "soul_npc(SOUL_NPC_TINGLE) && has_arrows"
   events:
     PICTURE_TINGLE: "soul_npc(SOUL_NPC_TINGLE) && has(PICTOGRAPH_BOX)"
   locations:
@@ -342,6 +344,8 @@
     "Clock Town East Wonder Item Basket 1": "true"
     "Clock Town East Wonder Item Basket 2": "true"
     "Clock Town East Wonder Item Basket 3": "true"
+    "Clock Town East Small Crate 1": "true"
+    "Clock Town East Small Crate 2": "true"
 "Clock Town East Postbox":
   region: NONE
   exits:
@@ -393,6 +397,7 @@
   locations:
     "Clock Town Guru Guru Mask Bremen": "soul_guru_guru && (is_night1 || is_night2)"
     "Clock Town Stray Fairy": "is_day"
+    "Clock Town Laundry Pool Small Crate": "true"
     "Clock Town Laundry Pool Grass 1": "true"
     "Clock Town Laundry Pool Grass 2": "true"
     "Clock Town Laundry Pool Grass 3": "true"
@@ -1010,6 +1015,7 @@
   locations:
     "Termina Field Scrub": "event(SCRUB_TELESCOPE) && can_use_wallet(2)"
     "Termina Field Scrub Pot": "true"
+    "Termina Field Scrub Crate": "true"
 "Termina Field Cow Grotto":
   region: ENTRANCE
   events:
@@ -1300,8 +1306,6 @@
     "Southern Swamp Grass Front 10": "true"
     "Southern Swamp Grass Front 11": "true"
     "Southern Swamp Grass Front 12": "true"
-    "Southern Swamp Grass Owl 1": "true"
-    "Southern Swamp Grass Owl 2": "true"
     "Southern Swamp Grass Near Witch Pack 1 Grass 01": "true"
     "Southern Swamp Grass Near Witch Pack 1 Grass 02": "true"
     "Southern Swamp Grass Near Witch Pack 1 Grass 03": "true"
@@ -1654,7 +1658,7 @@
   exits:
     "Woodfall Near Fairy Fountain": "true"
   locations:
-    "Woodfall Great Fairy": "has(STRAY_FAIRY_WF, 15)"
+    "Woodfall Great Fairy": "has(STRAY_FAIRY_WF, var(STRAY_FAIRY_COUNT))"
 "Near Deku Shrine":
   region: DEKU_PALACE
   exits:
@@ -1966,6 +1970,7 @@
     "Goron Village Scrub Bomb Bag": "soul_business_scrub && has_mask_goron && can_use_wallet(2)"
 #    "Goron Village Scrub Bomb Bag": "(has_mask_goron || (has(MOON_TEAR) && has(DEED_LAND) && has(DEED_SWAMP))) && can_use_wallet(2)"
     "Goron Powder Keg": "event(TRIAL_BOULDER) && (event(POWDER_KEG_TRIAL) || (short_hook_anywhere && trick(MM_KEG_TRIAL_HEATLESS)))"
+    "Goron Village Crate": "is_spring || can_use_fire_short_range"
 "Front of Lone Peak Shrine":
   region: GORON_VILLAGE
   exits:
@@ -2156,7 +2161,7 @@
   exits:
     "Snowhead Near Fairy Fountain": "true"
   locations:
-    "Snowhead Great Fairy": "has(STRAY_FAIRY_SH, 15)"
+    "Snowhead Great Fairy": "has(STRAY_FAIRY_SH, var(STRAY_FAIRY_COUNT))"
 "Goron Race":
   region: GORON_RACETRACK
   events:
@@ -2251,6 +2256,7 @@
     "Romani Ranch Epona Song": "soul_malon && (before(NIGHT1_PM_06_00) || (trick(MM_RANCH_FARORE) && can_use_farore && clock_day1))"
     "Romani Ranch Aliens": "event(ALIENS)"
     "Romani Ranch Cremia Escort": "event(ALIENS) && (at(NIGHT2_PM_06_00) || (trick(MM_RANCH_FARORE) && can_use_farore && clock_night2))"
+    "Romani Ranch Crate": "true"
     "Romani Ranch Grass Pack 1 Grass 01": "true"
     "Romani Ranch Grass Pack 1 Grass 02": "true"
     "Romani Ranch Grass Pack 1 Grass 03": "true"
@@ -2333,6 +2339,9 @@
     "Cucco Shack Wonder Item 4": "true"
     "Cucco Shack Wonder Item 5": "true"
     "Cucco Shack Wonder Item 6": "true"
+    "Cucco Shack Crate 1": "true"
+    "Cucco Shack Crate 2": "true"
+    "Cucco Shack Crate 3": "true"
   gossip:
     "Cucco Shack Gossip": "true"
 "Doggy Racetrack": #The race is always available
@@ -2679,7 +2688,7 @@
   exits:
     "Great Bay Near Fairy Fountain": "true"
   locations:
-    "Great Bay Great Fairy": "has(STRAY_FAIRY_GB, 15)"
+    "Great Bay Great Fairy": "has(STRAY_FAIRY_GB, var(STRAY_FAIRY_COUNT))"
 "Waterfall Cliffs":
   region: ZORA_CAPE
   exits:
@@ -2774,6 +2783,7 @@
   locations:
     "Gorman Track Garo Mask": "soul_gorman && can_play_epona && can_use_wallet(1) && is_day"
     "Gorman Track Milk Purchase": "soul_gorman && can_use_wallet(1) && is_day"
+    "Gorman Track Crate": "true"
 "Gorman Track Back":
   region: MILK_ROAD
   exits:
@@ -3097,7 +3107,7 @@
   exits:
     "Ikana Canyon": "true"
   locations:
-    "Ikana Great Fairy": "has(STRAY_FAIRY_ST, 15)"
+    "Ikana Great Fairy": "has(STRAY_FAIRY_ST, var(STRAY_FAIRY_COUNT))"
 "Ikana Spring Water Cave":
   region: ENTRANCE
   exits:

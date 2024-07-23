@@ -534,6 +534,22 @@ export const SETTINGS = [{
   cond: hasMM,
   default: false
 }, {
+  key: 'shuffleCratesOot',
+  name: 'Crates Shuffle (OoT)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the crates are shuffled (OoT).',
+  cond: hasOoT,
+  default: false
+}, {
+  key: 'shuffleCratesMm',
+  name: 'Crates Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the crates are shuffled (MM).',
+  cond: hasMM,
+  default: false
+}, {
   key: 'shuffleGrassOot',
   name: 'Grass Shuffle (OoT)',
   category: 'main.shuffle',
@@ -813,7 +829,7 @@ export const SETTINGS = [{
     { value: 'WF', name: 'Woodfall Temple' },
     { value: 'SH', name: 'Snowhead Temple' },
     { value: 'GB', name: 'Great Bay Temple' },
-    { value: 'ST', name: 'Stone Tower Temples' },
+    { value: 'ST', name: 'Stone Tower Temple' },
   ],
   default: 'none',
   cond: hasMM,
@@ -960,6 +976,16 @@ export const SETTINGS = [{
   default: false,
   cond: hasMM,
 }, {
+  key: 'strayFairyRewardCount',
+  name: 'Stray Fairy Reward Count',
+  category: 'main.events',
+  type: 'number',
+  description: 'How many stray fairies are required to get a reward.',
+  default: 15,
+  min: 0,
+  max: 15,
+  cond: hasMM,
+}, {
   key: 'preCompletedDungeons',
   name: 'Pre-Completed Dungeons',
   category: 'main.events',
@@ -1020,9 +1046,29 @@ export const SETTINGS = [{
   name: 'Pre-Planted beans (OoT)',
   category: 'main.events',
   type: 'boolean',
-  description: 'Automatically plants beans for ',
+  description: 'Automatically plants beans in the various soft soils of OoT, as well as removing the beans from the item pool',
   default: false,
   cond: hasOoT,
+}, {
+  key: 'mmPreActivatedOwls',
+  name: 'Pre-Activated Owl Statues',
+  category: 'main.events',
+  type: 'set',
+  description: 'Automatically activates owl statues on your behalf, and you will also get the items at their location',
+  values: [
+    { value: 'clocktown', name: 'Clock Town' },
+    { value: 'milkroad',  name: 'Milk Road' },
+    { value: 'swamp',     name: 'Southern Swamp' },
+    { value: 'woodfall',  name: 'Woodfall' },
+    { value: 'mountain',  name: 'Mountain Village' },
+    { value: 'snowhead',  name: 'Snowhead' },
+    { value: 'greatbay',  name: 'Great Bay Coast' },
+    { value: 'zoracape',  name: 'Zora Cape' },
+    { value: 'canyon',    name: 'Ikana Canyon' },
+    { value: 'tower',     name: 'Stone Tower' },
+  ],
+  default: 'none',
+  cond: hasMM,
 }, {
   key: 'crossAge',
   name: 'Cross-Games Age',
@@ -1733,7 +1779,8 @@ export const SETTINGS = [{
   category: 'items.extensions',
   type: 'boolean',
   description: 'Enables using Song of Double Time in OoT when you have Song of Time in OoT',
-  default: false
+  default: false,
+  cond: hasOoT
 }, {
   key: 'sharedNutsSticks',
   name: 'Shared Nuts & Sticks',
