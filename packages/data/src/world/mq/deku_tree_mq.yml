@@ -67,7 +67,7 @@
   dungeon: DT
   exits:
     "Deku Tree Room Before Compass Room Exit Door": "true"
-    "Deku Tree MQ Compass Room Entrance": "true
+    "Deku Tree MQ Compass Room Entrance": "true"
 "Deku Tree MQ Compass Room Entrance":
   dungeon: DT
   exits:
