@@ -226,23 +226,12 @@
   exits:
     "Deku Tree Room After Water Room Exit Door": "true"
     "Deku Tree MQ Grave Room": "true"
-
-
-
-
-    
 "Deku Tree MQ Grave Room":
   dungeon: DT
   exits:
     "Deku Tree Gravestone Room Entry Door": "true"
-    "Deku Tree Back Room Entry Door": "can_use_sticks || has_fire"
+    "Deku Tree Gravestone Room Back Room Door": "can_use_sticks || has_fire"
     "Deku Tree Basement Ledge": "is_child && (can_use_sticks || can_use_din)"
-
-
-
-
-    
-    "Deku Tree Back Side Room": "can_use_sticks || has_fire"
   events:
     STICKS: "can_kill_baba_sticks"
     NUTS: "can_kill_baba_nuts"
@@ -257,21 +246,20 @@
     "MQ Deku Tree Wonder Item 2": "can_use_sword_or_sticks"
     "MQ Deku Tree Wonder Item 3": "can_use_sword_or_sticks"
     "MQ Deku Tree Wonder Item 4": "can_use_sword_or_sticks"
-
-
-
-
+"Deku Tree Gravestone Room Back Room Door":
+  dungeon: DT
+  exits:
+    "Deku Tree MQ Grave Room": "true"
+    "Deku Tree Back Room Entry Door": "true"
 "Deku Tree Back Room Entry Door":
   dungeon: DT
   exits:
-
-
-
-    
+    "Deku Tree Gravestone Room Back Room Door": "true"
+    "Deku Tree Back Side Room": "true"
 "Deku Tree Back Side Room":
   dungeon: DT
   exits:
-    "Deku Tree MQ Grave Room": "true" #One-sided collision for webbing; might need to be changed for door rando.
+    "Deku Tree Back Room Entry Door": "true" #One-sided collision for webbing; might need to be changed for door rando.
   #events:
     #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
     #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
@@ -280,6 +268,9 @@
     "MQ Deku Tree Grass Back Room 1": "can_cut_grass"
     "MQ Deku Tree Grass Back Room 2": "can_cut_grass"
     "MQ Deku Tree Grass Back Room 3": "can_cut_grass"
+
+
+    
 "Deku Tree Basement Ledge":
   dungeon: DT
   exits:
