@@ -268,9 +268,6 @@
     "MQ Deku Tree Grass Back Room 1": "can_cut_grass"
     "MQ Deku Tree Grass Back Room 2": "can_cut_grass"
     "MQ Deku Tree Grass Back Room 3": "can_cut_grass"
-
-
-    
 "Deku Tree Basement Ledge":
   dungeon: DT
   exits:
