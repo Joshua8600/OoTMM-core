@@ -125,10 +125,6 @@
     "MQ Deku Tree Grass Slingshot Room Front 2": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Back 1": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Back 2": "can_cut_grass"
-
-
-
-    
 "Deku Tree Basement":
   dungeon: DT
   exits:
@@ -144,9 +140,6 @@
     "MQ Deku Tree Grass Basement Lower 2": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 4": "can_cut_grass"
-
-
-
 "Deku Tree Basement Door":
   dungeon: DT
   exits:
