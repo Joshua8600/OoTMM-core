@@ -19,6 +19,7 @@ export const WORLD_FLAGS = [
   'silverRupeePouches',
   'openDungeonsMm',
   'openDungeonsOot',
+  'mmPreActivatedOwls'
 ] as const;
 
 type WorldFlag = typeof WORLD_FLAGS[number];
@@ -370,6 +371,9 @@ export class LogicPassWorld {
       this.loadMacros(g, parser);
       exprParsers[g] = parser;
     }
+
+    /* Expr parser settings */
+    exprParsers.mm.addVar('STRAY_FAIRY_COUNT', this.state.settings.strayFairyRewardCount);
 
     /* MQ */
     const mq = new Set<string>;
