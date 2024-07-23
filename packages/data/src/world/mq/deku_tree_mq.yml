@@ -152,18 +152,11 @@
   exits:
     "Deku Tree Basement": "true"
     "Deku Tree Room Before Water Room Entry Door": "event(DEKU_MQ_BASEMENT_EYE_SWITCH)"
-
-
 "Deku Tree Room Before Water Room Entry Door":
   dungeon: DT
   exits:
     "Deku Tree Basement Door": "event(DEKU_MQ_ROOM_BEFORE_WATER_CLEAR)"
     "Deku Tree Room Before Water Room": "true"
-    
-
-
-
-    
 "Deku Tree Room Before Water Room":
   dungeon: DT
   exits:
@@ -177,27 +170,16 @@
     "MQ Deku Tree Grass Room Before Spike 2": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Spike 3": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Spike 4": "can_cut_grass"
-
-
 "Deku Tree Room Before Water Room Exit Door":
   dungeon: DT
   exits:
     "Deku Tree Room Before Water Room": "true"
     "Deku Tree Water Room Entry Door": "event(DEKU_MQ_WATER_PATH_TORCH1)"
-
-
-
 "Deku Tree Water Room Entry Door":
   dungeon: DT
   exits:
     "Deku Tree Room Before Water Room Exit Door": "true"
     "Deku Tree Water Room Front": "true"
-    
-
-
-
-
-    
 "Deku Tree Water Room Front":
   dungeon: DT
   exits:
@@ -214,27 +196,49 @@
   dungeon: DT
   exits:
     "Deku Tree Water Room Front": "true"
-    "Deku Tree Room After Water Room": "event(MQ_DEKU_WATER_TORCHES) && (climb_anywhere || hookshot_anywhere || can_damage)"
+    "Deku Tree Water Room Exit Door": "climb_anywhere || hookshot_anywhere || can_damage" #Need to kill the skultulla blocking the way.
   events:
     MQ_DEKU_WATER_TORCHES: "has_fire"
   locations:
     "MQ Deku Tree After Water Platform Chest": "can_play_time"
     "MQ Deku Tree Grass Spike Room Back 1": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Back 2": "can_cut_grass"
+"Deku Tree Water Room Exit Door":
+  dungeon: DT
+  exits:
+    "Deku Tree Water Room Back": "true"
+    "Deku Tree Room After Water Room Entry Door": "event(MQ_DEKU_WATER_TORCHES)"
+"Deku Tree Room After Water Room Entry Door":
+  dungeon: DT
+  exits:
+    "Deku Tree Water Room Exit Door": "event(DEKU_MQ_ROOM_AFTER_WATER_CLEAR)"
+    "Deku Tree Room After Water Room": "true"
 "Deku Tree Room After Water Room":
   dungeon: DT
   exits:
-    "Deku Tree Water Room Back": "event(DEKU_MQ_ROOM_AFTER_WATER_CLEAR)"
-    "Deku Tree MQ Grave Room": "event(DEKU_MQ_ROOM_AFTER_WATER_CLEAR)"
+    "Deku Tree Room After Water Room Entry Door": "true"
+    "Deku Tree Room After Water Room Exit Door": "true"
   events:
     DEKU_MQ_ROOM_AFTER_WATER_CLEAR: "soul_keese && soul_deku_scrub && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || has_ranged_weapon_child)" #Judgment call, this fight is way too big for sticks and nuts to be forced.
   locations:
     "MQ Deku Tree Grass Larvae Room 1": "can_cut_grass"
     "MQ Deku Tree Grass Larvae Room 2": "can_cut_grass"
-"Deku Tree MQ Grave Room":
+"Deku Tree Room After Water Room Exit Door":
   dungeon: DT
   exits:
     "Deku Tree Room After Water Room": "true"
+    "Deku Tree Gravestone Room Entry Door": "event(DEKU_MQ_ROOM_AFTER_WATER_CLEAR)"
+"Deku Tree Gravestone Room Entry Door":
+  dungeon: DT
+  exits:
+    "Deku Tree Room After Water Room Exit Door": "true"
+    "Deku Tree MQ Grave Room": "true"
+"Deku Tree MQ Grave Room":
+  dungeon: DT
+  exits:
+    "Deku Tree Gravestone Room Entry Door": "true"
+
+    
     "Deku Tree Basement Ledge": "is_child && (can_use_sticks || can_use_din)"
     "Deku Tree Back Side Room": "can_use_sticks || has_fire"
   events:
