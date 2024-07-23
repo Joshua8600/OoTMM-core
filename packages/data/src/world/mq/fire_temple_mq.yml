@@ -2,42 +2,114 @@
   dungeon: Fire
   exits:
     "Death Mountain Crater Near Temple": "true"
-    "Fire Temple Upper Lobby": "is_adult && has_tunic_goron"
-    "Fire Temple Vanilla Hammer Loop": "small_keys_fire_mq(5)"
+    "Fire Temple Upper Lobby": "is_adult || (is_child && (climb_anywhere || hookshot_anywhere))"
+    "Fire Temple Vanilla Hammer Loop Enemies Room": "small_keys_fire_mq(5)"
+    "Fire Temple Hammer Loop Goron Cell Like Like Side": "true"
   locations:
-    "MQ Fire Temple Early Lower Left Chest": "can_damage && soul_like_like"
     "MQ Fire Temple Pot Entrance 1": "true"
     "MQ Fire Temple Pot Entrance 2": "true"
+"Fire Temple Hammer Loop Goron Cell Like Like Side":
+  dungeon: Fire
+  exits:
+    "Fire Temple": "event(FIRE_MQ_1ST_GORON_LIKELIKE)"
+    "Fire Temple Hammer Loop Goron Cell Map Chest Side": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
+  events:
+    FIRE_MQ_1ST_GORON_LIKELIKE: "can_damage && soul_like_like"
+  locations:
+    "MQ Fire Temple Early Lower Left Chest": "event(FIRE_MQ_1ST_GORON_LIKELIKE)"
+    "MQ Fire Temple Map Chest": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
 "Fire Temple Upper Lobby":
   dungeon: Fire
   exits:
-    "Fire Temple Pre-Boss": "has_fire"
-    "Fire Temple 1f Lava Room": "can_hammer"
-"Fire Temple Pre-Boss":
+    "Fire Temple": "true"
+    "Fire Temple Pre-Boss Room Entrance Side": "has_fire && has_tunic_goron"
+    "Fire Temple 1F Lava Room Entrance Side": "can_hammer && has_tunic_goron"
+
+
+
+
+
+
+    
+"Fire Temple Pre-Boss Room Entrance Side":
   dungeon: Fire
   exits:
     "Fire Temple Upper Lobby": "true"
+    "Fire Temple Pre-Boss Room Cell Corner": "has_tunic_goron"
+    "Fire Temple Pre-Boss Room Boss Door Platform": "has_tunic_goron && (hookshot_anywhere || climb_anywhere || event(FIRE_MQ_PRE_BOSS_PILLAR))"
+    "Fire Temple Pre-Boss Room Tall Ledges Corner": "has_tunic_goron && (climb_anywhere || can_hookshot || (is_adult && has_hover_boots))"
+
+
+
+
+
+
+
+
+
+
+    
     "Fire Temple Boss": "has_tunic_goron && boss_key(BOSS_KEY_FIRE) && ((is_adult && event(FIRE_TEMPLE_PILLAR_HAMMER)) || has_hover_boots)"
   locations:
     "MQ Fire Temple Pre-Boss Chest": "has_tunic_goron && has_fire && (can_use_bow || has_hover_boots || (has_tunic_goron_strict && is_adult))"
     "MQ Fire Temple Pot Pre-Boss 1": "has_tunic_goron && (has_hover_boots || can_hookshot)"
     "MQ Fire Temple Pot Pre-Boss 2": "has_tunic_goron && (has_hover_boots || can_hookshot)"
-"Fire Temple Vanilla Hammer Loop":
+
+
+
+
+    
+"Fire Temple Vanilla Hammer Loop Enemies Room":
   dungeon: Fire
+  exits:
+    "Fire Temple": "small_keys_fire_mq(5)"
+    "Fire Temple Vanilla Hammer Loop Iron Knuckle Room": "event(FIRE_MQ_HAMMER_LOOP_FIRST_CLEAR)"
+  events:
+    FIRE_MQ_HAMMER_LOOP_FIRST_CLEAR: "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
   locations:
-    "MQ Fire Temple Hammer Chest": "(is_adult || can_hookshot || climb_anywhere) && has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS) && soul_iron_knuckle && soul_enemy(SOUL_ENEMY_FLARE_DANCER) && (has_bombs || can_hammer || can_hookshot)"
-    "MQ Fire Temple Map Chest": "can_hammer && has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS) && soul_iron_knuckle && soul_enemy(SOUL_ENEMY_FLARE_DANCER)"
-    "MQ Fire Temple Pot Hammer Loop 1": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 2": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 3": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 4": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 5": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 6": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 7": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "MQ Fire Temple Pot Hammer Loop 8": "has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
     "MQ Fire Temple Hammer Loop Stalfos Big Fairy": "can_play_sun"
-    "MQ Fire Temple Hammer Loop Iron Knuckle Big Fairy": "can_play_sun && has_weapon && soul_keese && soul_enemy(SOUL_ENEMY_STALFOS)"
-"Fire Temple 1f Lava Room":
+"Fire Temple Vanilla Hammer Loop Iron Knuckle Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple Vanilla Hammer Loop Enemies Room": "true"
+    "Fire Temple Vanilla Hammer Loop Flare Dancer Room": "event(FIRE_MQ_HAMMER_LOOP_KNUCKLE_CLEAR)"
+  events:
+    FIRE_MQ_HAMMER_LOOP_KNUCKLE_CLEAR: "soul_iron_knuckle && has_weapon"
+  locations:
+    "MQ Fire Temple Pot Hammer Loop 1": "true"
+    "MQ Fire Temple Pot Hammer Loop 2": "true"
+    "MQ Fire Temple Pot Hammer Loop 3": "true"
+    "MQ Fire Temple Pot Hammer Loop 4": "true"
+    "MQ Fire Temple Pot Hammer Loop 5": "true"
+    "MQ Fire Temple Pot Hammer Loop 6": "true"
+    "MQ Fire Temple Pot Hammer Loop 7": "true"
+    "MQ Fire Temple Pot Hammer Loop 8": "true"
+    "MQ Fire Temple Hammer Loop Iron Knuckle Big Fairy": "can_play_sun"
+"Fire Temple Vanilla Hammer Loop Flare Dancer Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple Vanilla Hammer Loop Iron Knuckle Room": "true"
+    "Fire Temple Hammer Loop Goron Cell Map Chest Side": "event(FIRE_MQ_HAMMER_LOOP_FLARE_DANCER_CLEAR)"
+  events:
+    FIRE_MQ_HAMMER_LOOP_FLARE_DANCER_CLEAR: "soul_enemy(SOUL_ENEMY_FLARE_DANCER) && (has_bombs || can_use_mask_blast || can_hammer || can_hookshot) && has_weapon"
+  locations:
+    "MQ Fire Temple Hammer Chest": "event(FIRE_MQ_HAMMER_LOOP_FLARE_DANCER_CLEAR) && (is_adult || can_hookshot || climb_anywhere)"
+"Fire Temple Hammer Loop Goron Cell Map Chest Side":
+  dungeon: Fire
+  exits:
+    "Fire Temple Vanilla Hammer Loop Flare Dancer Room": "true"
+    "Fire Temple Hammer Loop Goron Cell Like Like Side": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
+  events:
+    FIRE_MQ_MAP_CHEST_HAMMER_SWITCH: "can_hammer"
+  locations:
+    "MQ Fire Temple Map Chest": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
+
+
+
+
+
+    
+"Fire Temple 1F Lava Room":
   dungeon: Fire
   exits:
     "Fire Temple Upper Lobby": "true"
