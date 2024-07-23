@@ -18,35 +18,50 @@
     "MQ Deku Tree Grass Entrance Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Lower 4": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Lower 5": "can_cut_grass"
+
+
+
+    
 "Deku Tree 2nd Floor":
   dungeon: DT
   exits:
     "Deku Tree Lobby": "true"
     "Deku Tree 3rd Floor": "true"
-    "Deku Tree Room Before Compass Room": "has_fire || (can_use_sticks && event(DEKU_MQ_MAIN_TORCH)) || (event(DEKU_MQ_MAIN_TORCH) && can_use_bow)"
+    "Deku Tree 2nd Floor Door": "has_fire || (can_use_sticks && event(DEKU_MQ_MAIN_TORCH)) || (event(DEKU_MQ_MAIN_TORCH) && can_use_bow)"
   locations:
     "MQ Deku Tree Map Chest": "true"
     "MQ Deku Tree GS Lobby Crate": "gs && can_damage_skull"
     "MQ Deku Tree Heart Lobby": "true"
     "MQ Deku Tree Grass Entrance Upper 1": "can_cut_grass"
     "MQ Deku Tree Grass Entrance Upper 2": "can_cut_grass"
-"Deku Tree 3rd Floor":
+
+
+
+"Deku Tree 2nd Floor Door":
   dungeon: DT
   exits:
     "Deku Tree 2nd Floor": "true"
-    "Deku Tree Lobby": "true"
-    "Deku Tree Basement": "true"
-    "Deku Tree MQ Slingshot Room": "has_fire || event(DEKU_MQ_MAIN_TORCH)"
-  events:
-    DEKU_MQ_MAIN_TORCH: "true"
+    "Deku Tree Room Before Compass Room Entry Door": "true"
+
+
+"Deku Tree Room Before Compass Room Entry Door":
+  dungeon: DT
+  exits:
+    "Deku Tree 2nd Floor Door": "true"
+    "Deku Tree Room Before Compass Room": "true"
+
+
+
+    
 "Deku Tree Room Before Compass Room":
   dungeon: DT
   exits:
-    "Deku Tree 2nd Floor": "true"
-    "Deku Tree MQ Compass Room Entrance": "can_use_bow || can_use_slingshot"
-  #events:
+    "Deku Tree Room Before Compass Room Entry Door": "true"
+    "Deku Tree Room Before Compass Room Exit Door": "true"
+  events:
     #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
     #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
+    DEKU_MQ_BEFORE_COMPASS_EYE_SWITCH: "can_use_slingshot || can_use_bow"
   locations:
     "MQ Deku Tree Heart Before Compass": "true"
     "MQ Deku Tree Grass Room Before Compass 1": "can_cut_grass"
@@ -56,10 +71,29 @@
     "MQ Deku Tree Grass Room Before Compass 5": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Compass 6": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Compass 7": "can_cut_grass"
-"Deku Tree MQ Compass Room Entrance":
+
+
+
+"Deku Tree Room Before Compass Room Exit Door":
   dungeon: DT
   exits:
     "Deku Tree Room Before Compass Room": "true"
+    "Deku Tree Compass Room Entry Door": "event(DEKU_MQ_BEFORE_COMPASS_EYE_SWITCH)"
+
+
+"Deku Tree Compass Room Entry Door":
+  dungeon: DT
+  exits:
+    "Deku Tree Room Before Compass Room Exit Door": "true"
+    "Deku Tree MQ Compass Room Entrance": "true
+
+
+
+    
+"Deku Tree MQ Compass Room Entrance":
+  dungeon: DT
+  exits:
+    "Deku Tree Compass Room Entry Door": "true"
     "Deku Tree MQ Compass Room Chest Side": "true"
 "Deku Tree MQ Compass Room Chest Side":
   dungeon: DT
@@ -79,6 +113,25 @@
   locations:
     "MQ Deku Tree GS Compass Room": "gs && can_collect_distance"
     "MQ Deku Tree Heart Compass Room": "true"
+
+
+
+
+
+"Deku Tree 3rd Floor":
+  dungeon: DT
+  exits:
+    "Deku Tree 2nd Floor": "true"
+    "Deku Tree Lobby": "true"
+    "Deku Tree Basement": "true"
+    "Deku Tree MQ Slingshot Room": "has_fire || event(DEKU_MQ_MAIN_TORCH)"
+  events:
+    DEKU_MQ_MAIN_TORCH: "true"
+
+
+
+
+    
 "Deku Tree MQ Slingshot Room":
   dungeon: DT
   exits:
