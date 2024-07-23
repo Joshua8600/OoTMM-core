@@ -91,29 +91,29 @@
   locations:
     "MQ Deku Tree GS Compass Room": "gs && can_collect_distance"
     "MQ Deku Tree Heart Compass Room": "true"
-
-
-
-
-
 "Deku Tree 3rd Floor":
   dungeon: DT
   exits:
     "Deku Tree 2nd Floor": "true"
     "Deku Tree Lobby": "true"
     "Deku Tree Basement": "true"
-    "Deku Tree MQ Slingshot Room": "has_fire || event(DEKU_MQ_MAIN_TORCH)"
+    "Deku Tree 3rd Floor Door": "has_fire || event(DEKU_MQ_MAIN_TORCH)"
   events:
     DEKU_MQ_MAIN_TORCH: "true"
-
-
-
-
-    
+"Deku Tree 3rd Floor Door":
+  dungeon: DT
+  exits:
+    "Deku Tree 3rd Floor": "true"
+    "Deku Tree Slingshot Room Entry Door": "true"
+"Deku Tree Slingshot Room Entry Door":
+  dungeon: DT
+  exits:
+    "Deku Tree 3rd Floor Door": "event(DEKU_MQ_SLINGSHOT_ENEMIES)"
+    "Deku Tree MQ Slingshot Room": "true"
 "Deku Tree MQ Slingshot Room":
   dungeon: DT
   exits:
-    "Deku Tree 3rd Floor": "event(DEKU_MQ_SLINGSHOT_ENEMIES)"
+    ""Deku Tree Slingshot Room Entry Door": "true"
   events:
     DEKU_MQ_SLINGSHOT_ENEMIES: "soul_deku_baba && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && (has_weapon || can_use_sticks || has_ranged_weapon_child)" #Bombs and Din's work, but it's horrible.
     DEKU_MQ_SLINGSHOT_TORCH: "has_fire || can_use_sticks"
@@ -125,6 +125,10 @@
     "MQ Deku Tree Grass Slingshot Room Front 2": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Back 1": "can_cut_grass"
     "MQ Deku Tree Grass Slingshot Room Back 2": "can_cut_grass"
+
+
+
+    
 "Deku Tree Basement":
   dungeon: DT
   exits:
