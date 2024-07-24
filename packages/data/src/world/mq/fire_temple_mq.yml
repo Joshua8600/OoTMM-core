@@ -158,13 +158,25 @@
   exits:
     "Fire Temple Rising Block Room": "true"
     "Fire Temple Cage Under Maze":
-    "Fire Temple Maze Lower":
+    "Fire Temple Maze Room Lower":
 
 
-
-"Fire Temple Maze Upper":
+"Fire Temple Maze Room Lower":
   exits:
-    "Fire Temple Maze Lower":
+    "Fire Temple Room Before Maze":
+    "Fire Temple Maze Room Upper":
+    "Fire Temple Maze Room Upper Switch Cage Alcove":
+    "Fire Temple Maze Room Rusty Switch Behind Bombable Wall":
+    "Fire Temple Maze Room Blue Switch Behind Bombable Wall":
+    "Fire Temple Maze Room Lower Cage":
+    #"Fire Temple Tall Tower":
+
+
+
+"Fire Temple Maze Room Upper":
+  exits:
+    "Fire Temple Maze Room Lower":
+    "Fire Temple Maze Room Upper Switch Cage Alcove":
     
 
 
