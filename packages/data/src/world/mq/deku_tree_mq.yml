@@ -6,7 +6,7 @@
 "MQ Deku Tree Lobby":
   dungeon: DT
   exits:
-    "MQ Deku Tree": "true"
+    "Deku Tree": "true"
     "MQ Deku Tree 2nd Floor": "true"
     "MQ Deku Tree Basement": "has_fire || (can_use_sticks && event(DEKU_MQ_MAIN_TORCH))"
   events:
