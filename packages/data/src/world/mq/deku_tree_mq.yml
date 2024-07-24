@@ -38,7 +38,7 @@
 "Deku Tree Room Before Compass Room Door to 2nd Floor":
   dungeon: DT
   exits:
-    "Deku Tree Room Before Compass Room Entry Door":": "true"
+    "Deku Tree Room Before Compass Room Entry Door": "true"
     "Deku Tree Room Before Compass Room": "true"
 "Deku Tree Room Before Compass Room":
   dungeon: DT
