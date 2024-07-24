@@ -259,7 +259,7 @@
 "Deku Tree Back Side Room":
   dungeon: DT
   exits:
-    "Deku Tree Back Room Exit Door": "true" #One-sided collision for webbing; might need to be changed for door rando.
+    "Deku Tree Back Side Room Exit Door": "true" #One-sided collision for webbing; might need to be changed for door rando.
   #events:
     #STICKS: "can_kill_baba_sticks"  #Big Deku Baba here
     #NUTS: "can_kill_baba_nuts" #Big Deku Baba here
