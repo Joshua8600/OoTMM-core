@@ -23,7 +23,7 @@
   exits:
     "Fire Temple": "true"
     "Fire Temple Pre-Boss Room Entrance Side": "has_fire && has_tunic_goron"
-    "Fire Temple 1F Lava Room Entrance Side": "can_hammer && has_tunic_goron"
+    "Fire Temple 1F Lava Bridge Room Entrance Side": "can_hammer && has_tunic_goron"
 
 
 
@@ -109,10 +109,20 @@
 
 
     
-"Fire Temple 1F Lava Room":
+"Fire Temple 1F Lava Bridge Room":
   dungeon: Fire
   exits:
     "Fire Temple Upper Lobby": "true"
+    "Fire Temple Lava Bridge Room West Upper Room":
+    "Fire Temple Lava Bridge Room West Lower Room":
+    "Fire Temple Lava Bridge Room East Room":
+    "Fire Temple Rising Block Room": "has_tunic_goron_strict && small_keys_fire_mq(2)"
+
+
+
+
+
+    
     "Fire Temple Maze Lower": "has_tunic_goron_strict && small_keys_fire_mq(2) && has_fire"
   locations:
     "MQ Fire Temple Boss Key Chest": "has_tunic_goron && has_fire && can_hookshot"
@@ -131,6 +141,36 @@
     "MQ Fire Temple Wonder Item Shortcut Room 3": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
     "MQ Fire Temple Wonder Item Boss Key Room Hookshot": "has_tunic_goron && has_fire && can_hookshot"
     "MQ Fire Temple Wonder Item Boss Key Room Bow": "has_tunic_goron && has_fire && can_hookshot && can_use_bow"
+
+
+
+
+
+"Fire Temple Rising Block Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple 1F Lava Bridge Room":
+    "Fire Temple Room Before Maze":
+
+
+
+"Fire Temple Room Before Maze":
+  exits:
+    "Fire Temple Rising Block Room": "true"
+    "Fire Temple Cage Under Maze":
+    "Fire Temple Maze Lower":
+
+
+
+"Fire Temple Maze Upper":
+  exits:
+    "Fire Temple Maze Lower":
+    
+
+
+
+
+    
 "Fire Temple Maze Lower":
   dungeon: Fire
   exits:
