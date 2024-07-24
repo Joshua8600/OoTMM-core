@@ -134,7 +134,7 @@
   exits:
     "Deku Tree Lobby": "true"
     "Deku Tree Basement Ledge": "is_adult || event(DEKU_BLOCK) || trick(OOT_DEKU_SKIP) || has_hover_boots || hookshot_anywhere || climb_anywhere"
-    "Deku Tree Basement Door": "true"
+    "Deku Tree Room Before Water Room Entry Door": "true"
   events:
     DEKU_MQ_WATER_PATH_TORCH1: "has_fire || can_use_sticks" #You need to go through the next room with fire sticks for this event. From xeno: "cond(setting.doorShuffle !== none, has_fire, (roomClearEvent && has_sticks) || has_fire)"
     DEKU_MQ_BASEMENT_EYE_SWITCH: "can_use_bow || can_use_slingshot"
@@ -144,21 +144,21 @@
     "MQ Deku Tree Grass Basement Lower 2": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 3": "can_cut_grass"
     "MQ Deku Tree Grass Basement Lower 4": "can_cut_grass"
-"Deku Tree Basement Door":
-  dungeon: DT
-  exits:
-    "Deku Tree Basement": "true"
-    "Deku Tree Room Before Water Room Entry Door": "event(DEKU_MQ_BASEMENT_EYE_SWITCH)"
 "Deku Tree Room Before Water Room Entry Door":
   dungeon: DT
   exits:
-    "Deku Tree Basement Door": "event(DEKU_MQ_ROOM_BEFORE_WATER_CLEAR)"
+    "Deku Tree Basement": "true"
+    "Deku Tree Room Before Water Room Door to Basement": "event(DEKU_MQ_BASEMENT_EYE_SWITCH)"
+"Deku Tree Room Before Water Room Door to Basement":
+  dungeon: DT
+  exits:
+    "Deku Tree Room Before Water Room Entry Door": "event(DEKU_MQ_ROOM_BEFORE_WATER_CLEAR)"
     "Deku Tree Room Before Water Room": "true"
 "Deku Tree Room Before Water Room":
   dungeon: DT
   exits:
-    "Deku Tree Room Before Water Room Entry Door": "true"
-    "Deku Tree Room Before Water Room Exit Door": "true"
+    "Deku Tree Room Before Water Room Door to Basement": "true"
+    "Deku Tree Room Before Water Room Door to Water Room": "true"
   events:
     DEKU_MQ_WATER_PATH_TORCH1: "has_fire"
     DEKU_MQ_ROOM_BEFORE_WATER_CLEAR: "soul_deku_scrub && soul_enemy(SOUL_ENEMY_GOHMA_LARVA) && can_damage"
@@ -167,15 +167,15 @@
     "MQ Deku Tree Grass Room Before Spike 2": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Spike 3": "can_cut_grass"
     "MQ Deku Tree Grass Room Before Spike 4": "can_cut_grass"
-"Deku Tree Room Before Water Room Exit Door":
+"Deku Tree Room Before Water Room Door to Water Room":
   dungeon: DT
   exits:
     "Deku Tree Room Before Water Room": "true"
-    "Deku Tree Water Room Entry Door": "event(DEKU_MQ_WATER_PATH_TORCH1)"
-"Deku Tree Water Room Entry Door":
+    "Deku Tree Water Room Door to Room Before Water Room": "event(DEKU_MQ_WATER_PATH_TORCH1)"
+"Deku Tree Water Room Door to Room Before Water Room":
   dungeon: DT
   exits:
-    "Deku Tree Room Before Water Room Exit Door": "true"
+    "Deku Tree Room Before Water Room Door to Water Room": "true"
     "Deku Tree Water Room Front": "true"
 "Deku Tree Water Room Front":
   dungeon: DT
@@ -189,6 +189,10 @@
     "MQ Deku Tree Grass Spike Room Front 1": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Front 2": "can_cut_grass"
     "MQ Deku Tree Grass Spike Room Front 3": "can_cut_grass"
+
+
+
+    
 "Deku Tree Water Room Back":
   dungeon: DT
   exits:
