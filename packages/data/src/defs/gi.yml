@@ -525,7 +525,7 @@
 - { id: MM_MASK_BREMEN, item: MM_MASK_BREMEN, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_BREMEN, object: [mm, 0x025a], name: "the <C1>Bremen Mask" }
 - { id: MM_MASK_BLAST, item: MM_MASK_BLAST, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_BLAST, object: [mm, 0x026d], name: "the <C1>Kamikaze Mask" }
 - { id: MM_MASK_SCENTS, item: MM_MASK_SCENTS, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_SCENTS, object: [mm, 0x027e], name: "<C1>Peppa Pig's Severed Head Mask" }
-- { id: MM_MASK_KAFEI, item: MM_MASK_KAFEI, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_KAFEI, object: [mm, 0x0258], name: "the <C1>Semaj's Mask" }
+- { id: MM_MASK_KAFEI, item: MM_MASK_KAFEI, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_KAFEI, object: [mm, 0x0258], name: "the <C1>Kafei's Mask" }
 - { id: MM_CHATEAU, item: MM_CHATEAU, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: MM_CHATEAU, object: [mm, 0x00c1], name: "some <C0>Choccy Milk" }
 - { id: MM_MILK, item: MM_MILK, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: MILK, object: [mm, 0x00c1], name: "some <C0>Milk" }
 - { id: MM_GOLD_DUST, item: MM_GOLD_DUST, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: MM_GOLD_DUST, object: [mm, 0x01e8] }
@@ -537,7 +537,7 @@
 - { id: MM_DEED_OCEAN, item: MM_DEED_OCEAN, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_DEED_OCEAN], flags: 0x80, draw: MM_DEED_OCEAN, object: [mm, 0x01b2], name: "the <C1>Ocean Title Deed" }
 - { id: MM_ROOM_KEY, item: MM_ROOM_KEY, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_ROOM_KEY], flags: 0x80, draw: MM_ROOM_KEY, object: [mm, 0x020f], name: "the <C1>Key to the Secret Room" }
 - { id: MM_LETTER_TO_MAMA, item: MM_LETTER_TO_MAMA, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_LETTER_TO_MAMA], flags: 0x80, draw: MM_LETTER_TO_MAMA, object: [mm, 0x0245], name: "the <C1>Letter to Mama" }
-- { id: MM_LETTER_TO_KAFEI, item: MM_LETTER_TO_KAFEI, type: MAJOR, add: [MM_TRADE3, XITEM_MM_TRADE3_LETTER_TO_KAFEI], flags: 0x80, draw: MM_LETTER_TO_KAFEI, object: [mm, 0x0210], name: "the <C1>Letter to Semaj" }
+- { id: MM_LETTER_TO_KAFEI, item: MM_LETTER_TO_KAFEI, type: MAJOR, add: [MM_TRADE3, XITEM_MM_TRADE3_LETTER_TO_KAFEI], flags: 0x80, draw: MM_LETTER_TO_KAFEI, object: [mm, 0x0210], name: "the <C1>Letter to Kafei" }
 - { id: MM_PENDANT_OF_MEMORIES, item: MM_PENDANT_OF_MEMORIES, type: MAJOR, add: [MM_TRADE3, XITEM_MM_TRADE3_PENDANT_OF_MEMORIES], flags: 0x80, draw: MM_PENDANT_OF_MEMORIES, object: [mm, 0x0215], name: "the <C1>Pendant of Forgetfulness" }
 - { id: MM_WORLD_MAP_CLOCK_TOWN, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 0], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Tick Tock Town)" }
 - { id: MM_WORLD_MAP_WOODFALL, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 1], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Woodfall)" }
@@ -677,7 +677,7 @@
 - { id: MM_SOUL_NPC_TOTO, type: SOUL, add: [MM_SOUL, 0x2012], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Toto" }
 - { id: MM_SOUL_NPC_RUTO, type: SOUL, add: [MM_SOUL, 0x2013], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Tay Tay Swift" }
 - { id: MM_SOUL_NPC_ZORA_MUSICIANS, type: SOUL, add: [MM_SOUL, 0x2014], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Indigo-Go's" }
-- { id: MM_SOUL_NPC_KAFEI, type: SOUL, add: [MM_SOUL, 0x2015], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Semaj" }
+- { id: MM_SOUL_NPC_KAFEI, type: SOUL, add: [MM_SOUL, 0x2015], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Kafei" }
 - { id: MM_SOUL_NPC_KEATON, type: SOUL, add: [MM_SOUL, 0x2016], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Kee-Something Character" }
 - { id: MM_SOUL_NPC_KOUME_KOTAKE, type: SOUL, add: [MM_SOUL, 0x2017], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Koume & Kotake" }
 - { id: MM_SOUL_NPC_MAYOR_DOTOUR, type: SOUL, add: [MM_SOUL, 0x2018], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Mayor Dotour" }
