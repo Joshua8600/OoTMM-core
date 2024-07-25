@@ -113,9 +113,9 @@
   dungeon: Fire
   exits:
     "Fire Temple Upper Lobby": "true"
-    "Fire Temple Lava Bridge Room West Upper Room":
-    "Fire Temple Lava Bridge Room West Lower Room":
-    "Fire Temple Lava Bridge Room East Room":
+    "Fire Temple Lava Bridge Room West Side Upper Ledge":
+    "Fire Temple Lava Bridge Room West Side Lower Room":
+    "Fire Temple Lava Bridge Room East Side Ledge":
     "Fire Temple Rising Block Room": "has_tunic_goron_strict && small_keys_fire_mq(2)"
 
 
