@@ -393,6 +393,7 @@ function checkKey(check: WorldCheck): number {
   case 'crate':
   case 'grass':
   case 'fairy':
+  case 'hive':
   case 'rupee':
   case 'heart':
   case 'fairy_spot':
@@ -412,6 +413,7 @@ function checkKey(check: WorldCheck): number {
   case 'crate':
   case 'grass':
   case 'fairy':
+  case 'hive':
   case 'rupee':
   case 'heart':
   case 'fairy_spot':
@@ -1008,6 +1010,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     MM_PRE_ACTIVATED_OWL_ZC: world.resolvedFlags.mmPreActivatedOwls.has('zoracape'),
     MM_PRE_ACTIVATED_OWL_IC: world.resolvedFlags.mmPreActivatedOwls.has('canyon'),
     MM_PRE_ACTIVATED_OWL_ST: world.resolvedFlags.mmPreActivatedOwls.has('tower'),
+    MM_WELL_OPEN: settings.beneathWell === 'open',
   };
 
   for (const v in exprs) {

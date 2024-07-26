@@ -646,6 +646,9 @@ void hookPlay_Init(GameState_Play* play)
     MM_SET_EVENT_WEEK(MM_EV(82, 0));
     MM_SET_EVENT_WEEK(MM_EV(82, 1));
 
+    /* Tingle already knows about the player */
+    MM_SET_EVENT_WEEK(EV_MM_WEEK_TINGLE_TALKED);
+
     /* Raise Woodfall Temple with setting enabled */
     if (Config_Flag(CFG_MM_OPEN_WF))
         MM_SET_EVENT_WEEK(EV_MM_WEEK_WOODFALL_TEMPLE_RISE);

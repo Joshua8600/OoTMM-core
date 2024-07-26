@@ -300,6 +300,7 @@
 "hookshot_anywhere": "can_hookshot && setting(hookshotAnywhereOot, logical)"
 "longshot_anywhere": "can_longshot && setting(hookshotAnywhereOot, logical)"
 "evade_gerudo": "true"
+"break_hive": "true"
 
 
 # Events

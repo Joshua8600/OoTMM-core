@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Hive shuffle, for OoT and MM.
+- Behavioral setting for the Gibdos in Beneath The Well (Vanilla, Remorseless and Open).
 - Skip Kamaro teaching the dance when healing him.
 - Fast elemental arrow equip in MM.
 - Ability to choose how many stray fairies are required to obtain a reward.
@@ -15,6 +17,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Tingle no longer has extra text boxes when you first talk to him during a cycle.
 - Adult Malon in Lon Lon Ranch no longer has her slow text when you first talk to her.
 - Lake Hylia Owl no longer has its slow text when you first talk to it.
 - Internal names of the music tracks, for an easier sorting in the cosmetics log.

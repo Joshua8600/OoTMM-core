@@ -550,6 +550,22 @@ export const SETTINGS = [{
   cond: hasMM,
   default: false
 }, {
+  key: 'shuffleHivesOot',
+  name: 'Hives Shuffle (OoT)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the beehives are shuffled (OoT)',
+  cond: hasOoT,
+  default: false
+}, {
+  key: 'shuffleHivesMm',
+  name: 'Hives Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the beehives are shuffled (MM)',
+  cond: hasMM,
+  default: false
+}, {
   key: 'shuffleGrassOot',
   name: 'Grass Shuffle (OoT)',
   category: 'main.shuffle',
@@ -846,6 +862,19 @@ export const SETTINGS = [{
     { value: 'both', name: 'Both' },
   ],
   default: 'none',
+  cond: hasMM,
+}, {
+  key: 'beneathWell',
+  name: 'Beneath the Well behavior (MM)',
+  category: 'main.events',
+  type: 'enum',
+  description: 'Controls which MM dungeons have ',
+  values: [
+    { value: 'vanilla', name: 'Vanilla', description: 'Nothing changes, Gibdos are back once you reset the cycle.' },
+    { value: 'remorseless', name: 'Remorseless', description: 'Once you gave a Gibdo its item, it is permanently gone, also affects the ending ladder and the sun block.' },
+    { value: 'open', name: 'Open', description: 'All the Gibdos are already gone, also applies to the ending ladder and the sun block.' }
+  ],
+  default: 'vanilla',
   cond: hasMM,
 }, {
   key: 'kakarikoGate',
