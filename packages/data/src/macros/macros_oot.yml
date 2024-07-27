@@ -300,8 +300,8 @@
 "hookshot_anywhere": "can_hookshot && setting(hookshotAnywhereOot, logical)"
 "longshot_anywhere": "can_longshot && setting(hookshotAnywhereOot, logical)"
 "evade_gerudo": "true"
-"break_hive": "true"
-
+"break_hive_low": "true"
+"break_hive_high": "true"
 
 # Events
 "ganon_trial_light": "!setting(ganonTrials, Light) || event(GANON_TRIAL_LIGHT)"
