@@ -7,7 +7,7 @@
   dungeon: DC
   exits:
     "Dodongo Cavern": "true"
-    "MQ Dodongo Cavern Skull": "has_explosives"
+    "Dodongo Cavern Skull": "has_explosives"
     "MQ Dodongo Cavern Staircase": "has_bombflowers || can_hammer"
     "MQ Dodongo Cavern Upper Ledges": "has_explosives_or_hammer || can_use_din"
     "MQ Dodongo Cavern Lower Tunnel": "has_explosives_or_hammer || (event(DC_MQ_SHORTCUT) && has_goron_bracelet)"
@@ -122,7 +122,7 @@
     "MQ Dodongo Cavern Poe Room": "true"
   locations:
     "MQ Dodongo Cavern Bomb Bag Chest": "true"
-"MQ Dodongo Cavern Skull":
+"Dodongo Cavern Skull":
   dungeon: DC
   exits:
     "MQ Dodongo Cavern Main": "true"
