@@ -3,19 +3,31 @@ import { SCENES } from '@ootmm/data';
 
 import { CodeGen } from '../lib/combo/util/codegen';
 import { decompressGame } from '../lib/combo/decompress';
-import { CONFIG } from '../lib/combo/config';
-import { mkdir } from 'fs';
 
 const OOT_GENERIC_GROTTOS = [
-  0x0c, /* Kokiri Forest */
-  0x14, /* Lost Woods */
-  0x08, /* Kakariko */
-  0x17, /* Death Mountain Trail */
-  0x1a, /* Death Mountain Crater */
-  0x09, /* Zora River */
+  0x00, /* Hyrule Field Market */
   0x02, /* Hyrule Field Southwest */
   0x03, /* Hyrule Field Open */
-  0x00, /* Hyrule Field Market */
+  0x08, /* Kakariko */
+  0x09, /* Zora River */
+  0x0c, /* Kokiri Forest */
+  0x14, /* Lost Woods */
+  0x17, /* Death Mountain Trail */
+  0x1a, /* Death Mountain Crater */
+];
+
+const OOT_SCRUBS_X2_GROTTOS = [
+  0x01, /* Sacred Forest Meadow */
+  0x04, /* River */
+  0x05, /* Valley */
+  0x06, /* Colossus */
+];
+
+const OOT_SCRUBS_X3_GROTTOS = [
+  0x07, /* RANCH */
+  0x0a, /* GORON_CITY */
+  0x0b, /* DMC */
+  0x0d, /* LAKE */
 ];
 
 const OOT_FAIRY_FOUNTAINS = [
@@ -150,6 +162,7 @@ const ACTORS_OOT = {
   EN_WONDER_ITEM: 0x112,
   OBJ_KIBAKO: 0x110,
   OBJ_KIBAKO2: 0x1a0,
+  OBJ_COMB: 0x19e,
   //DOOR_ANA: 0x9b,
 };
 
@@ -168,6 +181,9 @@ const ACTORS_MM = {
   EN_INVISIBLE_RUPPE: 0x2af,
   OBJ_KIBAKO: 0x81,
   OBJ_KIBAKO2: 0xe5,
+  OBJ_COMB: 0x0e4,
+  OBJ_FLOWERPOT: 0x13e,
+  OBJ_TARU: 0x22d,
   //DOOR_ANA: 0x55,
 };
 
@@ -185,6 +201,7 @@ const ACTOR_SLICES_MM = {
   [ACTORS_MM.EN_ELF]: 8,
   [ACTORS_MM.OBJ_MURE3]: 7,
   [ACTORS_MM.EN_HIT_TAG]: 3,
+  [ACTORS_MM.OBJ_FLOWERPOT]: 2,
 }
 
 const INTERESTING_ACTORS_OOT = Object.values(ACTORS_OOT);
@@ -291,8 +308,8 @@ const ITEM00_DROPS_MM = [
   'RECOVERY_HEART',
   'BOMBS_5',
   'ARROWS_10',
-  '???',
-  '???',
+  'HEART_PIECE',
+  'HEART_CONTAINER',
   'ARROWS_20',
   'ARROWS_30',
   'ARROWS_30',
@@ -384,11 +401,27 @@ type RoomActors = {
   actors: Actor[];
 }
 
+type RoomActor = {
+  sceneId: number;
+  roomId: number;
+  setupId: number;
+  actor: Actor;
+}
+
 type AddressingTable = {
   scenesTable: number[];
   setupsTable: number[];
   roomsTable: number[];
   bitCount: number;
+}
+
+type Check = {
+  name: string;
+  name2?: string;
+  type: string;
+  item: string;
+  roomActor: RoomActor;
+  sliceId?: number;
 }
 
 function sliceOverrideOot(a: Actor) {
@@ -569,8 +602,9 @@ function parseRoomActors(rom: Buffer, raw: RawRoom, game: Game): RoomActors[] {
     }
   }
   actors = filterActors(actors, game);
+
+  /* OoT generic grottos */
   if (game !== 'mm' && raw.sceneId === 0x3e && raw.roomId === 0x00) {
-    /* OoT generic grottos */
     let genericRooms: RoomActors[] = [];
     for (const genericId of OOT_GENERIC_GROTTOS) {
       const genericRoomId = genericId | 0x20;
@@ -580,8 +614,30 @@ function parseRoomActors(rom: Buffer, raw: RawRoom, game: Game): RoomActors[] {
     return genericRooms;
   }
 
+  /* OoT scrub x2 grottos */
+  if (game !== 'mm' && raw.sceneId === 0x3e && raw.roomId === 0x09) {
+    let genericRooms: RoomActors[] = [];
+    for (const genericId of OOT_SCRUBS_X2_GROTTOS) {
+      const genericRoomId = genericId | 0x20;
+      const genericActors = actors.map(x => ({...x, roomId: genericRoomId }));
+      genericRooms.push({ sceneId: raw.sceneId, setupId: raw.setupId, roomId: genericRoomId, actors: genericActors });
+    }
+    return genericRooms;
+  }
+
+  /* OoT scrub x3 grottos */
+  if (game !== 'mm' && raw.sceneId === 0x3e && raw.roomId === 0x0c) {
+    let genericRooms: RoomActors[] = [];
+    for (const genericId of OOT_SCRUBS_X3_GROTTOS) {
+      const genericRoomId = genericId | 0x20;
+      const genericActors = actors.map(x => ({...x, roomId: genericRoomId }));
+      genericRooms.push({ sceneId: raw.sceneId, setupId: raw.setupId, roomId: genericRoomId, actors: genericActors });
+    }
+    return genericRooms;
+  }
+
+  /* OoT fairy fountains */
   if (game !== 'mm' && raw.sceneId === 0x3c && raw.roomId === 0x00) {
-    /* OoT fairy fountains */
     let genericRooms: RoomActors[] = [];
     for (const genericId of OOT_FAIRY_FOUNTAINS) {
       const genericRoomId = genericId | 0x20;
@@ -591,8 +647,8 @@ function parseRoomActors(rom: Buffer, raw: RawRoom, game: Game): RoomActors[] {
     return genericRooms;
   }
 
+  /* MM generic grottos */
   if (game === 'mm' && raw.sceneId === 0x07 && raw.roomId === 0x04) {
-    /* MM generic grottos */
     let genericRooms: RoomActors[] = [];
     for (const genericId of MM_GENERIC_GROTTOS) {
       const genericRoomId = genericId | 0x20;
@@ -602,8 +658,8 @@ function parseRoomActors(rom: Buffer, raw: RawRoom, game: Game): RoomActors[] {
     return genericRooms;
   }
 
+  /* MM cow grottos */
   if (game === 'mm' && raw.sceneId === 0x07 && raw.roomId === 0x0a) {
-    /* MM cow grottos */
     let cowRooms: RoomActors[] = [];
     cowRooms.push({ sceneId: raw.sceneId, setupId: raw.setupId, roomId: raw.roomId, actors });
     const altRoomId = 0x0f;
@@ -1082,54 +1138,6 @@ function outputKeatonGrassPoolMm(roomActors: RoomActors[]) {
   }
 }
 
-function outputCratesPoolOot(roomActors: RoomActors[]) {
-  let lastSceneId = -1;
-  let lastSetupId = -1;
-  for (const room of roomActors) {
-    for (const actor of room.actors) {
-      const key = ((room.setupId & 0x3) << 14) | (room.roomId << 8) | actor.actorId;
-      if (actor.typeId === ACTORS_OOT.OBJ_KIBAKO || actor.typeId === ACTORS_OOT.OBJ_KIBAKO2) {
-        if (room.sceneId != lastSceneId || room.setupId != lastSetupId) {
-          console.log('');
-          console.log(`### Scene: ${scenesById('oot')[room.sceneId]}`);
-          lastSceneId = room.sceneId;
-          lastSetupId = room.setupId;
-        }
-
-        /* Large crate */
-        if (actor.typeId === ACTORS_OOT.OBJ_KIBAKO2) {
-          if (actor.params !== 0xffff)
-            continue;
-          const itemId = actor.rx & 0xff;
-          let item: string;
-          if (itemId >= ITEM00_DROPS.length) {
-            item = 'NOTHING';
-          } else {
-            item = ITEM00_DROPS[actor.rx & 0xff];
-          }
-          console.log(`Scene ${room.sceneId.toString(16)} Setup ${room.setupId} Room ${hexPad(room.roomId, 2)} Large Crate ${decPad(actor.actorId + 1, 2)},        crate,            NONE,                 SCENE_${room.sceneId.toString(16)}, ${hexPad(key, 5)}, ${item}`);
-        }
-
-        /* Small crate */
-        if (actor.typeId === ACTORS_OOT.OBJ_KIBAKO) {
-          let item: string;
-          if (actor.params === 0xffff) {
-            item = 'NOTHING';
-          } else {
-            const itemId = actor.params & 0xff;
-            if (itemId >= ITEM00_DROPS.length) {
-              item = 'NOTHING';
-            } else {
-              item = ITEM00_DROPS[actor.params & 0xff];
-            }
-          }
-          console.log(`Scene ${room.sceneId.toString(16)} Setup ${room.setupId} Room ${hexPad(room.roomId, 2)} Small Crate ${decPad(actor.actorId + 1, 2)},        crate,            NONE,                 SCENE_${room.sceneId.toString(16)}, ${hexPad(key, 5)}, ${item}`);
-        }
-      }
-    }
-  }
-}
-
 function outputCratesPoolMm(roomActors: RoomActors[]) {
   let lastSceneId = -1;
   let lastSetupId = -1;
@@ -1298,7 +1306,158 @@ function getGameRoomActor(rom: Buffer, game: Game) {
   return actorRooms;
 }
 
-async function run() {
+type ActorHandler = (checks: Check[], actor: RoomActor) => void;
+type ActorHandlers = { [actorId: number]: ActorHandler };
+
+let altGrassAcc = 0;
+
+function actorHandlerOotEnKusa(checks: Check[], ra: RoomActor) {
+  const { actor } = ra;
+  const grassType = (actor.params) & 3;
+  let item: string;
+  if (grassType == 0 || grassType == 2) {
+    item = 'RANDOM';
+  } else {
+    item = (altGrassAcc & 1) ? 'RECOVERY_HEART' : 'DEKU_SEEDS_5/ARROWS_5';
+    altGrassAcc++;
+  }
+  checks.push({ roomActor: ra, item, name: 'Grass', type: 'grass' });
+}
+
+function actorHandlerOotObjComb(checks: Check[], ra: RoomActor) {
+  const item = ITEM00_DROPS[ra.actor.params & 0x1f];
+  checks.push({ roomActor: ra, item, name: 'Hive', type: 'hive' });
+}
+
+function actorHandlerOotObjKibako(checks: Check[], ra: RoomActor) {
+  let item: string;
+  if (ra.actor.params === 0xffff) {
+    item = 'NOTHING';
+  } else {
+    const itemId = ra.actor.params & 0xff;
+    if (itemId >= ITEM00_DROPS.length) {
+      item = 'NOTHING';
+    } else {
+      item = ITEM00_DROPS[itemId];
+    }
+  }
+  checks.push({ roomActor: ra, item, name: 'Small Crate', type: 'crate' });
+}
+
+function actorHandlerOotObjKibako2(checks: Check[], ra: RoomActor) {
+  if (ra.actor.params !== 0xffff) return; /* Skulltulas */
+  const itemId = ra.actor.rx & 0xff;
+  let item: string;
+  if (itemId >= ITEM00_DROPS.length) {
+    item = 'NOTHING';
+  } else {
+    item = ITEM00_DROPS[itemId];
+  }
+  checks.push({ roomActor: ra, item, name: 'Large Crate', type: 'crate' });
+}
+
+function actorHandlerMmObjComb(checks: Check[], ra: RoomActor) {
+  const flag = !!(ra.actor.params & 0x10);
+  let type = 0;
+  if (ra.actor.params & 0x80) type += 1;
+  if (ra.actor.params & 0x8000) type += 2;
+  if (type === 1 && flag) return; /* Pirate */
+
+  let item: string;
+  switch (type) {
+  case 0: item = mmCollectibleDrop(ra.actor.params & 0x3f); break;
+  case 1: item = 'NOTHING'; break;
+  default: return; /* Skulltulas */
+  }
+
+  if (item === 'STRAY_FAIRY' || item === 'HEART_PIECE') return;
+
+  checks.push({ roomActor: ra, item, name: 'Hive', type: 'hive' });
+}
+
+function actorHandlerMmObjFlowerpot(checks: Check[], ra: RoomActor) {
+  const item = mmCollectibleDrop(ra.actor.params & 0x3f);
+  checks.push({ roomActor: ra, sliceId: 0, item: 'NOTHING', name: 'Potted Plant', name2: 'Pot', type: 'pot' });
+  checks.push({ roomActor: ra, sliceId: 1, item: item, name: 'Potted Plant', name2: 'Grass', type: 'grass' });
+}
+
+function actorHandlerMmObjTaru(checks: Check[], ra: RoomActor) {
+  if (ra.actor.params & 0x80) return; /* Weird fake-barrel */
+  const item = mmCollectibleDrop(ra.actor.params & 0x3f);
+  if (item === 'STRAY_FAIRY' || item === 'HEART_PIECE') return;
+  checks.push({ roomActor: ra, item, name: 'Barrel', type: 'barrel' });
+}
+
+const ACTORS_HANDLERS_OOT = {
+  [ACTORS_OOT.EN_KUSA]: actorHandlerOotEnKusa,
+  [ACTORS_OOT.OBJ_COMB]: actorHandlerOotObjComb,
+  [ACTORS_OOT.OBJ_KIBAKO]: actorHandlerOotObjKibako,
+  [ACTORS_OOT.OBJ_KIBAKO2]: actorHandlerOotObjKibako2,
+};
+
+const ACTORS_HANDLERS_MM = {
+  [ACTORS_MM.OBJ_COMB]: actorHandlerMmObjComb,
+  [ACTORS_MM.OBJ_FLOWERPOT]: actorHandlerMmObjFlowerpot,
+  [ACTORS_MM.OBJ_TARU]: actorHandlerMmObjTaru,
+};
+
+const ACTORS_HANDLERS = {
+  oot: ACTORS_HANDLERS_OOT,
+  mm: ACTORS_HANDLERS_MM,
+};
+
+function makeChecks(rooms: RoomActors[], handlers: ActorHandlers): Check[] {
+  const checks: Check[] = [];
+  for (const r of rooms) {
+    for (const a of r.actors) {
+      const handler = handlers[a.typeId];
+      if (handler) {
+        const aa: RoomActor = { sceneId: r.sceneId, roomId: r.roomId, setupId: r.setupId, actor: a };
+        handler(checks, aa);
+      }
+    }
+  }
+  return checks;
+}
+
+function outputChecks(game: 'oot' | 'mm', checks: Check[], filter?: string) {
+  let lastSceneId = -1;
+  let lastSetupId = -1;
+
+  for (const check of checks) {
+    if (filter && check.type !== filter)
+      continue;
+    const ra = check.roomActor;
+
+    /* Prefix */
+    if (ra.sceneId != lastSceneId) {
+      if (lastSceneId !== -1)
+        console.log('');
+      console.log(`### Scene: ${scenesById(game)[ra.sceneId]}`);
+      lastSceneId = ra.sceneId;
+      lastSetupId = ra.setupId;
+    } else if (ra.setupId != lastSetupId) {
+      console.log('');
+      lastSetupId = ra.setupId;
+    }
+
+    const key = ((check.sliceId ?? 0) << 16) | ((ra.setupId & 0x3) << 14) | (ra.roomId << 8) | ra.actor.actorId;
+    let name = `Scene ${ra.sceneId.toString(16)} Setup ${ra.setupId} Room ${hexPad(ra.roomId, 2)} ${check.name} ${decPad(ra.actor.actorId + 1, 2)}`;
+    if (check.name2) {
+      name = `${name} ${check.name2}`;
+    }
+    const components: string[] = [];
+    components.push(`${name},`.padEnd(60));
+    components.push(`${check.type},`.padEnd(16));
+    components.push('NONE,'.padEnd(22));
+    components.push(`SCENE_${ra.sceneId.toString(16)},`.padEnd(32));
+    components.push(`${hexPad(key, 5)},`.padEnd(28));
+    components.push(check.item);
+    console.log(components.join(''));
+  }
+}
+
+async function build() {
   /* Get OoT ROM */
   const ootRomCompressed = await fs.readFile(__dirname + '/../../../roms/oot.z64');
   const ootDecompressed = await decompressGame('oot', ootRomCompressed);
@@ -1337,24 +1496,37 @@ async function run() {
   await writeAddressingTable('oot', addrTableOotMq);
   await writeAddressingTable('mm', addrTableMm);
 
-  //outputPotsPoolMm(mmRooms);
+  /* Compute the MQ subset */
+  const mqRoomsOnly = mqRooms.filter(r => r.sceneId < 0x0a || r.sceneId == 0x0b || r.sceneId == 0x0d);
 
-  /* Output */
-  //outputWonderOot(ootRooms);
-  //outputWonderMm(mmRooms);
-  //outputPotsPoolOot(mqRooms);
-  //outputGrassWeirdPoolOot(ootRooms);
-  //outputGrassPoolMm(mmRooms);
-  //outputKeatonGrassPoolMm(mmRooms);
-  //outputGrassPoolOot(mqRooms);
-  //outputFairyPoolOot(ootRooms);
-  //outputRupeesMm(mmRooms);
-  //outputHeartsMm(mmRooms);
-  //outputShotSunOot(ootRooms);
-  //outputShotSunOot(mqRooms);
-  //outputGrottosMm(mmRooms);
-  //outputCratesPoolOot(ootRooms);
-  outputCratesPoolMm(mmRooms);
+  return { oot: ootRooms, mm: mmRooms, mq: mqRoomsOnly };
+}
+
+async function run() {
+  const rooms = await build();
+  const argGame = process.argv[2];
+  const argFilter = process.argv[3];
+
+  let gameWithMq: Game;
+  let game: 'oot' | 'mm';
+
+  if (!argGame)
+    return;
+  if (['oot', 'mq', 'mm'].includes(argGame)) {
+    gameWithMq = argGame as Game;
+  } else {
+    throw new Error(`Invalid game: ${argGame}`);
+  }
+
+  if (gameWithMq === 'mm') {
+    game = 'mm';
+  } else {
+    game = 'oot';
+  }
+
+  const gameRooms = rooms[gameWithMq];
+  const checks = makeChecks(gameRooms, ACTORS_HANDLERS[game]);
+  outputChecks(game, checks, argFilter);
 }
 
 run().catch(e => {

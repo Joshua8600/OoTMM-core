@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Shuffle MM barrels.
+- Shuffle the MM potted plants, two checks each, one is a pot, one is grass.
+- Hive shuffle, for OoT and MM.
+- Behavioral setting for the Gibdos in Beneath The Well (Vanilla, Remorseless and Open).
 - Skip Kamaro teaching the dance when healing him.
 - Fast elemental arrow equip in MM.
 - Ability to choose how many stray fairies are required to obtain a reward.
@@ -15,15 +19,21 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Tingle no longer has extra text boxes when you first talk to him during a cycle.
+- Adult Malon in Lon Lon Ranch no longer has her slow text when you first talk to her.
+- Lake Hylia Owl no longer has its slow text when you first talk to it.
 - Internal names of the music tracks, for an easier sorting in the cosmetics log.
+- Adult can now jump from the windmill to the back of Kakariko within logic.
 
 ### Fixed
 
+- Logic issue with Kafei's check in seeds without shuffled interiors.
 - Starting age no longer defaults to either child or adult after generating a random starting age seed.
 - Minor collection delay for Bolero.
 - Long-standing issue where Anju's reservation worked inconsistently.
 - Title cards not being displayed on game transitions.
 - MQ Forest Temple freestanding hearts logic issue.
+- The two pots next to the hag's potion shop in Kakariko now check for being in the back.
 
 ## [24.1] - 2024-07-11
 
