@@ -66,7 +66,7 @@
   dungeon: JJ
   exits:
     "MQ Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss": "event(JABU_TENTACLE_RED)" #This tentacle can block in door rando, so it needs its own region.
-    "MQ Jabu-Jabu Pre-Boss Room": "true"
+    "Jabu-Jabu Pre-Boss": "true"
 "MQ Jabu-Jabu Vanilla Ruto Falling Room":
   dungeon: JJ
   exits:
@@ -237,7 +237,7 @@
     JABU_MQ_BASEMENT_SIDE_BUTTON: "true" #Listed here for action shuffle
   locations:
     "MQ Jabu-Jabu GS Basement Side Room": "gs && ((event(JABU_MQ_BASEMENT_SIDE_PLATFORM) && can_collect_distance) || (has_hover_boots && can_collect_distance) || (has_fire_arrows && can_longshot) || (climb_anywhere && can_collect_distance))"
-"MQ Jabu-Jabu Pre-Boss Room":
+"Jabu-Jabu Pre-Boss":
   dungeon: JJ
   exits:
     "MQ Jabu-Jabu Main Elevator Room Ledge Before Pre-Boss After Red Tentacle": "true"
