@@ -192,6 +192,7 @@
   dungeon: Water
   exits:
     "Water Temple Main Room Bottom Floor": "(has_iron_boots && has_tunic_zora_strict) || (longshot_anywhere && has_tunic_zora_strict)"
+    #"Water Temple Three Torch Room Gate Ledge": "scarecrow_hookshot || has_hover_boots || hookshot_anywhere || climb_anywhere" #Incorporate later. Not needed at the moment.
   events:
     WATER_MQ_THREE_TORCH_ROOM_GATE: "has_fire_arrows"
   locations:
