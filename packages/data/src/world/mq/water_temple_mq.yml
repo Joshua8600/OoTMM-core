@@ -332,10 +332,10 @@
   dungeon: Water
   exits:
     "MQ Water Temple Main Room Top Floor": "can_longshot || event(WATER_LEVEL_HIGH)"
-    "MQ Water Temple Antichamber Room": "true"
+    "Water Temple Antichamber Room": "true"
     "MQ Water Temple Main Room Middle Floor": "can_longshot && ((event(WATER_LEVEL_LOW) || event(WATER_LEVEL_MID)) || (event(WATER_LEVEL_HIGH) && has_iron_boots && has_tunic_zora))"
     "MQ Water Temple Main Room Bottom Floor": "event(WATER_LEVEL_LOW) || ((event(WATER_LEVEL_MID) || event(WATER_LEVEL_HIGH)) && has_iron_boots && has_tunic_zora)"
-"MQ Water Temple Antichamber Room":
+"Water Temple Antichamber Room":
   dungeon: Water
   exits:
     "MQ Water Temple Main Room Antichamber Ledge": "true"
