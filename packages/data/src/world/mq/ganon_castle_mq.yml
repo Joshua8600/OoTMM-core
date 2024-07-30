@@ -271,8 +271,8 @@
   locations:
     "MQ Ganon Pot Shadow End 1": "true"
     "MQ Ganon Pot Shadow End 2": "true" 
-"MQ Ganon Castle Stairs":
+"Ganon Castle Stairs":
   region: GANON_CASTLE
   exits:
     "MQ Ganon Castle Main Room": "true"
-    "MQ Ganon Castle Tower": "true"
+    "Ganon Castle Tower": "true"
