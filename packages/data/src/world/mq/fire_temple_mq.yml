@@ -28,7 +28,7 @@
   exits:
     "Fire Temple Lower Lobby": "true"
     "Fire Temple Pre-Boss Room Entrance Side": "has_fire && has_tunic_goron"
-    "Fire Temple 1F Lava Bridge Room Entrance Side": "can_hammer && has_tunic_goron"
+    "Fire Temple 1F Lava Bridge Room Main": "can_hammer && has_tunic_goron"
 
 
 
@@ -124,14 +124,25 @@
 
 
     
-"Fire Temple 1F Lava Bridge Room":
+"Fire Temple 1F Lava Bridge Room Main":
   dungeon: Fire
   exits:
     "Fire Temple Upper Lobby": "true"
-    "Fire Temple Lava Bridge Room North Side Upper Ledge":
-    "Fire Temple Lava Bridge Room North Side Lower Room":
+    "Fire Temple Lava Bridge Room North Side Upper Ledge": "has_tunic_goron_strict && ((event(FIRE_MQ_LAVA_BRIDGE_ROOM_HOOKSHOT_PLATFORMS) && can_hookshot) || hookshot_anywhere || climb_anywhere)"
+    "Fire Temple Lava Bridge Room North Side Lower Room": "has_tunic_goron"
+    "Fire Temple 1F Lava Bridge Room High Alcove": "true"
     "Fire Temple Lava Bridge Room South Side Ledge":
     "Fire Temple Rising Block Room": "has_tunic_goron_strict && small_keys_fire_mq(2)"
+ locations:
+    "MQ Fire Temple Pot Lava Room Left": "has_tunic_goron"
+
+
+"Fire Temple 1F Lava Bridge Room High Alcove":
+  dungeon: Fire
+  exits:
+    "Fire Temple 1F Lava Bridge Room Main": "true"
+  events:
+    FIRE_MQ_LAVA_BRIDGE_ROOM_TORCHES: "has_fire"
 
 
 
@@ -143,11 +154,11 @@
     "MQ Fire Temple Boss Key Chest": "has_tunic_goron && has_fire && can_hookshot"
     "MQ Fire Temple 1f Lava Room Goron Chest": "has_tunic_goron && has_fire && can_hookshot && has_explosives"
     "MQ Fire Temple GS 1f Lava Room": "gs && has_tunic_goron"
-    "MQ Fire Temple Pot Lava Room Left": "has_tunic_goron"
     "MQ Fire Temple Pot Lava Room Alcove": "has_tunic_goron"
     "MQ Fire Temple Pot Lava Room Right": "has_tunic_goron && can_hookshot"
     "MQ Fire Temple Pot Boss Key Room 1": "has_tunic_goron && has_fire && can_hookshot"
     "MQ Fire Temple Pot Boss Key Room 2": "has_tunic_goron && has_fire && can_hookshot"
+    
     "MQ Fire Temple Heart 1": "has_tunic_goron_strict && small_keys_fire_mq(2)"
     "MQ Fire Temple Heart 2": "has_tunic_goron_strict && small_keys_fire_mq(2)"
     "MQ Fire Temple Heart 3": "has_tunic_goron_strict && small_keys_fire_mq(2)"
