@@ -135,8 +135,6 @@
     "Fire Temple Rising Block Room": "has_tunic_goron_strict && small_keys_fire_mq(2)"
  locations:
     "MQ Fire Temple Pot Lava Room Left": "has_tunic_goron"
-
-
 "Fire Temple 1F Lava Bridge Room High Alcove":
   dungeon: Fire
   exits:
@@ -158,6 +156,8 @@
     "MQ Fire Temple Boss Key Chest": "can_hookshot || climb_anywhere"
     "MQ Fire Temple Pot Boss Key Room 1": "can_hookshot || can_boomerang || climb_anywhere"
     "MQ Fire Temple Pot Boss Key Room 2": "can_hookshot || can_boomerang || climb_anywhere"
+    "MQ Fire Temple Wonder Item Boss Key Room Hookshot": "can_hookshot"
+    "MQ Fire Temple Wonder Item Boss Key Room Bow": "can_use_bow && (can_boomerang || can_hookshot || climb_anywhere)"
 "Fire Temple Lava Bridge Room North Side Lower Room":
   dungeon: Fire
   exits:
@@ -181,6 +181,12 @@
     "MQ Fire Temple 1f Lava Room Goron Chest": "has_fire"
 
 
+"Fire Temple Rising Block Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple 1F Lava Bridge Room Main": "has_tunic_goron_strict && small_keys_fire_mq(2)"
+
+
 
 
 
@@ -194,8 +200,6 @@
     "MQ Fire Temple Wonder Item Shortcut Room 1": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
     "MQ Fire Temple Wonder Item Shortcut Room 2": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
     "MQ Fire Temple Wonder Item Shortcut Room 3": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
-    "MQ Fire Temple Wonder Item Boss Key Room Hookshot": "has_tunic_goron && has_fire && can_hookshot"
-    "MQ Fire Temple Wonder Item Boss Key Room Bow": "has_tunic_goron && has_fire && can_hookshot && can_use_bow"
 
 
 
