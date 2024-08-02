@@ -322,12 +322,12 @@
 "Fire Temple 3F Hallway Before Fire Walls":
   exits:
     "Fire Temple 3F Lava Room Ledge Before Fire Walls Hallway": "true"
-    "Fire Temple Fire Walls Room": "true"
+    "Fire Temple Fire Walls Room Pillar Side": "true"
     
 
 
 
-"Fire Temple Fire Walls Room":
+"Fire Temple Fire Walls Room Pillar Side":
   dungeon: Fire
   exits:
     "Fire Temple 3F Hallway Before Fire Walls": "true"
@@ -335,6 +335,11 @@
     "Fire Temple Pre-Boss Room Boss Door Platform": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (is_adult || has_hover_boots || hookshot_anywhere || climb_anywhere)"
     "Fire Temple Pre-Boss Room Cell Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_hookshot || climb_anywhere)"
     "Fire Temple Pre-Boss Room Tall Ledges Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_longshot || hookshot_anywhere || climb_anywhere)"
+    "Fire Temple Fire Walls Room Side Room": "
+    "Fire Temple Fire Walls Middle Hallway Upper":
+    "Fire Temple Fire Walls Middle Hallway Lower":
+    "Fire Temple Fire Walls Room Large Fire Wall Side":
+    "Fire Temple Fire Walls Room After Large Fire Wall":
   events:
     FIRE_MQ_PRE_BOSS_PILLAR: "can_hammer"
 
