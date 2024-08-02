@@ -232,7 +232,7 @@
   dungeon: DC
   exits:
     "MQ Dodongo Cavern Main Room Inside Skull": "true"
-    "MQ Dodongo Cavern Boss": "event(MQ_DC_BOSS_SWITCH)"
+    "Dodongo Cavern Boss": "event(MQ_DC_BOSS_SWITCH)"
     "MQ Dodongo Cavern Boss Loop Start": "true"
     "MQ Dodongo Cavern Boss Loop Ending Ledge": "is_adult || climb_anywhere || hookshot_anywhere"
   locations:
