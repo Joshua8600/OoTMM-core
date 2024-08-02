@@ -194,6 +194,7 @@
   events:
     FIRE_MQ_MAZE_SHORTCUT_SWITCH: "can_hammer"
   locations:
+    "MQ Fire Temple Compass Chest": "can_hammer"
     "MQ Fire Temple Cell Below Maze Large Crate 1": "true"
     "MQ Fire Temple Cell Below Maze Large Crate 2": "true"
     "MQ Fire Temple Cell Below Maze Large Crate 3": "true"
@@ -241,6 +242,7 @@
   events:
     FIRE_MQ_MAZE_ROOM_BLUE_SWITCH: "has_explosives"
   locations:
+    "MQ Fire Temple Maze Upper Chest": "true"
     "MQ Fire Temple Maze Room Upper Cage Large Crate 1": "true"
     "MQ Fire Temple Maze Room Upper Cage Large Crate 2": "true"
     "MQ Fire Temple Maze Room Upper Cage Large Crate 3": "true"
@@ -251,13 +253,6 @@
     "Fire Temple Maze Room Blue Switch Behind Bombable Wall": "true"
   locations:
     "MQ Fire Temple Maze Side Room Chest": "true"
-    
-
-
-
-
-
-
 "Fire Temple Maze Room Upper":
   exits:
     "Fire Temple Maze Room Lower": "true"
@@ -268,28 +263,50 @@
 
 
 
-
-
-"Fire Temple Maze Upper":
-  dungeon: Fire
+"Fire Temple Tower Area Above Maze Room":
   exits:
-    "Fire Temple Burning Block": "can_play_time || can_longshot"
-    "Fire Temple 3f Lava Room": "small_keys_fire_mq(3)"
+    "Fire Temple Maze Room Upper": "true"
+    "Fire Temple Maze Room Lower": "true"
+    "Fire Temple Tower Above Maze First Room": "true"
+"Fire Temple Tower Above Maze First Room":
+  exits:
+    "Fire Temple Tower Area Above Maze Room": "true"
+    "Fire Temple Tower Above Maze Burning Block Room": "can_hookshot"
   locations:
-    "MQ Fire Temple Maze Upper Chest": "true"
-    "MQ Fire Temple Maze Side Room Chest": "true"
-    "MQ Fire Temple Compass Chest": "has_explosives"
     "MQ Fire Temple Wonder Item East Climb First 1": "can_hookshot"
     "MQ Fire Temple Wonder Item East Climb First 2": "can_hookshot"
     "MQ Fire Temple Wonder Item East Climb Second 1": "can_hookshot"
     "MQ Fire Temple Wonder Item East Climb Second 2": "can_hookshot"
-
-
-
-"Fire Temple Burning Block":
-  dungeon: Fire
+"Fire Temple Tower Above Maze Burning Block Room":
+  exits:
+    "Fire Temple Tower Above Maze First Room": "true"
+    "Fire Temple Inside Maze Narrow Paths Room": "true"
+    "Fire Temple 1F Lava Bridge Room Main": "has_tunic_goron"
+  events:
+    FIRE_MQ_EAST_TOWER_TOP_HOOKSHOT_TARGETS: "can_hammer"
   locations:
-    "MQ Fire Temple GS Burning Block": "gs"
+    "MQ Fire Temple GS Burning Block": "gs && ((event(FIRE_MQ_EAST_TOWER_TOP_HOOKSHOT_TARGETS) && can_hookshot) || hookshot_anywhere || climb_anywhere)"
+
+
+
+
+
+"Fire Temple 3F Lava Floor Room After Maze":
+  exits:
+    "Fire Temple Maze Room Upper": "has_tunic_goron && small_keys_fire_mq(3)"
+  locations:
+    "MQ Fire Temple 3F Lava Room Lower Large Crate 1": "has_tunic_goron"
+    "MQ Fire Temple 3F Lava Room Lower Large Crate 2": "has_tunic_goron"
+    "MQ Fire Temple 3F Lava Room Lower Large Crate 3": "has_tunic_goron"
+    "MQ Fire Temple 3F Lava Room Lower Small Crate 1": "has_tunic_goron"
+    "MQ Fire Temple 3F Lava Room Lower Small Crate 2": "has_tunic_goron"
+    "MQ Fire Temple Wonder Item Torch Room": "has_tunic_goron && can_hookshot"
+
+
+
+
+
+
 "Fire Temple 3f Lava Room":
   dungeon: Fire
   exits:
@@ -300,17 +317,13 @@
     "MQ Fire Temple Pot Bridge Above Lava Room 1": "true"
     "MQ Fire Temple Pot Bridge Above Lava Room 2": "true"
     "MQ Fire Temple Pot Bridge Above Lava Room 3": "true"
-    "MQ Fire Temple Wonder Item Torch Room": "can_hookshot" # Unsure
     "MQ Fire Temple 3F Lava Room Near Cage Large Crate": "can_hookshot || is_adult"
     "MQ Fire Temple 3F Lava Room Near Cage Small Crate 1": "can_hookshot || is_adult"
     "MQ Fire Temple 3F Lava Room Near Cage Small Crate 2": "can_hookshot || is_adult"
     "MQ Fire Temple 3F Lava Room High Ledge Large Crate": "can_hookshot || is_adult"
     "MQ Fire Temple 3F Lava Room High Ledge Small Crate": "can_hookshot || is_adult"
-    "MQ Fire Temple 3F Lava Room Lower Large Crate 1": "true"
-    "MQ Fire Temple 3F Lava Room Lower Large Crate 2": "true"
-    "MQ Fire Temple 3F Lava Room Lower Large Crate 3": "true"
-    "MQ Fire Temple 3F Lava Room Lower Small Crate 1": "true"
-    "MQ Fire Temple 3F Lava Room Lower Small Crate 2": "true"
+
+
 "Fire Temple Fire Walls":
   dungeon: Fire
   exits:
