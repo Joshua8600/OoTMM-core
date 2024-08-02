@@ -208,13 +208,30 @@
 
 "Fire Temple Maze Room Lower":
   exits:
-    "Fire Temple Room Before Maze":
+    "Fire Temple Room Before Maze": "true"
     "Fire Temple Maze Room Upper":
     "Fire Temple Maze Room Upper Switch Cage Alcove":
-    "Fire Temple Maze Room Rusty Switch Behind Bombable Wall":
+    "Fire Temple Maze Room Rusty Switch Behind Bombable Wall": "has_explosives" #Separated for enemy drop rando and the skulwalltula
     "Fire Temple Maze Room Blue Switch Behind Bombable Wall":
     "Fire Temple Maze Room Lower Cage":
     #"Fire Temple Tall Tower":
+  events:
+    FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH: "can_jump_slash || (has_weapon && has_magic)" #Not too sure about this.
+    FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH: "trick(OOT_HAMMER_WALLS) && can_hammer"
+  locations:
+    "MQ Fire Temple Maze Lower Chest": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
+    "MQ Fire Temple Wonder Item East Maze": "can_hookshot"
+    "MQ Fire Temple Maze Room Lower Cage Large Crate 1": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
+    "MQ Fire Temple Maze Room Lower Cage Large Crate 2": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
+    "MQ Fire Temple Maze Room Lower Cage Large Crate 3": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
+
+
+"Fire Temple Maze Room Rusty Switch Behind Bombable Wall":
+  exits:
+    "Fire Temple Maze Room Lower": "true"
+  events:
+    FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH: "can_hammer"
+    
 
 
 
@@ -234,15 +251,12 @@
 "Fire Temple Maze Lower":
   dungeon: Fire
   exits:
-    "Fire Temple 1f Lava Room": "true"
     "Fire Temple Maze Upper": "can_hookshot && (trick(OOT_HAMMER_WALLS) || has_explosives)"
   locations:
-    "MQ Fire Temple Maze Lower Chest": "true" #Not too sure about this.
     "MQ Fire Temple Maze Side Room Chest": "can_play_elegy"
-    "MQ Fire Temple Wonder Item East Maze": "can_hookshot"
-    "MQ Fire Temple Maze Room Lower Cage Large Crate 1": "true" #Consistent with chest logic, but something is up here.
-    "MQ Fire Temple Maze Room Lower Cage Large Crate 2": "true" #Consistent with chest logic, but something is up here.
-    "MQ Fire Temple Maze Room Lower Cage Large Crate 3": "true" #Consistent with chest logic, but something is up here.
+
+
+
 "Fire Temple Maze Upper":
   dungeon: Fire
   exits:
