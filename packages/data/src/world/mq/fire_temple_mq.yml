@@ -202,6 +202,7 @@
     "MQ Fire Temple Cell Below Maze Large Crate 5": "true"
     "MQ Fire Temple Cell Below Maze Large Crate 6": "true"
 "Fire Temple Maze Room Lower":
+  dungeon: Fire
   exits:
     "Fire Temple Room Before Maze": "true"
     "Fire Temple Maze Room Upper": "(event(FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH) && can_hookshot) || climb_anywhere || hookshot_anywhere"
@@ -220,17 +221,20 @@
     "MQ Fire Temple Maze Room Lower Cage Large Crate 2": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
     "MQ Fire Temple Maze Room Lower Cage Large Crate 3": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
 "Fire Temple Maze Room Rusty Switch Behind Bombable Wall":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Lower": "true"
   events:
     FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH: "can_hammer"
 "Fire Temple Maze Room Blue Switch Behind Bombable Wall":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Lower": "true" #Might be solid from other side, need to see in door rando.
     "Fire Temple Maze Room Side Room": "event(FIRE_MQ_MAZE_ROOM_BLUE_SWITCH)"
   events:
    FIRE_MQ_MAZE_ROOM_BLUE_SWITCH: "can_play_elegy"
 "Fire Temple Maze Room Upper Switch Cage Alcove":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Lower": "true"
     "Fire Temple Maze Room Upper": "true"
@@ -244,11 +248,13 @@
     "MQ Fire Temple Maze Room Upper Cage Small Crate 1": "true"
     "MQ Fire Temple Maze Room Upper Cage Small Crate 2": "true"
 "Fire Temple Maze Room Side Room":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Blue Switch Behind Bombable Wall": "true"
   locations:
     "MQ Fire Temple Maze Side Room Chest": "true"
 "Fire Temple Maze Room Upper":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Lower": "true"
     "Fire Temple Maze Room Upper Switch Cage Alcove": "has_ranged_weapon"
@@ -256,11 +262,13 @@
     "Fire Temple 3F Lava Floor Room After Maze": "small_keys_fire_mq(3)"
     "Fire Temple Tower Area Above Maze Room": "can_longshot || (can_play_time && can_hookshot) || hookshot_anywhere || climb_anywhere"
 "Fire Temple Tower Area Above Maze Room":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Upper": "true"
     "Fire Temple Maze Room Lower": "true"
     "Fire Temple Tower Above Maze First Room": "true"
 "Fire Temple Tower Above Maze First Room":
+  dungeon: Fire
   exits:
     "Fire Temple Tower Area Above Maze Room": "true"
     "Fire Temple Tower Above Maze Burning Block Room": "can_hookshot"
@@ -270,6 +278,7 @@
     "MQ Fire Temple Wonder Item East Climb Second 1": "can_hookshot"
     "MQ Fire Temple Wonder Item East Climb Second 2": "can_hookshot"
 "Fire Temple Tower Above Maze Burning Block Room":
+  dungeon: Fire
   exits:
     "Fire Temple Tower Above Maze First Room": "true"
     "Fire Temple Inside Maze Narrow Paths Room": "true"
@@ -279,6 +288,7 @@
   locations:
     "MQ Fire Temple GS Burning Block": "gs && ((event(FIRE_MQ_EAST_TOWER_TOP_HOOKSHOT_TARGETS) && can_hookshot) || hookshot_anywhere || climb_anywhere)"
 "Fire Temple 3F Lava Floor Room After Maze":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Upper": "has_tunic_goron && small_keys_fire_mq(3)"
     "Fire Temple 3F Lava Room Cage Area": "(has_tunic_goron && (is_adult || hookshot_anywhere || climb_anywhere)) || (has_tunic_goron_strict && can_hookshot)" #Adult can make an angled jump from the Upper Mazr Door to on top of the cage quickly.
@@ -300,6 +310,7 @@
     "MQ Fire Temple 3F Lava Room Near Cage Small Crate 1": "has_tunic_goron_strict && (is_adult || can_hookshot || climb_anywhere)"
     "MQ Fire Temple 3F Lava Room Near Cage Small Crate 2": "has_tunic_goron_strict && (is_adult || can_hookshot || climb_anywhere)"
 "Fire Temple 3F Lava Room Ledge Before Fire Walls Hallway":
+  dungeon: Fire
   exits:
     "Fire Temple 3F Lava Floor Room After Maze": "has_tunic_goron"
     "Fire Temple 3F Hallway Before Fire Walls": "has_tunic_goron && event(FIRE_MQ_3F_LAVA_ROOM_TORCHES)"
@@ -307,10 +318,12 @@
     "MQ Fire Temple 3F Lava Room High Ledge Large Crate": "has_tunic_goron"
     "MQ Fire Temple 3F Lava Room High Ledge Small Crate": "has_tunic_goron"
 "Fire Temple 3F Lava Room Cage Area":
+  dungeon: Fire
   exits:
     "Fire Temple 3F Lava Floor Room After Maze": "can_hookshot || climb_anywhere"
     "Fire Temple Inside Maze Narrow Paths Room": "true"
 "Fire Temple Inside Maze Narrow Paths Room":
+  dungeon: Fire
   exits:
     "Fire Temple Maze Room Lower": "true"
     #"Fire Temple 3F Lava Room Cage Area": "false"
@@ -321,6 +334,7 @@
     "MQ Fire Temple Pot Bridge Above Lava Room 2": "true"
     "MQ Fire Temple Pot Bridge Above Lava Room 3": "true"
 "Fire Temple 3F Hallway Before Fire Walls":
+  dungeon: Fire
   exits:
     "Fire Temple 3F Lava Room Ledge Before Fire Walls Hallway": "true"
     "Fire Temple Fire Walls Room Pillar Side": "true"
