@@ -34,7 +34,7 @@
   exits:
     "Fire Temple Upper Lobby": "true"
     "Fire Temple Pre-Boss Room Cell Corner": "has_tunic_goron"
-    "Fire Temple Pre-Boss Room Boss Door Platform": "has_tunic_goron && (hookshot_anywhere || climb_anywhere || event(FIRE_MQ_PRE_BOSS_PILLAR))" # CHECK THIS "Fire Temple Boss": "has_tunic_goron && boss_key(BOSS_KEY_FIRE) && ((is_adult && event(FIRE_TEMPLE_PILLAR_HAMMER)) || has_hover_boots)"
+    "Fire Temple Pre-Boss Room Boss Door Platform": "has_tunic_goron && ((event(FIRE_MQ_PRE_BOSS_PILLAR) && (is_adult || has_hover_boots)) || hookshot_anywhere || climb_anywhere)"
     "Fire Temple Pre-Boss Room Tall Ledges Corner": "has_tunic_goron && (climb_anywhere || can_hookshot || (is_adult && has_hover_boots))"
 "Fire Temple Pre-Boss Room Cell Corner":
   dungeon: Fire
