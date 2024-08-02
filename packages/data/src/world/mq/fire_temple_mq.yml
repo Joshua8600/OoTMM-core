@@ -330,7 +330,13 @@
 "Fire Temple Fire Walls Room":
   dungeon: Fire
   exits:
-    "Fire Temple 3F Hallway Before Fire Walls": "true
+    "Fire Temple 3F Hallway Before Fire Walls": "true"
+    "Fire Temple Pre-Boss Room Entrance Side": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (is_adult || has_hover_boots || hookshot_anywhere || climb_anywhere)"
+    "Fire Temple Pre-Boss Room Boss Door Platform": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (is_adult || has_hover_boots || hookshot_anywhere || climb_anywhere)"
+    "Fire Temple Pre-Boss Room Cell Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_hookshot || climb_anywhere)"
+    "Fire Temple Pre-Boss Room Tall Ledges Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_longshot || hookshot_anywhere || climb_anywhere)"
+  events:
+    FIRE_MQ_PRE_BOSS_PILLAR: "can_hammer"
 
 
 
@@ -338,8 +344,8 @@
 
   
     "Fire Temple Top": "soul_enemy(SOUL_ENEMY_FLARE_DANCER) && small_keys_fire_mq(4)"
-  events:
-    FIRE_TEMPLE_PILLAR_HAMMER: "true"
+
+
   locations:
     "MQ Fire Temple Flare Dancer Key": "soul_enemy(SOUL_ENEMY_FLARE_DANCER)"
     "MQ Fire Temple GS Fire Walls Side Room": "gs && (has_hover_boots || can_play_time)"
