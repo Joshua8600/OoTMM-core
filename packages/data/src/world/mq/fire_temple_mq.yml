@@ -119,7 +119,7 @@
     "Fire Temple 1F Lava Bridge Room High Alcove": "true"
     "Fire Temple Lava Bridge Room South Side Ledge": "has_tunic_goron && can_hookshot" #Found a glitch too with climb anywhere and damage boosting through the moving platform.
     "Fire Temple Rising Block Room": "has_tunic_goron_strict && small_keys_fire_mq(2)"
- locations:
+  locations:
     "MQ Fire Temple Pot Lava Room Left": "has_tunic_goron"
 "Fire Temple 1F Lava Bridge Room High Alcove":
   dungeon: Fire
