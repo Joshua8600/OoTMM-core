@@ -29,10 +29,6 @@
     "Fire Temple Lower Lobby": "true"
     "Fire Temple Pre-Boss Room Entrance Side": "has_fire && has_tunic_goron"
     "Fire Temple 1F Lava Bridge Room Main": "can_hammer && has_tunic_goron"
-
-
-
-
 "Fire Temple Pre-Boss Room Entrance Side":
   dungeon: Fire
   exits:
@@ -70,10 +66,6 @@
     "MQ Fire Temple Pre-Boss Room Tall Ledge Low Large Crate 2": "has_tunic_goron"
     "MQ Fire Temple Pre-Boss Room Tall Ledge Middle Large Crate": "has_tunic_goron || (is_child && has_tunic_goron_strict)" #Child can rach this by jumping off the hookshot platform that has the torch.
     "MQ Fire Temple Pre-Boss Room Tall Ledge Top Large Crate": "has_tunic_goron || (is_child && has_tunic_goron_strict)" #Child can rach this by using the middle crate as a platform.
-
-
-
-
 "Fire Temple Hammer Loop Enemies Room":
   dungeon: Fire
   exits:
@@ -118,12 +110,6 @@
     FIRE_MQ_MAP_CHEST_HAMMER_SWITCH: "can_hammer"
   locations:
     "MQ Fire Temple Map Chest": "event(FIRE_MQ_MAP_CHEST_HAMMER_SWITCH)"
-
-
-
-
-
-    
 "Fire Temple 1F Lava Bridge Room Main":
   dungeon: Fire
   exits:
@@ -179,45 +165,45 @@
     "Fire Temple Lava Bridge Room South Side Ledge": "true"
   locations:
     "MQ Fire Temple 1f Lava Room Goron Chest": "has_fire"
-
-
 "Fire Temple Rising Block Room":
   dungeon: Fire
   exits:
     "Fire Temple 1F Lava Bridge Room Main": "has_tunic_goron_strict && small_keys_fire_mq(2)"
-
-
-
-
-
-    
-    "Fire Temple Maze Lower": "has_tunic_goron_strict && small_keys_fire_mq(2) && has_fire"
+    "Fire Temple Room Before Maze": "has_tunic_goron_strict"
   locations:
-    
-    "MQ Fire Temple Heart 1": "has_tunic_goron_strict && small_keys_fire_mq(2)"
-    "MQ Fire Temple Heart 2": "has_tunic_goron_strict && small_keys_fire_mq(2)"
-    "MQ Fire Temple Heart 3": "has_tunic_goron_strict && small_keys_fire_mq(2)"
-    "MQ Fire Temple Wonder Item Shortcut Room 1": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
-    "MQ Fire Temple Wonder Item Shortcut Room 2": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
-    "MQ Fire Temple Wonder Item Shortcut Room 3": "has_tunic_goron_strict && small_keys_fire_mq(2) && can_hammer"
-
-
-
-
-
-"Fire Temple Rising Block Room":
+    "MQ Fire Temple Heart 1": "has_tunic_goron_strict"
+    "MQ Fire Temple Heart 2": "has_tunic_goron_strict"
+    "MQ Fire Temple Heart 3": "has_tunic_goron_strict"
+"Fire Temple Room Before Maze":
   dungeon: Fire
   exits:
-    "Fire Temple 1F Lava Bridge Room":
-    "Fire Temple Room Before Maze":
-
-
-
-"Fire Temple Room Before Maze":
-  exits:
     "Fire Temple Rising Block Room": "true"
-    "Fire Temple Cage Under Maze":
-    "Fire Temple Maze Room Lower":
+    "Fire Temple Maze Room Lower": "(event(FIRE_MQ_ROOM_BEFORE_MAZE_HOOKSHOT_TARGET) && can_hookshot) || climb_anywhere || hookshot_anywhere"
+    "Fire Temple Shortcut Cage Under Maze": "event(FIRE_MQ_MAZE_SHORTCUT_SWITCH)"
+  events:
+    FIRE_MQ_ROOM_BEFORE_MAZE_HOOKSHOT_TARGET: "has_fire"
+  locations:
+    "MQ Fire Temple Wonder Item Shortcut Room 1": "can_hammer"
+    "MQ Fire Temple Wonder Item Shortcut Room 2": "can_hammer"
+    "MQ Fire Temple Wonder Item Shortcut Room 3": "can_hammer"
+"Fire Temple Shortcut Cage Under Maze":
+  dungeon: Fire
+  exits:
+    "Fire Temple Room Before Maze": "event(FIRE_MQ_MAZE_SHORTCUT_SWITCH)"
+    "Fire Temple Maze Room Upper": "true"
+  events:
+    FIRE_MQ_MAZE_SHORTCUT_SWITCH: "can_hammer"
+  locations:
+    "MQ Fire Temple Cell Below Maze Large Crate 1": "true"
+    "MQ Fire Temple Cell Below Maze Large Crate 2": "true"
+    "MQ Fire Temple Cell Below Maze Large Crate 3": "true"
+    "MQ Fire Temple Cell Below Maze Large Crate 4": "true"
+    "MQ Fire Temple Cell Below Maze Large Crate 5": "true"
+    "MQ Fire Temple Cell Below Maze Large Crate 6": "true"
+
+
+
+
 
 
 "Fire Temple Maze Room Lower":
@@ -275,12 +261,8 @@
     "MQ Fire Temple Maze Room Upper Cage Large Crate 3": "true"
     "MQ Fire Temple Maze Room Upper Cage Small Crate 1": "true"
     "MQ Fire Temple Maze Room Upper Cage Small Crate 2": "true"
-    "MQ Fire Temple Cell Below Maze Large Crate 1": "has_explosives"
-    "MQ Fire Temple Cell Below Maze Large Crate 2": "has_explosives"
-    "MQ Fire Temple Cell Below Maze Large Crate 3": "has_explosives"
-    "MQ Fire Temple Cell Below Maze Large Crate 4": "has_explosives"
-    "MQ Fire Temple Cell Below Maze Large Crate 5": "has_explosives"
-    "MQ Fire Temple Cell Below Maze Large Crate 6": "has_explosives"
+
+
 "Fire Temple Burning Block":
   dungeon: Fire
   locations:
