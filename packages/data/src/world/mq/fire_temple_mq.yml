@@ -371,35 +371,65 @@
     "Fire Temple Fire Walls Room Pillar Side": "true"
   events:
     FIRE_MQ_FIRE_WALLS_MIDDLE_ROOM_RUSTY_SWITCH: "can_hammer && (can_hookshot || climb_anywhere)"
-
-
-
 "Fire Temple Fire Walls Room Large Fire Wall Side":
   dungeon: Fire
   exits:
     "Fire Temple Fire Walls Room Pillar Side": "hookshot_anywhere || climb_anywhere"
     "Fire Temple Fire Walls Room Outside Side Room": "hookshot_anywhere || climb_anywhere"
     "Fire Temple Fire Walls Middle Hallway Lower": "true"
-    "Fire Temple Fire Walls Room Area After Large Fire Wall": "
+    "Fire Temple Fire Walls Room Area After Large Fire Wall": "true"
   locations:
     "MQ Fire Temple Pot Fire Maze Room Right 1": "can_boomerang"
     "MQ Fire Temple Pot Fire Maze Room Right 2": "can_boomerang"
-
-
-
-
-
-  
-    "Fire Temple Top": "soul_enemy(SOUL_ENEMY_FLARE_DANCER) && small_keys_fire_mq(4)"
-
-
+"Fire Temple Fire Walls Room Area After Large Fire Wall":
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Room Large Fire Wall Side": "hookshot_anywhere || climb_anywhere"
+    "Fire Temple Flare Dancer Room After Fire Walls": "true"
   locations:
-    "MQ Fire Temple Flare Dancer Key": "soul_enemy(SOUL_ENEMY_FLARE_DANCER)"
-    
-    "MQ Fire Temple Pot Fire Maze Room Back Right 1": "can_hookshot && can_hammer"
-    "MQ Fire Temple Pot Fire Maze Room Back Right 2": "can_hookshot && can_hammer"
-    "MQ Fire Temple Wonder Item Fire Maze": "can_hookshot && can_hammer"
-    "MQ Fire Temple Wonder Item After Flare Dancer": "soul_enemy(SOUL_ENEMY_FLARE_DANCER) && can_hookshot"
+    "MQ Fire Temple Pot Fire Maze Room Back Right 1": "true"
+    "MQ Fire Temple Pot Fire Maze Room Back Right 2": "true"
+    "MQ Fire Temple Wonder Item Fire Maze": "can_hookshot"
+"Fire Temple Flare Dancer Room After Fire Walls":
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Room Area After Large Fire Wall": "event(FIRE_MQ_FLARE_DANCER_AFTER_FIRE_WALLS)"
+    "Fire Temple Tower After Flare Dancer First Room": "event(FIRE_MQ_FLARE_DANCER_AFTER_FIRE_WALLS) || (longshot_anywhere && climb_anywhere)"
+  events:
+    FIRE_MQ_FLARE_DANCER_AFTER_FIRE_WALLS: "soul_enemy(SOUL_ENEMY_FLARE_DANCER) && (has_bombs || can_use_mask_blast || can_hammer || can_hookshot) && has_weapon"
+  locations:
+    "MQ Fire Temple Flare Dancer Key": "event(FIRE_MQ_FLARE_DANCER_AFTER_FIRE_WALLS)"
+"Fire Temple Tower After Flare Dancer First Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple Flare Dancer Room After Fire Walls": "true"
+    "Fire Temple Tower After Flare Dancer Pit Room": "small_keys_fire_mq(4)"
+  locations:
+    "MQ Fire Temple Wonder Item After Flare Dancer": "can_hookshot"
+
+
+"Fire Temple Tower After Flare Dancer Pit Room":
+  dungeon: Fire
+  exits:
+    "Fire Temple Tower After Flare Dancer First Room": "small_keys_fire_mq(4)"
+    "Fire Temple Tower After Flare Dancer Area Before Staircase": "event(FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE)"
+    "Fire Temple Fire Walls Middle Hallway Lower": "true"
+  events:
+    FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE: "can_hammer"
+    FIRE_MQ_TOWER_AFTER_FLARE_DANCER_HOOKSHOT_TARGETS: "has_weapon || has_bombs || can_use_mask_blast || has_bombchu || can_use_bow || can_use_slingshot || can_hookshot || can_use_sticks || can_hammer || can_boomerang" #Many ways to hit crystal switch
+  locations:
+
+
+
+"Fire Temple Tower After Flare Dancer Area Before Staircase":
+  dungeon: Fire
+  exits:
+    "Fire Temple Tower After Flare Dancer Pit Room": "event(FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE) && ((event(FIRE_MQ_TOWER_AFTER_FLARE_DANCER_HOOKSHOT_TARGETS) && can_hookshot) || hookshot_anywhere || climb_anywhere)"
+
+
+
+
+
 "Fire Temple Top":
   dungeon: Fire
   locations:
