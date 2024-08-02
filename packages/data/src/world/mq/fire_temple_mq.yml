@@ -341,7 +341,7 @@
   locations:
     "MQ Fire Temple Pot Fire Maze Room Left 1": "true"
     "MQ Fire Temple Pot Fire Maze Room Left 2": "true"
-"Fire Temple Fire Walls Room Outside Side Room"
+"Fire Temple Fire Walls Room Outside Side Room":
   dungeon: Fire
   exits:
     "Fire Temple Fire Walls Room Side Room": "true"
@@ -351,7 +351,7 @@
   locations:
     "MQ Fire Temple Pot Fire Maze Room Right 1": "true"
     "MQ Fire Temple Pot Fire Maze Room Right 2": "true"
-"Fire Temple Fire Walls Room Side Room"
+"Fire Temple Fire Walls Room Side Room":
   dungeon: Fire
   exits:
     "Fire Temple Fire Walls Room Outside Side Room": "true"
