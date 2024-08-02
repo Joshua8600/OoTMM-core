@@ -294,13 +294,36 @@
 "Fire Temple 3F Lava Floor Room After Maze":
   exits:
     "Fire Temple Maze Room Upper": "has_tunic_goron && small_keys_fire_mq(3)"
+    "Fire Temple 3F Lava Room Cage Area": "(has_tunic_goron && (is_adult || hookshot_anywhere || climb_anywhere)) || (has_tunic_goron_strict && can_hookshot)" #Adult can make an angled jump from the Upper Mazr Door to on top of the cage quickly.
+    "Fire Temple Inside Maze Narrow Paths Room": "has_tunic_goron_strict || (has_tunic_goron && is_adult)" #Adult just gets through it faster.
+  events:
+    FIRE_MQ_3F_LAVA_ROOM_BLUE_SWITCH: "has_tunic_goron_strict && (can_hookshot || climb_anywhere || can_play_elegy)" #Listed here because you need to get out of cage anyway.
   locations:
+    "MQ Fire Temple Pot Grids Above Lava 1": "has_tunic_goron_strict"
+    "MQ Fire Temple Pot Grids Above Lava 2": "has_tunic_goron_strict"
+    "MQ Fire Temple Wonder Item Torch Room": "has_tunic_goron && can_hookshot"
     "MQ Fire Temple 3F Lava Room Lower Large Crate 1": "has_tunic_goron"
     "MQ Fire Temple 3F Lava Room Lower Large Crate 2": "has_tunic_goron"
     "MQ Fire Temple 3F Lava Room Lower Large Crate 3": "has_tunic_goron"
     "MQ Fire Temple 3F Lava Room Lower Small Crate 1": "has_tunic_goron"
     "MQ Fire Temple 3F Lava Room Lower Small Crate 2": "has_tunic_goron"
-    "MQ Fire Temple Wonder Item Torch Room": "has_tunic_goron && can_hookshot"
+    "MQ Fire Temple 3F Lava Room Near Cage Large Crate": "has_tunic_goron_strict && (is_adult || can_hookshot || climb_anywhere)"
+    "MQ Fire Temple 3F Lava Room Near Cage Small Crate 1": "has_tunic_goron_strict && (is_adult || can_hookshot || climb_anywhere)"
+    "MQ Fire Temple 3F Lava Room Near Cage Small Crate 2": "has_tunic_goron_strict && (is_adult || can_hookshot || climb_anywhere)"
+
+
+
+
+    "MQ Fire Temple 3F Lava Room High Ledge Large Crate": "can_hookshot || is_adult"
+    "MQ Fire Temple 3F Lava Room High Ledge Small Crate": "can_hookshot || is_adult"
+
+
+
+"Fire Temple 3F Lava Room Cage Area":
+  exits:
+    "Fire Temple 3F Lava Floor Room After Maze": "can_hookshot || climb_anywhere"
+    "Fire Temple Inside Maze Narrow Paths Room": "true"
+    
 
 
 
@@ -312,16 +335,9 @@
   exits:
     "Fire Temple Fire Walls": "can_use_bow" #With tricks, there's more logic here
   locations:
-    "MQ Fire Temple Pot Grids Above Lava 1": "true"
-    "MQ Fire Temple Pot Grids Above Lava 2": "true"
     "MQ Fire Temple Pot Bridge Above Lava Room 1": "true"
     "MQ Fire Temple Pot Bridge Above Lava Room 2": "true"
     "MQ Fire Temple Pot Bridge Above Lava Room 3": "true"
-    "MQ Fire Temple 3F Lava Room Near Cage Large Crate": "can_hookshot || is_adult"
-    "MQ Fire Temple 3F Lava Room Near Cage Small Crate 1": "can_hookshot || is_adult"
-    "MQ Fire Temple 3F Lava Room Near Cage Small Crate 2": "can_hookshot || is_adult"
-    "MQ Fire Temple 3F Lava Room High Ledge Large Crate": "can_hookshot || is_adult"
-    "MQ Fire Temple 3F Lava Room High Ledge Small Crate": "can_hookshot || is_adult"
 
 
 "Fire Temple Fire Walls":
