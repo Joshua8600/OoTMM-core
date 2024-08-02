@@ -209,12 +209,11 @@
 "Fire Temple Maze Room Lower":
   exits:
     "Fire Temple Room Before Maze": "true"
-    "Fire Temple Maze Room Upper":
-    "Fire Temple Maze Room Upper Switch Cage Alcove":
+    "Fire Temple Maze Room Upper": "(event(FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH) && can_hookshot) || climb_anywhere || hookshot_anywhere"
+    "Fire Temple Maze Room Upper Switch Cage Alcove": "has_ranged_weapon && (can_hookshot || climb_anywhere)" You can get here to get to Upper Maze without the rusty switch.
     "Fire Temple Maze Room Rusty Switch Behind Bombable Wall": "has_explosives" #Separated for enemy drop rando and the skulwalltula
-    "Fire Temple Maze Room Blue Switch Behind Bombable Wall":
-    "Fire Temple Maze Room Lower Cage":
-    #"Fire Temple Tall Tower":
+    "Fire Temple Maze Room Blue Switch Behind Bombable Wall": "has_explosives"
+    "Fire Temple Tower Area Above Maze Room": "can_longshot" #Can be used to get to upper maze room without the rusty switch.
   events:
     FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH: "can_jump_slash || (has_weapon && has_magic)" #Not too sure about this.
     FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH: "trick(OOT_HAMMER_WALLS) && can_hammer"
@@ -224,36 +223,50 @@
     "MQ Fire Temple Maze Room Lower Cage Large Crate 1": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
     "MQ Fire Temple Maze Room Lower Cage Large Crate 2": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
     "MQ Fire Temple Maze Room Lower Cage Large Crate 3": "event(FIRE_MQ_MAZE_ROOM_LOWER_CAGE_SWITCH)"
-
-
 "Fire Temple Maze Room Rusty Switch Behind Bombable Wall":
   exits:
     "Fire Temple Maze Room Lower": "true"
   events:
     FIRE_MQ_MAZE_ROOM_LOWER_RUSTY_SWITCH: "can_hammer"
+"Fire Temple Maze Room Blue Switch Behind Bombable Wall":
+  exits:
+    "Fire Temple Maze Room Lower": "true" #Might be solid from other side, need to see in door rando.
+    "Fire Temple Maze Room Side Room": "event(FIRE_MQ_MAZE_ROOM_BLUE_SWITCH)"
+  events:
+   FIRE_MQ_MAZE_ROOM_BLUE_SWITCH: "can_play_elegy"
+"Fire Temple Maze Room Upper Switch Cage Alcove":
+  exits:
+    "Fire Temple Maze Room Lower": "true"
+    "Fire Temple Maze Room Upper": "true"
+  events:
+    FIRE_MQ_MAZE_ROOM_BLUE_SWITCH: "has_explosives"
+  locations:
+    "MQ Fire Temple Maze Room Upper Cage Large Crate 1": "true"
+    "MQ Fire Temple Maze Room Upper Cage Large Crate 2": "true"
+    "MQ Fire Temple Maze Room Upper Cage Large Crate 3": "true"
+    "MQ Fire Temple Maze Room Upper Cage Small Crate 1": "true"
+    "MQ Fire Temple Maze Room Upper Cage Small Crate 2": "true"
+"Fire Temple Maze Room Side Room":
+  exits:
+    "Fire Temple Maze Room Blue Switch Behind Bombable Wall": "true"
+  locations:
+    "MQ Fire Temple Maze Side Room Chest": "true"
     
+
+
+
 
 
 
 "Fire Temple Maze Room Upper":
   exits:
-    "Fire Temple Maze Room Lower":
-    "Fire Temple Maze Room Upper Switch Cage Alcove":
-    "Fire Temple Cage Under Maze":
+    "Fire Temple Maze Room Lower": "true"
+    "Fire Temple Maze Room Upper Switch Cage Alcove": "has_ranged_weapon"
+    "Fire Temple Shortcut Cage Under Maze": "has_explosives"
     "Fire Temple Lava Floor Room After Maze":
     "Fire Temple Tower Area Above Maze Room":
-    
 
 
-
-
-    
-"Fire Temple Maze Lower":
-  dungeon: Fire
-  exits:
-    "Fire Temple Maze Upper": "can_hookshot && (trick(OOT_HAMMER_WALLS) || has_explosives)"
-  locations:
-    "MQ Fire Temple Maze Side Room Chest": "can_play_elegy"
 
 
 
@@ -270,11 +283,7 @@
     "MQ Fire Temple Wonder Item East Climb First 2": "can_hookshot"
     "MQ Fire Temple Wonder Item East Climb Second 1": "can_hookshot"
     "MQ Fire Temple Wonder Item East Climb Second 2": "can_hookshot"
-    "MQ Fire Temple Maze Room Upper Cage Large Crate 1": "true"
-    "MQ Fire Temple Maze Room Upper Cage Large Crate 2": "true"
-    "MQ Fire Temple Maze Room Upper Cage Large Crate 3": "true"
-    "MQ Fire Temple Maze Room Upper Cage Small Crate 1": "true"
-    "MQ Fire Temple Maze Room Upper Cage Small Crate 2": "true"
+
 
 
 "Fire Temple Burning Block":
