@@ -335,7 +335,7 @@
     "Fire Temple Fire Walls Middle Hallway Lower": "true"
     "Fire Temple Fire Walls Middle Hallway Upper": "true"
     "Fire Temple Fire Walls Room Large Fire Wall Side": "hookshot_anywhere || climb_anywhere"
-    #"Fire Temple Fire Walls Room High Area After Staircase": 
+    "Fire Temple Fire Walls Room High Area After Staircase": "event(FIRE_MQ_HIGH_LEDGE_AFTER_STAIRCASE_PILLAR) && longshot_anywhere"
   events:
     FIRE_MQ_PRE_BOSS_PILLAR: "can_hammer"
   locations:
@@ -407,8 +407,6 @@
     "Fire Temple Tower After Flare Dancer Pit Room": "small_keys_fire_mq(4)"
   locations:
     "MQ Fire Temple Wonder Item After Flare Dancer": "can_hookshot"
-
-
 "Fire Temple Tower After Flare Dancer Pit Room":
   dungeon: Fire
   exits:
@@ -417,19 +415,16 @@
     "Fire Temple Fire Walls Middle Hallway Lower": "true"
   events:
     FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE: "can_hammer"
-    FIRE_MQ_TOWER_AFTER_FLARE_DANCER_HOOKSHOT_TARGETS: "has_weapon || has_bombs || can_use_mask_blast || has_bombchu || can_use_bow || can_use_slingshot || can_hookshot || can_use_sticks || can_hammer || can_boomerang" #Many ways to hit crystal switch
+    FIRE_MQ_TOWER_AFTER_FLARE_DANCER_HOOKSHOT_TARGETS: "has_weapon || has_bombs || can_use_mask_blast || has_bombchu || can_use_bow || can_use_slingshot || can_hookshot || can_use_sticks || can_hammer || can_boomerang" #Many ways to hit crystal switch. Are they even useful in this section?
   locations:
-    "MQ Fire Temple Topmost Chest": "true" #Originally 'true' but I think that is an error because I don't see how you can get it without scarecrow.
-
-
-
+    "MQ Fire Temple Topmost Chest": "scarecrow_hookshot || climb_anywhere || hookshot_anywhere" #Originally 'true' but I think that is an error because I don't see how you can get it without scarecrow or climb/hook anywhere.
 "Fire Temple Tower After Flare Dancer Area Before Staircase":
   dungeon: Fire
   exits:
-    "Fire Temple Tower After Flare Dancer Pit Room": "event(FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE) && ((event(FIRE_MQ_TOWER_AFTER_FLARE_DANCER_HOOKSHOT_TARGETS) && can_hookshot) || hookshot_anywhere || climb_anywhere)"
+    "Fire Temple Tower After Flare Dancer Pit Room": "event(FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE) && ((event(FIRE_MQ_TOWER_AFTER_FLARE_DANCER_CRYSTAL_SWITCH_FROM_BELOW) && can_hookshot) || hookshot_anywhere || climb_anywhere)"
     "Fire Temple Tower After Flare Dancer Staircase Upper": "small_keys_fire_mq(5)"
-
-
+  events:
+    FIRE_MQ_TOWER_AFTER_FLARE_DANCER_CRYSTAL_SWITCH_FROM_BELOW: "event(FIRE_MQ_TOWER_TOP_HAMMER_SWITCH_BEFORE_STAIRCASE) && (has_ranged_weapon || has_bombchu)"
 "Fire Temple Tower After Flare Dancer Staircase Upper":
   dungeon: Fire
   exits:
@@ -439,19 +434,11 @@
     FIRE_MQ_STAIRCASE_LOWERED: "can_hammer"
   locations:
     "MQ Fire Temple Wonder Item Staircase": "event(FIRE_MQ_STAIRCASE_LOWERED) && can_hookshot"
-
-
 "Fire Temple Tower After Flare Dancer Staircase Lower Alcove":
   dungeon: Fire
   exits:
     "Fire Temple Tower After Flare Dancer Staircase Upper": "event(FIRE_MQ_STAIRCASE_LOWERED)"
     "Fire Temple Fire Walls Room High Area After Staircase": "event(FIRE_MQ_STAIRCASE_LOWERED) && can_hookshot"
-
-
-
-
-
-
 "Fire Temple Fire Walls Room High Area After Staircase":
   dungeon: Fire
   exits:
