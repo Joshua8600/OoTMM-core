@@ -323,10 +323,6 @@
   exits:
     "Fire Temple 3F Lava Room Ledge Before Fire Walls Hallway": "true"
     "Fire Temple Fire Walls Room Pillar Side": "true"
-    
-
-
-
 "Fire Temple Fire Walls Room Pillar Side":
   dungeon: Fire
   exits:
@@ -335,13 +331,59 @@
     "Fire Temple Pre-Boss Room Boss Door Platform": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (is_adult || has_hover_boots || hookshot_anywhere || climb_anywhere)"
     "Fire Temple Pre-Boss Room Cell Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_hookshot || climb_anywhere)"
     "Fire Temple Pre-Boss Room Tall Ledges Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_longshot || hookshot_anywhere || climb_anywhere)"
-    "Fire Temple Fire Walls Room Side Room": "
-    "Fire Temple Fire Walls Middle Hallway Upper":
-    "Fire Temple Fire Walls Middle Hallway Lower":
-    "Fire Temple Fire Walls Room Large Fire Wall Side":
-    "Fire Temple Fire Walls Room After Large Fire Wall":
+    "Fire Temple Fire Walls Room Outside Side Room": "has_hover_boots || can_play_time || hookshot_anywhere || climb_anywhere"
+    "Fire Temple Fire Walls Middle Hallway Lower": "true"
+    "Fire Temple Fire Walls Middle Hallway Upper": "true"
+    "Fire Temple Fire Walls Room Large Fire Wall Side": "hookshot_anywhere || climb_anywhere"
   events:
     FIRE_MQ_PRE_BOSS_PILLAR: "can_hammer"
+  locations:
+    "MQ Fire Temple Pot Fire Maze Room Left 1": "true"
+    "MQ Fire Temple Pot Fire Maze Room Left 2": "true"
+"Fire Temple Fire Walls Room Outside Side Room"
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Room Side Room": "true"
+    "Fire Temple Fire Walls Room Pillar Side": "(is_adult && can_play_time) || hookshot_anywhere || climb_anywhere"
+    "Fire Temple Fire Walls Room Large Fire Wall Side": "hookshot_anywhere || climb_anywhere"
+    "Fire Temple Fire Walls Room Area After Large Fire Wall": "hookshot_anywhere || climb_anywhere"
+  locations:
+    "MQ Fire Temple Pot Fire Maze Room Right 1": "true"
+    "MQ Fire Temple Pot Fire Maze Room Right 2": "true"
+"Fire Temple Fire Walls Room Side Room"
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Room Outside Side Room": "true"
+  locations:
+    "MQ Fire Temple GS Fire Walls Side Room": "gs && can_damage_skull"
+"Fire Temple Fire Walls Middle Hallway Lower":
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Room Pillar Side": "true"
+    "Fire Temple Fire Walls Room Large Fire Wall Side": "event(FIRE_MQ_FIRE_WALLS_MIDDLE_ROOM_RUSTY_SWITCH)"
+    "Fire Temple Fire Walls Middle Hallway Upper": "hookshot_anywhere || climb_anywhere"
+  locations:
+    "MQ Fire Temple GS Fire Walls Middle": "gs && has_explosives"
+"Fire Temple Fire Walls Middle Hallway Upper":
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Middle Hallway Lower": "hookshot_anywhere || climb_anywhere"
+    "Fire Temple Fire Walls Room Pillar Side": "true"
+  events:
+    FIRE_MQ_FIRE_WALLS_MIDDLE_ROOM_RUSTY_SWITCH: "can_hammer && (can_hookshot || climb_anywhere)"
+
+
+
+"Fire Temple Fire Walls Room Large Fire Wall Side":
+  dungeon: Fire
+  exits:
+    "Fire Temple Fire Walls Room Pillar Side": "hookshot_anywhere || climb_anywhere"
+    "Fire Temple Fire Walls Room Outside Side Room": "hookshot_anywhere || climb_anywhere"
+    "Fire Temple Fire Walls Middle Hallway Lower": "true"
+    "Fire Temple Fire Walls Room Area After Large Fire Wall": "
+  locations:
+    "MQ Fire Temple Pot Fire Maze Room Right 1": "can_boomerang"
+    "MQ Fire Temple Pot Fire Maze Room Right 2": "can_boomerang"
 
 
 
@@ -353,12 +395,7 @@
 
   locations:
     "MQ Fire Temple Flare Dancer Key": "soul_enemy(SOUL_ENEMY_FLARE_DANCER)"
-    "MQ Fire Temple GS Fire Walls Side Room": "gs && (has_hover_boots || can_play_time)"
-    "MQ Fire Temple GS Fire Walls Middle": "gs && has_explosives"
-    "MQ Fire Temple Pot Fire Maze Room Left 1": "true"
-    "MQ Fire Temple Pot Fire Maze Room Left 2": "true"
-    "MQ Fire Temple Pot Fire Maze Room Right 1": "has_hover_boots || can_play_time"
-    "MQ Fire Temple Pot Fire Maze Room Right 2": "has_hover_boots || can_play_time"
+    
     "MQ Fire Temple Pot Fire Maze Room Back Right 1": "can_hookshot && can_hammer"
     "MQ Fire Temple Pot Fire Maze Room Back Right 2": "can_hookshot && can_hammer"
     "MQ Fire Temple Wonder Item Fire Maze": "can_hookshot && can_hammer"
