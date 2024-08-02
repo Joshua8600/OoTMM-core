@@ -2,6 +2,19 @@
   dungeon: Shadow
   exits:
     "Graveyard Upper": "true"
+    "Shadow Temple Entrance": "true"
+
+
+"Shadow Temple Entrance":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple": "true"
+    "Shadow Temple Truth Spinner":
+
+
+
+
+    
     "Shadow Temple Truth Spinner": "has_lens && (can_hookshot || has_hover_boots || glitch_megaflip)"
 "Shadow Temple Truth Spinner":
   dungeon: Shadow
