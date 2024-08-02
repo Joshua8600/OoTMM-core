@@ -6,7 +6,7 @@
 "Fire Temple Lower Lobby":
   dungeon: Fire
   exits:
-    "Fire Temple": "true
+    "Fire Temple": "true"
     "Fire Temple Upper Lobby": "is_adult || (is_child && (climb_anywhere || hookshot_anywhere))"
     "Fire Temple Hammer Loop Enemies Room": "small_keys_fire_mq(5)"
     "Fire Temple Hammer Loop Goron Cell Like Like Side": "true"
