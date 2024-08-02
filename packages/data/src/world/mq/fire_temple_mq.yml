@@ -142,7 +142,7 @@
   exits:
     "Fire Temple 1F Lava Bridge Room Main": "true"
   events:
-    FIRE_MQ_LAVA_BRIDGE_ROOM_TORCHES: "has_fire"
+    FIRE_MQ_LAVA_BRIDGE_ROOM_TORCHES: "has_fire" #Might need to separate intwo two events when action shuffle happens.
 
 
 
