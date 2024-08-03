@@ -233,12 +233,12 @@
   dungeon: DT
   exits:
     "MQ Deku Tree Gravestone Room Door to Room After Water Room": "true"
-    "MQ Deku Tree Back Side Room Entry Door": "can_use_sticks || has_fire"
-    "MQ Deku Tree Basement Ledge": "is_child && (can_use_sticks || can_use_din)"
+    "MQ Deku Tree Back Side Room Entry Door": "event(DEKU_MQ_GRAVE_ROOM_WEBS)"
+    "MQ Deku Tree Basement Ledge": "is_child && event(DEKU_MQ_GRAVE_ROOM_WEBS)"
   events:
     STICKS: "can_kill_baba_sticks"
     NUTS: "can_kill_baba_nuts"
-    #DEKU_MQ_GRAVE_ROOM_
+    DEKU_MQ_GRAVE_ROOM_WEBS: "can_use_sticks || has_fire || can_use_bow" #Bow works as both child and adult, but the one to the back room can be a precise shot.
   locations:
     "MQ Deku Tree GS Song of Time Blocks": "gs && ((can_play_time && can_collect_distance) || can_longshot)"
     "MQ Deku Tree Grass Gravestone Room 1": "can_cut_grass"
