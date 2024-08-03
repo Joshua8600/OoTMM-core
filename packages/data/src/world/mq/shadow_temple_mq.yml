@@ -8,21 +8,15 @@
   exits:
     "Shadow Temple": "true"
     "Shadow Temple Truth Spinner": "has_lens && (can_hookshot || has_hover_boots || glitch_megaflip || climb_anywhere)"
-
-
-
-
-  
 "Shadow Temple Truth Spinner":
   dungeon: Shadow
   exits:
     "Shadow Temple Entrance": "has_lens && (can_hookshot || has_hover_boots || glitch_megaflip || climb_anywhere)"
-
-
-    
-    "Shadow Temple First Locked Door": "has_explosives && small_keys_shadow(6)"
-    "Shadow Temple First Beamos": "has_fire_arrows || has_hover_boots || glitch_megaflip"
+    "Shadow Temple Textured Maze First Half": "has_lens && has_explosives && small_keys_shadow(6)"
+    "Shadow Temple First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER) && (event(SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM) || has_hover_boots || hookshot_anywhere || glitch_megaflip)"
   events:
+    SHADOW_MQ_TRUTH_SPINNER: "has_lens"
+    SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "has_fire_arrows"
     ARROWS: "true"
     BOMBS_OR_BOMBCHU: "true"
     MAGIC: "true"
@@ -35,22 +29,60 @@
 
 
     
-"Shadow Temple First Locked Door":
+"Shadow Temple Textured Maze First Half":
   dungeon: Shadow
+  exits:
+    "Shadow Temple Truth Spinner": "has_lens && has_explosives && small_keys_shadow(6)"
+    "Shadow Temple Textured Maze First Half Side Room": "has_lens"
+    "Shadow Temple Textured Maze Second Half": "has_lens && can_play_time"
   locations:
-    "MQ Shadow Temple Compass Chest": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
-    "MQ Shadow Temple Hover Boots Chest": "can_play_time && can_hit_triggers_distance && soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
     "MQ Shadow Temple Pot Entrance Maze 1": "true"
     "MQ Shadow Temple Pot Entrance Maze 2": "true"
     "MQ Shadow Temple Flying Pot Entrance Maze 1": "soul_flying_pot"
     "MQ Shadow Temple Flying Pot Entrance Maze 2": "soul_flying_pot"
+
+
+"Shadow Temple Textured Maze First Half Side Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Textured Maze First Half":
+  events:
+  locations:
+
+
+
+"Shadow Temple Textured Maze Second Half":
+  dungeon: Shadow
+  exits:
+    
+
+
+
+
+
+  
+  locations:
+    "MQ Shadow Temple Compass Chest": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
+    "MQ Shadow Temple Hover Boots Chest": "can_play_time && can_hit_triggers_distance && soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
     "MQ Shadow Temple Flying Pot Entrance Maze 3": "soul_flying_pot && can_play_time"
     "MQ Shadow Temple Flying Pot Entrance Maze 4": "soul_flying_pot && can_play_time"
     "MQ Shadow Temple Pot Compass Room 1": "has_weapon || can_use_sticks || can_use_din || can_play_sun" #It would be too unfair to get around the Redeads otherwise
     "MQ Shadow Temple Pot Compass Room 2": "has_weapon || can_use_sticks || can_use_din || can_play_sun" #It would be too unfair to get around the Redeads otherwise
-"Shadow Temple First Beamos":
+
+
+"Shadow Temple First Beamos Fork":
   dungeon: Shadow
   exits:
+    "Shadow Temple Truth Spinner": "event(SHADOW_MQ_TRUTH_SPINNER) && (event(SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM) || has_hover_boots || hookshot_anywhere || glitch_megaflip)"
+  events:
+    #SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "has_fire"
+    
+    
+    
+    
+    
+    
+    
     "Shadow Temple Upper Huge Pit": "has_explosives && small_keys_shadow(2)"
     "Shadow Temple Scythe Room": "true"
   locations:
