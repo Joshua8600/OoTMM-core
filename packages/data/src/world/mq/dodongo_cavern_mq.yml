@@ -158,8 +158,8 @@
 "MQ Dodongo Cavern Upper Lizalfos":
   dungeon: DC
   exits:
-    "MQ Dodongo Cavern Room Before Upper Lizalfos": "event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_UPPER) || (event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_LOWER)"
-    "MQ Dodongo Cavern Room After Upper Lizalfos": "event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_UPPER) || (event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_LOWER)"
+    "MQ Dodongo Cavern Room Before Upper Lizalfos": "event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_UPPER) || event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_LOWER)"
+    "MQ Dodongo Cavern Room After Upper Lizalfos": "event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_UPPER) || event(MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_LOWER)"
     #"MQ Dodongo Cavern Lower Lizalfos": "has_explosives_or_hammer || hookshot_anywhere || climb_anywhere"
   events:
     MQ_DC_UPPER_LIZALFOS_CLEAR_FROM_UPPER: "soul_lizalfos_dinalfos && (can_use_sticks || has_weapon || can_use_slingshot)"
