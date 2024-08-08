@@ -11,7 +11,7 @@
 "MQ Dodongo Cavern Main Room Lower":
   dungeon: DC
   exits:
-    "MQ Dodongo Cavern Entrance": "has_explosives_or_hammer || (is_adult && has_bombflowers) has_blue_fire_arrows_mudwall" #We need to see if you can go backwards without breaking it, like other mudwalls.
+    "MQ Dodongo Cavern Entrance": "has_explosives_or_hammer || (is_adult && has_bombflowers) || has_blue_fire_arrows_mudwall" #We need to see if you can go backwards without breaking it, like other mudwalls.
     "MQ Dodongo Cavern Main Room Inside Skull": "event(MQ_DC_OPEN_SKULL)"
     "MQ Dodongo Cavern Staircase Room Lower": "event(MQ_DC_STAIRCASE_SWITCH)"
     "MQ Dodongo Cavern Main Room Upper Skull Side": "event(MQ_DC_PILLAR_RAISE) || climb_anywhere || hookshot_anywhere" #You can use hook anywhere to get on top of the skull and again to get on the bridge without longshot.
