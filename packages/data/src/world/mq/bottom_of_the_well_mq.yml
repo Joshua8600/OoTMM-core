@@ -25,7 +25,7 @@
   exits:
     "MQ Bottom of the Well Entrance": "is_child"
     "MQ Bottom of the Well Main Room Center": "event(BOTW_MQ_CENTER_GATES_LOWERED)"
-    "MQ Bottom of the Well Main Room Center Switch Corner": "has_explosives_or_hammer"
+    "MQ Bottom of the Well Main Room Center Switch Corner": "has_explosives_or_hammer || climb_anywhere"
     "MQ Bottom of the Well Basement": "true"
     "MQ Bottom of the Well Coffin Room": "(event(BOTW_MQ_DRAIN_WATER) || can_dive_small) && small_keys_botw(2)"
     "MQ Bottom of the Well Before Dead Hand": "event(BOTW_MQ_DRAIN_WATER) && is_child"
