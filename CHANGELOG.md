@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - Internal names of the music tracks, for an easier sorting in the cosmetics log.
 - Adult can now jump from the windmill to the back of Kakariko within logic.
 - It is now logical for adult to cross the Gerudo Fortress gate in reverse by getting captured.
+- The trick for Blue Fire Arrows on mudwalls is now logical for the ones in Goron City.
 
 ### Fixed
 
@@ -37,6 +38,8 @@ All notable changes to this project will be documented in this file.
 - Title cards not being displayed on game transitions.
 - MQ Forest Temple freestanding hearts logic issue.
 - The two pots next to the hag's potion shop in Kakariko now check for being in the back.
+- All adult logic now correctly check for some way to do damage.
+- Fixed MQ Spirit Child Hand logic not checking for the Iron Knuckle Soul.
 
 ## [24.1] - 2024-07-11
 
