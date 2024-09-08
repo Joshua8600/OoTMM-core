@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [25.0] - 2024-09-08
+
 ### Added
 
+- D-Pad can now fast pass the transformation mask equip cutscene.
 - Shuffle MM snowballs.
 - Shuffle MM barrels.
 - Shuffle the MM potted plants, two checks each, one is a pot, one is grass.
@@ -20,6 +23,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Force Hint Importance off if playing No Logic.
 - Tingle no longer has extra text boxes when you first talk to him during a cycle.
 - Adult Malon in Lon Lon Ranch no longer has her slow text when you first talk to her.
 - Lake Hylia Owl no longer has its slow text when you first talk to it.
@@ -30,6 +34,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Issue with Spring not applying properly with ER.
 - Logic issue with Romani Ranch Stables access.
 - Logic issue with Kafei's check in seeds without shuffled interiors.
 - Starting age no longer defaults to either child or adult after generating a random starting age seed.
@@ -1335,7 +1340,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v24.1...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v25.0...HEAD
+[25.0]: https://github.com/OoTMM/OoTMM/compare/v24.1...v25.0
 [24.1]: https://github.com/OoTMM/OoTMM/compare/v24.0...v24.1
 [24.0]: https://github.com/OoTMM/OoTMM/compare/v23.1...v24.0
 [23.1]: https://github.com/OoTMM/OoTMM/compare/v23.0...v23.1
