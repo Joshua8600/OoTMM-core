@@ -837,7 +837,7 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
     {
         if (Config_Flag(CFG_OOT_BLUE_FIRE_ARROWS))
         {
-            itemName = "the " TEXT_C1 "Blue Fire Arrows";
+            itemName = "the " TEXT_C1 "Blue Fire Ay-Ay-Row";
             ambiguous = 0;
         }
     }
@@ -846,7 +846,7 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
     {
         if (Config_Flag(CFG_OOT_SUNLIGHT_ARROWS))
         {
-            itemName = "the " TEXT_C1 "Sunlight Arrows";
+            itemName = "the " TEXT_C1 "Sunlight Ay-Ay-Row";
             ambiguous = 0;
         }
     }
@@ -854,7 +854,7 @@ void comboTextAppendItemNameEx(char** b, s16 gi, int flags, int importance)
     if (gi == GI_MM_BOMBER_NOTEBOOK)
     {
         if(Config_Flag(CFG_MENU_NOTEBOOK))
-            itemName = "the " TEXT_C1 "Bombers' Tracker";
+            itemName = "the " TEXT_C1 "Diary of the Delightful Children From Down The Lane";
     }
 
     tmp = nameOverride(gi);
