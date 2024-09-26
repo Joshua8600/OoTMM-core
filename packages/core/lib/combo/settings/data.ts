@@ -234,6 +234,7 @@ export const SETTINGS = [{
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Dungeon Small Keys can only be found in their own dungeons' },
     { value: 'anywhere', name: 'Anywhere', description: 'Dungeon Small Keys can be found anywhere' },
     { value: 'removed', name: 'Removed', description: 'Small keys are removed and small key doors are unlocked' },
+    { value: 'vanilla', name: 'Vanilla', description: 'Dungeon small keys are placed in their original chests', cond: (s: any) => s.smallKeyRingOot.type === 'none' },
   ],
   cond: hasOoT,
   default: 'ownDungeon'
@@ -247,6 +248,7 @@ export const SETTINGS = [{
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Dungeon Small Keys can only be found in their own dungeons' },
     { value: 'anywhere', name: 'Anywhere', description: 'Dungeon Small Keys can be found anywhere' },
     { value: 'removed', name: 'Removed', description: 'Small keys are removed and small key doors are unlocked' },
+    { value: 'vanilla', name: 'Vanilla', description: 'Dungeon small keys are placed in their original chests', cond: (s: any) => s.smallKeyRingMm.type === 'none' },
   ],
   cond: hasMM,
   default: 'ownDungeon'
@@ -286,6 +288,7 @@ export const SETTINGS = [{
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Boss Keys can only be in their own dungeons' },
     { value: 'anywhere', name: 'Anywhere', description: 'Boss Keys can be found anywhere' },
     { value: 'removed', name: 'Removed', description: 'Boss Keys are removed and boss doors are unlocked' },
+    { value: 'vanilla', name: 'Vanilla', description: 'Boss Keys are placed in their original chest' },
   ],
   cond: hasOoT,
   default: 'ownDungeon'
@@ -299,6 +302,7 @@ export const SETTINGS = [{
     { value: 'ownDungeon', name: 'Own Dungeon', description: 'Boss Keys can only be in their own dungeons' },
     { value: 'anywhere', name: 'Anywhere', description: 'Boss Keys can be found anywhere' },
     { value: 'removed', name: 'Removed', description: 'Boss Keys are removed and boss doors are unlocked' },
+    { value: 'vanilla', name: 'Vanilla', description: 'Boss Keys are placed in their original chest' },
   ],
   cond: hasMM,
   default: 'ownDungeon'
@@ -522,42 +526,72 @@ export const SETTINGS = [{
   key: 'shufflePotsOot',
   name: 'Pots Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the pots are shuffled (OoT).',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasOoT,
-  default: false
+  default: 'none'
 }, {
   key: 'shufflePotsMm',
   name: 'Pots Shuffle (MM)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the pots are shuffled (MM).',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasMM,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleCratesOot',
   name: 'Crates Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the crates are shuffled (OoT).',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasOoT,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleCratesMm',
   name: 'Crates Shuffle (MM)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the crates are shuffled (MM).',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasMM,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleBarrelsMm',
   name: 'Barrels Shuffle (MM)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the barrels are shuffled (MM).',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasMM,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleHivesOot',
   name: 'Hives Shuffle (OoT)',
@@ -578,42 +612,80 @@ export const SETTINGS = [{
   key: 'shuffleGrassOot',
   name: 'Grass Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the grass is shuffled (OoT)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasOoT,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleGrassMm',
   name: 'Grass Shuffle (MM)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the grass is shuffled (MM)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
+  cond: hasMM,
+  default: 'none'
+}, {
+  key: 'shuffleTFGrassMm',
+  name: 'Termina Field Grass Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the Termina Field (grottos do not count towards this) grass is shuffled (MM)',
   cond: hasMM,
   default: false
 }, {
   key: 'shuffleFreeRupeesOot',
   name: 'Freestanding Rupees Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the freestanding rupees are shuffled (OoT)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasOoT,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleFreeRupeesMm',
   name: 'Freestanding Rupees Shuffle (MM)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the freestanding rupees are shuffled (MM)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasMM,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleFreeHeartsOot',
   name: 'Freestanding Hearts Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the freestanding hearts are shuffled (OoT)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasOoT,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleFreeHeartsMm',
   name: 'Freestanding Hearts Shuffle (MM)',
@@ -626,10 +698,16 @@ export const SETTINGS = [{
   key: 'shuffleWonderItemsOot',
   name: 'Wonder Items Shuffle (OoT)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the wonder items are shuffled (OoT)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasOoT,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleWonderItemsMm',
   name: 'Wonder Items Shuffle (MM)',
@@ -642,10 +720,16 @@ export const SETTINGS = [{
   key: 'shuffleSnowballsMm',
   name: 'Snowball Shuffle (MM)',
   category: 'main.shuffle',
-  type: 'boolean',
+  type: 'enum',
   description: 'Controls whether or not the snowballs are shuffled (MM)',
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'all', name: 'All' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
+  ],
   cond: hasMM,
-  default: false
+  default: 'none'
 }, {
   key: 'shuffleOcarinasOot',
   name: 'Ocarina Shuffle (OoT)',
@@ -2329,9 +2413,15 @@ export const SETTINGS = [{
   key: 'erSpawns',
   name: 'Spawn Shuffle',
   category: 'entrances',
-  type: 'boolean',
+  type: 'enum',
   description: 'Shuffle the starting positions of the player.',
-  default: false,
+  values: [
+    { value: 'none', name: 'None' },
+    { value: 'child', name: 'Child Only' },
+    { value: 'adult', name: 'Adult Only' },
+    { value: 'both', name: 'Both' },
+  ],
+  default: 'none',
   cond: hasOoT,
 }, {
   key: 'erMajorDungeons',
@@ -2384,7 +2474,8 @@ export const SETTINGS = [{
   category: 'entrances',
   type: 'boolean',
   default: false,
-  cond: (x: any) => hasMM(x) && x.erDungeons !== 'none'
+  description: 'Shuffles the main Pirate Fortress entrance among dungeons. Option disabled if the other entrances are shuffled among the overworld.',
+  cond: (x: any) => hasMM(x) && x.erDungeons !== 'none' && ((x.erPiratesWorld && x.erOverworld === 'none') || !x.erPiratesWorld)
 }, {
   key: 'erBeneathWell',
   name: 'Shuffle Beneath The Well with Dungeons',
@@ -2448,6 +2539,14 @@ export const SETTINGS = [{
   default: 'none',
   description: 'Shuffle every overworld entrance.',
 }, {
+  key: 'erPiratesWorld',
+  name: 'Shuffle Pirate Fortress Entrances',
+  category: 'entrances',
+  type: 'boolean',
+  default: false,
+  description: 'Shuffle some entrances within Pirate\'s Fortress, including the main entrance if Overworld ER is enabled.<br>Shuffle the Sewers exit door if Extra Interiors are enabled.',
+  cond: (x: any) => hasMM(x) && (x.erOverworld !== 'none' || x.erIndoorsExtra)
+}, {
   key: 'erIndoors',
   name: 'Shuffle Interiors',
   category: 'entrances',
@@ -2472,7 +2571,7 @@ export const SETTINGS = [{
   name: 'Shuffle Extra Interiors',
   category: 'entrances',
   type: 'boolean',
-  description: 'Shuffle additional, more complex interiors. These include:<br>- OOT: Link\'s House, Temple of Time, Windmill, Kak Potion Shop<br>- MM: Stock Pot Inn, Astral Observatory/Bombers\' Hideout, Swamp Tourist Hut, Ikana Spring Cave, Music Box House',
+  description: 'Shuffle additional, more complex interiors. These include:<br>- OOT: Link\'s House, Temple of Time, Windmill, Kak Potion Shop<br>- MM: Stock Pot Inn, Astral Observatory/Bombers\' Hideout, Swamp Tourist Hut, Ikana Spring Cave, Music Box House<br>- Pirate\'s Fortress Sewers Exit is included if Shuffle Pirate Fortress Entrances is enabled',
   default: false,
   cond: (x: any) => x.erIndoors !== 'none'
 }, {

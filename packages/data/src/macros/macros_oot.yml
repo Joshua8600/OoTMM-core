@@ -188,13 +188,13 @@
 "can_ride_bean(x)": "is_adult && (setting(ootPreplantedBeans) || event(x))"
 "can_damage": "true"
 "can_damage_skull": "true"
-"can_cut_grass_no_c_button": "has_weapon || has_strength_raw(1) || can_use_mask_blast"
+"can_cut_grass_no_c_button": "can_use_sword || has_strength_raw(1) || can_use_mask_blast"
 "can_cut_grass": "true"
 "can_cut_grass_for_bugs": "true"
 "can_kill_baba_sticks": "soul_deku_baba"
 "can_kill_baba_nuts": "soul_deku_baba"
 "can_hit_scrub": "true"
-"can_rescue_carpenter": "small_keys_hideout_all && (has_weapon || ((can_boomerang || has_nuts) && can_use_sticks)) && soul_carpenters"
+"can_rescue_carpenter": "small_keys_hideout_all && (can_use_sword || ((can_boomerang || has_nuts) && can_use_sticks)) && soul_carpenters && soul_thief_fighter"
 "carpenters_rescued": "setting(gerudoFortress, open) || (event(CARPENTER_1) && (setting(gerudoFortress, single) || (event(CARPENTER_2) && event(CARPENTER_3) && event(CARPENTER_4))))"
 
 #Trick Macros

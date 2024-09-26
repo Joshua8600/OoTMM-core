@@ -1,7 +1,7 @@
 "Bottom of the Well":
   dungeon: BotW
   exits:
-    "Kakariko": "true"
+    "Kakariko Well": "true"
     "MQ Bottom of the Well Entrance": "true"
 "MQ Bottom of the Well Entrance":
   dungeon: BotW
