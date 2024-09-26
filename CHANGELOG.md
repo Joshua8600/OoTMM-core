@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Vanilla Small and Boss Keys setting.
+- Stone of Agony in MM only mode.
+- Skipped the camera pan out over Ganon's Castle being demolished.
+- New entrance option for Pirate Fortress that includes all the currently shuffled entrances.
+- Gerudo souls
+- Trick to defeat Twinmold only using arrows.
+
+### Changed
+
+- Grass/Barrels/Pots/Snowballs/Hearts/Rupees/Wonder Items settings were broken up by All/None/Overworld/Dungeons.
+- Moon Crash cutscene is skipped in Cycle behavior.
+- Hint section now shows the hint importance.
+- Hint section format in Spoiler log.
+- Default hint distribution for crosskeys preset.
+- Logic now accounts for appearing at the well's bottom in Kakariko when coming out of it.
+- Logic now accounts for appearing underwater in Zora's Domain when coming from the shortcut.
+- Pirate Fortress Sewers Exit door now requires the Pirate Fortress Entrances option to be shuffled.
+- Pirate Fortress Sewers Gate and interior passages now require the Pirate Fortress Entrances option to be shuffled.
+- Pirate Fortress will no longer be considered a dungeon if its entrances are shuffled among the overworld.
+
+### Fixed
+
+- Pre-Activated Owl Statues able to create unbeatable seeds.
+- Unshare the flags between late ReDeads and the First Scythe Rupee Puzzle in Shadow Temple (Vanilla + MQ).
+- Logic no longer thinks you can swap ages in the Deku Theater.
+- Logic now accounts for the Hylian Guard Soul for the Keaton Mask sale in Kakariko.
+
 ## [25.0] - 2024-09-08
 
 ### Added

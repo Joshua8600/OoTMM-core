@@ -1054,6 +1054,7 @@
     "Lost Woods Rupee Boulder": "has_explosives_or_hammer"
 "Deku Theater":
   region: ENTRANCE
+  age_change: false
   exits:
     "Lost Woods Deep": "true"
   locations:
@@ -1143,7 +1144,7 @@
     "Hyrule Field": "true"
     "Kakariko Trail Start": "setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN) || is_adult || climb_anywhere || hookshot_anywhere"
     "Graveyard": "true"
-    "Bottom of the Well": "((setting(openDungeonsOot, BotW) || event(WELL_DRAIN)) && cond(setting(openDungeonsOot, wellAdult), true, is_child)) || is_child || (time_travel_at_will && trick(OOT_WELL_ADULT_TT))"
+    "Kakariko Well": "is_child || is_adult || has_iron_boots || longshot_anywhere || event(WELL_DRAIN) || setting(openDungeonsOot, BotW)"
     "Skulltula House": "true"
     "Shooting Gallery Adult": "(is_adult && is_day) || (time_travel_at_will && trick(OOT_ADULT_GALLERY_TT))"
     "Kakariko Balcony": "(is_child && is_day) || (is_adult && trick(OOT_PASS_COLLISION)) || climb_anywhere"
@@ -1161,7 +1162,7 @@
     "Kakariko Anju Cojiro": "event(TALON_AWAKE) && is_day && soul_anju"
     "Kakariko Song Shadow": "is_adult && soul_npc(SOUL_NPC_SHEIK) && has(MEDALLION_FOREST) && has(MEDALLION_FIRE) && has(MEDALLION_WATER)"
     "Kakariko Man on Roof": "(can_hookshot || trick(OOT_MAN_ON_ROOF) || climb_anywhere) && soul_rooftop_man"
-    "Kakariko Sell Keaton Mask": "is_child && (setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN)) && has_mask_keaton"
+    "Kakariko Sell Keaton Mask": "soul_npc(SOUL_NPC_HYLIAN_GUARD) && is_child && (setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN)) && has_mask_keaton"
     "Kakariko GS Shooting Gallery": "gs_night && is_child"
     "Kakariko GS Tree": "gs_night && is_child"
     "Kakariko GS House of Skulltula": "gs_night && is_child"
@@ -1232,6 +1233,11 @@
     "Kakariko Crate Adult Back 2": "is_adult"
     "Kakariko Crate Adult Back 3": "is_adult"
     "Kakariko Crate Adult Back 4": "is_adult"
+"Kakariko Well":
+  region: KAKARIKO
+  exits:
+    "Kakariko": "true"
+    "Bottom of the Well": "is_child || setting(openDungeonsOot, wellAdult) || (time_travel_at_will && trick(OOT_WELL_ADULT_TT))"
 "Kakariko Bazaar":
   region: ENTRANCE
   exits:
@@ -1798,7 +1804,7 @@
   region: ZORA_DOMAIN
   exits:
     "Zora River Behind Falls": "true"
-    "Lake Hylia": "is_child && (can_dive_small || longshot_anywhere || (trick(OOT_LAKE_SHORTCUT) && hookshot_anywhere))"
+    "Zora Domain Shortcut": "is_child && (can_dive_small || longshot_anywhere || (trick(OOT_LAKE_SHORTCUT) && hookshot_anywhere))"
     "Zora Domain Back": "king_zora_moved || (is_adult && trick(OOT_KZ_SKIP)) || climb_anywhere || hookshot_anywhere"
     "Zora Shop": "is_child || has_blue_fire"
     "Zora Domain Grotto": "hidden_grotto_storms"
@@ -1828,6 +1834,16 @@
     "Zora Domain Hive Front 2": "is_child && break_hive_high"
   gossip:
     "Zora Domain Gossip": "true"
+"Zora Domain Underwater":
+  region: ZORA_DOMAIN
+  exits:
+    "Zora Domain": "true"
+    "Zora Domain Shortcut": "has_iron_boots"
+"Zora Domain Shortcut":
+  region: ZORA_DOMAIN
+  exits:
+    "Zora Domain Underwater": "true"
+    "Lake Hylia": "true"
 "Zora Domain Back":
   region: ZORA_DOMAIN
   exits:
@@ -1868,7 +1884,7 @@
   exits:
     "Hyrule Field": "true"
     "Hyrule Field Drawbridge": "is_child"
-    "Zora Domain": "(is_child && (can_dive_small || longshot_anywhere || (trick(OOT_LAKE_SHORTCUT) && hookshot_anywhere))) || time_travel_at_will || (is_adult && setting(openZdShortcut))"
+    "Zora Domain Shortcut": "(is_child && (can_dive_small || longshot_anywhere || (trick(OOT_LAKE_SHORTCUT) && hookshot_anywhere))) || time_travel_at_will || (is_adult && setting(openZdShortcut))"
     "Laboratory": "true"
     "Water Temple": "(has_iron_boots && has_tunic_zora && (can_hookshot || setting(openDungeonsOot, Water))) || (trick(OOT_WATER_GOLD_SCALE) && is_adult && (can_longshot || setting(openDungeonsOot, Water)) && has_scale_raw(2))"
     "Fishing Pond": "is_child || event(WATER_TEMPLE_CLEARED) || (is_adult && scarecrow_hookshot) || can_ride_bean(BEAN_LAKE_HYLIA) || hookshot_anywhere || climb_anywhere || time_travel_at_will"
@@ -2297,17 +2313,17 @@
     "Gerudo Fortress Carpenter 1 Left": "true"
     "Gerudo Fortress Carpenter 1 Right": "true"
     "Gerudo Fortress Kitchen Tunnel End": "true"
-    "Gerudo Fortress Carpenter 2 Bottom": "true"
+    "Gerudo Fortress Carpenter 4 Bottom": "true"
     "Gerudo Valley After Bridge": "true"
     "Fortress Near Wasteland": "event(OPEN_FORTRESS_GATE) || climb_anywhere || hookshot_anywhere"
-    "Gerudo Training Grounds": "has(GERUDO_CARD) && can_use_wallet(1) && (is_adult || (time_travel_at_will && trick(OOT_GTG_CHILD_TT)))"
+    "Gerudo Training Grounds": "soul_thief_guard && has(GERUDO_CARD) && can_use_wallet(1) && (is_adult || (time_travel_at_will && trick(OOT_GTG_CHILD_TT)))"
     "Gerudo Fortress Grotto": "is_adult && hidden_grotto_storms"
     "Gerudo Fortress Lower-Right Ledge": "is_child || evade_gerudo"
   events:
-    OPEN_FORTRESS_GATE: "has(GERUDO_CARD) && is_adult"
+    OPEN_FORTRESS_GATE: "soul_thief_guard && has(GERUDO_CARD) && is_adult"
   locations:
-    "Gerudo Fortress Archery Reward 1": "can_ride_epona && can_use_bow && has(GERUDO_CARD) && can_use_wallet(1) && is_day"
-    "Gerudo Fortress Archery Reward 2": "can_ride_epona && can_use_bow && has(GERUDO_CARD) && can_use_wallet(1) && is_day"
+    "Gerudo Fortress Archery Reward 1": "soul_thief_guard && can_ride_epona && can_use_bow && has(GERUDO_CARD) && can_use_wallet(1) && is_day"
+    "Gerudo Fortress Archery Reward 2": "soul_thief_guard && can_ride_epona && can_use_bow && has(GERUDO_CARD) && can_use_wallet(1) && is_day"
     "Gerudo Fortress GS Target": "is_adult && gs_night && (has(GERUDO_CARD) || time_travel_at_will) && (can_collect_distance || (climb_anywhere && can_damage))"
     "Gerudo Fortress Crate Main 1": "true"
     "Gerudo Fortress Crate Main 2": "true"
@@ -2394,10 +2410,10 @@
 "Fortress Near Wasteland":
   region: GERUDO_FORTRESS
   exits:
-    "Gerudo Fortress Exterior": "event(OPEN_FORTRESS_GATE) || is_adult || climb_anywhere || hookshot_anywhere"
+    "Gerudo Fortress Exterior": "event(OPEN_FORTRESS_GATE) || (is_adult && soul_thief_guard) || climb_anywhere || hookshot_anywhere"
     "Haunted Wasteland Start": "true"
   events:
-    OPEN_FORTRESS_GATE: "has(GERUDO_CARD) && is_adult"
+    OPEN_FORTRESS_GATE: "soul_thief_guard && has(GERUDO_CARD) && is_adult"
 "Gerudo Fortress Grotto":
   region: ENTRANCE
   age_change: false
