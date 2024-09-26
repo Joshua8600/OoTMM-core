@@ -174,6 +174,7 @@ static const char* const kSoulsEnemyOot[] = {
     "Wolfos",
     "Stalchildren",
     "Guays",
+    "Gerudo Fighters",
 };
 
 static const char* const kSoulsBossOot[] = {
@@ -233,6 +234,7 @@ static const char* const kSoulsNpcOot[] = {
     "Carpet Man",
     "Old Hag",
     "Beggar",
+    "Gerudo Guards",
 };
 
 static const char* const kSoulsEnemyMm[] = {
@@ -282,6 +284,7 @@ static const char* const kSoulsEnemyMm[] = {
     "Snappers",
     "Warts",
     "Captain Keeta",
+    "Pirate Fighters",
 };
 
 static const char* const kSoulsBossMm[] = {
@@ -345,6 +348,7 @@ static const char* const kSoulsNpcMm[] = {
     "Boat Cruise Man",
     "Banker",
     "Moon Children",
+    "Pirate Guards"
 };
 
 static const char* const kSoulsMiscOot[] = {
@@ -953,7 +957,7 @@ static void printDungeonData(GameState_Play* play, int base, int index)
             color4(&cr, &cg, &cb, &ca, kFairyColors[def->id]);
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, cr, cg, cb, ca);
             drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_FAIRY), x + 174.f, y);
-            printNumColored(play, data.fairies, 15, 2, x + 186.f, y, 0);
+            printNumColored(play, data.fairies, gComboConfig.strayFairyRewardCount, 2, x + 186.f, y, 0);
         }
 
         if (Config_Flag(CFG_OOT_SILVER_RUPEE_SHUFFLE) && srBase != -1)

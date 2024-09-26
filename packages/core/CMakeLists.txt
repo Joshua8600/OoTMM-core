@@ -1,12 +1,20 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(ARCH "mips64-ultra-elf")
-set(CMAKE_C_COMPILER "${ARCH}-gcc")
-set(CMAKE_ASM_COMPILER "${ARCH}-gcc")
+set(ARCH_CANDIDATES "mips64-ultra-elf" "mips-linux-gnu" "mips64-linux-gnu" "mipsel-linux-gnu" "mips64el-linux-gnu")
+
+foreach(arch ${ARCH_CANDIDATES})
+  find_program(CMAKE_C_COMPILER "${arch}-gcc")
+  find_program(CMAKE_ASM_COMPILER "${arch}-gcc")
+  if(CMAKE_C_COMPILER AND CMAKE_ASM_COMPILER)
+    set(ARCH "${arch}")
+    message(STATUS "Found compiler for ${ARCH}")
+    break()
+  endif()
+endforeach()
 
 project(OoTMM C ASM)
 
-set(FLAGS "-EB -ffreestanding -nostdlib -fno-PIC -mabi=32 -mno-shared -mno-abicalls -march=vr4300 -mtune=vr4300 -mfix4300 -mfix-r4000 -G 0 -Os -Wall -Werror=implicit-function-declaration -Werror=implicit-int -Wimplicit-fallthrough")
+set(FLAGS "-EB -static -fomit-frame-pointer -ffreestanding -nostdlib -fno-PIC -mabi=32 -mno-shared -mno-abicalls -march=vr4300 -mtune=vr4300 -mfix4300 -mfix-r4000 -G 0 -Os -Wall -Werror=implicit-function-declaration -Werror=implicit-int -Wimplicit-fallthrough -Wl,--build-id=none")
 set(CMAKE_C_FLAGS "${FLAGS} -D_LANGUAGE_C=1")
 set(CMAKE_ASM_FLAGS "${FLAGS}")
 
@@ -143,15 +151,22 @@ build(mm)
 
 add_actor_common(Obj_Kibako   "common/ovl/actors/Obj_Kibako/Obj_Kibako.c")
 add_actor_common(Obj_Kibako2  "common/ovl/actors/Obj_Kibako2/Obj_Kibako2.c")
+add_actor_common(Obj_Comb     "common/ovl/actors/Obj_Comb/Obj_Comb.c")
 
 add_actor(oot Obj_Tsubo   "oot/ovl/actors/Obj_Tsubo/Obj_Tsubo.c")
 add_actor(oot En_Mag      "oot/ovl/actors/En_Mag/En_Mag.c")
 
 add_actor(mm Boss_01            "mm/ovl/actors/Boss_01/Boss_01.c")
 add_actor(mm Obj_Tsubo          "mm/ovl/actors/Obj_Tsubo/Obj_Tsubo.c")
+add_actor(mm Obj_Taru           "mm/ovl/actors/Obj_Taru/Obj_Taru.c")
+add_actor(mm Obj_Flowerpot      "mm/ovl/actors/Obj_Flowerpot/Obj_Flowerpot.c")
+add_actor(mm Obj_Snowball       "mm/ovl/actors/Obj_Snowball/Obj_Snowball.c")
+add_actor(mm Obj_Snowball2      "mm/ovl/actors/Obj_Snowball2/Obj_Snowball2.c")
 add_actor(mm En_Hs              "mm/ovl/actors/En_Hs/En_Hs.c")
+add_actor(mm En_Goroiwa         "mm/ovl/actors/En_Goroiwa/En_Goroiwa.c")
 add_actor(mm En_Nwc             "mm/ovl/actors/En_Nwc/En_Nwc.c")
 add_actor(mm En_Test4           "mm/ovl/actors/En_Test4/En_Test4.c")
+add_actor(mm En_Yb              "mm/ovl/actors/En_Yb/En_Yb.c")
 add_actor(mm Bg_Ingate          "mm/ovl/actors/Bg_Ingate/Bg_Ingate.c")
 add_actor(mm Custom_Magic_Fire  "mm/ovl/actors/Custom_Magic_Fire/Custom_Magic_Fire.c")
 add_actor(mm Custom_Magic_Wind  "mm/ovl/actors/Custom_Magic_Wind/Custom_Magic_Wind.c")

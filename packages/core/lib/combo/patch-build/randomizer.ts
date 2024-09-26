@@ -391,8 +391,11 @@ function checkKey(check: WorldCheck): number {
     break;
   case 'pot':
   case 'crate':
+  case 'barrel':
   case 'grass':
   case 'fairy':
+  case 'snowball':
+  case 'hive':
   case 'rupee':
   case 'heart':
   case 'fairy_spot':
@@ -410,8 +413,11 @@ function checkKey(check: WorldCheck): number {
   case 'sf':
   case 'pot':
   case 'crate':
+  case 'barrel':
   case 'grass':
   case 'fairy':
+  case 'snowball':
+  case 'hive':
   case 'rupee':
   case 'heart':
   case 'fairy_spot':
@@ -906,8 +912,8 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     MM_SOULS_MISC: settings.soulsMiscMm,
     MM_REMOVED_FAIRIES: settings.strayFairyOtherShuffle === 'removed',
     SHARED_SKELETON_KEY: settings.sharedSkeletonKey,
-    OOT_SHUFFLE_GRASS: settings.shuffleGrassOot,
-    MM_SHUFFLE_GRASS: settings.shuffleGrassMm,
+    OOT_SHUFFLE_GRASS: settings.shuffleGrassOot !== 'none',
+    MM_SHUFFLE_GRASS: settings.shuffleGrassMm !== 'none',
     OOT_SHUFFLE_MASK_TRADES: settings.shuffleMaskTrades,
     MENU_NOTEBOOK: settings.menuNotebook,
     OOT_AGELESS_CHILD_TRADE: settings.agelessChildTrade,
@@ -998,6 +1004,17 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     OOT_OPEN_WATER_TEMPLE: world.resolvedFlags.openDungeonsOot.has('Water'),
     OOT_OPEN_WELL: world.resolvedFlags.openDungeonsOot.has('BotW'),
     OOT_SONG_OF_DOUBLE_TIME: settings.songOfDoubleTimeOot,
+    MM_PRE_ACTIVATED_OWL_CT: world.resolvedFlags.mmPreActivatedOwls.has('clocktown'),
+    MM_PRE_ACTIVATED_OWL_MR: world.resolvedFlags.mmPreActivatedOwls.has('milkroad'),
+    MM_PRE_ACTIVATED_OWL_SS: world.resolvedFlags.mmPreActivatedOwls.has('swamp'),
+    MM_PRE_ACTIVATED_OWL_WF: world.resolvedFlags.mmPreActivatedOwls.has('woodfall'),
+    MM_PRE_ACTIVATED_OWL_MV: world.resolvedFlags.mmPreActivatedOwls.has('mountain'),
+    MM_PRE_ACTIVATED_OWL_SH: world.resolvedFlags.mmPreActivatedOwls.has('snowhead'),
+    MM_PRE_ACTIVATED_OWL_GB: world.resolvedFlags.mmPreActivatedOwls.has('greatbay'),
+    MM_PRE_ACTIVATED_OWL_ZC: world.resolvedFlags.mmPreActivatedOwls.has('zoracape'),
+    MM_PRE_ACTIVATED_OWL_IC: world.resolvedFlags.mmPreActivatedOwls.has('canyon'),
+    MM_PRE_ACTIVATED_OWL_ST: world.resolvedFlags.mmPreActivatedOwls.has('tower'),
+    MM_WELL_OPEN: settings.beneathWell === 'open',
   };
 
   for (const v in exprs) {
@@ -1081,6 +1098,7 @@ export const randomizerData = (worldId: number, logic: LogicResult): Buffer => {
   buffers.push(toI8Buffer(logic.hints[worldId].staticHintsImportances));
   buffers.push(zoraSapphireBuffer(worldId, logic));
   buffers.push(randomizerBoss(worldId, logic));
+  buffers.push(toU8Buffer([logic.settings.strayFairyRewardCount]));
   return Buffer.concat(buffers);
 };
 

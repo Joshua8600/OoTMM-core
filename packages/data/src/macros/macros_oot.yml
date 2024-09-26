@@ -102,7 +102,6 @@
 "has_sword_gilded": "has_sword_child(3)"
 "has_sword_master": "starts_with_master_sword || cond(setting(progressiveSwordsOot, progressive), has(SWORD, 2), has(SWORD_MASTER))"
 "has_sword_goron": "cond(setting(progressiveSwordsOot, progressive), cond(starts_with_master_sword, has(SWORD, 2), has(SWORD, 3)), cond(setting(progressiveSwordsOot, goron), has(SWORD_GORON), has(SWORD_KNIFE) || has(SWORD_BIGGORON)))"
-"has_weapon": "can_use_sword"
 "can_use_sword_kokiri": "age_sword_child && has_sword_kokiri"
 "can_use_sword_razor": "age_sword_child && has_sword_razor"
 "can_use_sword_gilded": "age_sword_child && has_sword_gilded"
@@ -160,6 +159,7 @@
 "has_ranged_weapon_child": "can_use_slingshot || can_boomerang"
 "has_ranged_weapon_adult": "can_use_bow || can_hookshot"
 "has_ranged_weapon": "has_ranged_weapon_child || has_ranged_weapon_adult"
+"has_weapon": "can_use_sword"
 "can_collect_distance": "can_hookshot || can_boomerang"
 "scarecrow_hookshot": "has_ocarina && can_hookshot && (event(SCARECROW) || setting(freeScarecrowOot))"
 "scarecrow_longshot": "has_ocarina && can_longshot && (event(SCARECROW) || setting(freeScarecrowOot))"
@@ -170,7 +170,7 @@
 "hidden_grotto_bomb": "stone_of_agony && has_explosives_or_hammer"
 "hidden_grotto_storms": "stone_of_agony && can_play_storms"
 "has_spiritual_stones": "has(STONE_EMERALD) && has(STONE_RUBY) && has(STONE_SAPPHIRE)"
-"can_jump_slash": "has_weapon || can_use_sticks || can_hammer"
+"can_jump_slash": "can_use_sword || can_use_sticks || can_hammer"
 
 # Bottle contents
 "has_bugs": "has_bottle && (renewable(BUG) || event(BUGS))"
@@ -188,13 +188,13 @@
 "can_ride_bean(x)": "is_adult && (setting(ootPreplantedBeans) || event(x))"
 "can_damage": "true"
 "can_damage_skull": "true"
-"can_cut_grass_no_c_button": "has_weapon || has_strength_raw(1) || can_use_mask_blast"
+"can_cut_grass_no_c_button": "can_use_sword || has_strength_raw(1) || can_use_mask_blast"
 "can_cut_grass": "true"
 "can_cut_grass_for_bugs": "true"
 "can_kill_baba_sticks": "soul_deku_baba"
 "can_kill_baba_nuts": "soul_deku_baba"
 "can_hit_scrub": "true"
-"can_rescue_carpenter": "small_keys_hideout_all && (has_weapon || ((can_boomerang || has_nuts) && can_use_sticks)) && soul_carpenters"
+"can_rescue_carpenter": "small_keys_hideout_all && (can_use_sword || ((can_boomerang || has_nuts) && can_use_sticks)) && soul_carpenters && soul_thief_fighter"
 "carpenters_rescued": "setting(gerudoFortress, open) || (event(CARPENTER_1) && (setting(gerudoFortress, single) || (event(CARPENTER_2) && event(CARPENTER_3) && event(CARPENTER_4))))"
 
 #Trick Macros
@@ -299,8 +299,9 @@
 "climb_anywhere": "setting(climbMostSurfacesOot, logical)"
 "hookshot_anywhere": "can_hookshot && setting(hookshotAnywhereOot, logical)"
 "longshot_anywhere": "can_longshot && setting(hookshotAnywhereOot, logical)"
+"break_hive_low": "can_collect_distance || has_bombs || (has_bombchu && trick(OOT_HIVE_BOMBCHU))"
+"break_hive_high": "can_collect_distance || (has_bombchu && trick(OOT_HIVE_BOMBCHU))"
 "evade_gerudo": "true"
-
 
 # Events
 "ganon_trial_light": "!setting(ganonTrials, Light) || event(GANON_TRIAL_LIGHT)"

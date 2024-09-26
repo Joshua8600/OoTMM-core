@@ -129,6 +129,12 @@ void fixupOriginalSceneSetup(void)
         case 0x59: /* Snowhead */
             gSaveContext.nextCutscene = 0xfff0;
             break;
+        case 0x19: /* Path to Mountain Village */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
+        case 0x58: /* Path to Snowhead */
+            gSaveContext.nextCutscene = 0xfff0;
+            break;
         }
     }
 
@@ -646,6 +652,9 @@ void hookPlay_Init(GameState_Play* play)
     MM_SET_EVENT_WEEK(MM_EV(82, 0));
     MM_SET_EVENT_WEEK(MM_EV(82, 1));
 
+    /* Tingle already knows about the player */
+    MM_SET_EVENT_WEEK(EV_MM_WEEK_TINGLE_TALKED);
+
     /* Raise Woodfall Temple with setting enabled */
     if (Config_Flag(CFG_MM_OPEN_WF))
         MM_SET_EVENT_WEEK(EV_MM_WEEK_WOODFALL_TEMPLE_RISE);
@@ -657,9 +666,6 @@ void hookPlay_Init(GameState_Play* play)
     /* Make turtle surface with setting enabled */
     if (Config_Flag(CFG_MM_OPEN_GB))
         MM_SET_EVENT_WEEK(EV_MM_WEEK_GREAT_BAY_TURTLE);
-
-    if (gSave.entrance == ENTR_MM_CLOCK_TOWER || gSave.entrance == ENTR_MM_MOON)
-        gNoTimeFlow = 1;
 
     Play_FixupSpawnTime();
     Play_Init(play);
@@ -678,7 +684,7 @@ void hookPlay_Init(GameState_Play* play)
     {
         if (play->sceneId == SCE_MM_STONE_TOWER_INVERTED)
         {
-            SetSwitchFlag(play, 0x14);
+            Flags_SetSwitch(play, 0x14);
         }
         else if (play->sceneId == SCE_MM_STONE_TOWER)
         {

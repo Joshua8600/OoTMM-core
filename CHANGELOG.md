@@ -6,15 +6,74 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Crates shuffle, for OoT and MM.
-- The boat cruise is now faster if you are not playing the archery.
+- Vanilla Small and Boss Keys setting.
+- Stone of Agony in MM only mode.
+- Skipped the camera pan out over Ganon's Castle being demolished.
+- New entrance option for Pirate Fortress that includes all the currently shuffled entrances.
+- Gerudo souls
+- Trick to defeat Twinmold only using arrows.
+
+### Changed
+
+- Grass/Barrels/Pots/Snowballs/Hearts/Rupees/Wonder Items settings were broken up by All/None/Overworld/Dungeons.
+- Moon Crash cutscene is skipped in Cycle behavior.
+- Hint section now shows the hint importance.
+- Hint section format in Spoiler log.
+- Default hint distribution for crosskeys preset.
+- Logic now accounts for appearing at the well's bottom in Kakariko when coming out of it.
+- Logic now accounts for appearing underwater in Zora's Domain when coming from the shortcut.
+- Pirate Fortress Sewers Exit door now requires the Pirate Fortress Entrances option to be shuffled.
+- Pirate Fortress Sewers Gate and interior passages now require the Pirate Fortress Entrances option to be shuffled.
+- Pirate Fortress will no longer be considered a dungeon if its entrances are shuffled among the overworld.
 
 ### Fixed
 
+- Pre-Activated Owl Statues able to create unbeatable seeds.
+- Unshare the flags between late ReDeads and the First Scythe Rupee Puzzle in Shadow Temple (Vanilla + MQ).
+- Logic no longer thinks you can swap ages in the Deku Theater.
+- Logic now accounts for the Hylian Guard Soul for the Keaton Mask sale in Kakariko.
+
+## [25.0] - 2024-09-08
+
+### Added
+
+- D-Pad can now fast pass the transformation mask equip cutscene.
+- Shuffle MM snowballs.
+- Shuffle MM barrels.
+- Shuffle the MM potted plants, two checks each, one is a pot, one is grass.
+- Hive shuffle, for OoT and MM.
+- Behavioral setting for the Gibdos in Beneath The Well (Vanilla, Remorseless and Open).
+- Skip Kamaro teaching the dance when healing him.
+- Fast elemental arrow equip in MM.
+- Ability to choose how many stray fairies are required to obtain a reward.
+- Choice to pre-activate owl statues.
+- Crates shuffle, for OoT and MM.
+- The boat cruise is now faster if you are not playing the archery.
+
+### Changed
+
+- Force Hint Importance off if playing No Logic.
+- Tingle no longer has extra text boxes when you first talk to him during a cycle.
+- Adult Malon in Lon Lon Ranch no longer has her slow text when you first talk to her.
+- Lake Hylia Owl no longer has its slow text when you first talk to it.
+- Internal names of the music tracks, for an easier sorting in the cosmetics log.
+- Adult can now jump from the windmill to the back of Kakariko within logic.
+- It is now logical for adult to cross the Gerudo Fortress gate in reverse by getting captured.
+- The trick for Blue Fire Arrows on mudwalls is now logical for the ones in Goron City.
+
+### Fixed
+
+- Issue with Spring not applying properly with ER.
+- Logic issue with Romani Ranch Stables access.
+- Logic issue with Kafei's check in seeds without shuffled interiors.
+- Starting age no longer defaults to either child or adult after generating a random starting age seed.
 - Minor collection delay for Bolero.
 - Long-standing issue where Anju's reservation worked inconsistently.
 - Title cards not being displayed on game transitions.
 - MQ Forest Temple freestanding hearts logic issue.
+- The two pots next to the hag's potion shop in Kakariko now check for being in the back.
+- All adult logic now correctly check for some way to do damage.
+- Fixed MQ Spirit Child Hand logic not checking for the Iron Knuckle Soul.
 
 ## [24.1] - 2024-07-11
 
@@ -1310,7 +1369,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v24.1...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v25.0...HEAD
+[25.0]: https://github.com/OoTMM/OoTMM/compare/v24.1...v25.0
 [24.1]: https://github.com/OoTMM/OoTMM/compare/v24.0...v24.1
 [24.0]: https://github.com/OoTMM/OoTMM/compare/v23.1...v24.0
 [23.1]: https://github.com/OoTMM/OoTMM/compare/v23.0...v23.1

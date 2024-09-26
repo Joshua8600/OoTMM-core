@@ -61,6 +61,7 @@ static const char* kCheats[] = {
     "All Items",
     "Infinite Health",
     "Infinite Magic",
+    "Infinite Ammo"
 };
 
 static const DebugMenuEntry kMenuMain[] = {
@@ -248,7 +249,7 @@ static void DebugHandler_Cheats(int trigger)
     if (btnPressed(A_BUTTON))
     {
         if (BITMAP8_GET(gSharedCustomSave.cheats, sCursor[1]))
-            BITMAP8_CLEAR(gSharedCustomSave.cheats, sCursor[1]);
+            CHEAT_CLEAR(sCursor[1]);
         else
             BITMAP8_SET(gSharedCustomSave.cheats, sCursor[1]);
     }
@@ -582,19 +583,20 @@ static void cheatAllItems(GameState_Play* play)
     gMmOwlFlags = 0x3ff; /* all owls statues */
 
     MM_SET_EVENT_WEEK(EV_MM_WEEK_HEALED_WITCH_WOODS);
-    
+
 }
 #endif
 
 #if defined(GAME_OOT)
 static void cheatAllItems(GameState_Play* play)
 {
-    gSave.inventory.quest.gerudoCard = 1;
+    // gSave.inventory.quest.gerudoCard = 1;
     MM_SET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI);
     SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
     SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
     gSave.playerData.swordHealth = 8;
     gSave.isBiggoronSword = 1;
+    gSharedCustomSave.extraSwordsOot = 2;
 
     //MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF);
     //MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_SH);
@@ -676,6 +678,7 @@ static void cheatAllItems(GameState_Play* play)
 
     gSave.inventory.dungeonKeys[SCE_OOT_TEMPLE_FOREST] = 9;
     gSave.inventory.dungeonKeys[SCE_OOT_INSIDE_GANON_CASTLE] = 9;
+    gSave.inventory.dungeonKeys[SCE_OOT_THIEVES_HIDEOUT] = 9;
 
     gSave.inventory.quest.medallionShadow = 1;
     gSave.inventory.quest.medallionSpirit = 1;
@@ -710,7 +713,10 @@ static void cheatAllItems(GameState_Play* play)
 static void debugApplyCheats(void)
 {
     if (CHEAT_ON(CHEAT_ALL_ITEMS))
+    {
         cheatAllItems(gPlay);
+        CHEAT_CLEAR(CHEAT_ALL_ITEMS);
+    }
 
     if (CHEAT_ON(CHEAT_HEALTH))
         gSave.playerData.health = gSave.playerData.healthMax;
@@ -721,6 +727,26 @@ static void debugApplyCheats(void)
         gSave.playerData.magicAmount = gSave.playerData.magicUpgrade2 ? 0x60 : gSave.playerData.magicUpgrade ? 0x30 : 0;
 #else
         gSave.playerData.magicAmount = gSave.playerData.doubleMagic ? 0x60 : gSave.playerData.magicAcquired ? 0x30 : 0;
+#endif
+    }
+
+    if (CHEAT_ON(CHEAT_AMMO))
+    {
+#if defined(GAME_OOT)
+        gSave.inventory.ammo[ITS_OOT_STICKS] = 30;
+        gSave.inventory.ammo[ITS_OOT_NUTS] = 40;
+        gSave.inventory.ammo[ITS_OOT_SLINGSHOT] = 50;
+        gSave.inventory.ammo[ITS_OOT_BOMBS] = 40;
+        gSave.inventory.ammo[ITS_OOT_BOW] = 50;
+        gSave.inventory.ammo[ITS_OOT_BOMBCHU] = 50;
+#else
+        gSave.inventory.ammo[ITS_MM_STICKS] = 30;
+        gSave.inventory.ammo[ITS_MM_NUTS] = 40;
+        gSave.inventory.ammo[ITS_MM_KEG] = 1;
+        gSave.inventory.ammo[ITS_MM_BEANS] = 10;
+        gSave.inventory.ammo[ITS_MM_BOW] = 50;
+        gSave.inventory.ammo[ITS_MM_BOMBCHU] = 50;
+        gSave.inventory.ammo[ITS_MM_BOMBS] = 40;
 #endif
     }
 }

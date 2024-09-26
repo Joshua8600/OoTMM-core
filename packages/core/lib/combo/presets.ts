@@ -86,7 +86,12 @@ const BLITZ_BASE: PartialDeep<Settings> = {
   sharedScales: true,
   sharedStrength: true,
   keepItemsReset: true,
-  fastMasks: true,
+  shadowFastBoat: true,
+  songOfDoubleTimeOot: true,
+  mmPreActivatedOwls: {
+    type: 'specific',
+    values: ["clocktown"]
+  },
   startingItems: {
     OOT_NUTS_10: 2,
     OOT_SHIELD_DEKU: 1,
@@ -118,6 +123,7 @@ const BLITZ_BASE: PartialDeep<Settings> = {
     "OOT_TUNICS",
     "OOT_VOLCANO_HOVERS",
     "OOT_WINDMILL_HP_NOTHING",
+    "MM_TWINMOLD_BOW"
   ],
   plando: {
     locations: {
@@ -558,6 +564,7 @@ const PRESET_HELL = makeSettings({
     'OOT_GANON_CASTLE_ENTRY',
     'OOT_SHADOW_TEMPLE_STICKS',
     'OOT_WATER_GOLD_SCALE',
+    'OOT_HIVE_BOMBCHU',
     'MM_LENS',
     'MM_PALACE_BEAN_SKIP',
     'MM_DARMANI_WALL',
@@ -625,6 +632,7 @@ const PRESET_HELL = makeSettings({
     'MM_RANCH_FARORE',
     'MM_EVAN_FARORE',
     'MM_KEG_TRIAL_HEATLESS',
+    'MM_HIVE_BOMBCHU',
   ]
 });
 
@@ -1010,15 +1018,16 @@ const PRESET_CROSSKEYS = makeSettings({
   },
   plando: { locations: { 'OOT Zora River Bean Seller': 'OOT_MAGIC_BEAN' } },
   hints: [
-    { type: 'item', amount: 1, extra: 2, item: 'OOT_SWORD_MASTER' },
-    { type: 'item', amount: 1, extra: 2, item: 'SHARED_SONG_TIME' },
-    { type: 'item', amount: 1, extra: 2, item: 'MM_MASK_CAPTAIN' },
-    { type: 'item', amount: 1, extra: 2, item: 'SHARED_SONG_STORMS' },
-    { type: 'item', amount: 2, extra: 1, item: 'SHARED_OCARINA' },
-    { type: 'woth', amount: 10, extra: 1 },
     { type: 'foolish', amount: 8, extra: 1 },
     { type: 'always', amount: 'max', extra: 1 },
-    { type: 'sometimes', amount: 4, extra: 1 }
+    { type: 'sometimes', amount: 3, extra: 1 },
+    { type: 'item', amount: 1, extra: 1, item: 'OOT_SWORD_MASTER' },
+    { type: 'item', amount: 1, extra: 1, item: 'SHARED_SONG_TIME' },
+    { type: 'item', amount: 1, extra: 1, item: 'MM_MASK_CAPTAIN' },
+    { type: 'item', amount: 1, extra: 1, item: 'SHARED_SONG_STORMS' },
+    { type: 'item', amount: 2, extra: 1, item: 'SHARED_OCARINA' },
+    { type: 'woth', amount: 10, extra: 1 },
+    { type: 'sometimes', amount: 'max', extra: 1 },
   ]
 });
 
