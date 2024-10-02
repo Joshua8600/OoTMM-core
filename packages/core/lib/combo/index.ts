@@ -34,10 +34,6 @@ export type GeneratorParams = {
 
 export type { GeneratorOutput, Settings, OptionsInput, SettingsPatch };
 
-type LocInfo = {
-  [k: string]: string[]
-}
-
 export const generate = (params: GeneratorParams): Generator => {
   const opts = options(params.opts || {});
   return new Generator(params.oot, params.mm, opts, params.monitor || {});
@@ -47,11 +43,11 @@ export { SETTINGS, DEFAULT_SETTINGS, TRICKS, itemName, DUNGEONS, mergeSettings, 
 
 export type Items = {[k: string]: number};
 
-export const itemPool = (settings: Settings): Items => {
+export const itemPool = async (settings: Settings): Promise<Items> => {
   const cosmetics = makeCosmetics({});
   const monitor = new Monitor({ onLog: () => {} });
   const random = makeRandomSettings({});
-  const { pool, worlds, itemProperties } = worldState(monitor, { settings, cosmetics, debug: false, seed: "--- INTERNAL ---", random });
+  const { pool, worlds, itemProperties } = await worldState(monitor, { settings, cosmetics, debug: false, seed: "--- INTERNAL ---", random });
 
   /* Extract relevant items from the pool */
   for (const pi of pool.keys()) {
@@ -85,25 +81,24 @@ export const itemPool = (settings: Settings): Items => {
   return itemPool;
 }
 
-export const locationList = (aSettings: Partial<Settings>) => {
+export const locationList = async (aSettings: Partial<Settings>) => {
   const settings: Settings = { ...DEFAULT_SETTINGS, ...aSettings };
   const cosmetics = makeCosmetics({});
   const monitor = new Monitor({ onLog: () => {} });
   const random = makeRandomSettings({});
-  const { worlds, fixedLocations } = worldState(monitor, { settings, cosmetics, debug: false, seed: "--- INTERNAL ---", random });
+  const { worlds, fixedLocations } = await worldState(monitor, { settings, cosmetics, debug: false, seed: "--- INTERNAL ---", random });
 
   // Precalculate this to avoid doing it more than once in the gui
   const dungeonLocations = Object.values(worlds[0].dungeons).reduce((acc, x) => new Set([...acc, ...x]));
 
-  /* Everywhere below Check.type is a placeholder for Check.flags that I am going to add to the item tables. */
-  const locations: LocInfo = {};
+  const locations: string[] = [];
   for (const loc in worlds[0].checks) {
     const pl = makeLocation(loc, 0);
     if (fixedLocations.has(pl) || !isShuffled(settings, worlds[0], loc, dungeonLocations)) {
       continue;
     }
-    locations[loc] = [worlds[0].checks[loc].type];
+    locations.push(loc);
   }
 
-  return locations;
+  return locations.sort();
 }
