@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add butterfly shuffle, for both games.
 - Vanilla Small and Boss Keys setting.
 - Stone of Agony in MM only mode.
 - Skipped the camera pan out over Ganon's Castle being demolished.
@@ -28,6 +29,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Logic for obtaining the Seahorse.
 - Logic for Open Bottom of the Well as adult.
 - Pre-Activated Owl Statues able to create unbeatable seeds.
 - Unshare the flags between late ReDeads and the First Scythe Rupee Puzzle in Shadow Temple (Vanilla + MQ).
