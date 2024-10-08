@@ -1,18 +1,15 @@
-import { Random, randString, randomInt } from "../random";
-import { Settings } from "./type";
-import { makeSettings, validateSettings } from "./util";
+import { Random, randString, randomInt } from '../random';
+import { Settings } from './type';
+import { makeSettings, validateSettings } from './util';
 
-export type OptionRandomSettings = {
-  enabled: boolean;
-  mq: boolean;
-  er: boolean;
-};
-
-export const DEFAULT_RANDOM_SETTINGS: OptionRandomSettings = {
+export const DEFAULT_RANDOM_SETTINGS = {
   enabled: false,
   mq: false,
   er: false,
+  extraShuffles: false,
 };
+
+export type OptionRandomSettings = typeof DEFAULT_RANDOM_SETTINGS;
 
 export function makeRandomSettings(arg: Partial<OptionRandomSettings>): OptionRandomSettings {
   return { ...DEFAULT_RANDOM_SETTINGS, ...arg };
@@ -56,6 +53,7 @@ export async function applyRandomSettings(rnd: OptionRandomSettings, oldSettings
   base.junkLocations = oldSettings.junkLocations;
   base.tricks = oldSettings.tricks;
   base.hints = oldSettings.hints;
+  base.games = oldSettings.games;
 
   /* Main Settings */
   base.goal = sampleWeighted(random, { both: 10, triforce: 3, triforce3: 3 });
@@ -225,55 +223,80 @@ export async function applyRandomSettings(rnd: OptionRandomSettings, oldSettings
   case 0:
     base.skipZelda = true;
     base.openMoon = true;
+    base.ganonTrials = { type: 'none' };
     base.openDungeonsMm = { type: 'all' };
     base.openDungeonsOot = { type: 'all' };
+    base.openMaskShop = true;
     base.clearStateDungeonsMm = 'both';
     base.doorOfTime = 'open';
     base.dekuTree = 'open';
     base.kakarikoGate = 'open';
     base.zoraKing = 'open';
     base.gerudoFortress = 'open';
+    base.beneathWell = 'open';
+    base.openZdShortcut = true;
     break;
   case 1:
     base.skipZelda = false;
     base.openMoon = false;
+    base.ganonTrials = { type: 'all' };
     base.openDungeonsMm = { type: 'none' };
     base.openDungeonsOot = { type: 'none' };
     base.clearStateDungeonsMm = 'none';
+    base.openMaskShop = false;
     base.doorOfTime = 'closed';
     base.dekuTree = 'closed';
     base.kakarikoGate = 'closed';
     base.zoraKing = 'vanilla';
     base.gerudoFortress = 'vanilla';
+    base.beneathWell = 'vanilla';
+    base.openZdShortcut = false;
     break;
   default:
     base.skipZelda = booleanWeighted(random, 0.3);
     base.openMoon = booleanWeighted(random, 0.3);
+    base.ganonTrials = { type: 'random' };
     base.openDungeonsMm = { type: 'random' };
     base.openDungeonsOot = { type: 'random' };
+    base.openMaskShop = booleanWeighted(random, 0.3);
     base.clearStateDungeonsMm = sampleWeighted(random, { none: 5, WF: 1, GB: 1, both: 2 });
     base.doorOfTime = sampleWeighted(random, { closed: 10, open: 7 });
     base.dekuTree = sampleWeighted(random, { open: 10, closed: 7 });
     base.kakarikoGate = sampleWeighted(random, { closed: 10, open: 7 });
     base.zoraKing = sampleWeighted(random, { vanilla: 10, open: 5, adult: 5 });
     base.gerudoFortress = sampleWeighted(random, { vanilla: 1, single: 1, open: 1 });
+    base.beneathWell = sampleWeighted(random, { vanilla: 1, remorseless: 1, open: 1 });
+    base.openZdShortcut = booleanWeighted(random, 0.5);
   }
 
+  base.startingAge = sampleWeighted(random, { child: 10, adult: 10 });
+  base.swordlessAdult = booleanWeighted(random, 0.5);
+  base.timeTravelSword = booleanWeighted(random, 0.5);
+  base.ageChange = sampleWeighted(random, { none: 10, always: 5, oot: 5 });
+  base.moonCrash = sampleWeighted(random, { cycle: 3, reset: 10 });
   base.bossWarpPads = sampleWeighted(random, { bossBeaten: 10, remains: 4 });
+  base.freeScarecrowOot = booleanWeighted(random, 0.5);
+  base.freeScarecrowMm = booleanWeighted(random, 0.5);
+  base.ootPreplantedBeans = booleanWeighted(random, 0.5);
+  base.strayFairyRewardCount = randomInt(random, 16);
+  base.crossAge = booleanWeighted(random, 0.5);
 
-  /* Cross warp - 25% disabled, 25% enabled, 50% individual */
+  /* Cross warp & FW - 25% disabled, 25% enabled, 50% individual */
   switch (randomInt(random, 4)) {
   case 0:
     base.crossWarpOot = false;
     base.crossWarpMm = 'none';
+    base.crossGameFw = false;
     break;
   case 1:
     base.crossWarpOot = true;
     base.crossWarpMm = 'full';
+    base.crossGameFw = true;
     break;
   default:
     base.crossWarpOot = booleanWeighted(random, 0.5);
     base.crossWarpMm = sampleWeighted(random, { none: 10, full: 7, childOnly: 3 });
+    base.crossGameFw = booleanWeighted(random, 0.5);
   }
 
   base.sunSongMm = booleanWeighted(random, 0.5);
@@ -685,6 +708,90 @@ export async function applyRandomSettings(rnd: OptionRandomSettings, oldSettings
       base.erOneWaysSongs = booleanWeighted(random, 0.5);
       base.erOneWaysStatues = booleanWeighted(random, 0.5);
       base.erOneWaysOwls = booleanWeighted(random, 0.5);
+    }
+  }
+
+  /* Extra shuffles */
+  if (rnd.extraShuffles) {
+    /* 15% none, 5% all, 5% OW, 5% dungeons, 70% individual */
+    switch (randomInt(random, 20)) {
+    case 0:
+    case 1:
+      break;
+    case 2:
+      base.shufflePotsOot = 'all';
+      base.shufflePotsMm = 'all';
+      base.shuffleCratesOot = 'all';
+      base.shuffleCratesMm = 'all';
+      base.shuffleGrassOot = 'all';
+      base.shuffleGrassMm = 'all';
+      base.shuffleFreeHeartsOot = 'all';
+      base.shuffleFreeHeartsMm = true;
+      base.shuffleFreeRupeesOot = 'all';
+      base.shuffleFreeRupeesMm = 'all';
+      base.shuffleBarrelsMm = 'all';
+      base.shuffleHivesOot = true;
+      base.shuffleHivesMm = true;
+      base.shuffleSnowballsMm = 'all';
+      base.shuffleWonderItemsOot = 'all';
+      base.shuffleWonderItemsMm = true;
+      base.shuffleButterfliesOot = true;
+      base.shuffleButterfliesMm = true;
+      break;
+    case 3:
+      base.shufflePotsOot = 'overworld';
+      base.shufflePotsMm = 'overworld';
+      base.shuffleCratesOot = 'overworld';
+      base.shuffleCratesMm = 'overworld';
+      base.shuffleGrassOot = 'overworld';
+      base.shuffleGrassMm = 'overworld';
+      base.shuffleFreeHeartsOot = 'overworld';
+      base.shuffleFreeRupeesOot = 'overworld';
+      base.shuffleFreeRupeesMm = 'overworld';
+      base.shuffleBarrelsMm = 'overworld';
+      base.shuffleHivesOot = true;
+      base.shuffleHivesMm = true;
+      base.shuffleSnowballsMm = 'overworld';
+      base.shuffleWonderItemsOot = 'overworld';
+      base.shuffleWonderItemsMm = true;
+      base.shuffleButterfliesOot = true;
+      base.shuffleButterfliesMm = true;
+      break;
+    case 4:
+      base.shufflePotsOot = 'dungeons';
+      base.shufflePotsMm = 'dungeons';
+      base.shuffleCratesOot = 'dungeons';
+      base.shuffleCratesMm = 'dungeons';
+      base.shuffleGrassOot = 'dungeons';
+      base.shuffleGrassMm = 'dungeons';
+      base.shuffleFreeHeartsOot = 'dungeons';
+      base.shuffleFreeHeartsMm = true;
+      base.shuffleFreeRupeesOot = 'dungeons';
+      base.shuffleFreeRupeesMm = 'dungeons';
+      base.shuffleBarrelsMm = 'dungeons';
+      base.shuffleSnowballsMm = 'dungeons';
+      base.shuffleWonderItemsOot = 'dungeons';
+      break;
+    default:
+      base.shufflePotsOot = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shufflePotsMm = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleCratesOot = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleCratesMm = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleGrassOot = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleGrassMm = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleFreeHeartsOot = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleFreeHeartsMm = booleanWeighted(random, 0.5);
+      base.shuffleFreeRupeesOot = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleFreeRupeesMm = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleBarrelsMm = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleHivesOot = booleanWeighted(random, 0.5);
+      base.shuffleHivesMm = booleanWeighted(random, 0.5);
+      base.shuffleSnowballsMm = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleWonderItemsOot = sampleWeighted(random, { none: 10, overworld: 10, dungeons: 10 });
+      base.shuffleWonderItemsMm = booleanWeighted(random, 0.5);
+      base.shuffleButterfliesOot = booleanWeighted(random, 0.5);
+      base.shuffleButterfliesMm = booleanWeighted(random, 0.5);
+      break;
     }
   }
 

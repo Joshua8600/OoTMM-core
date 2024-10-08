@@ -218,9 +218,9 @@ export const SETTINGS = [{
   type: 'enum',
   description: 'Controls where Maps and Compasses can be',
   values: [
-    { value: 'ownDungeon', name: 'Own Dungeon', description: ' Maps and Compasses will be in their own dungeons' },
-    { value: 'anywhere', name: 'Anywhere', description: ' Maps and Compasses can be on any location' },
-    { value: 'starting', name: 'Starting Items', description: ' Maps and Compasses will be in Link\'s Pocket' },
+    { value: 'ownDungeon', name: 'Own Dungeon', description: 'Maps and Compasses will be in their own dungeons' },
+    { value: 'anywhere', name: 'Anywhere', description: 'Maps and Compasses can be on any location' },
+    { value: 'starting', name: 'Starting Items', description: 'Maps and Compasses will be in Link\'s Pocket' },
     { value: 'removed', name: 'Removed', description: 'Fully removed and cannot be obtained' },
   ],
   default: 'ownDungeon'
@@ -731,6 +731,22 @@ export const SETTINGS = [{
   cond: hasMM,
   default: 'none'
 }, {
+  key: 'shuffleButterfliesOot',
+  name: 'Butterflies Shuffle (OoT)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the butterflies are shuffled (OoT)',
+  cond: hasOoT,
+  default: false,
+}, {
+  key: 'shuffleButterfliesMm',
+  name: 'Butterflies Shuffle (MM)',
+  category: 'main.shuffle',
+  type: 'boolean',
+  description: 'Controls whether or not the butterflies are shuffled (MM)',
+  cond: hasMM,
+  default: false,
+}, {
   key: 'shuffleOcarinasOot',
   name: 'Ocarina Shuffle (OoT)',
   category: 'main.shuffle',
@@ -744,7 +760,7 @@ export const SETTINGS = [{
   category: 'main.shuffle',
   type: 'boolean',
   description: 'Controls whether or not the Master Sword is shuffled',
-  cond: (s: any) => hasOoT(s) && (s.swordlessAdult || (s.startingAge === 'child' && s.timeTravelSword)),
+  cond: (s: any) => hasOoT(s) && s.swordlessAdult,
   default: true
 }, {
   key: 'shuffleGerudoCard',
@@ -879,7 +895,7 @@ export const SETTINGS = [{
   type: 'boolean',
   description: 'Choose whether or not Link needs the Master Sword to travel through time',
   default: true,
-  cond: (s: any) => hasOoT(s) && (s.startingAge === 'child' || !s.swordlessAdult || s.shuffleMasterSword),
+  cond: (s: any) => hasOoT(s) && s.swordlessAdult && (s.shuffleMasterSword || s.progressiveSwordsOot === 'progressive'),
 }, {
   key: 'doorOfTime',
   name: 'Door of Time',
