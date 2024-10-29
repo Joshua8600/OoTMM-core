@@ -1,22 +1,24 @@
 import { makeTestSeed } from '../helper';
 
-test("Can make a seed - Full ER", async () => {
-  await makeTestSeed("FULL ER", {
+test("Can make a seed - Full ER", () => {
+  makeTestSeed("FULL ER", {
     songs: 'anywhere',
     erDungeons: 'full',
     erBoss: 'full',
     erRegions: 'full',
     //erRegionsExtra: true,
-    erRegionsShortcuts: true,
+	erRegionsShortcuts: true,
     erIndoors: 'full',
+    erIndoorsMajor: true,
     erIndoorsExtra: true,
-    erOneWays: 'full',
-    erOneWaysMajor: true,
-    erOneWaysIkana: true,
-    erOneWaysSongs: true,
-    erOneWaysStatues: true,
-    erOneWaysOwls: true,
+    erWarps: 'full',
+    erWarpsOwls: true,
+<<<<<<< HEAD
     erMajorDungeons: true,
+=======
+    erRegionWarps: 'both',
+    erRegionWarpsExtra: true,
+>>>>>>> oneways
     erMinorDungeons: true,
     erSpiderHouses: true,
     erPirateFortress: true,
