@@ -7,7 +7,8 @@
   "scripts": {
     "serve": "vite dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -25,23 +26,21 @@
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@ootmm/core": "*",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "preact": "^10.24.3",
     "react-ga4": "^2.1.0",
     "react-select": "^5.8.1",
     "react-tooltip": "^5.28.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.10",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.2",
+    "@preact/preset-vite": "^2.9.1",
     "cssnano": "^7.0.6",
     "postcss": "^8.4.47",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",
-    "postcss-preset-env": "^10.0.5",
+    "postcss-preset-env": "^10.0.8",
     "reset-css": "^5.0.2",
-    "vite": "^5.4.8"
+    "rollup-plugin-visualizer": "^5.12.0",
+    "vite": "^5.4.10"
   },
   "nx": {
     "namedInputs": {
