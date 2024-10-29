@@ -5,23 +5,22 @@
     "build": "tsx ./lib/build.ts",
     "start": "tsx ./lib/cli.ts",
     "start:debug": "tsx ./lib/cli.ts --debug --config config.yml",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ootmm/data": "^0.0.1",
-    "@ootmm/tools": "^0.0.1",
+    "@ootmm/data": "*",
+    "@ootmm/tools": "*",
     "core-js": "^3.38.1",
     "crc-32": "^1.2.2",
     "pngjs": "^7.0.0",
     "randombytes": "^2.1.0",
-    "yaz0": "^2.0.5"
+    "yaz0": "^3.0.1"
   },
   "main": "lib/combo/index.ts",
   "devDependencies": {
-    "@types/lodash": "^4.17.9",
     "@types/pngjs": "^6.0.5",
     "@types/randombytes": "^2.0.3",
-    "@types/webpack-env": "^1.18.5",
     "cross-env": "^7.0.3",
     "csv": "^6.3.10",
     "type-fest": "^4.26.1"

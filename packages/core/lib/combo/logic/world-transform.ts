@@ -248,6 +248,7 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.SHARED_TUNIC_ZORA,
   Items.SHARED_SCALE,
   Items.SHARED_STRENGTH,
+  Items.SHARED_HAMMER,
   Items.SHARED_TRIFORCE_POWER,
   Items.SHARED_TRIFORCE_COURAGE,
   Items.SHARED_TRIFORCE_WISDOM,
@@ -898,6 +899,12 @@ export class LogicPassWorldTransform {
       this.shareItems(SharedItemGroups.SHIELDS, 'max');
       this.replaceItem(Items.OOT_SHIELD_HYLIAN, Items.SHARED_SHIELD_HYLIAN);
       this.replaceItem(Items.MM_SHIELD_HERO,    Items.SHARED_SHIELD_HYLIAN);
+    }
+
+    if(settings.sharedHammer) {
+      this.replaceItem(Items.OOT_HAMMER, Items.SHARED_HAMMER);
+    } else if (settings.hammerMm) {
+      this.addItem(Items.MM_HAMMER);
     }
 
     /* Triforce hunt */

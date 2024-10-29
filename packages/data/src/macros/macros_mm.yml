@@ -81,6 +81,9 @@
 "can_lift_silver": "setting(strengthMm) && has_strength_raw(2)"
 "can_lift_gold": "setting(strengthMm) && has_strength_raw(3)"
 
+# Megaton Hammer
+"can_hammer": "setting(hammerMm) && has_hammer_raw"
+
 # Ocarina
 "ocarina_button(x, y)": "cond(setting(ocarinaButtonsShuffleMm), cond(setting(sharedOcarinaButtons), has(y), has(x)), true)"
 "ocarina_button_a": "ocarina_button(BUTTON_A, SHARED_BUTTON_A)"
@@ -126,14 +129,15 @@
 "can_play_cross_tp_spirit": "can_play_cross(OOT_SONG_TP_SPIRIT) && ocarina_button_a && ocarina_button_right && ocarina_button_down"
 
 # Misc
-"keaton_grass_easy": "has_weapon && has_magic"
+"keaton_grass_easy": "has_sword && has_magic"
 "keaton_grass_hard": "keaton_grass_easy && (has(SPIN_UPGRADE) || has(GREAT_FAIRY_SWORD) || has_sword_level(3))"
 
 "break_hive": "has_weapon_range"
 
 "has_sword_level(n)": "cond(setting(sharedSwords), has(SHARED_SWORD, n), has(SWORD, n))"
-"has_sword": "has_sword_level(1)"
-"has_weapon": "has_sword || has(GREAT_FAIRY_SWORD)"
+"has_b_sword": "has_sword_level(1)"
+"has_sword": "has_b_sword || has(GREAT_FAIRY_SWORD)"
+"has_weapon": "has_sword || can_hammer"
 
 "can_break_boulders": "true"
 "can_use_fire_short_range": "can_use_fire_arrows || can_use_din"

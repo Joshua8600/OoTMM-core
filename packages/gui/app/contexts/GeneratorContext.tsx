@@ -1,5 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { GeneratorOutput, Items, Settings, itemPool, OptionsInput, mergeSettings, makeSettings, SettingsPatch, Cosmetics, OptionRandomSettings, COSMETICS } from '@ootmm/core';
+import { ComponentChildren, createContext } from 'preact';
+import { useContext, useEffect, useState, StateUpdater, Dispatch } from 'preact/hooks';
+import type { GeneratorOutput, Items, Settings, OptionsInput, OptionRandomSettings, SettingsPatch, Cosmetics } from '@ootmm/core';
+import { mergeSettings, makeSettings, COSMETICS } from '@ootmm/core';
 import { merge } from 'lodash';
 
 import * as API from '../api';
@@ -35,7 +37,7 @@ type GeneratorState = {
 
 type GeneratorContext = {
   state: GeneratorState;
-  setState: React.Dispatch<React.SetStateAction<GeneratorState>>;
+  setState: Dispatch<StateUpdater<GeneratorState>>;
   setRomConfigFile: (key: keyof GeneratorState['romConfig']['files'], file: File | null) => void;
   setSeed: (seed: string) => void;
   setIsPatch: (isPatch: boolean) => void;
@@ -79,7 +81,7 @@ function createState(): GeneratorState {
   };
 }
 
-export function GeneratorContextProvider({ children }: { children: React.ReactNode }) {
+export function GeneratorContextProvider({ children }: { children: ComponentChildren }) {
   const [state, setState] = useState(createState);
 
   const setRomConfigFileRaw = (key: keyof GeneratorState['romConfig']['files'], file: File | null) => {
@@ -105,15 +107,18 @@ export function GeneratorContextProvider({ children }: { children: React.ReactNo
     const ticket = ++settingsTicket;
     setState(state => ({ ...state, settings }));
     localStorage.setItem('settings', JSON.stringify(settings));
-    API.metaFromSettings(settings).then((meta) => {
+    Promise.all([
+      API.itemPool(settings),
+      API.locationList(settings),
+    ]).then(([itemPool, locations]) => {
       if (ticket !== settingsTicket) {
         return;
       }
       setState((state) => {
-        const startingItems = API.restrictItemsByPool(state.settings.startingItems, meta.itemPool);
+        const startingItems = API.restrictItemsByPool(state.settings.startingItems, itemPool);
         const newSettings = { ...state.settings, startingItems };
         localStorage.setItem('settings', JSON.stringify(newSettings));
-        return { ...state, settings: makeSettings(newSettings), itemPool: meta.itemPool, locations: meta.locations };
+        return { ...state, settings: makeSettings(newSettings), itemPool, locations };
       });
     });
     return settings;
