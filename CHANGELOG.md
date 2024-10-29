@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add the Megaton Hammer to Majora's Mask.
 - Add butterfly shuffle, for both games.
 - Vanilla Small and Boss Keys setting.
 - Stone of Agony in MM only mode.
@@ -29,6 +30,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fix precompleted Stone Tower not setting some flags correctly.
+- Fix possible softlock in Ice Cavern with shuffled silver rupees.
 - Logic for obtaining the Seahorse.
 - Logic for Open Bottom of the Well as adult.
 - Pre-Activated Owl Statues able to create unbeatable seeds.
@@ -1251,6 +1254,7 @@ All notable changes to this project will be documented in this file.
 - Fix logic for ISTT.
 - Fix some seeds failing to generate properly.
 - Fix various issues with swordless link.
+- Fix first person camera and arrow position for MM Adult Link
 
 ## [1.2.0] - 2023-02-16
 
