@@ -246,7 +246,7 @@
 "MQ Gerudo Training Grounds Stalfos Room Ledge After Red Ice":
   dungeon: GTG
   exits:
-    "MQ Gerudo Training Grounds Stalfos Room Ledge Before Red Ice": "true" #Only solid on one side.
+    "MQ Gerudo Training Grounds Stalfos Room Ledge Before Red Ice": "has_blue_fire || trick(OOT_PASS_COLLISION)" #Only solid on one side.
     "MQ Gerudo Training Grounds Spinning Statue Room Upper": "event(GTG_MQ_STALFOS_CLEAR)"
 "MQ Gerudo Training Grounds Spinning Statue Room Upper":
   dungeon: GTG
