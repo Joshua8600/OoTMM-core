@@ -29,7 +29,7 @@
   exits:
     "MQ Gerudo Training Grounds Lobby": "true"
     "MQ Gerudo Training Grounds Maze Left Room 1": "true"
-    "MQ Gerudo Training Grounds Maze Right Room 1": "event(GTG_ICE_ARROWS_SWITCH)"
+    "MQ Gerudo Training Grounds Maze Right Room 1": "event(GTG_MQ_LAVA_HAMMER_SWITCH)"
 "MQ Gerudo Training Grounds Maze Left Room 1":
   dungeon: GTG
   exits:
