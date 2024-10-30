@@ -134,7 +134,7 @@
     "MQ Jabu-Jabu Basement Ledge Before Big Octo After Green Tentacle": "true"
     "MQ Jabu-Jabu Above Big Octo Fight": "event(JABU_BIG_OCTO)"
   events:
-    JABU_BIG_OCTO: "event(JABU_TENTACLE_GREEN) && soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
+    JABU_BIG_OCTO: "soul_octorok && (can_use_sticks || has_weapon) && soul_ruto"
 "MQ Jabu-Jabu Above Big Octo Fight":
   dungeon: JJ
   exits:
