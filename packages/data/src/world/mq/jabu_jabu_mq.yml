@@ -37,7 +37,7 @@
   exits:
     "MQ Jabu-Jabu Main Elevator Room Upper": "true"
     "MQ Jabu-Jabu Main Elevator Room Lower Switch Alcove": "is_child || (is_adult && can_dive_small)" #Adult cannot dive to the alcove without a scale.
-    "Jabu Jabu Basement Loop to Main Elevator": "event(JABU_MQ_WATER_SPOUTS)"
+    "Jabu Jabu Basement Loop to Main Elevator": "event(JABU_MQ_WATER_SPOUTS)" #We are going to need a buffer region here for behind the water spout. You can use Hover Boots with Bunny Hood or backwalking to get through the spout, or climb anywhere. There is not another one blocking the door on this side. It should also probably be a trick, even with climb anywhere.
   locations:
     "MQ Jabu-Jabu Second Room B1 Chest": "true"
     "MQ Jabu-Jabu Wonder Item Elevator Cow": "can_use_slingshot"
@@ -168,8 +168,8 @@
   dungeon: JJ
   exits:
     "MQ Jabu-Jabu Vanilla Ruto Falling Room After Wiggling Thing": "true"
-    "MQ Jabu-Jabu Back Forked Paths Left 1": "event(JABU_TENTACLE_BLUE)"
-    "MQ Jabu-Jabu Back Forked Paths Left 2": "event(JABU_TENTACLE_BLUE)"
+    "MQ Jabu-Jabu Back Forked Paths Left 1": "event(JABU_TENTACLE_BLUE)" #We will need buffer regions for left 1 and left 2. You can stand behind them while the parasites are there. And you can also just have them hit you to take you into the main part.
+    "MQ Jabu-Jabu Back Forked Paths Left 2": "event(JABU_TENTACLE_BLUE)" #We will need buffer regions for left 1 and left 2. You can stand behind them while the parasites are there. And you can also just have them hit you to take you into the main part.
     "MQ Jabu-Jabu Back Forked Paths Center After Rocks": "has_explosives_or_hammer || climb_anywhere" #These rocks can block in door rando, so it needs its own region.
     "MQ Jabu-Jabu Back Forked Paths Right 1": "true"
     "MQ Jabu-Jabu Back Forked Paths After Right 2 Web": "event(JABU_MQ_BACK_FIRE_WEB)"
