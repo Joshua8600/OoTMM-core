@@ -116,10 +116,10 @@
 - { id: OOT_TC_RUPEE_RED, item: OOT_RUPEE_RED, type: RUPEE, add: [OOT_RUPEE, 20], flags: 0x02, draw: [RUPEE, 3], object: [mm, 0x013f], name: "a <C0>Red Rupee" }
 - { id: OOT_TC_RUPEE_PURPLE, item: OOT_RUPEE_PURPLE, type: RUPEE, add: [OOT_RUPEE, 50], flags: 0x14, draw: [RUPEE, 4], object: [mm, 0x013f], name: "a <C0>Purple Flurp" }
 - { id: OOT_TC_HEART_PIECE, item: OOT_HEART_PIECE, type: HEART, add: [OOT_HEART_PIECE, 1], flags: 0x80, draw: HEART_PIECE, object: [oot, 0x00bd], name: "a <C0>Piece of Heart" }
-- { id: OOT_STICK_UPGRADE, item: OOT_STICK_UPGRADE, type: MAJOR, add: [STICK_UPGRADE, 2], flags: 0x80, draw: OOT_STICK_UPGRADE, object: [oot, 0x00c7], name: "the <C1>Kindling Upgrade" }
-- { id: OOT_STICK_UPGRADE2, item: OOT_STICK_UPGRADE2, type: MAJOR, add: [STICK_UPGRADE, 3], flags: 0x80, draw: OOT_STICK_UPGRADE2, object: [oot, 0x00c7], name: "the <C1>Second Kindling Upgrade" }
-- { id: OOT_NUT_UPGRADE, item: OOT_NUT_UPGRADE, type: MAJOR, add: [NUT_UPGRADE, 2], flags: 0x80, draw: OOT_NUT_UPGRADE, object: [oot, 0x00bb], name: "the <C1>Deku Nut Upgrade" }
-- { id: OOT_NUT_UPGRADE2, item: OOT_NUT_UPGRADE2, type: MAJOR, add: [NUT_UPGRADE, 3], flags: 0x80, draw: OOT_NUT_UPGRADE2, object: [oot, 0x00bb], name: "the <C1>Second Deku Nut Upgrade" }
+- { id: OOT_STICK_UPGRADE, item: OOT_STICK_UPGRADE, type: MAJOR, add: [OOT_STICK_UPGRADE, 2], flags: 0x80, draw: OOT_STICK_UPGRADE, object: [oot, 0x00c7], name: "the <C1>Kindling Upgrade" }
+- { id: OOT_STICK_UPGRADE2, item: OOT_STICK_UPGRADE2, type: MAJOR, add: [OOT_STICK_UPGRADE, 3], flags: 0x80, draw: OOT_STICK_UPGRADE2, object: [oot, 0x00c7], name: "the <C1>Second Kindling Upgrade" }
+- { id: OOT_NUT_UPGRADE, item: OOT_NUT_UPGRADE, type: MAJOR, add: [OOT_NUT_UPGRADE, 2], flags: 0x80, draw: OOT_NUT_UPGRADE, object: [oot, 0x00bb], name: "the <C1>Deku Nut Upgrade" }
+- { id: OOT_NUT_UPGRADE2, item: OOT_NUT_UPGRADE2, type: MAJOR, add: [OOT_NUT_UPGRADE, 3], flags: 0x80, draw: OOT_NUT_UPGRADE2, object: [oot, 0x00bb], name: "the <C1>Second Deku Nut Upgrade" }
 - { id: OOT_BULLET_BAG3, item: OOT_BULLET_BAG3, type: MAJOR, add: [SLINGSHOT, 3], flags: 0x80, draw: OOT_BULLET_BAG3, object: [oot, 0x017b], name: "the <C1>Largest Popcorn Kernal Bag" }
 - { id: OOT_ICE_TRAP, flags: 0x00 }
 - { id: OOT_UNK_7D, flags: 0x00 }
