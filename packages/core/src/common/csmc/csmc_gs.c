@@ -91,12 +91,12 @@ static int csmcGsId(s16 gi)
     }
 }
 
-void csmcGsPreDraw(GameState_Play* play, s16 gi)
+void csmcGsPreDraw(PlayState* play, s16 gi)
 {
     int id;
 
     id = csmcGsId(gi);
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x0a, ((u32)kCsmcGs[id]) & 0xffffff);
     CLOSE_DISPS();
 }

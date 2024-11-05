@@ -2,50 +2,43 @@
 #include <combo/global.h>
 #include <combo/item.h>
 #include <combo/config.h>
+#include <assets/mm/objects/object_goroiwa.h>
 #include "Obj_Snowball.h"
 
 #define OBJSNOWBALL_GET_SWITCH_FLAG(thisx) ((thisx)->params & 0x3F)
 #define OBJSNOWBALL_GET_7F00(thisx) (((thisx)->params >> 8) & 0x7F)
 
-#if defined(GAME_MM)
-# define SEGADDR_GOROIWA_DL_0072F0 SEGADDR_FROM_OFFSET(6, 0x72f0)
-# define SEGADDR_GOROIWA_DL_0077D0 SEGADDR_FROM_OFFSET(6, 0x77d0)
-# define SEGADDR_GOROIWA_DL_007C60 SEGADDR_FROM_OFFSET(6, 0x7c60)
-# define SEGADDR_GOROIWA_DL_0082D0 SEGADDR_FROM_OFFSET(6, 0x82d0)
-# define SEGADDR_GOROIWA_DL_008B90 SEGADDR_FROM_OFFSET(6, 0x8b90)
-#endif
-
 #define FLAGS 0x00000000
 
-void ObjSnowball_Init(Actor_ObjSnowball* this, GameState_Play* play);
-void ObjSnowball_Destroy(Actor_ObjSnowball* this, GameState_Play* play);
-void ObjSnowball_Update(Actor_ObjSnowball* this, GameState_Play* play);
-void ObjSnowball_Draw(Actor_ObjSnowball* this, GameState_Play* play);
+void ObjSnowball_Init(Actor_ObjSnowball* this, PlayState* play);
+void ObjSnowball_Destroy(Actor_ObjSnowball* this, PlayState* play);
+void ObjSnowball_Update(Actor_ObjSnowball* this, PlayState* play);
+void ObjSnowball_Draw(Actor_ObjSnowball* this, PlayState* play);
 
-void ObjSnowball_SpawnEnemy(Actor_ObjSnowball* this, GameState_Play* play);
-void ObjSnowball_DropCollectible(Actor_ObjSnowball* this, GameState_Play* play);
-void ObkSnowball_SpawnGoronElder(Actor_ObjSnowball* this, GameState_Play* play);
-void ObjSnowball_SpawnWolfos(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04338(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04350(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04540(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B0457C(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04608(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04648(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B046E4(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B047C0(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04B48(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04B60(Actor_ObjSnowball* this, GameState_Play* play);
-void func_80B04D34(Actor_ObjSnowball* this, GameState_Play* play);
+void ObjSnowball_SpawnEnemy(Actor_ObjSnowball* this, PlayState* play);
+void ObjSnowball_DropCollectible(Actor_ObjSnowball* this, PlayState* play);
+void ObkSnowball_SpawnGoronElder(Actor_ObjSnowball* this, PlayState* play);
+void ObjSnowball_SpawnWolfos(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04338(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04350(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04540(Actor_ObjSnowball* this, PlayState* play);
+void func_80B0457C(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04608(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04648(Actor_ObjSnowball* this, PlayState* play);
+void func_80B046E4(Actor_ObjSnowball* this, PlayState* play);
+void func_80B047C0(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04B48(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04B60(Actor_ObjSnowball* this, PlayState* play);
+void func_80B04D34(Actor_ObjSnowball* this, PlayState* play);
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
     {
         {
-            ELEMTYPE_UNK0,
+            ELEM_MATERIAL_UNK0,
             { 0x00000000, 0x00, 0x00 },
             { 0x81837FBE, 0x00, 0x00 },
-            TOUCH_NONE | TOUCH_SFX_NORMAL,
-            BUMP_ON,
+            ATELEM_NONE | ATELEM_SFX_NORMAL,
+            ACELEM_ON,
             OCELEM_ON,
         },
         { 0, { { 0, 0, 0 }, 73 }, 100 },
@@ -54,14 +47,14 @@ static ColliderJntSphElementInit sJntSphElementsInit[1] = {
 
 static ColliderJntSphInit sJntSphInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_NONE,
         AC_ON | AC_TYPE_PLAYER,
         OC1_ON | OC1_TYPE_ALL,
         OC2_TYPE_2,
         COLSHAPE_JNTSPH,
     },
-    ARRAY_SIZE(sJntSphElementsInit),
+    ARRAY_COUNT(sJntSphElementsInit),
     sJntSphElementsInit,
 };
 
@@ -73,10 +66,10 @@ typedef struct {
 
 static ObjSnowballStruct2 D_80B04F84[] = {
     { -1, 0, ObjSnowball_DropCollectible },
-    { AC_EN_JG, 0, ObkSnowball_SpawnGoronElder },
-    { AC_EN_WF, 1, ObjSnowball_SpawnWolfos },
-    { AC_EN_TITE, -4, ObjSnowball_SpawnEnemy },
-    { AC_EN_KAME, 0, ObjSnowball_SpawnEnemy },
+    { ACTOR_EN_JG, 0, ObkSnowball_SpawnGoronElder },
+    { ACTOR_EN_WF, 1, ObjSnowball_SpawnWolfos },
+    { ACTOR_EN_TITE, -4, ObjSnowball_SpawnEnemy },
+    { ACTOR_EN_KAME, 0, ObjSnowball_SpawnEnemy },
     { -1, 0, ObjSnowball_DropCollectible },
 };
 
@@ -85,9 +78,9 @@ static Color_RGBA8 envColor = { 180, 180, 180, 255 };
 static Vec3f D_80B04FBC = { 0.0f, 0.3f, 0.0f };
 
 static Gfx* D_80B04FC8[] = {
-    SEGADDR_GOROIWA_DL_0072F0,
-    SEGADDR_GOROIWA_DL_0077D0,
-    SEGADDR_GOROIWA_DL_007C60,
+    (void*)object_goroiwa_DL_0072F0,
+    (void*)object_goroiwa_DL_0077D0,
+    (void*)object_goroiwa_DL_007C60,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -206,7 +199,7 @@ static int ObjSnowball_IsShuffled(Actor_ObjSnowball* this)
     return !!(this->isExtended && !comboXflagsGet(&this->xflag));
 }
 
-static int ObjSnowball_DropCustom(Actor_ObjSnowball* this, GameState_Play* play)
+static int ObjSnowball_DropCustom(Actor_ObjSnowball* this, PlayState* play)
 {
     if (!ObjSnowball_IsShuffled(this))
         return 0;
@@ -214,7 +207,7 @@ static int ObjSnowball_DropCustom(Actor_ObjSnowball* this, GameState_Play* play)
     return 1;
 }
 
-static void ObjSnowball_InitXflag(Actor_ObjSnowball* this, GameState_Play* play)
+static void ObjSnowball_InitXflag(Actor_ObjSnowball* this, PlayState* play)
 {
     ComboItemOverride   o;
     Xflag*              xflag;
@@ -233,7 +226,7 @@ static void ObjSnowball_InitXflag(Actor_ObjSnowball* this, GameState_Play* play)
     this->isExtended = !!(o.gi && !comboXflagsGet(&this->xflag));
 }
 
-void ObjSnowball_SpawnEnemy(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_SpawnEnemy(Actor_ObjSnowball* this, PlayState* play) {
     ObjSnowball_DropCustom(this, play);
     ObjSnowballStruct2* ptr = &D_80B04F84[this->actor.home.rot.y];
 
@@ -242,7 +235,7 @@ void ObjSnowball_SpawnEnemy(Actor_ObjSnowball* this, GameState_Play* play) {
                                   ptr->unk_02, CS_ID_NONE, this->actor.halfDaysBits, NULL);
 }
 
-void ObjSnowball_DropCollectible(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_DropCollectible(Actor_ObjSnowball* this, PlayState* play) {
     if(ObjSnowball_DropCustom(this, play))
         return;
 
@@ -254,7 +247,7 @@ void ObjSnowball_DropCollectible(Actor_ObjSnowball* this, GameState_Play* play) 
     }
 }
 
-void ObkSnowball_SpawnGoronElder(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObkSnowball_SpawnGoronElder(Actor_ObjSnowball* this, PlayState* play) {
     ObjSnowballStruct2* ptr = &D_80B04F84[this->actor.home.rot.y];
 
     Actor_SpawnAsChildAndCutscene(&play->actorCtx, play, ptr->unk_00, this->actor.home.pos.x, this->actor.home.pos.y,
@@ -263,7 +256,7 @@ void ObkSnowball_SpawnGoronElder(Actor_ObjSnowball* this, GameState_Play* play) 
                                   this->actor.halfDaysBits, NULL);
 }
 
-void ObjSnowball_SpawnWolfos(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_SpawnWolfos(Actor_ObjSnowball* this, PlayState* play) {
     ObjSnowball_DropCustom(this, play);
     ObjSnowballStruct2* ptr = &D_80B04F84[this->actor.home.rot.y];
 
@@ -272,11 +265,11 @@ void ObjSnowball_SpawnWolfos(Actor_ObjSnowball* this, GameState_Play* play) {
                                   this->actor.params | ptr->unk_02, CS_ID_NONE, this->actor.halfDaysBits, NULL);
 }
 
-void func_80B02EE4(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B02EE4(Actor_ObjSnowball* this, PlayState* play) {
     Vec3f spAC;
     Vec3f spA0;
     Vec3f sp94;
-    Vec3s* hitPos = &this->collider.elements->elem.acDmgInfo.hitPos;
+    Vec3s* hitPos = &this->collider.elements->base.acDmgInfo.hitPos;
     s32 i;
 
     for (i = 0; i < 4; i++) {
@@ -297,7 +290,7 @@ void func_80B02EE4(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B030F8(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B030F8(Actor_ObjSnowball* this, PlayState* play) {
     f32 temp_f28 = sqrtf(this->unk_20C);
     Vec3f spFC;
     Vec3f spF0;
@@ -408,7 +401,7 @@ void func_80B030F8(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B03688(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B03688(Actor_ObjSnowball* this, PlayState* play) {
     s32 i;
     Vec3f spB8;
     Vec3f spAC;
@@ -467,7 +460,7 @@ void func_80B03688(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B03A80(GameState_Play* play, f32 arg1, Vec3f* arg2) {
+void func_80B03A80(PlayState* play, f32 arg1, Vec3f* arg2) {
     f32 temp_f30 = sqrtf(arg1);
     Vec3f spD8;
     Vec3f spCC;
@@ -536,7 +529,7 @@ void func_80B03A80(GameState_Play* play, f32 arg1, Vec3f* arg2) {
     }
 }
 
-void func_80B03E2C(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B03E2C(Actor_ObjSnowball* this, PlayState* play) {
     Actor_ObjSnowballStruct* ptr;
     s32 i;
 
@@ -545,7 +538,7 @@ void func_80B03E2C(Actor_ObjSnowball* this, GameState_Play* play) {
     this->unk_1A8[1].unk_1C.y = this->actor.yawTowardsPlayer + 0x4000;
     this->unk_1A8[1].unk_24 = Rand_ZeroOne() * 600.0f;
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1A8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1A8); i++) {
         ptr = &this->unk_1A8[i];
         ptr->unk_00.x = this->actor.home.pos.x;
         ptr->unk_00.y = this->actor.home.pos.y + (61.0f * this->unk_20C);
@@ -565,7 +558,7 @@ void func_80B03E2C(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B03FF8(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B03FF8(Actor_ObjSnowball* this, PlayState* play) {
     s16 rotY = this->actor.home.rot.y;
     ObjSnowballStruct2* sp18 = &D_80B04F84[rotY];
 
@@ -580,7 +573,7 @@ void func_80B03FF8(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void ObjSnowball_Init(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_Init(Actor_ObjSnowball* this, PlayState* play) {
     Sphere16* sphere;
     Vec3f sp48;
     s32 sp44;
@@ -610,7 +603,7 @@ void ObjSnowball_Init(Actor_ObjSnowball* this, GameState_Play* play) {
 
     if (sp34) {
         this->actor.messageId = 0x238;
-        this->actor.flags |= ACTOR_FLAG_MM_1;
+        this->actor.flags |= ACTOR_FLAG_MM_ATTENTION_ENABLED;
         this->actor.targetArrowOffset = 1400.0f / 3.0f;
         Actor_SetFocus(&this->actor, 24.0f);
         this->actor.targetMode = TARGET_MODE_3;
@@ -646,15 +639,15 @@ void ObjSnowball_Init(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void ObjSnowball_Destroy(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_Destroy(Actor_ObjSnowball* this, PlayState* play) {
     Collider_DestroyJntSph(play, &this->collider);
 }
 
-void func_80B04338(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04338(Actor_ObjSnowball* this, PlayState* play) {
     this->actionFunc = func_80B04350;
 }
 
-void func_80B04350(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04350(Actor_ObjSnowball* this, PlayState* play) {
     s32 flag = (this->collider.base.acFlags & AC_HIT) != 0;
 
     if (flag) {
@@ -662,17 +655,17 @@ void func_80B04350(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 
     if (flag && (this->unk_211 == 0) &&
-        (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags &
+        (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags &
          (0x80000000 | 0x4000 | 0x800 | 0x400 | 0x100 | 0x8))) {
         this->actor.flags |= ACTOR_FLAG_MM_10;
         if (this->actor.home.rot.y == 1) {
-            this->actor.flags &= ~(ACTOR_FLAG_MM_1 | ACTOR_FLAG_MM_8);
+            this->actor.flags &= ~(ACTOR_FLAG_MM_ATTENTION_ENABLED | ACTOR_FLAG_MM_FRIENDLY);
         }
 
-        if (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & 0x4000) {
+        if (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & 0x4000) {
             this->unk_20A = 1;
         } else {
-            if (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & 0x800) {
+            if (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & 0x800) {
                 this->unk_210 = 1;
             }
             this->unk_20A = 0;
@@ -692,10 +685,10 @@ void func_80B04350(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 
     if (flag &&
-        !(this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & (0x10000 | 0x2000 | 0x1000 | 0x800 | 0x20))) {
+        !(this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & (0x10000 | 0x2000 | 0x1000 | 0x800 | 0x20))) {
         if (this->unk_209 <= 0) {
             func_80B02EE4(this, play);
-            if (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & 0x1000000) {
+            if (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & 0x1000000) {
                 this->unk_209 = 25;
             } else {
                 this->unk_209 = 10;
@@ -712,12 +705,12 @@ void func_80B04350(Actor_ObjSnowball* this, GameState_Play* play) {
     CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
 }
 
-void func_80B04540(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04540(Actor_ObjSnowball* this, PlayState* play) {
     CutsceneManager_Queue(this->actor.csId);
     this->actionFunc = func_80B0457C;
 }
 
-void func_80B0457C(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B0457C(Actor_ObjSnowball* this, PlayState* play) {
     if (CutsceneManager_IsNext(this->actor.csId)) {
         CutsceneManager_StartWithPlayerCs(this->actor.csId, &this->actor);
         func_80B03FF8(this, play);
@@ -732,7 +725,7 @@ void func_80B0457C(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B04608(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04608(Actor_ObjSnowball* this, PlayState* play) {
     func_80B030F8(this, play);
     this->actor.draw = NULL;
     this->unk_208 = 50;
@@ -740,7 +733,7 @@ void func_80B04608(Actor_ObjSnowball* this, GameState_Play* play) {
     this->actionFunc = func_80B04648;
 }
 
-void func_80B04648(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04648(Actor_ObjSnowball* this, PlayState* play) {
     this->unk_208--;
     if (this->unk_208 <= 0) {
         if (this->unk_20B != 0) {
@@ -757,13 +750,13 @@ void func_80B04648(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B046E4(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B046E4(Actor_ObjSnowball* this, PlayState* play) {
     Vec3f sp44;
     s32 i;
 
     func_80B03E2C(this, play);
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1A8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1A8); i++) {
         sp44.x = this->unk_1A8[i].unk_00.x;
         sp44.y = this->unk_1A8[i].unk_00.y - (60.0f * this->unk_20C);
         sp44.z = this->unk_1A8[i].unk_00.z;
@@ -776,7 +769,7 @@ void func_80B046E4(Actor_ObjSnowball* this, GameState_Play* play) {
     this->actionFunc = func_80B047C0;
 }
 
-void func_80B047C0(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B047C0(Actor_ObjSnowball* this, PlayState* play) {
     static Vec3f D_80B04FD8 = { 0.0f, 1.0f, 0.0f };
     static Vec3f D_80B04FE4 = { 0.0f, 0.0f, 1.0f };
     Actor_ObjSnowballStruct* ptr;
@@ -789,7 +782,7 @@ void func_80B047C0(Actor_ObjSnowball* this, GameState_Play* play) {
     f32 sp7C;
     Vec3f sp70;
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1A8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1A8); i++) {
         ptr = &this->unk_1A8[i];
 
         if (!(ptr->unk_2D & 1)) {
@@ -814,7 +807,7 @@ void func_80B047C0(Actor_ObjSnowball* this, GameState_Play* play) {
             ptr->unk_18 = BgCheck_EntityRaycastFloor5(&play->colCtx, &ptr->unk_28, &sp98, &this->actor, &sp9C);
 
             if (ptr->unk_10 <= 0.0f) {
-                Matrix_RotateZYX(ptr->unk_1C.x, ptr->unk_1C.y, ptr->unk_1C.z, MAT_SET);
+                Matrix_RotateZYX(ptr->unk_1C.x, ptr->unk_1C.y, ptr->unk_1C.z, MTXMODE_NEW);
                 Matrix_MultVec3f(&D_80B04FE4, &sp88);
 
                 sp84 = this->unk_20C * 60.0f * 0.9f;
@@ -856,7 +849,7 @@ void func_80B047C0(Actor_ObjSnowball* this, GameState_Play* play) {
             Actor_Kill(&this->actor);
         }
     } else {
-        for (i = 0; i < ARRAY_SIZE(this->unk_1A8); i++) {
+        for (i = 0; i < ARRAY_COUNT(this->unk_1A8); i++) {
             ptr = &this->unk_1A8[i];
 
             if (ptr->unk_2D & 1) {
@@ -870,14 +863,14 @@ void func_80B047C0(Actor_ObjSnowball* this, GameState_Play* play) {
     }
 }
 
-void func_80B04B48(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04B48(Actor_ObjSnowball* this, PlayState* play) {
     this->actionFunc = func_80B04B60;
 }
 
-void func_80B04B60(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04B60(Actor_ObjSnowball* this, PlayState* play) {
 }
 
-void ObjSnowball_Update(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_Update(Actor_ObjSnowball* this, PlayState* play) {
     s32 sp24 = FALSE;
 
     if (this->actor.home.rot.y == 1) {
@@ -886,7 +879,7 @@ void ObjSnowball_Update(Actor_ObjSnowball* this, GameState_Play* play) {
                 this->actor.flags &= ~ACTOR_FLAG_MM_10;
                 this->unk_211 = 0;
             }
-        } else if (Actor_TalkOfferAccepted(&this->actor, &play->gs)) {
+        } else if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
             this->actor.flags |= ACTOR_FLAG_MM_10;
             this->unk_211 = 1;
         } else if (this->actor.isTargeted) {
@@ -929,12 +922,12 @@ static int ObjSnowball_CsmcType(Actor_ObjSnowball* this)
     return csmcFromItem(o.gi);
 }
 
-void ObjSnowball_Draw(Actor_ObjSnowball* this, GameState_Play* play) {
+void ObjSnowball_Draw(Actor_ObjSnowball* this, PlayState* play) {
     int type;
     const Color_RGB8* color;
     u8 gray;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     type = ObjSnowball_CsmcType(this);
     switch(type)
     {
@@ -952,16 +945,16 @@ void ObjSnowball_Draw(Actor_ObjSnowball* this, GameState_Play* play) {
 
     }
     CLOSE_DISPS();
-    Gfx_DrawDListOpa(play, SEGADDR_GOROIWA_DL_008B90);
+    Gfx_DrawDListOpa(play, (void*)object_goroiwa_DL_008B90);
 }
 
-void func_80B04D34(Actor_ObjSnowball* this, GameState_Play* play) {
+void func_80B04D34(Actor_ObjSnowball* this, PlayState* play) {
     Actor_ObjSnowballStruct* ptr;
     s32 i;
     MtxF sp88;
     Vec3s sp80;
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1A8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1A8); i++) {
         ptr = &this->unk_1A8[i];
 
         if (!(ptr->unk_2D & 1)) {
@@ -970,13 +963,13 @@ void func_80B04D34(Actor_ObjSnowball* this, GameState_Play* play) {
             sp80.z = ptr->unk_1C.z;
 
             Matrix_SetTranslateRotateYXZ(ptr->unk_00.x, ptr->unk_00.y, ptr->unk_00.z, &sp80);
-            Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MAT_MUL);
-            Gfx_DrawDListOpa(play, SEGADDR_GOROIWA_DL_0082D0);
+            Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
+            Gfx_DrawDListOpa(play, (void*)object_goroiwa_DL_0082D0);
 
             if ((ptr->unk_28 != NULL) && (ptr->unk_2C > 0)) {
-                OPEN_DISPS(play->gs.gfx);
+                OPEN_DISPS(play->state.gfxCtx);
 
-                Gfx_SetupDL44_Xlu(play->gs.gfx);
+                Gfx_SetupDL44_Xlu(play->state.gfxCtx);
 
                 gDPSetCombineLERP(POLY_XLU_DISP++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED, 0, 0,
                                   0, COMBINED);
@@ -984,9 +977,9 @@ void func_80B04D34(Actor_ObjSnowball* this, GameState_Play* play) {
 
                 func_800C0094(ptr->unk_28, ptr->unk_00.x, ptr->unk_18, ptr->unk_00.z, &sp88);
                 Matrix_Put(&sp88);
-                Matrix_Scale(this->actor.scale.x * 7.5f, 1.0f, this->actor.scale.z * 7.5f, MAT_MUL);
+                Matrix_Scale(this->actor.scale.x * 7.5f, 1.0f, this->actor.scale.z * 7.5f, MTXMODE_APPLY);
 
-                gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+                gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                 gSPDisplayList(POLY_XLU_DISP++, SEGADDR_CIRCLE_SHADOW_DL);
 
@@ -997,7 +990,7 @@ void func_80B04D34(Actor_ObjSnowball* this, GameState_Play* play) {
 }
 
 ActorInit Actor_Obj_Snowball_InitVars = {
-    AC_OBJ_SNOWBALL,
+    ACTOR_OBJ_SNOWBALL,
     ACTORCAT_PROP,
     FLAGS,
     OBJECT_GOROIWA,
@@ -1008,4 +1001,4 @@ ActorInit Actor_Obj_Snowball_InitVars = {
     (ActorFunc)ObjSnowball_Draw,
 };
 
-OVL_ACTOR_INFO(AC_OBJ_SNOWBALL, Actor_Obj_Snowball_InitVars);
+OVL_INFO_ACTOR(ACTOR_OBJ_SNOWBALL, Actor_Obj_Snowball_InitVars);

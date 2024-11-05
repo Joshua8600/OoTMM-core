@@ -1,20 +1,21 @@
-#include "Custom_Magic_Dark.h"
+#include <actors/Custom_Magic_Dark/Custom_Magic_Dark.h>
 #include <combo/custom.h>
 #include <combo/player.h>
 #include <combo/magic.h>
 #include <combo/math.h>
 #include <combo/global.h>
+#include <assets/mm/objects/gameplay_keep.h>
 
 #define FLAGS (ACTOR_FLAG_OOT_4 | ACTOR_FLAG_OOT_25)
 
-void MagicDark_Init(Actor* thisx, GameState_Play* play);
-void MagicDark_Destroy(Actor* thisx, GameState_Play* play);
-void MagicDark_OrbUpdate(Actor* thisx, GameState_Play* play);
-void MagicDark_OrbDraw(Actor* thisx, GameState_Play* play);
-void MagicDark_DiamondUpdate(Actor* thisx, GameState_Play* play);
-void MagicDark_DiamondDraw(Actor* thisx, GameState_Play* play);
+void MagicDark_Init(Actor* thisx, PlayState* play);
+void MagicDark_Destroy(Actor* thisx, PlayState* play);
+void MagicDark_OrbUpdate(Actor* thisx, PlayState* play);
+void MagicDark_OrbDraw(Actor* thisx, PlayState* play);
+void MagicDark_DiamondUpdate(Actor* thisx, PlayState* play);
+void MagicDark_DiamondDraw(Actor* thisx, PlayState* play);
 
-void MagicDark_DimLighting(GameState_Play* play, f32 intensity);
+void MagicDark_DimLighting(PlayState* play, f32 intensity);
 
 static Vtx sDiamondVtx[20] = {
 #include "sDiamondVtx.vtx.inc"
@@ -24,7 +25,7 @@ static Gfx sDiamondMaterialDL[22] = {
     gsDPPipeSync(),
     gsDPSetTextureLUT(G_TT_NONE),
     gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
-    gsDPLoadTextureBlock(0x04000000 | 0x28BB8, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR
+    gsDPLoadTextureBlock(gameplay_keep_Tex_028BB8, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR
                          | G_TX_WRAP, 5, 5, G_TX_NOLOD, 1),
     gsDPLoadMultiBlock(0x08000000 | CUSTOM_KEEP_MAGIC_DARK_TEXTURE, 0x0100, 1, G_IM_FMT_I, G_IM_SIZ_8b, 32, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
                        G_TX_MIRROR | G_TX_WRAP, 5, 6, 13, 13),
@@ -47,7 +48,7 @@ static Gfx sDiamondModelDL[8] = {
     gsSPEndDisplayList(),
 };
 
-static f32 MagicDark_GetScale(Actor_Player* player)
+static f32 MagicDark_GetScale(Player* player)
 {
     switch (player->transformation)
     {
@@ -65,9 +66,9 @@ static f32 MagicDark_GetScale(Actor_Player* player)
     return 0.0f;
 }
 
-void MagicDark_Init(Actor* thisx, GameState_Play* play) {
+void MagicDark_Init(Actor* thisx, PlayState* play) {
     MagicDark* this = (MagicDark*)thisx;
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
 
     this->scale = MagicDark_GetScale(player);
 
@@ -88,16 +89,16 @@ void MagicDark_Init(Actor* thisx, GameState_Play* play) {
     }
 }
 
-void MagicDark_Destroy(Actor* thisx, GameState_Play* play) {
+void MagicDark_Destroy(Actor* thisx, PlayState* play) {
     if (gSaveContext.nayrusLoveTimer == 0) {
         Magic_Reset(play);
     }
 }
 
-void MagicDark_DiamondUpdate(Actor* thisx, GameState_Play* play) {
+void MagicDark_DiamondUpdate(Actor* thisx, PlayState* play) {
     MagicDark* this = (MagicDark*)thisx;
     u8 phi_a0;
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
     s16 nayrusLoveTimer = gSaveContext.nayrusLoveTimer;
     /* s32 msgMode = play->msgCtx.msgMode; */
 
@@ -159,13 +160,13 @@ void MagicDark_DiamondUpdate(Actor* thisx, GameState_Play* play) {
     gSaveContext.nayrusLoveTimer = nayrusLoveTimer + 1;
 
     if (nayrusLoveTimer < 1100) {
-        PlayLoopingSfxAtActor(thisx, 0x7C); /* NA_SE_PL_MAGIC_SOUL_NORMAL */
+        PlayLoopingSfxAtActor(thisx, NA_SE_PL_MAGIC_SOUL_NORMAL - SFX_FLAG);
     } else {
-        PlayLoopingSfxAtActor(thisx, 0xC0); /* NA_SE_PL_MAGIC_SOUL_FLASH */
+        PlayLoopingSfxAtActor(thisx, NA_SE_PL_MAGIC_SOUL_FLASH - SFX_FLAG);
     }
 }
 
-void MagicDark_DimLighting(GameState_Play* play, f32 intensity) {
+void MagicDark_DimLighting(PlayState* play, f32 intensity) {
     s32 i;
     f32 colorScale;
     f32 fogScale;
@@ -182,7 +183,7 @@ void MagicDark_DimLighting(GameState_Play* play, f32 intensity) {
         play->envCtx.adjLightSettings.fogNear = (850.0f - play->envCtx.lightSettings.fogNear) * fogScale;
 
         if (intensity == 0.0f) {
-            for (i = 0; i < ARRAY_SIZE(play->envCtx.adjLightSettings.fogColor); i++) {
+            for (i = 0; i < ARRAY_COUNT(play->envCtx.adjLightSettings.fogColor); i++) {
                 play->envCtx.adjLightSettings.fogColor[i] = 0;
             }
         } else {
@@ -192,18 +193,18 @@ void MagicDark_DimLighting(GameState_Play* play, f32 intensity) {
                 colorScale = 1.0f;
             }
 
-            for (i = 0; i < ARRAY_SIZE(play->envCtx.adjLightSettings.fogColor); i++) {
+            for (i = 0; i < ARRAY_COUNT(play->envCtx.adjLightSettings.fogColor); i++) {
                 play->envCtx.adjLightSettings.fogColor[i] = -(s16)(play->envCtx.lightSettings.fogColor[i] * colorScale);
             }
         }
     }
 }
 
-void MagicDark_OrbUpdate(Actor* thisx, GameState_Play* play) {
+void MagicDark_OrbUpdate(Actor* thisx, PlayState* play) {
     MagicDark* this = (MagicDark*)thisx;
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
 
-    PlayLoopingSfxAtActor(&this->actor, 0xC3); /* NA_SE_PL_MAGIC_SOUL_BALL */
+    PlayLoopingSfxAtActor(&this->actor, NA_SE_PL_MAGIC_SOUL_BALL - SFX_FLAG);
     if (this->timer < 35) {
         MagicDark_DimLighting(play, this->timer * (1 / 45.0f));
         Math_SmoothStepToF(&thisx->scale.x, this->scale * (1 / 12.000001f), 0.05f, 0.01f, 0.0001f);
@@ -226,17 +227,17 @@ void MagicDark_OrbUpdate(Actor* thisx, GameState_Play* play) {
     this->timer++;
 }
 
-void MagicDark_DiamondDraw(Actor* thisx, GameState_Play* play) {
+void MagicDark_DiamondDraw(Actor* thisx, PlayState* play) {
     MagicDark* this = (MagicDark*)thisx;
     u16 gameplayFrames = play->gameplayFrames;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x08, g.customKeep);
 
-    Gfx_SetupDL25_Xlu(play->gs.gfx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
 
     {
-        Actor_Player* player = GET_PLAYER(play);
+        Player* player = GET_PLAYER(play);
         f32 heightDiff;
 
         this->actor.world.pos.x = player->bodyPartsPos[PLAYER_BODYPART_WAIST].x;
@@ -244,7 +245,7 @@ void MagicDark_DiamondDraw(Actor* thisx, GameState_Play* play) {
         f32 y;
         if (player->transformation == MM_PLAYER_FORM_GORON)
         {
-            if (player->state3 & 0x00001000) /* PLAYER_STATE3_GORON_ROLL */
+            if (player->stateFlags3 & PLAYER_STATE3_MM_1000)
             {
                 y = player->actor.world.pos.y + Player_GetHeight(player) * 0.5f;
             }
@@ -263,16 +264,16 @@ void MagicDark_DiamondDraw(Actor* thisx, GameState_Play* play) {
         } else if (heightDiff > 2.0f) {
             this->actor.world.pos.y = y - 2.0f;
         }
-        Matrix_Translate(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, MAT_SET);
-        Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MAT_MUL);
-        Matrix_RotateY(BINANG_TO_RAD(this->actor.shape.rot.y), MAT_MUL);
-        gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+        Matrix_Translate(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, MTXMODE_NEW);
+        Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
+        Matrix_RotateY(BINANG_TO_RAD(this->actor.shape.rot.y), MTXMODE_APPLY);
+        gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 170, 255, 255, (s32)(this->primAlpha * 0.6f) & 0xFF);
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 128);
         gSPDisplayList(POLY_XLU_DISP++, sDiamondMaterialDL);
         gSPDisplayList(POLY_XLU_DISP++,
-                       DisplaceTexture(play->gs.gfx, G_TX_RENDERTILE, gameplayFrames * 2, gameplayFrames * -4,
+                       DisplaceTexture(play->state.gfxCtx, G_TX_RENDERTILE, gameplayFrames * 2, gameplayFrames * -4,
                                         32, 32, 1, 0, gameplayFrames * -16, 64, 32));
         gSPDisplayList(POLY_XLU_DISP++, sDiamondModelDL);
     }
@@ -280,11 +281,11 @@ void MagicDark_DiamondDraw(Actor* thisx, GameState_Play* play) {
     CLOSE_DISPS();
 }
 
-void MagicDark_OrbDraw(Actor* thisx, GameState_Play* play) {
+void MagicDark_OrbDraw(Actor* thisx, PlayState* play) {
     MagicDark* this = (MagicDark*)thisx;
     Vec3f pos;
-    Actor_Player* player = GET_PLAYER(play);
-    f32 sp6C = play->gs.frameCount & 0x1F;
+    Player* player = GET_PLAYER(play);
+    f32 sp6C = play->state.frameCount & 0x1F;
 
     if (this->timer < 32) {
         pos.x =
@@ -309,38 +310,38 @@ void MagicDark_OrbDraw(Actor* thisx, GameState_Play* play) {
     pos.z -= (this->actor.scale.x * 300.0f * Math_CosS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(play))) *
               Math_CosS(Camera_GetCamDirPitch(GET_ACTIVE_CAM(play))));
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
 
-    Gfx_SetupDL25_Xlu(play->gs.gfx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 170, 255, 255, 255);
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 150, 255, 255);
-    Matrix_Translate(pos.x, pos.y, pos.z, MAT_SET);
-    Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MAT_MUL);
-    ModelViewMult(&play->billboardMtxF, MAT_MUL);
-    MatrixStackDup();
-    gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+    Matrix_Translate(pos.x, pos.y, pos.z, MTXMODE_NEW);
+    Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
+    ModelViewMult(&play->billboardMtxF, MTXMODE_APPLY);
+    Matrix_Push();
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    Matrix_RotateZ(sp6C * (M_PI / 32), MAT_MUL);
-    gSPDisplayList(POLY_XLU_DISP++, 0x04000000 | 0x23210); /* gEffFlash1DL */
-    MatrixStackPop();
-    Matrix_RotateZ(-sp6C * (M_PI / 32), MAT_MUL);
-    gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+    Matrix_RotateZ(sp6C * (M_PI / 32), MTXMODE_APPLY);
+    gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
+    Matrix_Pop();
+    Matrix_RotateZ(-sp6C * (M_PI / 32), MTXMODE_APPLY);
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, 0x04000000 | 0x23210); /* gEffFlash1DL */
+    gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
 
     CLOSE_DISPS();
 }
 
 ActorInit Magic_Dark_InitVars = {
-    AC_CUSTOM_SPELL_LOVE,
+    ACTOR_CUSTOM_SPELL_LOVE,
     ACTORCAT_ITEMACTION,
     FLAGS,
     1,
     sizeof(MagicDark),
-    MagicDark_Init,
-    MagicDark_Destroy,
-    MagicDark_OrbUpdate,
-    MagicDark_OrbDraw,
+    (ActorFunc)MagicDark_Init,
+    (ActorFunc)MagicDark_Destroy,
+    (ActorFunc)MagicDark_OrbUpdate,
+    (ActorFunc)MagicDark_OrbDraw,
 };
 
-OVL_ACTOR_INFO(AC_CUSTOM_SPELL_LOVE, Magic_Dark_InitVars);
+OVL_INFO_ACTOR(ACTOR_CUSTOM_SPELL_LOVE, Magic_Dark_InitVars);

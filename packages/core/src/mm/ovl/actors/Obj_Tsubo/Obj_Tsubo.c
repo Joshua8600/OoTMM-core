@@ -1,6 +1,9 @@
 #include <combo.h>
 #include <combo/item.h>
 #include <combo/global.h>
+#include <assets/mm/objects/object_tsubo.h>
+#include <assets/mm/objects/object_racetsubo.h>
+#include <assets/mm/objects/gameplay_dangeon_keep.h>
 #include "Obj_Tsubo.h"
 
 #define FLAGS (ACTOR_FLAG_MM_10 | ACTOR_FLAG_MM_800000 | ACTOR_FLAG_MM_CAN_PRESS_SWITCH)
@@ -22,27 +25,27 @@ typedef enum
 }
 ObjTsuboType;
 
-void ObjTsubo_Init(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_Destroy(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_Update(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_Draw(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_Init(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_Destroy(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_Update(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_Draw(Actor_ObjTsubo* this, PlayState* play);
 
-void ObjTsubo_PotBreak1(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_MagicPotBreak1(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_PotBreak2(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_MagicPotBreak2(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_PotBreak3(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_MagicPotBreak3(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_PotBreak1(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_MagicPotBreak1(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_PotBreak2(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_MagicPotBreak2(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_PotBreak3(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_MagicPotBreak3(Actor_ObjTsubo* this, PlayState* play);
 void func_80928914(Actor_ObjTsubo* this);
-void func_80928928(Actor_ObjTsubo* this, GameState_Play* play);
+void func_80928928(Actor_ObjTsubo* this, PlayState* play);
 void func_809289B4(Actor_ObjTsubo* this);
-void func_809289E4(Actor_ObjTsubo* this, GameState_Play* play);
+void func_809289E4(Actor_ObjTsubo* this, PlayState* play);
 void func_80928D6C(Actor_ObjTsubo* this);
-void func_80928D80(Actor_ObjTsubo* this, GameState_Play* play);
+void func_80928D80(Actor_ObjTsubo* this, PlayState* play);
 void func_80928E74(Actor_ObjTsubo* this);
-void func_80928F18(Actor_ObjTsubo* this, GameState_Play* play);
+void func_80928F18(Actor_ObjTsubo* this, PlayState* play);
 void func_809291DC(Actor_ObjTsubo* this);
-void func_8092926C(Actor_ObjTsubo* this, GameState_Play* play);
+void func_8092926C(Actor_ObjTsubo* this, PlayState* play);
 
 s16 D_80929500 = 0;
 s16 D_80929504 = 0;
@@ -65,16 +68,16 @@ ObjTsuboData;
 
 ObjTsuboData sPotTypeData[4] =
 {
-    { OBJECT_GAMEPLAY_DANGEON_KEEP, 0.197f,         (Gfx*)0x05017ea0, (Gfx*)0x05018090, 12, 32, ObjTsubo_PotBreak1, ObjTsubo_PotBreak2, ObjTsubo_PotBreak3 },
-    { OBJECT_RACETSUBO,             0.29549998f,    (Gfx*)0x06000278, (Gfx*)0x06001610, 18, 45, ObjTsubo_MagicPotBreak1, ObjTsubo_MagicPotBreak2, ObjTsubo_MagicPotBreak3 },
-    { OBJECT_TSUBO,                 0.197f,         (Gfx*)0x060017c0, (Gfx*)0x06001960, 12, 32, ObjTsubo_PotBreak1, ObjTsubo_PotBreak2, ObjTsubo_PotBreak3 },
-    { OBJECT_GAMEPLAY_DANGEON_KEEP, 0.197f,         (Gfx*)0x05017ea0, (Gfx*)0x05018090, 12, 32, ObjTsubo_PotBreak1, ObjTsubo_PotBreak2, ObjTsubo_PotBreak3 },
+    { OBJECT_GAMEPLAY_DANGEON_KEEP, 0.197f,         (Gfx*)gameplay_dangeon_keep_DL_017EA0, (Gfx*)gameplay_dangeon_keep_DL_018090, 12, 32, ObjTsubo_PotBreak1, ObjTsubo_PotBreak2, ObjTsubo_PotBreak3 },
+    { OBJECT_RACETSUBO,             0.29549998f,    (Gfx*)gMagicPotDL, (Gfx*)gMagicPotShardDL, 18, 45, ObjTsubo_MagicPotBreak1, ObjTsubo_MagicPotBreak2, ObjTsubo_MagicPotBreak3 },
+    { OBJECT_TSUBO,                 0.197f,         (Gfx*)gPotDL, (Gfx*)gPotShardDL, 12, 32, ObjTsubo_PotBreak1, ObjTsubo_PotBreak2, ObjTsubo_PotBreak3 },
+    { OBJECT_GAMEPLAY_DANGEON_KEEP, 0.197f,         (Gfx*)gameplay_dangeon_keep_DL_017EA0, (Gfx*)gameplay_dangeon_keep_DL_018090, 12, 32, ObjTsubo_PotBreak1, ObjTsubo_PotBreak2, ObjTsubo_PotBreak3 },
 };
 
 static ColliderCylinderInit sCylinderInit =
 {
     {
-        COLTYPE_HARD,
+        COL_MATERIAL_HARD,
         AT_ON | AT_TYPE_PLAYER,
         AC_ON | AC_TYPE_PLAYER,
         OC1_ON | OC1_TYPE_ALL,
@@ -82,11 +85,11 @@ static ColliderCylinderInit sCylinderInit =
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00400000, 0x00, 0x02 },
         { 0x05CBFFBE, 0x00, 0x00 },
-        TOUCH_ON | TOUCH_SFX_NORMAL,
-        BUMP_ON,
+        ATELEM_ON | ATELEM_SFX_NORMAL,
+        ACELEM_ON,
         OCELEM_ON,
     },
     { 12, 30, 0, { 0, 0, 0 } },
@@ -195,7 +198,7 @@ static int ObjTsubo_IsShuffled(Actor_ObjTsubo* this)
     return 1;
 }
 
-int func_809275C0(Actor_ObjTsubo* this, GameState_Play* play)
+int func_809275C0(Actor_ObjTsubo* this, PlayState* play)
 {
     s32 chestFlag = -1;
     s32 skulltulaParams = (OBJ_TSUBO_P001F(&this->actor) << 2) | 0xFF01;
@@ -208,7 +211,7 @@ int func_809275C0(Actor_ObjTsubo* this, GameState_Play* play)
     return ((chestFlag < 0) || !Flags_GetTreasure(play, chestFlag));
 }
 
-void ObjTsubo_SpawnCollectibleFlexible(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_SpawnCollectibleFlexible(Actor_ObjTsubo* this, PlayState* play)
 {
     if (ObjTsubo_IsShuffled(this))
     {
@@ -222,7 +225,7 @@ void ObjTsubo_SpawnCollectibleFlexible(Actor_ObjTsubo* this, GameState_Play* pla
     }
 }
 
-void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, PlayState* play)
 {
     s32 itemDrop;
 
@@ -243,12 +246,12 @@ void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_SpawnBoes(Actor_ObjTsubo* this, GameState_Play* play, s32 arg2)
+void ObjTsubo_SpawnBoes(Actor_ObjTsubo* this, PlayState* play, s32 arg2)
 {
-    Actor_Spawn(&play->actorCtx, play, AC_EN_MKK, this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, 0, 0, 0, 2);
+    Actor_Spawn(&play->actorCtx, play, ACTOR_EN_MKK, this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, 0, 0, 0, 2);
 }
 
-void ObjTsubo_SpawnGoldSkulltula(Actor_ObjTsubo* this, GameState_Play* play, s32 arg2)
+void ObjTsubo_SpawnGoldSkulltula(Actor_ObjTsubo* this, PlayState* play, s32 arg2)
 {
     Actor* child;
     s32 params;
@@ -256,7 +259,7 @@ void ObjTsubo_SpawnGoldSkulltula(Actor_ObjTsubo* this, GameState_Play* play, s32
     if (func_809275C0(this, play))
     {
         params = (OBJ_TSUBO_P001F(&this->actor) << 2) | 0xFF01;
-        child = Actor_Spawn(&play->actorCtx, play, AC_EN_SW, this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, 0, Rand_Next() >> 0x10, 0, params);
+        child = Actor_Spawn(&play->actorCtx, play, ACTOR_EN_SW, this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z, 0, Rand_Next() >> 0x10, 0, params);
         if (child != NULL) {
             child->parent = &this->actor;
             child->velocity.y = 0.0f;
@@ -265,7 +268,7 @@ void ObjTsubo_SpawnGoldSkulltula(Actor_ObjTsubo* this, GameState_Play* play, s32
     }
 }
 
-void func_80927818(Actor_ObjTsubo* this, GameState_Play* play, s32 arg2)
+void func_80927818(Actor_ObjTsubo* this, PlayState* play, s32 arg2)
 {
     if (OBJ_TSUBO_ZROT(&this->actor) == 1)
     {
@@ -277,12 +280,12 @@ void func_80927818(Actor_ObjTsubo* this, GameState_Play* play, s32 arg2)
     }
 }
 
-int ObjTsubo_IsSceneNotGohtOrTwinmold(Actor_ObjTsubo* this, GameState_Play* play)
+int ObjTsubo_IsSceneNotGohtOrTwinmold(Actor_ObjTsubo* this, PlayState* play)
 {
     return (play->sceneId != SCE_MM_LAIR_GOHT) && (play->sceneId != SCE_MM_LAIR_TWINMOLD);
 }
 
-void func_8092788C(Actor_ObjTsubo* this, GameState_Play* play)
+void func_8092788C(Actor_ObjTsubo* this, PlayState* play)
 {
     if (!this->unk_197 && (play->roomCtx.curRoom.num != this->homeRoom))
     {
@@ -290,7 +293,7 @@ void func_8092788C(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_Init(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Init(Actor_ObjTsubo* this, PlayState* play)
 {
     ComboItemOverride o;
     s32 type;
@@ -346,12 +349,12 @@ void ObjTsubo_Init(Actor_ObjTsubo* this, GameState_Play* play)
     func_80928914(this);
 }
 
-void ObjTsubo_Destroy(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Destroy(Actor_ObjTsubo* this, PlayState* play)
 {
     Collider_DestroyCylinder(play, &this->collider);
 }
 
-void ObjTsubo_PotBreak1(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_PotBreak1(Actor_ObjTsubo* this, PlayState* play)
 {
     s16 rot;
     s32 i;
@@ -390,7 +393,7 @@ void ObjTsubo_PotBreak1(Actor_ObjTsubo* this, GameState_Play* play)
     SpawnSomeDust(play, &this->actor.world.pos, 30.0f, 2, 10, 80, TRUE);
 }
 
-void ObjTsubo_MagicPotBreak1(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_MagicPotBreak1(Actor_ObjTsubo* this, PlayState* play)
 {
     s16 rot;
     s32 phi_s0;
@@ -428,8 +431,8 @@ void ObjTsubo_MagicPotBreak1(Actor_ObjTsubo* this, GameState_Play* play)
     SpawnSomeDust(play, &this->actor.world.pos, 50.0f, 2, 20, 80, TRUE);
 }
 
-void ObjTsubo_PotBreak2(Actor_ObjTsubo* this, GameState_Play* play2) {
-    GameState_Play* play = play2;
+void ObjTsubo_PotBreak2(Actor_ObjTsubo* this, PlayState* play2) {
+    PlayState* play = play2;
     s16 rot;
     s32 i;
     s32 phi_s0;
@@ -473,9 +476,9 @@ void ObjTsubo_PotBreak2(Actor_ObjTsubo* this, GameState_Play* play2) {
     }
 }
 
-void ObjTsubo_MagicPotBreak2(Actor_ObjTsubo* this, GameState_Play* play2)
+void ObjTsubo_MagicPotBreak2(Actor_ObjTsubo* this, PlayState* play2)
 {
-    GameState_Play* play = play2;
+    PlayState* play = play2;
     s16 rot;
     s32 i;
     Vec3f pos;
@@ -519,7 +522,7 @@ void ObjTsubo_MagicPotBreak2(Actor_ObjTsubo* this, GameState_Play* play2)
     }
 }
 
-void ObjTsubo_PotBreak3(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_PotBreak3(Actor_ObjTsubo* this, PlayState* play)
 {
     s16 rot;
     s32 phi_s0;
@@ -565,7 +568,7 @@ void ObjTsubo_PotBreak3(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_MagicPotBreak3(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_MagicPotBreak3(Actor_ObjTsubo* this, PlayState* play)
 {
 }
 
@@ -574,10 +577,11 @@ void func_80928914(Actor_ObjTsubo* this)
     this->actionFunc = func_80928928;
 }
 
-void func_80928928(Actor_ObjTsubo* this, GameState_Play* play)
+void func_80928928(Actor_ObjTsubo* this, PlayState* play)
 {
     Actor_MoveWithGravity(&this->actor);
-    Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f, 0x44);
+    Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f,
+        UPDBGCHECKINFO_FLAG_MM_4 | UPDBGCHECKINFO_FLAG_MM_40);
     if (Object_IsLoaded(&play->objectCtx, this->requiredObjectSlot))
     {
         this->actor.objectSlot = this->requiredObjectSlot;
@@ -593,7 +597,7 @@ void func_809289B4(Actor_ObjTsubo* this)
     this->actionFunc = func_809289E4;
 }
 
-void func_809289E4(Actor_ObjTsubo* this, GameState_Play* play)
+void func_809289E4(Actor_ObjTsubo* this, PlayState* play)
 {
     ObjTsuboData* typeData;
     s32 type;
@@ -621,7 +625,7 @@ void func_809289E4(Actor_ObjTsubo* this, GameState_Play* play)
         func_80927818(this, play, 0);
         //! @bug: This function should only pass Player*: it uses *(this + 0x153), which is meant to be
         //! player->currentMask, but in this case is garbage in the collider
-        Player_PlaySfx((Actor_Player*)&this->actor, NA_SE_PL_PULL_UP_POT);
+        Player_PlaySfx((Player*)&this->actor, NA_SE_PL_PULL_UP_POT);
         func_80928D6C(this);
     }
     else if ((this->unk_19b != 0) || (acHit && (this->collider.elem.acHitElem->atDmgInfo.dmgFlags & 0x058BFFBC)))
@@ -657,7 +661,8 @@ void func_809289E4(Actor_ObjTsubo* this, GameState_Play* play)
     } else {
         if (!this->unk_195) {
             Actor_MoveWithGravity(&this->actor);
-            Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f, 0x44);
+            Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f,
+                UPDBGCHECKINFO_FLAG_MM_4 | UPDBGCHECKINFO_FLAG_MM_40);
             if ((this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) && (DynaPoly_GetActor(&play->colCtx, this->actor.floorBgId) == NULL))
             {
                 this->unk_195 = TRUE;
@@ -688,7 +693,7 @@ void func_80928D6C(Actor_ObjTsubo* this)
     this->actionFunc = func_80928D80;
 }
 
-void func_80928D80(Actor_ObjTsubo* this, GameState_Play* play)
+void func_80928D80(Actor_ObjTsubo* this, PlayState* play)
 {
     Vec3f pos;
     s32 bgId;
@@ -698,7 +703,8 @@ void func_80928D80(Actor_ObjTsubo* this, GameState_Play* play)
         this->actor.room = play->roomCtx.curRoom.num;
         Actor_MoveWithGravity(&this->actor);
         this->actor.flags &= ~ACTOR_FLAG_MM_CAN_PRESS_SWITCH;
-        Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f, 0x01 | 0x04 | 0x40 | 0x80);
+        Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f,
+            UPDBGCHECKINFO_FLAG_MM_1 | UPDBGCHECKINFO_FLAG_MM_4 | UPDBGCHECKINFO_FLAG_MM_40 | UPDBGCHECKINFO_FLAG_MM_80);
         func_80928E74(this);
     } else {
         pos.x = this->actor.world.pos.x;
@@ -719,7 +725,7 @@ void func_80928E74(Actor_ObjTsubo* this)
     this->actionFunc = func_80928F18;
 }
 
-void func_80928F18(Actor_ObjTsubo* this, GameState_Play* play)
+void func_80928F18(Actor_ObjTsubo* this, PlayState* play)
 {
     ObjTsuboData* typeData;
     s32 type = OBJ_TSUBO_GET_TYPE(&this->actor);
@@ -770,7 +776,8 @@ void func_80928F18(Actor_ObjTsubo* this, GameState_Play* play)
         Math_StepToS(&D_8092950C, D_80929508, 150);
         this->actor.shape.rot.x += D_80929504;
         this->actor.shape.rot.y += D_8092950C;
-        Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f, 0x01 | 0x04 | 0x40 | 0x80);
+        Actor_UpdateBgCheckInfo(play, &this->actor, 15.0f, 15.0f, 0.0f,
+            UPDBGCHECKINFO_FLAG_MM_1 | UPDBGCHECKINFO_FLAG_MM_4 | UPDBGCHECKINFO_FLAG_MM_40 | UPDBGCHECKINFO_FLAG_MM_80);
         Collider_UpdateCylinder(&this->actor, &this->collider);
         CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
         CollisionCheck_SetAT(play, &play->colChkCtx, &this->collider.base);
@@ -796,7 +803,7 @@ void func_809291DC(Actor_ObjTsubo* this) {
     this->actionFunc = func_8092926C;
 }
 
-void func_8092926C(Actor_ObjTsubo* this, GameState_Play* play) {
+void func_8092926C(Actor_ObjTsubo* this, PlayState* play) {
     f32 scale;
 
     if (this->unk_194 > 0) {
@@ -814,7 +821,7 @@ void func_8092926C(Actor_ObjTsubo* this, GameState_Play* play) {
     }
 }
 
-void ObjTsubo_Update(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Update(Actor_ObjTsubo* this, PlayState* play)
 {
     this->actionFunc(this, play);
     if (this->actor.draw == NULL) {
@@ -852,7 +859,7 @@ void ObjTsubo_Update(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_Draw(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Draw(Actor_ObjTsubo* this, PlayState* play)
 {
     ComboItemOverride o;
     int type;
@@ -883,7 +890,7 @@ void ObjTsubo_Draw(Actor_ObjTsubo* this, GameState_Play* play)
 
 ActorInit ObjTsubo_InitVars =
 {
-    AC_OBJ_TSUBO,
+    ACTOR_OBJ_TSUBO,
     ACTORCAT_PROP,
     FLAGS,
     1,
@@ -894,4 +901,4 @@ ActorInit ObjTsubo_InitVars =
     NULL,
 };
 
-OVL_ACTOR_INFO(AC_OBJ_TSUBO, ObjTsubo_InitVars);
+OVL_INFO_ACTOR(ACTOR_OBJ_TSUBO, ObjTsubo_InitVars);

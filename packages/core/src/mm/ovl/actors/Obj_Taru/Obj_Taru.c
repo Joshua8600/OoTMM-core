@@ -2,6 +2,7 @@
 #include <combo/global.h>
 #include <combo/item.h>
 #include <combo/custom.h>
+#include <assets/mm/objects/object_taru.h>
 #include "Obj_Taru.h"
 
 #define FLAGS 0
@@ -12,18 +13,18 @@
 #define OBJ_TARU_GET_7F00(thisx)            (((thisx)->dyna.actor.params >> 8) & 0x7F)
 #define OBJ_TARU_GET_80(thisx)              ((thisx)->dyna.actor.params & 0x80)
 
-void ObjTaru_Init(Actor_ObjTaru* this, GameState_Play* play);
-void ObjTaru_Destroy(Actor_ObjTaru* this, GameState_Play* play);
-void ObjTaru_Update(Actor_ObjTaru* this, GameState_Play* play);
-void ObjTaru_Draw(Actor_ObjTaru* this, GameState_Play* play);
+void ObjTaru_Init(Actor_ObjTaru* this, PlayState* play);
+void ObjTaru_Destroy(Actor_ObjTaru* this, PlayState* play);
+void ObjTaru_Update(Actor_ObjTaru* this, PlayState* play);
+void ObjTaru_Draw(Actor_ObjTaru* this, PlayState* play);
 
-void func_80B9C07C(Actor_ObjTaru* this, GameState_Play* play);
-void func_80B9C174(Actor_ObjTaru* this, GameState_Play* play);
-void func_80B9C1A0(Actor_ObjTaru* this, GameState_Play* play);
+void func_80B9C07C(Actor_ObjTaru* this, PlayState* play);
+void func_80B9C174(Actor_ObjTaru* this, PlayState* play);
+void func_80B9C1A0(Actor_ObjTaru* this, PlayState* play);
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_NONE,
         AC_ON | AC_TYPE_PLAYER,
         OC1_NONE,
@@ -31,11 +32,11 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00000000, 0x00, 0x00 },
         { 0x80000508, 0x00, 0x00 },
-        TOUCH_NONE | TOUCH_SFX_NORMAL,
-        BUMP_ON,
+        ATELEM_NONE | ATELEM_SFX_NORMAL,
+        ACELEM_ON,
         OCELEM_NONE,
     },
     { 30, 50, 0, { 0, 0, 0 } },
@@ -53,7 +54,7 @@ static int ObjTaru_IsShuffled(Actor_ObjTaru* this)
     return !!(this->isExtended && !comboXflagsGet(&this->xflag));
 }
 
-static int ObjTaru_DropCustom(Actor_ObjTaru* this, GameState_Play* play)
+static int ObjTaru_DropCustom(Actor_ObjTaru* this, PlayState* play)
 {
     if (!ObjTaru_IsShuffled(this))
         return 0;
@@ -61,7 +62,7 @@ static int ObjTaru_DropCustom(Actor_ObjTaru* this, GameState_Play* play)
     return 1;
 }
 
-static void ObjTaru_InitXflag(Actor_ObjTaru* this, GameState_Play* play)
+static void ObjTaru_InitXflag(Actor_ObjTaru* this, PlayState* play)
 {
     ComboItemOverride   o;
     Xflag*              xflag;
@@ -78,7 +79,7 @@ static void ObjTaru_InitXflag(Actor_ObjTaru* this, GameState_Play* play)
     this->isExtended = !!(o.gi && !comboXflagsGet(&this->xflag));
 }
 
-void func_80B9B74C(Actor_ObjTaru* this, GameState_Play* play)
+void func_80B9B74C(Actor_ObjTaru* this, PlayState* play)
 {
     Vec3f* thisPos = &this->dyna.actor.world.pos;
     Vec3f pos;
@@ -118,7 +119,7 @@ void func_80B9B74C(Actor_ObjTaru* this, GameState_Play* play)
     SpawnSomeDust(play, thisPos, 90.0f, 6, 100, 160, 1);
 }
 
-void func_80B9B9C8(Actor_ObjTaru* this, GameState_Play* play) {
+void func_80B9B9C8(Actor_ObjTaru* this, PlayState* play) {
     s32 phi_s5;
     s32 i;
     s32 j;
@@ -161,7 +162,7 @@ void func_80B9B9C8(Actor_ObjTaru* this, GameState_Play* play) {
     }
 }
 
-void ObjTaru_DropCollectible(Actor_ObjTaru* this, GameState_Play* play) {
+void ObjTaru_DropCollectible(Actor_ObjTaru* this, PlayState* play) {
     s32 item;
 
     if (ObjTaru_DropCustom(this, play))
@@ -173,7 +174,7 @@ void ObjTaru_DropCollectible(Actor_ObjTaru* this, GameState_Play* play) {
     }
 }
 
-void ObjTaru_Init(Actor_ObjTaru* this, GameState_Play* play)
+void ObjTaru_Init(Actor_ObjTaru* this, PlayState* play)
 {
     ObjTaru_InitXflag(this, play);
     DynaPolyActor_Init(&this->dyna, 0);
@@ -201,7 +202,7 @@ void ObjTaru_Init(Actor_ObjTaru* this, GameState_Play* play)
     this->actionFunc = func_80B9C07C;
 }
 
-void ObjTaru_Destroy(Actor_ObjTaru* this, GameState_Play* play)
+void ObjTaru_Destroy(Actor_ObjTaru* this, PlayState* play)
 {
     if (!OBJ_TARU_GET_80(this)) {
         Collider_DestroyCylinder(play, &this->collider);
@@ -237,7 +238,7 @@ s32 func_80B9BF7C(Actor_ObjTaru* this)
     return phi_a3;
 }
 
-void func_80B9C07C(Actor_ObjTaru* this, GameState_Play* play) {
+void func_80B9C07C(Actor_ObjTaru* this, PlayState* play) {
     if (func_80B9BF7C(this)) {
         if (!OBJ_TARU_GET_80(this)) {
             func_80B9B74C(this, play);
@@ -260,13 +261,13 @@ void func_80B9C07C(Actor_ObjTaru* this, GameState_Play* play) {
     }
 }
 
-void func_80B9C174(Actor_ObjTaru* this, GameState_Play* play)
+void func_80B9C174(Actor_ObjTaru* this, PlayState* play)
 {
     ObjTaru_DropCollectible(this, play);
     Actor_Kill(&this->dyna.actor);
 }
 
-void func_80B9C1A0(Actor_ObjTaru* this, GameState_Play* play) {
+void func_80B9C1A0(Actor_ObjTaru* this, PlayState* play) {
     if (CutsceneManager_IsNext(this->dyna.actor.csId)) {
         CutsceneManager_StartWithPlayerCs(this->dyna.actor.csId, &this->dyna.actor);
         Flags_SetSwitch(play, OBJ_TARU_GET_SWITCH_FLAG(this));
@@ -277,7 +278,7 @@ void func_80B9C1A0(Actor_ObjTaru* this, GameState_Play* play) {
     CutsceneManager_Queue(this->dyna.actor.csId);
 }
 
-void ObjTaru_Update(Actor_ObjTaru* this, GameState_Play* play)
+void ObjTaru_Update(Actor_ObjTaru* this, PlayState* play)
 {
     if (!OBJ_TARU_GET_80(this))
     {
@@ -303,12 +304,12 @@ static int ObjTaru_CsmcType(Actor_ObjTaru* this)
 }
 
 static const Gfx sListLoaderTextureDefault[] = {
-    gsDPLoadTextureBlock(0x06000670, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_MIRROR | G_TX_CLAMP, 4, 5, 0, 0),
+    gsDPLoadTextureBlock(gObjTaruBarrelSideTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_MIRROR | G_TX_CLAMP, 4, 5, 0, 0),
     gsSPEndDisplayList(),
 };
 
 static const Gfx sListLoaderTopDefault[] = {
-    gsDPLoadTextureBlock(0x06000A70, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 16, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_MIRROR | G_TX_CLAMP, 5, 4, 0, 0),
+    gsDPLoadTextureBlock(gObjTaruBarrelTopTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 16, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_MIRROR | G_TX_CLAMP, 5, 4, 0, 0),
     gsSPEndDisplayList(),
 };
 
@@ -318,14 +319,14 @@ static const Gfx sListLoaderCustom[] = {
 };
 
 
-static void ObjTaru_DrawBarrel(Actor_ObjTaru* this, GameState_Play* play)
+static void ObjTaru_DrawBarrel(Actor_ObjTaru* this, PlayState* play)
 {
     int type;
     u32 textureAddr;
     void* tex;
 
     type = ObjTaru_CsmcType(this);
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     if (type == CSMC_NORMAL)
     {
         gSPSegment(POLY_OPA_DISP++, 0x08, sListLoaderTextureDefault);
@@ -355,15 +356,15 @@ static void ObjTaru_DrawBarrel(Actor_ObjTaru* this, GameState_Play* play)
     }
     CLOSE_DISPS();
 
-    Gfx_DrawDListOpa(play, (Gfx*)0x06000420);
+    Gfx_DrawDListOpa(play, (void*)gObjTaruBarrelDL);
 }
 
-static void ObjTaru_DrawPlank(Actor_ObjTaru* this, GameState_Play* play)
+static void ObjTaru_DrawPlank(Actor_ObjTaru* this, PlayState* play)
 {
-    Gfx_DrawDListOpa(play, (Gfx*)0x06001140);
+    Gfx_DrawDListOpa(play, (void*)gObjTaruBreakablePiratePanelDL);
 }
 
-void ObjTaru_Draw(Actor_ObjTaru* this, GameState_Play* play)
+void ObjTaru_Draw(Actor_ObjTaru* this, PlayState* play)
 {
     if (OBJ_TARU_GET_80(this))
         ObjTaru_DrawPlank(this, play);
@@ -372,7 +373,7 @@ void ObjTaru_Draw(Actor_ObjTaru* this, GameState_Play* play)
 }
 
 ActorInit ObjTaru_InitVars = {
-    AC_OBJ_TARU,
+    ACTOR_OBJ_TARU,
     ACTORCAT_BG,
     FLAGS,
     OBJECT_TARU,
@@ -383,4 +384,4 @@ ActorInit ObjTaru_InitVars = {
     (ActorFunc)ObjTaru_Draw,
 };
 
-OVL_ACTOR_INFO(AC_OBJ_TARU, ObjTaru_InitVars);
+OVL_INFO_ACTOR(ACTOR_OBJ_TARU, ObjTaru_InitVars);

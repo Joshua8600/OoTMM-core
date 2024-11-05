@@ -73,12 +73,12 @@ void OnRoomChange(void* arg1, void* arg2)
     OnRoomChangeOriginal(arg1, arg2);
 }
 
-Actor* SpawnRoomActor(ActorContext* actorCtx, GameState_Play *play, short actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable)
+Actor* SpawnRoomActor(ActorContext* actorCtx, PlayState *play, short actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable)
 {
     Actor* a;
 
     a = Actor_Spawn(actorCtx, play, actorId, x, y, z, rx, ry, rz, variable);
-    if (a != NULL && actorId == AC_EN_ITEM00)
+    if (a != NULL && actorId == ACTOR_EN_ITEM00)
         EnItem00_XflagInitFreestanding((Actor_EnItem00*)a, play, g.actorIndex, 0);
     g.actorIndex++;
     return a;

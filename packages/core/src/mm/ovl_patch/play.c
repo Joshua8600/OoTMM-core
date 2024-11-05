@@ -13,7 +13,7 @@
 #include <combo/context.h>
 #include <combo/audio.h>
 
-GameState_Play* gPlay;
+PlayState* gPlay;
 int gNoTimeFlow;
 
 static u32 entranceForOverride(u32 entrance)
@@ -238,7 +238,7 @@ static void applyGrottoExit(u32* entrance, const GrottoExit* ge)
     *entrance = rs->entrance;
 }
 
-static u32 entrGrottoExit(GameState_Play* play)
+static u32 entrGrottoExit(PlayState* play)
 {
     if (!Config_Flag(CFG_ER_GROTTOS))
         return ENTR_MM_INTERNAL_EXIT_GROTTO;
@@ -324,7 +324,7 @@ static void applyCustomEntrance(u32* entrance)
     }
 }
 
-static void spawnSirloin(GameState_Play* play)
+static void spawnSirloin(PlayState* play)
 {
     if (!gSharedCustomSave.storedSirloin)
         return;
@@ -333,72 +333,7 @@ static void spawnSirloin(GameState_Play* play)
     if (MM_CHECK_EVENT_INF(EV_MM_WEEK_DUNGEON_SH))
         return;
 
-    Actor_Spawn(&play->actorCtx, play, AC_EN_MM, -1025.f, 8.f, 400.f, 0.f, 0.f, 0.f, 0x8000);
-}
-
-void preInitTitleScreen(void)
-{
-    u32 entrance;
-
-    if (!gComboCtx.valid)
-        return;
-
-    /* Disable Title screen */
-    gSaveContext.gameMode = GAMEMODE_NORMAL;
-    gSaveContext.showTitleCard = TRUE;
-
-    /* Load save */
-    gSaveContext.fileIndex = gComboCtx.saveIndex;
-    Sram_OpenSave(NULL, NULL);
-
-    if (gComboCtx.isFwSpawn)
-    {
-        gSaveContext.respawnFlag = 8;
-        gComboCtx.isFwSpawn = 0;
-
-        RespawnData* fw = &gCustomSave.fw[gOotSave.age];
-
-        if (fw->data)
-        {
-            gSaveContext.respawn[RESPAWN_MODE_HUMAN] = *fw;
-        }
-        else
-        {
-            gSaveContext.respawn[RESPAWN_MODE_HUMAN].data = 0;
-            gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.x = 0.0f;
-            gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.y = 0.0f;
-            gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.z = 0.0f;
-        }
-    }
-
-    gSave.cutscene = 0;
-    gSaveContext.nextCutscene = 0;
-
-    /* Load the entrance */
-    entrance = gComboCtx.entrance;
-    if (Config_Flag(CFG_ER_ANY))
-        g.initialEntrance = entrance;
-    else
-        g.initialEntrance = ENTR_MM_CLOCK_TOWN;
-    applyCustomEntrance(&entrance);
-    gSave.entrance = entrance;
-
-    /* Fixup the scene/setup */
-    fixupOriginalSceneSetup();
-
-    /* Handle shuffled entrance */
-    switch (gSave.entrance)
-    {
-    case ENTR_MM_BOSS_TEMPLE_WOODFALL:
-    case ENTR_MM_BOSS_TEMPLE_SNOWHEAD:
-    case ENTR_MM_BOSS_TEMPLE_GREAT_BAY:
-    case ENTR_MM_BOSS_TEMPLE_STONE_TOWER:
-        gNoTimeFlow = 1;
-        break;
-    }
-
-    /* Finished */
-    gComboCtx.valid = 0;
+    Actor_Spawn(&play->actorCtx, play, ACTOR_EN_MM, -1025.f, 8.f, 400.f, 0.f, 0.f, 0.f, 0x8000);
 }
 
 static void Play_FixupSpawnTime(void)
@@ -408,6 +343,9 @@ static void Play_FixupSpawnTime(void)
     /* Check if we need to skip forward in time */
     if (!(gSave.day == 0 || (gSave.day == 1 && gSave.time == 0x4000)))
         return;
+
+    /* Set/clear 1st day events */
+    Sram_ClearFlagsAtDawnOfTheFirstDay();
 
     firstHalfDay = 6;
     for (int i = 0; i < 6; ++i)
@@ -443,19 +381,16 @@ static void Play_FixupSpawnTime(void)
     }
 }
 
-void hookPlay_Init(GameState_Play* play)
+void hookPlay_Init(PlayState* play)
 {
     u32 entrance;
 
     gPlay = play;
     int isEndOfGame;
 
-    /* Pre-init */
+    /* Init */
     gIsEntranceOverride = 0;
     g.decoysCount = 0;
-    preInitTitleScreen();
-
-    /* Init */
     isEndOfGame = 0;
     gActorCustomTriggers = NULL;
     gMultiMarkChests = 0;
@@ -721,12 +656,12 @@ void hookPlay_Init(GameState_Play* play)
     }
 }
 
-void Play_UpdateWrapper(GameState_Play* play)
+void Play_UpdateWrapper(PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
     /* Auto-press A during credits */
     if (g.isCredits)
-        play->gs.input[0].pressed.buttons = (play->gs.frameCount & 1) ? A_BUTTON : 0;
+        play->state.input[0].press.button = (play->state.frameCount & 1) ? A_BUTTON : 0;
 
     comboMenuTick();
     Debug_Input();
@@ -741,7 +676,7 @@ void Play_UpdateWrapper(GameState_Play* play)
     Debug_Update();
 }
 
-void Play_TransitionDone(GameState_Play* play)
+void Play_TransitionDone(PlayState* play)
 {
     u32 entrance;
     s32 override;
@@ -754,7 +689,7 @@ void Play_TransitionDone(GameState_Play* play)
         entrance = g.nextEntrance;
         break;
     case ENTR_FW_CROSS:
-        entrance = gForeignSave.fw.entrance | MASK_FOREIGN_ENTRANCE;
+        entrance = gForeignSave.info.fw.entrance | MASK_FOREIGN_ENTRANCE;
         gComboCtx.isFwSpawn = 1;
         break;
     }
@@ -802,15 +737,15 @@ void Play_TransitionDone(GameState_Play* play)
     }
 }
 
-void Play_SetupRespawnPointRaw(GameState_Play* play, int respawnId, int playerParams)
+void Play_SetupRespawnPointRaw(PlayState* play, int respawnId, int playerParams)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
     Play_SetRespawnData(play, respawnId, gSave.entrance, gPlay->roomCtx.curRoom.num, playerParams, &link->actor.world.pos, link->actor.shape.rot.y);
 }
 
-void Play_SetupRespawnPoint(GameState_Play* play, int respawnId, int playerParams)
+void Play_SetupRespawnPoint(PlayState* play, int respawnId, int playerParams)
 {
     if (!Config_Flag(CFG_ER_GROTTOS) && play->sceneId == SCE_MM_GROTTOS)
         return;
@@ -820,10 +755,10 @@ void Play_SetupRespawnPoint(GameState_Play* play, int respawnId, int playerParam
 
 PATCH_FUNC(0x80169e6c, Play_SetupRespawnPoint);
 
-void CutsceneTransitionHook(GameState_Play* play)
+void CutsceneTransitionHook(PlayState* play)
 {
     /* Default hook */
-    void (*DefaultHook)(GameState_Play*);
+    void (*DefaultHook)(PlayState*);
     DefaultHook = (void*)0x801306a4;
     DefaultHook(play);
 
@@ -836,4 +771,70 @@ void CutsceneTransitionHook(GameState_Play* play)
         gIsEntranceOverride = 1;
         return;
     }
+}
+
+void Play_FastInit(GameState* gs)
+{
+    u32 entrance;
+
+    /* Init the play state */
+    gs->nextGameStateInit = Play_Init;
+    gs->nextGameStateSize = sizeof(PlayState);
+
+    /* Load the save file */
+    gSaveContext.fileNum = gComboCtx.saveIndex;
+    Sram_OpenSave(NULL, NULL);
+
+    /* Set stuff */
+    gSaveContext.gameMode = GAMEMODE_NORMAL;
+    gSaveContext.showTitleCard = TRUE;
+
+    if (gComboCtx.isFwSpawn)
+    {
+        gSaveContext.respawnFlag = 8;
+        gComboCtx.isFwSpawn = 0;
+
+        RespawnData* fw = &gCustomSave.fw[gOotSave.age];
+
+        if (fw->data)
+        {
+            gSaveContext.respawn[RESPAWN_MODE_HUMAN] = *fw;
+        }
+        else
+        {
+            gSaveContext.respawn[RESPAWN_MODE_HUMAN].data = 0;
+            gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.x = 0.0f;
+            gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.y = 0.0f;
+            gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.z = 0.0f;
+        }
+    }
+
+    gSave.cutscene = 0;
+    gSaveContext.nextCutscene = 0;
+
+    /* Load the entrance */
+    entrance = gComboCtx.entrance;
+    if (Config_Flag(CFG_ER_ANY))
+        g.initialEntrance = entrance;
+    else
+        g.initialEntrance = ENTR_MM_CLOCK_TOWN;
+    applyCustomEntrance(&entrance);
+    gSave.entrance = entrance;
+
+    /* Fixup the scene/setup */
+    fixupOriginalSceneSetup();
+
+    /* Handle shuffled entrance */
+    switch (gSave.entrance)
+    {
+    case ENTR_MM_BOSS_TEMPLE_WOODFALL:
+    case ENTR_MM_BOSS_TEMPLE_SNOWHEAD:
+    case ENTR_MM_BOSS_TEMPLE_GREAT_BAY:
+    case ENTR_MM_BOSS_TEMPLE_STONE_TOWER:
+        gNoTimeFlow = 1;
+        break;
+    }
+
+    /* Finished */
+    gComboCtx.valid = 0;
 }

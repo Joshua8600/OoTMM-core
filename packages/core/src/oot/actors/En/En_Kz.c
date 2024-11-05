@@ -5,10 +5,10 @@
 #include <combo/inventory.h>
 #include <combo/actor.h>
 
-static void EnKz_MaybeSetMovedPos(Actor* this, GameState_Play* play)
+static void EnKz_MaybeSetMovedPos(Actor* this, PlayState* play)
 {
     int isOpen;
-    void (*EnKz_SetMovedPos)(Actor*, GameState_Play*);
+    void (*EnKz_SetMovedPos)(Actor*, PlayState*);
 
     if (Config_Flag(CFG_OOT_KZ_OPEN))
         isOpen = 1;
@@ -21,7 +21,7 @@ static void EnKz_MaybeSetMovedPos(Actor* this, GameState_Play* play)
 
     if (isOpen)
     {
-        EnKz_SetMovedPos = actorAddr(AC_EN_KZ, 0x80ad65ec);
+        EnKz_SetMovedPos = actorAddr(ACTOR_EN_KZ, 0x80ad65ec);
         EnKz_SetMovedPos(this, play);
     }
 }
@@ -41,11 +41,11 @@ int EnKz_HasGiveItem(Actor* this)
 
 PATCH_CALL(0x80ad6c5c, EnKz_HasGiveItem);
 
-void EnKz_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
+void EnKz_GiveItem(Actor* this, PlayState* play, s16 gi, float a, float b)
 {
     int npc;
 
-    if (!(GET_PLAYER(play)->state & PLAYER_ACTOR_STATE_GET_ITEM))
+    if (!(GET_PLAYER(play)->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM))
         Message_Close(play);
 
     if (!gOotExtraFlags.tunicZora)

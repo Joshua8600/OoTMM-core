@@ -56,19 +56,19 @@ extern u8 gAudioLoadStatusFontSample[0x30];
 
 void AudioHeap_ResetLoadStatus(void)
 {
-    for (int i = 0; i < ARRAY_SIZE(gAudioLoadStatusSeq); ++i)
+    for (int i = 0; i < ARRAY_COUNT(gAudioLoadStatusSeq); ++i)
     {
         if (gAudioLoadStatusSeq[i] != 5)
             gAudioLoadStatusSeq[i] = 0;
     }
 
-    for (int i = 0; i < ARRAY_SIZE(gAudioLoadStatusFont); ++i)
+    for (int i = 0; i < ARRAY_COUNT(gAudioLoadStatusFont); ++i)
     {
         if (gAudioLoadStatusFont[i] != 5)
             gAudioLoadStatusFont[i] = 0;
     }
 
-    for (int i = 0; i < ARRAY_SIZE(gAudioLoadStatusFontSample); ++i)
+    for (int i = 0; i < ARRAY_COUNT(gAudioLoadStatusFontSample); ++i)
     {
         if (gAudioLoadStatusFontSample[i] != 5)
             gAudioLoadStatusFontSample[i] = 0;
@@ -299,7 +299,7 @@ static const float kScaleInv = 1.0f / kScale;
 
 static void drawChar(int x, int y, char c)
 {
-    OPEN_DISPS(gPlay->gs.gfx);
+    OPEN_DISPS(gPlay->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x09, (char*)g.customKeep + CUSTOM_KEEP_FONT + ((c - ' ') * 0x30));
     gSPDisplayList(POLY_OPA_DISP++, kDlistLoadIA4_8x12);
     gSPTextureRectangle(
@@ -330,15 +330,15 @@ static void drawStr(int x, int y, const char* str)
     }
 }
 
-static void Audio_DrawMusicName(GameState_Play* play)
+static void Audio_DrawMusicName(PlayState* play)
 {
     u8 alpha;
-    GfxContext* ctx;
+    GraphicsContext* ctx;
     Gfx* opaOriginal;
     Gfx* opaTarget;
     Gfx* opaNew;
 
-    ctx = gPlay->gs.gfx;
+    ctx = gPlay->state.gfxCtx;
     opaOriginal = ctx->polyOpa.append;
     ctx->polyOpa.append++;
     opaTarget = ctx->polyOpa.append;
@@ -348,7 +348,7 @@ static void Audio_DrawMusicName(GameState_Play* play)
     else
         alpha = sAudioNameTTL * 0x19;
 
-    OPEN_DISPS(gPlay->gs.gfx);
+    OPEN_DISPS(gPlay->state.gfxCtx);
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetCycleType(POLY_OPA_DISP++, G_CYC_1CYCLE);
     gDPSetRenderMode(POLY_OPA_DISP++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -364,7 +364,7 @@ static void Audio_DrawMusicName(GameState_Play* play)
     gSPDisplayList(ctx->overlay.append++, opaTarget);
 }
 
-void Audio_DisplayMusicName(GameState_Play* play)
+void Audio_DisplayMusicName(PlayState* play)
 {
     static u8 sIsInitialized;
     DmaEntry e;

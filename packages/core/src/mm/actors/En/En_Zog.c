@@ -2,12 +2,12 @@
 #include <combo/item.h>
 #include <combo/player.h>
 
-void EnZog_GiveItem(Actor* this, GameState_Play* play)
+void EnZog_GiveItem(Actor* this, PlayState* play)
 {
     if (Actor_HasParentZ(this))
     {
         gMmExtraFlags.maskZora = 1;
-        if (!(GET_PLAYER(play)->state & PLAYER_ACTOR_STATE_GET_ITEM))
+        if (!(GET_PLAYER(play)->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM))
         {
             play->nextEntrance = ENTR_MM_COAST_FROM_MIKAU_CS;
             play->transitionTrigger = TRANS_TRIGGER_NORMAL;
@@ -31,7 +31,7 @@ void EnZog_InitSetScaleHook(Actor* this, float scale)
 
 PATCH_CALL(0x80b935dc, EnZog_InitSetScaleHook);
 
-s32 EnZog_OfferGrab(Actor* actor, GameState_Play* play, s32 getItemId, f32 xzRange, f32 yRange)
+s32 EnZog_OfferGrab(Actor* actor, PlayState* play, s32 getItemId, f32 xzRange, f32 yRange)
 {
     if (comboIsLinkAdult())
     {

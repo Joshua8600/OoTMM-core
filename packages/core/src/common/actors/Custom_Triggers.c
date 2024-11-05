@@ -16,18 +16,18 @@
 # define RECOVERY_HEART GI_MM_RECOVERY_HEART
 #endif
 
-void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, GameState_Play* play);
-void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, GameState_Play* play);
+void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, PlayState* play);
+void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, PlayState* play);
 
 Actor_CustomTriggers* gActorCustomTriggers;
 ComboTriggersData gComboTriggersData;
 
-int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, const ComboItemQuery* q)
+int CustomTriggers_GiveItem(Actor_CustomTriggers* this, PlayState* play, const ComboItemQuery* q)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return 0;
 
     if (Actor_HasParentZ(&this->base))
@@ -40,7 +40,7 @@ int CustomTriggers_GiveItem(Actor_CustomTriggers* this, GameState_Play* play, co
     return 0;
 }
 
-int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, GameState_Play* play, s16 gi, int npc)
+int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, PlayState* play, s16 gi, int npc)
 {
     ComboItemQuery q = ITEM_QUERY_INIT;
 
@@ -51,19 +51,19 @@ int CustomTriggers_GiveItemNpc(Actor_CustomTriggers* this, GameState_Play* play,
     return CustomTriggers_GiveItem(this, play, &q);
 }
 
-int CustomTriggers_GiveItemDirect(Actor_CustomTriggers* this, GameState_Play* play, s16 gi)
+int CustomTriggers_GiveItemDirect(Actor_CustomTriggers* this, PlayState* play, s16 gi)
 {
     ComboItemQuery q = ITEM_QUERY_INIT;
     q.gi = gi;
     return CustomTriggers_GiveItem(this, play, &q);
 }
 
-int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
+int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
+    if (link->stateFlags1 & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
     {
         gComboTriggersData.acc = 0;
         return 0;
@@ -80,7 +80,7 @@ int CustomTrigger_ItemSafe(Actor_CustomTriggers* this, GameState_Play* play)
     return 0;
 }
 
-static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_Play* play)
+static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, PlayState* play)
 {
     switch (gComboTriggersData.trigger)
     {
@@ -104,7 +104,7 @@ static void CustomTriggers_HandleTrigger(Actor_CustomTriggers* this, GameState_P
     CustomTriggers_HandleTriggerGame(this, play);
 }
 
-static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Play* play)
+static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, PlayState* play)
 {
     /* Ganon BK */
     if (Config_Flag(CFG_OOT_GANON_BK_CUSTOM) && !gOotExtraFlags.ganonBossKey && Config_SpecialCond(SPECIAL_GANON_BK))
@@ -141,20 +141,20 @@ static void CustomTriggers_CheckTrigger(Actor_CustomTriggers* this, GameState_Pl
     CustomTriggers_CheckTriggerGame(this, play);
 }
 
-static void CustomTriggers_Init(Actor_CustomTriggers* this, GameState_Play* play)
+static void CustomTriggers_Init(Actor_CustomTriggers* this, PlayState* play)
 {
     this->base.room = 0xff;
 }
 
-static void CustomTriggers_Fini(Actor_CustomTriggers* this, GameState_Play* play)
+static void CustomTriggers_Fini(Actor_CustomTriggers* this, PlayState* play)
 {
     gActorCustomTriggers = NULL;
 }
 
-static void CustomTriggers_Update(Actor_CustomTriggers* this, GameState_Play* play)
+static void CustomTriggers_Update(Actor_CustomTriggers* this, PlayState* play)
 {
     /* Always be near link */
-    Actor_Player* link;
+    Player* link;
     link = GET_PLAYER(play);
     if (link)
     {
@@ -169,7 +169,7 @@ static void CustomTriggers_Update(Actor_CustomTriggers* this, GameState_Play* pl
         CustomTriggers_HandleTrigger(this, play);
 }
 
-void CustomTriggers_Spawn(GameState_Play* play)
+void CustomTriggers_Spawn(PlayState* play)
 {
     if (gActorCustomTriggers)
         return;
@@ -179,19 +179,19 @@ void CustomTriggers_Spawn(GameState_Play* play)
     gActorCustomTriggers = (Actor_CustomTriggers*)Actor_Spawn(
         &play->actorCtx,
         play,
-        AC_CUSTOM_TRIGGERS,
+        ACTOR_CUSTOM_TRIGGERS,
         0, 0, 0,
         0, 0, 0,
         0
     );
 }
 
-void CustomTriggers_Draw(Actor* this, GameState_Play* play)
+void CustomTriggers_Draw(Actor* this, PlayState* play)
 {
 }
 
 ActorInit CustomTriggers_gActorInit = {
-    AC_CUSTOM_TRIGGERS,
+    ACTOR_CUSTOM_TRIGGERS,
     0x8,
     0x10,
     0x1,

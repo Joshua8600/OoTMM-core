@@ -11,7 +11,7 @@
 #endif
 
 /* Original func */
-void _Interface_Update(GameState_Play* play);
+void _Interface_Update(PlayState* play);
 
 static void Interface_UpdateRupees(void)
 {
@@ -36,18 +36,18 @@ static void Interface_UpdateRupees(void)
         d = -d;
 
     /* Transfer rupees */
-    gSave.playerData.rupees += d;
+    gSave.info.playerData.rupees += d;
     gRupeesDelta -= d;
 
-    if (gSave.playerData.rupees < 0)
+    if (gSave.info.playerData.rupees < 0)
     {
-        gSave.playerData.rupees = 0;
+        gSave.info.playerData.rupees = 0;
         gRupeesDelta = 0;
     }
 
-    if (gSave.playerData.rupees > gMaxRupees[gSave.inventory.upgrades.wallet])
+    if (gSave.info.playerData.rupees > gMaxRupees[gSave.info.inventory.upgrades.wallet])
     {
-        gSave.playerData.rupees = gMaxRupees[gSave.inventory.upgrades.wallet];
+        gSave.info.playerData.rupees = gMaxRupees[gSave.info.inventory.upgrades.wallet];
         gRupeesDelta = 0;
     }
 
@@ -55,7 +55,7 @@ static void Interface_UpdateRupees(void)
     PlaySound(0x482f);
 }
 
-void Interface_Update(GameState_Play* play)
+void Interface_Update(PlayState* play)
 {
     Interface_UpdateRupees();
     _Interface_Update(play);

@@ -9,7 +9,7 @@
 #include <combo/dpad.h>
 #include <combo/inventory.h>
 
-void KaleidoScope_AfterSetCutsorColor(GameState_Play* play)
+void KaleidoScope_AfterSetCutsorColor(PlayState* play)
 {
     u16 cursorSlot;
     int press;
@@ -19,7 +19,7 @@ void KaleidoScope_AfterSetCutsorColor(GameState_Play* play)
     Dpad_Update(play);
 
     cursorSlot = play->pauseCtx.cursorSlot[0];
-    press = !!(play->gs.input[0].pressed.buttons & (L_TRIG | U_CBUTTONS));
+    press = !!(play->state.input[0].press.button & (L_TRIG | U_CBUTTONS));
     effect = 0;
 
     u8* itemPtr;
@@ -36,12 +36,12 @@ void KaleidoScope_AfterSetCutsorColor(GameState_Play* play)
         }
     }
 
-    if (cursorSlot >= ITS_MM_BOTTLE && cursorSlot <= ITS_MM_BOTTLE6 && gSave.inventory.items[cursorSlot] == ITEM_MM_SPRING_WATER_HOT)
+    if (cursorSlot >= ITS_MM_BOTTLE && cursorSlot <= ITS_MM_BOTTLE6 && gSave.info.inventory.items[cursorSlot] == ITEM_MM_SPRING_WATER_HOT)
     {
         play->pauseCtx.cursorColorIndex = 4;
         if (press)
         {
-            gSave.inventory.items[cursorSlot] = ITEM_MM_SPRING_WATER;
+            gSave.info.inventory.items[cursorSlot] = ITEM_MM_SPRING_WATER;
             reloadSlotMm(gPlay, cursorSlot);
             effect = 1;
         }
@@ -114,7 +114,7 @@ void KaleidoScope_LoadNamedItemCustom(void* segment, u32 texIndex)
 
 }
 
-void KaleidoScope_ShowItemMessage(GameState_Play* play, u16 messageId, u8 yPosition)
+void KaleidoScope_ShowItemMessage(PlayState* play, u16 messageId, u8 yPosition)
 {
     char* b;
     if (messageId == 0x1711)
@@ -202,9 +202,9 @@ void KaleidoScope_ShowItemMessage(GameState_Play* play, u16 messageId, u8 yPosit
     }
 }
 
-typedef void (*KaleidoScopeHandler)(GameState_Play*);
+typedef void (*KaleidoScopeHandler)(PlayState*);
 
-static void KaleidoScope_DrawMapDungeonMenu(GameState_Play* play, u32 overlayAddr)
+static void KaleidoScope_DrawMapDungeonMenu(PlayState* play, u32 overlayAddr)
 {
     KaleidoScopeHandler handler;
 
@@ -219,11 +219,11 @@ static void KaleidoScope_DrawMapDungeonMenu(GameState_Play* play, u32 overlayAdd
     }
 }
 
-static void KaleidoScope_UpdateMapDungeonMenu(GameState_Play* play, u32 overlayAddr)
+static void KaleidoScope_UpdateMapDungeonMenu(PlayState* play, u32 overlayAddr)
 {
     KaleidoScopeHandler handler;
 
-    if (play->gs.input[0].pressed.buttons & (L_TRIG | U_CBUTTONS))
+    if (play->state.input[0].press.button & (L_TRIG | U_CBUTTONS))
         comboMenuNext();
 
     if (g.menuScreen)
@@ -237,7 +237,7 @@ static void KaleidoScope_UpdateMapDungeonMenu(GameState_Play* play, u32 overlayA
     }
 }
 
-static void KaleidoScope_DrawMapMenu(GameState_Play *play)
+static void KaleidoScope_DrawMapMenu(PlayState *play)
 {
     KaleidoScope_DrawMapDungeonMenu(play, 0x8081e7d8);
 }
@@ -245,7 +245,7 @@ static void KaleidoScope_DrawMapMenu(GameState_Play *play)
 PATCH_CALL(0x80822a14, KaleidoScope_DrawMapMenu);
 PATCH_CALL(0x808230e4, KaleidoScope_DrawMapMenu);
 
-static void KaleidoScope_DrawDungeonMenu(GameState_Play *play)
+static void KaleidoScope_DrawDungeonMenu(PlayState *play)
 {
     KaleidoScope_DrawMapDungeonMenu(play, 0x8081d6dc);
 }
@@ -253,14 +253,14 @@ static void KaleidoScope_DrawDungeonMenu(GameState_Play *play)
 PATCH_CALL(0x808229cc, KaleidoScope_DrawDungeonMenu);
 PATCH_CALL(0x80822f34, KaleidoScope_DrawDungeonMenu);
 
-static void KaleidoScope_UpdateMapMenu(GameState_Play* play)
+static void KaleidoScope_UpdateMapMenu(PlayState* play)
 {
     KaleidoScope_UpdateMapDungeonMenu(play, 0x8081fb1c);
 }
 
 PATCH_CALL(0x8082ae00, KaleidoScope_UpdateMapMenu);
 
-static void KaleidoScope_UpdateDungeonMenu(GameState_Play* play)
+static void KaleidoScope_UpdateDungeonMenu(PlayState* play)
 {
     KaleidoScope_UpdateMapDungeonMenu(play, 0x8081e118);
 }
@@ -285,12 +285,12 @@ static void KaleidoScope_DrawDungeonUnk2(void* unk)
 PATCH_CALL(0x80822a00, KaleidoScope_DrawDungeonUnk2);
 PATCH_CALL(0x80822f68, KaleidoScope_DrawDungeonUnk2);
 
-static int canSave(GameState_Play* play)
+static int canSave(PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_EPONA)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_EPONA)
         return 0;
 
     switch (play->sceneId)
@@ -311,7 +311,7 @@ static int canSave(GameState_Play* play)
     }
 }
 
-static void menuSave(GameState_Play* play)
+static void menuSave(PlayState* play)
 {
     /* Can't save in some scenes */
     if (!canSave(play))
@@ -322,7 +322,7 @@ static void menuSave(GameState_Play* play)
     PlaySound(0x4823);
 }
 
-static void KaleidoScope_UpdateSomeMenu(GameState_Play* play)
+static void KaleidoScope_UpdateSomeMenu(PlayState* play)
 {
     KaleidoScopeHandler handler;
 
@@ -330,7 +330,7 @@ static void KaleidoScope_UpdateSomeMenu(GameState_Play* play)
     handler = OverlayAddr(0x80817b5c);
     handler(play);
 
-    if (play->gs.input[0].pressed.buttons & (L_TRIG | U_CBUTTONS))
+    if (play->state.input[0].press.button & (L_TRIG | U_CBUTTONS))
     {
         menuSave(play);
     }
@@ -376,7 +376,7 @@ void KaleidoScope_LoadIcons(u32 vrom, void* dst, size_t* size)
     comboDmaLookupForeignId(&dma, 8);
     u32 textureFileAddress = dma.pstart;
 
-    for (u32 i = 0; i < ARRAY_SIZE(sCustomIcons); i++)
+    for (u32 i = 0; i < ARRAY_COUNT(sCustomIcons); i++)
     {
         u32 icon = sCustomIcons[i];
         u32 foreignIcon;
@@ -464,12 +464,12 @@ static Vtx* gVertex[6] = {
     &gVertexBufs[(4 * 5) * 2],
 };
 
-static Vtx* GetVtxBuffer(GameState_Play* play, u32 vertIdx, u32 slot) {
+static Vtx* GetVtxBuffer(PlayState* play, u32 vertIdx, u32 slot) {
     /* Get vertex of current icon drawing to Item Select screen */
     const Vtx* srcVtx = play->pauseCtx.vtxBuf + vertIdx;
 
     /* Get dest Vtx (factor in frame counter) */
-    int framebufIdx = play->gs.gfx->displayListCounter & 1;
+    int framebufIdx = play->state.gfxCtx->displayListCounter & 1;
     Vtx* dstVtx = gVertex[slot] + (framebufIdx * 4);
 
     /* Copy source Vtx over to dest Vtx */
@@ -488,7 +488,7 @@ static Vtx* GetVtxBuffer(GameState_Play* play, u32 vertIdx, u32 slot) {
     return dstVtx;
 }
 
-static void DrawIcon(GfxContext* gfxCtx, const Vtx* vtx, u32 segAddr, u16 width, u16 height, u16 qidx) {
+static void DrawIcon(GraphicsContext* gfxCtx, const Vtx* vtx, u32 segAddr, u16 width, u16 height, u16 qidx) {
     OPEN_DISPS(gfxCtx);
     /* Instructions that happen before function */
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0xFF, 0xFF, 0xFF, gfxCtx->play->pauseCtx.itemAlpha & 0xFF);
@@ -501,9 +501,9 @@ static void DrawIcon(GfxContext* gfxCtx, const Vtx* vtx, u32 segAddr, u16 width,
     CLOSE_DISPS();
 }
 
-typedef void (*KaleidoScope_DrawIcon)(GfxContext* gfxCtx, u32 texture, u16 width, u16 height, u16 point);
+typedef void (*KaleidoScope_DrawIcon)(GraphicsContext* gfxCtx, u32 texture, u16 width, u16 height, u16 point);
 
-void KaleidoScope_DrawIconCustom(GfxContext* gfxCtx, u8 item, u16 width, u16 height, u32 slot, u16 point, u16 vertIdx)
+void KaleidoScope_DrawIconCustom(GraphicsContext* gfxCtx, u8 item, u16 width, u16 height, u32 slot, u16 point, u16 vertIdx)
 {
     u32 texture = GetItemTexture(item);
 

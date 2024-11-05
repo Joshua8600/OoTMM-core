@@ -1,5 +1,3 @@
-import randomBytes from 'randombytes';
-
 export class Random {
   private state: number[] = [0, 0, 0, 0, 0];
   private counter: number = 0;
@@ -24,7 +22,7 @@ export class Random {
   }
 
   async seed(seed: string) {
-    const digest = await crypto.subtle.digest('SHA-512', Buffer.from(seed));
+    const digest = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(seed));
     for (let i = 0; i < 5; ++i) {
       this.state[i] = new DataView(digest).getUint32(i * 4);
     }
@@ -33,7 +31,8 @@ export class Random {
 }
 
 export const randString = () => {
-  return randomBytes(48).toString('hex');
+  const bytes = crypto.getRandomValues(new Uint8Array(48));
+  return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 export const randomInt = (random: Random, max: number) => {
@@ -54,7 +53,7 @@ export const randomInt = (random: Random, max: number) => {
 };
 
 export const sample = <T>(random: Random, aList: Iterable<T>): T => {
-  const arr = Array.from(aList).sort();
+  const arr = [...aList];
   if (arr.length === 0) {
     throw new Error('Empty Array');
   }
@@ -64,7 +63,7 @@ export const sample = <T>(random: Random, aList: Iterable<T>): T => {
 };
 
 export const shuffle = <T>(random: Random, aList: Iterable<T>): T[] => {
-  const copy = Array.from(aList).sort();
+  const copy = [...aList];
   for (let i = 0; i < copy.length - 1; i++) {
     const j = i + randomInt(random, copy.length - i);
     [copy[i], copy[j]] = [copy[j], copy[i]];

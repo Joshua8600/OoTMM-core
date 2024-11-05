@@ -32,38 +32,38 @@ static int isPlayerSelf(u8 playerId)
 void comboSyncItems(void)
 {
     if (Config_Flag(CFG_SHARED_BOWS))
-        gForeignSave.inventory.ammo[ITS_FOREIGN_BOW] = gSave.inventory.ammo[ITS_NATIVE_BOW];
+        gForeignSave.info.inventory.ammo[ITS_FOREIGN_BOW] = gSave.info.inventory.ammo[ITS_NATIVE_BOW];
 
     if (Config_Flag(CFG_SHARED_BOMB_BAGS))
-        gForeignSave.inventory.ammo[ITS_FOREIGN_BOMBS] = gSave.inventory.ammo[ITS_NATIVE_BOMBS];
+        gForeignSave.info.inventory.ammo[ITS_FOREIGN_BOMBS] = gSave.info.inventory.ammo[ITS_NATIVE_BOMBS];
 
     if (Config_Flag(CFG_SHARED_BOMBCHU))
-        gForeignSave.inventory.ammo[ITS_FOREIGN_BOMBCHU] = gSave.inventory.ammo[ITS_NATIVE_BOMBCHU];
+        gForeignSave.info.inventory.ammo[ITS_FOREIGN_BOMBCHU] = gSave.info.inventory.ammo[ITS_NATIVE_BOMBCHU];
 
     if (Config_Flag(CFG_SHARED_MAGIC))
-       gForeignSave.playerData.magicAmount = gSave.playerData.magicAmount;
+       gForeignSave.info.playerData.magic = gSave.info.playerData.magic;
 
     if (Config_Flag(CFG_SHARED_NUTS_STICKS))
     {
-        gForeignSave.inventory.ammo[ITS_FOREIGN_NUTS] = gSave.inventory.ammo[ITS_NATIVE_NUTS];
-        gForeignSave.inventory.ammo[ITS_FOREIGN_STICKS] = gSave.inventory.ammo[ITS_NATIVE_STICKS];
+        gForeignSave.info.inventory.ammo[ITS_FOREIGN_NUTS] = gSave.info.inventory.ammo[ITS_NATIVE_NUTS];
+        gForeignSave.info.inventory.ammo[ITS_FOREIGN_STICKS] = gSave.info.inventory.ammo[ITS_NATIVE_STICKS];
     }
 
     if (Config_Flag(CFG_SHARED_WALLETS))
-        gForeignSave.playerData.rupees = gSave.playerData.rupees;
+        gForeignSave.info.playerData.rupees = gSave.info.playerData.rupees;
 
     if (Config_Flag(CFG_SHARED_HEALTH))
     {
-        gForeignSave.playerData.healthMax = gSave.playerData.healthMax;
-        gForeignSave.playerData.health = gSave.playerData.health;
-        gForeignSave.inventory.quest.heartPieces = gSave.inventory.quest.heartPieces;
+        gForeignSave.info.playerData.healthCapacity = gSave.info.playerData.healthCapacity;
+        gForeignSave.info.playerData.health = gSave.info.playerData.health;
+        gForeignSave.info.inventory.quest.heartPieces = gSave.info.inventory.quest.heartPieces;
     }
 
     if (Config_Flag(CFG_CROSS_GAME_FW))
     {
 #if defined(GAME_MM)
         RespawnData* fw = &gCustomSave.fw[gOotSave.age];
-        OotFaroreWind* foreignFw = &gForeignSave.fw;
+        OotFaroreWind* foreignFw = &gForeignSave.info.fw;
 
         if (fw->data <= 0 || fw->entrance != ENTR_FW_CROSS)
         {
@@ -77,7 +77,7 @@ void comboSyncItems(void)
         }
 #else
         RespawnData* foreignFw = &gSharedCustomSave.mm.fw[gSave.age];
-        OotFaroreWind* fw = &gSave.fw;
+        OotFaroreWind* fw = &gSave.info.fw;
 
         if (fw->set <= 0 || fw->entrance != ENTR_FW_CROSS)
         {
@@ -102,7 +102,7 @@ int comboItemPrecondEx(const ComboItemQuery* q, s16 price)
     if (isPlayerSelf(o.player) && (!isItemBuyable(o.gi) || !isItemLicensed(o.gi)))
         return SC_ERR_CANNOTBUY;
 
-    if (gSave.playerData.rupees < price)
+    if (gSave.info.playerData.rupees < price)
         return SC_ERR_NORUPEES;
 
     if (isItemFastBuy(o.gi))
@@ -111,7 +111,7 @@ int comboItemPrecondEx(const ComboItemQuery* q, s16 price)
     return SC_OK;
 }
 
-static void comboGiveItemRaw(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
+static void comboGiveItemRaw(Actor* actor, PlayState* play, const ComboItemQuery* q, float a, float b)
 {
     static ComboItemQuery sItemQ;
     static ComboItemQuery sItemQBox;
@@ -133,7 +133,7 @@ static void comboGiveItemRaw(Actor* actor, GameState_Play* play, const ComboItem
     }
 }
 
-void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b)
+void comboGiveItem(Actor* actor, PlayState* play, const ComboItemQuery* q, float a, float b)
 {
     ComboItemQuery qNothing = ITEM_QUERY_INIT;
     const ComboItemQuery* qPtr;
@@ -148,12 +148,12 @@ void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, 
     comboGiveItemRaw(actor, play, qPtr, a, b);
 }
 
-void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npc, float a, float b)
+void comboGiveItemNpc(Actor* actor, PlayState* play, s16 gi, int npc, float a, float b)
 {
     comboGiveItemNpcEx(actor, play, gi, npc, 0, a, b);
 }
 
-void comboGiveItemNpcEx(Actor* actor, GameState_Play* play, s16 gi, int npc, int flags, float a, float b)
+void comboGiveItemNpcEx(Actor* actor, PlayState* play, s16 gi, int npc, int flags, float a, float b)
 {
     ComboItemQuery q = ITEM_QUERY_INIT;
 
@@ -257,7 +257,7 @@ static int overrideData(ComboOverrideData* data, u32 key)
 #endif
 
     /* Check the cache */
-    for (int i = 0; i < ARRAY_SIZE(sComboOverridesCache); ++i)
+    for (int i = 0; i < ARRAY_COUNT(sComboOverridesCache); ++i)
     {
         if (sComboOverridesCache[i].key == key)
         {
@@ -286,7 +286,7 @@ static int overrideData(ComboOverrideData* data, u32 key)
             /* Copy and add to cache */
             memcpy(data, &d, sizeof(*data));
             memcpy(&sComboOverridesCache[sComboOverridesCacheCursor], &d, sizeof(d));
-            sComboOverridesCacheCursor = (sComboOverridesCacheCursor + 1) % ARRAY_SIZE(sComboOverridesCache);
+            sComboOverridesCacheCursor = (sComboOverridesCacheCursor + 1) % ARRAY_COUNT(sComboOverridesCache);
             return 1;
         }
         if (key > d.key)
@@ -345,7 +345,7 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
 }
 
 
-int comboAddItemRawEx(GameState_Play* play, const ComboItemQuery* q, int updateText)
+int comboAddItemRawEx(PlayState* play, const ComboItemQuery* q, int updateText)
 {
     ComboItemOverride o;
     NetContext* net;
@@ -376,7 +376,7 @@ int comboAddItemRawEx(GameState_Play* play, const ComboItemQuery* q, int updateT
             /* If the item was a renewable, add it to the GI skips */
             if (q->ovFlags & OVF_RENEW)
             {
-                for (int i = 0; i < ARRAY_SIZE(gSharedCustomSave.netGiSkip); ++i)
+                for (int i = 0; i < ARRAY_COUNT(gSharedCustomSave.netGiSkip); ++i)
                 {
                     if (gSharedCustomSave.netGiSkip[i] == GI_NONE)
                     {
@@ -408,7 +408,7 @@ int comboAddItemRawEx(GameState_Play* play, const ComboItemQuery* q, int updateT
     return count;
 }
 
-int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText)
+int comboAddItemEx(PlayState* play, const ComboItemQuery* q, int updateText)
 {
     ComboItemQuery qNothing = ITEM_QUERY_INIT;
     const ComboItemQuery* qPtr;
@@ -423,7 +423,7 @@ int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText
     return comboAddItemRawEx(play, qPtr, updateText);
 }
 
-void comboPlayerAddItem(GameState_Play* play, s16 gi)
+void comboPlayerAddItem(PlayState* play, s16 gi)
 {
 #if defined(GAME_MM)
 # define CHEST_OFF 0x388
@@ -432,14 +432,14 @@ void comboPlayerAddItem(GameState_Play* play, s16 gi)
 #endif
 
     Actor* chest;
-    Actor_Player* player;
+    Player* player;
     ComboItemQuery q = ITEM_QUERY_INIT;
     ComboItemOverride o;
 
     /* Check for a chest */
     player = GET_PLAYER(play);
     chest = *(Actor**)((char*)player + CHEST_OFF);
-    if (chest && chest->id == AC_EN_BOX)
+    if (chest && chest->id == ACTOR_EN_BOX)
     {
         if (g.itemQueryBox)
         {
@@ -477,7 +477,7 @@ u8 comboItemType(s16 gi)
     return kExtendedGetItems[gi - 1].type;
 }
 
-Actor_ItemDecoy* Item_AddWithDecoy(GameState_Play* play, const ComboItemQuery* q)
+Actor_ItemDecoy* Item_AddWithDecoy(PlayState* play, const ComboItemQuery* q)
 {
     int count;
     Actor_ItemDecoy* decoy;
@@ -485,7 +485,7 @@ Actor_ItemDecoy* Item_AddWithDecoy(GameState_Play* play, const ComboItemQuery* q
 
     comboItemOverride(&o, q);
     count = comboAddItemEx(play, q, FALSE);
-    decoy = (Actor_ItemDecoy*)Actor_Spawn(&play->actorCtx, play, AC_ITEM_DECOY, 0, 0, 0, 0, 0, 0, 0);
+    decoy = (Actor_ItemDecoy*)Actor_Spawn(&play->actorCtx, play, ACTOR_ITEM_DECOY, 0, 0, 0, 0, 0, 0, 0);
     if (!decoy)
         return NULL;
     decoy->count = (s16)count;

@@ -4,7 +4,7 @@
 #include <combo/draw.h>
 #include <combo/actor.h>
 
-void EnExRuppy_ItemQuery(ComboItemQuery* q, Actor_EnExRuppy* this, GameState_Play* play)
+void EnExRuppy_ItemQuery(ComboItemQuery* q, Actor_EnExRuppy* this, PlayState* play)
 {
     memset(q, 0, sizeof(*q));
 
@@ -38,7 +38,7 @@ void EnExRuppy_ItemQuery(ComboItemQuery* q, Actor_EnExRuppy* this, GameState_Pla
     }
 }
 
-static int EnExRupy_IsShuffled(Actor_EnExRuppy* this, GameState_Play* play)
+static int EnExRupy_IsShuffled(Actor_EnExRuppy* this, PlayState* play)
 {
     ComboItemQuery q;
     ComboItemOverride o;
@@ -50,18 +50,18 @@ static int EnExRupy_IsShuffled(Actor_EnExRuppy* this, GameState_Play* play)
     return o.gi != GI_NONE;
 }
 
-void EnExRuppy_Draw(Actor_EnExRuppy* this, GameState_Play* play)
+void EnExRuppy_Draw(Actor_EnExRuppy* this, PlayState* play)
 {
     ComboItemQuery q;
     ComboItemOverride o;
 
     EnExRuppy_ItemQuery(&q, this, play);
     comboItemOverride(&o, &q);
-    Matrix_Scale(25.0f, 25.0f, 25.0f, MAT_MUL);
+    Matrix_Scale(25.0f, 25.0f, 25.0f, MTXMODE_APPLY);
     Draw_Gi(play, &this->actor, o.gi, 0);
 }
 
-void EnExRuppy_HandlerCollected(Actor_EnExRuppy* this, GameState_Play* play)
+void EnExRuppy_HandlerCollected(Actor_EnExRuppy* this, PlayState* play)
 {
     Actor_EnDivingGame* divingGame;
     if (Message_IsClosed(&this->actor, play))
@@ -77,15 +77,15 @@ void EnExRuppy_HandlerCollected(Actor_EnExRuppy* this, GameState_Play* play)
     }
 }
 
-void EnExRuppy_GiveItem(Actor_EnExRuppy* this, GameState_Play* play, Actor_EnDivingGame* divingGame)
+void EnExRuppy_GiveItem(Actor_EnExRuppy* this, PlayState* play, Actor_EnDivingGame* divingGame)
 {
-    Actor_Player* link;
+    Player* link;
     ComboItemQuery q;
     ComboItemOverride o;
     int major;
 
     link = GET_PLAYER(play);
-    if (link->state & (PLAYER_ACTOR_STATE_FROZEN | PLAYER_ACTOR_STATE_EPONA))
+    if (link->stateFlags1 & (PLAYER_ACTOR_STATE_FROZEN | PLAYER_ACTOR_STATE_EPONA))
         return;
 
     /* Check for textbox */
@@ -119,11 +119,11 @@ void EnExRuppy_GiveItem(Actor_EnExRuppy* this, GameState_Play* play, Actor_EnDiv
     comboPlayItemFanfare(o.gi, 1);
 }
 
-void EnExRuppy_InitWrapper(Actor_EnExRuppy* this, GameState_Play* play)
+void EnExRuppy_InitWrapper(Actor_EnExRuppy* this, PlayState* play)
 {
     ActorCallback init;
 
-    init = actorAddr(AC_EN_EX_RUPPY, 0x80a8ab70);
+    init = actorAddr(ACTOR_EN_EX_RUPPY, 0x80a8ab70);
     init(&this->actor, play);
 
     if (this->type == 0 && EnExRupy_IsShuffled(this, play))

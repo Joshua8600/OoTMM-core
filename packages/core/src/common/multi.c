@@ -39,17 +39,17 @@ static int mmSceneId(int sceneId)
     }
 }
 
-static int getChestMarkOot(GameState_Play* play, int sceneId, int flagId)
+static int getChestMarkOot(PlayState* play, int sceneId, int flagId)
 {
 #if defined(GAME_OOT)
     if (play && play->sceneId == sceneId)
         return !!(gMultiMarkChests & (1 << flagId));
 #endif
 
-    return !!(gOotSave.perm[sceneId].chests & (1 << flagId));
+    return !!(gOotSave.info.perm[sceneId].chests & (1 << flagId));
 }
 
-static int getChestMarkMm(GameState_Play* play, int sceneId, int flagId)
+static int getChestMarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -60,10 +60,10 @@ static int getChestMarkMm(GameState_Play* play, int sceneId, int flagId)
         return 1;
 #endif
 
-    return !!(gMmSave.permanentSceneFlags[sceneId].chest & (1 << flagId));
+    return !!(gMmSave.info.permanentSceneFlags[sceneId].chest & (1 << flagId));
 }
 
-static void setChestMarkOot(GameState_Play* play, int sceneId, int flagId)
+static void setChestMarkOot(PlayState* play, int sceneId, int flagId)
 {
 #if defined(GAME_OOT)
     if (play && play->sceneId == sceneId)
@@ -74,10 +74,10 @@ static void setChestMarkOot(GameState_Play* play, int sceneId, int flagId)
     }
 #endif
 
-    gOotSave.perm[sceneId].chests |= (1 << flagId);
+    gOotSave.info.perm[sceneId].chests |= (1 << flagId);
 }
 
-static void setChestMarkMm(GameState_Play* play, int sceneId, int flagId)
+static void setChestMarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -91,20 +91,20 @@ static void setChestMarkMm(GameState_Play* play, int sceneId, int flagId)
     gSaveContext.cycleSceneFlags[sceneId].chest |= (1 << flagId);
 #endif
 
-    gMmSave.permanentSceneFlags[sceneId].chest |= (1 << flagId);
+    gMmSave.info.permanentSceneFlags[sceneId].chest |= (1 << flagId);
 }
 
-static int getCollectibleMarkOot(GameState_Play* play, int sceneId, int flagId)
+static int getCollectibleMarkOot(PlayState* play, int sceneId, int flagId)
 {
 #if defined(GAME_OOT)
     if (play && play->sceneId == sceneId)
         return !!(gMultiMarkCollectibles & (1 << flagId));
 #endif
 
-    return !!(gOotSave.perm[sceneId].collectibles & (1 << flagId));
+    return !!(gOotSave.info.perm[sceneId].collectibles & (1 << flagId));
 }
 
-static int getCollectibleMarkMm(GameState_Play* play, int sceneId, int flagId)
+static int getCollectibleMarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -115,10 +115,10 @@ static int getCollectibleMarkMm(GameState_Play* play, int sceneId, int flagId)
         return 1;
 #endif
 
-    return !!(gMmSave.permanentSceneFlags[sceneId].collectible & (1 << flagId));
+    return !!(gMmSave.info.permanentSceneFlags[sceneId].collectible & (1 << flagId));
 }
 
-static void setCollectibleMarkOot(GameState_Play* play, int sceneId, int flagId)
+static void setCollectibleMarkOot(PlayState* play, int sceneId, int flagId)
 {
 #if defined(GAME_OOT)
     if (play && play->sceneId == sceneId)
@@ -129,10 +129,10 @@ static void setCollectibleMarkOot(GameState_Play* play, int sceneId, int flagId)
     }
 #endif
 
-    gOotSave.perm[sceneId].collectibles |= (1 << flagId);
+    gOotSave.info.perm[sceneId].collectibles |= (1 << flagId);
 }
 
-static void setCollectibleMarkMm(GameState_Play* play, int sceneId, int flagId)
+static void setCollectibleMarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -146,10 +146,10 @@ static void setCollectibleMarkMm(GameState_Play* play, int sceneId, int flagId)
     gSaveContext.cycleSceneFlags[sceneId].collectible |= (1 << flagId);
 #endif
 
-    gMmSave.permanentSceneFlags[sceneId].collectible |= (1 << flagId);
+    gMmSave.info.permanentSceneFlags[sceneId].collectible |= (1 << flagId);
 }
 
-static int getSwitch0MarkMm(GameState_Play* play, int sceneId, int flagId)
+static int getSwitch0MarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -160,10 +160,10 @@ static int getSwitch0MarkMm(GameState_Play* play, int sceneId, int flagId)
         return 1;
 #endif
 
-    return !!(gMmSave.permanentSceneFlags[sceneId].switch0 & (1 << flagId));
+    return !!(gMmSave.info.permanentSceneFlags[sceneId].switch0 & (1 << flagId));
 }
 
-static int getSwitch1MarkMm(GameState_Play* play, int sceneId, int flagId)
+static int getSwitch1MarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -174,10 +174,10 @@ static int getSwitch1MarkMm(GameState_Play* play, int sceneId, int flagId)
         return 1;
 #endif
 
-    return !!(gMmSave.permanentSceneFlags[sceneId].switch1 & (1 << flagId));
+    return !!(gMmSave.info.permanentSceneFlags[sceneId].switch1 & (1 << flagId));
 }
 
-static void setSwitch0MarkMm(GameState_Play* play, int sceneId, int flagId)
+static void setSwitch0MarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -191,10 +191,10 @@ static void setSwitch0MarkMm(GameState_Play* play, int sceneId, int flagId)
     gSaveContext.cycleSceneFlags[sceneId].switch0 |= (1 << flagId);
 #endif
 
-    gMmSave.permanentSceneFlags[sceneId].switch0 |= (1 << flagId);
+    gMmSave.info.permanentSceneFlags[sceneId].switch0 |= (1 << flagId);
 }
 
-static void setSwitch1MarkMm(GameState_Play* play, int sceneId, int flagId)
+static void setSwitch1MarkMm(PlayState* play, int sceneId, int flagId)
 {
     sceneId = mmSceneId(sceneId);
 
@@ -208,10 +208,10 @@ static void setSwitch1MarkMm(GameState_Play* play, int sceneId, int flagId)
     gSaveContext.cycleSceneFlags[sceneId].switch1 |= (1 << flagId);
 #endif
 
-    gMmSave.permanentSceneFlags[sceneId].switch1 |= (1 << flagId);
+    gMmSave.info.permanentSceneFlags[sceneId].switch1 |= (1 << flagId);
 }
 
-static int getStrayFairyMarkMm(GameState_Play* play, int sceneId, int id)
+static int getStrayFairyMarkMm(PlayState* play, int sceneId, int id)
 {
     if (id >= 0x30)
         return getCollectibleMarkMm(play, sceneId, id & 0x1f);
@@ -221,7 +221,7 @@ static int getStrayFairyMarkMm(GameState_Play* play, int sceneId, int id)
         return getSwitch0MarkMm(play, sceneId, id & 0x1f);
 }
 
-static void setStrayFairyMarkMm(GameState_Play* play, int sceneId, int id)
+static void setStrayFairyMarkMm(PlayState* play, int sceneId, int id)
 {
     if (id >= 0x30)
         setCollectibleMarkMm(play, sceneId, id & 0x1f);
@@ -241,7 +241,7 @@ static void markXflag(Xflag* xf, int sliceId, int sceneId, int roomId, int id)
     xf->id = id;
 }
 
-static int getXflagsMarkOot(GameState_Play* play, int sliceId, int sceneId, int roomId, int id)
+static int getXflagsMarkOot(PlayState* play, int sliceId, int sceneId, int roomId, int id)
 {
     Xflag xf;
 
@@ -249,7 +249,7 @@ static int getXflagsMarkOot(GameState_Play* play, int sliceId, int sceneId, int 
     return comboXflagsGetOot(&xf);
 }
 
-static int getXflagsMarkMm(GameState_Play* play, int sliceId, int sceneId, int roomId, int id)
+static int getXflagsMarkMm(PlayState* play, int sliceId, int sceneId, int roomId, int id)
 {
     Xflag xf;
 
@@ -257,7 +257,7 @@ static int getXflagsMarkMm(GameState_Play* play, int sliceId, int sceneId, int r
     return comboXflagsGetMm(&xf);
 }
 
-static void setXflagsMarkOot(GameState_Play* play, int sliceId, int sceneId, int roomId, int id)
+static void setXflagsMarkOot(PlayState* play, int sliceId, int sceneId, int roomId, int id)
 {
     Xflag xf;
 
@@ -265,7 +265,7 @@ static void setXflagsMarkOot(GameState_Play* play, int sliceId, int sceneId, int
     comboXflagsSetOot(&xf);
 }
 
-static void setXflagsMarkMm(GameState_Play* play, int sliceId, int sceneId, int roomId, int id)
+static void setXflagsMarkMm(PlayState* play, int sliceId, int sceneId, int roomId, int id)
 {
     Xflag xf;
 
@@ -273,7 +273,7 @@ static void setXflagsMarkMm(GameState_Play* play, int sliceId, int sceneId, int 
     comboXflagsSetMm(&xf);
 }
 
-void Multi_SetMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
+void Multi_SetMarkedOot(PlayState* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
 {
     if (!Config_Flag(CFG_MULTIPLAYER))
         return;
@@ -292,7 +292,7 @@ void Multi_SetMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, 
         BITMAP8_SET(gSharedCustomSave.oot.npc, id);
         break;
     case OV_GS:
-        BITMAP32_SET(gOotSave.gsFlags, id - 8);
+        BITMAP32_SET(gOotSave.info.gsFlags, id - 8);
         break;
     case OV_SF:
         break;
@@ -317,7 +317,7 @@ void Multi_SetMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, 
     }
 }
 
-void Multi_SetMarkedMm(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
+void Multi_SetMarkedMm(PlayState* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
 {
     if (!Config_Flag(CFG_MULTIPLAYER))
         return;
@@ -358,7 +358,7 @@ void Multi_SetMarkedMm(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u
     }
 }
 
-int Multi_IsMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
+int Multi_IsMarkedOot(PlayState* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
 {
     if (!Config_Flag(CFG_MULTIPLAYER))
         return 0;
@@ -374,7 +374,7 @@ int Multi_IsMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8
     case OV_NPC:
         return BITMAP8_GET(gSharedCustomSave.oot.npc, id);
     case OV_GS:
-        return BITMAP32_GET(gOotSave.gsFlags, id - 8);
+        return BITMAP32_GET(gOotSave.info.gsFlags, id - 8);
     case OV_SF:
         break;
     case OV_COW:
@@ -394,7 +394,7 @@ int Multi_IsMarkedOot(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8
     return 0;
 }
 
-int Multi_IsMarkedMm(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
+int Multi_IsMarkedMm(PlayState* play, u8 ovType, u8 sceneId, u8 roomId, u8 id)
 {
     if (!Config_Flag(CFG_MULTIPLAYER))
         return 0;
@@ -430,9 +430,9 @@ int Multi_IsMarkedMm(GameState_Play* play, u8 ovType, u8 sceneId, u8 roomId, u8 
     return 0;
 }
 
-static void processMessagesSendPlayerPos(GameState_Play* play, NetContext* net)
+static void processMessagesSendPlayerPos(PlayState* play, NetContext* net)
 {
-    Actor_Player* link;
+    Player* link;
     int index;
     NetMsg* msg;
 
@@ -451,12 +451,12 @@ static void processMessagesSendPlayerPos(GameState_Play* play, NetContext* net)
 
     /* We have a suitable index, send the message */
     link = GET_PLAYER(play);
-    if (!link || (link->actor.id != AC_PLAYER))
+    if (!link || (link->actor.id != ACTOR_PLAYER))
         return;
 
     msg = &net->msgBuffer[index];
     msg->op = NETMSG_PLAYER_POS;
-    msg->playerPos.frameCount = play->gs.frameCount;
+    msg->playerPos.frameCount = play->state.frameCount;
     msg->playerPos.sceneKey = play->sceneId;
 #if defined(GAME_MM)
     msg->playerPos.sceneKey |= 0x8000;
@@ -491,7 +491,7 @@ static void updateWisp(PlayerWisp* wisp, NetMsgPlayerPos* playerPos)
     wisp->target.z = playerPos->z;
 }
 
-static void processMessageInPlayerPos(GameState_Play* play, NetContext* net, NetMsgPlayerPos* playerPos, u16 clientId)
+static void processMessageInPlayerPos(PlayState* play, NetContext* net, NetMsgPlayerPos* playerPos, u16 clientId)
 {
     u16 sceneKey;
     int freeIndex;
@@ -504,7 +504,7 @@ static void processMessageInPlayerPos(GameState_Play* play, NetContext* net, Net
         return;
 
     freeIndex = -1;
-    for (int i = 0; i < ARRAY_SIZE(sPlayerWisps); ++i)
+    for (int i = 0; i < ARRAY_COUNT(sPlayerWisps); ++i)
     {
         if (sPlayerWisps[i].ttl && sPlayerWisps[i].clientId == clientId)
         {
@@ -531,20 +531,20 @@ static void processMessageInPlayerPos(GameState_Play* play, NetContext* net, Net
     }
 }
 
-static void processMessageIn(GameState_Play* play, NetContext* net, NetMsg* msg, u16 clientId)
+static void processMessageIn(PlayState* play, NetContext* net, NetMsg* msg, u16 clientId)
 {
     if (msg->op == NETMSG_PLAYER_POS)
         processMessageInPlayerPos(play, net, &msg->playerPos, clientId);
 }
 
-static void Multi_ProcessMessages(GameState_Play* play, NetContext* net)
+static void Multi_ProcessMessages(PlayState* play, NetContext* net)
 {
     /* Send pos */
-    if ((play->gs.frameCount & 3) == 0)
+    if ((play->state.frameCount & 3) == 0)
         processMessagesSendPlayerPos(play, net);
 
     /* Decrement wisps ttl */
-    for (int i = 0; i < ARRAY_SIZE(sPlayerWisps); ++i)
+    for (int i = 0; i < ARRAY_COUNT(sPlayerWisps); ++i)
     {
         if (sPlayerWisps[i].ttl)
             --sPlayerWisps[i].ttl;
@@ -573,21 +573,21 @@ static const u32 kWispColors[] = {
     0x7f007fcc, 0x007f7fcc, 0x7f7f7fcc, 0x3f3f3fcc,
 };
 
-static void drawSingleWisp(GameState_Play* play, const PlayerWisp* wisp)
+static void drawSingleWisp(PlayState* play, const PlayerWisp* wisp)
 {
-    OPEN_DISPS(play->gs.gfx);
-    Matrix_Translate(wisp->pos.x, wisp->pos.y, wisp->pos.z, MAT_SET);
+    OPEN_DISPS(play->state.gfxCtx);
+    Matrix_Translate(wisp->pos.x, wisp->pos.y, wisp->pos.z, MTXMODE_NEW);
     Gfx_DrawFlameColor(play, kWispColors[wisp->clientId & 0xf], 0.35f, -50.0f);
     CLOSE_DISPS();
 }
 
-void Multi_DrawWisps(GameState_Play* play)
+void Multi_DrawWisps(PlayState* play)
 {
     if (!Config_Flag(CFG_MULTIPLAYER))
         return;
 
-    Gfx_SetupDL25_Xlu(play->gs.gfx);
-    for (int i = 0; i < ARRAY_SIZE(sPlayerWisps); ++i)
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
+    for (int i = 0; i < ARRAY_COUNT(sPlayerWisps); ++i)
     {
         if (sPlayerWisps[i].ttl)
             drawSingleWisp(play, &sPlayerWisps[i]);
@@ -601,22 +601,22 @@ void Multi_ResetWisps(void)
     bzero(sPlayerWisps, sizeof(sPlayerWisps));
 }
 
-static int Multi_CanReceiveItem(GameState_Play* play)
+static int Multi_CanReceiveItem(PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     if (gSaveContext.gameMode || (gSaveContext.minigameState == 1))
         return 0;
     if (Message_GetState(&play->msgCtx) != 0)
         return 0;
     link = GET_PLAYER(play);
-    if (link->state & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_FROZEN | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN | PLAYER_ACTOR_STATE_EPONA))
+    if (link->stateFlags1 & (PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_FROZEN | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN | PLAYER_ACTOR_STATE_EPONA))
         return 0;
 
     return 1;
 }
 
-static void Multi_GiveItem(GameState_Play* play, s16 gi, u8 from, int flags)
+static void Multi_GiveItem(PlayState* play, s16 gi, u8 from, int flags)
 {
     ComboItemQuery q = ITEM_QUERY_INIT;
 
@@ -633,7 +633,7 @@ static void Multi_GiveItem(GameState_Play* play, s16 gi, u8 from, int flags)
     Item_AddWithDecoy(play, &q);
 }
 
-static void Multi_ReceiveItem(GameState_Play* play, NetContext* net)
+static void Multi_ReceiveItem(PlayState* play, NetContext* net)
 {
     s16 gi;
     u8 ovType;
@@ -664,7 +664,7 @@ static void Multi_ReceiveItem(GameState_Play* play, NetContext* net)
         }
         else
         {
-            for (int i = 0; i < ARRAY_SIZE(gSharedCustomSave.netGiSkip); ++i)
+            for (int i = 0; i < ARRAY_COUNT(gSharedCustomSave.netGiSkip); ++i)
             {
                 if (gSharedCustomSave.netGiSkip[i] == gi)
                 {
@@ -699,7 +699,7 @@ static void Multi_ReceiveItem(GameState_Play* play, NetContext* net)
     net->ledgerBase = gSaveLedgerBase;
 }
 
-static void Multi_ProcessItems(GameState_Play* play, NetContext* net)
+static void Multi_ProcessItems(PlayState* play, NetContext* net)
 {
     if (net->cmdIn.op == NET_OP_ITEM_RECV)
     {
@@ -716,7 +716,7 @@ static void Multi_ProcessItems(GameState_Play* play, NetContext* net)
     }
 }
 
-void Multi_Update(GameState_Play* play)
+void Multi_Update(PlayState* play)
 {
     NetContext* ctx;
 

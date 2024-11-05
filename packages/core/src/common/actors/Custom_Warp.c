@@ -21,16 +21,16 @@ static void CustomWarp_Reload(void)
 
 #define SWITCH_LAKE_HYLIA_WATER 0
 
-static void CustomWarp_OnTrigger(Actor_CustomWarp* this, GameState_Play* play)
+static void CustomWarp_OnTrigger(Actor_CustomWarp* this, PlayState* play)
 {
     switch (this->base.params)
     {
     case SWITCH_LAKE_HYLIA_WATER:
         CustomWarp_Reload();
-        if(BITMAP16_GET(gOotSave.eventsChk, EV_OOT_CHK_LAKE_HYLIA_WATER))
-            BITMAP16_CLEAR(gOotSave.eventsChk, EV_OOT_CHK_LAKE_HYLIA_WATER);
+        if(BITMAP16_GET(gOotSave.info.eventsChk, EV_OOT_CHK_LAKE_HYLIA_WATER))
+            BITMAP16_CLEAR(gOotSave.info.eventsChk, EV_OOT_CHK_LAKE_HYLIA_WATER);
         else
-            BITMAP16_SET(gOotSave.eventsChk, EV_OOT_CHK_LAKE_HYLIA_WATER);
+            BITMAP16_SET(gOotSave.info.eventsChk, EV_OOT_CHK_LAKE_HYLIA_WATER);
         break;
     }
 }
@@ -46,7 +46,7 @@ static void CustomWarp_OnTrigger(Actor_CustomWarp* this, GameState_Play* play)
 #define SWITCH_OPEN_ST_NORMAL   5
 #define SWITCH_OPEN_ST_INVERTED 6
 
-static void CustomWarp_OnTrigger(Actor_CustomWarp* this, GameState_Play* play)
+static void CustomWarp_OnTrigger(Actor_CustomWarp* this, PlayState* play)
 {
     play->transitionTrigger = TRANS_TRIGGER_NORMAL;
     play->transitionType = TRANS_TYPE_FADE_BLACK;
@@ -89,12 +89,12 @@ static void CustomWarp_OnTrigger(Actor_CustomWarp* this, GameState_Play* play)
 }
 #endif
 
-static void CustomWarp_Init(Actor_CustomWarp* this, GameState_Play* play)
+static void CustomWarp_Init(Actor_CustomWarp* this, PlayState* play)
 {
     this->base.room = 0xff;
 }
 
-static void CustomWarp_Update(Actor_CustomWarp* this, GameState_Play* play)
+static void CustomWarp_Update(Actor_CustomWarp* this, PlayState* play)
 {
     if (ActorTalkedTo(&this->base))
     {
@@ -107,7 +107,7 @@ static void CustomWarp_Update(Actor_CustomWarp* this, GameState_Play* play)
 }
 
 /* TODO: Move this into a helper */
-static void shaderFlameEffect(GameState_Play* play)
+static void shaderFlameEffect(PlayState* play)
 {
 #if defined(GAME_OOT)
     static const u32 kFlameDlist = 0x52a10;
@@ -115,33 +115,33 @@ static void shaderFlameEffect(GameState_Play* play)
     static const u32 kFlameDlist = 0x7d590;
 #endif
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     ModelViewUnkTransform(&play->billboardMtxF);
-    gSPSegment(POLY_XLU_DISP++, 0x08, DisplaceTexture(play->gs.gfx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->gs.frameCount & 0x7f) << 2, 0x20, 0x80));
-    gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gSPSegment(POLY_XLU_DISP++, 0x08, DisplaceTexture(play->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (-play->state.frameCount & 0x7f) << 2, 0x20, 0x80));
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 0xff, 0x00, 0xff, 0xff);
     gDPSetEnvColor(POLY_XLU_DISP++, 0xff, 0x00, 0x00, 0xff);
     gSPDisplayList(POLY_XLU_DISP++, 0x04000000 | kFlameDlist);
     CLOSE_DISPS();
 }
 
-static void CustomWarp_Draw(Actor_CustomWarp* this, GameState_Play* play)
+static void CustomWarp_Draw(Actor_CustomWarp* this, PlayState* play)
 {
     static const float scale = 0.003f;
 
     /* Transform */
-    Matrix_Translate(this->base.world.pos.x, this->base.world.pos.y, this->base.world.pos.z, MAT_SET);
-    Matrix_Scale(scale, scale, scale, MAT_MUL);
+    Matrix_Translate(this->base.world.pos.x, this->base.world.pos.y, this->base.world.pos.z, MTXMODE_NEW);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 
     /* Draw */
-    OPEN_DISPS(play->gs.gfx);
-    Gfx_SetupDL25_Xlu(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
     shaderFlameEffect(play);
     CLOSE_DISPS();
 }
 
 ActorInit CustomWarp_gActorInit = {
-    AC_CUSTOM_WARP,
+    ACTOR_CUSTOM_WARP,
     0x7,
     0x11,
     0x1,
@@ -152,7 +152,7 @@ ActorInit CustomWarp_gActorInit = {
     (ActorFunc)CustomWarp_Draw,
 };
 
-void comboSpawnCustomWarps(GameState_Play* play)
+void comboSpawnCustomWarps(PlayState* play)
 {
     int variable;
     float x;
@@ -235,7 +235,7 @@ void comboSpawnCustomWarps(GameState_Play* play)
     Actor_Spawn(
         &play->actorCtx,
         play,
-        AC_CUSTOM_WARP,
+        ACTOR_CUSTOM_WARP,
         x, y, z,
         0, 0, 0,
         variable

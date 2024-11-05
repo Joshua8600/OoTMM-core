@@ -44,14 +44,14 @@ int DmChar02_HasGivenItem(Actor* this)
 
 PATCH_CALL(0x80aab1d4, DmChar02_HasGivenItem);
 
-void DmChar02_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
+void DmChar02_GiveItem(Actor* this, PlayState* play, s16 gi, float a, float b)
 {
     ComboItemQuery q;
-    Actor_Player* link;
+    Player* link;
     int npc;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     if (!gMmExtraFlags2.ocarina)
@@ -64,13 +64,13 @@ void DmChar02_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float
 
 PATCH_CALL(0x80aab1fc, DmChar02_GiveItem);
 
-void DmChar02_DrawOcarina(Actor* this, GameState_Play* play)
+void DmChar02_DrawOcarina(Actor* this, PlayState* play)
 {
     static const float scale = 25.0f;
     ComboItemOverride o;
 
     DmChar02_ItemOverride(&o, NPC_MM_SKULL_KID_OCARINA);
-    Matrix_Scale(scale, scale, scale, MAT_MUL);
-    Matrix_Translate(0.0f, 20.0f, 0.0f, MAT_MUL);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+    Matrix_Translate(0.0f, 20.0f, 0.0f, MTXMODE_APPLY);
     Draw_Gi(play, this, o.gi, DRAW_RAW);
 }

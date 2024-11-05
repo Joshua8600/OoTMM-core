@@ -25,7 +25,7 @@ static void EnKusa2_GetXflag(Xflag* xflag, int id)
     xflag->sliceId = id;
 }
 
-static void EnKusa2_SpawnDrop(GameState_Play* play, Vec3f* pos, u16 dropIndex)
+static void EnKusa2_SpawnDrop(PlayState* play, Vec3f* pos, u16 dropIndex)
 {
     Xflag xflag;
 
@@ -51,7 +51,7 @@ static void EnKusa2_SpawnDrop(GameState_Play* play, Vec3f* pos, u16 dropIndex)
 
 PATCH_CALL(0x80a5bd68, EnKusa2_SpawnDrop);
 
-static void EnKusa2_Draw(GameState_Play* play)
+static void EnKusa2_Draw(PlayState* play)
 {
     static u32 sLastFrameCount;
     static int sDrawIndex;
@@ -64,16 +64,16 @@ static void EnKusa2_Draw(GameState_Play* play)
     if (Config_Flag(CFG_MM_SHUFFLE_GRASS))
     {
         /* Compute a nice ID */
-        if (sLastFrameCount != play->gs.frameCount)
+        if (sLastFrameCount != play->state.frameCount)
         {
-            sLastFrameCount = play->gs.frameCount;
+            sLastFrameCount = play->state.frameCount;
             sDrawIndex = 0;
         }
 
         if (g.keatonGrassMax == -1)
         {
             id = sDrawIndex++;
-            id += (play->gs.frameCount / 5) % 9;
+            id += (play->state.frameCount / 5) % 9;
             id %= 9;
         }
         else

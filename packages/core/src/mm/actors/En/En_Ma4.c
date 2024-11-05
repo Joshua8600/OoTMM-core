@@ -4,13 +4,13 @@
 
 #define SET_HANDLER(a, h) do { *(void**)(((char*)(a)) + 0x33c) = (h); } while (0)
 
-static void EnMa4_HandleLearnSongEpona(Actor* this, GameState_Play* play)
+static void EnMa4_HandleLearnSongEpona(Actor* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
     void* handler;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     if (Actor_HasParentZ(this))
@@ -21,7 +21,7 @@ static void EnMa4_HandleLearnSongEpona(Actor* this, GameState_Play* play)
 
     if (gMmExtraFlags.songEpona)
     {
-        handler = actorAddr(AC_EN_MA4, 0x80abe560);
+        handler = actorAddr(ACTOR_EN_MA4, 0x80abe560);
         SET_HANDLER(this, handler);
         return;
     }

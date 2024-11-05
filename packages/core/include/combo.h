@@ -10,6 +10,16 @@
 # define FISH_WEIGHT_TO_LENGTH(weight) (sqrtf((weight - 0.5f) / 0.0036f) + 1.0f) /* Add 1.0 to prevent errors due to truncating */
 
 # include <ultra64.h>
+# include <combo/seqcmd.h>
+# include <combo/audio.h>
+# include <combo/main.h>
+# include <combo/tha.h>
+# include <combo/sfx.h>
+# include <combo/controller.h>
+# include <combo/matrix.h>
+# include <combo/macros.h>
+# include <combo/environment.h>
+# include <combo/view.h>
 # include <combo/actor_ovl.h>
 # include <combo/collision.h>
 # include <combo/csmc.h>
@@ -23,6 +33,7 @@
 # include <combo/player.h>
 # include <combo/rand.h>
 # include <combo/text.h>
+# include <combo/collision_check.h>
 # include <combo/common/ocarina.h>
 # include <combo/common/color.h>
 # include <combo/common/actors/Obj_Mure2.h>
@@ -30,6 +41,7 @@
 # include <combo/common/actors/En_Tubo_Trap.h>
 
 # if defined(GAME_OOT)
+#  include <combo/oot/sequence.h>
 #  include <combo/oot/play.h>
 #  include <combo/oot/pause_state.h>
 #  include <combo/oot/actors/Item_Etcetera.h>
@@ -59,6 +71,7 @@
 #  include <combo/mm/actors/Obj_Grass_Carry.h>
 #  include <combo/mm/actors/En_Kusa.h>
 #  include <combo/mm/actors/En_Elf.h>
+#  include <combo/mm/actors/Bg_Hakugin_Post.h>
 # endif
 
 # include <combo/sfx_source.h>
@@ -98,12 +111,15 @@ void comboInitData(void);
 void comboItemIcon(void* dst, int itemId);
 void comboLoadMmIcon(void* dst, u32 iconBank, int iconId);
 
+void LoadIconItem24Oot(void* dst, int id);
+void LoadIconItem24Mm(void* dst, int id);
+
 #if defined(GAME_OOT)
 extern u16 gBlastMaskDelayAcc;
 #endif
 
 /* Switch */
-NORETURN void comboGameSwitch(GameState_Play* play, u32 entrance);
+NORETURN void comboGameSwitch(PlayState* play, u32 entrance);
 
 #if defined(GAME_OOT)
 void swapFarore(void);
@@ -126,21 +142,21 @@ void                comboLoadCustomKeep(void);
 void                comboExObjectsReset(void);
 
 /* Custom_Warp */
-void comboSpawnCustomWarps(GameState_Play*);
+void comboSpawnCustomWarps(PlayState*);
 
 /* Util */
 int comboStrayFairyIndex(void);
-int comboOotDungeonScene(GameState_Play* play, int isBossKey);
+int comboOotDungeonScene(PlayState* play, int isBossKey);
 int comboMmDungeonIndex(void);
 int comboIsChateauActive(void);
 int comboIsLinkAdult(void);
 
-void comboSpawnItemGiver(GameState_Play* play, u16 npcId);
+void comboSpawnItemGiver(PlayState* play, u16 npcId);
 
 /* libc */
 int toupper(int c);
 
-int comboDoorIsUnlocked(GameState_Play* play, Actor* actor);
+int comboDoorIsUnlocked(PlayState* play, Actor* actor);
 
 /* Entrance */
 void comboInitEntrances(void);
@@ -152,15 +168,15 @@ extern s32 gLastEntrance;
 extern s32 gLastScene;
 
 /* Warp */
-void comboTriggerWarp(GameState_Play* play, int index);
+void comboTriggerWarp(PlayState* play, int index);
 
 /* MQ */
-void comboMqKaleidoHook(GameState_Play* play);
+void comboMqKaleidoHook(PlayState* play);
 
-extern GameState_Play* gPlay;
+extern PlayState* gPlay;
 
 #if defined(GAME_MM)
-void Ocarina_HandleWarp(Actor_Player* player, GameState_Play* ctxt);
+void Ocarina_HandleWarp(Player* player, PlayState* ctxt);
 #endif
 
 #if defined(GAME_MM)
@@ -170,7 +186,7 @@ extern int gNoTimeFlow;
 /* Ocarina */
 void comboCheckSong(const OcarinaSongButtons* songButtons, int songIndex);
 
-void comboCreditWarp(GameState_Play* play);
+void comboCreditWarp(PlayState* play);
 
 #if defined (GAME_OOT)
 extern u16 gPrevPageIndex;

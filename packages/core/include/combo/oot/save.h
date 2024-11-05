@@ -5,22 +5,25 @@
 #include <combo/util.h>
 #include <combo/xflags.h>
 
+#define LANGUAGE_JPN 0
+#define LANGUAGE_ENG 1
+
 typedef struct
 {
     char        newf[6];
     s16         deathCount;
     u8          playerName[8];
-    s16         ddOnlyFlag;
-    s16         healthMax;
+    s16         n64ddFlag;
+    s16         healthCapacity;
     s16         health;
-    s8          magicSize;
-    s8          magicAmount;
+    s8          magicLevel;
+    s8          magic;
     s16         rupees;
     u16         swordHealth;
-    char        unk_38[2];
-    u8          magicUpgrade;
+    u16         naviTimer;
+    u8          isMagicAcquired;
     char        unk_3b[1];
-    u8          magicUpgrade2;
+    u8          isDoubleMagicAcquired;
     u8          doubleDefense;
 }
 OotSavePlayerData;
@@ -133,6 +136,32 @@ OotSaveQuest;
 #define QUEST_OOT_GERUDO_CARD       22
 #define QUEST_OOT_GOLD_TOKEN        23
 
+#if defined(GAME_OOT)
+# define QUEST_MEDALLION_FOREST      QUEST_OOT_MEDALLION_FOREST
+# define QUEST_MEDALLION_FIRE        QUEST_OOT_MEDALLION_FIRE
+# define QUEST_MEDALLION_WATER       QUEST_OOT_MEDALLION_WATER
+# define QUEST_MEDALLION_SPIRIT      QUEST_OOT_MEDALLION_SPIRIT
+# define QUEST_MEDALLION_SHADOW      QUEST_OOT_MEDALLION_SHADOW
+# define QUEST_MEDALLION_LIGHT       QUEST_OOT_MEDALLION_LIGHT
+# define QUEST_SONG_MINUET           QUEST_OOT_SONG_TP_FOREST
+# define QUEST_SONG_BOLERO           QUEST_OOT_SONG_TP_FIRE
+# define QUEST_SONG_SERENADE         QUEST_OOT_SONG_TP_WATER
+# define QUEST_SONG_REQUIEM          QUEST_OOT_SONG_TP_SPIRIT
+# define QUEST_SONG_NOCTURNE         QUEST_OOT_SONG_TP_SHADOW
+# define QUEST_SONG_PRELUDE          QUEST_OOT_SONG_PRELUDE
+# define QUEST_SONG_LULLABY          QUEST_OOT_SONG_LULLABY
+# define QUEST_SONG_EPONA            QUEST_OOT_SONG_EPONA
+# define QUEST_SONG_SARIA            QUEST_OOT_SONG_SARIA
+# define QUEST_SONG_SUN              QUEST_OOT_SONG_SUN
+# define QUEST_SONG_TIME             QUEST_OOT_SONG_TIME
+# define QUEST_SONG_STORMS           QUEST_OOT_SONG_STORMS
+# define QUEST_KOKIRI_EMERALD        QUEST_OOT_STONE_EMERALD
+# define QUEST_GORON_RUBY            QUEST_OOT_STONE_RUBY
+# define QUEST_ZORA_SAPPHIRE         QUEST_OOT_STONE_SAPPHIRE
+# define QUEST_STONE_OF_AGONY        QUEST_OOT_STONE_AGONY
+# define QUEST_GERUDOS_CARD          QUEST_OOT_GERUDO_CARD
+#endif
+
 typedef struct
 {
     u8 maxKeys:5;
@@ -185,14 +214,6 @@ _Static_assert(sizeof(OotHorseData) == 0x0a, "OotHorseData size is wrong");
 
 typedef struct
 {
-    u32                     entrance;
-    u32                     age;
-    u32                     cutscene;
-    u16                     worldTime;
-    u16                     unk_0e;
-    u32                     isNight;
-    char                    unk_14[0x4];
-    u32                     tradeQuestFlag;
     OotSavePlayerData       playerData;
     u8                      isBiggoronSword;
     u8                      ocarinaGameRound;
@@ -224,22 +245,36 @@ typedef struct
     OotHorseData            horseData;
     u16                     checksum;
 }
+OotSaveInfo;
+
+typedef struct
+{
+    u32                     entrance;
+    u32                     age;
+    u32                     cutscene;
+    u16                     dayTime;
+    u16                     unk_0e;
+    u32                     isNight;
+    char                    unk_14[0x4];
+    u32                     tradeQuestFlag;
+    OotSaveInfo             info;
+}
 OotSave;
 
-ASSERT_OFFSET(OotSave, childEquips,             0x40);
-ASSERT_OFFSET(OotSave, adultEquips,             0x4a);
-ASSERT_OFFSET(OotSave, unk_54,                  0x54);
-ASSERT_OFFSET(OotSave, sceneId,                 0x66);
-ASSERT_OFFSET(OotSave, equips,                  0x68);
-ASSERT_OFFSET(OotSave, inventory.equipment,     0x9c);
-ASSERT_OFFSET(OotSave, perm,                    0xd4);
-ASSERT_OFFSET(OotSave, eventsMisc,              0xef8);
-ASSERT_OFFSET(OotSave, unk_f34,                 0xf34);
-ASSERT_OFFSET(OotSave, unk_f3c,                 0xf3c);
-ASSERT_OFFSET(OotSave, unk_12a1,                0x12a1);
-ASSERT_OFFSET(OotSave, unk_1346,                0x1346);
-ASSERT_OFFSET(OotSave, horseData,               0x1348);
-ASSERT_OFFSET(OotSave, checksum,                0x1352);
+ASSERT_OFFSET(OotSave, info.childEquips,             0x40);
+ASSERT_OFFSET(OotSave, info.adultEquips,             0x4a);
+ASSERT_OFFSET(OotSave, info.unk_54,                  0x54);
+ASSERT_OFFSET(OotSave, info.sceneId,                 0x66);
+ASSERT_OFFSET(OotSave, info.equips,                  0x68);
+ASSERT_OFFSET(OotSave, info.inventory.equipment,     0x9c);
+ASSERT_OFFSET(OotSave, info.perm,                    0xd4);
+ASSERT_OFFSET(OotSave, info.eventsMisc,              0xef8);
+ASSERT_OFFSET(OotSave, info.unk_f34,                 0xf34);
+ASSERT_OFFSET(OotSave, info.unk_f3c,                 0xf3c);
+ASSERT_OFFSET(OotSave, info.unk_12a1,                0x12a1);
+ASSERT_OFFSET(OotSave, info.unk_1346,                0x1346);
+ASSERT_OFFSET(OotSave, info.horseData,               0x1348);
+ASSERT_OFFSET(OotSave, info.checksum,                0x1352);
 
 typedef struct
 {
@@ -261,7 +296,7 @@ OotRespawnData;
 typedef struct
 {
     OotSave         save;
-    u32             fileIndex;
+    u32             fileNum;
     char            unk_1358[0x04];
     s32             gameMode;
     s32             sceneSetupId;

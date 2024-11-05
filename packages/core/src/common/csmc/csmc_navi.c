@@ -57,13 +57,13 @@ static int csmcNaviId(s16 gi)
     }
 }
 
-void Actor_AfterSetNaviToActor(TargetContext* targetCtx, Actor* actor, s32 actorCategory, GameState_Play* play)
+void Actor_AfterSetNaviToActor(TargetContext* targetCtx, Actor* actor, s32 actorCategory, PlayState* play)
 {
     ComboItemQuery q = ITEM_QUERY_INIT;
     ComboItemOverride o;
     int type;
 
-    if (actor->id == AC_SHOT_SUN)
+    if (actor->id == ACTOR_SHOT_SUN)
     {
         Actor_ShotSun* shotSun = (Actor_ShotSun*)actor;
         comboXflagItemQuery(&q, &shotSun->xflag, GI_OOT_FAIRY_BIG);

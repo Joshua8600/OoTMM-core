@@ -18,7 +18,7 @@ static const BlueWarpData kBlueWarpData[] = {
     { GI_MM_REMAINS_TWINMOLD, NPC_MM_REMAINS_TWINMOLD, 3 },
 };
 
-static const int DoorWarp1_GetID(Actor* this, GameState_Play* play)
+static const int DoorWarp1_GetID(Actor* this, PlayState* play)
 {
     if ((this->params & 0xff) != 0x01)
         return -1;
@@ -36,7 +36,7 @@ static const int DoorWarp1_GetID(Actor* this, GameState_Play* play)
     return -1;
 }
 
-static const BlueWarpData* DoorWarp1_GetData(Actor* this, GameState_Play* play)
+static const BlueWarpData* DoorWarp1_GetData(Actor* this, PlayState* play)
 {
     int id;
 
@@ -59,7 +59,7 @@ static s16 DoorWarp1_GetGI(const BlueWarpData* data)
     return o.gi;
 }
 
-int DoorWarp1_Collide(Actor* this, GameState_Play* play)
+int DoorWarp1_Collide(Actor* this, PlayState* play)
 {
     float dist;
 
@@ -77,9 +77,9 @@ int DoorWarp1_Collide(Actor* this, GameState_Play* play)
     return 0;
 }
 
-int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
+int DoorWarp1_ShouldTrigger(Actor* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
     int id;
     const BlueWarpData* data;
     s16 gi;
@@ -111,7 +111,7 @@ int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
 
     /* Check if we are obtaining an item */
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return 0;
 
     /* Check if we already have the item */
@@ -136,7 +136,7 @@ int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
     return 0;
 }
 
-void DoorWarp1_AfterDraw(Actor* this, GameState_Play* play)
+void DoorWarp1_AfterDraw(Actor* this, PlayState* play)
 {
     static const int kRotDivisor = 100;
     const BlueWarpData* data;
@@ -150,16 +150,16 @@ void DoorWarp1_AfterDraw(Actor* this, GameState_Play* play)
         return;
     gi = DoorWarp1_GetGI(data);
 
-    angle = (play->gs.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
-    Matrix_Translate(this->world.pos.x, this->world.pos.y + 35.f, this->world.pos.z, MAT_SET);
-    Matrix_Scale(0.35f, 0.35f, 0.35f, MAT_MUL);
-    Matrix_RotateY(angle, MAT_MUL);
+    angle = (play->state.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
+    Matrix_Translate(this->world.pos.x, this->world.pos.y + 35.f, this->world.pos.z, MTXMODE_NEW);
+    Matrix_Scale(0.35f, 0.35f, 0.35f, MTXMODE_APPLY);
+    Matrix_RotateY(angle, MTXMODE_APPLY);
     Draw_Gi(play, this, gi, DRAW_RAW);
 }
 
 PATCH_FUNC(0x808b866c, DoorWarp1_ShouldTrigger);
 
-static void DoorWarp1_TriggerBossWarpPad(Actor* this, GameState_Play* play)
+static void DoorWarp1_TriggerBossWarpPad(Actor* this, PlayState* play)
 {
     s32 entrance;
 

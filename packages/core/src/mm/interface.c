@@ -2,7 +2,7 @@
 #include <combo/interface.h>
 #include <combo/config.h>
 
-void Interface_UpdateButtonsPart2Wrapper(GameState_Play* play)
+void Interface_UpdateButtonsPart2Wrapper(PlayState* play)
 {
     u8* ptr;
     u8 itemId;
@@ -10,7 +10,7 @@ void Interface_UpdateButtonsPart2Wrapper(GameState_Play* play)
 
     for (int i = 0; i < 3; ++i)
     {
-        ptr = &gSave.itemEquips.buttonItems[0][i + 1];
+        ptr = &gSave.info.itemEquips.buttonItems[0][i + 1];
         itemId = *ptr;
         buttons[i] = itemId;
 
@@ -22,12 +22,12 @@ void Interface_UpdateButtonsPart2Wrapper(GameState_Play* play)
 
     for (int i = 0; i < 3; ++i)
     {
-        ptr = &gSave.itemEquips.buttonItems[0][i + 1];
+        ptr = &gSave.info.itemEquips.buttonItems[0][i + 1];
         *ptr = buttons[i];
     }
 }
 
-void Interface_SkipMoonCrash(GameState_Play* play)
+void Interface_SkipMoonCrash(PlayState* play)
 {
     if(play->actorCtx.flags & (1 << 1))
         AudioSeq_QueueSeqCmd((14 << 28) | (1 << 8));

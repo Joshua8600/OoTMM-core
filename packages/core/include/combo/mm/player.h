@@ -6,9 +6,9 @@
 #include <combo/actor.h>
 #include <combo/dma.h>
 
-struct Actor_Player;
+struct Player;
 
-int Player_GetMask(GameState_Play* play);
+int Player_GetMask(PlayState* play);
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
@@ -411,13 +411,13 @@ typedef struct PlayerAgeProperties {
 
 #define PLAYER_LIMB_BUF_SIZE (ALIGN16(sizeof(PlayerAnimationFrame)) + 0xF)
 
-typedef void (*PlayerInitItemActionFunc)(struct GameState_Play* play, struct Actor_Player* this);
+typedef void (*PlayerInitItemActionFunc)(struct PlayState* play, struct Player* this);
 
-typedef void (*PlayerActionFunc)(struct Actor_Player* this, struct GameState_Play* play);
-typedef s32 (*PlayerUpperActionFunc)(struct Actor_Player* this, struct GameState_Play* play);
-typedef void (*PlayerFuncD58)(struct GameState_Play* play, struct Actor_Player* this);
+typedef void (*PlayerActionFunc)(struct Player* this, struct PlayState* play);
+typedef s32 (*PlayerUpperActionFunc)(struct Player* this, struct PlayState* play);
+typedef void (*PlayerFuncD58)(struct PlayState* play, struct Player* this);
 
-typedef struct Actor_Player
+typedef struct Player
 {
     /* 0x000 */ Actor actor;
     /* 0x144 */ s8 currentShield;
@@ -525,9 +525,9 @@ typedef struct Actor_Player
     /* 0x929 */ u8 jointTableUpperBuffer[PLAYER_LIMB_BUF_SIZE];
     /* 0x9C8 */ u8 morphTableUpperBuffer[PLAYER_LIMB_BUF_SIZE];
     /* 0xA68 */ PlayerAgeProperties* ageProperties;
-    /* 0xA6C */ u32 state;
-    /* 0xA70 */ u32 state2;
-    /* 0xA74 */ u32 state3;
+    /* 0xA6C */ u32 stateFlags1;
+    /* 0xA70 */ u32 stateFlags2;
+    /* 0xA74 */ u32 stateFlags3;
     /* 0xA78 */ Actor* unk_a78;
     /* 0xA7C */ Actor* boomerangActor;
     /* 0xA80 */ Actor* tatlActor;
@@ -649,25 +649,25 @@ typedef struct Actor_Player
     /* 0xD6B */ u8 unk_D6B;
     /* 0xD6C */ Vec3f unk_D6C; /* previous body part 0 position */
 }
-Actor_Player;
+Player;
 
-_Static_assert(sizeof(Actor_Player) == 0xd78, "MM Actor_Player size is wrong");
+_Static_assert(sizeof(Player) == 0xd78, "MM Player size is wrong");
 
-ASSERT_OFFSET(Actor_Player, objMsgQueue,         0x1dc);
-ASSERT_OFFSET(Actor_Player, maskObjectLoadState, 0x1fc);
-ASSERT_OFFSET(Actor_Player, gi,                  0x384);
-ASSERT_OFFSET(Actor_Player, getItemDirection,    0x386);
-ASSERT_OFFSET(Actor_Player, csMode,              0x394);
-ASSERT_OFFSET(Actor_Player, prevCsAction,        0x395);
-ASSERT_OFFSET(Actor_Player, unk_a78,             0xa78);
-ASSERT_OFFSET(Actor_Player, drawGiId,            0xb2a);
-ASSERT_OFFSET(Actor_Player, unk_b2b,             0xb2b);
+ASSERT_OFFSET(Player, objMsgQueue,         0x1dc);
+ASSERT_OFFSET(Player, maskObjectLoadState, 0x1fc);
+ASSERT_OFFSET(Player, gi,                  0x384);
+ASSERT_OFFSET(Player, getItemDirection,    0x386);
+ASSERT_OFFSET(Player, csMode,              0x394);
+ASSERT_OFFSET(Player, prevCsAction,        0x395);
+ASSERT_OFFSET(Player, unk_a78,             0xa78);
+ASSERT_OFFSET(Player, drawGiId,            0xb2a);
+ASSERT_OFFSET(Player, unk_b2b,             0xb2b);
 
 typedef struct {
     /* 0x00 */ u32 maskDListEntry[24];
 } PlayerMaskDList; /* size = 0x60 */
 
-#define GET_PLAYER_CUSTOM_BOOTS(player) (player->actor.id == AC_PLAYER && player->transformation == MM_PLAYER_FORM_HUMAN ? (player->currentBoots == 6 ? PLAYER_BOOTS_IRON : (player->currentBoots == 0 ? PLAYER_BOOTS_HOVER : -1)) : -1)
+#define GET_PLAYER_CUSTOM_BOOTS(player) (player->actor.id == ACTOR_PLAYER && player->transformation == MM_PLAYER_FORM_HUMAN ? (player->currentBoots == 6 ? PLAYER_BOOTS_IRON : (player->currentBoots == 0 ? PLAYER_BOOTS_HOVER : -1)) : -1)
 
 // Relies on melee weapon related item actions to be contiguous
 #define GET_MELEE_WEAPON_FROM_IA(itemAction) ((itemAction) - PLAYER_IA_SWORD_MIN + 1)
@@ -739,5 +739,104 @@ typedef struct AttackAnimInfo {
     /* 0x0C */ u8 unk_C;
     /* 0x0D */ u8 unk_D;
 } AttackAnimInfo; // size = 0x10
+
+#define PLAYER_STATE1_MM_1          (1 << 0)
+#define PLAYER_STATE1_MM_2          (1 << 1)
+#define PLAYER_STATE1_MM_4          (1 << 2)
+#define PLAYER_STATE1_MM_8          (1 << 3)
+#define PLAYER_STATE1_MM_10         (1 << 4)
+#define PLAYER_STATE1_MM_20         (1 << 5)
+#define PLAYER_STATE1_MM_40         (1 << 6)
+#define PLAYER_STATE1_MM_DEAD       (1 << 7)
+#define PLAYER_STATE1_MM_100        (1 << 8)
+#define PLAYER_STATE1_MM_200        (1 << 9)
+#define PLAYER_STATE1_MM_400        (1 << 10)
+#define PLAYER_STATE1_MM_CARRYING_ACTOR (1 << 11)
+#define PLAYER_STATE1_MM_1000       (1 << 12)
+#define PLAYER_STATE1_MM_2000       (1 << 13)
+#define PLAYER_STATE1_MM_4000       (1 << 14)
+#define PLAYER_STATE1_MM_8000       (1 << 15)
+#define PLAYER_STATE1_MM_FRIENDLY_ACTOR_FOCUS      (1 << 16)
+#define PLAYER_STATE1_MM_20000      (1 << 17)
+#define PLAYER_STATE1_MM_40000      (1 << 18)
+#define PLAYER_STATE1_MM_80000      (1 << 19)
+#define PLAYER_STATE1_MM_100000     (1 << 20)
+#define PLAYER_STATE1_MM_200000     (1 << 21)
+#define PLAYER_STATE1_MM_400000     (1 << 22)
+#define PLAYER_STATE1_MM_800000     (1 << 23)
+#define PLAYER_STATE1_MM_1000000    (1 << 24)
+#define PLAYER_STATE1_MM_2000000    (1 << 25)
+#define PLAYER_STATE1_MM_4000000    (1 << 26)
+#define PLAYER_STATE1_MM_8000000    (1 << 27)
+#define PLAYER_STATE1_MM_10000000   (1 << 28)
+#define PLAYER_STATE1_MM_20000000   (1 << 29)
+#define PLAYER_STATE1_MM_40000000   (1 << 30)
+#define PLAYER_STATE1_MM_80000000   (1 << 31)
+
+#define PLAYER_STATE2_MM_1          (1 << 0)
+#define PLAYER_STATE2_MM_2          (1 << 1)
+#define PLAYER_STATE2_MM_4          (1 << 2)
+#define PLAYER_STATE2_MM_8          (1 << 3)
+#define PLAYER_STATE2_MM_10         (1 << 4)
+#define PLAYER_STATE2_MM_20         (1 << 5)
+#define PLAYER_STATE2_MM_40         (1 << 6)
+#define PLAYER_STATE2_MM_80         (1 << 7)
+#define PLAYER_STATE2_MM_100        (1 << 8)
+#define PLAYER_STATE2_MM_FORCE_SAND_FLOOR_SOUND (1 << 9)
+#define PLAYER_STATE2_MM_400        (1 << 10)
+#define PLAYER_STATE2_MM_800        (1 << 11)
+#define PLAYER_STATE2_MM_1000       (1 << 12)
+#define PLAYER_STATE2_MM_LOCK_ON_WITH_SWITCH       (1 << 13)
+#define PLAYER_STATE2_MM_4000       (1 << 14)
+#define PLAYER_STATE2_MM_8000       (1 << 15)
+#define PLAYER_STATE2_MM_10000      (1 << 16)
+#define PLAYER_STATE2_MM_20000      (1 << 17)
+#define PLAYER_STATE2_MM_40000      (1 << 18)
+#define PLAYER_STATE2_MM_80000      (1 << 19)
+#define PLAYER_STATE2_MM_100000     (1 << 20)
+#define PLAYER_STATE2_MM_200000     (1 << 21)
+#define PLAYER_STATE2_MM_400000     (1 << 22)
+#define PLAYER_STATE2_MM_800000     (1 << 23)
+#define PLAYER_STATE2_MM_1000000    (1 << 24)
+#define PLAYER_STATE2_MM_2000000    (1 << 25)
+#define PLAYER_STATE2_MM_4000000    (1 << 26)
+#define PLAYER_STATE2_MM_USING_OCARINA  (1 << 27)
+#define PLAYER_STATE2_MM_IDLE_FIDGET   (1 << 28)
+#define PLAYER_STATE2_MM_20000000   (1 << 29)
+#define PLAYER_STATE2_MM_40000000   (1 << 30)
+#define PLAYER_STATE2_MM_80000000   (1 << 31)
+
+#define PLAYER_STATE3_MM_1          (1 << 0)
+#define PLAYER_STATE3_MM_2          (1 << 1)
+#define PLAYER_STATE3_MM_4          (1 << 2)
+#define PLAYER_STATE3_MM_8          (1 << 3)
+#define PLAYER_STATE3_MM_10         (1 << 4)
+#define PLAYER_STATE3_MM_20         (1 << 5)
+#define PLAYER_STATE3_MM_40         (1 << 6)
+#define PLAYER_STATE3_MM_80         (1 << 7)
+#define PLAYER_STATE3_MM_100        (1 << 8)
+#define PLAYER_STATE3_MM_200        (1 << 9)
+#define PLAYER_STATE3_MM_400        (1 << 10)
+#define PLAYER_STATE3_MM_800        (1 << 11)
+#define PLAYER_STATE3_MM_1000       (1 << 12)
+#define PLAYER_STATE3_MM_2000       (1 << 13)
+#define PLAYER_STATE3_MM_4000       (1 << 14)
+#define PLAYER_STATE3_MM_8000       (1 << 15)
+#define PLAYER_STATE3_MM_10000      (1 << 16)
+#define PLAYER_STATE3_MM_20000      (1 << 17)
+#define PLAYER_STATE3_MM_40000      (1 << 18)
+#define PLAYER_STATE3_MM_80000      (1 << 19)
+#define PLAYER_STATE3_MM_100000     (1 << 20)
+#define PLAYER_STATE3_MM_200000     (1 << 21)
+#define PLAYER_STATE3_MM_400000     (1 << 22)
+#define PLAYER_STATE3_MM_800000     (1 << 23)
+#define PLAYER_STATE3_MM_1000000    (1 << 24)
+#define PLAYER_STATE3_MM_2000000    (1 << 25)
+#define PLAYER_STATE3_MM_4000000    (1 << 26)
+#define PLAYER_STATE3_MM_8000000    (1 << 27)
+#define PLAYER_STATE3_MM_10000000   (1 << 28)
+#define PLAYER_STATE3_MM_20000000   (1 << 29)
+#define PLAYER_STATE3_MM_START_CHANGING_HELD_ITEM   (1 << 30)
+#define PLAYER_STATE3_MM_HOSTILE_LOCK_ON   (1 << 31)
 
 #endif

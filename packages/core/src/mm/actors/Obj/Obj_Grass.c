@@ -40,7 +40,7 @@ void ObjGrass_GetXflag(Xflag* xflag, Actor_ObjGrass_PackBush* bush)
     xflag->sliceId = bushId;
 }
 
-void ObjGrass_SpawnBushDropWrapper(Actor_ObjGrass_PackBush* bush, GameState_Play* play)
+void ObjGrass_SpawnBushDropWrapper(Actor_ObjGrass_PackBush* bush, PlayState* play)
 {
     Xflag xflag;
 
@@ -58,8 +58,8 @@ void ObjGrass_SpawnBushDropWrapper(Actor_ObjGrass_PackBush* bush, GameState_Play
     }
 
     /* Forward */
-    void (*ObjGrass_SpawnBushDrop)(Actor_ObjGrass_PackBush*, GameState_Play*);
-    ObjGrass_SpawnBushDrop = actorAddr(AC_OBJ_GRASS, 0x809a92d0);
+    void (*ObjGrass_SpawnBushDrop)(Actor_ObjGrass_PackBush*, PlayState*);
+    ObjGrass_SpawnBushDrop = actorAddr(ACTOR_OBJ_GRASS, 0x809a92d0);
     ObjGrass_SpawnBushDrop(bush, play);
 }
 
@@ -82,11 +82,11 @@ void ObjGrass_DrawBush(Actor_ObjGrass_PackBush* bush)
 
     /* Prepare the draw */
     csmcGrassPreDraw(gPlay, o.gi, CSMC_GRASS_NORMAL, 0, 1);
-    dlist = actorAddr(AC_OBJ_GRASS, 0x809aaae0);
+    dlist = actorAddr(ACTOR_OBJ_GRASS, 0x809aaae0);
 
     /* Draw */
-    OPEN_DISPS(gPlay->gs.gfx);
-    gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(gPlay->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    OPEN_DISPS(gPlay->state.gfxCtx);
+    gSPMatrix(POLY_OPA_DISP++, Matrix_Finalize(gPlay->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, (u32)dlist & 0xffffff);
     CLOSE_DISPS();
 }

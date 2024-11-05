@@ -2,12 +2,12 @@
 #include <combo/player.h>
 #include <combo/item.h>
 
-static void EnToto_GiveTroupeLeaderMask(Actor* this, GameState_Play* play)
+static void EnToto_GiveTroupeLeaderMask(Actor* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     if (Actor_HasParentZ(this))
@@ -20,7 +20,7 @@ static void EnToto_GiveTroupeLeaderMask(Actor* this, GameState_Play* play)
     comboGiveItemNpc(this, play, GI_MM_MASK_TROUPE_LEADER, NPC_MM_MASK_TROUPE_LEADER, 16384.f, 16384.f);
 }
 
-void EnToto_UpdateWrapper(Actor* this, GameState_Play* play)
+void EnToto_UpdateWrapper(Actor* this, PlayState* play)
 {
     ActorFunc EnToto_Update;
 
@@ -30,7 +30,7 @@ void EnToto_UpdateWrapper(Actor* this, GameState_Play* play)
     }
     else
     {
-        EnToto_Update = actorAddr(AC_EN_TOTO, 0x80ba4e2c);
+        EnToto_Update = actorAddr(ACTOR_EN_TOTO, 0x80ba4e2c);
         EnToto_Update(this, play);
     }
 }

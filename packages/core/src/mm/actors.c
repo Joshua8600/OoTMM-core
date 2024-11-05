@@ -8,20 +8,20 @@
 #include <combo/inventory.h>
 #include <combo/multi.h>
 
-void EnGo_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnDnh_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnShn_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnPm_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b);
-void EnAn_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnPst_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnNb_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnAl_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnBjt_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
-void EnTab_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b);
+void EnGo_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnDnh_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnShn_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnPm_GiveItem(Actor* this, PlayState* play, s16 gi, float a, float b);
+void EnAn_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnPst_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnNb_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnAl_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnBjt_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
+void EnTab_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b);
 
-typedef void (*TextBoxCallback)(Actor*, GameState_Play*, s16);
-void EnGo_AfterTextBox(Actor* this, GameState_Play* play, s16 messageId);
-void EnTab_AfterTextBox(Actor* this, GameState_Play* play, s16 messageId);
+typedef void (*TextBoxCallback)(Actor*, PlayState*, s16);
+void EnGo_AfterTextBox(Actor* this, PlayState* play, s16 messageId);
+void EnTab_AfterTextBox(Actor* this, PlayState* play, s16 messageId);
 
 static Actor* sByteCodeActor;
 
@@ -57,42 +57,42 @@ static s16 convertGi(s16 initial)
     return initial;
 }
 
-static void Actor_ByteCode_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
+static void Actor_ByteCode_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b)
 {
-    void (*func)(Actor*, GameState_Play*, s16, float, float);
+    void (*func)(Actor*, PlayState*, s16, float, float);
 
     gi = convertGi(gi);
 
     switch (actor->id)
     {
-    case AC_EN_GO:
+    case ACTOR_EN_GO:
         func = EnGo_GiveItem;
         break;
-    case AC_EN_DNH:
+    case ACTOR_EN_DNH:
         func = EnDnh_GiveItem;
         break;
-    case AC_EN_SHN:
+    case ACTOR_EN_SHN:
         func = EnShn_GiveItem;
         break;
-    case AC_EN_PM:
+    case ACTOR_EN_PM:
         func = EnPm_GiveItem;
         break;
-    case AC_EN_PST:
+    case ACTOR_EN_PST:
         func = EnPst_GiveItem;
         break;
-    case AC_EN_AN:
+    case ACTOR_EN_AN:
         func = EnAn_GiveItem;
         break;
-    case AC_EN_NB:
+    case ACTOR_EN_NB:
         func = EnNb_GiveItem;
         break;
-    case AC_EN_AL:
+    case ACTOR_EN_AL:
         func = EnAl_GiveItem;
         break;
-    case AC_EN_TAB:
+    case ACTOR_EN_TAB:
         func = EnTab_GiveItem;
         break;
-    case AC_EN_BJT:
+    case ACTOR_EN_BJT:
         func = EnBjt_GiveItem;
         break;
     default:
@@ -122,22 +122,22 @@ static int Actor_ByteCode_HasParent(Actor* actor)
     {
         switch (actor->id)
         {
-        case AC_EN_GO:
+        case ACTOR_EN_GO:
             func = EnGo_AfterGivingItem;
             break;
-        case AC_EN_DNH:
+        case ACTOR_EN_DNH:
             func = EnDnh_AfterGivingItem;
             break;
-        case AC_EN_PM:
+        case ACTOR_EN_PM:
             func = EnPm_AfterGivingItem;
             break;
-        case AC_EN_AN:
+        case ACTOR_EN_AN:
             func = EnAn_AfterGivingItem;
             break;
-        case AC_EN_TAB:
+        case ACTOR_EN_TAB:
             func = EnTab_AfterGivingItem;
             break;
-        case AC_EN_NB:
+        case ACTOR_EN_NB:
             func = EnNb_AfterGivingItem;
             break;
         default:
@@ -174,7 +174,7 @@ static void Actor_ByteCode_RemoveItem(s16 item, s16 slot)
 
 PATCH_CALL(0x8010bc60, Actor_ByteCode_RemoveItem);
 
-int Actor_RunByteCodeWrapper(Actor* this, GameState_Play* play, void* bytecode, void* unk1, void* unk2)
+int Actor_RunByteCodeWrapper(Actor* this, PlayState* play, void* bytecode, void* unk1, void* unk2)
 {
     sByteCodeActor = this;
     return Actor_RunByteCode(this, play, bytecode, unk1, unk2);
@@ -201,7 +201,7 @@ PATCH_CALL(0x80bf2bf4, Actor_RunByteCodeWrapper);
 PATCH_CALL(0x80bfda74, Actor_RunByteCodeWrapper);
 PATCH_CALL(0x80c22a14, Actor_RunByteCodeWrapper);
 
-static void Actor_ByteCode_DispatchTextBox(GameState_Play* play, s16 messageId)
+static void Actor_ByteCode_DispatchTextBox(PlayState* play, s16 messageId)
 {
     Actor* this;
     TextBoxCallback cb;
@@ -210,10 +210,10 @@ static void Actor_ByteCode_DispatchTextBox(GameState_Play* play, s16 messageId)
     cb = NULL;
     switch (this->id)
     {
-    case AC_EN_GO:
+    case ACTOR_EN_GO:
         cb = EnGo_AfterTextBox;
         break;
-    case AC_EN_TAB:
+    case ACTOR_EN_TAB:
         cb = EnTab_AfterTextBox;
         break;
     }
@@ -223,7 +223,7 @@ static void Actor_ByteCode_DispatchTextBox(GameState_Play* play, s16 messageId)
     }
 }
 
-static void Actor_ByteCode_PlayerDisplayTextBox_Hook(GameState_Play* play, s16 messageId, void* unk)
+static void Actor_ByteCode_PlayerDisplayTextBox_Hook(PlayState* play, s16 messageId, void* unk)
 {
     PlayerDisplayTextBox(play, messageId, unk);
     Actor_ByteCode_DispatchTextBox(play, messageId);
@@ -231,7 +231,7 @@ static void Actor_ByteCode_PlayerDisplayTextBox_Hook(GameState_Play* play, s16 m
 
 PATCH_CALL(0x8010af04, Actor_ByteCode_PlayerDisplayTextBox_Hook);
 
-static void Actor_ByteCode_DisplayTextBox2_Hook(GameState_Play* play, s16 messageId)
+static void Actor_ByteCode_DisplayTextBox2_Hook(PlayState* play, s16 messageId)
 {
     DisplayTextBox2(play, messageId);
     Actor_ByteCode_DispatchTextBox(play, messageId);
@@ -239,76 +239,76 @@ static void Actor_ByteCode_DisplayTextBox2_Hook(GameState_Play* play, s16 messag
 
 PATCH_CALL(0x8010af50, Actor_ByteCode_DisplayTextBox2_Hook);
 
-static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
+static int canSpawnSoul(PlayState* play, s16 actorId, u16 variable)
 {
     if (g.isCredits)
         return 1;
 
     switch (actorId)
     {
-    case AC_EN_GINKO_MAN:
+    case ACTOR_EN_GINKO_MAN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BANKER));
-    case AC_EN_AN:
+    case ACTOR_EN_AN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ANJU));
-    case AC_EN_GURUGURU:
+    case ACTOR_EN_GURUGURU:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GURU_GURU));
-    case AC_EN_DAIKU:
-    case AC_EN_DAIKU2:
+    case ACTOR_EN_DAIKU:
+    case ACTOR_EN_DAIKU2:
         if(play->sceneId == SCE_MM_MAYOR_HOUSE && play->roomCtx.curRoom.num == 0x01)
             return opt(comboHasSoulMm(GI_MM_SOUL_NPC_MAYOR_DOTOUR));
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_CARPENTERS));
-    case AC_EN_MS:
+    case ACTOR_EN_MS:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BEAN_SALESMAN));
-    case AC_EN_MA_YTO:
-    case AC_EN_MA_YTS:
-    case AC_EN_MA4:
+    case ACTOR_EN_MA_YTO:
+    case ACTOR_EN_MA_YTS:
+    case ACTOR_EN_MA4:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_MALON));
-    case AC_EN_ZOT:
-    case AC_EN_ZOW:
+    case ACTOR_EN_ZOT:
+    case ACTOR_EN_ZOW:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ZORA));
-    case AC_EN_BJT:
+    case ACTOR_EN_BJT:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_TOILET_HAND));
-    case AC_EN_BAL:
+    case ACTOR_EN_BAL:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_TINGLE));
-    case AC_EN_TAKARAYA:
+    case ACTOR_EN_TAKARAYA:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BOMBCHU_BOWLING_LADY));
-    case AC_EN_KBT:
-    case AC_EN_KGY:
+    case ACTOR_EN_KBT:
+    case ACTOR_EN_KGY:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BLACKSMITHS));
-    case AC_EN_GB2:
+    case ACTOR_EN_GB2:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_POE_COLLECTOR));
-    case AC_EN_TAB:
+    case ACTOR_EN_TAB:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_TALON));
-    case AC_EN_BJI_01:
+    case ACTOR_EN_BJI_01:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ASTRONOMER));
-    case AC_EN_MUTO:
-    case AC_EN_HEISHI:
-    case AC_EN_BAISEN:
+    case ACTOR_EN_MUTO:
+    case ACTOR_EN_HEISHI:
+    case ACTOR_EN_BAISEN:
         if(play->sceneId == SCE_MM_MAYOR_HOUSE && play->roomCtx.curRoom.num != 0x01)
             return 1;
         /* Fallthrough */
-    case AC_EN_DT:
+    case ACTOR_EN_DT:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_MAYOR_DOTOUR));
-    case AC_EN_TRT:
-    case AC_EN_TRT2:
-    case AC_EN_TRU:
-    case AC_EN_TRU_MT:
+    case ACTOR_EN_TRT:
+    case ACTOR_EN_TRT2:
+    case ACTOR_EN_TRU:
+    case ACTOR_EN_TRU_MT:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_KOUME_KOTAKE));
-    case AC_EN_KITAN:
+    case ACTOR_EN_KITAN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_KEATON));
-    case AC_EN_TEST3:
+    case ACTOR_EN_TEST3:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_KAFEI));
-    case AC_EN_TOTO:
+    case ACTOR_EN_TOTO:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_TOTO));
-    case AC_EN_ZOV:
+    case ACTOR_EN_ZOV:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_RUTO));
-    case AC_EN_ZOD:
-    case AC_EN_ZOS:
-    case AC_EN_ZOB:
+    case ACTOR_EN_ZOD:
+    case ACTOR_EN_ZOS:
+    case ACTOR_EN_ZOB:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ZORA_MUSICIANS));
-    case AC_EN_FU:
+    case ACTOR_EN_FU:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_HONEY_DARLING));
-    case AC_EN_SOB1:
+    case ACTOR_EN_SOB1:
         switch (variable & 0xf)
         {
         case 0: return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ZORA_SHOPKEEPER));
@@ -316,230 +316,230 @@ static int canSpawnSoul(GameState_Play* play, s16 actorId, u16 variable)
         case 2: return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BOMBCHU_SHOPKEEPER));
         default: return 1;
         }
-    case AC_EN_JGAME_TSN:
-    case AC_EN_TSN:
+    case ACTOR_EN_JGAME_TSN:
+    case ACTOR_EN_TSN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_CHEST_GAME_OWNER));
-    case AC_EN_LIFT_NUTS:
+    case ACTOR_EN_LIFT_NUTS:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_PLAYGROUND_SCRUBS));
-    case AC_EN_DNP:
+    case ACTOR_EN_DNP:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_DEKU_PRINCESS));
-    case AC_EN_DNQ:
+    case ACTOR_EN_DNQ:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_DEKU_KING));
-    case AC_EN_TK:
+    case ACTOR_EN_TK:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_DAMPE));
-    case AC_EN_PO_COMPOSER:
+    case ACTOR_EN_PO_COMPOSER:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_COMPOSER_BROS));
-    case AC_EN_STH:
-    case AC_EN_JA:
-    case AC_EN_YB:
-    case AC_EN_RZ:
-    case AC_EN_MM3:
-    case AC_EN_PM:
+    case ACTOR_EN_STH:
+    case ACTOR_EN_JA:
+    case ACTOR_EN_YB:
+    case ACTOR_EN_RZ:
+    case ACTOR_EN_MM3:
+    case ACTOR_EN_PM:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_CITIZEN));
-    case AC_EN_DNO:
+    case ACTOR_EN_DNO:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BUTLER_DEKU));
-    case AC_EN_BOM_BOWL_MAN:
-    case AC_EN_BOMJIMA:
-    case AC_EN_BOMJIMB:
-    case AC_EN_BOMBERS:
-    case AC_EN_BOMBERS2:
-    case AC_EN_BOMBAL:
+    case ACTOR_EN_BOM_BOWL_MAN:
+    case ACTOR_EN_BOMJIMA:
+    case ACTOR_EN_BOMJIMB:
+    case ACTOR_EN_BOMBERS:
+    case ACTOR_EN_BOMBERS2:
+    case ACTOR_EN_BOMBAL:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BOMBERS));
-    case AC_EN_RSN:
+    case ACTOR_EN_RSN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BOMBCHU_SHOPKEEPER));
-    case AC_EN_OSSAN:
+    case ACTOR_EN_OSSAN:
         switch (variable & 0xf)
         {
         case 0x00: return opt(comboHasSoulMm(GI_MM_SOUL_NPC_FISHING_POND_OWNER));
         case 0x01: return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ROOFTOP_MAN));
         default: UNREACHABLE();
         }
-    case AC_EN_ANI:
+    case ACTOR_EN_ANI:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_ROOFTOP_MAN));
-    case AC_EN_GO:
+    case ACTOR_EN_GO:
         switch (variable)
         {
         case 0x08: return opt(comboHasSoulMm(GI_MM_SOUL_NPC_MEDIGORON));
         default: return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GORON));
         }
-    case AC_EN_S_GORO:
+    case ACTOR_EN_S_GORO:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GORON));
-    case AC_EN_GK:
+    case ACTOR_EN_GK:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GORON_CHILD));
-    case AC_EN_JG:
+    case ACTOR_EN_JG:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GORON_ELDER));
-    case AC_EN_DAI:
+    case ACTOR_EN_DAI:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BIGGORON));
-    case AC_EN_SYATEKI_MAN:
+    case ACTOR_EN_SYATEKI_MAN:
         if (play->sceneId == SCE_MM_SHOOTING_GALLERY_SWAMP)
             return opt(comboHasSoulMm(GI_MM_SOUL_NPC_BAZAAR_SHOPKEEPER));
         else
             return opt(comboHasSoulMm(GI_MM_SOUL_NPC_SHOOTING_GALLERY_OWNER));
-    case AC_EN_SYATEKI_OKUTA:
+    case ACTOR_EN_SYATEKI_OKUTA:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_SHOOTING_GALLERY_OWNER));
-    case AC_EN_MK:
+    case ACTOR_EN_MK:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_SCIENTIST));
-    case AC_EN_IN:
-    case AC_EN_GM:
+    case ACTOR_EN_IN:
+    case ACTOR_EN_GM:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GORMAN));
-    case AC_EN_HS:
+    case ACTOR_EN_HS:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_GROG));
-    case AC_EN_AOB_01:
+    case ACTOR_EN_AOB_01:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_DOG_LADY));
-    case AC_EN_AL:
+    case ACTOR_EN_AL:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_AROMA));
-    case AC_EN_JS:
+    case ACTOR_EN_JS:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_MOON_CHILDREN));
-    case AC_EN_SHN:
+    case ACTOR_EN_SHN:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_TOURIST_CENTER));
-    case AC_EN_NB:
+    case ACTOR_EN_NB:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_OLD_HAG));
-    case AC_EN_KENDO_JS:
+    case ACTOR_EN_KENDO_JS:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_CARPET_MAN));
-    case AC_EN_OKUTA:
-    case AC_EN_BIGOKUTA:
+    case ACTOR_EN_OKUTA:
+    case ACTOR_EN_BIGOKUTA:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_OCTOROK);
-    case AC_EN_WALLMAS:
+    case ACTOR_EN_WALLMAS:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_WALLMASTER);
-    case AC_EN_DODONGO:
+    case ACTOR_EN_DODONGO:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_DODONGO);
-    case AC_EN_FIREFLY:
+    case ACTOR_EN_FIREFLY:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_KEESE);
-    case AC_EN_TITE:
+    case ACTOR_EN_TITE:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_TEKTITE);
-    case AC_EN_PEEHAT:
+    case ACTOR_EN_PEEHAT:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_PEAHAT);
-    case AC_EN_DINOFOS:
+    case ACTOR_EN_DINOFOS:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_LIZALFOS_DINALFOS);
-    case AC_EN_ST:
+    case ACTOR_EN_ST:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SKULLTULA);
-    case AC_EN_AM:
-    case AC_EN_FAMOS:
+    case ACTOR_EN_AM:
+    case ACTOR_EN_FAMOS:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_ARMOS);
-    case AC_EN_DEKUBABA:
-    case AC_EN_KAREBABA:
+    case ACTOR_EN_DEKUBABA:
+    case ACTOR_EN_KAREBABA:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_DEKU_BABA);
-    case AC_EN_DEKUNUTS:
+    case ACTOR_EN_DEKUNUTS:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_DEKU_SCRUB);
-    case AC_EN_BBFALL:
-    case AC_EN_BB:
+    case ACTOR_EN_BBFALL:
+    case ACTOR_EN_BB:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_BUBBLE);
-    case AC_EN_VM:
+    case ACTOR_EN_VM:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_BEAMOS);
-    case AC_EN_RD:
-    case AC_EN_TALK_GIBUD:
-    case AC_EN_RAILGIBUD:
+    case ACTOR_EN_RD:
+    case ACTOR_EN_TALK_GIBUD:
+    case ACTOR_EN_RAILGIBUD:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_REDEAD_GIBDO);
-    case AC_EN_SW:
+    case ACTOR_EN_SW:
         if (variable & 0x03)
             return opt(comboHasSoulMm(GI_MM_SOUL_MISC_GS));
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SKULLWALLTULA);
-    case AC_OBJ_MAKEKINSUTA:
+    case ACTOR_OBJ_MAKEKINSUTA:
         return opt(comboHasSoulMm(GI_MM_SOUL_MISC_GS));
-    case AC_EN_SB:
+    case ACTOR_EN_SB:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SHELL_BLADE);
-    case AC_EN_RR:
+    case ACTOR_EN_RR:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_LIKE_LIKE);
-    case AC_EN_IK:
+    case ACTOR_EN_IK:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_IRON_KNUCKLE);
-    case AC_EN_FZ:
+    case ACTOR_EN_FZ:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_FREEZARD);
-    case AC_EN_WF:
+    case ACTOR_EN_WF:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_WOLFOS);
-    case AC_EN_CROW:
+    case ACTOR_EN_CROW:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_GUAY);
-    case AC_EN_TUBO_TRAP:
+    case ACTOR_EN_TUBO_TRAP:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_FLYING_POT) ? 1 : -1;
-    case AC_EN_FLOORMAS:
+    case ACTOR_EN_FLOORMAS:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_FLOORMASTER);
-    case AC_EN_SLIME:
+    case ACTOR_EN_SLIME:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_CHUCHU);
-    case AC_EN_DRAGON:
+    case ACTOR_EN_DRAGON:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_DEEP_PYTHON);
-    case AC_EN_PR:
-    case AC_EN_PR2:
-    case AC_EN_PRZ:
+    case ACTOR_EN_PR:
+    case ACTOR_EN_PR2:
+    case ACTOR_EN_PRZ:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SKULLFISH);
-    case AC_EN_WDHAND:
+    case ACTOR_EN_WDHAND:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_DEXIHAND);
-    case AC_EN_GRASSHOPPER:
+    case ACTOR_EN_GRASSHOPPER:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_DRAGONFLY);
-    case AC_EN_SNOWMAN:
+    case ACTOR_EN_SNOWMAN:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_EENO);
-    case AC_EN_EGOL:
+    case ACTOR_EN_EGOL:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_EYEGORE);
-    case AC_EN_PP:
+    case ACTOR_EN_PP:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_HIPLOOP);
-    case AC_EN_RAT:
+    case ACTOR_EN_RAT:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_REAL_BOMBCHU);
-    case AC_EN_THIEFBIRD:
+    case ACTOR_EN_THIEFBIRD:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_TAKKURI);
-    case AC_EN_MKK:
+    case ACTOR_EN_MKK:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_BOE);
-    case AC_EN_BAGUO:
+    case ACTOR_EN_BAGUO:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_NEJIRON);
-    case AC_BOSS_05:
+    case ACTOR_BOSS_05:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_BIO_BABA);
-    case AC_EN_JSO:
-    case AC_EN_JSO2:
+    case ACTOR_EN_JSO:
+    case ACTOR_EN_JSO2:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_GARO);
-    case AC_EN_WIZ:
-    case AC_EN_WIZ_BROCK:
+    case ACTOR_EN_WIZ:
+    case ACTOR_EN_WIZ_BROCK:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_WIZZROBE);
-    case AC_EN_DEATH:
+    case ACTOR_EN_DEATH:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_GOMESS);
-    case AC_EN_PAMETFROG:
-    case AC_EN_BIGSLIME:
-    case AC_EN_BIGPAMET:
+    case ACTOR_EN_PAMETFROG:
+    case ACTOR_EN_BIGSLIME:
+    case ACTOR_EN_BIGPAMET:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_GEKKO);
-    case AC_EN_BAT:
+    case ACTOR_EN_BAT:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_BAD_BAT);
-    case AC_EN_KAME:
+    case ACTOR_EN_KAME:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_SNAPPER);
-    case AC_BOSS_04:
+    case ACTOR_BOSS_04:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_WART);
-    case AC_EN_BSB:
+    case ACTOR_EN_BSB:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_CAPTAIN_KEETA);
-    case AC_BOSS_01:
+    case ACTOR_BOSS_01:
         return comboHasSoulMm(GI_MM_SOUL_BOSS_ODOLWA);
-    case AC_BOSS_HAKUGIN:
+    case ACTOR_BOSS_HAKUGIN:
         return comboHasSoulMm(GI_MM_SOUL_BOSS_GOHT);
-    case AC_BOSS_03:
+    case ACTOR_BOSS_03:
         return comboHasSoulMm(GI_MM_SOUL_BOSS_GYORG);
-    case AC_BOSS_02:
+    case ACTOR_BOSS_02:
         return comboHasSoulMm(GI_MM_SOUL_BOSS_TWINMOLD);
-    case AC_EN_KNIGHT:
-    case AC_BOSS_06:
+    case ACTOR_EN_KNIGHT:
+    case ACTOR_BOSS_06:
         return comboHasSoulMm(GI_MM_SOUL_BOSS_IGOS);
-    case AC_EN_NEO_REEBA:
+    case ACTOR_EN_NEO_REEBA:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_LEEVER);
-    case AC_EN_SKB:
+    case ACTOR_EN_SKB:
         if ((play->sceneId == SCE_MM_IKANA_GRAVEYARD) && (play->roomCtx.curRoom.num == 0x01)) /* Upper graveyard */
             return 1;
         /* Fallthrough */
-    case AC_EN_HINT_SKB:
-    case AC_EN_RAIL_SKB:
+    case ACTOR_EN_HINT_SKB:
+    case ACTOR_EN_RAIL_SKB:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_STALCHILD);
-    case AC_EN_SELLNUTS:
-    case AC_EN_SCOPENUTS:
-    case AC_EN_AKINDONUTS:
+    case ACTOR_EN_SELLNUTS:
+    case ACTOR_EN_SCOPENUTS:
+    case ACTOR_EN_AKINDONUTS:
         return opt(comboHasSoulMm(GI_MM_SOUL_MISC_BUSINESS_SCRUB));
-    case AC_EN_GE1:
-    case AC_EN_GE2:
-    case AC_EN_GE3:
+    case ACTOR_EN_GE1:
+    case ACTOR_EN_GE2:
+    case ACTOR_EN_GE3:
         return opt(comboHasSoulMm(GI_MM_SOUL_NPC_THIEVES));
-    case AC_EN_KAIZOKU:
+    case ACTOR_EN_KAIZOKU:
         return comboHasSoulMm(GI_MM_SOUL_ENEMY_THIEVES);
     default:
         return 1;
     }
 }
 
-static int canSpawnActor(GameState_Play* play, s16 actorId, u16 variable)
+static int canSpawnActor(PlayState* play, s16 actorId, u16 variable)
 {
     switch (actorId)
     {
-    case AC_EN_SYATEKI_OKUTA:
+    case ACTOR_EN_SYATEKI_OKUTA:
         if (play->sceneId == SCE_MM_SHOOTING_GALLERY && (gSave.day > 3 || gSave.day < 1))
             return 0;
         /* Fallthrough */
@@ -550,7 +550,7 @@ static int canSpawnActor(GameState_Play* play, s16 actorId, u16 variable)
 
 static s16 sActorIdToSpawn;
 
-Actor* Actor_SpawnAsChildAndCutsceneWrapper(ActorContext* actorCtx, GameState_Play *play, short actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, int ex1, int ex2, int ex3)
+Actor* Actor_SpawnAsChildAndCutsceneWrapper(ActorContext* actorCtx, PlayState *play, short actorId, float x, float y, float z, s16 rx, s16 ry, s16 rz, u16 variable, int ex1, int ex2, int ex3)
 {
     int ret;
 
@@ -558,7 +558,7 @@ Actor* Actor_SpawnAsChildAndCutsceneWrapper(ActorContext* actorCtx, GameState_Pl
         return NULL;
 
     /* Patch for gorman on donkeys */
-    if (actorId == AC_EN_HORSE && ((variable & 0x1fff) == 0x13 || (variable & 0x1fff) == 0x14) && !comboHasSoulMm(GI_MM_SOUL_NPC_GORMAN))
+    if (actorId == ACTOR_EN_HORSE && ((variable & 0x1fff) == 0x13 || (variable & 0x1fff) == 0x14) && !comboHasSoulMm(GI_MM_SOUL_NPC_GORMAN))
         variable = (variable & 0xe000);
 
     ret = canSpawnSoul(play, actorId, variable);
@@ -572,12 +572,12 @@ Actor* Actor_SpawnAsChildAndCutsceneWrapper(ActorContext* actorCtx, GameState_Pl
     return _Actor_SpawnAsChildAndCutscene(actorCtx, play, actorId, x, y, z, rx, ry, rz, variable, ex1, ex2, ex3);
 }
 
-static int GetRoomClearFlagForActor(GameState_Play* play, int flag)
+static int GetRoomClearFlagForActor(PlayState* play, int flag)
 {
     int res;
 
     res = GetRoomClearFlag(play, flag);
-    if (Config_Flag(CFG_ER_WALLMASTERS) && sActorIdToSpawn == AC_EN_WALLMAS)
+    if (Config_Flag(CFG_ER_WALLMASTERS) && sActorIdToSpawn == ACTOR_EN_WALLMAS)
         res = 0;
     return res;
 }
@@ -589,7 +589,7 @@ static LightNode* D_8015BC10;
 static s32 D_8015BC14;
 static f32 D_8015BC18;
 
-void Actor_InitFaroresWind(GameState_Play* play) {
+void Actor_InitFaroresWind(PlayState* play) {
     Vec3f lightPos;
 
     RespawnData* fw = &gCustomSave.fw[gOotSave.age];
@@ -616,12 +616,12 @@ void Actor_InitFaroresWind(GameState_Play* play) {
     D_8015BC18 = 0.0f;
 }
 
-void Actor_DrawFaroresWindPointer(GameState_Play* play)
+void Actor_DrawFaroresWindPointer(PlayState* play)
 {
     s32 lightRadius = -1;
     s32 params;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
 
     params = gSaveContext.respawn[RESPAWN_MODE_HUMAN].data;
 
@@ -788,24 +788,24 @@ void Actor_DrawFaroresWindPointer(GameState_Play* play)
 
             POLY_XLU_DISP = Gfx_SetupDL(POLY_XLU_DISP, 25); /* SETUPDL_25 */
 
-            Matrix_Translate(gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.x, yPos, gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.z, MAT_SET);
-            Matrix_Scale(scale, scale, scale, MAT_MUL);
-            ModelViewMult(&play->billboardMtxF, MAT_MUL);
-            MatrixStackDup();
+            Matrix_Translate(gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.x, yPos, gSaveContext.respawn[RESPAWN_MODE_HUMAN].pos.z, MTXMODE_NEW);
+            Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+            ModelViewMult(&play->billboardMtxF, MTXMODE_APPLY);
+            Matrix_Push();
 
             gDPPipeSync(POLY_XLU_DISP++);
             gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 255, 255, 200, alpha);
             gDPSetEnvColor(POLY_XLU_DISP++, 100, 200, 0, 255);
 
-            Matrix_RotateZ(BINANG_TO_RAD_ALT2((play->gameplayFrames * 1500) & 0xFFFF), MAT_MUL);
-            gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+            Matrix_RotateZ(BINANG_TO_RAD_ALT2((play->gameplayFrames * 1500) & 0xFFFF), MTXMODE_APPLY);
+            gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
                       G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
             gSPDisplayList(POLY_XLU_DISP++, 0x04000000 | 0x23210); /* gEffFlash1DL */
 
-            MatrixStackPop();
-            Matrix_RotateZ(BINANG_TO_RAD_ALT2(~((play->gameplayFrames * 1200) & 0xFFFF)), MAT_MUL);
+            Matrix_Pop();
+            Matrix_RotateZ(BINANG_TO_RAD_ALT2(~((play->gameplayFrames * 1200) & 0xFFFF)), MTXMODE_APPLY);
 
-            gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+            gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
                       G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
             gSPDisplayList(POLY_XLU_DISP++, 0x04000000 | 0x23210); /* gEffFlash1DL */
 
@@ -817,7 +817,7 @@ void Actor_DrawFaroresWindPointer(GameState_Play* play)
     }
 }
 
-void Actor_AfterDrawAll(GameState_Play* play)
+void Actor_AfterDrawAll(PlayState* play)
 {
     /* Displaced code: */
     if (play->actorCtx.lensMaskSize != 0)
@@ -900,7 +900,7 @@ static void Actor_PatchAdultHorse(void* loadedRam)
         return;
     }
 
-    for (int i = 0; i < ARRAY_SIZE(adultEponaPatch); i++)
+    for (int i = 0; i < ARRAY_COUNT(adultEponaPatch); i++)
     {
         u16* patchPointer = (u16*)(((u8*)loadedRam) + adultEponaPatch[i].offset);
         *patchPointer = adultEponaPatch[i].value;
@@ -1008,7 +1008,7 @@ ActorInit* Actor_LoadOverlayCustom(ActorContext* actorCtx, s16 index)
     {
         switch (index)
         {
-        case AC_EN_HORSE:
+        case ACTOR_EN_HORSE:
             Actor_PatchAdultHorse(overlayEntry->data);
             break;
         }

@@ -1,10 +1,12 @@
 #include <combo.h>
 #include <combo/item.h>
 #include <combo/mm/bombers_notebook.h>
+#include <assets/mm/objects/object_yb.h>
+#include <assets/mm/objects/gameplay_keep.h>
 
 #include "En_Yb.h"
 
-#define FLAGS (ACTOR_FLAG_MM_1 | ACTOR_FLAG_MM_8 | ACTOR_FLAG_MM_10 | ACTOR_FLAG_MM_2000000)
+#define FLAGS (ACTOR_FLAG_MM_ATTENTION_ENABLED | ACTOR_FLAG_MM_FRIENDLY | ACTOR_FLAG_MM_10 | ACTOR_FLAG_MM_2000000)
 
 #if defined(GAME_MM)
 # define SEGADDR_EN_PLAYER_ANIM_DANCE_LOOP      SEGADDR_FROM_OFFSET(4, 0xcf98)
@@ -14,30 +16,30 @@
 # define SEGADDR_EN_YB_SKEL                     SEGADDR_FROM_OFFSET(6, 0x5f48)
 #endif
 
-void EnYb_Init(Actor_EnYb* this, GameState_Play* play);
-void EnYb_Destroy(Actor_EnYb* this, GameState_Play* play);
-void EnYb_Update(Actor_EnYb* this, GameState_Play* play);
-void EnYb_Draw(Actor* this, GameState_Play* play);
+void EnYb_Init(Actor_EnYb* this, PlayState* play);
+void EnYb_Destroy(Actor_EnYb* this, PlayState* play);
+void EnYb_Update(Actor_EnYb* this, PlayState* play);
+void EnYb_Draw(Actor* this, PlayState* play);
 
-void EnYb_Idle(Actor_EnYb* this, GameState_Play* play);
-void EnYb_TeachingDanceFinish(Actor_EnYb* this, GameState_Play* play);
-void EnYb_SetupLeaving(Actor_EnYb* this, GameState_Play* play);
+void EnYb_Idle(Actor_EnYb* this, PlayState* play);
+void EnYb_TeachingDanceFinish(Actor_EnYb* this, PlayState* play);
+void EnYb_SetupLeaving(Actor_EnYb* this, PlayState* play);
 
-void EnYb_UpdateAnimation(Actor_EnYb* this, GameState_Play* play);
+void EnYb_UpdateAnimation(Actor_EnYb* this, PlayState* play);
 void EnYb_FinishTeachingCutscene(Actor_EnYb* this);
-void EnYb_Disappear(Actor_EnYb* this, GameState_Play* play);
-void EnYb_ReceiveMask(Actor_EnYb* this, GameState_Play* play);
-void EnYb_Talk(Actor_EnYb* this, GameState_Play* play);
-void EnYb_TeachingDance(Actor_EnYb* this, GameState_Play* play);
-void EnYb_WaitForMidnight(Actor_EnYb* this, GameState_Play* play);
+void EnYb_Disappear(Actor_EnYb* this, PlayState* play);
+void EnYb_ReceiveMask(Actor_EnYb* this, PlayState* play);
+void EnYb_Talk(Actor_EnYb* this, PlayState* play);
+void EnYb_TeachingDance(Actor_EnYb* this, PlayState* play);
+void EnYb_WaitForMidnight(Actor_EnYb* this, PlayState* play);
 
-void EnYb_ActorShadowFunc(Actor* this, Lights* mapper, GameState_Play* play);
-void EnYb_ChangeAnim(GameState_Play* play, Actor_EnYb* this, s16 animIndex, u8 animMode, f32 morphFrames);
-s32 EnYb_CanTalk(Actor_EnYb* this, GameState_Play* play);
+void EnYb_ActorShadowFunc(Actor* this, Lights* mapper, PlayState* play);
+void EnYb_ChangeAnim(PlayState* play, Actor_EnYb* this, s16 animIndex, u8 animMode, f32 morphFrames);
+s32 EnYb_CanTalk(Actor_EnYb* this, PlayState* play);
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_NONE,
         AC_ON | AC_TYPE_ENEMY,
         OC1_ON | OC1_TYPE_ALL,
@@ -45,11 +47,11 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00000000, 0x00, 0x00 },
         { 0xF7CFFFFF, 0x00, 0x00 },
-        TOUCH_NONE | TOUCH_SFX_NORMAL,
-        BUMP_ON,
+        ATELEM_NONE | ATELEM_SFX_NORMAL,
+        ACELEM_ON,
         OCELEM_ON,
     },
     { 20, 40, 0, { 0, 0, 0 } },
@@ -57,10 +59,10 @@ static ColliderCylinderInit sCylinderInit = {
 
 // crashes if I try to mod it in to look at it
 //  assumption: draw uses two different skeleton functions, might be incompatible
-static AnimationHeader* gYbUnusedAnimations[] = { SEGADDR_EN_YB_UNUSED_ANIM };
+static AnimationHeader* gYbUnusedAnimations[] = { (void*)gYbUnusedAnimations };
 
 static PlayerAnimationHeader* gPlayerAnimations[] = {
-    SEGADDR_EN_PLAYER_ANIM_WAIT,
+    (void*)gPlayerAnim_link_normal_wait_free,
     SEGADDR_EN_PLAYER_ANIM_DANCE_LOOP,
 };
 
@@ -70,7 +72,7 @@ static Vec3f D_80BFB2F4 = { 500.0f, -500.0f, 0.0f };
 
 static Vec3f D_80BFB300 = { 500.0f, -500.0f, 0.0f };
 
-void EnYb_Init(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_Init(Actor_EnYb* this, PlayState* play) {
     s16 csId;
     s32 i;
 
@@ -94,7 +96,7 @@ void EnYb_Init(Actor_EnYb* this, GameState_Play* play) {
     EnYb_ChangeAnim(play, this, 2, ANIMMODE_LOOP, 0.0f);
 
     csId = this->actor.csId;
-    for (i = 0; i < ARRAY_SIZE(this->csIdList); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->csIdList); i++) {
         this->csIdList[i] = csId;
         if (csId != CS_ID_NONE) {
             this->actor.csId = csId;
@@ -111,7 +113,7 @@ void EnYb_Init(Actor_EnYb* this, GameState_Play* play) {
     } else { // else (night 6pm to midnight): wait to appear
         this->alpha = 0;
         this->actionFunc = EnYb_WaitForMidnight;
-        this->actor.flags &= ~ACTOR_FLAG_MM_1;
+        this->actor.flags &= ~ACTOR_FLAG_MM_ATTENTION_ENABLED;
     }
 
     if (MM_GET_EVENT_WEEK(MM_EV(82,2))) {
@@ -119,12 +121,12 @@ void EnYb_Init(Actor_EnYb* this, GameState_Play* play) {
     }
 }
 
-void EnYb_Destroy(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_Destroy(Actor_EnYb* this, PlayState* play) {
 
     Collider_DestroyCylinder(play, &this->collider);
 }
 
-void func_80BFA2FC(GameState_Play* play) {
+void func_80BFA2FC(PlayState* play) {
     if (gMmExtraFlags2.maskKamaro) {
         Message_BombersNotebookQueueEvent(play, BOMBERS_NOTEBOOK_EVENT_RECEIVED_KAMAROS_MASK);
     }
@@ -134,7 +136,7 @@ void func_80BFA2FC(GameState_Play* play) {
 /**
  * Custom shadow draw function of type ActorShadowFunc.
  */
-void EnYb_ActorShadowFunc(Actor* this, Lights* mapper, GameState_Play* play) {
+void EnYb_ActorShadowFunc(Actor* this, Lights* mapper, PlayState* play) {
     Vec3f oldPos;
     Actor_EnYb* thisx = (Actor_EnYb*)this;
 
@@ -159,7 +161,7 @@ void EnYb_ActorShadowFunc(Actor* this, Lights* mapper, GameState_Play* play) {
     }
 }
 
-void EnYb_ChangeAnim(GameState_Play* play, Actor_EnYb* this, s16 animIndex, u8 animMode, f32 morphFrames) {
+void EnYb_ChangeAnim(PlayState* play, Actor_EnYb* this, s16 animIndex, u8 animMode, f32 morphFrames) {
     if ((animIndex < 0) || (animIndex > 2)) {
         return;
     }
@@ -187,7 +189,7 @@ void EnYb_ChangeAnim(GameState_Play* play, Actor_EnYb* this, s16 animIndex, u8 a
     this->animIndex = animIndex;
 }
 
-s32 EnYb_CanTalk(Actor_EnYb* this, GameState_Play* play) {
+s32 EnYb_CanTalk(Actor_EnYb* this, PlayState* play) {
     if ((this->actor.xzDistToPlayer < 100.0f) && Player_IsFacingActor(&this->actor, 0x3000, play) &&
         Actor_IsFacingPlayer(&this->actor, 0x3000)) {
         return TRUE;
@@ -196,7 +198,7 @@ s32 EnYb_CanTalk(Actor_EnYb* this, GameState_Play* play) {
     }
 }
 
-void EnYb_UpdateAnimation(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_UpdateAnimation(Actor_EnYb* this, PlayState* play) {
     if (this->animIndex <= 0) {
         SkelAnime_Update(&this->skelAnime);
     } else {
@@ -225,7 +227,7 @@ void EnYb_EnableProximityMusic(Actor_EnYb* this) {
     Actor_PlaySeq_FlaggedKamaroDance(&this->actor);
 }
 
-void EnYb_Disappear(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_Disappear(Actor_EnYb* this, PlayState* play) {
     Vec3f sp60;
     s32 i;
 
@@ -245,9 +247,9 @@ void EnYb_Disappear(Actor_EnYb* this, GameState_Play* play) {
     }
 }
 
-void EnYb_SetupLeaving(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_SetupLeaving(Actor_EnYb* this, PlayState* play) {
     EnYb_UpdateAnimation(this, play);
-    if (Actor_TalkOfferAccepted(&this->actor, &play->gs)) {
+    if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
         this->actor.flags &= ~ACTOR_FLAG_MM_10000;
         this->actionFunc = EnYb_Talk;
         // I am counting on you
@@ -259,7 +261,7 @@ void EnYb_SetupLeaving(Actor_EnYb* this, GameState_Play* play) {
     EnYb_EnableProximityMusic(this);
 }
 
-void EnYb_ReceiveMask(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_ReceiveMask(Actor_EnYb* this, PlayState* play) {
     EnYb_UpdateAnimation(this, play);
     // Player is parent: receiving the Kamaro mask
     if (Actor_HasParent(&this->actor, play))
@@ -276,7 +278,7 @@ void EnYb_ReceiveMask(Actor_EnYb* this, GameState_Play* play) {
     EnYb_EnableProximityMusic(this);
 }
 
-void EnYb_Talk(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_Talk(Actor_EnYb* this, PlayState* play) {
     Math_SmoothStepToS(&this->actor.shape.rot.y, this->actor.yawTowardsPlayer, 2, 0x1000, 0x200);
     this->actor.world.rot.y = this->actor.shape.rot.y;
     EnYb_UpdateAnimation(this, play);
@@ -314,9 +316,9 @@ void EnYb_Talk(Actor_EnYb* this, GameState_Play* play) {
     EnYb_EnableProximityMusic(this);
 }
 
-void EnYb_TeachingDanceFinish(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_TeachingDanceFinish(Actor_EnYb* this, PlayState* play) {
     EnYb_UpdateAnimation(this, play);
-    if (Actor_TalkOfferAccepted(&this->actor, &play->gs)) {
+    if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
         this->actionFunc = EnYb_Talk;
         // Spread my dance across the world
         PlayerDisplayTextBox(play, 0x147C, &this->actor);
@@ -328,7 +330,7 @@ void EnYb_TeachingDanceFinish(Actor_EnYb* this, GameState_Play* play) {
 }
 
 // dancing countdown
-void EnYb_TeachingDance(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_TeachingDance(Actor_EnYb* this, PlayState* play) {
     EnYb_UpdateAnimation(this, play);
 
     if (this->teachingCutsceneTimer > 0) {
@@ -342,8 +344,8 @@ void EnYb_TeachingDance(Actor_EnYb* this, GameState_Play* play) {
     EnYb_EnableProximityMusic(this);
 }
 
-void EnYb_Idle(Actor_EnYb* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void EnYb_Idle(Actor_EnYb* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
 
     EnYb_UpdateAnimation(this, play);
     if ((this->actor.xzDistToPlayer < 180.0f) && (fabsf(this->actor.yDistanceFromLink) < 50.0f) &&
@@ -352,7 +354,7 @@ void EnYb_Idle(Actor_EnYb* this, GameState_Play* play) {
         this->actionFunc = EnYb_TeachingDance;
         this->teachingCutsceneTimer = 0;
         EnYb_ChangeCutscene(this, 0);
-    } else if (Actor_TalkOfferAccepted(&this->actor, &play->gs)) {
+    } else if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
         func_80BFA2FC(play);
         this->actionFunc = EnYb_Talk;
         if (player->currentMask == PLAYER_MASK_KAMARO) {
@@ -367,10 +369,10 @@ void EnYb_Idle(Actor_EnYb* this, GameState_Play* play) {
     }
 
     if (this->playerOcarinaOut & 1) {
-        if (!(player->state2 & (1 << 27) /* PLAYER_STATE2_8000000 */)) {
+        if (!(player->stateFlags2 & (1 << 27) /* PLAYER_STATE2_8000000 */)) {
             this->playerOcarinaOut &= ~1;
         }
-    } else if ((player->state2 & (1 << 27) /* PLAYER_STATE2_8000000 */) && (this->actor.xzDistToPlayer < 180.0f) &&
+    } else if ((player->stateFlags2 & (1 << 27) /* PLAYER_STATE2_8000000 */) && (this->actor.xzDistToPlayer < 180.0f) &&
                (fabsf(this->actor.yDistanceFromLink) < 50.0f)) {
         this->playerOcarinaOut |= 1;
         Actor_PlaySfx(&this->actor, NA_SE_SY_TRE_BOX_APPEAR);
@@ -379,25 +381,25 @@ void EnYb_Idle(Actor_EnYb* this, GameState_Play* play) {
     EnYb_EnableProximityMusic(this);
 }
 
-void EnYb_WaitForMidnight(Actor_EnYb* this, GameState_Play* play) {
+void EnYb_WaitForMidnight(Actor_EnYb* this, PlayState* play) {
     if (CURRENT_TIME < CLOCK_TIME(6, 0)) {
         EnYb_UpdateAnimation(this, play);
         this->alpha += 5;
         if (this->alpha > 250) {
             this->alpha = 255;
-            this->actor.flags |= ACTOR_FLAG_MM_1;
+            this->actor.flags |= ACTOR_FLAG_MM_ATTENTION_ENABLED;
             this->actionFunc = EnYb_Idle;
         }
         EnYb_EnableProximityMusic(this);
     }
 }
 
-void EnYb_Update(Actor_EnYb* this, GameState_Play* play) {
-    if (CHECK_FLAG_ALL(this->actor.flags, ACTOR_FLAG_MM_1)) {
+void EnYb_Update(Actor_EnYb* this, PlayState* play) {
+    if (CHECK_FLAG_ALL(this->actor.flags, ACTOR_FLAG_MM_ATTENTION_ENABLED)) {
         Collider_UpdateCylinder(&this->actor, &this->collider);
         CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
     }
-    if (CHECK_FLAG_ALL(this->actor.flags, ACTOR_FLAG_MM_1)) {
+    if (CHECK_FLAG_ALL(this->actor.flags, ACTOR_FLAG_MM_ATTENTION_ENABLED)) {
         Actor_MoveWithGravity(&this->actor);
         Actor_UpdateBgCheckInfo(play, &this->actor, 40.0f, 25.0f, 40.0f, UPDBGCHECKINFO_FLAG_MM_1 | UPDBGCHECKINFO_FLAG_MM_4);
     }
@@ -418,7 +420,7 @@ void EnYb_Update(Actor_EnYb* this, GameState_Play* play) {
     }
 }
 
-void EnYb_PostLimbDrawOpa(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor_EnYb* this) {
+void EnYb_PostLimbDrawOpa(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor_EnYb* this) {
 
     if (limbIndex == YB_LIMB_HEAD) {
         Matrix_MultVec3f(&D_80BFB2F4, &this->actor.focus.pos);
@@ -428,7 +430,7 @@ void EnYb_PostLimbDrawOpa(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3
     }
 }
 
-void EnYb_PostLimbDrawXlu(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor* this, Gfx** gfx) {
+void EnYb_PostLimbDrawXlu(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor* this, Gfx** gfx) {
     Actor_EnYb* thisx = (Actor_EnYb*)this;
     if (limbIndex == YB_LIMB_HEAD) {
         Matrix_MultVec3f(&D_80BFB300, &thisx->actor.focus.pos);
@@ -438,9 +440,9 @@ void EnYb_PostLimbDrawXlu(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3
     }
 }
 
-void EnYb_Draw(Actor* this, GameState_Play* play) {
+void EnYb_Draw(Actor* this, PlayState* play) {
     Actor_EnYb* thisx = (Actor_EnYb*)this;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
 
     if (thisx->alpha != 0) {
         if (thisx->alpha < 255) {
@@ -458,7 +460,7 @@ void EnYb_Draw(Actor* this, GameState_Play* play) {
                                    thisx->skelAnime.dListCount, NULL, EnYb_PostLimbDrawXlu, &thisx->actor, POLY_XLU_DISP);
 
         } else {
-            Gfx_SetupDL25_Opa(play->gs.gfx);
+            Gfx_SetupDL25_Opa(play->state.gfxCtx);
             Scene_SetRenderModeXlu(play, 0, 1);
             SkelAnime_DrawFlexOpa(play, thisx->skelAnime.skeleton, thisx->skelAnime.jointTable,
                                   thisx->skelAnime.dListCount, NULL, EnYb_PostLimbDrawOpa, &thisx->actor);
@@ -469,7 +471,7 @@ void EnYb_Draw(Actor* this, GameState_Play* play) {
 }
 
 ActorInit En_Yb_InitVars = {
-    AC_EN_YB,
+    ACTOR_EN_YB,
     ACTORCAT_NPC,
     FLAGS,
     OBJECT_YB,
@@ -480,4 +482,4 @@ ActorInit En_Yb_InitVars = {
     (ActorFunc)EnYb_Draw,
 };
 
-OVL_ACTOR_INFO(AC_EN_YB, En_Yb_InitVars);
+OVL_INFO_ACTOR(ACTOR_EN_YB, En_Yb_InitVars);

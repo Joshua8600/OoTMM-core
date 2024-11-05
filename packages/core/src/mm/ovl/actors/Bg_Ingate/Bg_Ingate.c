@@ -1,29 +1,25 @@
 #include <combo.h>
 #include <combo/play/collision_context.h>
 #include <combo/misc.h>
+#include <assets/mm/objects/object_sichitai_obj.h>
 #include "Bg_Ingate.h"
 
 #define FLAGS (ACTOR_FLAG_MM_10 | ACTOR_FLAG_MM_20)
 
-#if defined(GAME_MM)
-#define SEGADDR_BG_INGATE_DL    ((void*)(0x06000000+0x6b0))
-#define SEGADDR_BG_INGATE_COL   ((void*)(0x06000000+0x16dc))
-#endif
+void BgIngate_Init(Actor_BgIngate* this, PlayState* play);
+void BgIngate_Destroy(Actor_BgIngate* this, PlayState* play);
+void BgIngate_Update(Actor_BgIngate* this, PlayState* play);
+void BgIngate_Draw(Actor_BgIngate* this, PlayState* play);
 
-void BgIngate_Init(Actor_BgIngate* this, GameState_Play* play);
-void BgIngate_Destroy(Actor_BgIngate* this, GameState_Play* play);
-void BgIngate_Update(Actor_BgIngate* this, GameState_Play* play);
-void BgIngate_Draw(Actor_BgIngate* this, GameState_Play* play);
-
-Actor* BgIngate_FindActor(Actor_BgIngate* this, GameState_Play* play, u8 actorCategory, s16 actorId);
+Actor* BgIngate_FindActor(Actor_BgIngate* this, PlayState* play, u8 actorCategory, s16 actorId);
 s32 func_80953BEC(Actor_BgIngate* this);
 void func_80953B40(Actor_BgIngate* this);
-void func_80953F8C(Actor_BgIngate* this, GameState_Play* play);
-void BgIngate_EndCruise(Actor_BgIngate* this, GameState_Play* play);
-void func_809541B8(Actor_BgIngate* this, GameState_Play* play);
-void func_809542A0(Actor_BgIngate* this, GameState_Play* play);
-void func_80954340(Actor_BgIngate* this, GameState_Play* play);
-void func_809543D4(Actor_BgIngate* this, GameState_Play* play);
+void func_80953F8C(Actor_BgIngate* this, PlayState* play);
+void BgIngate_EndCruise(Actor_BgIngate* this, PlayState* play);
+void func_809541B8(Actor_BgIngate* this, PlayState* play);
+void func_809542A0(Actor_BgIngate* this, PlayState* play);
+void func_80954340(Actor_BgIngate* this, PlayState* play);
+void func_809543D4(Actor_BgIngate* this, PlayState* play);
 
 /**
  * @brief Searches for an actor based on the parameters given to the function. Returns Actor* of actor found or NULL
@@ -34,7 +30,7 @@ void func_809543D4(Actor_BgIngate* this, GameState_Play* play);
  * @param actorId - ID of actor to search for
  * @return Actor*
  */
-Actor* BgIngate_FindActor(Actor_BgIngate* this, GameState_Play* play, u8 actorCategory, s16 actorId) {
+Actor* BgIngate_FindActor(Actor_BgIngate* this, PlayState* play, u8 actorCategory, s16 actorId) {
     Actor* actorIter = NULL;
 
     while (1) {
@@ -111,7 +107,7 @@ s32 func_80953BEC(Actor_BgIngate* this) {
     return 0;
 }
 
-s32 func_80953DA8(Actor_BgIngate* this, GameState_Play* play) {
+s32 func_80953DA8(Actor_BgIngate* this, PlayState* play) {
     Camera* mainCam = Play_GetCamera(play, CAM_ID_MAIN);
 
     if (MM_CHECK_EVENT_INF(EVENTINF_35)) {
@@ -125,7 +121,7 @@ s32 func_80953DA8(Actor_BgIngate* this, GameState_Play* play) {
     return 0;
 }
 
-void func_80953E38(GameState_Play* play) {
+void func_80953E38(PlayState* play) {
     Camera_ChangeSetting(Play_GetCamera(play, CAM_ID_MAIN), CAM_SET_NORMAL0);
 
     if (!MM_CHECK_EVENT_INF(EVENTINF_35)) {
@@ -135,8 +131,8 @@ void func_80953E38(GameState_Play* play) {
     play->bButtonAmmoPlusOne = -1;
 }
 
-void func_80953EA4(Actor_BgIngate* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void func_80953EA4(Actor_BgIngate* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
 
     Player_SetCsActionWithHaltedActors(play, &this->dyna.actor, PLAYER_CSACTION_58);
     player->unk_3A0.x = this->dyna.actor.world.pos.x;
@@ -146,8 +142,8 @@ void func_80953EA4(Actor_BgIngate* this, GameState_Play* play) {
     this->actionFunc = func_80954340;
 }
 
-void func_80953F14(Actor_BgIngate* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void func_80953F14(Actor_BgIngate* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
 
     player->actor.shape.rot.y = this->dyna.actor.shape.rot.y;
     player->actor.world.rot.y = player->actor.shape.rot.y;
@@ -162,11 +158,11 @@ void func_80953F14(Actor_BgIngate* this, GameState_Play* play) {
     this->actionFunc = BgIngate_EndCruise;
 }
 
-void func_80953F8C(Actor_BgIngate* this, GameState_Play* play) {
+void func_80953F8C(Actor_BgIngate* this, PlayState* play) {
 }
 
-void BgIngate_EndCruise(Actor_BgIngate* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void BgIngate_EndCruise(Actor_BgIngate* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
     Camera* mainCam = Play_GetCamera(play, CAM_ID_MAIN);
 
     if (!MM_CHECK_EVENT_INF(EVENTINF_40)) {
@@ -203,18 +199,18 @@ void BgIngate_EndCruise(Actor_BgIngate* this, GameState_Play* play) {
     if (CutsceneManager_GetCurrentCsId() != this->csId) {
         if (CutsceneManager_GetCurrentCsId() != CS_ID_NONE) {
             Camera_ChangeSetting(mainCam, CAM_SET_NORMAL0);
-            player->state |= (1 << 5); /* PLAYER_STATE1_20 */
+            player->stateFlags1 |= (1 << 5); /* PLAYER_STATE1_20 */
             play->actorCtx.flags &= ~ACTORCTX_FLAG_PICTO_BOX_ON;
         } else {
             Camera_ChangeSetting(mainCam, CAM_SET_BOAT_CRUISE);
-            player->state &= ~(1 << 5); /* PLAYER_STATE1_20 */
+            player->stateFlags1 &= ~(1 << 5); /* PLAYER_STATE1_20 */
         }
     }
     this->csId = CutsceneManager_GetCurrentCsId();
 }
 
-void func_809541B8(Actor_BgIngate* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void func_809541B8(Actor_BgIngate* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
 
     if (this->flags & 0x4) {
         if ((player->transformation == MM_PLAYER_FORM_HUMAN) && (player->actor.bgCheckFlags & BGCHECKFLAG_GROUND) &&
@@ -231,7 +227,7 @@ void func_809541B8(Actor_BgIngate* this, GameState_Play* play) {
     }
 }
 
-void func_809542A0(Actor_BgIngate* this, GameState_Play* play) {
+void func_809542A0(Actor_BgIngate* this, PlayState* play) {
     if (MM_CHECK_EVENT_INF(EVENTINF_50)) {
         play->nextEntrance = 0xa820;
         MM_CLEAR_EVENT_INF(EVENTINF_50);
@@ -247,7 +243,7 @@ void func_809542A0(Actor_BgIngate* this, GameState_Play* play) {
     Environment_StartTime();
 }
 
-void func_80954340(Actor_BgIngate* this, GameState_Play* play) {
+void func_80954340(Actor_BgIngate* this, PlayState* play) {
     if (DECR(this->unk16A) == 0) {
         if (this->timePath != NULL) {
             Player_SetCsActionWithHaltedActors(play, &this->dyna.actor, PLAYER_CSACTION_END);
@@ -258,7 +254,7 @@ void func_80954340(Actor_BgIngate* this, GameState_Play* play) {
     }
 }
 
-void func_809543D4(Actor_BgIngate* this, GameState_Play* play) {
+void func_809543D4(Actor_BgIngate* this, PlayState* play) {
     u8 talkState = Message_GetState(&play->msgCtx);
 
     if (((talkState == TEXT_STATE_CHOICE) || (talkState == TEXT_STATE_EVENT)) && Message_ShouldAdvance(play)) {
@@ -302,15 +298,15 @@ void func_809543D4(Actor_BgIngate* this, GameState_Play* play) {
     }
 }
 
-void BgIngate_Init(Actor_BgIngate* this, GameState_Play* play) {
+void BgIngate_Init(Actor_BgIngate* this, PlayState* play) {
     s32 phi_a2;
     Vec3s* sp38;
     Vec3f sp2C;
     Vec3f sp20;
 
-    if (BgIngate_FindActor(this, play, ACTORCAT_BG, AC_BG_INGATE) == NULL) {
+    if (BgIngate_FindActor(this, play, ACTORCAT_BG, ACTOR_BG_INGATE) == NULL) {
         DynaPolyActor_Init(&this->dyna, DYNA_TRANSFORM_POS | DYNA_TRANSFORM_ROT_Y);
-        DynaPolyActor_LoadMesh(play, &this->dyna, SEGADDR_BG_INGATE_COL);
+        DynaPolyActor_LoadMesh(play, &this->dyna, (void*)gSichitaiBoatCol);
         this->flags = 0;
         this->flags |= 0x8;
         this->flags |= 0x10;
@@ -354,30 +350,30 @@ void BgIngate_Init(Actor_BgIngate* this, GameState_Play* play) {
     }
 }
 
-void BgIngate_Destroy(Actor_BgIngate* this, GameState_Play* play) {
+void BgIngate_Destroy(Actor_BgIngate* this, PlayState* play) {
 
     if (this->flags & 8) {
         DynaPoly_DeleteBgActor(play, &play->colCtx.dyna, this->dyna.bgId);
     }
 }
 
-void BgIngate_Update(Actor_BgIngate* this, GameState_Play* play) {
+void BgIngate_Update(Actor_BgIngate* this, PlayState* play) {
     this->actionFunc(this, play);
 }
 
-void BgIngate_Draw(Actor_BgIngate* this, GameState_Play* play) {
-    OPEN_DISPS(play->gs.gfx);
+void BgIngate_Draw(Actor_BgIngate* this, PlayState* play) {
+    OPEN_DISPS(play->state.gfxCtx);
 
-    Gfx_SetupDL25_Opa(play->gs.gfx);
-    gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, SEGADDR_BG_INGATE_DL);
+    Gfx_SetupDL25_Opa(play->state.gfxCtx);
+    gSPMatrix(POLY_OPA_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gSPDisplayList(POLY_OPA_DISP++, (void*)gSichitaiBoatDL);
 
     CLOSE_DISPS();
 }
 
 ActorInit Actor_Bg_Ingate_InitVars =
 {
-    AC_BG_INGATE,
+    ACTOR_BG_INGATE,
     ACTORCAT_BG,
     FLAGS,
     OBJECT_SICHITAI_OBJ,
@@ -388,4 +384,4 @@ ActorInit Actor_Bg_Ingate_InitVars =
     (ActorFunc)BgIngate_Draw,
 };
 
-OVL_ACTOR_INFO(AC_BG_INGATE, Actor_Bg_Ingate_InitVars);
+OVL_INFO_ACTOR(ACTOR_BG_INGATE, Actor_Bg_Ingate_InitVars);

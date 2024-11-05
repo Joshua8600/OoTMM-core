@@ -13,5 +13,10 @@ typedef signed long         s32;
 typedef signed long long    s64;
 
 typedef unsigned long       uintptr_t;
+typedef unsigned int        size_t;
+typedef float               f32;
+
+#define true    1
+#define false   0
 
 #endif

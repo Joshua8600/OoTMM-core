@@ -1,12 +1,12 @@
 SECTIONS
 {
-  . = 0x80d00000;
-
-  .text :   ALIGN(16) { SORT(*)(.text*); }
-  .data :   ALIGN(16) { SORT(*)(.data*); SORT(*)(.bss*); }
-  .rodata : ALIGN(16) { SORT(*)(.rodata*); }
-  .bss :    ALIGN(16) { }
-
+  .text : { SORT(*)(.text*); }
+  .data : { SORT(*)(.data*); SORT(*)(.bss*); }
+  .rodata : { SORT(*)(.rodata*); }
   .meta : { SORT(*)(.meta*); }
+
+  .cosmetic_addr : { SORT(*)(.cosmetic_addr); }
+  .cosmetic_name : { SORT(*)(.cosmetic_name); }
+
   /DISCARD/ : { *(.*); }
 }

@@ -3,9 +3,10 @@
 
 #include <combo/util.h>
 #include <combo/game_state.h>
+#include <combo/mm/light.h>
+#include <combo/mm/environment.h>
 #include <combo/actor.h>
 #include <combo/mm/regs.h>
-#include <combo/mm/types.h>
 #include <combo/common/ocarina.h>
 #include <combo/mm/object.h>
 #include <combo/mm/message.h>
@@ -117,96 +118,6 @@ typedef struct
     int unk;
 }
 GameOverContext;
-
-typedef struct {
-    /* 0x00 */ u8 ambientColor[3];
-    /* 0x03 */ s8 light1Dir[3];
-    /* 0x06 */ u8 light1Color[3];
-    /* 0x09 */ s8 light2Dir[3];
-    /* 0x0C */ u8 light2Color[3];
-    /* 0x0F */ u8 fogColor[3];
-    /* 0x12 */ s16 blendRateAndFogNear;
-    /* 0x14 */ s16 zFar;
-} EnvLightSettings; /* size = 0x16 */
-
-typedef struct {
-    /* 0x00 */ u8 ambientColor[3];
-    /* 0x03 */ s8 light1Dir[3];
-    /* 0x06 */ u8 light1Color[3];
-    /* 0x09 */ s8 light2Dir[3];
-    /* 0x0C */ u8 light2Color[3];
-    /* 0x0F */ u8 fogColor[3];
-    /* 0x12 */ s16 fogNear; /* ranges from 0-1000 (0: starts immediately, 1000: no fog), but is clamped to ENV_FOGNEAR_MAX */
-    /* 0x14 */ s16 zFar; /* Max depth (render distance) of the view as a whole. fogFar will always match zFar */
-} CurrentEnvLightSettings; /* size = 0x16 */
-
-typedef struct EnvironmentContext
-{
-    /* 0x00 */ u16 unk_0;
-    /* 0x02 */ u16 sceneTimeSpeed;
-    /* 0x04 */ Vec3f sunPos;
-    /* 0x10 */ u8 skybox1Index;
-    /* 0x11 */ u8 skybox2Index;
-    /* 0x12 */ u8 unk_12;
-    /* 0x13 */ u8 skyboxBlend;
-    /* 0x14 */ u8 unk_14;
-    /* 0x15 */ u8 skyboxDisabled;
-    /* 0x16 */ u8 sunDisabled;
-    /* 0x17 */ u8 skyboxConfig;
-    /* 0x18 */ u8 changeSkyboxNextConfig;
-    /* 0x19 */ u8 changeSkyboxState;
-    /* 0x1A */ u16 changeSkyboxTimer;
-    /* 0x1C */ u16 unk_1C;
-    /* 0x1E */ u8 lightMode;
-    /* 0x1F */ u8 lightConfig;
-    /* 0x20 */ u8 changeLightNextConfig;
-    /* 0x21 */ u8 changeLightEnabled;
-    /* 0x22 */ u16 changeLightTimer;
-    /* 0x24 */ u16 changeDuration;
-    /* 0x26 */ u8 unk_26;
-    /* 0x28 */ LightInfo dirLight1; /* sun 1 */
-    /* 0x36 */ LightInfo dirLight2; /* sun 2 */
-    /* 0x44 */ s8 skyboxDmaState;
-    /* 0x48 */ DmaRequest dmaRequest;
-    /* 0x68 */ OSMesgQueue loadQueue;
-    /* 0x80 */ OSMesg loadMsg[1];
-    /* 0x84 */ f32 glareAlpha;
-    /* 0x88 */ f32 lensFlareAlphaScale;
-    /* 0x8C */ AdjLightSettings adjLightSettings;
-    /* 0xA8 */ f32 unk_A8;
-    /* 0xAC */ Vec3s windDirection;
-    /* 0xB4 */ f32 windSpeed;
-    /* 0xB8 */ u8 numLightSettings;
-    /* 0xBC */ EnvLightSettings* lightSettingsList; /* list of light settings from the scene file */
-    /* 0xC0 */ u8 lightBlendEnabled; /* only used with `LIGHT_MODE_SETTINGS` or on override */
-    /* 0xC1 */ u8 lightSetting; /* only used with `LIGHT_MODE_SETTINGS` or on override */
-    /* 0xC2 */ u8 prevLightSetting;
-    /* 0xC3 */ u8 lightSettingOverride;
-    /* 0xC4 */ CurrentEnvLightSettings lightSettings; /* settings for the currently "live" lights */
-    /* 0xDA */ u16 lightBlendRateOverride;
-    /* 0xDC */ f32 lightBlend;
-    /* 0xE0 */ u8 lightBlendOverride;
-    /* 0xE1 */ u8 stormRequest;
-    /* 0xE2 */ u8 stormState;
-    /* 0xE3 */ u8 lightningState; /* modified by unused func in EnWeatherTag */
-    /* 0xE4 */ u8 timeSeqState;
-    /* 0xE5 */ u8 fillScreen;
-    /* 0xE6 */ u8 screenFillColor[4];
-    /* 0xEA */ u8 sandstormState;
-    /* 0xEB */ u8 sandstormPrimA;
-    /* 0xEC */ u8 sandstormEnvA;
-    /* 0xED */ u8 customSkyboxFilter;
-    /* 0xEE */ u8 skyboxFilterColor[4];
-    /* 0xF2 */ u8 precipitation[PRECIP_MAX];
-    /* 0xF7 */ u8 unk_FA[9];
-}
-EnvironmentContext;
-
-ASSERT_OFFSET(EnvironmentContext, skyboxDmaState,         0x044);
-ASSERT_OFFSET(EnvironmentContext, loadQueue,              0x068);
-ASSERT_OFFSET(EnvironmentContext, loadMsg,                0x080);
-
-_Static_assert(sizeof(EnvironmentContext) == 0x100, "MM EnvironmentContext size is wrong");
 
 typedef struct TitleCardContext {
     /* 0x0 */ void* texture;
@@ -524,22 +435,22 @@ _Static_assert(sizeof(DayTelopState) == 0x248, "MM DayTelopState Size is wrong")
         (state)->nextGameStateSize = nextSize;                        \
     } while (0)
 
-typedef struct GameState_Play
+typedef struct PlayState
 {
-    GameState           gs;
+    GameState           state;
     u16                 sceneId;
-    /* 0x000A6 */ u8 sceneConfig;
-    /* 0x000A7 */ char unk_A7[0x9];
-    /* 0x000B0 */ void* sceneSegment;
-    /* 0x000B4 */ char unk_B4[0x4];
-    /* 0x000B8 */ View view;
-    /* 0x00220 */ Camera mainCamera;
-    /* 0x00398 */ Camera subCameras[3]; /* NUM_CAMS - CAM_ID_SUB_FIRST */
-    /* 0x00800 */ Camera* cameraPtrs[4]; /* NUM_CAMS */
-    /* 0x00810 */ s16 activeCamId;
-    /* 0x00812 */ s16 nextCamera;
-    /* 0x00814 */ SequenceContext sequenceCtx;
-    /* 0x00818 */ LightContext lightCtx;
+    u8                  sceneConfig;
+    char                unk_A7[0x9];
+    void*               sceneSegment;
+    char                unk_B4[0x4];
+    View                view;
+    Camera              mainCamera;
+    Camera              subCameras[3];
+    Camera*             cameraPtrs[4];
+    s16                 activeCamId;
+    s16                 nextCamera;
+    SequenceContext     sequenceCtx;
+    LightContext        lightCtx;
     char                unk_00828[0x08];
     CollisionContext    colCtx;
     ActorContext        actorCtx;
@@ -593,7 +504,7 @@ typedef struct GameState_Play
     u8                  transitionMode;
     char                unk_18b4b[0x70d];
 }
-GameState_Play;
+PlayState;
 
 typedef struct
 {
@@ -604,23 +515,23 @@ GameData;
 
 extern GameData* gGameData;
 
-ASSERT_OFFSET(GameState_Play, colCtx,                   0x00830);
-ASSERT_OFFSET(GameState_Play, actorCtx,                 0x01ca0);
-ASSERT_OFFSET(GameState_Play, csCtx,                    0x01f24);
-ASSERT_OFFSET(GameState_Play, sramCtx,                  0x046b8);
-ASSERT_OFFSET(GameState_Play, msgCtx,                   0x04908);
-ASSERT_OFFSET(GameState_Play, interfaceCtx,             0x169e8);
-ASSERT_OFFSET(GameState_Play, envCtx,                   0x17004);
-ASSERT_OFFSET(GameState_Play, roomCtx,                  0x186e0);
-ASSERT_OFFSET(GameState_Play, gameplayFrames,           0x18840);
-ASSERT_OFFSET(GameState_Play, setupExitList,            0x18860);
-ASSERT_OFFSET(GameState_Play, transitionType,           0x1887f);
-ASSERT_OFFSET(GameState_Play, transitionMode,           0x18b4a);
+ASSERT_OFFSET(PlayState, colCtx,                   0x00830);
+ASSERT_OFFSET(PlayState, actorCtx,                 0x01ca0);
+ASSERT_OFFSET(PlayState, csCtx,                    0x01f24);
+ASSERT_OFFSET(PlayState, sramCtx,                  0x046b8);
+ASSERT_OFFSET(PlayState, msgCtx,                   0x04908);
+ASSERT_OFFSET(PlayState, interfaceCtx,             0x169e8);
+ASSERT_OFFSET(PlayState, envCtx,                   0x17004);
+ASSERT_OFFSET(PlayState, roomCtx,                  0x186e0);
+ASSERT_OFFSET(PlayState, gameplayFrames,           0x18840);
+ASSERT_OFFSET(PlayState, setupExitList,            0x18860);
+ASSERT_OFFSET(PlayState, transitionType,           0x1887f);
+ASSERT_OFFSET(PlayState, transitionMode,           0x18b4a);
 
 #define TRANS_TRIGGER_NONE          0x00
 #define TRANS_TRIGGER_NORMAL        0x14
 
-_Static_assert(sizeof(GameState_Play) == 0x19258, "MM GameState_Play size is wrong");
+_Static_assert(sizeof(PlayState) == 0x19258, "MM PlayState size is wrong");
 
 typedef struct RegEditor {
     /* 0x00 */ u8  regPage; /* 0: no page selected (reg editor is not active); 1: first page; `REG_PAGES`: last page */
@@ -631,5 +542,9 @@ typedef struct RegEditor {
     /* 0x08 */ s8 pad_08[0xC];
     /* 0x14 */ s16 data[REG_GROUPS * REG_PER_GROUP]; /* Accessed through *REG macros */
 } RegEditor; /* size = 0x15D4 */
+
+void Play_EnableMotionBlur(u32 alpha);
+s32 Play_SetCameraFov(PlayState* this, s16 camId, f32 fov);
+void Play_DisableMotionBlur(void);
 
 #endif

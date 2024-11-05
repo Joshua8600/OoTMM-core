@@ -3,9 +3,9 @@
 #include <combo/player.h>
 #include <combo/inventory.h>
 
-void EnHs_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
+void EnHs_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b)
 {
-    if (!(GET_PLAYER(play)->state & PLAYER_ACTOR_STATE_GET_ITEM))
+    if (!(GET_PLAYER(play)->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM))
         Message_Close(play);
     comboRemoveTradeItemAdult(XITEM_OOT_ADULT_COJIRO);
     comboGiveItemNpc(actor, play, gi, NPC_OOT_TRADE_ODD_MUSHROOM, a, b);
@@ -21,6 +21,6 @@ void EnHs_InitHook(Actor* actor)
     u32 adultBits;
 
     adultBits = gOotExtraTrade.adult;
-    if (((adultBits & maskOddPotion) || !(adultBits & maskCojiro)) && gSave.inventory.items[ITS_OOT_TRADE_ADULT] != ITEM_OOT_COJIRO)
+    if (((adultBits & maskOddPotion) || !(adultBits & maskCojiro)) && gSave.info.inventory.items[ITS_OOT_TRADE_ADULT] != ITEM_OOT_COJIRO)
         Actor_Kill(actor);
 }

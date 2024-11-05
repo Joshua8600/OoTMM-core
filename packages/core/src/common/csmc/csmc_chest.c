@@ -66,7 +66,7 @@ static int csmcChestId(s16 gi)
     }
 }
 
-static int csmcEnabledActor(Actor* this, GameState_Play* play)
+static int csmcEnabledActor(Actor* this, PlayState* play)
 {
     if (!csmcEnabled())
         return 0;
@@ -84,7 +84,7 @@ static int csmcEnabledActor(Actor* this, GameState_Play* play)
     return 1;
 }
 
-void csmcChestInit(Actor* this, GameState_Play* play, s16 gi)
+void csmcChestInit(Actor* this, PlayState* play, s16 gi)
 {
     int type;
 
@@ -125,7 +125,7 @@ void csmcChestInit(Actor* this, GameState_Play* play, s16 gi)
 
 }
 
-void csmcChestPreDraw(Actor* this, GameState_Play* play, s16 gi)
+void csmcChestPreDraw(Actor* this, PlayState* play, s16 gi)
 {
     int type;
     const void* listFront;
@@ -139,7 +139,7 @@ void csmcChestPreDraw(Actor* this, GameState_Play* play, s16 gi)
     listFront = csmcLoadTexture(kCsmcData[type].custom, kCsmcData[type].segFront, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 1);
     listSide = csmcLoadTexture(kCsmcData[type].custom, kCsmcData[type].segSide, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 1);
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x0a, listFront);
     gSPSegment(POLY_OPA_DISP++, 0x0b, listSide);
     gSPSegment(POLY_XLU_DISP++, 0x0a, listFront);

@@ -134,7 +134,6 @@ Gfx_SetupDL57 = 0x8012BFC4;
 Gfx_SetupDL25_Opa = 0x8012c28c;
 Gfx_SetupDL25_Xlu = 0x8012c2dc;
 Gfx_SetupDL_42Opa = 0x8012c8ac;
-GetMatrixMV     = 0x80181a40;
 Matrix_Put      = 0x8018020c;
 DisplaceTexture = 0x8012cbd0;
 Gfx_SetupDL = 0x8012BF78;
@@ -263,6 +262,7 @@ Play_Update = 0x80168f64;
 
 Gfx_TexScroll = 0x8012cb4c;
 
+Sram_ClearFlagsAtDawnOfTheFirstDay = 0x80143ac4;
 Player_Update = 0x80160b80;
 LoadIcon = 0x80178e3c;
 CmpDma_LoadAllFiles = 0x80178E7C;
@@ -289,8 +289,8 @@ Gfx_DrawDListOpa = 0x800bdfc0;
 
 Actor_UpdateBgCheckInfo = 0x800b78b8;
 
-MatrixStackDup = 0x8018019c;
-MatrixStackPop = 0x801801cc;
+Matrix_Push = 0x8018019c;
+Matrix_Pop = 0x801801cc;
 
 _AddRupees = 0x801159ec;
 
@@ -589,3 +589,61 @@ SurfaceType_GetMaterial = 0x800c9bb8;
 CollisionCheck_SpawnShieldParticlesWood = 0x800e86e0;
 BgCheck_EntityLineTest2 = 0x800c5650;
 EffectSsBlast_SpawnWhiteShockwave = 0x800b1b10;
+
+Matrix_MultVecY = 0x80181bc4;
+func_800B12F0 = 0x800b12f0;
+WaterBox_GetSurface1 = 0x800ca1ac;
+Actor_WorldYawTowardActor = 0x800b6cd4;
+Rumble_Request = 0x8013ece0;
+func_800B0DE0 = 0x800b0de0;
+Matrix_Finalize = 0x80181a40;
+Flags_GetClear = 0x800b5cc4;
+Actor_SpawnIceEffects = 0x800bf7cc;
+Math_FAcosF = 0x80086c48;
+Player_SetCsAction = 0x800b724c;
+Animation_PlayOnce = 0x80137430;
+func_800BC270 = 0x800bc270;
+Actor_WorldPitchTowardPoint = 0x800b6da8;
+Math_SinF = 0x801794ec;
+Flags_SetClearTemp = 0x800b5d30;
+EffectSsHahen_Spawn = 0x800b219c;
+CutsceneManager_GetCurrentSubCamId = 0x800F21B8;
+Audio_PlayBgm_StorePrevBgm = 0x801a2e54;
+func_800BE5CC = 0x800be5cc;
+Quake_RemoveRequest = 0x8012aac0;
+Actor_ApplyDamage = 0x800be22c;
+Audio_RestorePrevBgm = 0x801a2ed8;
+Actor_MoveWithoutGravity = 0x800b6b24;
+Actor_WorldYawTowardActor = 0x800b6cd4;
+Actor_WorldYawTowardPoint = 0x800b6d2c;
+BgCheck_EntityLineTest1 = 0x800c55c4;
+Actor_WorldDistXZToActor = 0x800b6e1c;
+
+Play_EnableMotionBlur = 0x8016566c;
+Play_SetCameraFov = 0x80169940;
+Play_DisableMotionBlur = 0x80165690;
+
+Matrix_Pop = 0x801801cc;
+Matrix_Push = 0x8018019c;
+
+Math_Vec3s_Copy = 0x800ff52c;
+func_800BBFB0 = 0x800bbfb0;
+
+Collider_InitAndSetTris = 0x800e1a24;
+Collider_InitAndSetQuad = 0x800e1f88;
+Collider_DestroyTris = 0x800e17b4;
+Collider_DestroyQuad = 0x800e1e68;
+func_800BE184 = 0x800be184;
+Camera_AddQuake = 0x800dfd04;
+func_800BE504 = 0x800be504;
+CutsceneManager_StartWithPlayerCsAndSetFlag = 0x800f1ce0;
+Actor_SetDropFlag = 0x800be258;
+Collider_SetTrisVertices = 0x800e7ecc;
+Collider_SetQuadVertices = 0x800e7e5c;
+EffectBlure_AddVertex = 0x800a81f0;
+func_800B8050 = 0x800b8050;
+func_800B8118 = 0x800b8118;
+func_800AE5A0 = 0x800ae5a0;
+func_800BC620 = 0x800bc620;
+SoundSource_PlaySfxEachFrameAtFixedWorldPos = 0x800f0590;
+gSetupDLs = 0x801c0ef0;

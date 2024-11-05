@@ -15,13 +15,13 @@ int EnSellnuts_HasGivenItem(Actor* this)
 
 PATCH_CALL(0x80adbbfc, EnSellnuts_HasGivenItem);
 
-void EnSellnuts_GiveItem(Actor* this, GameState_Play* play, s16 gi, float a, float b)
+void EnSellnuts_GiveItem(Actor* this, PlayState* play, s16 gi, float a, float b)
 {
     int npc;
 
     npc = -1;
     /* Unfreeze player */
-    GET_PLAYER(play)->state &= ~PLAYER_ACTOR_STATE_CUTSCENE_FROZEN;
+    GET_PLAYER(play)->stateFlags1 &= ~PLAYER_ACTOR_STATE_CUTSCENE_FROZEN;
 
     comboRemoveTradeItem1(XITEM_MM_TRADE1_MOON_TEAR);
     if (gMmExtraFlags.scrubTown)

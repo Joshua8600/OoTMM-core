@@ -2,7 +2,7 @@
 #include <combo/item.h>
 #include <combo/config.h>
 
-static void BgTokiSwd_GiveItem(Actor* this, GameState_Play* play, s16 gi, int npc, int event)
+static void BgTokiSwd_GiveItem(Actor* this, PlayState* play, s16 gi, int npc, int event)
 {
     if (Actor_HasParentZ(this))
     {
@@ -14,7 +14,7 @@ static void BgTokiSwd_GiveItem(Actor* this, GameState_Play* play, s16 gi, int np
     comboGiveItemNpc(this, play, gi, npc, 200.f, 50.f);
 }
 
-void BgTokiSwd_Handler(Actor* this, GameState_Play* play)
+void BgTokiSwd_Handler(Actor* this, PlayState* play)
 {
     if (gSave.age == AGE_CHILD && !GetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER))
     {
@@ -44,7 +44,7 @@ void BgTokiSwd_Handler(Actor* this, GameState_Play* play)
     else
     {
         /* Needs the Master Sword to become adult */
-        if (!Config_Flag(CFG_OOT_TIME_TRAVEL_REQUIRES_MS) || (gSave.inventory.equipment.swords & EQ_OOT_SWORD_MASTER))
+        if (!Config_Flag(CFG_OOT_TIME_TRAVEL_REQUIRES_MS) || (gSave.info.inventory.equipment.swords & EQ_OOT_SWORD_MASTER))
             Actor_OfferCarry(this, play);
     }
 }

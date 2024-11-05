@@ -3,12 +3,12 @@
 #include <combo/player.h>
 
 /* TODO: Check for repeats */
-static void EnMnk_SongCutscene(Actor* actor, GameState_Play* play)
+static void EnMnk_SongCutscene(Actor* actor, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     if (Actor_HasParentZ(actor))

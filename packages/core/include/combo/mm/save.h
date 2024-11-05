@@ -9,15 +9,15 @@ typedef struct
     char    newf[6];
     u16     songOfTimeCount;
     u8      playerName[8];
-    s16     healthMax;
+    s16     healthCapacity;
     s16     health;
     s8      magicLevel;
-    s8      magicAmount;
+    s8      magic;
     s16     rupees;
     u16     swordHealth;
     u16     tatlTimer;
-    u8      magicAcquired;
-    u8      doubleMagic;
+    u8      isMagicAcquired;
+    u8      isDoubleMagicAcquired;
     u8      doubleDefense;
     u8      unk_1F;
     u16     unk_20;
@@ -188,22 +188,6 @@ typedef struct RespawnData {
 
 typedef struct
 {
-    s32                     entrance;
-    u8                      equippedMask;
-    u8                      isFirstCycle;
-    char                    unk_006;
-    u8                      linkAge;
-    s32                     cutscene;
-    u16                     time;
-    u16                     owlLocation;
-    s32                     isNight;
-    s32                     daySpeed;
-    u32                     day;
-    u32                     daysElapsed;
-    u8                      playerForm;
-    u8                      snowheadCleared;
-    u8                      hasTatl;
-    u8                      isOwlSave;
     MmSavePlayerData        playerData;
     MmItemEquips            itemEquips;
     MmInventory             inventory;
@@ -244,6 +228,28 @@ typedef struct
     s8                      bomberCode[5];
     MmHorseData             horseData;
     u16                     checksum;
+}
+MmSaveInfo;
+
+typedef struct
+{
+    s32                     entrance;
+    u8                      equippedMask;
+    u8                      isFirstCycle;
+    char                    unk_006;
+    u8                      linkAge;
+    s32                     cutscene;
+    u16                     time;
+    u16                     owlLocation;
+    s32                     isNight;
+    s32                     daySpeed;
+    u32                     day;
+    u32                     daysElapsed;
+    u8                      playerForm;
+    u8                      snowheadCleared;
+    u8                      hasTatl;
+    u8                      isOwlSave;
+    MmSaveInfo              info;
     u8                      eventInf[8];
     u8                      hasSirloin;
     u8                      unk_1015;
@@ -287,7 +293,7 @@ typedef enum {
 typedef struct
 {
     /* 0x0000 */ MmSave save;
-    /* 0x3CA0 */ u32 fileIndex;
+    /* 0x3CA0 */ u32 fileNum;
     /* 0x3CA4 */ s16 powderKegTimer;                    /* "big_bom_timer" */
     /* 0x3CA6 */ u8 unk_3CA6;
     /* 0x3CA7 */ u8 unk_3CA7;                           /* "day_night_flag" */
@@ -359,7 +365,7 @@ MmSaveContext;
 
 _Static_assert(sizeof(MmSaveContext) == 0x48d0, "MmSaveContext size is wrong");
 
-ASSERT_OFFSET(MmSaveContext, fileIndex,             0x3ca0);
+ASSERT_OFFSET(MmSaveContext, fileNum,               0x3ca0);
 ASSERT_OFFSET(MmSaveContext, gameMode,              0x3ca8);
 ASSERT_OFFSET(MmSaveContext, sceneSetupId,          0x3cac);
 ASSERT_OFFSET(MmSaveContext, timerStates,           0x3dd0);

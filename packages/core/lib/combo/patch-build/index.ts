@@ -11,6 +11,8 @@ import { PatchGroup } from './group';
 import { isEntranceShuffle } from '../logic/helpers';
 import { FileResolver, Options } from '../options';
 import { World } from '../logic/world';
+import { bufReadU32BE, bufWriteU32BE } from '../util/buffer';
+import { config } from 'process';
 
 export type BuildPatchfileIn = {
   opts: Options;
@@ -84,6 +86,13 @@ function asmPatchGroups(world: World, settings: Settings) {
   return keys.filter((k) => groups[k]);
 }
 
+const REMOVED_FILES = [
+  'mm/ovl_title',
+  'mm/ovl_select',
+  'mm/ovl_opening',
+  'mm/ovl_file_choose',
+]
+
 export async function buildPatchfiles(args: BuildPatchfileIn): Promise<Patchfile[]> {
   args.monitor.log("Building Patchfile");
   const patches: Patchfile[] = [];
@@ -112,7 +121,10 @@ export async function buildPatchfiles(args: BuildPatchfileIn): Promise<Patchfile
       if (payload.length > (game === 'mm' ? 0x50000 : 0x80000)) {
         throw new Error(`Payload too large ${game}`);
       }
-      p.addNewFile(`${game}/payload`, game === 'oot' ? 0xf0000000 : 0xf0100000, payload, false);
+      const payloadVrom = game === 'oot' ? 0xf0000000 : 0xf0100000;
+      const payloadVram = game === 'oot' ? 0x80400000 : 0x80730000; /* TODO: Codegen this */
+      const payloadVramEnd = payloadVram + payload.length;
+      p.addNewFile({ name: `${game}/payload`, vrom: payloadVrom, vram: [payloadVram, payloadVramEnd], data: payload, compressed: false });
 
       /* Handle extra overlays */
       const allOverlays = await args.resolver.glob(/ovl\/(oot|mm)\/.+\.zovlx$/);
@@ -120,37 +132,77 @@ export async function buildPatchfiles(args: BuildPatchfileIn): Promise<Patchfile
       for (const ov of overlays) {
         /* Resolve and inject the new overlay */
         const raw = await args.resolver.fetch(ov);
-        const header = raw.subarray(0, 0x10);
-        const data = raw.subarray(0x10);
-        p.addNewFile(ov, ovlAddr, data, true);
+        const headerSize = raw.subarray(0, 8);
+        const header = raw.subarray(8, 64);
+        const data = raw.subarray(64);
+        const vramStart = bufReadU32BE(headerSize, 0x00);
+        const vramEnd = bufReadU32BE(headerSize, 0x04);
+        p.addNewFile({ name: ov, vram: [vramStart, vramEnd], vrom: ovlAddr, data, compressed: true });
         const vromStart = ovlAddr;
         const vromEnd = ovlAddr + data.length;
         ovlAddr = vromEnd;
 
-        /* Parse the header */
-        const actorId = header.readUInt32BE(0x00);
-        const vramInit = header.readUInt32BE(0x04);
-        const vramStart = header.readUInt32BE(0x08);
-        const vramEnd = header.readUInt32BE(0x0c);
+        const type = bufReadU32BE(header, 0x00);
 
-        const patch = Buffer.alloc(4 * 6);
-        patch.writeUInt32BE(vromStart,  0x00);
-        patch.writeUInt32BE(vromEnd,    0x04);
-        patch.writeUInt32BE(vramStart,  0x08);
-        patch.writeUInt32BE(vramEnd,    0x0c);
-        patch.writeUInt32BE(0,          0x10);
-        patch.writeUInt32BE(vramInit,   0x14);
+        if (type === 0x01) {
+          /* Actor */
+          const actorId = bufReadU32BE(header, 0x04);
+          const vramInit = bufReadU32BE(header, 0x08);
 
-        /* Delete the old overlay if possible */
-        const oldHeader = rom.subarray(gc.actorsOvlAddr + actorId * 0x20, gc.actorsOvlAddr + actorId * 0x20 + 0x20);
-        const oldVramStart = oldHeader.readUInt32BE(0x08);
-        if (oldVramStart !== 0) {
-          const oldFile = args.addresses[game].fileFromRAM(oldVramStart);
-          p.removedFiles.push(oldFile.name);
+          const patch = new Uint8Array(4 * 6);
+          bufWriteU32BE(patch, 0x00, vromStart);
+          bufWriteU32BE(patch, 0x04, vromEnd);
+          bufWriteU32BE(patch, 0x08, vramStart);
+          bufWriteU32BE(patch, 0x0c, vramEnd);
+          bufWriteU32BE(patch, 0x10, 0);
+          bufWriteU32BE(patch, 0x14, vramInit);
+
+          /* Delete the old overlay if possible */
+          const oldHeader = rom.subarray(gc.actorsOvlAddr + actorId * 0x20, gc.actorsOvlAddr + actorId * 0x20 + 0x20);
+          const oldVramStart = bufReadU32BE(oldHeader, 0x08);
+          if (oldVramStart !== 0) {
+            const oldFile = args.addresses[game].fileFromRAM(oldVramStart);
+            p.removedFiles.push(oldFile.name);
+          }
+
+          const fileAddr = args.addresses[game].fileFromROM(gc.actorsOvlAddr + actorId * 0x20);
+          p.addPatch(fileAddr.name, fileAddr.offset, patch);
         }
 
-        const fileAddr = args.addresses[game].fileFromROM(gc.actorsOvlAddr + actorId * 0x20);
-        p.addPatch(fileAddr.name, fileAddr.offset, patch);
+        if (type === 0x02) {
+          /* Gamemode */
+          const id = bufReadU32BE(header, 0x04);
+          const ctor = bufReadU32BE(header, 0x08);
+          const dtor = bufReadU32BE(header, 0x0c);
+          const size = bufReadU32BE(header, 0x10);
+
+          const patch = new Uint8Array(0x30);
+          bufWriteU32BE(patch, 0x00, 0);
+          bufWriteU32BE(patch, 0x04, vromStart);
+          bufWriteU32BE(patch, 0x08, vromEnd);
+          bufWriteU32BE(patch, 0x0c, vramStart);
+          bufWriteU32BE(patch, 0x10, vramEnd);
+          bufWriteU32BE(patch, 0x18, ctor);
+          bufWriteU32BE(patch, 0x1c, dtor);
+          bufWriteU32BE(patch, 0x2c, size);
+
+          /* Delete the old overlay if possible */
+          const base = gc.gamestatesOvlAddr + id * 0x30;
+          const oldHeader = rom.subarray(base, base + 0x30);
+          const oldVramStart = bufReadU32BE(oldHeader, 0x0c);
+          if (oldVramStart !== 0) {
+            const oldFile = args.addresses[game].fileFromRAM(oldVramStart);
+            p.removedFiles.push(oldFile.name);
+          }
+
+          const fileAddr = args.addresses[game].fileFromROM(base);
+          p.addPatch(fileAddr.name, fileAddr.offset, patch);
+        }
+      }
+
+      /* Remove some useless files */
+      for (const f of REMOVED_FILES) {
+        p.removedFiles.push(f);
       }
 
       /* Handle cosmetics */
@@ -159,12 +211,12 @@ export async function buildPatchfiles(args: BuildPatchfileIn): Promise<Patchfile
       meta.cosmetics[game] = gameCosmetics;
       const cosmetic_name = await args.resolver.fetch(`${game}_cosmetic_name.bin`);
       const cosmetic_addr = await args.resolver.fetch(`${game}_cosmetic_addr.bin`);
-      const names = cosmetic_name.toString('utf-8').split(/\0+/);
+      const names = new TextDecoder().decode(cosmetic_name).split(/\0+/);
       names.pop();
 
       for (let i = 0; i < names.length; i++) {
         const name = names[i];
-        const addr = cosmetic_addr.readUint32BE(i * 4);
+        const addr = bufReadU32BE(cosmetic_addr, i * 4);
         if (gameCosmetics[name] === undefined) {
           gameCosmetics[name] = [];
         }

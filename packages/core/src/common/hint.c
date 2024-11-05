@@ -103,7 +103,7 @@ static const char* kPathNames[] = {
     TEXT_COLOR_BLUE   "Path of Wisdom",
 };
 
-static void Hint_DisplayRaw(GameState_Play* play, const Hint* hint)
+static void Hint_DisplayRaw(PlayState* play, const Hint* hint)
 {
     char* b;
     char* start;
@@ -159,24 +159,24 @@ static void Hint_DisplayRaw(GameState_Play* play, const Hint* hint)
         comboTextAppendRegionName(&b, hint->region, hint->world, TF_PREPOS);
         break;
     case HINT_TYPE_JUNK:
-        comboTextAppendStr(&b, kJunkHints[((u16)hint->items[0]) % ARRAY_SIZE(kJunkHints)]);
+        comboTextAppendStr(&b, kJunkHints[((u16)hint->items[0]) % ARRAY_COUNT(kJunkHints)]);
         break;
     }
     comboTextAppendStr(&b, "." TEXT_END);
     comboTextAutoLineBreaks(start);
 }
 
-void Hint_DisplayJunk(GameState_Play* play, u32 index)
+void Hint_DisplayJunk(PlayState* play, u32 index)
 {
     Hint h;
 
     memset(&h, 0, sizeof(h));
     h.type = HINT_TYPE_JUNK;
-    h.items[0] = (index % ARRAY_SIZE(kJunkHints));
+    h.items[0] = (index % ARRAY_COUNT(kJunkHints));
     Hint_DisplayRaw(play, &h);
 }
 
-void Hint_Display(GameState_Play* play, u8 key)
+void Hint_Display(PlayState* play, u8 key)
 {
     const Hint* hint;
 
@@ -187,7 +187,7 @@ void Hint_Display(GameState_Play* play, u8 key)
         Hint_DisplayJunk(play, key);
 }
 
-void Hint_DisplayJunkRandom(GameState_Play* play)
+void Hint_DisplayJunkRandom(PlayState* play)
 {
     int key;
 

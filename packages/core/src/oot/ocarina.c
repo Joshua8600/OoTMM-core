@@ -55,7 +55,7 @@ static OcarinaSongButtons sSongDoubleTime = {
 
 void Ocarina_CheckCustomSongs(void)
 {
-    if (gMmSave.inventory.quest.songSoaring
+    if (gMmSave.info.inventory.quest.songSoaring
         && Config_Flag(CFG_MM_CROSS_WARP)
         && (Config_Flag(CFG_MM_CROSS_WARP_ADULT) || gSave.age == AGE_CHILD))
     {
@@ -67,7 +67,7 @@ void Ocarina_CheckCustomSongs(void)
         comboCheckSong(&sSongElegy, CUSTOM_SONG_ELEGY);
     }
 
-    if (gSave.inventory.quest.songTime && Config_Flag(CFG_OOT_SONG_OF_DOUBLE_TIME))
+    if (gSave.info.inventory.quest.songTime && Config_Flag(CFG_OOT_SONG_OF_DOUBLE_TIME))
     {
         comboCheckSong(&sSongDoubleTime, CUSTOM_SONG_DOUBLE_TIME);
     }
@@ -82,7 +82,7 @@ void OcarinaMaskButtons(void)
     gOcarinaPressedButtons &= mask;
 }
 
-static void changeAgeMessage(GameState_Play* play, s32 toChild)
+static void changeAgeMessage(PlayState* play, s32 toChild)
 {
     char* b;
 
@@ -95,7 +95,7 @@ static void changeAgeMessage(GameState_Play* play, s32 toChild)
     comboTextAppendStr(&b, TEXT_CZ "?" TEXT_NL TEXT_NL TEXT_COLOR_GREEN TEXT_CHOICE2 "OK" TEXT_NL "No" TEXT_END);
 }
 
-void Ocarina_HandleLastPlayedSong(GameState_Play* play, Actor_Player* player, s16 lastPlayedSong)
+void Ocarina_HandleLastPlayedSong(PlayState* play, Player* player, s16 lastPlayedSong)
 {
     s32 canChangeAge;
 
@@ -109,7 +109,7 @@ void Ocarina_HandleLastPlayedSong(GameState_Play* play, Actor_Player* player, s1
     /* End displaced code. */
     case OCARINA_SONG_TIME:
         canChangeAge = Config_Flag(CFG_OOT_AGE_CHANGE) && GetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER) && GetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
-        if (canChangeAge && Config_Flag(CFG_OOT_AGE_CHANGE_NEEDS_OOT) && gSave.inventory.items[ITS_OOT_OCARINA] != ITEM_OOT_OCARINA_TIME)
+        if (canChangeAge && Config_Flag(CFG_OOT_AGE_CHANGE_NEEDS_OOT) && gSave.info.inventory.items[ITS_OOT_OCARINA] != ITEM_OOT_OCARINA_TIME)
             canChangeAge = 0;
 #if defined(DEBUG)
         canChangeAge = 1;
@@ -171,7 +171,7 @@ void Ocarina_HandleLastPlayedSong(GameState_Play* play, Actor_Player* player, s1
 
             while (actor)
             {
-                if (actor->id == AC_OBJ_TIMEBLOCK || actor->id == AC_OBJ_WARP2BLOCK)
+                if (actor->id == ACTOR_OBJ_TIMEBLOCK || actor->id == ACTOR_OBJ_WARP2BLOCK)
                 {
                     Actor_ObjTimeblockWarp2Block* timeblock;
 
@@ -208,7 +208,7 @@ static const char* kSoarNames[] = {
     "Stone Tower"
 };
 
-static void soaringMessage(GameState_Play* play, u8 soaringIndex)
+static void soaringMessage(PlayState* play, u8 soaringIndex)
 {
     char* b;
 
@@ -219,7 +219,7 @@ static void soaringMessage(GameState_Play* play, u8 soaringIndex)
     comboTextAppendStr(&b, TEXT_CZ "?" TEXT_NL TEXT_NL TEXT_COLOR_GREEN TEXT_CHOICE2 "OK" TEXT_NL "No" TEXT_END);
 }
 
-static void soaringNoStatuesMessage(GameState_Play* play)
+static void soaringNoStatuesMessage(PlayState* play)
 {
     char* b;
 
@@ -231,9 +231,9 @@ static void soaringNoStatuesMessage(GameState_Play* play)
     comboTextAppendStr(&b, "some." TEXT_END);
 }
 
-static void HandleSoaring(GameState_Play* play)
+static void HandleSoaring(PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
     int msgState;
     int songId;
     if (play->pauseCtx.state == 0)
@@ -255,7 +255,7 @@ static void HandleSoaring(GameState_Play* play)
                     if (play->msgCtx.choice == 0)
                     {
                         link = GET_PLAYER(play);
-                        link->state |= (PLAYER_ACTOR_STATE_CUTSCENE_FROZEN | PLAYER_ACTOR_STATE_FROZEN);
+                        link->stateFlags1 |= (PLAYER_ACTOR_STATE_CUTSCENE_FROZEN | PLAYER_ACTOR_STATE_FROZEN);
                         link->actor.freezeTimer = 10000;
                         u32 entrance = gComboConfig.entrancesOwl[songId] ^ MASK_FOREIGN_ENTRANCE;
                         comboTransition(play, entrance);
@@ -277,7 +277,7 @@ static void HandleSoaring(GameState_Play* play)
     }
 }
 
-void ageSwap(GameState_Play* play)
+void ageSwap(PlayState* play)
 {
     /* Age swap */
     play->linkAgeOnLoad = !gSaveContext.save.age;
@@ -291,7 +291,7 @@ void ageSwap(GameState_Play* play)
     swapFarore();
 }
 
-static void HandleSongOfTime(GameState_Play* play)
+static void HandleSongOfTime(PlayState* play)
 {
     int msgState;
 
@@ -313,7 +313,7 @@ static void HandleSongOfTime(GameState_Play* play)
     }
 }
 
-static void PrepareSoaringScreen(GameState_Play* play)
+static void PrepareSoaringScreen(PlayState* play)
 {
     PauseContext* pauseCtx = &play->pauseCtx;
     s16 i;
@@ -329,7 +329,7 @@ static void PrepareSoaringScreen(GameState_Play* play)
     pauseCtx->screen_idx = 1 ; /* sKaleidoSetupKscpPos1[pauseCtx->pageIndex]; */
     pauseCtx->infoPanelOffsetY = -40;
 
-    for (i = 0; i < ARRAY_SIZE(pauseCtx->worldMapPoints); i++) {
+    for (i = 0; i < ARRAY_COUNT(pauseCtx->worldMapPoints); i++) {
         pauseCtx->worldMapPoints[i] = 0;
     }
 
@@ -345,7 +345,7 @@ static void PrepareSoaringScreen(GameState_Play* play)
     }
 }
 
-static void SetupSoaring(GameState_Play* play)
+static void SetupSoaring(PlayState* play)
 {
     PauseContext* pauseCtx = &play->pauseCtx;
 
@@ -388,10 +388,10 @@ static void SetupSoaring(GameState_Play* play)
 
 Actor_CustomEnTorch2* gElegyShell;
 
-static void HandleElegy(GameState_Play* play)
+static void HandleElegy(PlayState* play)
 {
     sInCustomSong = CUSTOM_SONG_NONE;
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
 
     if (gElegyShell != NULL)
     {
@@ -402,11 +402,11 @@ static void HandleElegy(GameState_Play* play)
     }
     else
     {
-        gElegyShell = (Actor_CustomEnTorch2*)Actor_Spawn(&play->actorCtx, play, AC_CUSTOM_TORCH2, player->actor.world.pos.x,
+        gElegyShell = (Actor_CustomEnTorch2*)Actor_Spawn(&play->actorCtx, play, ACTOR_CUSTOM_TORCH2, player->actor.world.pos.x,
                                         player->actor.world.pos.y, player->actor.world.pos.z, 0, player->actor.shape.rot.y, 0, 0);
     }
 
-    Actor_DemoEffect* effect = (Actor_DemoEffect*)Actor_Spawn(&play->actorCtx, play, AC_DEMO_EFFECT, player->actor.world.pos.x, player->actor.world.pos.y,
+    Actor_DemoEffect* effect = (Actor_DemoEffect*)Actor_Spawn(&play->actorCtx, play, ACTOR_DEMO_EFFECT, player->actor.world.pos.x, player->actor.world.pos.y,
                                 player->actor.world.pos.z, 0, player->actor.shape.rot.y, 0, DEMO_EFFECT_TIMEWARP_TIMEBLOCK_SMALL);
 
     if (effect != NULL)
@@ -420,7 +420,7 @@ static void HandleElegy(GameState_Play* play)
     Message_Close(play);
 }
 
-static void songOfDoubleTimeMessage(GameState_Play* play)
+static void songOfDoubleTimeMessage(PlayState* play)
 {
     char* b;
 
@@ -438,7 +438,7 @@ static void songOfDoubleTimeMessage(GameState_Play* play)
     comboTextAppendStr(&b, TEXT_CZ "?" TEXT_NL TEXT_NL TEXT_COLOR_GREEN TEXT_CHOICE2 "Yes" TEXT_NL "No" TEXT_END);
 }
 
-static void songOfDoubleTimeFailMessage(GameState_Play* play)
+static void songOfDoubleTimeFailMessage(PlayState* play)
 {
     char* b;
 
@@ -447,7 +447,7 @@ static void songOfDoubleTimeFailMessage(GameState_Play* play)
     comboTextAppendStr(&b, "Your notes echoed far.... " TEXT_NL "but nothing happened." TEXT_FADE("\x28") TEXT_END);
 }
 
-static void SetupSongOfDoubleTime(GameState_Play* play)
+static void SetupSongOfDoubleTime(PlayState* play)
 {
     if (gSaveContext.sunSongState != 0 || (play->envCtx.sceneTimeSpeed == 0 && (play->roomCtx.curRoom.behaviorType1 == ROOM_BEHAVIOR_TYPE1_1 || play->interfaceCtx.restrictions.sunSong == 3)))
     {
@@ -463,7 +463,7 @@ static void SetupSongOfDoubleTime(GameState_Play* play)
     }
 }
 
-static void HandleSongOfDoubleTime(GameState_Play* play)
+static void HandleSongOfDoubleTime(PlayState* play)
 {
     int msgState;
 
@@ -481,13 +481,13 @@ static void HandleSongOfDoubleTime(GameState_Play* play)
             {
                 if (gSave.isNight)
                 {
-                    gSaveContext.save.worldTime = CLOCK_TIME(6, 30);
+                    gSaveContext.save.dayTime = CLOCK_TIME(6, 30);
                 }
                 else
                 {
-                    gSaveContext.save.worldTime = CLOCK_TIME(18, 0) + 1;
+                    gSaveContext.save.dayTime = CLOCK_TIME(18, 0) + 1;
                 }
-                gSaveContext.skyboxTime = gSaveContext.save.worldTime;
+                gSaveContext.skyboxTime = gSaveContext.save.dayTime;
                 if (play->envCtx.timeSeqState == 4) {
                     play->envCtx.timeSeqState++;
                 }
@@ -525,7 +525,7 @@ static void HandleSongOfDoubleTime(GameState_Play* play)
     }
 }
 
-u8 Ocarina_BeforeSongPlayingProcessed(GameState_Play* play)
+u8 Ocarina_BeforeSongPlayingProcessed(PlayState* play)
 {
     u8 songPlayed = play->msgCtx.ocarinaStaff->state;
 
@@ -554,7 +554,7 @@ u8 Ocarina_BeforeSongPlayingProcessed(GameState_Play* play)
     return songPlayed;
 }
 
-void Ocarina_HandleCustomSongs(Actor_Player* player, GameState_Play* play)
+void Ocarina_HandleCustomSongs(Player* player, PlayState* play)
 {
     switch (sInCustomSong)
     {

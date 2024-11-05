@@ -4,7 +4,7 @@
 #include <combo/config.h>
 #include <combo/draw.h>
 
-static void EnItem00_ItemQuery(ComboItemQuery* q, Actor_EnItem00* this, GameState_Play* play, s16 gi)
+static void EnItem00_ItemQuery(ComboItemQuery* q, Actor_EnItem00* this, PlayState* play, s16 gi)
 {
     memset(q, 0, sizeof(*q));
 
@@ -29,10 +29,10 @@ static void EnItem00_ItemQuery(ComboItemQuery* q, Actor_EnItem00* this, GameStat
     }
 }
 
-void EnItem00_GiveItemDefaultRange(Actor_EnItem00* this, GameState_Play* play, s16 gi)
+void EnItem00_GiveItemDefaultRange(Actor_EnItem00* this, PlayState* play, s16 gi)
 {
     ComboItemQuery q;
-    Actor_Player* link;
+    Player* link;
     s16 itemId;
 
     EnItem00_ItemQuery(&q, this, play, gi);
@@ -58,7 +58,7 @@ void EnItem00_GiveItemDefaultRange(Actor_EnItem00* this, GameState_Play* play, s
 
 PATCH_CALL(0x80012e4c, EnItem00_GiveItemDefaultRange);
 
-void EnItem00_DrawHeartPieceSmallKey(Actor_EnItem00* this, GameState_Play* play)
+void EnItem00_DrawHeartPieceSmallKey(Actor_EnItem00* this, PlayState* play)
 {
     ComboItemQuery q;
     ComboItemOverride o;
@@ -78,7 +78,7 @@ void EnItem00_DrawHeartPieceSmallKey(Actor_EnItem00* this, GameState_Play* play)
 
     EnItem00_ItemQuery(&q, this, play, -1);
     comboItemOverride(&o, &q);
-    Matrix_Scale(scale, scale, scale, MAT_MUL);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
     Draw_Gi(play, &this->base, o.gi, 0);
 }
 
@@ -94,8 +94,8 @@ static s16 bombDrop(s16 dropId)
     if (!Config_Flag(CFG_OOT_BOMBCHU_BAG))
         return dropId;
 
-    hasChuBag = (gOotSave.inventory.items[ITS_OOT_BOMBCHU] == ITEM_OOT_BOMBCHU_10);
-    hasBombBag = (gOotSave.inventory.upgrades.bombBag > 0);
+    hasChuBag = (gOotSave.info.inventory.items[ITS_OOT_BOMBCHU] == ITEM_OOT_BOMBCHU_10);
+    hasBombBag = (gOotSave.info.inventory.upgrades.bombBag > 0);
 
     if (!hasChuBag)
     {
@@ -108,8 +108,8 @@ static s16 bombDrop(s16 dropId)
         return ITEM00_BOMBCHU;
 
     /* We have both, check for ammo */
-    bombCount = gOotSave.inventory.ammo[ITS_OOT_BOMBS];
-    bombchuCount = gOotSave.inventory.ammo[ITS_OOT_BOMBCHU];
+    bombCount = gOotSave.info.inventory.ammo[ITS_OOT_BOMBS];
+    bombchuCount = gOotSave.info.inventory.ammo[ITS_OOT_BOMBCHU];
 
     /* Low on ammo */
     if (bombCount < 15 || bombchuCount < 15)

@@ -14,7 +14,7 @@
 #define IA_MM_BOMBS             0x05
 #define IA_OOT_NUTS             0x06
 #define IA_MM_NUTS              0x07
-#define IA_NUT_UPGRADE          0x08
+#define IA_OOT_NUT_UPGRADE      0x08
 #define IA_OOT_BOMBCHU          0x09
 #define IA_MM_BOMBCHU           0x0a
 #define IA_OOT_ARROWS           0x0b
@@ -27,7 +27,7 @@
 #define IA_MM_NORMAL            0x12
 #define IA_OOT_STICKS           0x13
 #define IA_MM_STICKS            0x14
-#define IA_STICK_UPGRADE        0x15
+#define IA_OOT_STICK_UPGRADE    0x15
 #define IA_OOT_HOOKSHOT         0x16
 #define IA_MM_HOOKSHOT          0x17
 #define IA_OOT_TRADE_CHILD      0x18
@@ -106,6 +106,8 @@
 #define IA_OOT_SONG_EMPTINESS   0x61
 #define IA_OOT_SWORD_EXTRA      0x62
 #define IA_MM_GFS_HAMMER        0x63
+#define IA_MM_STICK_UPGRADE     0x64
+#define IA_MM_NUT_UPGRADE       0x65
 #define IA_NONE                 0xff
 
 #define ITT_NONE        0x00
@@ -150,7 +152,7 @@
 #define OVF_RENEW             (1 << 2)
 #define OVF_PRECOND           (1 << 3)
 
-typedef struct GameState_Play GameState_Play;
+typedef struct PlayState PlayState;
 
 typedef struct ComboItemQuery
 {
@@ -201,12 +203,12 @@ extern const u8 kMmGFSHammer[];
 
 void comboSyncItems(void);
 
-void reloadSlotOot(GameState_Play* play, int slot);
-void reloadSlotMm(GameState_Play* play, int slot);
+void reloadSlotOot(PlayState* play, int slot);
+void reloadSlotMm(PlayState* play, int slot);
 
-int comboAddItemRaw(GameState_Play* play, s16 gi);
-int comboAddItemRawEx(GameState_Play* play, const ComboItemQuery* q, int updateText);
-int comboAddItemEx(GameState_Play* play, const ComboItemQuery* q, int updateText);
+int comboAddItemRaw(PlayState* play, s16 gi);
+int comboAddItemRawEx(PlayState* play, const ComboItemQuery* q, int updateText);
+int comboAddItemEx(PlayState* play, const ComboItemQuery* q, int updateText);
 
 int isItemLicensed(s16 gi);
 int isItemFastBuy(s16 gi);
@@ -217,9 +219,9 @@ s16 comboRenewable(s16 gi, s16 def);
 
 #define ITEM_QUERY_INIT { 0 }
 
-void comboGiveItem(Actor* actor, GameState_Play* play, const ComboItemQuery* q, float a, float b);
-void comboGiveItemNpc(Actor* actor, GameState_Play* play, s16 gi, int npcId, float a, float b);
-void comboGiveItemNpcEx(Actor* actor, GameState_Play* play, s16 gi, int npcId, int flags, float a, float b);
+void comboGiveItem(Actor* actor, PlayState* play, const ComboItemQuery* q, float a, float b);
+void comboGiveItemNpc(Actor* actor, PlayState* play, s16 gi, int npcId, float a, float b);
+void comboGiveItemNpcEx(Actor* actor, PlayState* play, s16 gi, int npcId, int flags, float a, float b);
 void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q);
 u8   comboItemType(s16 gi);
 
@@ -227,10 +229,10 @@ u8 comboSceneKey(u8 sceneId);
 
 void comboPlayItemFanfare(s16 gi, int isShort);
 
-s16 comboItemResolve(GameState_Play* play, s16 gi);
+s16 comboItemResolve(PlayState* play, s16 gi);
 
 s16 comboProgressive(s16 gi, int ovflags);
 
-Actor_ItemDecoy* Item_AddWithDecoy(GameState_Play* play, const ComboItemQuery* q);
+Actor_ItemDecoy* Item_AddWithDecoy(PlayState* play, const ComboItemQuery* q);
 
 #endif

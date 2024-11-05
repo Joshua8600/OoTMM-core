@@ -239,14 +239,14 @@ static int csmcPotId(s16 gi, int def)
     }
 }
 
-void csmcPotPreDraw(Actor* this, GameState_Play* play, s16 gi, int def)
+void csmcPotPreDraw(Actor* this, PlayState* play, s16 gi, int def)
 {
     int type;
 
     type = csmcPotId(gi, def);
     loadTexture(type);
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x0a, kTexSide[type]);
     gSPSegment(POLY_OPA_DISP++, 0x0b, kTexTop[type]);
     CLOSE_DISPS();

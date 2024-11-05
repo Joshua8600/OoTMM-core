@@ -3,12 +3,12 @@
 #include <combo/shop.h>
 #include <combo/draw.h>
 
-void EnGirlA_AfterHandler(Actor_EnGirlA* this, GameState_Play* play)
+void EnGirlA_AfterHandler(Actor_EnGirlA* this, PlayState* play)
 {
     Shop_SetupItem(play, this);
 }
 
-void EnGirlA_Draw(Actor_EnGirlA* this, GameState_Play* play)
+void EnGirlA_Draw(Actor_EnGirlA* this, PlayState* play)
 {
     ComboItemOverride o;
 
@@ -17,7 +17,7 @@ void EnGirlA_Draw(Actor_EnGirlA* this, GameState_Play* play)
     EnGirlA_ItemOverride(&o, this);
 
     if (o.gi != GI_MM_SOLD_OUT)
-        Matrix_RotateY(((this->angle * 360.f) / 65536.f) * 0.017453292f, MAT_MUL);
+        Matrix_RotateY(((this->angle * 360.f) / 65536.f) * 0.017453292f, MTXMODE_APPLY);
     Draw_Gi(play, &this->base, o.gi, 0);
 }
 
