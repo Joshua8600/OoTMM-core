@@ -20,7 +20,7 @@ static void DemoEffect_SapphireItemOverride(ComboItemOverride* o)
     comboItemOverride(o, &q);
 }
 
-void DemoEffect_TextRutoSapphire(GameState_Play* play)
+void DemoEffect_TextRutoSapphire(PlayState* play)
 {
     ComboItemQuery q;
     char* b;
@@ -36,24 +36,24 @@ void DemoEffect_TextRutoSapphire(GameState_Play* play)
     comboTextAutoLineBreaks(start);
 }
 
-static void DemoEffect_DrawSapphireInJabu(Actor* this, GameState_Play* play)
+static void DemoEffect_DrawSapphireInJabu(Actor* this, PlayState* play)
 {
     ComboItemOverride o;
     static const int kRotDivisor = 100;
     float angle;
 
     DemoEffect_SapphireItemOverride(&o);
-    angle = (play->gs.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
+    angle = (play->state.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
 
-    Matrix_Translate(this->world.pos.x, this->world.pos.y, this->world.pos.z, MAT_SET);
-    Matrix_Scale(0.35f, 0.35f, 0.35f, MAT_MUL);
-    Matrix_RotateY(angle, MAT_MUL);
+    Matrix_Translate(this->world.pos.x, this->world.pos.y, this->world.pos.z, MTXMODE_NEW);
+    Matrix_Scale(0.35f, 0.35f, 0.35f, MTXMODE_APPLY);
+    Matrix_RotateY(angle, MTXMODE_APPLY);
     Draw_Gi(play, this, o.gi, 0);
 }
 
-void DemoEffect_DrawSpiritualLoader(Actor* this, GameState_Play* play)
+void DemoEffect_DrawSpiritualLoader(Actor* this, PlayState* play)
 {
-    void (*DemoEffect_DrawSpiritual)(Actor*, GameState_Play*);
+    void (*DemoEffect_DrawSpiritual)(Actor*, PlayState*);
 
     if (play->sceneId == SCE_OOT_INSIDE_JABU_JABU)
         DemoEffect_DrawSpiritual = DemoEffect_DrawSapphireInJabu;

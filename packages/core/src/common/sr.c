@@ -94,7 +94,7 @@ int comboSilverRupeesGetCount(int id)
     return ((*(kSilverRupeeCounts[id >> 2])) >> ((id & 3) * 8)) & 0xff;
 }
 
-int comboSilverRupeesIncCount(GameState_Play* play, int id)
+int comboSilverRupeesIncCount(PlayState* play, int id)
 {
     const ComboSilverRupeeData* data;
     int tmp;
@@ -113,15 +113,15 @@ int comboSilverRupeesIncCount(GameState_Play* play, int id)
             return tmp;
 
         /* Set switch flag */
-        gOotSave.perm[data->sceneId].switches |= (1 << data->flag);
+        gOotSave.info.perm[data->sceneId].switches |= (1 << data->flag);
 
 #if defined(GAME_OOT)
-        Actor_Player* link;
+        Player* link;
 
         if (play && play->sceneId == data->sceneId)
         {
             link = GET_PLAYER(play);
-            if (link->state & (PLAYER_ACTOR_STATE_CLIMB | PLAYER_ACTOR_STATE_CLIMB2 | PLAYER_ACTOR_STATE_JUMPING))
+            if ((Message_GetState(&play->msgCtx) != TEXT_STATE_NONE) || (link->stateFlags1 & (PLAYER_ACTOR_STATE_CLIMB | PLAYER_ACTOR_STATE_CLIMB2)))
             {
                 g.delayedSwitchFlag = data->flag;
             }
@@ -135,7 +135,7 @@ int comboSilverRupeesIncCount(GameState_Play* play, int id)
 }
 
 /* Handle temp flags */
-void comboSrUpdate(GameState_Play* play)
+void comboSrUpdate(PlayState* play)
 {
     const ComboSilverRupeeData* data;
 

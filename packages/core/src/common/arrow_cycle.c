@@ -24,7 +24,7 @@
 #define EN_ARROW_CTOR   0x8088441c
 #define EN_ARROW_DTOR   0x80884624
 
-#define BUTTON(x)   (gSave.equips.buttonItems[(x)])
+#define BUTTON(x)   (gSave.info.equips.buttonItems[(x)])
 #endif
 
 #if defined(GAME_MM)
@@ -49,7 +49,7 @@
 #define EN_ARROW_CTOR   0x8088a240
 #define EN_ARROW_DTOR   0x8088a464
 
-#define BUTTON(x)   (gSave.itemEquips.buttonItems[0][(x)])
+#define BUTTON(x)   (gSave.info.itemEquips.buttonItems[0][(x)])
 #endif
 
 typedef struct
@@ -82,7 +82,7 @@ static const ArrowInfo kArrowsInfo[] = {
 
 static const ArrowInfo* GetArrowInfo(u16 variable)
 {
-    for (int i = 0; i < ARRAY_SIZE(kArrowsInfo); i++)
+    for (int i = 0; i < ARRAY_COUNT(kArrowsInfo); i++)
     {
         if (kArrowsInfo[i].var == variable)
             return &kArrowsInfo[i];
@@ -105,7 +105,7 @@ static u16 GetNextArrowVariable(u16 variable)
 
 static int HasEnoughMagicForArrow(s8 prevCost, s8 curCost)
 {
-    return gSave.playerData.magicAmount >= (curCost - prevCost);
+    return gSave.info.playerData.magic >= (curCost - prevCost);
 }
 
 static const ArrowInfo* GetNextArrowInfo(u16 variable)
@@ -118,26 +118,26 @@ static const ArrowInfo* GetNextArrowInfo(u16 variable)
 
     magicCost = GetArrowInfo(variable)->magicCost;
     current = variable;
-    for (int i = 0; i < ARRAY_SIZE(kArrowsInfo); ++i)
+    for (int i = 0; i < ARRAY_COUNT(kArrowsInfo); ++i)
     {
         current = GetNextArrowVariable(current);
         info = GetArrowInfo(current);
         magic = info->magicCost;
         hasMagic = HasEnoughMagicForArrow(magicCost, magic);
-        if (info && info->item == gSave.inventory.items[info->slot] && hasMagic)
+        if (info && info->item == gSave.info.inventory.items[info->slot] && hasMagic)
             return info;
     }
 
     return NULL;
 }
 
-static void ReinitializeArrow(Actor* arrow, GameState_Play* play)
+static void ReinitializeArrow(Actor* arrow, PlayState* play)
 {
     ActorFunc init;
     ActorFunc destroy;
 
-    init = actorAddr(AC_EN_ARROW, EN_ARROW_CTOR);
-    destroy = actorAddr(AC_EN_ARROW, EN_ARROW_DTOR);
+    init = actorAddr(ACTOR_EN_ARROW, EN_ARROW_CTOR);
+    destroy = actorAddr(ACTOR_EN_ARROW, EN_ARROW_DTOR);
 
     destroy(arrow, play);
     init(arrow, play);
@@ -157,7 +157,7 @@ static int IsArrowItem(u8 item)
     }
 }
 
-static void UpdateCButton(Actor_Player* link, GameState_Play* play, const ArrowInfo* info)
+static void UpdateCButton(Player* link, PlayState* play, const ArrowInfo* info)
 {
     /* Update the icon */
     BUTTON(link->heldItemButton) = info->icon;
@@ -168,7 +168,7 @@ static void UpdateCButton(Actor_Player* link, GameState_Play* play, const ArrowI
     link->heldItemAction = info->action;
 }
 
-static int ActorHelper_DoesActorExist(Actor* actor, GameState_Play* play, int category)
+static int ActorHelper_DoesActorExist(Actor* actor, PlayState* play, int category)
 {
     Actor* list;
 
@@ -182,7 +182,7 @@ static int ActorHelper_DoesActorExist(Actor* actor, GameState_Play* play, int ca
     return 0;
 }
 
-static void HandleFrameDelay(Actor_Player* link, GameState_Play* play, Actor* arrow)
+static void HandleFrameDelay(Player* link, PlayState* play, Actor* arrow)
 {
     s16 prevEffectState;
     const ArrowInfo* curInfo;
@@ -229,38 +229,38 @@ static void HandleFrameDelay(Actor_Player* link, GameState_Play* play, Actor* ar
         if (!comboIsChateauActive())
         {
 #if defined(GAME_OOT)
-            gSave.playerData.magicAmount += sArrowCycleState.magicCost;
+            gSave.info.playerData.magic += sArrowCycleState.magicCost;
 #else
             if (prevEffectState >= 2)
             {
                 if (!MM_GET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI))
-                    gSave.playerData.magicAmount += sArrowCycleState.magicCost;
+                    gSave.info.playerData.magic += sArrowCycleState.magicCost;
             }
 #endif
         }
 
 #if defined(GAME_OOT)
         if (!comboIsChateauActive())
-            gSave.playerData.magicAmount -= curInfo->magicCost;
+            gSave.info.playerData.magic -= curInfo->magicCost;
 #else
         gSaveContext.magicToConsume = curInfo->magicCost;
 #endif
     }
 }
 
-static Actor* ArrowCycle_FindArrow(Actor_Player* link, GameState_Play* play)
+static Actor* ArrowCycle_FindArrow(Player* link, PlayState* play)
 {
     Actor* attached;
 
     attached = link->actor.child;
-    if (attached && attached->id == AC_EN_ARROW && attached->parent == &link->actor) {
+    if (attached && attached->id == ACTOR_EN_ARROW && attached->parent == &link->actor) {
         return attached;
     } else {
         return NULL;
     }
 }
 
-void ArrowCycle_Handle(Actor_Player* link, GameState_Play* play)
+void ArrowCycle_Handle(Player* link, PlayState* play)
 {
     switch(play->sceneId)
     {
@@ -300,10 +300,10 @@ void ArrowCycle_Handle(Actor_Player* link, GameState_Play* play)
         return;
     }
 
-    if (!(play->gs.input[0].pressed.buttons & R_TRIG))
+    if (!(play->state.input[0].press.button & R_TRIG))
         return;
 
-    play->gs.input[0].pressed.buttons &= ~R_TRIG;
+    play->state.input[0].press.button &= ~R_TRIG;
 
     /* get the various infos */
     curInfo = GetArrowInfo(arrow->params);
@@ -313,7 +313,7 @@ void ArrowCycle_Handle(Actor_Player* link, GameState_Play* play)
     if (!curInfo || !nextInfo || curInfo->var == nextInfo->var)
     {
         item = BUTTON(link->heldItemButton);
-        if (curInfo->var == 2 && item != ITEM_BOW && gSave.inventory.items[ITS_BOW] == ITEM_BOW)
+        if (curInfo->var == 2 && item != ITEM_BOW && gSave.info.inventory.items[ITS_BOW] == ITEM_BOW)
         {
             BUTTON(link->heldItemButton) = ITEM_BOW;
             Interface_LoadItemIconImpl(play, link->heldItemButton);

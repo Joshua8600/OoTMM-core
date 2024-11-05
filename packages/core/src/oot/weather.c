@@ -1,6 +1,6 @@
 #include <combo.h>
 
-static void PatchWeather(GameState_Play* play)
+static void PatchWeather(PlayState* play)
 {
     gFogState = 0;
     if (gSave.age != AGE_ADULT || gSaveContext.sceneSetupId >= 4)
@@ -43,7 +43,7 @@ static void PatchWeather(GameState_Play* play)
         }
     }
 
-    if (gSave.inventory.quest.medallionForest && gSave.inventory.quest.medallionFire && gSave.inventory.quest.medallionWater && !GetEventChk(EV_OOT_CHK_MEDALLION_SHADOW))
+    if (gSave.info.inventory.quest.medallionForest && gSave.info.inventory.quest.medallionFire && gSave.info.inventory.quest.medallionWater && !GetEventChk(EV_OOT_CHK_MEDALLION_SHADOW))
     {
         switch (play->sceneId)
         {
@@ -89,7 +89,7 @@ static void PatchWeather(GameState_Play* play)
     }
 }
 
-static void Play_InitEnvironmentWrapper(GameState_Play* play, u16 skyboxId)
+static void Play_InitEnvironmentWrapper(PlayState* play, u16 skyboxId)
 {
     /* Patch the weather system */
     PatchWeather(play);

@@ -2,9 +2,8 @@ import path from 'path';
 import fs from 'fs';
 import { FILES } from '@ootmm/data';
 
-import { GAMES, Game } from '../config';
+import { Game } from '../config';
 import { DmaData } from '../dma';
-import { splitObject } from './split';
 import { arrayToIndexMap, toU32Buffer } from '../util';
 import { CodeGen } from '../util/codegen';
 import { DecompressedRoms } from '../decompress';
@@ -17,6 +16,8 @@ import { Options } from '../options';
 import { Patchfile } from '../patch-build/patchfile';
 import { grayscale } from '../image';
 import { CustomObjectsBuilder } from './custom-objects-builder';
+import { bufReadU32BE, bufWriteU32BE } from '../util/buffer';
+import { ObjectEditor } from './object-editor';
 
 const FILES_TO_INDEX = {
   oot: arrayToIndexMap(FILES.oot),
@@ -32,40 +33,40 @@ type CustomEntry = {
 };
 
 const ENTRIES: CustomEntry[] = [
-  { game: 'mm',  name: "GI_REMAINS_ODOLWA",     file: "objects/object_bsmask",       offsets: [0x0690] },
-  { game: 'mm',  name: "GI_REMAINS_GOHT",       file: "objects/object_bsmask",       offsets: [0x3ad0] },
-  { game: 'mm',  name: "GI_REMAINS_GYORG",      file: "objects/object_bsmask",       offsets: [0x1d80] },
-  { game: 'mm',  name: "GI_REMAINS_TWINMOLD",   file: "objects/object_bsmask",       offsets: [0x5020] },
-  { game: 'mm',  name: "GI_MASK_MAJORA",        file: "objects/object_stk",          offsets: [0x6bb0] },
+  { game: 'mm',  name: "GI_REMAINS_ODOLWA",     file: "objects/object_bsmask",       offsets: [0x06000690] },
+  { game: 'mm',  name: "GI_REMAINS_GOHT",       file: "objects/object_bsmask",       offsets: [0x06003ad0] },
+  { game: 'mm',  name: "GI_REMAINS_GYORG",      file: "objects/object_bsmask",       offsets: [0x06001d80] },
+  { game: 'mm',  name: "GI_REMAINS_TWINMOLD",   file: "objects/object_bsmask",       offsets: [0x06005020] },
+  { game: 'mm',  name: "GI_MASK_MAJORA",        file: "objects/object_stk",           offsets: [0x06006bb0] },
+  { game: 'oot', name: "GI_MASTER_SWORD",       file: "objects/object_toki_objects",  offsets: [0x06001bd0] },
+  { game: 'oot', name: "GI_STONE_EMERALD",      file: "objects/object_gi_jewel",      offsets: [0x06001240, 0x060010e0] },
+  { game: 'oot', name: "GI_STONE_RUBY",         file: "objects/object_gi_jewel",      offsets: [0x060020a0, 0x06001fb0] },
+  { game: 'oot', name: "GI_STONE_SAPPHIRE",     file: "objects/object_gi_jewel",      offsets: [0x06003530, 0x06003370] },
+  { game: 'oot', name: "GI_MEDALLION_FOREST",   file: "objects/object_gi_medal",      offsets: [0x06000cb0, 0x06000e18] },
+  { game: 'oot', name: "GI_MEDALLION_FIRE",     file: "objects/object_gi_medal",      offsets: [0x06001af0, 0x06000e18] },
+  { game: 'oot', name: "GI_MEDALLION_WATER",    file: "objects/object_gi_medal",      offsets: [0x06002830, 0x06000e18] },
+  { game: 'oot', name: "GI_MEDALLION_SPIRIT",   file: "objects/object_gi_medal",      offsets: [0x06003610, 0x06000e18] },
+  { game: 'oot', name: "GI_MEDALLION_SHADOW",   file: "objects/object_gi_medal",      offsets: [0x06004330, 0x06000e18] },
+  { game: 'oot', name: "GI_MEDALLION_LIGHT",    file: "objects/object_gi_medal",      offsets: [0x06005220, 0x06000e18] },
+  { game: 'mm',  name: "GI_CLOCK",              file: "objects/object_moguri",        offsets: [0x0600f518, 0x0600cf28, 0x0600bee8, 0x0600c368] },
   /*{ game: 'mm',  name: "GI_OWL",                file: "objects/object_tsg",          offsets: [0x3770] },*/
-  { game: 'oot', name: "GI_MASTER_SWORD",       file: "objects/object_toki_objects",  offsets: [0x1bd0] },
-  { game: 'oot', name: "GI_STONE_EMERALD",      file: "objects/object_gi_jewel",      offsets: [0x1240, 0x10e0] },
-  { game: 'oot', name: "GI_STONE_RUBY",         file: "objects/object_gi_jewel",      offsets: [0x20a0, 0x1fb0] },
-  { game: 'oot', name: "GI_STONE_SAPPHIRE",     file: "objects/object_gi_jewel",      offsets: [0x3530, 0x3370] },
-  { game: 'oot', name: "GI_MEDALLION_FOREST",   file: "objects/object_gi_medal",      offsets: [0x0cb0, 0x0e18] },
-  { game: 'oot', name: "GI_MEDALLION_FIRE",     file: "objects/object_gi_medal",      offsets: [0x1af0, 0x0e18] },
-  { game: 'oot', name: "GI_MEDALLION_WATER",    file: "objects/object_gi_medal",      offsets: [0x2830, 0x0e18] },
-  { game: 'oot', name: "GI_MEDALLION_SPIRIT",   file: "objects/object_gi_medal",      offsets: [0x3610, 0x0e18] },
-  { game: 'oot', name: "GI_MEDALLION_SHADOW",   file: "objects/object_gi_medal",      offsets: [0x4330, 0x0e18] },
-  { game: 'oot', name: "GI_MEDALLION_LIGHT",    file: "objects/object_gi_medal",      offsets: [0x5220, 0x0e18] },
-  { game: 'mm',  name: "GI_CLOCK",              file: "objects/object_moguri",        offsets: [0xf518, 0xcf28, 0xbee8, 0xc368] },
 
   /* Extracted OoT Masks - used for adult masks */
-  { game: 'oot', name: "MASK_OOT_SKULL",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2ad40] },
-  { game: 'oot', name: "MASK_OOT_SPOOKY",       file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2af70] },
-  { game: 'oot', name: "MASK_OOT_KEATON",       file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2b060] },
-  { game: 'oot', name: "MASK_OOT_TRUTH",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2b1f0] },
-  { game: 'oot', name: "MASK_OOT_GORON",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2b350] },
-  { game: 'oot', name: "MASK_OOT_ZORA",         file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2b580] },
-  { game: 'oot', name: "MASK_OOT_GERUDO",       file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2b788] },
-  { game: 'oot', name: "MASK_OOT_BUNNY",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x2ca38] },
+  { game: 'oot', name: "MASK_OOT_SKULL",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602ad40] },
+  { game: 'oot', name: "MASK_OOT_SPOOKY",       file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602af70] },
+  { game: 'oot', name: "MASK_OOT_KEATON",       file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602b060] },
+  { game: 'oot', name: "MASK_OOT_TRUTH",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602b1f0] },
+  { game: 'oot', name: "MASK_OOT_GORON",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602b350] },
+  { game: 'oot', name: "MASK_OOT_ZORA",         file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602b580] },
+  { game: 'oot', name: "MASK_OOT_GERUDO",       file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602b788] },
+  { game: 'oot', name: "MASK_OOT_BUNNY",        file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x0602ca38] },
 
-  { game: 'oot', name: "EQ_DEKU_STICK",         file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x6cc0] },
+  { game: 'oot', name: "EQ_DEKU_STICK",         file: "objects/object_link_child",   seg: { in: 0x06, out: 0x0a }, offsets: [0x06006cc0] },
 
-  { game: 'mm',  name: "OBJECT_TORCH2",         file: "objects/gameplay_keep",       seg: { in: 0x04, out: 0x06 }, offsets: [0x1c430] },
-  { game: 'oot', name: 'BOOTS_IRON',            file: "objects/object_link_boy",     seg: { in: 0x06, out: 0x0a }, offsets: [0x25918, 0x25a60] },
-  { game: 'oot', name: 'BOOTS_HOVER',           file: "objects/object_link_boy",     seg: { in: 0x06, out: 0x0a }, offsets: [0x25ba8, 0x25db0] },
-  { game: 'oot', name: 'GAUNTLETS',             file: "objects/object_link_boy",     seg: { in: 0x06, out: 0x0a }, offsets: [0x25218, 0x252d8, 0x25438, 0x25598, 0x25658, 0x257b8] },
+  { game: 'mm',  name: "OBJECT_TORCH2",         file: "objects/gameplay_keep",       seg: { in: 0x04, out: 0x06 }, offsets: [0x0401c430] },
+  { game: 'oot', name: 'BOOTS_IRON',            file: "objects/object_link_boy",     seg: { in: 0x06, out: 0x0a }, offsets: [0x06025918, 0x06025a60] },
+  { game: 'oot', name: 'BOOTS_HOVER',           file: "objects/object_link_boy",     seg: { in: 0x06, out: 0x0a }, offsets: [0x06025ba8, 0x06025db0] },
+  { game: 'oot', name: 'GAUNTLETS',             file: "objects/object_link_boy",     seg: { in: 0x06, out: 0x0a }, offsets: [0x06025218, 0x060252d8, 0x06025438, 0x06025598, 0x06025658, 0x060257b8] },
 ];
 
 const AUDIO_COPIES_OOT: {[k: number]: number} = {
@@ -82,7 +83,18 @@ const getObjectBuffer = async (roms: DecompressedRoms, game: Game, file: string)
     throw new Error(`File ${file} not found in game ${game}`);
   }
   const dmaEntry = dma.read(index);
-  return Buffer.from(rom.subarray(dmaEntry.virtStart, dmaEntry.virtEnd));
+  return rom.slice(dmaEntry.virtStart, dmaEntry.virtEnd);
+};
+
+function splitObject(object: Uint8Array, offsets: number[], segIn: number, segOut: number) {
+  const editor = new ObjectEditor(segOut);
+  editor.loadSegment(segIn, object);
+
+  for (const offset of offsets) {
+    editor.submitListAddr(offset);
+  }
+
+  return editor.build();
 };
 
 /* TODO: Cache this */
@@ -108,14 +120,14 @@ const extractFileData = async (roms: DecompressedRoms, game: Game, file: string,
   return tex;
 };
 
-export const customExtractedFiles = async (roms: DecompressedRoms): Promise<{[k: string]: Buffer}> => ({
+export const customExtractedFiles = async (roms: DecompressedRoms): Promise<{[k: string]: Uint8Array}> => ({
   GRASS: await extractFileData(roms, 'oot', 'objects/gameplay_field_keep', 0xb140, 32 * 32 * 2).then(t => grayscale(t, 'rgba16', 0.25)),
   GRASS_ALT: await extractFileData(roms, 'oot', 'objects/gameplay_keep', 0x35BD0, 32 * 32 * 2).then(t => grayscale(t, 'rgba16', 0.25)),
   HIVE: await extractFileData(roms, 'mm', 'objects/object_comb', 0x0000, 32 * 32 * 2).then(t => grayscale(t, 'rgba16', 0.25)),
   BUTTERFLY: await extractFileData(roms, 'oot', 'objects/gameplay_field_keep', 0x2680, 32 * 64 * 2).then(t => grayscale(t, 'rgba16', 0.25)),
 });
 
-export const customFiles = async (opts: Options): Promise<{[k: string]: Buffer}> => ({
+export const customFiles = async (opts: Options): Promise<{[k: string]: Uint8Array}> => ({
   CHEST_MAJOR_FRONT: await png(opts, 'chests/major_front', 'rgba16'),
   CHEST_MAJOR_SIDE: await png(opts, 'chests/major_side', 'rgba16'),
   CHEST_KEY_FRONT: await png(opts, 'chests/key_front', 'rgba16'),
@@ -148,7 +160,7 @@ export const customFiles = async (opts: Options): Promise<{[k: string]: Buffer}>
   GLITTER: await png(opts, 'glitter', 'i4'),
 });
 
-export const customAssetsKeep = async (opts: Options): Promise<{[k: string]: Buffer}> => ({
+export const customAssetsKeep = async (opts: Options): Promise<{[k: string]: Uint8Array}> => ({
   DPAD: await png(opts, 'dpad', 'rgba16'),
   FONT: await font(opts, 'font_8x12'),
   SMALL_ICON_KEY: await png(opts, 'small_icon_key', 'rgba16'),
@@ -169,7 +181,7 @@ const extractRaw = async (roms: DecompressedRoms, game: Game, file: string, offs
   return obj.subarray(offset, offset + size);
 };
 
-export const extractedAssets = async (roms: DecompressedRoms): Promise<{[k: string]: Buffer}> => ({
+export const extractedAssets = async (roms: DecompressedRoms): Promise<{[k: string]: Uint8Array}> => ({
   SF_TEXTURE_1: await extractRaw(roms, 'mm', 'objects/gameplay_keep', 0x2c030, 16 * 32),
   SF_TEXTURE_2: await extractRaw(roms, 'mm', 'objects/gameplay_keep', 0x2c630, 16 * 16),
   SF_TEXTURE_3: await extractRaw(roms, 'mm', 'objects/gameplay_keep', 0x2bc30, 32 * 32),
@@ -218,11 +230,11 @@ class CustomAssetsBuilder {
     return objectId;
   }
 
-  addRawData(name: string | null, data: Buffer, compressed: boolean) {
+  addRawData(name: string | null, data: Uint8Array, compressed: boolean) {
     const sizeAligned = (data.length + 0xf) & ~0xf;
     const vrom = this.vrom;
     this.vrom += sizeAligned;
-    this.patch.addNewFile(name, vrom, data, compressed);
+    this.patch.addNewFile({ name: name ?? undefined, vrom, data, compressed });
     return vrom;
   }
 
@@ -233,7 +245,7 @@ class CustomAssetsBuilder {
     return vrom;
   }
 
-  async addCustomObject(name: string, data: Buffer, defines: number[]) {
+  async addCustomObject(name: string, data: Uint8Array, defines: number[]) {
     const vrom = this.addRawData(`custom/${name.toLowerCase()}`, data, true);
     const objectId = this.addObjectEntry(vrom, data.length);
     this.cg.define('CUSTOM_OBJECT_ID_' + name, objectId);
@@ -276,18 +288,18 @@ class CustomAssetsBuilder {
 
   async extractSeqTable(game: Game, count: number, codeOffset: number, romOffset: number) {
     const seqTableDataOrig = await extractRaw(this.roms, game, 'code', codeOffset, count * 0x10);
-    const seqTableDataPatched = Buffer.alloc(0x80 * 0x10);
-    seqTableDataOrig.copy(seqTableDataPatched);
+    const seqTableDataPatched = new Uint8Array(0x80 * 0x10);
+    seqTableDataPatched.set(seqTableDataOrig);
     for (let i = 0; i < count; ++i) {
-      let addr = seqTableDataOrig.readUint32BE(i * 0x10);
-      let size = seqTableDataOrig.readUint32BE(i * 0x10 + 4);
+      let addr = bufReadU32BE(seqTableDataOrig, i * 0x10);
+      let size = bufReadU32BE(seqTableDataOrig, i * 0x10 + 4);
       if (!size) {
-        size = seqTableDataOrig.readUint32BE(addr * 0x10 + 4);
-        addr = seqTableDataOrig.readUint32BE(addr * 0x10);
+        size = bufReadU32BE(seqTableDataOrig, addr * 0x10 + 4);
+        addr = bufReadU32BE(seqTableDataOrig, addr * 0x10);
       }
       addr += romOffset;
-      seqTableDataPatched.writeUint32BE(addr, i * 0x10);
-      seqTableDataPatched.writeUint32BE(size, i * 0x10 + 4);
+      bufWriteU32BE(seqTableDataPatched, i * 0x10, addr);
+      bufWriteU32BE(seqTableDataPatched, i * 0x10 + 4, size);
     }
 
     if (game === 'oot') {
@@ -296,7 +308,7 @@ class CustomAssetsBuilder {
         const newOffset = newSeqNum * 0x10;
         const oldOffset = oldSeq * 0x10;
         const buf = seqTableDataPatched.subarray(oldOffset, oldOffset + 0x10);
-        buf.copy(seqTableDataPatched, newOffset);
+        seqTableDataPatched.set(buf, newOffset);
       }
     }
 
@@ -306,15 +318,15 @@ class CustomAssetsBuilder {
 
   async extractAudioTable(game: Game, count: number, codeOffset: number, romOffset: number) {
     const dataOrig = await extractRaw(this.roms, game, 'code', codeOffset, count * 0x10);
-    const dataPatched = Buffer.alloc(8 * 0x10);
-    dataOrig.copy(dataPatched);
+    const dataPatched = new Uint8Array(8 * 0x10);
+    dataPatched.set(dataOrig);
     for (let i = 0; i < count; ++i) {
-      let addr = dataOrig.readUint32BE(i * 0x10);
-      let size = dataOrig.readUint32BE(i * 0x10 + 4);
+      let addr = bufReadU32BE(dataOrig, i * 0x10);
+      let size = bufReadU32BE(dataOrig, i * 0x10 + 4);
       if (size) {
         addr += romOffset;
       }
-      dataPatched.writeUint32BE(addr, i * 0x10);
+      bufWriteU32BE(dataPatched, i * 0x10, addr);
     }
     const dataVrom = this.addRawData(`${game}/audio_table`, dataPatched, false);
     this.cg.define(`CUSTOM_AUDIO_TABLE_${game.toUpperCase()}_VROM`, dataVrom);
@@ -322,42 +334,42 @@ class CustomAssetsBuilder {
 
   async extractBankTable(game: Game, count: number, codeOffset: number, romOffset: number) {
     const dataOrig = await extractRaw(this.roms, game, 'code', codeOffset, count * 0x10);
-    const dataPatched = Buffer.alloc(0x30 * 0x10);
-    dataOrig.copy(dataPatched);
+    const dataPatched = new Uint8Array(0x30 * 0x10);
+    dataPatched.set(dataOrig);
     for (let i = 0; i < count; ++i) {
-      let addr = dataOrig.readUint32BE(i * 0x10);
-      let size = dataOrig.readUint32BE(i * 0x10 + 4);
+      let addr = bufReadU32BE(dataOrig, i * 0x10);
+      let size = bufReadU32BE(dataOrig, i * 0x10 + 4);
       if (!size) {
-        size = dataOrig.readUint32BE(addr * 0x10 + 4);
-        addr = dataOrig.readUint32BE(addr * 0x10);
+        size = bufReadU32BE(dataOrig, addr * 0x10 + 4);
+        addr = bufReadU32BE(dataOrig, addr * 0x10);
       }
       addr += romOffset;
-      dataPatched.writeUint32BE(addr, i * 0x10);
-      dataPatched.writeUint32BE(size, i * 0x10 + 4);
+      bufWriteU32BE(dataPatched, i * 0x10, addr);
+      bufWriteU32BE(dataPatched, i * 0x10 + 4, size);
     }
     const dataVrom = this.addRawData(`${game}/bank_table`, dataPatched, false);
     this.cg.define(`CUSTOM_BANK_TABLE_${game.toUpperCase()}_VROM`, dataVrom);
   }
 
   async extractCustomBankTable() {
-    const data = Buffer.alloc((0xf0 - 0x60) * 0x10);
+    const data = new Uint8Array((0xf0 - 0x60) * 0x10);
     const vrom = this.addRawData(`custom/bank_table`, data, false);
     this.cg.define(`CUSTOM_BANK_TABLE_CUSTOM_VROM`, vrom);
   }
 
   async extractSeqBanks(game: Game, count: number, codeOffset: number) {
     const seqBankDataRaw = await extractRaw(this.roms, game, 'code', codeOffset, count * 2);
-    const seqBankData = Buffer.alloc(0x80 * 2);
+    const seqBankData = new Uint8Array(0x80 * 2);
     for (let i = 0; i < count; ++i) {
-      const bankId = seqBankDataRaw.readUint8(i * 2);
-      seqBankData.writeUint8(bankId, i + 1);
+      const bankId = seqBankDataRaw[i * 2];
+      seqBankData[i + 1] = bankId;
     }
 
     if (game === 'oot') {
       for (const [newSeq, oldSeq] of Object.entries(AUDIO_COPIES_OOT)) {
         const newSeqNum = Number(newSeq);
-        const bankId = seqBankData.readUint8(oldSeq);
-        seqBankData.writeUint8(bankId, newSeqNum);
+        const bankId = seqBankData[oldSeq];
+        seqBankData[newSeqNum] = bankId;
       }
     }
 

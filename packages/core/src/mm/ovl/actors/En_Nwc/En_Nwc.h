@@ -2,11 +2,11 @@
 #define COMBO_OVL_EN_NWC_H
 
 #include <combo/actor.h>
-#include "../src/mm/ovl/actors/En_Hs/En_Hs.h"
+#include <actors/En_Hs/En_Hs.h>
 
 struct Actor_EnNwc;
 
-typedef void (*Actor_EnNwc_ActionFunc)(struct Actor_EnNwc*, GameState_Play*);
+typedef void (*Actor_EnNwc_ActionFunc)(struct Actor_EnNwc*, PlayState*);
 
 #define NIW_LIMB_MAX 0x10
 

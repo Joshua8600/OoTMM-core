@@ -13,15 +13,15 @@
 
 static u16 sMsgTimer;
 
-static void ItemDecoy_SetHandler(Actor_ItemDecoy* this, GameState_Play* play, Actor_ItemDecoyFunc handler)
+static void ItemDecoy_SetHandler(Actor_ItemDecoy* this, PlayState* play, Actor_ItemDecoyFunc handler)
 {
     this->handler = handler;
     handler(this, play);
 }
 
-static void ItemDecoy_Draw(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_Draw(Actor_ItemDecoy* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
     Vec3f pos;
 
     if (this->gi == GI_NONE)
@@ -31,28 +31,28 @@ static void ItemDecoy_Draw(Actor_ItemDecoy* this, GameState_Play* play)
     pos.x = link->actor.world.pos.x;
     pos.y = link->actor.world.pos.y + Player_GetHeight(link) + 20.f;
     pos.z = link->actor.world.pos.z;
-    Matrix_Translate(pos.x, pos.y, pos.z, MAT_SET);
-    Matrix_Scale(0.35f, 0.35f, 0.35f, MAT_MUL);
-    Matrix_RotateY(this->base.shape.rot.y * ((M_PI * 2.f) / 32767.f), MAT_MUL);
+    Matrix_Translate(pos.x, pos.y, pos.z, MTXMODE_NEW);
+    Matrix_Scale(0.35f, 0.35f, 0.35f, MTXMODE_APPLY);
+    Matrix_RotateY(this->base.shape.rot.y * ((M_PI * 2.f) / 32767.f), MTXMODE_APPLY);
     Draw_Gi(play, &this->base, this->gi, 0);
 }
 
-static void ItemDecoy_HandlerTimer(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_HandlerTimer(Actor_ItemDecoy* this, PlayState* play)
 {
     if (!this->timer)
         Actor_Kill(&this->base);
 }
 
-static int ItemDecoy_CanCollect(Actor_ItemDecoy* this, GameState_Play* play)
+static int ItemDecoy_CanCollect(Actor_ItemDecoy* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     if (Player_InCsMode(play))
         return 0;
     if (gSaveContext.gameMode || (gSaveContext.minigameState == 1))
         return 0;
     link = GET_PLAYER(play);
-    if (link->state & (PLAYER_ACTOR_STATE_FROZEN | PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
+    if (link->stateFlags1 & (PLAYER_ACTOR_STATE_FROZEN | PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN))
         return 0;
 
     /* Check for textbox */
@@ -62,7 +62,7 @@ static int ItemDecoy_CanCollect(Actor_ItemDecoy* this, GameState_Play* play)
     return 1;
 }
 
-static void ItemDecoy_HandlerMessageTimer(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_HandlerMessageTimer(Actor_ItemDecoy* this, PlayState* play)
 {
     int end;
 
@@ -84,7 +84,7 @@ static void ItemDecoy_HandlerMessageTimer(Actor_ItemDecoy* this, GameState_Play*
     }
 }
 
-static void ItemDecoy_HandlerImportantItemConfirm(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_HandlerImportantItemConfirm(Actor_ItemDecoy* this, PlayState* play)
 {
     if (Message_IsClosed(&this->base, play))
     {
@@ -97,10 +97,10 @@ static void ItemDecoy_HandlerImportantItemConfirm(Actor_ItemDecoy* this, GameSta
         Player_Freeze(play);
 }
 
-static void ItemDecoy_HandlerImportantItem(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_HandlerImportantItem(Actor_ItemDecoy* this, PlayState* play)
 {
     ComboItemOverride o;
-    Actor_Player* link;
+    Player* link;
 
     if (!ItemDecoy_CanCollect(this, play))
         return;
@@ -117,7 +117,7 @@ static void ItemDecoy_HandlerImportantItem(Actor_ItemDecoy* this, GameState_Play
     comboTextHijackItemEx(play, &o, this->count);
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_EPONA)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_EPONA)
     {
         sMsgTimer = 60;
         this->handler = ItemDecoy_HandlerMessageTimer;
@@ -129,7 +129,7 @@ static void ItemDecoy_HandlerImportantItem(Actor_ItemDecoy* this, GameState_Play
     }
 }
 
-static void ItemDecoy_HandlerInit(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_HandlerInit(Actor_ItemDecoy* this, PlayState* play)
 {
     if (!isItemFastBuy(this->gi))
         ItemDecoy_SetHandler(this, play, ItemDecoy_HandlerImportantItem);
@@ -142,7 +142,7 @@ static void ItemDecoy_HandlerInit(Actor_ItemDecoy* this, GameState_Play* play)
     }
 }
 
-static void ItemDecoy_Init(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_Init(Actor_ItemDecoy* this, PlayState* play)
 {
     this->base.room = 0xff;
     this->timer = 20;
@@ -153,9 +153,9 @@ static void ItemDecoy_Init(Actor_ItemDecoy* this, GameState_Play* play)
 #endif
 }
 
-static void ItemDecoy_Update(Actor_ItemDecoy* this, GameState_Play* play)
+static void ItemDecoy_Update(Actor_ItemDecoy* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
     this->base.world.pos.x = link->actor.world.pos.x;
@@ -171,7 +171,7 @@ static void ItemDecoy_Update(Actor_ItemDecoy* this, GameState_Play* play)
 }
 
 ActorInit ItemDecoy_gActorInit = {
-    AC_ITEM_DECOY,
+    ACTOR_ITEM_DECOY,
     0x8,
     0x10,
     0x1,

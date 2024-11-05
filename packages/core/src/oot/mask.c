@@ -2,9 +2,9 @@
 #include <combo/mask.h>
 #include <combo/player.h>
 
-u16 MaskReaction_GetTextId(GameState_Play* play, int slot)
+u16 MaskReaction_GetTextId(PlayState* play, int slot)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
 

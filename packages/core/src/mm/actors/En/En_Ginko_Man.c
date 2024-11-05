@@ -11,10 +11,10 @@ static u8 sIsDeposit;
 
 static const u16 kRequiredRupeeReward[] = { 200, 500, 1000 };
 
-static void EnGinkoMan_CheckRewardHandler(Actor* this, GameState_Play* play);
-static void EnGinkoMan_DefaultHandler(Actor* this, GameState_Play* play);
+static void EnGinkoMan_CheckRewardHandler(Actor* this, PlayState* play);
+static void EnGinkoMan_DefaultHandler(Actor* this, PlayState* play);
 
-static void EnGinkoMan_DisplayMainBox(Actor* this, GameState_Play* play)
+static void EnGinkoMan_DisplayMainBox(Actor* this, PlayState* play)
 {
     char* b;
 
@@ -22,19 +22,19 @@ static void EnGinkoMan_DisplayMainBox(Actor* this, GameState_Play* play)
     b = play->msgCtx.font.textBuffer.schar;
     comboTextAppendHeader(&b);
     comboTextAppendStr(&b, "You have " TEXT_COLOR_PINK);
-    comboTextAppendNum(&b, gSave.bankRupees);
+    comboTextAppendNum(&b, gSave.info.bankRupees);
     comboTextAppendStr(&b, " Rupee");
-    if (gSave.bankRupees != 1)
+    if (gSave.info.bankRupees != 1)
         comboTextAppendStr(&b, "s");
     comboTextAppendClearColor(&b);
     comboTextAppendStr(&b, " in the bank." TEXT_NL TEXT_CHOICE3);
-    comboTextAppendStr(&b, gSave.bankRupees == BANK_MAX ? TEXT_COLOR_RED : TEXT_COLOR_GREEN);
+    comboTextAppendStr(&b, gSave.info.bankRupees == BANK_MAX ? TEXT_COLOR_RED : TEXT_COLOR_GREEN);
     comboTextAppendStr(&b, " Deposit" TEXT_NL);
-    comboTextAppendStr(&b, gSave.bankRupees <= BANK_FEE ? TEXT_COLOR_RED : TEXT_COLOR_GREEN);
+    comboTextAppendStr(&b, gSave.info.bankRupees <= BANK_FEE ? TEXT_COLOR_RED : TEXT_COLOR_GREEN);
     comboTextAppendStr(&b, " Withdraw" TEXT_NL TEXT_COLOR_GREEN " Cancel" TEXT_END);
 }
 
-static int EnGinkoMan_ButtonPress(GameState_Play* play)
+static int EnGinkoMan_ButtonPress(PlayState* play)
 {
     u16 buttons;
     int msgState;
@@ -42,7 +42,7 @@ static int EnGinkoMan_ButtonPress(GameState_Play* play)
     msgState = Message_GetState(&play->msgCtx);
     if (msgState != 4 && msgState != 5 && msgState != 14)
         return 0;
-    buttons = play->gs.input[0].pressed.buttons;
+    buttons = play->state.input[0].press.button;
     if (buttons & B_BUTTON)
         return B_BUTTON;
     else if (buttons & A_BUTTON)
@@ -54,7 +54,7 @@ static int EnGinkoMan_ButtonPress(GameState_Play* play)
 
 static s32 EnGinkoMan_MaxRupees(void)
 {
-    return gMaxRupees[gSave.inventory.upgrades.wallet];
+    return gMaxRupees[gSave.info.inventory.upgrades.wallet];
 }
 
 static s32 EnGinkoMan_CurrentRupees(void)
@@ -62,7 +62,7 @@ static s32 EnGinkoMan_CurrentRupees(void)
     s32 rupees;
     s32 maxRupees;
 
-    rupees = gSave.playerData.rupees;
+    rupees = gSave.info.playerData.rupees;
     rupees += gSave.rupeesDelta;
     maxRupees = EnGinkoMan_MaxRupees();
     if (rupees < 0)
@@ -72,20 +72,20 @@ static s32 EnGinkoMan_CurrentRupees(void)
     return rupees;
 }
 
-static void EnGinkoMan_Deposit(GameState_Play* play, int amount)
+static void EnGinkoMan_Deposit(PlayState* play, int amount)
 {
     s32 rupees;
 
     rupees = EnGinkoMan_CurrentRupees();
-    if (gSave.bankRupees + amount > BANK_MAX)
-        amount = BANK_MAX - gSave.bankRupees;
+    if (gSave.info.bankRupees + amount > BANK_MAX)
+        amount = BANK_MAX - gSave.info.bankRupees;
     if (amount > rupees)
         amount = rupees;
-    gSave.bankRupees += amount;
+    gSave.info.bankRupees += amount;
     AddRupeesRaw((s16)-amount);
 }
 
-static void EnGinkoMan_Withdraw(GameState_Play* play, int amount)
+static void EnGinkoMan_Withdraw(PlayState* play, int amount)
 {
     s32 currentRupees;
     s32 maxRupees;
@@ -93,26 +93,26 @@ static void EnGinkoMan_Withdraw(GameState_Play* play, int amount)
     /* Deduct the main amount */
     currentRupees = EnGinkoMan_CurrentRupees();
     maxRupees = EnGinkoMan_MaxRupees();
-    if (amount > gSave.bankRupees)
-        amount = gSave.bankRupees;
+    if (amount > gSave.info.bankRupees)
+        amount = gSave.info.bankRupees;
     if (amount > maxRupees - currentRupees)
         amount = maxRupees - currentRupees;
     if (amount == 0)
         return;
-    gSave.bankRupees -= amount;
+    gSave.info.bankRupees -= amount;
     AddRupeesRaw((s16)amount);
 
     /* Deduct the fee */
-    if (gSave.bankRupees > BANK_FEE)
-        gSave.bankRupees -= BANK_FEE;
+    if (gSave.info.bankRupees > BANK_FEE)
+        gSave.info.bankRupees -= BANK_FEE;
     else
     {
-        AddRupeesRaw(-(BANK_FEE - gSave.bankRupees));
-        gSave.bankRupees = 0;
+        AddRupeesRaw(-(BANK_FEE - gSave.info.bankRupees));
+        gSave.info.bankRupees = 0;
     }
 }
 
-static void EnGinkoMan_DoTransfer(GameState_Play* play, int amount)
+static void EnGinkoMan_DoTransfer(PlayState* play, int amount)
 {
     if (sIsDeposit)
         EnGinkoMan_Deposit(play, amount);
@@ -129,7 +129,7 @@ static int EnGinkoMan_Reward(void)
         npc = NPC_MM_BANK_1 + i;
         if (BITMAP8_GET(gSharedCustomSave.mm.npc, npc))
             continue;
-        if (gSave.bankRupees < kRequiredRupeeReward[i])
+        if (gSave.info.bankRupees < kRequiredRupeeReward[i])
             return -1;
         return i;
     }
@@ -137,12 +137,12 @@ static int EnGinkoMan_Reward(void)
     return -1;
 }
 
-static void EnGinkoMan_GiveRewardHandler(Actor* this, GameState_Play* play)
+static void EnGinkoMan_GiveRewardHandler(Actor* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
     if (Actor_HasParentZ(this))
     {
@@ -155,7 +155,7 @@ static void EnGinkoMan_GiveRewardHandler(Actor* this, GameState_Play* play)
     comboGiveItemNpc(this, play, GI_MM_WALLET, NPC_MM_BANK_1 + sRewardId, 9999.f, 9999.f);
 }
 
-static void EnGinkoMan_CheckRewardHandler(Actor* this, GameState_Play* play)
+static void EnGinkoMan_CheckRewardHandler(Actor* this, PlayState* play)
 {
     int reward;
 
@@ -172,7 +172,7 @@ static void EnGinkoMan_CheckRewardHandler(Actor* this, GameState_Play* play)
     EnGinkoMan_GiveRewardHandler(this, play);
 }
 
-static void EnGinkoMan_TransferHandler(Actor* this, GameState_Play* play)
+static void EnGinkoMan_TransferHandler(Actor* this, PlayState* play)
 {
     int amount;
 
@@ -198,7 +198,7 @@ static void EnGinkoMan_TransferHandler(Actor* this, GameState_Play* play)
     EnGinkoMan_CheckRewardHandler(this, play);
 }
 
-static void EnGinkoMan_MainBoxHandler(Actor* this, GameState_Play* play)
+static void EnGinkoMan_MainBoxHandler(Actor* this, PlayState* play)
 {
     int action;
 
@@ -231,7 +231,7 @@ static void EnGinkoMan_MainBoxHandler(Actor* this, GameState_Play* play)
     }
 }
 
-static void EnGinkoMan_DefaultHandler(Actor* this, GameState_Play* play)
+static void EnGinkoMan_DefaultHandler(Actor* this, PlayState* play)
 {
     if (!ActorTalkedTo(this))
     {

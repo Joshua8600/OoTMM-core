@@ -97,7 +97,7 @@ static OcarinaSongButtons sWarpSongs[6] = {
 
 static u8 sWarpSongPlayed = 0xff;
 
-u8 Ocarina_BeforeSongPlayingProcessed(GameState_Play* ctxt)
+u8 Ocarina_BeforeSongPlayingProcessed(PlayState* ctxt)
 {
     char* b;
     u8 songPlayed = ctxt->msgCtx.songInfo->frameInfo[0].storedSong;
@@ -133,7 +133,7 @@ u8 Ocarina_BeforeSongPlayingProcessed(GameState_Play* ctxt)
     return songPlayed;
 }
 
-void Ocarina_HandleWarp(Actor_Player* player, GameState_Play* play)
+void Ocarina_HandleWarp(Player* player, PlayState* play)
 {
     int messageState;
     if (sWarpSongPlayed >= 0 && sWarpSongPlayed <= 5)
@@ -158,17 +158,17 @@ void Ocarina_HandleWarp(Actor_Player* player, GameState_Play* play)
             play->interfaceCtx.unk_222 = 0;
             ActorCutscene_Stop(play->playerActorCsIds[0]);
             player->actor.flags &= ~ACTOR_FLAG_MM_20000000;
-            Actor* actor = Actor_Spawn(&play->actorCtx, play, AC_EN_TEST7, player->actor.world.pos.x, player->actor.world.pos.y, player->actor.world.pos.z, 0, 0, 0, 0x8000 | sWarpSongPlayed);
+            Actor* actor = Actor_Spawn(&play->actorCtx, play, ACTOR_EN_TEST7, player->actor.world.pos.x, player->actor.world.pos.y, player->actor.world.pos.z, 0, 0, 0, 0x8000 | sWarpSongPlayed);
             if (actor)
             {
-                player->state &= ~0x20000000; /* PLAYER_STATE1_TIME_STOP */
+                player->stateFlags1 &= ~0x20000000; /* PLAYER_STATE1_TIME_STOP */
                 player->csMode = 0; /* csMode = PLAYER_CSMODE_0; */
 
-                void (*Player_func_8085B28C)(GameState_Play* play, Actor_Player* link, s32 csMode);
+                void (*Player_func_8085B28C)(PlayState* play, Player* link, s32 csMode);
                 Player_func_8085B28C = OverlayAddr(0x8085B28C);
                 Player_func_8085B28C(play, NULL, 19);
 
-                player->state |= 0x30000000; /* PLAYER_STATE1_SPECIAL_2 | PLAYER_STATE1_TIME_STOP */
+                player->stateFlags1 |= 0x30000000; /* PLAYER_STATE1_SPECIAL_2 | PLAYER_STATE1_TIME_STOP */
             }
             else
             {
@@ -189,7 +189,7 @@ void Ocarina_HandleWarp(Actor_Player* player, GameState_Play* play)
 
 void Ocarina_CheckCustomSongs(void)
 {
-    u32 enabledWarpSongs = (gOotSave.inventory.quest.value >> 6) & 0x3f;
+    u32 enabledWarpSongs = (gOotSave.info.inventory.quest.value >> 6) & 0x3f;
     u8 songIndex;
 
     if (!Config_Flag(CFG_OOT_CROSS_WARP))

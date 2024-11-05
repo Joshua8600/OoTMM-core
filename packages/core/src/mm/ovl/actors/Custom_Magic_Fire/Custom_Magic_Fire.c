@@ -8,7 +8,7 @@
 
 #define FLAGS (ACTOR_FLAG_OOT_4 | ACTOR_FLAG_OOT_25)
 
-void MagicFire_UpdateBeforeCast(Actor_CustomMagicFire* this, GameState_Play* play);
+void MagicFire_UpdateBeforeCast(Actor_CustomMagicFire* this, PlayState* play);
 
 typedef enum {
     /* 0x00 */ DF_ACTION_INITIALIZE,
@@ -88,7 +88,7 @@ static Gfx sModelDL[45] = {
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_ON | AT_TYPE_PLAYER,
         AC_NONE,
         OC1_NONE,
@@ -96,11 +96,11 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00000800, 0x00, 0x02 },
         { 0x00000000, 0x00, 0x00 },
-        TOUCH_ON | TOUCH_SFX_NONE,
-        BUMP_NONE,
+        ATELEM_ON | ATELEM_SFX_NONE,
+        ACELEM_NONE,
         OCELEM_NONE,
     },
     { 9, 9, 0, { 0, 0, 0 } },
@@ -116,7 +116,7 @@ static u8 sVertexIndices[] = {
     14, 20, 21, 23, 28, 30, 33, 34, 40, 41, 43, 48, 50, 55, 57, 62, 64, 65, 73, 74,
 };
 
-void MagicFire_Init(Actor_CustomMagicFire* this, GameState_Play* play)
+void MagicFire_Init(Actor_CustomMagicFire* this, PlayState* play)
 {
     Actor_ProcessInitChain(&this->actor, sInitChain);
     this->action = 0;
@@ -132,14 +132,14 @@ void MagicFire_Init(Actor_CustomMagicFire* this, GameState_Play* play)
     this->actor.room = -1;
 }
 
-void MagicFire_Destroy(Actor_CustomMagicFire* this, GameState_Play* play)
+void MagicFire_Destroy(Actor_CustomMagicFire* this, PlayState* play)
 {
     Magic_Reset(play);
 }
 
-void MagicFire_Update(Actor_CustomMagicFire* this, GameState_Play* play)
+void MagicFire_Update(Actor_CustomMagicFire* this, PlayState* play)
 {
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
 
     this->actor.world.pos = player->actor.world.pos;
 
@@ -230,9 +230,9 @@ void MagicFire_Update(Actor_CustomMagicFire* this, GameState_Play* play)
     }
 }
 
-void MagicFire_UpdateBeforeCast(Actor_CustomMagicFire* this, GameState_Play* play)
+void MagicFire_UpdateBeforeCast(Actor_CustomMagicFire* this, PlayState* play)
 {
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
 
     /* See `ACTOROVL_ALLOC_ABSOLUTE` */
     /*! @bug This condition is too broad, the actor will also be killed by warp songs. But warp songs do not use an */
@@ -249,19 +249,19 @@ void MagicFire_UpdateBeforeCast(Actor_CustomMagicFire* this, GameState_Play* pla
     else
     {
         this->actor.update = (ActorFunc)MagicFire_Update;
-        Player_PlaySfx(player, 0x879); /* NA_SE_PL_MAGIC_FIRE */
+        Player_PlaySfx(player, NA_SE_PL_MAGIC_FIRE);
     }
     this->actor.world.pos = player->actor.world.pos;
 }
 
-void MagicFire_Draw(Actor_CustomMagicFire* this, GameState_Play* play)
+void MagicFire_Draw(Actor_CustomMagicFire* this, PlayState* play)
 {
     u32 gameplayFrames = play->gameplayFrames;
     s32 i;
     u8 alpha;
 
     if (this->action > 0) {
-        OPEN_DISPS(play->gs.gfx);
+        OPEN_DISPS(play->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 0x08, g.customKeep);
         POLY_XLU_DISP = Gfx_SetupDL57(POLY_XLU_DISP);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, (u8)(s32)(60 * this->screenTintIntensity),
@@ -270,11 +270,11 @@ void MagicFire_Draw(Actor_CustomMagicFire* this, GameState_Play* play)
         gDPSetAlphaDither(POLY_XLU_DISP++, G_AD_DISABLE);
         gDPSetColorDither(POLY_XLU_DISP++, G_CD_DISABLE);
         gDPFillRectangle(POLY_XLU_DISP++, 0, 0, 319, 239);
-        Gfx_SetupDL25_Xlu(play->gs.gfx);
+        Gfx_SetupDL25_Xlu(play->state.gfxCtx);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, 255, 200, 0, (u8)(this->alphaMultiplier * 255));
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, (u8)(this->alphaMultiplier * 255));
-        Matrix_Scale(0.15f, 0.15f, 0.15f, MAT_MUL);
-        gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+        Matrix_Scale(0.15f, 0.15f, 0.15f, MTXMODE_APPLY);
+        gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gDPPipeSync(POLY_XLU_DISP++);
         gSPTexture(POLY_XLU_DISP++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
@@ -286,7 +286,7 @@ void MagicFire_Draw(Actor_CustomMagicFire* this, GameState_Play* play)
         gDPSetTileSize(POLY_XLU_DISP++, 1, 0, 0, 63 << 2, 63 << 2);
         gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
         gSPDisplayList(POLY_XLU_DISP++,
-                       DisplaceTexture(play->gs.gfx, G_TX_RENDERTILE, (gameplayFrames * 2) % 512,
+                       DisplaceTexture(play->state.gfxCtx, G_TX_RENDERTILE, (gameplayFrames * 2) % 512,
                                         511 - ((gameplayFrames * 5) % 512), 64, 64, 1, (gameplayFrames * 2) % 256,
                                         255 - ((gameplayFrames * 20) % 256), 32, 32));
         gSPDisplayList(POLY_XLU_DISP++, sModelDL);
@@ -305,7 +305,7 @@ void MagicFire_Draw(Actor_CustomMagicFire* this, GameState_Play* play)
 }
 
 ActorInit Magic_Fire_InitVars = {
-    AC_CUSTOM_SPELL_FIRE,
+    ACTOR_CUSTOM_SPELL_FIRE,
     ACTORCAT_ITEMACTION,
     FLAGS,
     1,
@@ -317,4 +317,4 @@ ActorInit Magic_Fire_InitVars = {
 };
 
 
-OVL_ACTOR_INFO(AC_CUSTOM_SPELL_FIRE, Magic_Fire_InitVars);
+OVL_INFO_ACTOR(ACTOR_CUSTOM_SPELL_FIRE, Magic_Fire_InitVars);

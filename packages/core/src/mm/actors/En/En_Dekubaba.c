@@ -1,9 +1,9 @@
 #include <combo.h>
 #include <combo/player.h>
 
-void EnDekubaba_GiveItemDefaultRange(Actor* this, GameState_Play* play, s16 gi)
+void EnDekubaba_GiveItemDefaultRange(Actor* this, PlayState* play, s16 gi)
 {
-    Actor_Player* link;
+    Player* link;
     float dist;
 
     link = GET_PLAYER(play);

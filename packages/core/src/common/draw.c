@@ -8,10 +8,10 @@ ALIGNED(16) const Gfx kDListEmpty[] = {
     gsSPEndDisplayList(),
 };
 
-void PreDraw1(Actor* actor, GameState_Play* play, int unk);
-void PreDraw2(Actor* actor, GameState_Play* play, int unk);
+void PreDraw1(Actor* actor, PlayState* play, int unk);
+void PreDraw2(Actor* actor, PlayState* play, int unk);
 
-void Draw_SetObjectSegment(GfxContext* gfx, void* buffer)
+void Draw_SetObjectSegment(GraphicsContext* gfx, void* buffer)
 {
     /* Set the segment in the display list */
     OPEN_DISPS(gfx);
@@ -30,7 +30,7 @@ static u8 paramForGi(s16 gi)
     return kGetItemDrawGiParam[gi - 1];
 }
 
-static void drawGiParamDrawId(GameState_Play* play, u8 drawGiId, u8 param)
+static void drawGiParamDrawId(PlayState* play, u8 drawGiId, u8 param)
 {
     if (drawGiId == DRAWGI_NONE)
         return;
@@ -38,7 +38,7 @@ static void drawGiParamDrawId(GameState_Play* play, u8 drawGiId, u8 param)
     kDrawGi[drawGiId - 1].func(play, drawGiId - 1, param);
 }
 
-static void drawGiParam(GameState_Play* play, s16 gi)
+static void drawGiParam(PlayState* play, s16 gi)
 {
     const GetItem* giEntry;
     u16 drawGiId;
@@ -50,7 +50,7 @@ static void drawGiParam(GameState_Play* play, s16 gi)
     drawGiParamDrawId(play, drawGiId, param);
 }
 
-void Draw_Gi(GameState_Play* play, Actor* actor, s16 gi, int flags)
+void Draw_Gi(PlayState* play, Actor* actor, s16 gi, int flags)
 {
     const GetItem* giEntry;
     void* objBuffer;
@@ -62,7 +62,7 @@ void Draw_Gi(GameState_Play* play, Actor* actor, s16 gi, int flags)
     if (objectId & ~MASK_FOREIGN_OBJECT)
     {
         objBuffer = comboGetObject(objectId);
-        Draw_SetObjectSegment(play->gs.gfx, objBuffer);
+        Draw_SetObjectSegment(play->state.gfxCtx, objBuffer);
     }
     if (!(flags & DRAW_NO_PRE1))
         PreDraw1(actor, play, 0);
@@ -71,12 +71,12 @@ void Draw_Gi(GameState_Play* play, Actor* actor, s16 gi, int flags)
     drawGiParam(play, gi);
 }
 
-void comboPlayerDrawGI(GameState_Play* play, int drawGiMinusOne)
+void comboPlayerDrawGI(PlayState* play, int drawGiMinusOne)
 {
     drawGiParamDrawId(play, (u8)(drawGiMinusOne + 1), playerDrawGiParam);
 }
 
-void comboPlayerSetDrawGi(Actor_Player* link)
+void comboPlayerSetDrawGi(Player* link)
 {
     playerDrawGiParam = paramForGi(link->gi);
     link->drawGiId = kExtendedGetItems[link->gi - 1].drawGiId;
@@ -238,7 +238,7 @@ static u32 Draw_GetGlitterColor(s16 gi)
     }
 }
 
-void Draw_GlitterGi(GameState_Play* play, Actor* actor, s16 gi)
+void Draw_GlitterGi(PlayState* play, Actor* actor, s16 gi)
 {
     void* tex;
     float alpha;
@@ -273,17 +273,17 @@ void Draw_GlitterGi(GameState_Play* play, Actor* actor, s16 gi)
     tex = comboCacheGetFile(CUSTOM_GLITTER_ADDR);
     if (!tex)
         return;
-    if (play->gs.frameCount & 4)
+    if (play->state.frameCount & 4)
         tex = (void*)((u32)tex + 16 * 8);
 
     /* Prepare the Matrix */
-    Matrix_Translate(actor->world.pos.x, actor->world.pos.y, actor->world.pos.z, MAT_SET);
+    Matrix_Translate(actor->world.pos.x, actor->world.pos.y, actor->world.pos.z, MTXMODE_NEW);
     ModelViewUnkTransform(&play->billboardMtxF);
-    Matrix_Translate(0, 20.f, 0.f, MAT_MUL);
+    Matrix_Translate(0, 20.f, 0.f, MTXMODE_APPLY);
 
     /* Draw the display list */
-    OPEN_DISPS(play->gs.gfx);
-    gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    OPEN_DISPS(play->state.gfxCtx);
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPSegment(POLY_XLU_DISP++, 0x06, (u32)tex - 0x80000000);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, r, g, b, (alpha * 0.90f) * 255);
     gSPDisplayList(POLY_XLU_DISP++, (u32)kDlistGlitter - 0x80000000);

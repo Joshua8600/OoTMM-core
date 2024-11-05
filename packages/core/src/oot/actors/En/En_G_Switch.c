@@ -11,7 +11,7 @@ static u16 EnGSwitch_LocalID(Actor* this)
     return *(u16*)((char*)this + 0x148);
 }
 
-static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
+static u16 EnGSwitch_ID(Actor* this, PlayState* play)
 {
     u16 base;
     u16 offset;
@@ -119,14 +119,14 @@ static u16 EnGSwitch_ID(Actor* this, GameState_Play* play)
     return base + offset;
 }
 
-static void EnGSwitch_ItemQuery(ComboItemQuery* q, Actor* this, GameState_Play* play)
+static void EnGSwitch_ItemQuery(ComboItemQuery* q, Actor* this, PlayState* play)
 {
     bzero(q, sizeof(*q));
     q->ovType = OV_SR;
     q->id = EnGSwitch_ID(this, play);
 }
 
-static void EnGSwitch_ItemOverride(ComboItemOverride* o, Actor* this, GameState_Play* play)
+static void EnGSwitch_ItemOverride(ComboItemOverride* o, Actor* this, PlayState* play)
 {
     ComboItemQuery q;
 
@@ -134,7 +134,7 @@ static void EnGSwitch_ItemOverride(ComboItemOverride* o, Actor* this, GameState_
     comboItemOverride(o, &q);
 }
 
-int EnGSwitch_AlreadyTaken(GameState_Play* play, Actor* this)
+int EnGSwitch_AlreadyTaken(PlayState* play, Actor* this)
 {
     u16 id;
 
@@ -146,13 +146,13 @@ int EnGSwitch_AlreadyTaken(GameState_Play* play, Actor* this)
     return BITMAP8_GET(gCustomSave.sr, EnGSwitch_ID(this, play));
 }
 
-void EnGSwitch_DrawSilverRupee(Actor* this, GameState_Play* play)
+void EnGSwitch_DrawSilverRupee(Actor* this, PlayState* play)
 {
     static const float scale = 12.5f;
     ComboItemOverride o;
 
     EnGSwitch_ItemOverride(&o, this, play);
-    Matrix_Scale(scale, scale, scale, MAT_MUL);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
     Draw_Gi(play, this, o.gi, 0);
 }
 
@@ -166,23 +166,23 @@ static const Gfx kPotDrawListNormalSide[] = {
     gsSPEndDisplayList(),
 };
 
-void EnGSwitch_DrawArcheryPot(Actor* this, GameState_Play* play)
+void EnGSwitch_DrawArcheryPot(Actor* this, PlayState* play)
 {
     if ((*(u16*)((char*)this + 0x14a)) != 0)
         return;
 
-    OPEN_DISPS(play->gs.gfx);
-    Gfx_SetupDL25_Opa(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Opa(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x0a, kPotDrawListNormalSide);
     gSPSegment(POLY_OPA_DISP++, 0x0b, kPotDrawListNormalTop);
-    gSPMatrix(POLY_OPA_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gSPMatrix(POLY_OPA_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, 0x060017c0);
     CLOSE_DISPS();
 }
 
 PATCH_FUNC(0x80a71680, EnGSwitch_DrawArcheryPot);
 
-void EnGSwitch_HandlerAfterCollected(Actor* this, GameState_Play* play)
+void EnGSwitch_HandlerAfterCollected(Actor* this, PlayState* play)
 {
     if (Message_IsClosed(this, play))
     {

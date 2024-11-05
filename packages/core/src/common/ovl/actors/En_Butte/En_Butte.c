@@ -23,14 +23,14 @@
 # define GAMEPLAY_FIELD_KEEP_TEX_BUTTERFLY      0x05001f30
 #endif
 
-void EnButte_Init(Actor_EnButte* this, GameState_Play* play);
-void EnButte_Destroy(Actor_EnButte* this, GameState_Play* play);
-void EnButte_Update(Actor_EnButte* this, GameState_Play* play);
-void EnButte_Draw(Actor_EnButte* this, GameState_Play* play);
+void EnButte_Init(Actor_EnButte* this, PlayState* play);
+void EnButte_Destroy(Actor_EnButte* this, PlayState* play);
+void EnButte_Update(Actor_EnButte* this, PlayState* play);
+void EnButte_Draw(Actor_EnButte* this, PlayState* play);
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
     { {
-          ELEMTYPE_UNK0,
+          ELEM_MATERIAL_UNK0,
           { 0x00000000, 0x00, 0x00 },
           { 0xFFCFFFFF, 0x000, 0x00 },
           ATELEM_NONE,
@@ -42,7 +42,7 @@ static ColliderJntSphElementInit sJntSphElementsInit[] = {
 
 static ColliderJntSphInit sColliderInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_NONE,
         AC_NONE,
         OC1_ON | OC1_TYPE_PLAYER | OC1_TYPE_1,
@@ -81,7 +81,7 @@ static f32 sTransformationEffectScale = 0.0f;
 static s16 sTransformationEffectAlpha = 0;
 
 void EnButte_SetupFlyAround(Actor_EnButte* this);
-void EnButte_FlyAround(Actor_EnButte* this, GameState_Play* play);
+void EnButte_FlyAround(Actor_EnButte* this, PlayState* play);
 
 void EnButte_SelectFlightParams(Actor_EnButte* this, EnButteFlightParams* flightParams)
 {
@@ -105,13 +105,13 @@ void EnButte_SelectFlightParams(Actor_EnButte* this, EnButteFlightParams* flight
 }
 
 void EnButte_SetupFollowLink(Actor_EnButte* this);
-void EnButte_FollowLink(Actor_EnButte* this, GameState_Play* play);
+void EnButte_FollowLink(Actor_EnButte* this, PlayState* play);
 void EnButte_SetupTransformIntoFairy(Actor_EnButte* this);
-void EnButte_TransformIntoFairy(Actor_EnButte* this, GameState_Play* play);
+void EnButte_TransformIntoFairy(Actor_EnButte* this, PlayState* play);
 void EnButte_SetupWaitToDie(Actor_EnButte* this);
-void EnButte_WaitToDie(Actor_EnButte* this, GameState_Play* play);
+void EnButte_WaitToDie(Actor_EnButte* this, PlayState* play);
 
-static int EnButte_IsShuffled(Actor_EnButte* this, GameState_Play* play)
+static int EnButte_IsShuffled(Actor_EnButte* this, PlayState* play)
 {
     ComboItemQuery q;
     ComboItemOverride o;
@@ -125,7 +125,7 @@ static int EnButte_IsShuffled(Actor_EnButte* this, GameState_Play* play)
     return TRUE;
 }
 
-static int EnButte_CanTransform(Actor_EnButte* this, GameState_Play* play)
+static int EnButte_CanTransform(Actor_EnButte* this, PlayState* play)
 {
     if (this->actor.params & 1)
         return TRUE;
@@ -146,27 +146,27 @@ void EnButte_UpdateTransformationEffect(void)
     sTransformationEffectAlpha += 4000;
 }
 
-void EnButte_DrawTransformationEffect(Actor_EnButte* this, GameState_Play* play)
+void EnButte_DrawTransformationEffect(Actor_EnButte* this, PlayState* play)
 {
     static Vec3f D_809CE3C4 = { 0.0f, 0.0f, -3.0f };
     Vec3f sp5C;
     s32 alpha;
     Vec3s camDir;
 
-    OPEN_DISPS(play->gs.gfx);
-    Gfx_SetupDL25_Xlu(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
 
     alpha = Math_SinS(sTransformationEffectAlpha) * 250;
     alpha = CLAMP(alpha, 0, 255);
 
     camDir = Camera_GetCamDir(GET_ACTIVE_CAM(play));
-    Matrix_RotateY(BINANG_TO_RAD(camDir.y), MAT_SET);
-    Matrix_RotateX(BINANG_TO_RAD(camDir.x), MAT_MUL);
-    Matrix_RotateZ(BINANG_TO_RAD(camDir.z), MAT_MUL);
+    Matrix_RotateY(BINANG_TO_RAD(camDir.y), MTXMODE_NEW);
+    Matrix_RotateX(BINANG_TO_RAD(camDir.x), MTXMODE_APPLY);
+    Matrix_RotateZ(BINANG_TO_RAD(camDir.z), MTXMODE_APPLY);
     Matrix_MultVec3f(&D_809CE3C4, &sp5C);
     Matrix_SetTranslateRotateYXZ(this->actor.focus.pos.x + sp5C.x, this->actor.focus.pos.y + sp5C.y, this->actor.focus.pos.z + sp5C.z, &camDir);
-    Matrix_Scale(sTransformationEffectScale, sTransformationEffectScale, sTransformationEffectScale, MAT_MUL);
-    gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    Matrix_Scale(sTransformationEffectScale, sTransformationEffectScale, sTransformationEffectScale, MTXMODE_APPLY);
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 200, 200, 180, alpha);
     gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 210, 255);
     gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(GAMEPLAY_KEEP_DL_EFFECT_FLASH1));
@@ -181,7 +181,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 600, ICHAIN_STOP),
 };
 
-void EnButte_Init(Actor_EnButte* this, GameState_Play* play)
+void EnButte_Init(Actor_EnButte* this, PlayState* play)
 {
     comboXflagInit(&this->xflag, &this->actor, play);
 
@@ -218,7 +218,7 @@ void EnButte_Init(Actor_EnButte* this, GameState_Play* play)
     this->drawSkelAnime = TRUE;
 }
 
-void EnButte_Destroy(Actor_EnButte* this, GameState_Play* play)
+void EnButte_Destroy(Actor_EnButte* this, PlayState* play)
 {
     Collider_DestroyJntSph(play, &this->collider);
 }
@@ -256,7 +256,7 @@ void EnButte_SetupFlyAround(Actor_EnButte* this)
     this->actionFunc = EnButte_FlyAround;
 }
 
-void EnButte_FlyAround(Actor_EnButte* this, GameState_Play* play)
+void EnButte_FlyAround(Actor_EnButte* this, PlayState* play)
 {
     EnButteFlightParams* flightParams = &sFlyAroundParams[this->flightParamsIdx];
     s16 yaw;
@@ -265,7 +265,7 @@ void EnButte_FlyAround(Actor_EnButte* this, GameState_Play* play)
     f32 minAnimSpeed;
     f32 animSpeed;
     s16 rotStep;
-    Actor_Player* player;
+    Player* player;
 
     player = GET_PLAYER(play);
     distSqFromHome = Math3D_Dist2DSq(this->actor.world.pos.x, this->actor.world.pos.z, this->actor.home.pos.x, this->actor.home.pos.z);
@@ -333,7 +333,7 @@ void EnButte_SetupFollowLink(Actor_EnButte* this)
     this->actionFunc = EnButte_FollowLink;
 }
 
-void EnButte_FollowLink(Actor_EnButte* this, GameState_Play* play) {
+void EnButte_FollowLink(Actor_EnButte* this, PlayState* play) {
     static s32 D_809CE410 = 1500;
     EnButteFlightParams* flightParams = &sFollowLinkParams[this->flightParamsIdx];
     f32 distSqFromHome;
@@ -342,7 +342,7 @@ void EnButte_FollowLink(Actor_EnButte* this, GameState_Play* play) {
     f32 minAnimSpeed;
     f32 distSqFromSword;
     s16 yaw;
-    Actor_Player* player;
+    Player* player;
 
     player = GET_PLAYER(play);
     func_809CD634(this);
@@ -406,7 +406,7 @@ void EnButte_SetupTransformIntoFairy(Actor_EnButte* this)
     this->actionFunc = EnButte_TransformIntoFairy;
 }
 
-static int EnButte_ShouldSpawnFairy(Actor_EnButte* this, GameState_Play* play)
+static int EnButte_ShouldSpawnFairy(Actor_EnButte* this, PlayState* play)
 {
     ComboItemQuery q;
     ComboItemOverride o;
@@ -423,18 +423,18 @@ static int EnButte_ShouldSpawnFairy(Actor_EnButte* this, GameState_Play* play)
     return TRUE;
 }
 
-static void EnButte_SpawnFairy(Actor_EnButte* this, GameState_Play* play)
+static void EnButte_SpawnFairy(Actor_EnButte* this, PlayState* play)
 {
     if (!EnButte_ShouldSpawnFairy(this, play))
         return;
 
     memcpy(&g.xflag, &this->xflag, sizeof(Xflag));
     g.xflagOverride = TRUE;
-    Actor_Spawn(&play->actorCtx, play, AC_EN_ELF, this->actor.focus.pos.x, this->actor.focus.pos.y, this->actor.focus.pos.z, 0, this->actor.shape.rot.y, 0, 0x0002);
+    Actor_Spawn(&play->actorCtx, play, ACTOR_EN_ELF, this->actor.focus.pos.x, this->actor.focus.pos.y, this->actor.focus.pos.z, 0, this->actor.shape.rot.y, 0, 0x0002);
     g.xflagOverride = FALSE;
 }
 
-void EnButte_TransformIntoFairy(Actor_EnButte* this, GameState_Play* play)
+void EnButte_TransformIntoFairy(Actor_EnButte* this, PlayState* play)
 {
     SkelAnime_Update(&this->skelAnime);
     EnButte_UpdateTransformationEffect();
@@ -461,13 +461,13 @@ void EnButte_SetupWaitToDie(Actor_EnButte* this)
     this->actor.draw = NULL;
 }
 
-void EnButte_WaitToDie(Actor_EnButte* this, GameState_Play* play)
+void EnButte_WaitToDie(Actor_EnButte* this, PlayState* play)
 {
     if (this->timer <= 0)
         Actor_Kill(&this->actor);
 }
 
-void EnButte_Update(Actor_EnButte* this, GameState_Play* play)
+void EnButte_Update(Actor_EnButte* this, PlayState* play)
 {
     sQuickTransform = (u8)EnButte_IsShuffled(this, play);
 
@@ -530,7 +530,7 @@ static Gfx sLoadTextureCustom[] =
     gsSPEndDisplayList(),
 };
 
-static void EnButte_DrawButterfly(Actor_EnButte* this, GameState_Play* play)
+static void EnButte_DrawButterfly(Actor_EnButte* this, PlayState* play)
 {
     const Color_RGB8* color;
     ComboItemQuery q;
@@ -559,8 +559,8 @@ static void EnButte_DrawButterfly(Actor_EnButte* this, GameState_Play* play)
         csmcType = CSMC_MAJOR;
     }
 
-    Gfx_SetupDL25_Opa(play->gs.gfx);
-    OPEN_DISPS(play->gs.gfx);
+    Gfx_SetupDL25_Opa(play->state.gfxCtx);
+    OPEN_DISPS(play->state.gfxCtx);
     if (csmcType != CSMC_MAJOR)
     {
         customTexture = comboCacheGetFile(CUSTOM_BUTTERFLY_ADDR);
@@ -580,7 +580,7 @@ static void EnButte_DrawButterfly(Actor_EnButte* this, GameState_Play* play)
     CLOSE_DISPS();
 }
 
-void EnButte_Draw(Actor_EnButte* this, GameState_Play* play)
+void EnButte_Draw(Actor_EnButte* this, PlayState* play)
 {
     if (this->drawSkelAnime)
     {
@@ -595,7 +595,7 @@ void EnButte_Draw(Actor_EnButte* this, GameState_Play* play)
 
 static ActorInit EnButte_ActorInit =
 {
-    AC_EN_BUTTE,
+    ACTOR_EN_BUTTE,
     ACTORCAT_ITEMACTION,
     FLAGS,
     OBJECT_GAMEPLAY_FIELD_KEEP,
@@ -606,4 +606,4 @@ static ActorInit EnButte_ActorInit =
     (ActorFunc)EnButte_Draw,
 };
 
-OVL_ACTOR_INFO(AC_EN_BUTTE, EnButte_ActorInit);
+OVL_INFO_ACTOR(ACTOR_EN_BUTTE, EnButte_ActorInit);

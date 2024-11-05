@@ -3,12 +3,12 @@
 #include <combo/player.h>
 #include <combo/inventory.h>
 
-int EnNiwLady_GetActiveItem(GameState_Play* play)
+int EnNiwLady_GetActiveItem(PlayState* play)
 {
     int itemAction;
 
     itemAction = GetActiveItem(play);
-    if (itemAction == 6 && !BITMAP16_GET(gSave.eventsItem, EV_OOT_ITEM_ANJU_POCKET_EGG))
+    if (itemAction == 6 && !BITMAP16_GET(gSave.info.eventsItem, EV_OOT_ITEM_ANJU_POCKET_EGG))
     {
         itemAction = -1;
     }
@@ -17,12 +17,12 @@ int EnNiwLady_GetActiveItem(GameState_Play* play)
 
 PATCH_CALL(0x80a9eb04, EnNiwLady_GetActiveItem);
 
-void EnNiwLady_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
+void EnNiwLady_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b)
 {
     int npc;
 
     npc = -1;
-    if (!(GET_PLAYER(play)->state & PLAYER_ACTOR_STATE_GET_ITEM))
+    if (!(GET_PLAYER(play)->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM))
         Message_Close(play);
     switch (gi)
     {
@@ -45,7 +45,7 @@ PATCH_CALL(0x80a9ec70, EnNiwLady_GiveItem);
 PATCH_CALL(0x80a9edc4, EnNiwLady_GiveItem);
 PATCH_CALL(0x80a9eea8, EnNiwLady_GiveItem);
 
-static void EnNiwLady_GiveItemInit(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
+static void EnNiwLady_GiveItemInit(Actor* actor, PlayState* play, s16 gi, float a, float b)
 {
     actor->parent = NULL;
     EnNiwLady_GiveItem(actor, play, gi, a, b);

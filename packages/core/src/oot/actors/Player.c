@@ -11,8 +11,8 @@
 #include <combo/actor.h>
 #include <combo/hint.h>
 
-void ArrowCycle_Handle(Actor_Player* link, GameState_Play* play);
-void Ocarina_HandleCustomSongs(Actor_Player* link, GameState_Play* play);
+void ArrowCycle_Handle(Player* link, PlayState* play);
+void Ocarina_HandleCustomSongs(Player* link, PlayState* play);
 
 void* Player_AllocObjectBuffer(u32 size)
 {
@@ -23,7 +23,7 @@ void* Player_AllocObjectBuffer(u32 size)
     return sBuffer;
 }
 
-static void maskToggle(GameState_Play* play, Actor_Player* player, u8 maskId)
+static void maskToggle(PlayState* play, Player* player, u8 maskId)
 {
     /* Set the mask */
     if (player->mask)
@@ -35,19 +35,19 @@ static void maskToggle(GameState_Play* play, Actor_Player* player, u8 maskId)
     PlaySound(0x835);
 }
 
-static void Player_UseBoots(GameState_Play* play, Actor_Player* this, int bootsId)
+static void Player_UseBoots(PlayState* play, Player* this, int bootsId)
 {
-    if (gSave.equips.equipment.boots == bootsId)
-        gSave.equips.equipment.boots = 1;
+    if (gSave.info.equips.equipment.boots == bootsId)
+        gSave.info.equips.equipment.boots = 1;
     else
-        gSave.equips.equipment.boots = bootsId;
+        gSave.info.equips.equipment.boots = bootsId;
     UpdateEquipment(play, GET_PLAYER(play));
     PlaySound(0x835);
 }
 
-void Player_UseItem(GameState_Play* play, Actor_Player* link, s16 itemId)
+void Player_UseItem(PlayState* play, Player* link, s16 itemId)
 {
-    void (*Player_UseItemImpl)(GameState_Play* play, Actor_Player* link, s16 itemId);
+    void (*Player_UseItemImpl)(PlayState* play, Player* link, s16 itemId);
     u8 prevMask;
 
     prevMask = link->mask;
@@ -83,7 +83,7 @@ void Player_UseItem(GameState_Play* play, Actor_Player* link, s16 itemId)
 
 PATCH_CALL(0x8083212c, Player_UseItem);
 
-static int prepareMask(GameState_Play* play, u16 objectId, int needsMatrix)
+static int prepareMask(PlayState* play, u16 objectId, int needsMatrix)
 {
     void* obj;
 
@@ -91,7 +91,7 @@ static int prepareMask(GameState_Play* play, u16 objectId, int needsMatrix)
     if (!obj)
         return 0;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     if (needsMatrix)
         gSPMatrix(POLY_OPA_DISP++, 0x0d0001c0, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPSegment(POLY_OPA_DISP++, 0x0a, obj);
@@ -100,80 +100,80 @@ static int prepareMask(GameState_Play* play, u16 objectId, int needsMatrix)
     return 1;
 }
 
-static void DrawExtendedMaskKeaton(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskKeaton(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_KEATON, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_KEATON_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskSkull(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskSkull(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_SKULL, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_SKULL_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskSpooky(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskSpooky(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_SPOOKY, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_SPOOKY_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskBunny(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskBunny(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_BUNNY, 0))
         return;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_BUNNY_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskGoron(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskGoron(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_GORON, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_GORON_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskZora(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskZora(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_ZORA, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_ZORA_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskGerudo(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskGerudo(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_GERUDO, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_GERUDO_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskTruth(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskTruth(PlayState* play, Player* link)
 {
     if (!prepareMask(play, CUSTOM_OBJECT_ID_MASK_OOT_TRUTH, 1))
         return;
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_MASK_OOT_TRUTH_0);
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskBlast(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskBlast(PlayState* play, Player* link)
 {
     u8 opacity;
 
@@ -184,7 +184,7 @@ static void DrawExtendedMaskBlast(GameState_Play* play, Actor_Player* link)
     else
         opacity = 0xff - (gBlastMaskDelayAcc * 0x0f);
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x09, kDListEmpty);
 
     if (opacity)
@@ -201,17 +201,17 @@ static void DrawExtendedMaskBlast(GameState_Play* play, Actor_Player* link)
     CLOSE_DISPS();
 }
 
-static void DrawExtendedMaskStone(GameState_Play* play, Actor_Player* link)
+static void DrawExtendedMaskStone(PlayState* play, Player* link)
 {
     if (!prepareMask(play, 0x24e | MASK_FOREIGN_OBJECT, 1))
         return;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, 0x0a000820);
     CLOSE_DISPS();
 }
 
-typedef void (*MaskCallback)(GameState_Play*, Actor_Player*);
+typedef void (*MaskCallback)(PlayState*, Player*);
 
 static const MaskCallback kMaskCallbacks[] = {
     DrawExtendedMaskKeaton,
@@ -228,8 +228,8 @@ static const MaskCallback kMaskCallbacks[] = {
 
 void comboDrawExtendedMask(void)
 {
-    GameState_Play* play;
-    Actor_Player* link;
+    PlayState* play;
+    Player* link;
     MaskCallback cb;
     int index;
 
@@ -239,7 +239,7 @@ void comboDrawExtendedMask(void)
     if (link->mask == 0)
         return;
     index = link->mask - 1;
-    if (index >= ARRAY_SIZE(kMaskCallbacks))
+    if (index >= ARRAY_COUNT(kMaskCallbacks))
         return;
     cb = kMaskCallbacks[index];
     if (!cb)
@@ -261,7 +261,7 @@ static void updateKokiriSwordLength(void)
     }
 }
 
-void Player_UpdateWrapper(Actor_Player* this, GameState_Play* play)
+void Player_UpdateWrapper(Player* this, PlayState* play)
 {
     updateKokiriSwordLength();
 
@@ -278,7 +278,7 @@ void Player_UpdateWrapper(Actor_Player* this, GameState_Play* play)
     Dpad_Update(play);
     Dpad_Use(play, DPF_EQUIP);
 
-    if (!(this->state & (PLAYER_ACTOR_STATE_CLIMB | PLAYER_ACTOR_STATE_CLIMB2)))
+    if (!(this->stateFlags1 & (PLAYER_ACTOR_STATE_CLIMB | PLAYER_ACTOR_STATE_CLIMB2)) || Message_GetState(&play->msgCtx) == TEXT_STATE_NONE)
     {
         if (g.delayedSwitchFlag != 0xff)
         {
@@ -290,37 +290,37 @@ void Player_UpdateWrapper(Actor_Player* this, GameState_Play* play)
     comboSrUpdate(play);
 }
 
-int Player_DpadHook(Actor_Player* this, GameState_Play* play)
+int Player_DpadHook(Player* this, PlayState* play)
 {
     if (Player_UsingItem(this))
         return 1;
     return Dpad_Use(play, DPF_ITEMS);
 }
 
-void EnGs_TalkedTo(Actor*, GameState_Play*);
-void EnGm_TalkedTo(Actor*, GameState_Play*);
-void EnMs_TalkedTo(Actor*, GameState_Play*);
-void EnSsh_TalkedTo(Actor*, GameState_Play*);
+void EnGs_TalkedTo(Actor*, PlayState*);
+void EnGm_TalkedTo(Actor*, PlayState*);
+void EnMs_TalkedTo(Actor*, PlayState*);
+void EnSsh_TalkedTo(Actor*, PlayState*);
 
-void DemoEffect_TextRutoSapphire(GameState_Play*);
+void DemoEffect_TextRutoSapphire(PlayState*);
 
-void Player_TalkDisplayTextBox(GameState_Play* play, s16 textId, Actor* actor)
+void Player_TalkDisplayTextBox(PlayState* play, s16 textId, Actor* actor)
 {
     PlayerDisplayTextBox(play, textId, actor);
     if (actor)
     {
         switch (actor->id)
         {
-        case AC_EN_GS:
+        case ACTOR_EN_GS:
             EnGs_TalkedTo(actor, play);
             break;
-        case AC_EN_GM:
+        case ACTOR_EN_GM:
             EnGm_TalkedTo(actor, play);
             break;
-        case AC_EN_MS:
+        case ACTOR_EN_MS:
             EnMs_TalkedTo(actor, play);
             break;
-        case AC_EN_SSH:
+        case ACTOR_EN_SSH:
             EnSsh_TalkedTo(actor, play);
             break;
         }
@@ -350,14 +350,14 @@ static u16 blastMaskDelay(void)
     return 0x136;
 }
 
-static void Player_BlastMask(GameState_Play* play, Actor_Player* link)
+static void Player_BlastMask(PlayState* play, Player* link)
 {
     Actor* bomb;
     s16* bombTimer;
 
     if (gBlastMaskDelayAcc)
         return;
-    bomb = Actor_Spawn(&play->actorCtx, play, AC_EN_BOM, link->actor.focus.pos.x, link->actor.focus.pos.y, link->actor.focus.pos.z, 0, 0, 0, 0);
+    bomb = Actor_Spawn(&play->actorCtx, play, ACTOR_EN_BOM, link->actor.focus.pos.x, link->actor.focus.pos.y, link->actor.focus.pos.z, 0, 0, 0, 0);
     if (!bomb)
         return;
     bombTimer = (void*)((char*)bomb + 0x1e8);
@@ -366,24 +366,24 @@ static void Player_BlastMask(GameState_Play* play, Actor_Player* link)
     Interface_LoadItemIconImpl(play, 0);
 }
 
-void Player_ProcessItemButtonsWrapper(Actor_Player* link, GameState_Play* play)
+void Player_ProcessItemButtonsWrapper(Player* link, PlayState* play)
 {
-    void (*Player_ProcessItemButtons)(Actor_Player* link, GameState_Play* play);
-    ControllerInput* input;
+    void (*Player_ProcessItemButtons)(Player* link, PlayState* play);
+    Input* input;
     int bPress;
 
-    input = *(ControllerInput**)(OverlayAddr(0x80856734));
+    input = *(Input**)(OverlayAddr(0x80856734));
     Player_ProcessItemButtons = OverlayAddr(0x80831e64);
-    bPress = !!(input->pressed.buttons & B_BUTTON);
+    bPress = !!(input->press.button & B_BUTTON);
 
     /* Handle masks that have B actions */
-    if (bPress && !(link->state & (PLAYER_ACTOR_STATE_HOLD_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN)) && !Player_UsingItem(link))
+    if (bPress && !(link->stateFlags1 & (PLAYER_ACTOR_STATE_HOLD_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN)) && !Player_UsingItem(link))
     {
         switch (link->mask)
         {
         case 9:
             Player_BlastMask(play, link);
-            input->pressed.buttons &= ~B_BUTTON;
+            input->press.button &= ~B_BUTTON;
             break;
         }
     }
@@ -393,7 +393,7 @@ void Player_ProcessItemButtonsWrapper(Actor_Player* link, GameState_Play* play)
 
 void Player_DrawDekuStick(void)
 {
-    GameState_Play* play;
+    PlayState* play;
     void* obj;
 
     play = gPlay;
@@ -401,15 +401,15 @@ void Player_DrawDekuStick(void)
     if (!obj)
         return;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x0a, obj);
     gSPDisplayList(POLY_OPA_DISP++, CUSTOM_OBJECT_EQ_DEKU_STICK_0);
     CLOSE_DISPS();
 }
 
-void Player_AfterSetEquipmentData(GameState_Play* play)
+void Player_AfterSetEquipmentData(PlayState* play)
 {
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
     if (player->rightHandType != 0xd && /* PLAYER_MODELTYPE_RH_OCARINA */
         player->rightHandType != 0xe && /* PLAYER_MODELTYPE_RH_OOT */
         (player->heldItemAction == 0x1c || /* PLAYER_IA_OCARINA_FAIRY */
@@ -435,7 +435,7 @@ static void* Player_CustomHandEq(u32 handDlist, void* eqData, u32 eqDlist)
 
     if (!eqData) return (void*)kDListEmpty;
 
-    d = dlist = GRAPH_ALLOC(gPlay->gs.gfx, sizeof(Gfx) * 3);
+    d = dlist = GRAPH_ALLOC(gPlay->state.gfxCtx, sizeof(Gfx) * 3);
     gSPDisplayList(d++, handDlist);
     gSPSegment(d++, 0x0a, eqData);
     gSPBranchList(d++, eqDlist);
@@ -456,7 +456,7 @@ static void* Player_CustomEq(void* eqData, u32 eqDlist)
 
     if (!eqData) return (void*)kDListEmpty;
 
-    d = dlist = GRAPH_ALLOC(gPlay->gs.gfx, sizeof(Gfx) * 2);
+    d = dlist = GRAPH_ALLOC(gPlay->state.gfxCtx, sizeof(Gfx) * 2);
     gSPSegment(d++, 0x0a, eqData);
     gSPBranchList(d++, eqDlist);
 
@@ -475,14 +475,14 @@ static void* Player_CustomPair(void* a, void* b)
     Gfx* dlist;
     Gfx* d;
 
-    d = dlist = GRAPH_ALLOC(gPlay->gs.gfx, sizeof(Gfx) * 2);
+    d = dlist = GRAPH_ALLOC(gPlay->state.gfxCtx, sizeof(Gfx) * 2);
     gSPDisplayList(d++, dlistOrNothing(a));
     gSPBranchList(d++, dlistOrNothing(b));
 
     return dlist;
 }
 
-static void Player_OverrideCustomSheath(GameState_Play* play, Actor_Player* this, Gfx** dlist, int isPause)
+static void Player_OverrideCustomSheath(PlayState* play, Player* this, Gfx** dlist, int isPause)
 {
     void*   shield;
     void*   sword;
@@ -505,7 +505,7 @@ static void Player_OverrideCustomSheath(GameState_Play* play, Actor_Player* this
     if (isPause)
     {
         shieldOnBack = 0;
-        if (gSave.age == AGE_CHILD && gSave.equips.equipment.shields > 1)
+        if (gSave.age == AGE_CHILD && gSave.info.equips.equipment.shields > 1)
             shieldOnBack = 1;
     }
     else
@@ -513,7 +513,7 @@ static void Player_OverrideCustomSheath(GameState_Play* play, Actor_Player* this
     if (shieldOnBack)
     {
         /* Shield on back */
-        switch (gSave.equips.equipment.shields)
+        switch (gSave.info.equips.equipment.shields)
         {
         case 1:
             shield = Player_CustomEq(comboGetObject(CUSTOM_OBJECT_ID_EQ_SHIELD_DEKU), CUSTOM_OBJECT_EQ_SHIELD_DEKU_1);
@@ -530,7 +530,7 @@ static void Player_OverrideCustomSheath(GameState_Play* play, Actor_Player* this
         }
     }
 
-    switch (gSave.equips.equipment.swords)
+    switch (gSave.info.equips.equipment.swords)
     {
     case 1:
         switch (gSharedCustomSave.extraSwordsOot)
@@ -561,7 +561,7 @@ static void Player_OverrideCustomSheath(GameState_Play* play, Actor_Player* this
     *dlist = Player_CustomPair(shield, sword);
 }
 
-static void fixTunicColoLimb(GameState_Play* play, int limb)
+static void fixTunicColoLimb(PlayState* play, int limb)
 {
     static const u8* kColors = (const u8*)0x800f7ad8;
     int index;
@@ -572,22 +572,22 @@ static void fixTunicColoLimb(GameState_Play* play, int limb)
     if (limb != PLAYER_LIMB_R_SHOULDER && limb != PLAYER_LIMB_TORSO)
         return;
 
-    index = gSave.equips.equipment.tunics - 1;
+    index = gSave.info.equips.equipment.tunics - 1;
     cr = kColors[index * 3 + 0];
     cg = kColors[index * 3 + 1];
     cb = kColors[index * 3 + 2];
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetEnvColor(POLY_OPA_DISP++, cr, cg, cb, 0xff);
     CLOSE_DISPS();
 }
 
-static void Player_OverrideAdult(GameState_Play* play, Actor_Player* this, int limb, Gfx** dlist, int isPause)
+static void Player_OverrideAdult(PlayState* play, Player* this, int limb, Gfx** dlist, int isPause)
 {
     fixTunicColoLimb(play, limb);
 
     if (limb == PLAYER_LIMB_L_HAND)
     {
-        if ((this->leftHandType == PLAYER_MODELTYPE_LH_SWORD || isPause) && gSave.equips.equipment.swords == 1)
+        if ((this->leftHandType == PLAYER_MODELTYPE_LH_SWORD || isPause) && gSave.info.equips.equipment.swords == 1)
         {
             if (gSharedCustomSave.extraSwordsOot == 0)
                 *dlist = Player_CustomHandEq(DLIST_ADULT_LHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_KOKIRI_SWORD), CUSTOM_OBJECT_EQ_KOKIRI_SWORD_0);
@@ -603,7 +603,7 @@ static void Player_OverrideAdult(GameState_Play* play, Actor_Player* this, int l
 
     if (limb == PLAYER_LIMB_R_HAND)
     {
-        if ((this->rightHandType == PLAYER_MODELTYPE_RH_SHIELD) && gSave.equips.equipment.shields == 1)
+        if ((this->rightHandType == PLAYER_MODELTYPE_RH_SHIELD) && gSave.info.equips.equipment.shields == 1)
             *dlist = Player_CustomHandEq(DLIST_ADULT_RHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_SHIELD_DEKU), CUSTOM_OBJECT_EQ_SHIELD_DEKU_0);
 
         if (this->rightHandType == PLAYER_MODELTYPE_RH_OCARINA)
@@ -618,12 +618,12 @@ static void Player_OverrideAdult(GameState_Play* play, Actor_Player* this, int l
 
     if (limb == PLAYER_LIMB_SHEATH)
     {
-        if (gSave.equips.equipment.shields == 1 || gSave.equips.equipment.swords <= 1)
+        if (gSave.info.equips.equipment.shields == 1 || gSave.info.equips.equipment.swords <= 1)
             Player_OverrideCustomSheath(play, this, dlist, isPause);
     }
 }
 
-static void Player_OverrideChild(GameState_Play* play, Actor_Player* this, int limb, Gfx** dlist, int isPause)
+static void Player_OverrideChild(PlayState* play, Player* this, int limb, Gfx** dlist, int isPause)
 {
     fixTunicColoLimb(play, limb);
 
@@ -631,21 +631,21 @@ static void Player_OverrideChild(GameState_Play* play, Actor_Player* this, int l
     {
         if (this->leftHandType == PLAYER_MODELTYPE_LH_SWORD || this->leftHandType == PLAYER_MODELTYPE_LH_SWORD_2 || isPause)
         {
-            if (gSave.equips.equipment.swords == 1)
+            if (gSave.info.equips.equipment.swords == 1)
             {
                 if (gSharedCustomSave.extraSwordsOot == 1)
                     *dlist = Player_CustomHandEq(DLIST_CHILD_LHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_RAZOR_SWORD), CUSTOM_OBJECT_EQ_RAZOR_SWORD_0);
                 else if (gSharedCustomSave.extraSwordsOot == 2)
                     *dlist = Player_CustomHandEq(DLIST_CHILD_LHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_GILDED_SWORD), CUSTOM_OBJECT_EQ_GILDED_SWORD_0);
             }
-            else if (gSave.equips.equipment.swords == 2)
+            else if (gSave.info.equips.equipment.swords == 2)
             {
                 *dlist = Player_CustomHandEq(DLIST_CHILD_LHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_MASTER_SWORD), CUSTOM_OBJECT_EQ_MASTER_SWORD_0);
             }
         }
-        else if ((this->leftHandType == PLAYER_MODELTYPE_LH_BGS || isPause) && gSave.equips.equipment.swords == 3)
+        else if ((this->leftHandType == PLAYER_MODELTYPE_LH_BGS || isPause) && gSave.info.equips.equipment.swords == 3)
         {
-            if (gSave.playerData.swordHealth)
+            if (gSave.info.playerData.swordHealth)
                 *dlist = Player_CustomHandEq(DLIST_CHILD_LHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_BIGGORON_SWORD), CUSTOM_OBJECT_EQ_BIGGORON_SWORD_0);
             else
                 *dlist = Player_CustomHandEq(DLIST_CHILD_LHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_BIGGORON_SWORD_BROKEN), CUSTOM_OBJECT_EQ_BIGGORON_SWORD_BROKEN_0);
@@ -659,7 +659,7 @@ static void Player_OverrideChild(GameState_Play* play, Actor_Player* this, int l
         if (this->rightHandType == PLAYER_MODELTYPE_RH_HOOKSHOT)
             *dlist = (Gfx*)gDlistHookshotBodyTP;
 
-        if ((this->rightHandType == PLAYER_MODELTYPE_RH_SHIELD) && gSave.equips.equipment.shields == 3)
+        if ((this->rightHandType == PLAYER_MODELTYPE_RH_SHIELD) && gSave.info.equips.equipment.shields == 3)
             *dlist = Player_CustomHandEq(DLIST_CHILD_RHAND_CLOSED, comboGetObject(CUSTOM_OBJECT_ID_EQ_SHIELD_MIRROR), CUSTOM_OBJECT_EQ_SHIELD_MIRROR_0);
 
         if (this->rightHandType == PLAYER_MODELTYPE_RH_BOW_SLINGSHOT || this->rightHandType == PLAYER_MODELTYPE_RH_BOW_SLINGSHOT_2)
@@ -671,12 +671,12 @@ static void Player_OverrideChild(GameState_Play* play, Actor_Player* this, int l
 
     if (limb == PLAYER_LIMB_SHEATH)
     {
-        if (gSave.equips.equipment.shields == 3 || gSave.equips.equipment.swords != 1 || gSharedCustomSave.extraSwordsOot)
+        if (gSave.info.equips.equipment.shields == 3 || gSave.info.equips.equipment.swords != 1 || gSharedCustomSave.extraSwordsOot)
             Player_OverrideCustomSheath(play, this, dlist, isPause);
     }
 }
 
-static void Player_OverrideCustom(GameState_Play* play, Actor_Player* this, int limb, Gfx** dlist, int isPause)
+static void Player_OverrideCustom(PlayState* play, Player* this, int limb, Gfx** dlist, int isPause)
 {
     if (gSave.age == AGE_CHILD)
         Player_OverrideChild(play, this, limb, dlist, isPause);
@@ -684,7 +684,7 @@ static void Player_OverrideCustom(GameState_Play* play, Actor_Player* this, int 
         Player_OverrideAdult(play, this, limb, dlist, isPause);
 }
 
-int Player_OverrideLimbDrawGameplayDefaultWrapper(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor_Player* player)
+int Player_OverrideLimbDrawGameplayDefaultWrapper(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Player* player)
 {
     /* Forward */
     if (Player_OverrideLimbDrawGameplayDefault(play, limbIndex, dList, pos, rot, player))
@@ -694,7 +694,7 @@ int Player_OverrideLimbDrawGameplayDefaultWrapper(GameState_Play* play, s32 limb
     return 0;
 }
 
-int Player_OverrideLimbDrawPauseWrapper(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor_Player* player)
+int Player_OverrideLimbDrawPauseWrapper(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Player* player)
 {
     /* Forward */
     if (Player_OverrideLimbDrawPause(play, limbIndex, dList, pos, rot, player))
@@ -704,7 +704,7 @@ int Player_OverrideLimbDrawPauseWrapper(GameState_Play* play, s32 limbIndex, Gfx
     return 0;
 }
 
-int Player_OverrideLimbDrawGameplayFirstPersonWrapper(GameState_Play* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor_Player* player)
+int Player_OverrideLimbDrawGameplayFirstPersonWrapper(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Player* player)
 {
     if (!(gSave.age == AGE_CHILD && limbIndex == PLAYER_LIMB_R_FOREARM))
     {
@@ -729,9 +729,9 @@ static Color_RGB8 sGauntletColors[] = {
     { 254, 207, 15 },
 };
 
-void DrawChildGauntlets(GameState_Play* play);
+void DrawChildGauntlets(PlayState* play);
 
-void Player_DrawFlexLod(GameState_Play* play, void** skeleton, Vec3s* jointTable, s32 dListCount, void* overrideLimbDraw, void* postLimbDraw, void* arg, s32 lod)
+void Player_DrawFlexLod(PlayState* play, void** skeleton, Vec3s* jointTable, s32 dListCount, void* overrideLimbDraw, void* postLimbDraw, void* arg, s32 lod)
 {
     Color_RGB8* c;
     void* hookshotObj;
@@ -768,13 +768,13 @@ void Player_DrawFlexLod(GameState_Play* play, void** skeleton, Vec3s* jointTable
     if (gSave.age == AGE_CHILD)
     {
         bootsData = NULL;
-        if (gSave.equips.equipment.boots == 2)
+        if (gSave.info.equips.equipment.boots == 2)
         {
             bootsData = comboGetObject(CUSTOM_OBJECT_ID_BOOTS_IRON);
             bootsList = CUSTOM_OBJECT_BOOTS_IRON_0;
             bootsList2 = CUSTOM_OBJECT_BOOTS_IRON_1;
         }
-        else if (gSave.equips.equipment.boots == 3)
+        else if (gSave.info.equips.equipment.boots == 3)
         {
             bootsData = comboGetObject(CUSTOM_OBJECT_ID_BOOTS_HOVER);
             bootsList = CUSTOM_OBJECT_BOOTS_HOVER_0;
@@ -783,17 +783,17 @@ void Player_DrawFlexLod(GameState_Play* play, void** skeleton, Vec3s* jointTable
 
         if (bootsData)
         {
-            OPEN_DISPS(play->gs.gfx);
+            OPEN_DISPS(play->state.gfxCtx);
             gSPSegment(POLY_OPA_DISP++, 0x0a, bootsData);
             gSPDisplayList(POLY_OPA_DISP++, bootsList);
             gSPDisplayList(POLY_OPA_DISP++, bootsList2);
             CLOSE_DISPS();
         }
 
-        if (Config_Flag(CFG_OOT_AGELESS_STRENGTH) && gSave.inventory.upgrades.strength > 1)
+        if (Config_Flag(CFG_OOT_AGELESS_STRENGTH) && gSave.info.inventory.upgrades.strength > 1)
         {
-            c = &sGauntletColors[gSave.inventory.upgrades.strength > 2 ? 1 : 0];
-            OPEN_DISPS(play->gs.gfx);
+            c = &sGauntletColors[gSave.info.inventory.upgrades.strength > 2 ? 1 : 0];
+            OPEN_DISPS(play->state.gfxCtx);
             gDPPipeSync(POLY_OPA_DISP++);
             gDPSetEnvColor(POLY_OPA_DISP++, c->r, c->g, c->b, 0);
             CLOSE_DISPS();
@@ -804,7 +804,7 @@ void Player_DrawFlexLod(GameState_Play* play, void** skeleton, Vec3s* jointTable
 
 PATCH_CALL(0x8007a0d0, Player_DrawFlexLod);
 
-static void Player_AddMasterSwordGanonFight(GameState_Play* play)
+static void Player_AddMasterSwordGanonFight(PlayState* play)
 {
     if (gSharedCustomSave.foundMasterSword)
         AddItem(play, ITEM_OOT_SWORD_MASTER);
@@ -816,7 +816,7 @@ int Player_GetStrength(void)
 {
     int level;
 
-    level = gSave.inventory.upgrades.strength;
+    level = gSave.info.inventory.upgrades.strength;
     if (level > 3)
         level = 3;
     if (gSave.age == AGE_CHILD && level > 1 && !Config_Flag(CFG_OOT_AGELESS_STRENGTH))
@@ -833,7 +833,7 @@ static int Player_IsStrengthGoronBracelet(void)
 
 PATCH_CALL(0x8007a2b4, Player_IsStrengthGoronBracelet);
 
-static int Player_ItemAndArrowType(GameState_Play* play, Actor_Player* this, int* outItem, int* outArrow)
+static int Player_ItemAndArrowType(PlayState* play, Player* this, int* outItem, int* outArrow)
 {
     if (this->heldItemAction == 15 || (gSave.age == AGE_CHILD && play->sceneId == SCE_OOT_SHOOTING_GALLERY))
     {
@@ -845,7 +845,7 @@ static int Player_ItemAndArrowType(GameState_Play* play, Actor_Player* this, int
     {
         /* Bow, maybe with magical arrow */
         *outItem = ITEM_OOT_BOW;
-        if (this->state & (1 << 23))
+        if (this->stateFlags1 & (1 << 23))
             *outArrow = 1;
         else
             *outArrow = this->heldItemAction - 6;
@@ -855,7 +855,7 @@ static int Player_ItemAndArrowType(GameState_Play* play, Actor_Player* this, int
         return play->interfaceCtx.hbaAmmo;
     else if (play->shootingGalleryStatus != 0)
         return play->shootingGalleryStatus;
-    return gSave.inventory.ammo[*outItem];
+    return gSave.info.inventory.ammo[*outItem];
 }
 
 PATCH_FUNC(0x808323dc, Player_ItemAndArrowType);
@@ -872,7 +872,7 @@ BowSlingshotString;
 const BowSlingshotString* Player_GetBowSlingshotStringData(void)
 {
     static BowSlingshotString bss;
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(gPlay);
     if (link->heldItemAction == 15 || (gSave.age == AGE_CHILD && gPlay->sceneId == SCE_OOT_SHOOTING_GALLERY))

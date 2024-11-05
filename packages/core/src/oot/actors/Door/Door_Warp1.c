@@ -22,7 +22,7 @@ static const BlueWarpData kBlueWarpData[] = {
     { NPC_OOT_BLUE_WARP_TWINROVA,       GI_OOT_MEDALLION_SPIRIT,    EV_OOT_CHK_MEDALLION_SPIRIT },
 };
 
-static const int DoorWarp1_GetID(GameState_Play* play)
+static const int DoorWarp1_GetID(PlayState* play)
 {
     int id;
 
@@ -58,7 +58,7 @@ static const int DoorWarp1_GetID(GameState_Play* play)
     return id;
 }
 
-static const BlueWarpData* DoorWarp1_GetData(GameState_Play* play)
+static const BlueWarpData* DoorWarp1_GetData(PlayState* play)
 {
     int id;
 
@@ -68,7 +68,7 @@ static const BlueWarpData* DoorWarp1_GetData(GameState_Play* play)
     return &kBlueWarpData[id];
 }
 
-int DoorWarp1_Collide(Actor* this, GameState_Play* play)
+int DoorWarp1_Collide(Actor* this, PlayState* play)
 {
     float dist;
 
@@ -99,12 +99,12 @@ static s16 DoorWarp1_GetGI(const BlueWarpData* data)
     return o.gi;
 }
 
-int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
+int DoorWarp1_ShouldTrigger(Actor* this, PlayState* play)
 {
     int id;
     const BlueWarpData* data;
 
-    if (this->parent && this->parent->id != AC_PLAYER)
+    if (this->parent && this->parent->id != ACTOR_PLAYER)
         this->parent = NULL;
 
     if (DoorWarp1_Collide(this, play))
@@ -127,7 +127,7 @@ int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
             return 0;
         }
 
-        if ((GET_PLAYER(play)->state & 0x400) != 0)
+        if ((GET_PLAYER(play)->stateFlags1 & 0x400) != 0)
             return 0;
 
         comboTriggerWarp(play, id);
@@ -137,7 +137,7 @@ int DoorWarp1_ShouldTrigger(Actor* this, GameState_Play* play)
 
 PATCH_FUNC(0x809056e8, DoorWarp1_ShouldTrigger);
 
-void DoorWarp1_AfterDrawWarp(Actor* this, GameState_Play* play)
+void DoorWarp1_AfterDrawWarp(Actor* this, PlayState* play)
 {
     static const int kRotDivisor = 100;
     float angle;
@@ -150,11 +150,11 @@ void DoorWarp1_AfterDrawWarp(Actor* this, GameState_Play* play)
     if (GetEventChk(data->event))
         return;
 
-    angle = (play->gs.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
+    angle = (play->state.frameCount % kRotDivisor) * (1.f / kRotDivisor) * M_PI * 2.f;
     gi = DoorWarp1_GetGI(data);
 
-    Matrix_Translate(this->world.pos.x, this->world.pos.y + 35.f, this->world.pos.z, MAT_SET);
-    Matrix_Scale(0.35f, 0.35f, 0.35f, MAT_MUL);
-    Matrix_RotateY(angle, MAT_MUL);
+    Matrix_Translate(this->world.pos.x, this->world.pos.y + 35.f, this->world.pos.z, MTXMODE_NEW);
+    Matrix_Scale(0.35f, 0.35f, 0.35f, MTXMODE_APPLY);
+    Matrix_RotateY(angle, MTXMODE_APPLY);
     Draw_Gi(play, this, gi, DRAW_RAW);
 }

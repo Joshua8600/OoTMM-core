@@ -40,6 +40,16 @@ void comboLoadMmIcon(void* dst, u32 iconBank, int iconId)
         DmaCompressed(iconAddr, dst, iconSize);
 }
 
+void LoadIconItem24Oot(void* dst, int iconId)
+{
+    LoadFile(dst, 0x846000 + iconId * 0x900, 0x900);
+}
+
+void LoadIconItem24Mm(void* dst, int iconId)
+{
+    comboLoadMmIcon(dst, 0xa7bee0, iconId);
+}
+
 void LoadMmItemIcon(void* dst, int iconId)
 {
     comboLoadMmIcon(dst, 0xa36c10, iconId);
@@ -61,14 +71,14 @@ void comboItemIcon(void* dst, int itemId)
     }
 }
 
-static void LoadCustomItemIconSlot(GameState_Play* play, int slot, int isInit)
+static void LoadCustomItemIconSlot(PlayState* play, int slot, int isInit)
 {
-    Actor_Player* link;
+    Player* link;
     void* dst;
     u8 itemId;
 
     dst = (*(char**)((char*)&play->interfaceCtx + 0x138)) + 0x1000 * slot;
-    itemId = gSave.equips.buttonItems[slot];
+    itemId = gSave.info.equips.buttonItems[slot];
 
     if (slot == 0 && !isInit)
     {
@@ -102,7 +112,7 @@ static void LoadCustomItemIconSlot(GameState_Play* play, int slot, int isInit)
     comboItemIcon(dst, itemId);
 }
 
-static void LoadCustomItemIcon(GameState_Play* play, int slot, int isInit)
+static void LoadCustomItemIcon(PlayState* play, int slot, int isInit)
 {
     LoadCustomItemIconSlot(play, slot, 0);
 }
@@ -141,7 +151,7 @@ PATCH_CALL(0x800e1e88, LoadCustomItemIcon_C_Right);
 void LoadEquipItemTexture(void)
 {
     u32 tex;
-    GameState_Play* play;
+    PlayState* play;
     PauseContext* pauseCtx;
 
     play = gPlay;
@@ -150,12 +160,12 @@ void LoadEquipItemTexture(void)
 
     if (!tex) return;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPLoadTextureBlock(OVERLAY_DISP++, tex, G_IM_FMT_RGBA, G_IM_SIZ_32b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     CLOSE_DISPS();
 }
 
-void Interface_UpdateButtonsPart2Wrapper(GameState_Play* play)
+void Interface_UpdateButtonsPart2Wrapper(PlayState* play)
 {
     u8* ptr;
     u8 itemId;
@@ -163,7 +173,7 @@ void Interface_UpdateButtonsPart2Wrapper(GameState_Play* play)
 
     for (int i = 0; i < 3; ++i)
     {
-        ptr = &gSave.equips.buttonItems[i + 1];
+        ptr = &gSave.info.equips.buttonItems[i + 1];
         itemId = *ptr;
         buttons[i] = itemId;
 
@@ -180,11 +190,11 @@ void Interface_UpdateButtonsPart2Wrapper(GameState_Play* play)
 
     for (int i = 0; i < 3; ++i)
     {
-        ptr = &gSave.equips.buttonItems[i + 1];
+        ptr = &gSave.info.equips.buttonItems[i + 1];
         *ptr = buttons[i];
     }
 
     /* Fix for wrong tempB restores */
-    if (EV_OOT_IS_SWORDLESS() && gSave.equips.buttonItems[0] == 0)
-        gSave.equips.buttonItems[0] = ITEM_NONE;
+    if (EV_OOT_IS_SWORDLESS() && gSave.info.equips.buttonItems[0] == 0)
+        gSave.info.equips.buttonItems[0] = ITEM_NONE;
 }

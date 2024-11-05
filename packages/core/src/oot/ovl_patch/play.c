@@ -13,7 +13,13 @@
 #include <combo/dungeon.h>
 #include <combo/audio.h>
 
-GameState_Play* gPlay;
+PlayState* gPlay;
+
+void Play_GoToFileSelect(GameState* gs)
+{
+    gs->nextGameStateInit = FileSelect_Init;
+    gs->nextGameStateSize = sizeof(FileSelectState);
+}
 
 static int isRainbowBridgeOpen(void)
 {
@@ -21,35 +27,35 @@ static int isRainbowBridgeOpen(void)
         return 0;
 
     if (Config_Flag(CFG_OOT_BRIDGE_VANILLA) && !(
-        gOotSave.inventory.quest.medallionShadow
-        && gOotSave.inventory.quest.medallionSpirit
-        && gOotSave.inventory.items[ITS_OOT_ARROW_LIGHT] == ITEM_OOT_ARROW_LIGHT
+        gOotSave.info.inventory.quest.medallionShadow
+        && gOotSave.info.inventory.quest.medallionSpirit
+        && gOotSave.info.inventory.items[ITS_OOT_ARROW_LIGHT] == ITEM_OOT_ARROW_LIGHT
     ))
         return 0;
 
     if (Config_Flag(CFG_OOT_BRIDGE_MEDALLIONS) && !(
-        gOotSave.inventory.quest.medallionLight
-        && gOotSave.inventory.quest.medallionForest
-        && gOotSave.inventory.quest.medallionFire
-        && gOotSave.inventory.quest.medallionWater
-        && gOotSave.inventory.quest.medallionShadow
-        && gOotSave.inventory.quest.medallionSpirit
+        gOotSave.info.inventory.quest.medallionLight
+        && gOotSave.info.inventory.quest.medallionForest
+        && gOotSave.info.inventory.quest.medallionFire
+        && gOotSave.info.inventory.quest.medallionWater
+        && gOotSave.info.inventory.quest.medallionShadow
+        && gOotSave.info.inventory.quest.medallionSpirit
     ))
         return 0;
 
     return 1;
 }
 
-static void eventFixes(GameState_Play* play)
+static void eventFixes(PlayState* play)
 {
     /* Skip forest temple cutscene */
     if (gSave.entrance == ENTR_OOT_TEMPLE_FOREST)
     {
         u32 tmp;
-        tmp = gSave.perm[SCE_OOT_TEMPLE_FOREST].switches;
+        tmp = gSave.info.perm[SCE_OOT_TEMPLE_FOREST].switches;
         if ((tmp & 0xf0000000) != 0xf0000000)
             tmp |= 0x08000000;
-        gSave.perm[SCE_OOT_TEMPLE_FOREST].switches = tmp;
+        gSave.info.perm[SCE_OOT_TEMPLE_FOREST].switches = tmp;
     }
 
     /* Ruto fixes */
@@ -57,21 +63,21 @@ static void eventFixes(GameState_Play* play)
     {
         /* Skip the intro cutscene */
         u16 tmp;
-        tmp = gSave.eventsMisc[20];
+        tmp = gSave.info.eventsMisc[20];
         if (!(tmp & 0xff))
             tmp |= 0x1e;
-        gSave.eventsMisc[20] = tmp;
+        gSave.info.eventsMisc[20] = tmp;
 
         /* Places Ruto on first floor */
         if (!(Config_IsMq(MQ_JABU_JABU)))
-            BITMAP16_SET(gSave.eventsMisc, EV_OOT_INF_RUTO_TOP_FLOOR);
+            BITMAP16_SET(gSave.info.eventsMisc, EV_OOT_INF_RUTO_TOP_FLOOR);
 
         /* Ruto kidnap fixes */
-        if (BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED) || BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE))
+        if (BITMAP16_GET(gSave.info.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED) || BITMAP16_GET(gSave.info.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE))
         {
             /* Un-kidnap ruto */
-            BITMAP16_CLEAR(gSave.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED);
-            BITMAP16_CLEAR(gSave.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE);
+            BITMAP16_CLEAR(gSave.info.eventsMisc, EV_OOT_INF_RUTO_KIDNAPPED);
+            BITMAP16_CLEAR(gSave.info.eventsMisc, EV_OOT_INF_RUTO_GOT_SAPPHIRE);
         }
     }
 
@@ -83,29 +89,29 @@ static void eventFixes(GameState_Play* play)
 
     if(Config_Flag(CFG_OOT_PLANTED_BEANS))
     {
-        gOotSave.perm[SCE_OOT_GRAVEYARD].switches |= 0x00000008;
-        gOotSave.perm[SCE_OOT_ZORA_RIVER].switches |= 0x00000008;
-        gOotSave.perm[SCE_OOT_KOKIRI_FOREST].switches |= 0x00000200;
-        gOotSave.perm[SCE_OOT_LAKE_HYLIA].switches |= 0x00000002;
-        gOotSave.perm[SCE_OOT_GERUDO_VALLEY].switches |= 0x00000008;
-        gOotSave.perm[SCE_OOT_LOST_WOODS].switches |= 0x00040010;
-        gOotSave.perm[SCE_OOT_DESERT_COLOSSUS].switches |= 0x01000000;
-        gOotSave.perm[SCE_OOT_DEATH_MOUNTAIN_TRAIL].switches |= 0x00000040;
-        gOotSave.perm[SCE_OOT_DEATH_MOUNTAIN_CRATER].switches |= 0x00000008;
-        gOotSave.inventory.items[ITS_OOT_MAGIC_BEAN] = ITEM_OOT_MAGIC_BEAN;
+        gOotSave.info.perm[SCE_OOT_GRAVEYARD].switches |= 0x00000008;
+        gOotSave.info.perm[SCE_OOT_ZORA_RIVER].switches |= 0x00000008;
+        gOotSave.info.perm[SCE_OOT_KOKIRI_FOREST].switches |= 0x00000200;
+        gOotSave.info.perm[SCE_OOT_LAKE_HYLIA].switches |= 0x00000002;
+        gOotSave.info.perm[SCE_OOT_GERUDO_VALLEY].switches |= 0x00000008;
+        gOotSave.info.perm[SCE_OOT_LOST_WOODS].switches |= 0x00040010;
+        gOotSave.info.perm[SCE_OOT_DESERT_COLOSSUS].switches |= 0x01000000;
+        gOotSave.info.perm[SCE_OOT_DEATH_MOUNTAIN_TRAIL].switches |= 0x00000040;
+        gOotSave.info.perm[SCE_OOT_DEATH_MOUNTAIN_CRATER].switches |= 0x00000008;
+        gOotSave.info.inventory.items[ITS_OOT_MAGIC_BEAN] = ITEM_OOT_MAGIC_BEAN;
     }
 
     if(Config_Flag(CFG_OOT_OPEN_JABU_JABU))
         SetEventChk(EV_OOT_CHK_JABU_JABU_OPEN);
 
     if(Config_Flag(CFG_OOT_OPEN_SHADOW_TEMPLE))
-        gSave.perm[SCE_OOT_GRAVEYARD].switches |= 0xc0000000;
+        gSave.info.perm[SCE_OOT_GRAVEYARD].switches |= 0xc0000000;
 
     if(Config_Flag(CFG_OOT_OPEN_DODONGO_CAVERN))
-        gSave.perm[SCE_OOT_DEATH_MOUNTAIN_TRAIL].switches |= 0x00000010;
+        gSave.info.perm[SCE_OOT_DEATH_MOUNTAIN_TRAIL].switches |= 0x00000010;
 
     if(Config_Flag(CFG_OOT_OPEN_WATER_TEMPLE))
-        gSave.perm[SCE_OOT_LAKE_HYLIA].switches |= 0x80000000;
+        gSave.info.perm[SCE_OOT_LAKE_HYLIA].switches |= 0x80000000;
 
     if(Config_Flag(CFG_OOT_OPEN_WELL))
         SetEventChk(EV_OOT_CHK_WELL_DRAINED);
@@ -163,7 +169,7 @@ static void endGame(void)
     tmpNextCutscene = gSaveContext.nextCutscene;
     tmpCutscene = gSave.cutscene;
     tmpEntrance = gSave.entrance;
-    tmpSceneId = gSave.sceneId;
+    tmpSceneId = gSave.info.sceneId;
 
     /* Edit gameplay values for end of game save */
     gSave.age = AGE_ADULT;
@@ -172,12 +178,12 @@ static void endGame(void)
     if (Config_Flag(CFG_ER_ANY))
     {
         gSave.entrance = ENTR_OOT_GANON_TOWER;
-        gSave.sceneId = SCE_OOT_GANON_TOWER;
+        gSave.info.sceneId = SCE_OOT_GANON_TOWER;
     }
     else
     {
         gSave.entrance = ENTR_OOT_GANON_CASTLE_EXTERIOR_FROM_CASTLE;
-        gSave.sceneId = SCE_OOT_GANON_CASTLE_EXTERIOR;
+        gSave.info.sceneId = SCE_OOT_GANON_CASTLE_EXTERIOR;
     }
 
     /* Save */
@@ -190,7 +196,7 @@ static void endGame(void)
         gSaveContext.nextCutscene = tmpNextCutscene;
         gSave.cutscene = tmpCutscene;
         gSave.entrance = tmpEntrance;
-        gSave.sceneId = tmpSceneId;
+        gSave.info.sceneId = tmpSceneId;
         g.isCredits = 1;
     }
 }
@@ -399,68 +405,7 @@ static void applyCustomEntrance(u32* entrance)
     }
 }
 
-static void preInitTitleScreen(void)
-{
-    s16 magicCapacity;
-    u32 entrance;
-
-    if (gComboCtx.valid)
-    {
-        /* Disable Title screen */
-        gSaveContext.gameMode = GAMEMODE_NORMAL;
-        gSaveContext.showTitleCard = TRUE;
-
-        /* Set file and load */
-        gSaveContext.fileIndex = gComboCtx.saveIndex;
-        Sram_OpenSave(NULL);
-        if (gComboCtx.isFwSpawn)
-        {
-            gSaveContext.respawnFlag = 3;
-            gComboCtx.isFwSpawn = 0;
-
-            OotFaroreWind* fw = &gSave.fw;
-
-            if (fw->set)
-            {
-                gSaveContext.respawn[RESPAWN_MODE_TOP].data = 0x28;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].pos.x = fw->pos.x;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].pos.y = fw->pos.y;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].pos.z = fw->pos.z;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].yaw = fw->yaw;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].playerParams = fw->playerParams;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].entrance = fw->entrance;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].roomIndex = fw->roomIndex;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].tempSwitchFlags = fw->tempSwitchFlags;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].tempCollectFlags = fw->tempCollectFlags;
-            }
-            else
-            {
-                gSaveContext.respawn[RESPAWN_MODE_TOP].data = 0;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].pos.x = 0.0f;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].pos.y = 0.0f;
-                gSaveContext.respawn[RESPAWN_MODE_TOP].pos.z = 0.0f;
-            }
-        }
-        gSave.cutscene = 0;
-
-        /* Set the entrance */
-        entrance = gComboCtx.entrance;
-        applyCustomEntrance(&entrance);
-        gSave.entrance = (s32)entrance;
-        gComboCtx.valid = 0;
-
-        /* Set magic */
-        magicCapacity = 0;
-        if (gSave.playerData.magicUpgrade)
-            magicCapacity = gSave.playerData.magicUpgrade2 ? 0x60 : 0x30;
-        gSaveContext.magicState = MAGIC_STATE_IDLE;
-        gSaveContext.magicCapacity = magicCapacity;
-        gSaveContext.magicFillTarget = gSave.playerData.magicAmount;
-        gSaveContext.magicTarget = gSave.playerData.magicAmount;
-    }
-}
-
-static void playAdjustEntrance(GameState_Play* play)
+static void playAdjustEntrance(PlayState* play)
 {
     /* Handle custom entrance IDs */
     switch (gSave.entrance)
@@ -492,28 +437,28 @@ static void playAdjustEntrance(GameState_Play* play)
     applyCustomEntrance(&gSave.entrance);
 }
 
-static void masterSwordFix(GameState_Play* play)
+static void masterSwordFix(PlayState* play)
 {
     if (!gSharedCustomSave.foundMasterSword)
         return;
 
     /* Re-add the Master Sword to the inventory */
-    gSave.inventory.equipment.swords |= 2;
+    gSave.info.inventory.equipment.swords |= 2;
 
     if (Config_Flag(CFG_OOT_SWORDLESS_ADULT))
         return;
     if (gSave.age != AGE_ADULT)
         return;
-    if (gSave.equips.buttonItems[0] != ITEM_NONE)
+    if (gSave.info.equips.buttonItems[0] != ITEM_NONE)
         return;
 
     /* We need to force-reequip */
-    gSave.equips.buttonItems[0] = ITEM_OOT_SWORD_MASTER;
-    gSave.equips.equipment.swords = 2;
+    gSave.info.equips.buttonItems[0] = ITEM_OOT_SWORD_MASTER;
+    gSave.info.equips.equipment.swords = 2;
     EV_OOT_UNSET_SWORDLESS();
 }
 
-static void Play_AfterInit(GameState_Play* play)
+static void Play_AfterInit(PlayState* play)
 {
     gLastEntrance = gSave.entrance;
     g.inGrotto = (play->sceneId == SCE_OOT_GROTTOS || play->sceneId == SCE_OOT_FAIRY_FOUNTAIN);
@@ -527,14 +472,11 @@ static void Play_AfterInit(GameState_Play* play)
     comboSpawnCustomWarps(play);
 }
 
-void hookPlay_Init(GameState_Play* play)
+void hookPlay_Init(PlayState* play)
 {
-    /* Pre-init */
+    /* Init */
     gIsEntranceOverride = 0;
     g.decoysCount = 0;
-    preInitTitleScreen();
-
-    /* Init */
     gActorCustomTriggers = NULL;
     gMultiMarkChests = 0;
     gMultiMarkCollectibles = 0;
@@ -563,11 +505,11 @@ void hookPlay_Init(GameState_Play* play)
     }
 }
 
-void Play_UpdateWrapper(GameState_Play* play)
+void Play_UpdateWrapper(PlayState* play)
 {
     /* Auto-press A during credits */
     if (g.isCredits)
-        play->gs.input[0].pressed.buttons = (play->gs.frameCount & 1) ? A_BUTTON : 0;
+        play->state.input[0].press.button = (play->state.frameCount & 1) ? A_BUTTON : 0;
 
     comboMenuTick();
     Debug_Input();
@@ -588,13 +530,13 @@ static void Play_LoadKaleidoScopeHook(void* unk)
 
 PATCH_CALL(0x8009a06c, Play_LoadKaleidoScopeHook);
 
-NORETURN static void Play_GameSwitch(GameState_Play* play, u32 entrance)
+NORETURN static void Play_GameSwitch(PlayState* play, u32 entrance)
 {
     Horse_ForceUnmount(play);
     comboGameSwitch(play, entrance);
 }
 
-static u32 entrGrottoExit(GameState_Play* play)
+static u32 entrGrottoExit(PlayState* play)
 {
     if (!Config_Flag(CFG_ER_GROTTOS))
         return ENTR_OOT_INTERNAL_EXIT_GROTTO;
@@ -669,7 +611,7 @@ static u32 entrGrottoExit(GameState_Play* play)
     return ENTR_OOT_INTERNAL_EXIT_GROTTO;
 }
 
-void Play_TransitionDone(GameState_Play* play)
+void Play_TransitionDone(PlayState* play)
 {
     u32 entrance;
     s32 override;
@@ -739,38 +681,110 @@ static void TimeTravelUpdateEquipment(void)
 
     if (gSave.age == AGE_ADULT)
     {
-        prevAge = &gSave.adultEquips;
-        nextAge = &gSave.childEquips;
+        prevAge = &gSave.info.adultEquips;
+        nextAge = &gSave.info.childEquips;
     }
     else
     {
-        prevAge = &gSave.childEquips;
-        nextAge = &gSave.adultEquips;
+        prevAge = &gSave.info.childEquips;
+        nextAge = &gSave.info.adultEquips;
     }
 
-    memcpy(prevAge, &gSave.equips, sizeof(*prevAge));
+    memcpy(prevAge, &gSave.info.equips, sizeof(*prevAge));
     if (EV_OOT_IS_SWORDLESS())
         prevAge->buttonItems[0] = ITEM_NONE;
-    memcpy(&gSave.equips, nextAge, sizeof(*nextAge));
+    memcpy(&gSave.info.equips, nextAge, sizeof(*nextAge));
 
     /* Reload bottles */
     for (int i = 0; i < 3; ++i)
     {
-        item = gSave.equips.buttonItems[i + 1];
+        item = gSave.info.equips.buttonItems[i + 1];
         if (item >= ITEM_OOT_BOTTLE_EMPTY && item <= ITEM_OOT_POE)
-            item = gSave.inventory.items[gSave.equips.cButtonSlots[i]];
-        gSave.equips.buttonItems[i + 1] = item;
+            item = gSave.info.inventory.items[gSave.info.equips.cButtonSlots[i]];
+        gSave.info.equips.buttonItems[i + 1] = item;
     }
 
     /* Fix sword */
-    if (gSave.equips.buttonItems[0] == ITEM_NONE)
+    if (gSave.info.equips.buttonItems[0] == ITEM_NONE)
         EV_OOT_SET_SWORDLESS();
     else
         EV_OOT_UNSET_SWORDLESS();
 
     /* Fix shield, if opposite age lost it */
-    if (gSave.equips.equipment.shields && !(gSave.inventory.equipment.shields & (1 << (gSave.equips.equipment.shields - 1))))
-        gSave.equips.equipment.shields = 0;
+    if (gSave.info.equips.equipment.shields && !(gSave.info.inventory.equipment.shields & (1 << (gSave.info.equips.equipment.shields - 1))))
+        gSave.info.equips.equipment.shields = 0;
 }
 
 PATCH_FUNC(0x8006f804, TimeTravelUpdateEquipment);
+
+void Play_FastInit(GameState* gs)
+{
+    u32 entrance;
+    u16 magicCapacity;
+
+    /* Normal boot if the game was actually cold-started */
+    if (!gComboCtx.valid)
+        return;
+
+    /* Enable audio */
+    R_AUDIOMGR_DEBUG_LEVEL = 0;
+
+    /* Set the next GameState */
+    gs->nextGameStateInit = Play_Init;
+    gs->nextGameStateSize = sizeof(PlayState);
+
+    /* Load the save */
+    gSaveContext.fileNum = gComboCtx.saveIndex;
+    Sram_OpenSave(NULL);
+
+    /* Set game mode */
+    gSaveContext.gameMode = GAMEMODE_NORMAL;
+    gSaveContext.showTitleCard = TRUE;
+
+    if (gComboCtx.isFwSpawn)
+    {
+        gSaveContext.respawnFlag = 3;
+        gComboCtx.isFwSpawn = 0;
+
+        OotFaroreWind* fw = &gSave.info.fw;
+
+        if (fw->set)
+        {
+            gSaveContext.respawn[RESPAWN_MODE_TOP].data = 0x28;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].pos.x = fw->pos.x;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].pos.y = fw->pos.y;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].pos.z = fw->pos.z;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].yaw = fw->yaw;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].playerParams = fw->playerParams;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].entrance = fw->entrance;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].roomIndex = fw->roomIndex;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].tempSwitchFlags = fw->tempSwitchFlags;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].tempCollectFlags = fw->tempCollectFlags;
+        }
+        else
+        {
+            gSaveContext.respawn[RESPAWN_MODE_TOP].data = 0;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].pos.x = 0.0f;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].pos.y = 0.0f;
+            gSaveContext.respawn[RESPAWN_MODE_TOP].pos.z = 0.0f;
+        }
+    }
+    gSave.cutscene = 0;
+
+    /* Set the entrance */
+    entrance = gComboCtx.entrance;
+    applyCustomEntrance(&entrance);
+    gSave.entrance = (s32)entrance;
+
+    /* Set magic */
+    magicCapacity = 0;
+    if (gSave.info.playerData.isMagicAcquired)
+        magicCapacity = gSave.info.playerData.isDoubleMagicAcquired ? 0x60 : 0x30;
+    gSaveContext.magicState = MAGIC_STATE_IDLE;
+    gSaveContext.magicCapacity = magicCapacity;
+    gSaveContext.magicFillTarget = gSave.info.playerData.magic;
+    gSaveContext.magicTarget = gSave.info.playerData.magic;
+
+    /* Done */
+    gComboCtx.valid = 0;
+}

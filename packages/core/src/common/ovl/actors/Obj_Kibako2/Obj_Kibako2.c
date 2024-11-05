@@ -18,13 +18,13 @@ static int ObjKibako2_IsShuffled(Actor_ObjKibako2* this)
 # define SEGADDR_CRATE_DL       ((void*)0x06000960)
 # define SEGADDR_FRAGMENT_DL    ((void*)0x06001000)
 
-void ObjKibako2_Destroy(Actor_ObjKibako2* this, GameState_Play* play);
-void ObjKibako2_Idle(Actor_ObjKibako2* this, GameState_Play* play);
-void ObjKibako2_Kill(Actor_ObjKibako2* this, GameState_Play* play);
+void ObjKibako2_Destroy(Actor_ObjKibako2* this, PlayState* play);
+void ObjKibako2_Idle(Actor_ObjKibako2* this, PlayState* play);
+void ObjKibako2_Kill(Actor_ObjKibako2* this, PlayState* play);
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_NONE,
         AC_ON | AC_TYPE_PLAYER,
         OC1_NONE,
@@ -32,7 +32,7 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00000000, 0x00, 0x00 },
         { 0x40000040, 0x00, 0x00 },
         ATELEM_NONE,
@@ -49,7 +49,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 1000, ICHAIN_STOP),
 };
 
-void ObjKibako2_Break(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Break(Actor_ObjKibako2* this, PlayState* play)
 {
     Vec3f* thisPos;
     Vec3f pos;
@@ -88,7 +88,7 @@ void ObjKibako2_Break(Actor_ObjKibako2* this, GameState_Play* play)
     SpawnSomeDust(play, thisPos, 90.0f, 6, 100, 160, 1);
 }
 
-void ObjKibako2_SpawnCollectible(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_SpawnCollectible(Actor_ObjKibako2* this, PlayState* play)
 {
     s16 itemDropped;
     s16 collectibleFlagTemp;
@@ -106,13 +106,13 @@ void ObjKibako2_SpawnCollectible(Actor_ObjKibako2* this, GameState_Play* play)
     }
 }
 
-void ObjKibako2_Destroy(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Destroy(Actor_ObjKibako2* this, PlayState* play)
 {
     Collider_DestroyCylinder(play, &this->collider);
     DynaPoly_DeleteBgActor(play, &play->colCtx.dyna, this->dyna.bgId);
 }
 
-void ObjKibako2_Idle(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Idle(Actor_ObjKibako2* this, PlayState* play)
 {
     if ((this->collider.base.acFlags & AC_HIT) || (this->dyna.actor.home.rot.z != 0) || UnkFuncActorCollision(play, &this->dyna.actor) != NULL)
     {
@@ -129,13 +129,13 @@ void ObjKibako2_Idle(Actor_ObjKibako2* this, GameState_Play* play)
     }
 }
 
-void ObjKibako2_Kill(Actor_ObjKibako2* this, GameState_Play* play) {
+void ObjKibako2_Kill(Actor_ObjKibako2* this, PlayState* play) {
     s16 params = this->dyna.actor.params;
 
     if ((params & 0x8000) == 0)
     {
         Actor_Spawn(
-            &play->actorCtx, play, AC_EN_SW,
+            &play->actorCtx, play, ACTOR_EN_SW,
             this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.y, this->dyna.actor.world.pos.z,
             0, this->dyna.actor.shape.rot.y, 0,
             params | 0x8000
@@ -163,13 +163,13 @@ typedef enum
 }
 Actor_ObjKibako2Contents;
 
-void ObjKibako2_Destroy(Actor_ObjKibako2* this, GameState_Play* play);
-void ObjKibako2_Idle(Actor_ObjKibako2* this, GameState_Play* play);
-void ObjKibako2_Kill(Actor_ObjKibako2* this, GameState_Play* play);
+void ObjKibako2_Destroy(Actor_ObjKibako2* this, PlayState* play);
+void ObjKibako2_Idle(Actor_ObjKibako2* this, PlayState* play);
+void ObjKibako2_Kill(Actor_ObjKibako2* this, PlayState* play);
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_NONE,
+        COL_MATERIAL_NONE,
         AT_NONE,
         AC_ON | AC_TYPE_PLAYER,
         OC1_NONE,
@@ -177,11 +177,11 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00000000, 0x00, 0x00 },
         { 0x80000508, 0x00, 0x00 },
-        TOUCH_NONE | TOUCH_SFX_NORMAL,
-        BUMP_ON,
+        ATELEM_NONE | ATELEM_SFX_NORMAL,
+        ACELEM_ON,
         OCELEM_NONE,
     },
     { 31, 48, 0, { 0, 0, 0 } },
@@ -194,7 +194,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 200, ICHAIN_STOP),
 };
 
-int ObjKibako2_ContainsSkulltula(Actor_ObjKibako2* this, GameState_Play* play)
+int ObjKibako2_ContainsSkulltula(Actor_ObjKibako2* this, PlayState* play)
 {
     s32 actorSpawnParam = KIBAKO2_SKULLTULA_SPAWN_PARAM(this);
     s32 flag = -1;
@@ -205,7 +205,7 @@ int ObjKibako2_ContainsSkulltula(Actor_ObjKibako2* this, GameState_Play* play)
     return !((flag >= 0) && Flags_GetTreasure(play, flag));
 }
 
-void ObjKibako2_Break(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Break(Actor_ObjKibako2* this, PlayState* play)
 {
     Vec3f* thisPos = &this->dyna.actor.world.pos;
     Vec3f pos;
@@ -241,7 +241,7 @@ void ObjKibako2_Break(Actor_ObjKibako2* this, GameState_Play* play)
     SpawnSomeDust(play, thisPos, 90.0f, 6, 100, 160, 1);
 }
 
-void ObjKibako2_SpawnCollectible(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_SpawnCollectible(Actor_ObjKibako2* this, PlayState* play)
 {
     s32 dropItem00Id;
 
@@ -259,7 +259,7 @@ void ObjKibako2_SpawnCollectible(Actor_ObjKibako2* this, GameState_Play* play)
     }
 }
 
-void ObjKibako2_SpawnSkulltula(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_SpawnSkulltula(Actor_ObjKibako2* this, PlayState* play)
 {
     s16 yRotation;
     s32 actorSpawnParam;
@@ -269,7 +269,7 @@ void ObjKibako2_SpawnSkulltula(Actor_ObjKibako2* this, GameState_Play* play)
         actorSpawnParam = KIBAKO2_SKULLTULA_SPAWN_PARAM(this);
         yRotation = (Rand_Next() >> 0x11) + this->dyna.actor.yawTowardsPlayer + 0xC000;
         skulltula =
-            Actor_Spawn(&play->actorCtx, play, AC_EN_SW, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.y,
+            Actor_Spawn(&play->actorCtx, play, ACTOR_EN_SW, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.y,
                         this->dyna.actor.world.pos.z, 0, yRotation, 0, actorSpawnParam);
         if (skulltula != NULL) {
             skulltula->parent = &this->dyna.actor;
@@ -279,7 +279,7 @@ void ObjKibako2_SpawnSkulltula(Actor_ObjKibako2* this, GameState_Play* play)
     }
 }
 
-void ObjKibako2_SpawnContents(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_SpawnContents(Actor_ObjKibako2* this, PlayState* play)
 {
     if (KIBAKO2_CONTENTS(this) == OBJKIBAKO2_CONTENTS_COLLECTIBLE) {
         ObjKibako2_SpawnCollectible(this, play);
@@ -288,7 +288,7 @@ void ObjKibako2_SpawnContents(Actor_ObjKibako2* this, GameState_Play* play)
     }
 }
 
-void ObjKibako2_Destroy(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Destroy(Actor_ObjKibako2* this, PlayState* play)
 {
     Collider_DestroyCylinder(play, &this->collider);
     DynaPoly_DeleteBgActor(play, &play->colCtx.dyna, this->dyna.bgId);
@@ -324,7 +324,7 @@ s32 ObjKibako2_ShouldBreak(Actor_ObjKibako2* this)
     return shouldBreak;
 }
 
-void ObjKibako2_Idle(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Idle(Actor_ObjKibako2* this, PlayState* play)
 {
     if (ObjKibako2_ShouldBreak(this))
     {
@@ -341,14 +341,14 @@ void ObjKibako2_Idle(Actor_ObjKibako2* this, GameState_Play* play)
     }
 }
 
-void ObjKibako2_Kill(Actor_ObjKibako2* this, GameState_Play* play)
+void ObjKibako2_Kill(Actor_ObjKibako2* this, PlayState* play)
 {
     ObjKibako2_SpawnContents(this, play);
     Actor_Kill(&this->dyna.actor);
 }
 #endif
 
-static void ObjKibako2_InitCollider(Actor_ObjKibako2* this, GameState_Play* play)
+static void ObjKibako2_InitCollider(Actor_ObjKibako2* this, PlayState* play)
 {
     Collider_InitCylinder(play, &this->collider);
     Collider_SetCylinder(play, &this->collider, &this->dyna.actor, &sCylinderInit);
@@ -456,7 +456,7 @@ static void ObjKibako2_Alias(Actor_ObjKibako2* this)
 }
 #endif
 
-static void ObjKibako2_InitXflag(Actor_ObjKibako2* this, GameState_Play* play)
+static void ObjKibako2_InitXflag(Actor_ObjKibako2* this, PlayState* play)
 {
     ComboItemOverride o;
 
@@ -476,7 +476,7 @@ static void ObjKibako2_InitXflag(Actor_ObjKibako2* this, GameState_Play* play)
 }
 
 #if defined(GAME_OOT)
-static void ObjKibako2_Init(Actor_ObjKibako2* this, GameState_Play* play)
+static void ObjKibako2_Init(Actor_ObjKibako2* this, PlayState* play)
 {
     CollisionHeader* colHeader;
     u32 bgId;
@@ -496,7 +496,7 @@ static void ObjKibako2_Init(Actor_ObjKibako2* this, GameState_Play* play)
 #endif
 
 #if defined(GAME_MM)
-static void ObjKibako2_Init(Actor_ObjKibako2* this, GameState_Play* play)
+static void ObjKibako2_Init(Actor_ObjKibako2* this, PlayState* play)
 {
     s32 contents;
 
@@ -525,7 +525,7 @@ static void ObjKibako2_Init(Actor_ObjKibako2* this, GameState_Play* play)
 }
 #endif
 
-static void ObjKibako2_Update(Actor_ObjKibako2* this, GameState_Play* play)
+static void ObjKibako2_Update(Actor_ObjKibako2* this, PlayState* play)
 {
 #if defined(GAME_MM)
     if (this->unk_1AC != 0) {
@@ -581,24 +581,24 @@ static int ObjKibako2_CsmcType(Actor_ObjKibako2* this)
     return csmcFromItem(o.gi);
 }
 
-static void ObjKibako2_PreDraw(GameState_Play* play, const Gfx* loader, void* tex1, void* tex2)
+static void ObjKibako2_PreDraw(PlayState* play, const Gfx* loader, void* tex1, void* tex2)
 {
     Gfx* gfx;
     Gfx* gfxEnd;
 
-    gfx = GRAPH_ALLOC(play->gs.gfx, sizeof(Gfx) * 4);
+    gfx = GRAPH_ALLOC(play->state.gfxCtx, sizeof(Gfx) * 4);
     gfxEnd = gfx;
     gSPSegment(gfxEnd++, 0x09, tex1);
     gSPBranchList(gfxEnd++, loader);
     gSPSegment(gfxEnd++, 0x09, tex2);
     gSPBranchList(gfxEnd++, loader);
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x08, gfx);
     CLOSE_DISPS();
 }
 
-static int ObjKibako2_PreDrawDefaultTexture(Actor_ObjKibako2* this, GameState_Play* play)
+static int ObjKibako2_PreDrawDefaultTexture(Actor_ObjKibako2* this, PlayState* play)
 {
     void* tex1;
     void* tex2;
@@ -609,7 +609,7 @@ static int ObjKibako2_PreDrawDefaultTexture(Actor_ObjKibako2* this, GameState_Pl
     return TRUE;
 }
 
-static int ObjKibako2_PreDrawCustomTexture(Actor_ObjKibako2* this, GameState_Play* play, u32 customVrom)
+static int ObjKibako2_PreDrawCustomTexture(Actor_ObjKibako2* this, PlayState* play, u32 customVrom)
 {
     void* data;
 
@@ -621,7 +621,7 @@ static int ObjKibako2_PreDrawCustomTexture(Actor_ObjKibako2* this, GameState_Pla
     return TRUE;
 }
 
-static void ObjKibako2_Draw(Actor_ObjKibako2* this, GameState_Play* play)
+static void ObjKibako2_Draw(Actor_ObjKibako2* this, PlayState* play)
 {
     int type;
     int ret;
@@ -651,7 +651,7 @@ static void ObjKibako2_Draw(Actor_ObjKibako2* this, GameState_Play* play)
 }
 
 ActorInit Obj_Kibako2_InitVars = {
-    AC_OBJ_KIBAKO2,
+    ACTOR_OBJ_KIBAKO2,
     ACTORCAT_BG,
     FLAGS,
     OBJECT_KIBAKO2,
@@ -662,4 +662,4 @@ ActorInit Obj_Kibako2_InitVars = {
     (ActorFunc)ObjKibako2_Draw,
 };
 
-OVL_ACTOR_INFO(AC_OBJ_KIBAKO2, Obj_Kibako2_InitVars);
+OVL_INFO_ACTOR(ACTOR_OBJ_KIBAKO2, Obj_Kibako2_InitVars);

@@ -3,7 +3,7 @@
 
 #include <combo/types.h>
 
-typedef struct PACKED ALIGNED(4) GfxContext
+typedef struct PACKED ALIGNED(4) GraphicsContext
 {
     /* 0x000 */ Gfx* polyOpaBuffer;
     /* 0x004 */ Gfx* polyXluBuffer;
@@ -34,13 +34,13 @@ typedef struct PACKED ALIGNED(4) GfxContext
     /* 0x2D8 */ u8 pad2D8[0x3];
     /* 0x2DB */ u8 framebufferCounter;
     /* 0x2DC */ void* func2DC;
-    /* 0x2E0 */ GameState_Play* play;
+    /* 0x2E0 */ PlayState* play;
     /* 0x2E4 */ f32 viConfigXScale;
     /* 0x2E8 */ f32 viConfigYScale;
     /* 0x2EC */ u8 pad2EC[0x4];
 }
-GfxContext;
+GraphicsContext;
 
-_Static_assert(sizeof(GfxContext) == 0x2f0, "MM GfxContext is not the correct size");
+_Static_assert(sizeof(GraphicsContext) == 0x2f0, "MM GraphicsContext is not the correct size");
 
 #endif

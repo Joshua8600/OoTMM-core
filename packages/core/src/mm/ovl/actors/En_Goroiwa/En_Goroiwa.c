@@ -3,54 +3,38 @@
 #include <combo/misc.h>
 
 #include "En_Goroiwa.h"
+#include "assets/mm/objects/object_goroiwa.h"
 
 #define FLAGS (ACTOR_FLAG_MM_10 | ACTOR_FLAG_MM_80000000)
 
-#if defined(GAME_MM)
-# define SEGADDR_OBJECT_GOROIWA_DL_0042B0 SEGADDR_FROM_OFFSET(6, 0x42b0)
-# define SEGADDR_OBJECT_GOROIWA_DL_004960 SEGADDR_FROM_OFFSET(6, 0x4960)
-# define SEGADDR_OBJECT_GOROIWA_DL_004EF0 SEGADDR_FROM_OFFSET(6, 0x4ef0)
-# define SEGADDR_OBJECT_GOROIWA_DL_0003B0 SEGADDR_FROM_OFFSET(6, 0x03b0)
-# define SEGADDR_OBJECT_GOROIWA_DL_0028E0 SEGADDR_FROM_OFFSET(6, 0x28e0)
-# define SEGADDR_OBJECT_GOROIWA_DL_002D70 SEGADDR_FROM_OFFSET(6, 0x2d70)
-# define SEGADDR_OBJECT_GOROIWA_DL_0072F0 SEGADDR_FROM_OFFSET(6, 0x72f0)
-# define SEGADDR_OBJECT_GOROIWA_DL_0077D0 SEGADDR_FROM_OFFSET(6, 0x77d0)
-# define SEGADDR_OBJECT_GOROIWA_DL_007C60 SEGADDR_FROM_OFFSET(6, 0x7c60)
-# define SEGADDR_OBJECT_GOROIWA_DL_0032E0 SEGADDR_FROM_OFFSET(6, 0x32e0)
-# define SEGADDR_OBJECT_GOROIWA_DL_0082D0 SEGADDR_FROM_OFFSET(6, 0x82d0)
-# define SEGADDR_OBJECT_GOROIWA_DL_005C20 SEGADDR_FROM_OFFSET(6, 0x5c20)
-# define SEGADDR_OBJECT_GOROIWA_DL_003B40 SEGADDR_FROM_OFFSET(6, 0x3b40)
-# define SEGADDR_OBJECT_GOROIWA_DL_008B90 SEGADDR_FROM_OFFSET(6, 0x8b90)
-#endif
-
-void EnGoroiwa_Init(Actor_EnGoroiwa* this, GameState_Play* play);
-void EnGoroiwa_Destroy(Actor_EnGoroiwa* this, GameState_Play* play);
-void EnGoroiwa_Update(Actor_EnGoroiwa* this, GameState_Play* play);
-void EnGoroiwa_Draw(Actor_EnGoroiwa* this, GameState_Play* play);
+void EnGoroiwa_Init(Actor_EnGoroiwa* this, PlayState* play);
+void EnGoroiwa_Destroy(Actor_EnGoroiwa* this, PlayState* play);
+void EnGoroiwa_Update(Actor_EnGoroiwa* this, PlayState* play);
+void EnGoroiwa_Draw(Actor_EnGoroiwa* this, PlayState* play);
 
 void func_809419D0(Actor_EnGoroiwa* this);
-void func_80941A10(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_80941A10(Actor_EnGoroiwa* this, PlayState* play);
 void func_809421E0(Actor_EnGoroiwa* this);
-void func_8094220C(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_8094220C(Actor_EnGoroiwa* this, PlayState* play);
 void func_809425CC(Actor_EnGoroiwa* this);
-void func_80942604(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_80942604(Actor_EnGoroiwa* this, PlayState* play);
 void func_80941DB4(Actor_EnGoroiwa* this);
-void func_80941E28(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_80941E28(Actor_EnGoroiwa* this, PlayState* play);
 void func_80941EB4(Actor_EnGoroiwa* this);
-void func_80941F10(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_80941F10(Actor_EnGoroiwa* this, PlayState* play);
 void func_80941F54(Actor_EnGoroiwa* this);
-void func_80941FA4(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_80941FA4(Actor_EnGoroiwa* this, PlayState* play);
 void func_80942084(Actor_EnGoroiwa* this);
-void func_809420F0(Actor_EnGoroiwa* this, GameState_Play* play);
+void func_809420F0(Actor_EnGoroiwa* this, PlayState* play);
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
     {
         {
-            ELEMTYPE_UNK0,
+            ELEM_MATERIAL_UNK0,
             { 0x20000000, 0x00, 0x04 },
             { 0x01C37BB6, 0x00, 0x00 },
-            TOUCH_ON | TOUCH_SFX_NONE,
-            BUMP_ON,
+            ATELEM_ON | ATELEM_SFX_NONE,
+            ACELEM_ON,
             OCELEM_ON,
         },
         { 0, { { 0, 0, 0 }, 58 }, 100 },
@@ -59,14 +43,14 @@ static ColliderJntSphElementInit sJntSphElementsInit[1] = {
 
 static ColliderJntSphInit sJntSphInit = {
     {
-        COLTYPE_METAL,
+        COL_MATERIAL_METAL,
         AT_ON | AT_TYPE_ENEMY,
         AC_ON | AC_HARD | AC_TYPE_PLAYER,
         OC1_ON | OC1_TYPE_ALL,
         OC2_TYPE_2,
         COLSHAPE_JNTSPH,
     },
-    ARRAY_SIZE(sJntSphElementsInit),
+    ARRAY_COUNT(sJntSphElementsInit),
     sJntSphElementsInit,
 };
 
@@ -80,9 +64,9 @@ static f32 D_80942DFC[] = {
 };
 
 static Gfx* D_80942E0C[][3] = {
-    { SEGADDR_OBJECT_GOROIWA_DL_0042B0, SEGADDR_OBJECT_GOROIWA_DL_004960, SEGADDR_OBJECT_GOROIWA_DL_004EF0 },
-    { SEGADDR_OBJECT_GOROIWA_DL_0003B0, SEGADDR_OBJECT_GOROIWA_DL_0028E0, SEGADDR_OBJECT_GOROIWA_DL_002D70 },
-    { SEGADDR_OBJECT_GOROIWA_DL_0072F0, SEGADDR_OBJECT_GOROIWA_DL_0077D0, SEGADDR_OBJECT_GOROIWA_DL_007C60 },
+    { (void*)object_goroiwa_DL_0042B0, (void*)object_goroiwa_DL_004960, (void*)object_goroiwa_DL_004EF0 },
+    { (void*)object_goroiwa_DL_0003B0, (void*)object_goroiwa_DL_0028E0, (void*)object_goroiwa_DL_002D70 },
+    { (void*)object_goroiwa_DL_0072F0, (void*)object_goroiwa_DL_0077D0, (void*)object_goroiwa_DL_007C60 },
 };
 
 static Color_RGBA8 D_80942E30[] = {
@@ -143,7 +127,7 @@ void func_8093E938(Actor_EnGoroiwa* this) {
     this->collider.elements->dim.worldSphere.radius = this->unk_1DC - 1.0f;
 }
 
-void func_8093E9B0(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8093E9B0(Actor_EnGoroiwa* this, PlayState* play) {
     s32 params = ENGOROIWA_GET_C000(&this->actor);
 
     Collider_InitJntSph(play, &this->collider);
@@ -152,13 +136,13 @@ void func_8093E9B0(Actor_EnGoroiwa* this, GameState_Play* play) {
     this->collider.elements[0].dim.worldSphere.radius = this->unk_1DC - 1.0f;
 
     if ((params == ENGOROIWA_C000_1) || (params == ENGOROIWA_C000_2)) {
-        this->collider.elements[0].elem.acDmgInfo.dmgFlags |= (0x4000 | 0x400 | 0x100);
+        this->collider.elements[0].base.acDmgInfo.dmgFlags |= (0x4000 | 0x400 | 0x100);
         if (params == ENGOROIWA_C000_1) {
-            this->collider.base.colType = COLTYPE_WOOD;
+            this->collider.base.colMaterial = COL_MATERIAL_WOOD;
         } else {
-            this->collider.elements[0].elem.acDmgInfo.dmgFlags &= ~(0x400000 | 0x200 | 0x2);
-            this->collider.elements[0].elem.acDmgInfo.dmgFlags |= (0x80000000 | 0x800 | 0x8);
-            this->collider.base.colType = COLTYPE_NONE;
+            this->collider.elements[0].base.acDmgInfo.dmgFlags &= ~(0x400000 | 0x200 | 0x2);
+            this->collider.elements[0].base.acDmgInfo.dmgFlags |= (0x80000000 | 0x800 | 0x8);
+            this->collider.base.colMaterial = COL_MATERIAL_NONE;
         }
     }
 }
@@ -180,11 +164,11 @@ s32 func_8093EAD4(Vec3f* arg0, Vec3f* arg1) {
     return TRUE;
 }
 
-void func_8093EB58(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8093EB58(Actor_EnGoroiwa* this, PlayState* play) {
     this->unk_1E4 = (this->actor.home.rot.x >> 1) & 3;
 }
 
-f32 func_8093EB74(Actor_EnGoroiwa* this, GameState_Play* play) {
+f32 func_8093EB74(Actor_EnGoroiwa* this, PlayState* play) {
     s32 i;
     Path* path = &play->setupPathList[ENGOROIWA_GET_PATH_INDEX(&this->actor)];
     s32 temp_s4 = path->count;
@@ -251,14 +235,14 @@ void func_8093EDB0(Actor_EnGoroiwa* this) {
     this->unk_1D8 += this->unk_1DA;
 }
 
-void func_8093EDD8(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8093EDD8(Actor_EnGoroiwa* this, PlayState* play) {
     this->unk_1D4 = play->setupPathList[ENGOROIWA_GET_PATH_INDEX(&this->actor)].count - 1;
     this->unk_1D6 = 0;
     this->unk_1D8 = 1;
     this->unk_1DA = 1;
 }
 
-void func_8093EE18(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8093EE18(Actor_EnGoroiwa* this, PlayState* play) {
     this->unk_1D4 = play->setupPathList[ENGOROIWA_GET_PATH_INDEX(&this->actor)].count - 1;
     this->unk_1D6 = this->actor.home.rot.y;
     this->unk_1D8 = this->unk_1D6 + 1;
@@ -292,7 +276,7 @@ s32 func_8093EEDC(Actor_EnGoroiwa* this) {
     return 0;
 }
 
-void func_8093EF54(GameState_Play* play, Vec3f* arg1, Color_RGBA8* arg2, Color_RGBA8* arg3, f32 arg4) {
+void func_8093EF54(PlayState* play, Vec3f* arg1, Color_RGBA8* arg2, Color_RGBA8* arg3, f32 arg4) {
     Vec3f spC4;
     f32 temp_f0;
     f32 temp_f20;
@@ -325,7 +309,7 @@ void func_8093EF54(GameState_Play* play, Vec3f* arg1, Color_RGBA8* arg2, Color_R
     }
 }
 
-void func_8093F198(GameState_Play* play, Vec3f* arg1, f32 arg2) {
+void func_8093F198(PlayState* play, Vec3f* arg1, f32 arg2) {
     Vec3f sp74;
     f32 temp_f20;
     s32 temp_f16;
@@ -428,7 +412,7 @@ s32 func_8093F5EC(Actor_EnGoroiwa* this) {
     return FALSE;
 }
 
-s32 func_8093F6F8(Actor_EnGoroiwa* this, GameState_Play* play) {
+s32 func_8093F6F8(Actor_EnGoroiwa* this, PlayState* play) {
     f32 temp_f14;
     Vec3s* sp80 = &this->pathPoints[this->unk_1D8];
     f32 sp7C = sp80->y;
@@ -522,7 +506,7 @@ s32 func_8093F6F8(Actor_EnGoroiwa* this, GameState_Play* play) {
     return FALSE;
 }
 
-void func_8093FAA4(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8093FAA4(Actor_EnGoroiwa* this, PlayState* play) {
     f32 temp;
     f32 tmp2;
     f32 sp7C;
@@ -554,10 +538,10 @@ void func_8093FAA4(Actor_EnGoroiwa* this, GameState_Play* play) {
         sp64 = this->unk_1B4;
     }
 
-    Matrix_RotateAxisF(sp7C, &sp64, MAT_SET);
-    Matrix_RotateYS(this->actor.shape.rot.y, MAT_MUL);
-    Matrix_RotateXS(this->actor.shape.rot.x, MAT_MUL);
-    Matrix_RotateZS(this->actor.shape.rot.z, MAT_MUL);
+    Matrix_RotateAxisF(sp7C, &sp64, MTXMODE_NEW);
+    Matrix_RotateYS(this->actor.shape.rot.y, MTXMODE_APPLY);
+    Matrix_RotateXS(this->actor.shape.rot.x, MTXMODE_APPLY);
+    Matrix_RotateZS(this->actor.shape.rot.z, MTXMODE_APPLY);
     Matrix_Get(&sp24);
     Matrix_MtxFToYXZRot(&sp24, &this->actor.shape.rot, FALSE);
 }
@@ -572,7 +556,7 @@ void func_8093FC00(Actor_EnGoroiwa* this) {
     }
 }
 
-void func_8093FC6C(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8093FC6C(Actor_EnGoroiwa* this, PlayState* play) {
     s32 i;
     Vec3f spC0;
     Vec3f spB4;
@@ -640,7 +624,7 @@ void func_8093FC6C(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void func_80940090(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80940090(Actor_EnGoroiwa* this, PlayState* play) {
     s32 sp120 = ENGOROIWA_GET_C000(&this->actor);
     s32 phi_s0;
     s32 phi_s3;
@@ -731,7 +715,7 @@ void func_80940090(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void func_80940588(GameState_Play* play, Vec3f* arg1, Gfx* arg2[], Color_RGBA8* arg3, Color_RGBA8* arg4, f32 arg5) {
+void func_80940588(PlayState* play, Vec3f* arg1, Gfx* arg2[], Color_RGBA8* arg3, Color_RGBA8* arg4, f32 arg5) {
     Gfx* phi_s7;
     Vec3f sp100;
     Vec3f spF4;
@@ -806,7 +790,7 @@ void func_80940588(GameState_Play* play, Vec3f* arg1, Gfx* arg2[], Color_RGBA8* 
     }
 }
 
-void func_80940A1C(GameState_Play* play, Vec3f* arg1, Gfx** arg2, Color_RGBA8* arg3, Color_RGBA8* arg4, f32 arg5) {
+void func_80940A1C(PlayState* play, Vec3f* arg1, Gfx** arg2, Color_RGBA8* arg3, Color_RGBA8* arg4, f32 arg5) {
     s32 i;
     Vec3f spE8;
     Vec3f spDC;
@@ -876,7 +860,7 @@ void func_80940A1C(GameState_Play* play, Vec3f* arg1, Gfx** arg2, Color_RGBA8* a
     }
 }
 
-void func_80940E38(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80940E38(Actor_EnGoroiwa* this, PlayState* play) {
     f32 sp5C;
     f32 sp54;
     Vec3f sp48;
@@ -908,11 +892,11 @@ void func_80940E38(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void func_80941060(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80941060(Actor_EnGoroiwa* this, PlayState* play) {
     Vec3f spAC;
     Vec3f spA0;
     Vec3f sp94;
-    Vec3s* vec = &this->collider.elements[0].elem.acDmgInfo.hitPos;
+    Vec3s* vec = &this->collider.elements[0].base.acDmgInfo.hitPos;
     s32 i;
 
     for (i = 0; i < 4; i++) {
@@ -933,11 +917,11 @@ void func_80941060(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void func_80941274(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80941274(Actor_EnGoroiwa* this, PlayState* play) {
     SoundSource_PlaySfxAtFixedWorldPos(play, &this->actor.world.pos, 30, NA_SE_EV_SNOWBALL_BROKEN);
 }
 
-void EnGoroiwa_Init(Actor_EnGoroiwa* this, GameState_Play* play) {
+void EnGoroiwa_Init(Actor_EnGoroiwa* this, PlayState* play) {
     f32 temp_f0;
     s32 pathIndex = ENGOROIWA_GET_PATH_INDEX(&this->actor);
     Path* path = &play->setupPathList[pathIndex];
@@ -985,7 +969,7 @@ void EnGoroiwa_Init(Actor_EnGoroiwa* this, GameState_Play* play) {
         if (temp_f0 < 0.1f) {
             this->unk_1E0 = 0.0f;
         } else {
-            this->unk_1E0 = (D_80942DFC[this->unk_1E4] * ((s32)play->gs.frameCount * 0.5f)) / temp_f0;
+            this->unk_1E0 = (D_80942DFC[this->unk_1E4] * ((s32)play->state.frameCount * 0.5f)) / temp_f0;
             this->unk_1E0 *= 0.020000001f;
             if (this->unk_1E0 > 0.00037f) {
                 this->unk_1E0 = 0.00037f;
@@ -999,12 +983,12 @@ void EnGoroiwa_Init(Actor_EnGoroiwa* this, GameState_Play* play) {
     func_809419D0(this);
 }
 
-void EnGoroiwa_Destroy(Actor_EnGoroiwa* this, GameState_Play* play) {
+void EnGoroiwa_Destroy(Actor_EnGoroiwa* this, PlayState* play) {
     Collider_DestroyJntSph(play, &this->collider);
     Effect_Destroy(play, this->unk_248);
 }
 
-s32 func_8094156C(Actor_EnGoroiwa* this, GameState_Play* play) {
+s32 func_8094156C(Actor_EnGoroiwa* this, PlayState* play) {
     Actor* actor = &this->actor;
     s32 params = ENGOROIWA_GET_C000(&this->actor);
     Actor_EnGoroiwaStruct* ptr;
@@ -1013,7 +997,7 @@ s32 func_8094156C(Actor_EnGoroiwa* this, GameState_Play* play) {
     Vec3f sp80;
 
     if ((this->collider.base.acFlags & AC_HIT) && ((params == ENGOROIWA_C000_1) || (params == ENGOROIWA_C000_2))) {
-        if (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & 0x4000) {
+        if (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & 0x4000) {
             s16 sp7E = BINANG_SUB(actor->yawTowardsPlayer, this->actor.world.rot.y);
             f32 temp;
             f32 temp2;
@@ -1025,7 +1009,7 @@ s32 func_8094156C(Actor_EnGoroiwa* this, GameState_Play* play) {
             this->unk_1E8[1].unk_1E = BINANG_ADD(this->actor.yawTowardsPlayer, 0x4000);
             this->unk_1E8[1].unk_24 = Rand_ZeroOne() * 600.0f;
 
-            for (i = 0; i < ARRAY_SIZE(this->unk_1E8); i++) {
+            for (i = 0; i < ARRAY_COUNT(this->unk_1E8); i++) {
                 ptr = &this->unk_1E8[i];
 
                 ptr->unk_00.x = this->actor.world.pos.x;
@@ -1067,11 +1051,11 @@ s32 func_8094156C(Actor_EnGoroiwa* this, GameState_Play* play) {
             func_80941274(this, play);
             phi_s0_2 = TRUE;
         } else if (((params == ENGOROIWA_C000_1) &&
-                    (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & (0x400 | 0x100))) ||
-                   ((params == ENGOROIWA_C000_2) && (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags &
+                    (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & (0x400 | 0x100))) ||
+                   ((params == ENGOROIWA_C000_2) && (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags &
                                                      (0x80000000 | 0x800 | 0x400 | 0x100 | 0x8)))) {
             this->unk_1CC = 50;
-            if ((params == ENGOROIWA_C000_2) && (this->collider.elements->elem.acHitElem->atDmgInfo.dmgFlags & 0x800)) {
+            if ((params == ENGOROIWA_C000_2) && (this->collider.elements->base.acHitElem->atDmgInfo.dmgFlags & 0x800)) {
                 this->unk_1E6 = TRUE;
             }
             func_80940090(this, play);
@@ -1102,7 +1086,7 @@ void func_809419D0(Actor_EnGoroiwa* this) {
     this->unk_1C4 = 1.0f;
 }
 
-void func_80941A10(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80941A10(Actor_EnGoroiwa* this, PlayState* play) {
     static Actor_EnGoroiwaUnkFunc D_80942E94[] = {
         func_8093F498,
         func_8093F34C,
@@ -1113,13 +1097,13 @@ void func_80941A10(Actor_EnGoroiwa* this, GameState_Play* play) {
         { NA_SE_EV_BIGBALL_ROLL_3 - SFX_FLAG, NA_SE_EV_BIGBALL_ROLL_SR_3 - SFX_FLAG },
         { NA_SE_EV_BIGBALL_ROLL - SFX_FLAG, NA_SE_EV_BIGBALL_ROLL_SR - SFX_FLAG },
     };
-    Actor_Player* player = GET_PLAYER(play);
+    Player* player = GET_PLAYER(play);
     s32 sp44 = ENGOROIWA_GET_400(&this->actor);
     s32 sp40 = ENGOROIWA_GET_3000(&this->actor);
     s16 y;
 
     if (!func_8094156C(this, play)) {
-        if ((this->collider.base.atFlags & AT_HIT) && !(player->state3 & (1 << 19))) {
+        if ((this->collider.base.atFlags & AT_HIT) && !(player->stateFlags3 & (1 << 19))) {
             s32 sp34 = this->actor.home.rot.z & 3;
 
             if (sp34 == 2) {
@@ -1208,7 +1192,7 @@ void func_80941DB4(Actor_EnGoroiwa* this) {
     this->unk_1C4 = 1.0f;
 }
 
-void func_80941E28(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80941E28(Actor_EnGoroiwa* this, PlayState* play) {
     func_8093F34C(this);
     if ((this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) && (this->actor.velocity.y < 0.0f)) {
         if ((this->unk_1E5 & 8) && ((this->actor.home.rot.z & 3) == 1)) {
@@ -1228,7 +1212,7 @@ void func_80941EB4(Actor_EnGoroiwa* this) {
     this->unk_1C4 = 0.0f;
 }
 
-void func_80941F10(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80941F10(Actor_EnGoroiwa* this, PlayState* play) {
     if (!func_8094156C(this, play)) {
         if (this->unk_1C8 > 0) {
             this->unk_1C8--;
@@ -1245,11 +1229,11 @@ void func_80941F54(Actor_EnGoroiwa* this) {
     this->actor.velocity.y = fabsf(this->actor.speed) * 0.1f;
 }
 
-void func_80941FA4(Actor_EnGoroiwa* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void func_80941FA4(Actor_EnGoroiwa* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
 
     if (func_8094156C(this, play) == 0) {
-        if ((this->collider.base.atFlags & AT_HIT) && !(player->state3 & (1 << 19))) {
+        if ((this->collider.base.atFlags & AT_HIT) && !(player->stateFlags3 & (1 << 19))) {
             func_800B8D50(play, &this->actor, 2.0f, this->actor.yawTowardsPlayer, 0.0f, 0);
             Player_PlaySfx(player, NA_SE_PL_BODY_HIT);
             if (((this->actor.home.rot.z & 3) == 1) || ((this->actor.home.rot.z & 3) == 2)) {
@@ -1273,11 +1257,11 @@ void func_80942084(Actor_EnGoroiwa* this) {
     this->unk_1E5 &= ~0x20;
 }
 
-void func_809420F0(Actor_EnGoroiwa* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void func_809420F0(Actor_EnGoroiwa* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
 
     if (func_8094156C(this, play) == 0) {
-        if ((this->collider.base.atFlags & AT_HIT) && !(player->state3 & (1 << 19))) {
+        if ((this->collider.base.atFlags & AT_HIT) && !(player->stateFlags3 & (1 << 19))) {
             func_800B8D50(play, &this->actor, 2.0f, this->actor.yawTowardsPlayer, 0.0f, 0);
             Player_PlaySfx(player, NA_SE_PL_BODY_HIT);
             if (((this->actor.home.rot.z & 3) == 1) || ((this->actor.home.rot.z & 3) == 2)) {
@@ -1297,7 +1281,7 @@ void func_809421E0(Actor_EnGoroiwa* this) {
     func_8093EAB0(this, 0);
 }
 
-void func_8094220C(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_8094220C(Actor_EnGoroiwa* this, PlayState* play) {
     Actor_EnGoroiwaStruct* ptr;
     s32 i;
     s32 spD0;
@@ -1310,7 +1294,7 @@ void func_8094220C(Actor_EnGoroiwa* this, GameState_Play* play) {
     Vec3f sp9C;
     s16 sp9A;
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1E8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1E8); i++) {
         ptr = &this->unk_1E8[i];
 
         if (!(ptr->unk_2D & 1)) {
@@ -1333,7 +1317,7 @@ void func_8094220C(Actor_EnGoroiwa* this, GameState_Play* play) {
             ptr->unk_18 = BgCheck_EntityRaycastFloor5(&play->colCtx, &ptr->unk_28, &spD0, &this->actor, &spC4);
 
             if (ptr->unk_10 <= 0.0f) {
-                Matrix_RotateZYX(ptr->unk_1C, ptr->unk_1E, ptr->unk_20, MAT_SET);
+                Matrix_RotateZYX(ptr->unk_1C, ptr->unk_1E, ptr->unk_20, MTXMODE_NEW);
                 Matrix_MultVec3f(&D_80942E6C, &spB8);
                 temp_f20 = this->unk_1DC * 0.9f;
 
@@ -1374,7 +1358,7 @@ void func_8094220C(Actor_EnGoroiwa* this, GameState_Play* play) {
     Math_StepToS(&sp9A, 0, 40);
     this->actor.shape.shadowAlpha = sp9A;
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1E8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1E8); i++) {
         ptr = &this->unk_1E8[i];
 
         if (ptr->unk_2D & 1) {
@@ -1393,7 +1377,7 @@ void func_809425CC(Actor_EnGoroiwa* this) {
     this->unk_1C8 = 100;
 }
 
-void func_80942604(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80942604(Actor_EnGoroiwa* this, PlayState* play) {
     s16 sp22 = this->actor.shape.shadowAlpha;
 
     Math_StepToS(&sp22, 0, 40);
@@ -1405,8 +1389,8 @@ void func_80942604(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void EnGoroiwa_Update(Actor_EnGoroiwa* this, GameState_Play* play) {
-    Actor_Player* player = GET_PLAYER(play);
+void EnGoroiwa_Update(Actor_EnGoroiwa* this, PlayState* play) {
+    Player* player = GET_PLAYER(play);
     s32 bgId;
     s32 sp5C = FALSE;
     Vec3f sp50;
@@ -1415,7 +1399,7 @@ void EnGoroiwa_Update(Actor_EnGoroiwa* this, GameState_Play* play) {
     int floorType;
     CollisionPoly* tmp;
 
-    if (!(player->state &
+    if (!(player->stateFlags1 &
           ((1 << 6) | (1 << 7) | (1 << 28) | (1 << 29)))) {
         if (this->unk_1CC > 0) {
             this->unk_1CC--;
@@ -1501,7 +1485,7 @@ void EnGoroiwa_Update(Actor_EnGoroiwa* this, GameState_Play* play) {
                 func_8093E938(this);
 
                 if ((this->unk_1E5 & 1) && (this->unk_1CC <= 0) &&
-                    (!(player->state3 & (1 << 25)) || (player->transformation != MM_PLAYER_FORM_GORON) ||
+                    (!(player->stateFlags3 & (1 << 25)) || (player->transformation != MM_PLAYER_FORM_GORON) ||
                      ((params != ENGOROIWA_C000_1) && (params != ENGOROIWA_C000_2)))) {
                     CollisionCheck_SetAT(play, &play->colChkCtx, &this->collider.base);
                 } else {
@@ -1528,7 +1512,7 @@ void EnGoroiwa_Update(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void func_80942B1C(Actor_EnGoroiwa* this, GameState_Play* play) {
+void func_80942B1C(Actor_EnGoroiwa* this, PlayState* play) {
     s32 i;
     Actor_EnGoroiwaStruct* ptr;
     s32 params = ENGOROIWA_GET_C000(&this->actor);
@@ -1537,12 +1521,12 @@ void func_80942B1C(Actor_EnGoroiwa* this, GameState_Play* play) {
     Vec3s sp80;
 
     if (params == ENGOROIWA_C000_1) {
-        phi_fp = SEGADDR_OBJECT_GOROIWA_DL_0032E0;
+        phi_fp = (void*)object_goroiwa_DL_0032E0;
     } else {
-        phi_fp = SEGADDR_OBJECT_GOROIWA_DL_0082D0;
+        phi_fp = (void*)object_goroiwa_DL_0082D0;
     }
 
-    for (i = 0; i < ARRAY_SIZE(this->unk_1E8); i++) {
+    for (i = 0; i < ARRAY_COUNT(this->unk_1E8); i++) {
         ptr = &this->unk_1E8[i];
 
         if (!(ptr->unk_2D & 1)) {
@@ -1551,13 +1535,13 @@ void func_80942B1C(Actor_EnGoroiwa* this, GameState_Play* play) {
             sp80.z = ptr->unk_20;
 
             Matrix_SetTranslateRotateYXZ(ptr->unk_00.x, ptr->unk_00.y, ptr->unk_00.z, &sp80);
-            Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MAT_MUL);
+            Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
             Gfx_DrawDListOpa(play, phi_fp);
 
             if ((ptr->unk_28 != 0) && (ptr->unk_2C > 0)) {
-                OPEN_DISPS(play->gs.gfx);
+                OPEN_DISPS(play->state.gfxCtx);
 
-                Gfx_SetupDL44_Xlu(play->gs.gfx);
+                Gfx_SetupDL44_Xlu(play->state.gfxCtx);
 
                 gDPSetCombineLERP(POLY_XLU_DISP++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED, 0, 0,
                                   0, COMBINED);
@@ -1565,9 +1549,9 @@ void func_80942B1C(Actor_EnGoroiwa* this, GameState_Play* play) {
 
                 func_800C0094(ptr->unk_28, ptr->unk_00.x, ptr->unk_18, ptr->unk_00.z, &sp88);
                 Matrix_Put(&sp88);
-                Matrix_Scale(this->actor.scale.x * 7.5f, 1.0f, this->actor.scale.z * 7.5f, MAT_MUL);
+                Matrix_Scale(this->actor.scale.x * 7.5f, 1.0f, this->actor.scale.z * 7.5f, MTXMODE_APPLY);
 
-                gSPMatrix(POLY_XLU_DISP++, GetMatrixMV(play->gs.gfx),
+                gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                 gSPDisplayList(POLY_XLU_DISP++, SEGADDR_CIRCLE_SHADOW_DL);
 
@@ -1577,11 +1561,11 @@ void func_80942B1C(Actor_EnGoroiwa* this, GameState_Play* play) {
     }
 }
 
-void EnGoroiwa_Draw(Actor_EnGoroiwa* this, GameState_Play* play) {
+void EnGoroiwa_Draw(Actor_EnGoroiwa* this, PlayState* play) {
     static Gfx* D_80942EB4[] = {
-        SEGADDR_OBJECT_GOROIWA_DL_005C20,
-        SEGADDR_OBJECT_GOROIWA_DL_003B40,
-        SEGADDR_OBJECT_GOROIWA_DL_008B90,
+        (void*)object_goroiwa_DL_005C20,
+        (void*)object_goroiwa_DL_003B40,
+        (void*)object_goroiwa_DL_008B90,
     };
     s32 params = ENGOROIWA_GET_C000(&this->actor);
 
@@ -1589,7 +1573,7 @@ void EnGoroiwa_Draw(Actor_EnGoroiwa* this, GameState_Play* play) {
         func_80942B1C(this, play);
     } else if (this->actionFunc != func_80942604) {
         if(params == 2) {
-            OPEN_DISPS(play->gs.gfx);
+            OPEN_DISPS(play->state.gfxCtx);
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0x80, 255, 255, 255, 255);
             CLOSE_DISPS();
         }
@@ -1598,7 +1582,7 @@ void EnGoroiwa_Draw(Actor_EnGoroiwa* this, GameState_Play* play) {
 }
 
 ActorInit Actor_EnGoroiwa_InitVars = {
-    AC_EN_GOROIWA,
+    ACTOR_EN_GOROIWA,
     ACTORCAT_PROP,
     FLAGS,
     OBJECT_GOROIWA,
@@ -1609,4 +1593,4 @@ ActorInit Actor_EnGoroiwa_InitVars = {
     (ActorFunc)EnGoroiwa_Draw,
 };
 
-OVL_ACTOR_INFO(AC_EN_GOROIWA, Actor_EnGoroiwa_InitVars);
+OVL_INFO_ACTOR(ACTOR_EN_GOROIWA, Actor_EnGoroiwa_InitVars);

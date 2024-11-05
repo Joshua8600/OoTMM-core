@@ -6,18 +6,18 @@
 
 #define SET_HANDLER(a, h) do { *(void**)(((char*)(a)) + 0x180) = (h); } while (0)
 
-static void EnCs_AfterMaskTrade(Actor* this, GameState_Play* play)
+static void EnCs_AfterMaskTrade(Actor* this, PlayState* play)
 {
-    gSave.eventsItem[3] |= 0x400;
-    SET_HANDLER(this, actorAddr(AC_EN_CS, 0x80ae1ee8));
+    gSave.info.eventsItem[3] |= 0x400;
+    SET_HANDLER(this, actorAddr(ACTOR_EN_CS, 0x80ae1ee8));
 }
 
-static void EnCs_MaskTradeCheck(Actor* this, GameState_Play* play)
+static void EnCs_MaskTradeCheck(Actor* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     if (Actor_HasParentZ(this))
@@ -30,13 +30,13 @@ static void EnCs_MaskTradeCheck(Actor* this, GameState_Play* play)
     comboGiveItemNpc(this, play, GI_OOT_RUPEE_RED, NPC_OOT_MASK_SELL_SPOOKY, 16384.f, 16384.f);
 }
 
-static void EnCs_MaskTradeRupees(Actor* this, GameState_Play* play)
+static void EnCs_MaskTradeRupees(Actor* this, PlayState* play)
 {
     AddRupees(30);
     EnCs_AfterMaskTrade(this, play);
 }
 
-static void EnCs_InitMaskTrade(Actor* this, GameState_Play* play)
+static void EnCs_InitMaskTrade(Actor* this, PlayState* play)
 {
     ActorFunc func;
 
@@ -58,12 +58,12 @@ static void EnCs_InitMaskTrade(Actor* this, GameState_Play* play)
 
 static int EnCs_ActorTalkedTo(Actor* this)
 {
-    Actor_Player* link;
+    Player* link;
     int ret;
 
     link = GET_PLAYER(gPlay);
     ret = ActorTalkedTo(this);
-    if (ret && link->mask == MASK_SPOOKY && !(gSave.eventsItem[3] & 0x400))
+    if (ret && link->mask == MASK_SPOOKY && !(gSave.info.eventsItem[3] & 0x400))
     {
         SET_HANDLER(this, EnCs_InitMaskTrade);
         EnCs_InitMaskTrade(this, gPlay);

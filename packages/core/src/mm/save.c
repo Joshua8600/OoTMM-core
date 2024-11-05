@@ -3,22 +3,10 @@
 #include <combo/config.h>
 #include <combo/inventory.h>
 
-static void Sram_LoadOptions(void)
-{
-    u8 ootHeader[0x20];
-
-    Flash_ReadWrite(0x00000, ootHeader, sizeof(ootHeader), OS_READ);
-    gSaveContext.options.optionId = 0xa51d;
-    gSaveContext.options.unk_02 = 1;
-    gSaveContext.options.audio = ootHeader[0];
-    gSaveContext.options.unk_04 = 0;
-    gSaveContext.options.zTarget = ootHeader[1];
-}
-
 void Sram_AfterOpenSave(void)
 {
-    /* Patch MM options */
-    Sram_LoadOptions();
+    /* Load options */
+    Save_LoadOptions();
 
     /* Read the foreign save */
     Save_ReadForeign();
@@ -35,7 +23,7 @@ void Sram_AfterOpenSave(void)
 #endif
 }
 
-void Sram_SaveEndOfCycle(GameState_Play* play)
+void Sram_SaveEndOfCycle(PlayState* play)
 {
     /* Re-enable time */
     gNoTimeFlow = 0;
@@ -43,11 +31,8 @@ void Sram_SaveEndOfCycle(GameState_Play* play)
     /* Disable sirloin */
     gSharedCustomSave.storedSirloin = 0;
 
-    /* Reset Anju's reservation */
-    MM_CLEAR_EVENT_WEEK(EV_MM_WEEK_ANJU_RESERVATION_FAILED);
-
     /* Store a dummy scene/entrance in OoT (prevents reloading into a temple - could lead to softlocks) */
-    gOotSave.sceneId = SCE_OOT_TEMPLE_OF_TIME;
+    gOotSave.info.sceneId = SCE_OOT_TEMPLE_OF_TIME;
     gOotSave.entrance = ENTR_OOT_WARP_SONG_TEMPLE;
 
     Save_DoSave(play, SF_NOCOMMIT);
@@ -66,19 +51,19 @@ void Sram_SaveEndOfCycle(GameState_Play* play)
 
     if (gMmExtraTrade.trade1)
     {
-        gSave.inventory.items[ITS_MM_TRADE1] = ITEM_MM_DEED_OCEAN;
+        gSave.info.inventory.items[ITS_MM_TRADE1] = ITEM_MM_DEED_OCEAN;
         comboToggleSlot(ITS_MM_TRADE1);
     }
 
     if (gMmExtraTrade.trade2)
     {
-        gSave.inventory.items[ITS_MM_TRADE2] = ITEM_MM_LETTER_TO_MAMA;
+        gSave.info.inventory.items[ITS_MM_TRADE2] = ITEM_MM_LETTER_TO_MAMA;
         comboToggleSlot(ITS_MM_TRADE2);
     }
 
     if (gMmExtraTrade.trade3)
     {
-        gSave.inventory.items[ITS_MM_TRADE3] = ITEM_MM_PENDANT_OF_MEMORIES;
+        gSave.info.inventory.items[ITS_MM_TRADE3] = ITEM_MM_PENDANT_OF_MEMORIES;
         comboToggleSlot(ITS_MM_TRADE3);
     }
 
@@ -88,16 +73,16 @@ void Sram_SaveEndOfCycle(GameState_Play* play)
         gSave.eventInf[7] &= 0xe0;
 
         /* Still reset pictobox */
-        gSave.inventory.ammo[ITS_MM_PICTOBOX] = 0;
+        gSave.info.inventory.ammo[ITS_MM_PICTOBOX] = 0;
     }
     else
     {
         /* Reset ammo */
         for (int i = 0; i < 24; ++i)
-            gSave.inventory.ammo[i] = 0;
+            gSave.info.inventory.ammo[i] = 0;
 
         /* Reset rupees */
-        gSave.playerData.rupees = 0;
+        gSave.info.playerData.rupees = 0;
         gSave.rupeesDelta = 0;
 
         /* Reset chateau */
@@ -109,7 +94,7 @@ void Sram_SaveEndOfCycle(GameState_Play* play)
     {
         u8* slot;
 
-        slot = &gSave.inventory.items[ITS_MM_BOTTLE + i];
+        slot = &gSave.info.inventory.items[ITS_MM_BOTTLE + i];
         switch (*slot)
         {
         case ITEM_NONE:
@@ -142,16 +127,16 @@ void Sram_SaveEndOfCycle(GameState_Play* play)
     {
         int slot;
 
-        slot = gSave.itemEquips.cButtonSlots[0][i];
+        slot = gSave.info.itemEquips.cButtonSlots[0][i];
         if (slot >= ITS_MM_BOTTLE && slot <= ITS_MM_BOTTLE6)
         {
-            gSave.itemEquips.buttonItems[0][i] = gSave.inventory.items[slot];
+            gSave.info.itemEquips.buttonItems[0][i] = gSave.info.inventory.items[slot];
             Interface_LoadItemIconImpl(play, i);
         }
     }
 
     /* Reset unk_14 and room flags, except for dungeons */
-    for (int i = 7; i < ARRAY_SIZE(gSave.permanentSceneFlags); ++i)
+    for (int i = 7; i < ARRAY_COUNT(gSave.info.permanentSceneFlags); ++i)
     {
         switch (i)
         {
@@ -162,8 +147,8 @@ void Sram_SaveEndOfCycle(GameState_Play* play)
         case SCE_MM_TEMPLE_STONE_TOWER_INVERTED:
             break;
         default:
-            gSave.permanentSceneFlags[i].clearedFloors = 0;
-            gSave.permanentSceneFlags[i].rooms = 0;
+            gSave.info.permanentSceneFlags[i].clearedFloors = 0;
+            gSave.info.permanentSceneFlags[i].rooms = 0;
             break;
         }
     }
@@ -187,7 +172,7 @@ PATCH_CALL(0x80829218, PrepareSaveAndSave);
 PATCH_CALL(0x80829f08, PrepareSaveAndSave);
 PATCH_CALL(0x80146f10, PrepareSaveAndSave);
 
-void Save_DoSave(GameState_Play* play, int saveFlags)
+void Save_DoSave(PlayState* play, int saveFlags)
 {
     /* Wait for net */
     netWaitSave();
@@ -197,7 +182,7 @@ void Save_DoSave(GameState_Play* play, int saveFlags)
         gSave.isOwlSave = 1;
 
     /* Reset the OoT spawn point */
-    gOotSave.sceneId = SCE_OOT_TEMPLE_OF_TIME;
+    gOotSave.info.sceneId = SCE_OOT_TEMPLE_OF_TIME;
     gOotSave.entrance = ENTR_OOT_WARP_SONG_TEMPLE;
 
     if (!(saveFlags & SF_NOCOMMIT))
@@ -219,13 +204,13 @@ static void MoonCrashReset(void)
     gSave.cutscene = cutscene;
 
     /* Reset flags */
-    for (int i = 0; i < ARRAY_SIZE(gSaveContext.cycleSceneFlags); ++i)
+    for (int i = 0; i < ARRAY_COUNT(gSaveContext.cycleSceneFlags); ++i)
     {
-        gSaveContext.cycleSceneFlags[i].chest = gSave.permanentSceneFlags[i].chest;
-        gSaveContext.cycleSceneFlags[i].collectible = gSave.permanentSceneFlags[i].collectible;
-        gSaveContext.cycleSceneFlags[i].switch0 = gSave.permanentSceneFlags[i].switch0;
-        gSaveContext.cycleSceneFlags[i].switch1 = gSave.permanentSceneFlags[i].switch1;
-        gSaveContext.cycleSceneFlags[i].clearedRoom = gSave.permanentSceneFlags[i].clearedRoom;
+        gSaveContext.cycleSceneFlags[i].chest = gSave.info.permanentSceneFlags[i].chest;
+        gSaveContext.cycleSceneFlags[i].collectible = gSave.info.permanentSceneFlags[i].collectible;
+        gSaveContext.cycleSceneFlags[i].switch0 = gSave.info.permanentSceneFlags[i].switch0;
+        gSaveContext.cycleSceneFlags[i].switch1 = gSave.info.permanentSceneFlags[i].switch1;
+        gSaveContext.cycleSceneFlags[i].clearedRoom = gSave.info.permanentSceneFlags[i].clearedRoom;
     }
 
     /* Reset timers */

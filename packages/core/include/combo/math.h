@@ -11,6 +11,7 @@
 #define BINANG_ROT180(angle) ((s16)(angle + 0x8000))
 
 #define SQXZ(vec) ((vec.x) * (vec.x) + (vec.z) * (vec.z))
+#define DOTXYZ(vec1, vec2) ((vec1.x) * (vec2.x) + (vec1.y) * (vec2.y) + (vec1.z) * (vec2.z))
 
 #define M_PIf 3.14159265358979323846f
 
@@ -40,6 +41,7 @@ s32     Math_StepToF(float* pValue, float target, float step);
 s32     Math_StepToS(s16* pValue, s16 target, s16 step);
 float   Math_SmoothStepToF(float* pValue, float target, float fraction, float step, float minStep);
 void    Math_Vec3f_Copy(Vec3f* dest, Vec3f* src);
+void    Math_Vec3s_Copy(Vec3s* dest, Vec3s* src);
 void    Math_Vec3f_Sum(Vec3f* a, Vec3f* b, Vec3f* dest);
 void    Math_Vec3f_Diff(Vec3f* a, Vec3f* b, Vec3f* dest);
 s32     Math_ScaledStepToS(s16* pValue, s16 target, s16 step);
@@ -48,5 +50,8 @@ s32     Math3D_CosOut(Vec3f* a, Vec3f* b, f32* dst);
 float   Math3D_Dist2DSq(float x1, float y1, float x2, float y2);
 s16     Math_Vec3f_Yaw(Vec3f* origin, Vec3f* point);
 s16     Math_Vec3f_Pitch(Vec3f* origin, Vec3f* point);
+f32     Math_FAcosF(f32 angle);
+f32     Math_SinF(f32 rad);
+
 
 #endif

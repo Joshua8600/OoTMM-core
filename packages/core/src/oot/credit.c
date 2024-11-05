@@ -2,9 +2,9 @@
 #include <combo/player.h>
 #include <combo/global.h>
 
-void comboCreditWarp(GameState_Play* play)
+void comboCreditWarp(PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     g.isCreditWarp = 1;
     g.isCredits = 1;
@@ -14,7 +14,7 @@ void comboCreditWarp(GameState_Play* play)
 
     /* Credit warp */
     link = GET_PLAYER(play);
-    link->state |= PLAYER_ACTOR_STATE_FROZEN;
+    link->stateFlags1 |= PLAYER_ACTOR_STATE_FROZEN;
     play->transitionTrigger = TRANS_TRIGGER_NORMAL;
     play->transitionType = TRANS_GFX_BLACK;
     play->nextEntranceIndex = 0x06b;

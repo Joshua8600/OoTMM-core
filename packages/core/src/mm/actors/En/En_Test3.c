@@ -5,12 +5,12 @@
 
 #define SET_HANDLER(a, h) do { *(void**)(((char*)(a)) + 0xd94) = (h); } while (0)
 
-static void EnTest3_GivePendantOfMemories(Actor* this, GameState_Play* play)
+static void EnTest3_GivePendantOfMemories(Actor* this, PlayState* play)
 {
     s16 gi;
     int npc;
 
-    if (!(GET_PLAYER(play)->state & PLAYER_ACTOR_STATE_GET_ITEM))
+    if (!(GET_PLAYER(play)->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM))
         Message_Close(play);
 
     if (Actor_HasParentZ(this))
@@ -34,7 +34,7 @@ static void EnTest3_GivePendantOfMemories(Actor* this, GameState_Play* play)
     comboGiveItemNpc(this, play, gi, npc, 9999.f, 9999.f);
 }
 
-int EnTest3_TalkedTo(Actor* this, GameState_Play* play)
+int EnTest3_TalkedTo(Actor* this, PlayState* play)
 {
     int ret;
     u8 state;
@@ -52,7 +52,7 @@ int EnTest3_TalkedTo(Actor* this, GameState_Play* play)
 
 PATCH_CALL(0x80a3f758, EnTest3_TalkedTo);
 
-void EnTest3_AfterUpdate(Actor* this, GameState_Play* play)
+void EnTest3_AfterUpdate(Actor* this, PlayState* play)
 {
     int* state;
 

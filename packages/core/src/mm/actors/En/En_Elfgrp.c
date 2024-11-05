@@ -39,7 +39,7 @@ static u8 EnElfgrp_GetFairyIndex(Actor* this)
     return index;
 }
 
-static void EnElfgrp_GiveReward(Actor* actor, GameState_Play* play)
+static void EnElfgrp_GiveReward(Actor* actor, PlayState* play)
 {
     ComboItemQuery q;
     u8 fairyIndex;
@@ -65,18 +65,18 @@ static void EnElfgrp_GiveReward(Actor* actor, GameState_Play* play)
 
 PATCH_FUNC(0x80a3a398, EnElfgrp_GiveReward);
 
-static int EnElfgrp_GetFairyCount(GameState_Play* play, int type)
+static int EnElfgrp_GetFairyCount(PlayState* play, int type)
 {
     if (type == 0 || type > 4)
         return 0;
-    if (gSave.inventory.strayFairies[type - 1] >= gComboConfig.strayFairyRewardCount)
+    if (gSave.info.inventory.strayFairies[type - 1] >= gComboConfig.strayFairyRewardCount)
         return 25;
     return 0;
 }
 
 PATCH_FUNC(0x80a39bd0, EnElfgrp_GetFairyCount);
 
-static void fairyHint(GameState_Play* play, int index)
+static void fairyHint(PlayState* play, int index)
 {
     ComboItemQuery q;
     char* b;
@@ -101,7 +101,7 @@ static void fairyHint(GameState_Play* play, int index)
     comboTextAutoLineBreaks(start);
 }
 
-static void fairyHintTown(GameState_Play* play)
+static void fairyHintTown(PlayState* play)
 {
     ComboItemQuery q1;
     ComboItemQuery q2;
@@ -123,7 +123,7 @@ static void fairyHintTown(GameState_Play* play)
     comboTextAutoLineBreaks(start);
 }
 
-static void EnElfgrp_DisplayTextBox(GameState_Play* play, s16 messageId, Actor* this)
+static void EnElfgrp_DisplayTextBox(PlayState* play, s16 messageId, Actor* this)
 {
     u8 fairyIndex;
 

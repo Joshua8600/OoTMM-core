@@ -1,4 +1,5 @@
 #include <combo.h>
+#include <combo/audio.h>
 #include <combo/item.h>
 #include <combo/net.h>
 #include <combo/time.h>
@@ -38,6 +39,27 @@ void gracePeriod(void)
     }
 }
 #endif
+
+void Save_LoadOptions(void)
+{
+    u8 ootHeader[0x20];
+
+    Flash_ReadWrite(0x00000, ootHeader, sizeof(ootHeader), OS_READ);
+
+#if defined(GAME_OOT)
+    gSaveContext.audioSetting = ootHeader[0];
+    gSaveContext.zTargetSetting = ootHeader[1];
+    Audio_ApplySoundMode(gSaveContext.audioSetting);
+#endif
+
+#if defined(GAME_MM)
+    gSaveContext.options.optionId = 0xa51d;
+    gSaveContext.options.unk_02 = 1;
+    gSaveContext.options.audio = ootHeader[0];
+    gSaveContext.options.unk_04 = 0;
+    gSaveContext.options.zTarget = ootHeader[1];
+#endif
+}
 
 void Save_OnLoad(void)
 {
@@ -102,11 +124,11 @@ static void saveOot(void)
     u32 base;
 
     /* Set the checksum */
-    gOotSave.checksum = 0;
-    gOotSave.checksum = computeChecksumOot(&gOotSave, sizeof(gOotSave));
+    gOotSave.info.checksum = 0;
+    gOotSave.info.checksum = computeChecksumOot(&gOotSave, sizeof(gOotSave));
 
     /* Write the save data to flash */
-    base = 0x20 + 0x1450 * gSaveContext.fileIndex;
+    base = 0x20 + 0x1450 * gSaveContext.fileNum;
     Flash_ReadWrite(base, &gOotSave, sizeof(gOotSave), OS_WRITE);
     Flash_ReadWrite(base + 0x3cf0, &gOotSave, sizeof(gOotSave), OS_WRITE);
 }
@@ -116,11 +138,11 @@ static void saveMm(void)
     u32 base;
 
     /* Compute save args */
-    base = 0x8000 + 0x8000 * gSaveContext.fileIndex;
+    base = 0x8000 + 0x8000 * gSaveContext.fileNum;
 
     /* Set the checksum */
-    gMmSave.checksum = 0;
-    gMmSave.checksum = computeChecksumMm(&gMmSave, sizeof(gMmSave));
+    gMmSave.info.checksum = 0;
+    gMmSave.info.checksum = computeChecksumMm(&gMmSave, sizeof(gMmSave));
 
     /* Write the save data to flash */
     Flash_ReadWrite(base, &gMmSave, sizeof(gMmSave), OS_WRITE);
@@ -129,7 +151,7 @@ static void saveMm(void)
 
 void Save_ReadOwn(void)
 {
-    u32 fileIndex = gSaveContext.fileIndex;
+    u32 fileIndex = gSaveContext.fileNum;
 
 #if defined(GAME_OOT)
     Flash_ReadWrite(0x20 + 0x1450 * fileIndex, &gOotSave, sizeof(gOotSave), OS_READ);
@@ -142,7 +164,7 @@ void Save_ReadOwn(void)
 
 void Save_ReadForeign(void)
 {
-    u32 fileIndex = gSaveContext.fileIndex;
+    u32 fileIndex = gSaveContext.fileNum;
 
 #if !defined(GAME_OOT)
     Flash_ReadWrite(0x20 + 0x1450 * fileIndex, &gOotSave, sizeof(gOotSave), OS_READ);
@@ -159,14 +181,14 @@ static void saveFixup(void)
 {
     /* Instantly fill the magic bar */
     if (gSaveContext.magicState == MAGIC_STATE_FILL)
-        gSave.playerData.magicAmount = gSaveContext.magicFillTarget;
+        gSave.info.playerData.magic = gSaveContext.magicFillTarget;
 }
 
 void Save_Write(void)
 {
     NetContext* net;
 
-    if (gSaveContext.fileIndex == 0xff)
+    if (gSaveContext.fileNum == 0xff)
         return;
 
     /* Save the network part */
@@ -181,7 +203,7 @@ void Save_Write(void)
     saveMm();
 
     /* Write the custom save */
-    Flash_ReadWrite(0x18000 + 0x4000 * gSaveContext.fileIndex, &gSharedCustomSave, sizeof(gSharedCustomSave), OS_WRITE);
+    Flash_ReadWrite(0x18000 + 0x4000 * gSaveContext.fileNum, &gSharedCustomSave, sizeof(gSharedCustomSave), OS_WRITE);
 }
 
 static void copyRawSave(u32 dst, u32 src, int size)
@@ -222,6 +244,6 @@ void comboHandleAutoInvertClockSpeed(void)
     if(Config_Flag(CFG_MM_CLOCK_SPEED_SUPERFAST))
         invertSpeed = -12;
 
-    if (Config_Flag(CFG_MM_AUTO_INVERT_ALWAYS) || (Config_Flag(CFG_MM_AUTO_INVERT_FIRST_CYCLE) && gMmSave.playerData.songOfTimeCount == 0))
+    if (Config_Flag(CFG_MM_AUTO_INVERT_ALWAYS) || (Config_Flag(CFG_MM_AUTO_INVERT_FIRST_CYCLE) && gMmSave.info.playerData.songOfTimeCount == 0))
         gMmSave.daySpeed = invertSpeed;
 }

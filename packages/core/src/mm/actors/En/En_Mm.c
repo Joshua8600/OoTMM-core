@@ -3,7 +3,7 @@
 #include <combo/config.h>
 #include <combo/actor.h>
 
-void EnMm_InitWrapper(Actor* this, GameState_Play* play)
+void EnMm_InitWrapper(Actor* this, PlayState* play)
 {
     ActorFunc EnMm_Init;
 
@@ -16,13 +16,13 @@ void EnMm_InitWrapper(Actor* this, GameState_Play* play)
         }
     }
 
-    EnMm_Init = actorAddr(AC_EN_MM, 0x80965c0c);
+    EnMm_Init = actorAddr(ACTOR_EN_MM, 0x80965c0c);
     EnMm_Init(this, play);
 }
 
 static int EnMm_ActorHasParent(Actor* this)
 {
-    Actor_Player* link;
+    Player* link;
 
     if (!Actor_HasParentZ(this))
         return 0;

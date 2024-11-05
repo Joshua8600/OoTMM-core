@@ -7,7 +7,7 @@
 #define DOOR_SMALL_KEY  1
 #define DOOR_BOSS_KEY   2
 
-static int doorType(GameState_Play* play, Actor* this)
+static int doorType(PlayState* play, Actor* this)
 {
     u8 tmp;
 
@@ -16,12 +16,12 @@ static int doorType(GameState_Play* play, Actor* this)
 
     switch (this->id)
     {
-    case AC_EN_DOOR:
+    case ACTOR_EN_DOOR:
         tmp = (this->params >> 7) & 7;
         if (tmp == 1)
             return DOOR_SMALL_KEY;
         break;
-    case AC_DOOR_SHUTTER:
+    case ACTOR_DOOR_SHUTTER:
         tmp = (this->params >> 6) & 0xf;
         if (tmp == 0x05)
             return DOOR_BOSS_KEY;
@@ -33,7 +33,7 @@ static int doorType(GameState_Play* play, Actor* this)
     return DOOR_NONE;
 }
 
-int comboDoorIsUnlocked(GameState_Play* play, Actor* actor)
+int comboDoorIsUnlocked(PlayState* play, Actor* actor)
 {
     u16 sceneId;
     int type;

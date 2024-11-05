@@ -1,6 +1,9 @@
 #ifndef COMBO_SAVE_H
 #define COMBO_SAVE_H
 
+#define BTN_ENABLED     0x00
+#define BTN_DISABLED    0xff
+
 #define GAMEMODE_NORMAL         0
 #define GAMEMODE_TITLE_SCREEN   1
 #define GAMEMODE_FILE_SELECT    2
@@ -47,13 +50,14 @@ extern SharedCustomSave gSharedCustomSave;
 #define SF_NOCOMMIT     0x02
 #define SF_PASSIVE      0x04
 
+void Save_LoadOptions(void);
 void Save_ReadOwn(void);
 void Save_ReadForeign(void);
 void Save_Write(void);
 void Save_CreateMM(void);
 void Save_CopyMM(int dst, int src);
 void Save_OnLoad(void);
-void Save_DoSave(GameState_Play* play, int saveFlags);
+void Save_DoSave(PlayState* play, int saveFlags);
 
 void Flash_ReadWrite(u32 devAddr, void* dramAddr, u32 size, s32 direction);
 
@@ -79,7 +83,7 @@ void Flash_ReadWrite(u32 devAddr, void* dramAddr, u32 size, s32 direction);
 # endif
 # define SAVE_EXTRA_RECORD(type, index) (gOotSave + 0xd4 + 0x1c * (index) + 0x10)
 #else
-# define SAVE_EXTRA_RECORD(type, index) (*((type*)(gOotSave.perm[index].raw + 0x10)))
+# define SAVE_EXTRA_RECORD(type, index) (*((type*)(gOotSave.info.perm[index].raw + 0x10)))
 typedef struct
 {
     u32 erSpring:1;

@@ -1,16 +1,5 @@
-import { Patchfile } from "../patch-build/patchfile";
-import { RomBuilder } from "../rom-builder";
-
-const OOT_FILES = {
-  CODE:               0x00A87000,
-  PLAYER:             0x00BCDB70,
-  HOOK:               0x00CAD2C0,
-  SHIELD:             0x00DB1F40,
-  STICK:              0x00EAD0F0,
-  GRAVEYARD_KID:      0x00E60920,
-  GUARD:              0x00D1A690,
-  RUNNING_MAN:        0x00E50440,
-};
+import { RomBuilder } from '../rom-builder';
+import { bufWriteU16BE, bufWriteU32BE } from '../util/buffer';
 
 const OOT_LINK_CHILD_OFFSETS = {
   LUT_DL_SHIELD_DEKU: 0x060050D0,
@@ -164,28 +153,20 @@ const OOT_LINK_ADULT_OFFSETS = {
   HIERARCHY: 0x06005380,
 };
 
-function patchPtrHi(file: Buffer, offset: number, value: number) {
-  const buf = Buffer.alloc(2);
-  buf.writeUInt16BE(value >>> 16, 0);
-  buf.copy(file, offset);
+function patchPtrHi(file: Uint8Array, offset: number, value: number) {
+  bufWriteU16BE(file, offset, value >>> 16);
 }
 
-function patchPtrLo(file: Buffer, offset: number, value: number) {
-  const buf = Buffer.alloc(2);
-  buf.writeUInt16BE((value & 0xffff) >>> 0, 0);
-  buf.copy(file, offset);
+function patchPtrLo(file: Uint8Array, offset: number, value: number) {
+  bufWriteU16BE(file, offset, value & 0xffff);
 }
 
-function patchPtr16(file: Buffer, offset: number, value: number) {
-  const buf = Buffer.alloc(2);
-  buf.writeUInt16BE(value, 0);
-  buf.copy(file, offset);
+function patchPtr16(file: Uint8Array, offset: number, value: number) {
+  bufWriteU16BE(file, offset, value);
 }
 
-function patchPtr(file: Buffer, offset: number, value: number) {
-  const buf = Buffer.alloc(4);
-  buf.writeUInt32BE(value, 0);
-  buf.copy(file, offset);
+function patchPtr(file: Uint8Array, offset: number, value: number) {
+  bufWriteU32BE(file, offset, value);
 }
 
 export function enableModelOotLinkChild(builder: RomBuilder, dfAddr: number) {

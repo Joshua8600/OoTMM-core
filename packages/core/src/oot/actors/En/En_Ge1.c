@@ -8,7 +8,7 @@ void EnGe1_AfterCaught(void)
 
     if (gPlay->sceneId == SCE_OOT_GERUDO_VALLEY)
         entrance = ENTR_OOT_GERUDO_FORTRESS_CAUGHT_NO_HOOK;
-    else if (gSave.age == AGE_CHILD || gSave.inventory.items[ITS_OOT_HOOKSHOT] == ITEM_NONE)
+    else if (gSave.age == AGE_CHILD || gSave.info.inventory.items[ITS_OOT_HOOKSHOT] == ITEM_NONE)
         entrance = ENTR_OOT_GERUDO_FORTRESS_FROM_VALLEY;
     else
         entrance = ENTR_OOT_GERUDO_FORTRESS_CAUGHT;
@@ -18,25 +18,25 @@ void EnGe1_AfterCaught(void)
 
 int EnGe1_IsPeaceful(void)
 {
-    return gSave.inventory.quest.gerudoCard;
+    return gSave.info.inventory.quest.gerudoCard;
 }
 
 PATCH_FUNC(0x80a8f554, EnGe1_IsPeaceful);
 PATCH_FUNC(0x80b23e68, EnGe1_IsPeaceful); /* En_Ge2 */
 
-int EnGe1_HasGivenItem(Actor* this, GameState_Play* play)
+int EnGe1_HasGivenItem(Actor* this, PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
-    if (gSave.highScores[0] >= 1500 && !BITMAP16_GET(gSave.eventsItem, EV_OOT_ITEM_HBA_1500) && !BITMAP16_GET(gSave.eventsMisc, EV_OOT_INF_HBA_1000))
+    if (gSave.info.highScores[0] >= 1500 && !BITMAP16_GET(gSave.info.eventsItem, EV_OOT_ITEM_HBA_1500) && !BITMAP16_GET(gSave.info.eventsMisc, EV_OOT_INF_HBA_1000))
     {
         /* Give two items */
         link = GET_PLAYER(play);
-        if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+        if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         {
             this->parent = NULL;
-            BITMAP16_SET(gSave.eventsItem, EV_OOT_ITEM_HBA_1500);
-            BITMAP16_SET(gSave.eventsMisc, EV_OOT_INF_HBA_1000);
+            BITMAP16_SET(gSave.info.eventsItem, EV_OOT_ITEM_HBA_1500);
+            BITMAP16_SET(gSave.info.eventsMisc, EV_OOT_INF_HBA_1000);
             *(u16*)((char*)this + 0x29c) |= 2;
         }
     }
@@ -46,14 +46,14 @@ int EnGe1_HasGivenItem(Actor* this, GameState_Play* play)
 
 PATCH_CALL(0x80a90104, EnGe1_HasGivenItem);
 
-void EnGe1_GiveItem(Actor* actor, GameState_Play* play, s16 gi, float a, float b)
+void EnGe1_GiveItem(Actor* actor, PlayState* play, s16 gi, float a, float b)
 {
-    Actor_Player* link;
+    Player* link;
     int npc;
 
     link = GET_PLAYER(play);
     npc = -1;
-    if (link->state & PLAYER_ACTOR_STATE_GET_ITEM)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_GET_ITEM)
         return;
 
     switch (gi)

@@ -7,7 +7,7 @@
 static Actor_EnHitTag* sHitTag;
 static u8 sHitTagCount;
 
-static void EnHitTag_DrawGlitter(Actor_EnHitTag* this, GameState_Play* play)
+static void EnHitTag_DrawGlitter(Actor_EnHitTag* this, PlayState* play)
 {
     ComboItemOverride o;
     Xflag x;
@@ -41,10 +41,10 @@ static void EnHitTag_DrawGlitter(Actor_EnHitTag* this, GameState_Play* play)
         gi = giList[0];
         break;
     case 2:
-        gi = giList[(play->gs.frameCount % 12) / 6];
+        gi = giList[(play->state.frameCount % 12) / 6];
         break;
     case 3:
-        gi = giList[(play->gs.frameCount % 12) / 4];
+        gi = giList[(play->state.frameCount % 12) / 4];
         break;
     default:
         UNREACHABLE();
@@ -53,7 +53,7 @@ static void EnHitTag_DrawGlitter(Actor_EnHitTag* this, GameState_Play* play)
     Draw_GlitterGi(play, &this->base, gi);
 }
 
-static void EnHitTag_ItemDropCollectible(GameState_Play* play, const Vec3f* pos, int param)
+static void EnHitTag_ItemDropCollectible(PlayState* play, const Vec3f* pos, int param)
 {
     Actor_EnHitTag* this;
     ComboItemOverride o;
@@ -79,7 +79,7 @@ static void EnHitTag_ItemDropCollectible(GameState_Play* play, const Vec3f* pos,
 
 PATCH_CALL(0x80be215c, EnHitTag_ItemDropCollectible);
 
-void EnHitTag_InitWrapper(Actor_EnHitTag* this, GameState_Play* play)
+void EnHitTag_InitWrapper(Actor_EnHitTag* this, PlayState* play)
 {
     int switchFlag;
     ComboItemOverride o;
@@ -112,14 +112,14 @@ void EnHitTag_InitWrapper(Actor_EnHitTag* this, GameState_Play* play)
         ClearSwitchFlag(play, switchFlag);
 
     /* Forward */
-    init = actorAddr(AC_EN_HIT_TAG, 0x80be2030);
+    init = actorAddr(ACTOR_EN_HIT_TAG, 0x80be2030);
     init(this, play);
 
     if (this->isExtended)
         this->base.draw = EnHitTag_DrawGlitter;
 }
 
-void EnHitTag_Update(Actor_EnHitTag* this, GameState_Play* play)
+void EnHitTag_Update(Actor_EnHitTag* this, PlayState* play)
 {
     sHitTag = this;
     sHitTagCount = 0;

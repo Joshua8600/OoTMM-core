@@ -1,5 +1,3 @@
-import randomBytes from 'randombytes';
-
 import { Random } from '../random';
 import { LogicPassSolver } from './solve';
 import { LogicPassWorld } from './world';
@@ -45,7 +43,8 @@ function pipeline<State>(state: State): LogicPipeline<State> {
 
 export const worldState = async (monitor: Monitor, opts: Options) => {
   const random = new Random();
-  await random.seed(opts.seed + opts.settings.generateSpoilerLog);
+  const seedKey = [opts.seed.length.toString(16), opts.seed, opts.settings.generateSpoilerLog ? '1' : '0'].join('\0');
+  await random.seed(seedKey);
   const state = { monitor, opts, settings: opts.settings, random, attempts: 0 };
 
   return pipeline(state)
@@ -78,7 +77,7 @@ export const logic = async (monitor: Monitor, opts: Options) => {
     .apply(LogicPassHash)
     .exec();
 
-    const uuid = randomBytes(16);
+    const uuid = crypto.getRandomValues(new Uint8Array(16));
 
     return { ...data, uuid };
 };

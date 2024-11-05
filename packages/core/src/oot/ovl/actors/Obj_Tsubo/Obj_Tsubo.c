@@ -7,36 +7,31 @@
 #include <combo/effect.h>
 #include <combo/csmc.h>
 #include <combo/global.h>
+#include <assets/oot/objects/gameplay_dangeon_keep.h>
+#include <assets/oot/objects/object_tsubo.h>
 #include "Obj_Tsubo.h"
 
 #define FLAGS (ACTOR_FLAG_OOT_4 | ACTOR_FLAG_OOT_23)
 
-#if defined(GAME_OOT)
-# define DL_WHOLE_KEEP          0x05017870
-# define DL_FRAGMENT_KEEP       0x05017a60
-# define DL_WHOLE_OBJ_TSUBO     0x060017c0
-# define DL_FRAGMENT_OBJ_TSUBO  0x06001960
-#endif
+void ObjTsubo_Init(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_Destroy(Actor_ObjTsubo* this, PlayState* play2);
+void ObjTsubo_Update(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_Draw(Actor_ObjTsubo* this, PlayState* play);
 
-void ObjTsubo_Init(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_Destroy(Actor_ObjTsubo* this, GameState_Play* play2);
-void ObjTsubo_Update(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_Draw(Actor_ObjTsubo* this, GameState_Play* play);
-
-void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, PlayState* play);
 void ObjTsubo_ApplyGravity(Actor_ObjTsubo* this);
-s32 ObjTsubo_SnapToFloor(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_InitCollider(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_AirBreak(Actor_ObjTsubo* this, GameState_Play* play);
-void ObjTsubo_WaterBreak(Actor_ObjTsubo* this, GameState_Play* play);
+s32 ObjTsubo_SnapToFloor(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_InitCollider(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_AirBreak(Actor_ObjTsubo* this, PlayState* play);
+void ObjTsubo_WaterBreak(Actor_ObjTsubo* this, PlayState* play);
 void ObjTsubo_SetupWaitForObject(Actor_ObjTsubo* this);
-void ObjTsubo_WaitForObject(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_WaitForObject(Actor_ObjTsubo* this, PlayState* play);
 void ObjTsubo_SetupIdle(Actor_ObjTsubo* this);
-void ObjTsubo_Idle(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_Idle(Actor_ObjTsubo* this, PlayState* play);
 void ObjTsubo_SetupLiftedUp(Actor_ObjTsubo* this);
-void ObjTsubo_LiftedUp(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_LiftedUp(Actor_ObjTsubo* this, PlayState* play);
 void ObjTsubo_SetupThrown(Actor_ObjTsubo* this);
-void ObjTsubo_Thrown(Actor_ObjTsubo* this, GameState_Play* play);
+void ObjTsubo_Thrown(Actor_ObjTsubo* this, PlayState* play);
 
 static s16 D_80BA1B50 = 0;
 static s16 D_80BA1B54 = 0;
@@ -45,13 +40,13 @@ static s16 D_80BA1B5C = 0;
 
 static s16 sObjectIds[] = { OBJECT_GAMEPLAY_DANGEON_KEEP, OBJECT_TSUBO };
 
-static Gfx* D_80BA1B84[] = { (Gfx*)DL_WHOLE_KEEP, (Gfx*)DL_WHOLE_OBJ_TSUBO };
+static Gfx* D_80BA1B84[] = { (Gfx*)gPotDL, (Gfx*)object_tsubo_DL_0017C0 };
 
-static Gfx* D_80BA1B8C[] = { (Gfx*)DL_FRAGMENT_KEEP, (Gfx*)DL_FRAGMENT_OBJ_TSUBO };
+static Gfx* D_80BA1B8C[] = { (Gfx*)gPotFragmentDL, (Gfx*)object_tsubo_DL_001960 };
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_HARD,
+        COL_MATERIAL_HARD,
         AT_ON | AT_TYPE_PLAYER,
         AC_ON | AC_TYPE_PLAYER,
         OC1_ON | OC1_TYPE_ALL,
@@ -59,7 +54,7 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK0,
+        ELEM_MATERIAL_UNK0,
         { 0x00000002, 0x00, 0x01 },
         { 0x4FC1FFFE, 0x00, 0x00 },
         ATELEM_ON | ATELEM_SFX_NORMAL,
@@ -153,7 +148,7 @@ int ObjTsubo_IsShuffled(Actor_ObjTsubo* this)
     return 1;
 }
 
-void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_SpawnCollectible(Actor_ObjTsubo* this, PlayState* play)
 {
     s16 dropParams = this->actor.params & 0x1F;
 
@@ -179,7 +174,7 @@ void ObjTsubo_ApplyGravity(Actor_ObjTsubo* this)
     }
 }
 
-s32 ObjTsubo_SnapToFloor(Actor_ObjTsubo* this, GameState_Play* play)
+s32 ObjTsubo_SnapToFloor(Actor_ObjTsubo* this, PlayState* play)
 {
     CollisionPoly* groundPoly;
     Vec3f pos;
@@ -202,14 +197,14 @@ s32 ObjTsubo_SnapToFloor(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_InitCollider(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_InitCollider(Actor_ObjTsubo* this, PlayState* play)
 {
     Collider_InitCylinder(play, &this->collider);
     Collider_SetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
     Collider_UpdateCylinder(&this->actor, &this->collider);
 }
 
-void ObjTsubo_Init(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Init(Actor_ObjTsubo* this, PlayState* play)
 {
     ComboItemOverride o;
 
@@ -246,12 +241,12 @@ void ObjTsubo_Init(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_Destroy(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Destroy(Actor_ObjTsubo* this, PlayState* play)
 {
     Collider_DestroyCylinder(play, &this->collider);
 }
 
-void ObjTsubo_AirBreak(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_AirBreak(Actor_ObjTsubo* this, PlayState* play)
 {
     f32 rand;
     s16 angle;
@@ -291,7 +286,7 @@ void ObjTsubo_AirBreak(Actor_ObjTsubo* this, GameState_Play* play)
     SpawnSomeDust(play, &this->actor.world.pos, 30.0f, 4, 20, 50, 1);
 }
 
-void ObjTsubo_WaterBreak(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_WaterBreak(Actor_ObjTsubo* this, PlayState* play)
 {
     s16 angle;
     Vec3f pos = this->actor.world.pos;
@@ -328,7 +323,7 @@ void ObjTsubo_SetupWaitForObject(Actor_ObjTsubo* this)
     this->actionFunc = ObjTsubo_WaitForObject;
 }
 
-void ObjTsubo_WaitForObject(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_WaitForObject(Actor_ObjTsubo* this, PlayState* play)
 {
     if (Object_IsLoaded(&play->objectCtx, this->requiredObjectSlot))
     {
@@ -344,7 +339,7 @@ void ObjTsubo_SetupIdle(Actor_ObjTsubo* this)
     this->actionFunc = ObjTsubo_Idle;
 }
 
-void ObjTsubo_Idle(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Idle(Actor_ObjTsubo* this, PlayState* play)
 {
     s16 temp_v0;
     s32 phi_v1;
@@ -398,11 +393,11 @@ void ObjTsubo_SetupLiftedUp(Actor_ObjTsubo* this)
     this->actionFunc = ObjTsubo_LiftedUp;
     this->actor.room = -1;
     //! @bug: This is an unsafe cast, although the sound effect will still play
-    Player_PlaySfx((Actor_Player*)&this->actor, NA_SE_PL_PULL_UP_POT);
+    Player_PlaySfx((Player*)&this->actor, NA_SE_PL_PULL_UP_POT);
     this->actor.flags |= ACTOR_FLAG_OOT_4;
 }
 
-void ObjTsubo_LiftedUp(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_LiftedUp(Actor_ObjTsubo* this, PlayState* play)
 {
     if (Actor_HasNoParent(&this->actor, play))
     {
@@ -425,7 +420,7 @@ void ObjTsubo_SetupThrown(Actor_ObjTsubo* this) {
     this->actionFunc = ObjTsubo_Thrown;
 }
 
-void ObjTsubo_Thrown(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Thrown(Actor_ObjTsubo* this, PlayState* play)
 {
     if ((this->actor.bgCheckFlags & (BGCHECKFLAG_GROUND | BGCHECKFLAG_GROUND_TOUCH | BGCHECKFLAG_WALL)) || (this->collider.base.atFlags & AT_HIT))
     {
@@ -456,12 +451,12 @@ void ObjTsubo_Thrown(Actor_ObjTsubo* this, GameState_Play* play)
     }
 }
 
-void ObjTsubo_Update(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Update(Actor_ObjTsubo* this, PlayState* play)
 {
     this->actionFunc(this, play);
 }
 
-void ObjTsubo_Draw(Actor_ObjTsubo* this, GameState_Play* play)
+void ObjTsubo_Draw(Actor_ObjTsubo* this, PlayState* play)
 {
     int type;
     ComboItemOverride o;
@@ -481,7 +476,7 @@ void ObjTsubo_Draw(Actor_ObjTsubo* this, GameState_Play* play)
 
 static ActorInit ObjTsubo_InitVars =
 {
-    AC_OBJ_TSUBO,
+    ACTOR_OBJ_TSUBO,
     ACTORCAT_PROP,
     FLAGS,
     OBJECT_GAMEPLAY_KEEP,
@@ -492,4 +487,4 @@ static ActorInit ObjTsubo_InitVars =
     NULL,
 };
 
-OVL_ACTOR_INFO(AC_OBJ_TSUBO, ObjTsubo_InitVars);
+OVL_INFO_ACTOR(ACTOR_OBJ_TSUBO, ObjTsubo_InitVars);

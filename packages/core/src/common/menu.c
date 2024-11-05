@@ -115,8 +115,8 @@ void menuInit()
 {
     gDungeonDefCount = 0;
 
-    if (!Config_Flag(CFG_ONLY_MM)) addDefs(kDungeonDefsOot, ARRAY_SIZE(kDungeonDefsOot));
-    if (!Config_Flag(CFG_ONLY_OOT)) addDefs(kDungeonDefsMm, ARRAY_SIZE(kDungeonDefsMm));
+    if (!Config_Flag(CFG_ONLY_MM)) addDefs(kDungeonDefsOot, ARRAY_COUNT(kDungeonDefsOot));
+    if (!Config_Flag(CFG_ONLY_OOT)) addDefs(kDungeonDefsMm, ARRAY_COUNT(kDungeonDefsMm));
     addDefs(&kDungeonDataTokens, 1);
 
     if (Config_Flag(CFG_MM_CLOCKS))
@@ -427,7 +427,7 @@ static void color4(u8* r, u8* g, u8* b, u8* a, u32 color)
 
 static int gVtxBufferIndex;
 
-static Vtx* vtxAlloc(GameState_Play* play, int count)
+static Vtx* vtxAlloc(PlayState* play, int count)
 {
     Vtx* v;
 
@@ -437,7 +437,7 @@ static Vtx* vtxAlloc(GameState_Play* play, int count)
     return v;
 }
 
-static void drawBackground(GameState_Play* play, float x, float y, float w, float h)
+static void drawBackground(PlayState* play, float x, float y, float w, float h)
 {
     Vtx* v;
 
@@ -470,7 +470,7 @@ static void drawBackground(GameState_Play* play, float x, float y, float w, floa
         v[i].v.cn[3] = 0xff;
     }
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPPipeSync(POLY_OPA_DISP++);
     gSPVertex(POLY_OPA_DISP++, (u32)v & 0xffffffff, 4, 0);
     gSP2Triangles(
@@ -481,7 +481,7 @@ static void drawBackground(GameState_Play* play, float x, float y, float w, floa
     CLOSE_DISPS();
 }
 
-static void drawTexIA4_8x12(GameState_Play* play, const void* texPtr, float x, float y)
+static void drawTexIA4_8x12(PlayState* play, const void* texPtr, float x, float y)
 {
     Vtx* v;
     int xx[4];
@@ -525,14 +525,14 @@ static void drawTexIA4_8x12(GameState_Play* play, const void* texPtr, float x, f
         v[i].v.cn[3] = 0xff;
     }
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, SEG1, v);
     gSPSegment(POLY_OPA_DISP++, SEG2, texPtr);
     gSPDisplayList(POLY_OPA_DISP++, (u32)kDlistQuadIA4_8x12 & 0xffffff);
     CLOSE_DISPS();
 }
 
-static void drawTexRGBA16_12x12(GameState_Play* play, const void* texPtr, float x, float y)
+static void drawTexRGBA16_12x12(PlayState* play, const void* texPtr, float x, float y)
 {
     Vtx* v;
     int xx[4];
@@ -576,19 +576,19 @@ static void drawTexRGBA16_12x12(GameState_Play* play, const void* texPtr, float 
         v[i].v.cn[3] = 0xff;
     }
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, SEG1, v);
     gSPSegment(POLY_OPA_DISP++, SEG2, texPtr);
     gSPDisplayList(POLY_OPA_DISP++, (u32)kDlistQuadRGBA16_12x12 & 0xffffff);
     CLOSE_DISPS();
 }
 
-static void printChar(GameState_Play* play, char c, float x, float y)
+static void printChar(PlayState* play, char c, float x, float y)
 {
     drawTexIA4_8x12(play, CK_PTR(CUSTOM_KEEP_FONT + (c - ' ') * 0x30), x, y);
 }
 
-static void printStr(GameState_Play* play, const char* str, float x, float y)
+static void printStr(PlayState* play, const char* str, float x, float y)
 {
     int i;
     char c;
@@ -603,12 +603,12 @@ static void printStr(GameState_Play* play, const char* str, float x, float y)
     }
 }
 
-static void printDigit(GameState_Play* play, int digit, float x, float y)
+static void printDigit(PlayState* play, int digit, float x, float y)
 {
     printChar(play, '0' + digit, x, y);
 }
 
-static void printNum(GameState_Play* play, int num, int max, int digits, float x, float y, int showMax)
+static void printNum(PlayState* play, int num, int max, int digits, float x, float y, int showMax)
 {
     int d;
     int denum;
@@ -647,7 +647,7 @@ static void printNum(GameState_Play* play, int num, int max, int digits, float x
     }
 }
 
-static void printNumColored(GameState_Play* play, int num, int max, int digits, float x, float y, int showMax)
+static void printNumColored(PlayState* play, int num, int max, int digits, float x, float y, int showMax)
 {
     u8 r;
     u8 g;
@@ -671,7 +671,7 @@ static void printNumColored(GameState_Play* play, int num, int max, int digits, 
         g = 255;
         b = 255;
     }
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, r, g, b, 255);
     CLOSE_DISPS();
 
@@ -681,27 +681,27 @@ static void printNumColored(GameState_Play* play, int num, int max, int digits, 
 static void dungeonDataOot(DungeonData* out, const DungeonDef* def)
 {
     out->maxKeys = g.maxKeysOot[def->id];
-    out->keys = gOotSave.inventory.dungeonItems[def->id].maxKeys;
+    out->keys = gOotSave.info.inventory.dungeonItems[def->id].maxKeys;
     out->fairies = 0;
-    out->map = gOotSave.inventory.dungeonItems[def->id].map;
-    out->compass = gOotSave.inventory.dungeonItems[def->id].compass;
+    out->map = gOotSave.info.inventory.dungeonItems[def->id].map;
+    out->compass = gOotSave.info.inventory.dungeonItems[def->id].compass;
     if (def->id == SCE_OOT_INSIDE_GANON_CASTLE)
-        out->bossKey = gOotSave.inventory.dungeonItems[SCE_OOT_GANON_TOWER].bossKey;
+        out->bossKey = gOotSave.info.inventory.dungeonItems[SCE_OOT_GANON_TOWER].bossKey;
     else
-        out->bossKey = gOotSave.inventory.dungeonItems[def->id].bossKey;
+        out->bossKey = gOotSave.info.inventory.dungeonItems[def->id].bossKey;
 }
 
 static void dungeonDataMm(DungeonData* out, const DungeonDef* def)
 {
     out->maxKeys = g.maxKeysMm[def->id];
-    out->keys = gMmSave.inventory.dungeonItems[def->id].maxKeys;
-    out->bossKey = gMmSave.inventory.dungeonItems[def->id].bossKey;
-    out->fairies = gMmSave.inventory.strayFairies[def->id];
-    out->map = gMmSave.inventory.dungeonItems[def->id].map;
-    out->compass = gMmSave.inventory.dungeonItems[def->id].compass;
+    out->keys = gMmSave.info.inventory.dungeonItems[def->id].maxKeys;
+    out->bossKey = gMmSave.info.inventory.dungeonItems[def->id].bossKey;
+    out->fairies = gMmSave.info.inventory.strayFairies[def->id];
+    out->map = gMmSave.info.inventory.dungeonItems[def->id].map;
+    out->compass = gMmSave.info.inventory.dungeonItems[def->id].compass;
 }
 
-static void printDungeonSilverRupees(GameState_Play* play, float x, float y, int srBase, int srCount)
+static void printDungeonSilverRupees(PlayState* play, float x, float y, int srBase, int srCount)
 {
     const ComboSilverRupeeData* data;
     int sr;
@@ -711,7 +711,7 @@ static void printDungeonSilverRupees(GameState_Play* play, float x, float y, int
     if (gSilverRupeeData[srBase].count == 0)
         return;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
     drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_RUPEE), x, y);
     x += 12.f;
@@ -730,7 +730,7 @@ static void printDungeonSilverRupees(GameState_Play* play, float x, float y, int
     CLOSE_DISPS();
 }
 
-static void printSoul(GameState_Play* play, const char* const* names, int soulBase, int base, int index, int mm)
+static void printSoul(PlayState* play, const char* const* names, int soulBase, int base, int index, int mm)
 {
     const char* name;
     float x;
@@ -744,7 +744,7 @@ static void printSoul(GameState_Play* play, const char* const* names, int soulBa
     x = -110.f;
     y = 42.f - 12 * index;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     if (hasSoul)
     {
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
@@ -757,7 +757,7 @@ static void printSoul(GameState_Play* play, const char* const* names, int soulBa
     CLOSE_DISPS();
 }
 
-static void printMoonSun(GameState_Play* play, float x, float y, int isNight)
+static void printMoonSun(PlayState* play, float x, float y, int isNight)
 {
     u32 icon;
     u8 id;
@@ -765,7 +765,7 @@ static void printMoonSun(GameState_Play* play, float x, float y, int isNight)
 
     icon = isNight ? CUSTOM_KEEP_SMALL_ICON_MOON : CUSTOM_KEEP_SMALL_ICON_SUN;
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
     drawTexRGBA16_12x12(play, CK_PTR(icon), x, y);
     for (int i = 0; i < 3; ++i)
@@ -781,7 +781,7 @@ static void printMoonSun(GameState_Play* play, float x, float y, int isNight)
     CLOSE_DISPS();
 }
 
-static void printDungeonData(GameState_Play* play, int base, int index)
+static void printDungeonData(PlayState* play, int base, int index)
 {
     const DungeonDef* def;
     DungeonData data;
@@ -800,7 +800,7 @@ static void printDungeonData(GameState_Play* play, int base, int index)
     triforceMax = Config_Flag(CFG_GOAL_TRIFORCE3) ? 3 : (gOotExtraFlags.triforceWin ? gComboConfig.triforcePieces : gComboConfig.triforceGoal);
     triforceDigits = digitCount(triforceMax);
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     def = gDungeonDefs[base + index];
     offX = 0.f;
     if (Config_Flag(CFG_OOT_SILVER_RUPEE_SHUFFLE) && def->flags & DD_OOT)
@@ -876,7 +876,7 @@ static void printDungeonData(GameState_Play* play, int base, int index)
                 /* OoT skulls */
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
                 drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 104.f, y);
-                printNumColored(play, gOotSave.inventory.goldTokens, 100, 3, x + 116.f, y, 0);
+                printNumColored(play, gOotSave.info.inventory.goldTokens, 100, 3, x + 116.f, y, 0);
             }
 
             if (!Config_Flag(CFG_ONLY_OOT))
@@ -884,12 +884,12 @@ static void printDungeonData(GameState_Play* play, int base, int index)
                 /* MM skulls - swamp */
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 255, 0, 255);
                 drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 144.f, y);
-                printNumColored(play, gMmSave.skullCountSwamp, 30, 2, x + 156.f, y, 0);
+                printNumColored(play, gMmSave.info.skullCountSwamp, 30, 2, x + 156.f, y, 0);
 
                 /* MM skulls - ocean */
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 0, 255, 255);
                 drawTexRGBA16_12x12(play, CK_PTR(CUSTOM_KEEP_SMALL_ICON_SKULL), x + 184.f, y);
-                printNumColored(play, gMmSave.skullCountOcean, 30, 2, x + 196.f, y, 0);
+                printNumColored(play, gMmSave.info.skullCountOcean, 30, 2, x + 196.f, y, 0);
             }
             break;
         case 2:
@@ -966,7 +966,7 @@ static void printDungeonData(GameState_Play* play, int base, int index)
     CLOSE_DISPS();
 }
 
-static void updateCursor(GameState_Play* play)
+static void updateCursor(PlayState* play)
 {
     static int delay;
     int change;
@@ -978,7 +978,7 @@ static void updateCursor(GameState_Play* play)
     }
     else
     {
-        float stickY = play->gs.input[0].current.y / 128.f;
+        float stickY = play->state.input[0].cur.stick_y / 128.f;
         if (stickY > 0.5f && g.menuCursor > 0)
         {
             change = 1;
@@ -999,7 +999,7 @@ static void updateCursor(GameState_Play* play)
     }
 }
 
-void comboMenuUpdate(GameState_Play* play)
+void comboMenuUpdate(PlayState* play)
 {
     switch (g.menuScreen)
     {
@@ -1007,28 +1007,28 @@ void comboMenuUpdate(GameState_Play* play)
         g.menuCursorMax = gDungeonDefCount;
         break;
     case MENU_SOULS_OOT_ENEMY:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsEnemyOot);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsEnemyOot);
         break;
     case MENU_SOULS_OOT_BOSS:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsBossOot);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsBossOot);
         break;
     case MENU_SOULS_OOT_NPC:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsNpcOot);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsNpcOot);
         break;
     case MENU_SOULS_OOT_MISC:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsMiscOot);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsMiscOot);
         break;
     case MENU_SOULS_MM_ENEMY:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsEnemyMm);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsEnemyMm);
         break;
     case MENU_SOULS_MM_BOSS:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsBossMm);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsBossMm);
         break;
     case MENU_SOULS_MM_NPC:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsNpcMm);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsNpcMm);
         break;
     case MENU_SOULS_MM_MISC:
-        g.menuCursorMax = ARRAY_SIZE(kSoulsMiscMm);
+        g.menuCursorMax = ARRAY_COUNT(kSoulsMiscMm);
         break;
     }
 
@@ -1040,9 +1040,9 @@ static int min(int a, int b)
     return a < b ? a : b;
 }
 
-static void drawMenuSouls(GameState_Play* play, const char* title, const char* const* names, int soulBase, int mm)
+static void drawMenuSouls(PlayState* play, const char* title, const char* const* names, int soulBase, int mm)
 {
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
     printStr(play, title, -110.f, 54.f);
     for (int i = 0; i < min(LINES, g.menuCursorMax); ++i)
@@ -1050,9 +1050,9 @@ static void drawMenuSouls(GameState_Play* play, const char* title, const char* c
     CLOSE_DISPS();
 }
 
-static void drawMenuInfo(GameState_Play* play)
+static void drawMenuInfo(PlayState* play)
 {
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
     printStr(play, "Information", -110.f, 54.f);
     for (int i = 0; i < min(LINES, g.menuCursorMax); ++i)
@@ -1076,7 +1076,7 @@ void comboMenuTick(void)
     }
 }
 
-void comboMenuDraw(GameState_Play* play)
+void comboMenuDraw(PlayState* play)
 {
     if (!gMenuVtx)
     {
@@ -1087,7 +1087,7 @@ void comboMenuDraw(GameState_Play* play)
     }
 
     /* Draw the black background */
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 0, 0, 255);
     gDPSetCombineMode(POLY_OPA_DISP++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     drawBackground(play, -110.f, 59.f, 217.f, 128.f);
@@ -1129,7 +1129,7 @@ void comboMenuDraw(GameState_Play* play)
 
 void comboMenuNext(void)
 {
-    if (Config_Flag(CFG_MENU_NOTEBOOK) && !gMmSave.inventory.quest.notebook)
+    if (Config_Flag(CFG_MENU_NOTEBOOK) && !gMmSave.info.inventory.quest.notebook)
     {
         PlaySound(0x4806);
         return;

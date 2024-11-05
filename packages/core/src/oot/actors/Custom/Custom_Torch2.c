@@ -11,18 +11,18 @@
 
 #define FLAGS (ACTOR_FLAG_OOT_4)
 
-void EnTorch2_Init(Actor_CustomEnTorch2 *this, GameState_Play *play);
-void EnTorch2_Destroy(Actor_CustomEnTorch2 *this, GameState_Play *play);
-void EnTorch2_Update(Actor_CustomEnTorch2 *this, GameState_Play *play);
-void EnTorch2_Draw(Actor_CustomEnTorch2 *this, GameState_Play *play);
+void EnTorch2_Init(Actor_CustomEnTorch2 *this, PlayState *play);
+void EnTorch2_Destroy(Actor_CustomEnTorch2 *this, PlayState *play);
+void EnTorch2_Update(Actor_CustomEnTorch2 *this, PlayState *play);
+void EnTorch2_Draw(Actor_CustomEnTorch2 *this, PlayState *play);
 
-void EnTorch2_UpdateIdle(Actor_CustomEnTorch2 *this, GameState_Play *play);
-void EnTorch2_UpdateDeath(Actor_CustomEnTorch2 *this, GameState_Play *play);
+void EnTorch2_UpdateIdle(Actor_CustomEnTorch2 *this, PlayState *play);
+void EnTorch2_UpdateDeath(Actor_CustomEnTorch2 *this, PlayState *play);
 
 extern Actor_CustomEnTorch2 *gElegyShell;
 
 ActorInit En_Torch2_InitVars = {
-    AC_CUSTOM_TORCH2,
+    ACTOR_CUSTOM_TORCH2,
     ACTORCAT_ITEMACTION,
     FLAGS,
     CUSTOM_OBJECT_ID_OBJECT_TORCH2,
@@ -35,7 +35,7 @@ ActorInit En_Torch2_InitVars = {
 
 static ColliderCylinderInit sCylinderInit = {
     {
-        COLTYPE_METAL,
+        COL_MATERIAL_METAL,
         AT_NONE,
         AC_ON | AC_HARD | AC_TYPE_PLAYER,
         OC1_ON | OC1_TYPE_PLAYER | OC1_TYPE_1 | OC1_TYPE_2,
@@ -43,11 +43,11 @@ static ColliderCylinderInit sCylinderInit = {
         COLSHAPE_CYLINDER,
     },
     {
-        ELEMTYPE_UNK2,
+        ELEM_MATERIAL_UNK2,
         {0x00100000, 0, 0},
         {0xF7CFFFFF, 0, 0},
-        TOUCH_NONE,
-        BUMP_ON | BUMP_HOOKABLE,
+        ATELEM_NONE,
+        ACELEM_ON | ACELEM_HOOKABLE,
         OCELEM_ON,
     },
     {20, 60, 0, {0, 0, 0}},
@@ -57,7 +57,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_S8(colChkInfo.mass, MASS_IMMOVABLE, ICHAIN_STOP),
 };
 
-void EnTorch2_Init(Actor_CustomEnTorch2 *this, GameState_Play *play)
+void EnTorch2_Init(Actor_CustomEnTorch2 *this, PlayState *play)
 {
     Actor_ProcessInitChain(&this->base, sInitChain);
     Collider_InitCylinder(play, &this->collider);
@@ -68,14 +68,14 @@ void EnTorch2_Init(Actor_CustomEnTorch2 *this, GameState_Play *play)
     this->framesUntilNextState = 20;
 }
 
-void EnTorch2_Destroy(Actor_CustomEnTorch2 *this, GameState_Play *play)
+void EnTorch2_Destroy(Actor_CustomEnTorch2 *this, PlayState *play)
 {
     Collider_DestroyCylinder(play, &this->collider);
 
     gElegyShell = NULL;
 }
 
-void EnTorch2_Update(Actor_CustomEnTorch2 *this, GameState_Play *play)
+void EnTorch2_Update(Actor_CustomEnTorch2 *this, PlayState *play)
 {
     u16 targetAlpha;
     u16 remainingFrames;
@@ -132,7 +132,7 @@ void EnTorch2_Update(Actor_CustomEnTorch2 *this, GameState_Play *play)
     }
 }
 
-void EnTorch2_UpdateIdle(Actor_CustomEnTorch2 *this, GameState_Play *play)
+void EnTorch2_UpdateIdle(Actor_CustomEnTorch2 *this, PlayState *play)
 {
     if (this->state == TORCH2_STATE_DYING)
     {
@@ -142,7 +142,7 @@ void EnTorch2_UpdateIdle(Actor_CustomEnTorch2 *this, GameState_Play *play)
     }
 }
 
-void EnTorch2_UpdateDeath(Actor_CustomEnTorch2 *this, GameState_Play *play)
+void EnTorch2_UpdateDeath(Actor_CustomEnTorch2 *this, PlayState *play)
 {
     /* Fall down and become transparent, then delete once invisible */
     if (Math_StepToS(&this->alpha, 0, 8))
@@ -155,7 +155,7 @@ void EnTorch2_UpdateDeath(Actor_CustomEnTorch2 *this, GameState_Play *play)
     Actor_MoveWithGravity(&this->base);
 }
 
-void EnTorch2_Draw(Actor_CustomEnTorch2 *this, GameState_Play *play)
+void EnTorch2_Draw(Actor_CustomEnTorch2 *this, PlayState *play)
 {
     static Gfx renderModeSetNoneDL[] = {
         gsSPEndDisplayList(),
@@ -174,7 +174,7 @@ void EnTorch2_Draw(Actor_CustomEnTorch2 *this, GameState_Play *play)
         gsSPEndDisplayList(),
     };
 
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
 
     if (this->alpha == 255)
     {

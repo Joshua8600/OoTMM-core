@@ -1,6 +1,7 @@
 #ifndef COMBO_COLLISION_H
 #define COMBO_COLLISION_H
 
+#include <combo/collision_check.h>
 #include <combo/types.h>
 #include <combo/math/vec.h>
 
@@ -142,24 +143,22 @@ typedef enum SurfaceMaterial {
 
 typedef struct Actor Actor;
 typedef struct Collider Collider;
-typedef struct CollisionCheckContext CollisionCheckContext;
 typedef struct CollisionCheckInfo CollisionCheckInfo;
-typedef struct GameState_Play GameState_Play;
+typedef struct PlayState PlayState;
 typedef struct CollisionContext CollisionContext;
 typedef struct CollisionHeader CollisionHeader;
 typedef struct CollisionPoly CollisionPoly;
-typedef struct OcLine OcLine;
 typedef struct CollisionCheckInfoInit CollisionCheckInfoInit;
 typedef struct DamageTable DamageTable;
 typedef struct CollisionCheckInfoInit2 CollisionCheckInfoInit2;
 typedef struct DynaPolyActor DynaPolyActor;
 
-void    BgCheck_Allocate(CollisionContext* colCtx, GameState_Play* play, CollisionHeader* colHeader);
+void    BgCheck_Allocate(CollisionContext* colCtx, PlayState* play, CollisionHeader* colHeader);
 float   BgCheck_EntityRaycastDown1(CollisionContext* colCtx, CollisionPoly** outGroundPoly, Vec3f* pos);
-float   BgCheck_EntityRaycastDown2(GameState_Play* play, CollisionContext* colCtx, CollisionPoly** outGroundPoly, Vec3f* pos);
+float   BgCheck_EntityRaycastDown2(PlayState* play, CollisionContext* colCtx, CollisionPoly** outGroundPoly, Vec3f* pos);
 float   BgCheck_EntityRaycastDown3(CollisionContext* colCtx, CollisionPoly** outGroundPoly, s32* bgId, Vec3f* pos);
 float   BgCheck_EntityRaycastDown4(CollisionContext* colCtx, CollisionPoly** outGroundPoly, s32* bgId, Actor* actor, Vec3f* pos);
-float   BgCheck_EntityRaycastDown5(GameState_Play* play, CollisionContext* colCtx, CollisionPoly** outGroundPoly, s32* bgId, Actor* actor, Vec3f* pos);
+float   BgCheck_EntityRaycastDown5(PlayState* play, CollisionContext* colCtx, CollisionPoly** outGroundPoly, s32* bgId, Actor* actor, Vec3f* pos);
 float   BgCheck_EntityRaycastDown6(CollisionContext* colCtx, CollisionPoly** outGroundPoly, s32* bgId, Actor* actor, Vec3f* pos, float chkDist);
 float   BgCheck_EntityRaycastDown7(CollisionContext* colCtx, CollisionPoly** outPoly, s32* bgId, Actor* actor, Vec3f* pos);
 float   BgCheck_AnyRaycastDown1(CollisionContext* colCtx, CollisionPoly* outGroundPoly, Vec3f* pos);
@@ -184,35 +183,42 @@ s32     BgCheck_AnyLineTest2(CollisionContext* colCtx, Vec3f* posA, Vec3f* posB,
 s32     BgCheck_AnyLineTest3(CollisionContext* colCtx, Vec3f* posA, Vec3f* posB, Vec3f* posResult, CollisionPoly** outPoly, s32 chkWall, s32 chkFloor, s32 chkCeil, s32 chkOneFace, s32* bgId);
 s32     BgCheck_SphVsFirstPoly(CollisionContext* colCtx, Vec3f* center, float radius);
 
-s32 CollisionCheck_SetAT(GameState_Play* play, CollisionCheckContext* colChkCtx, Collider* collider);
-s32 CollisionCheck_SetAT_SAC(GameState_Play* play, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
-s32 CollisionCheck_SetAC(GameState_Play* play, CollisionCheckContext* colChkCtx, Collider* collider);
-s32 CollisionCheck_SetAC_SAC(GameState_Play* play, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
-s32 CollisionCheck_SetOC(GameState_Play* play, CollisionCheckContext* colChkCtx, Collider* collider);
-s32 CollisionCheck_SetOC_SAC(GameState_Play* play, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
-s32 CollisionCheck_SetOCLine(GameState_Play* play, CollisionCheckContext* colChkCtx, OcLine* collider);
-void CollisionCheck_BlueBlood(GameState_Play* play, Collider* collider, Vec3f* v);
-void CollisionCheck_AT(GameState_Play* play, CollisionCheckContext* colChkCtx);
-void CollisionCheck_OC(GameState_Play* play, CollisionCheckContext* colChkCtx);
+s32 CollisionCheck_SetAT(PlayState* play, CollisionCheckContext* colChkCtx, Collider* collider);
+s32 CollisionCheck_SetAT_SAC(PlayState* play, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
+s32 CollisionCheck_SetAC(PlayState* play, CollisionCheckContext* colChkCtx, Collider* collider);
+s32 CollisionCheck_SetAC_SAC(PlayState* play, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
+s32 CollisionCheck_SetOC(PlayState* play, CollisionCheckContext* colChkCtx, Collider* collider);
+s32 CollisionCheck_SetOC_SAC(PlayState* play, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
+s32 CollisionCheck_SetOCLine(PlayState* play, CollisionCheckContext* colChkCtx, OcLine* collider);
+void CollisionCheck_BlueBlood(PlayState* play, Collider* collider, Vec3f* v);
+void CollisionCheck_AT(PlayState* play, CollisionCheckContext* colChkCtx);
+void CollisionCheck_OC(PlayState* play, CollisionCheckContext* colChkCtx);
 void CollisionCheck_InitInfo(CollisionCheckInfo* info);
 void CollisionCheck_ResetDamage(CollisionCheckInfo* info);
 void CollisionCheck_SetInfoNoDamageTable(CollisionCheckInfo* info, CollisionCheckInfoInit* init);
 void CollisionCheck_SetInfo(CollisionCheckInfo* info, DamageTable* damageTable, CollisionCheckInfoInit* init);
 void CollisionCheck_SetInfo2(CollisionCheckInfo* info, DamageTable* damageTable, CollisionCheckInfoInit2* init);
 void CollisionCheck_SetInfoGetDamageTable(CollisionCheckInfo* info, s32 index, CollisionCheckInfoInit2* init);
-void CollisionCheck_Damage(GameState_Play* play, CollisionCheckContext* colChkCtx);
-s32 CollisionCheck_LineOCCheckAll(GameState_Play* play, CollisionCheckContext* colChkCtx, Vec3f* a, Vec3f* b);
-s32 CollisionCheck_LineOCCheck(GameState_Play* play, CollisionCheckContext* colChkCtx, Vec3f* a, Vec3f* b, Actor** exclusions, s32 numExclusions);
+void CollisionCheck_Damage(PlayState* play, CollisionCheckContext* colChkCtx);
+s32 CollisionCheck_LineOCCheckAll(PlayState* play, CollisionCheckContext* colChkCtx, Vec3f* a, Vec3f* b);
+s32 CollisionCheck_LineOCCheck(PlayState* play, CollisionCheckContext* colChkCtx, Vec3f* a, Vec3f* b, Actor** exclusions, s32 numExclusions);
 
 /* Unsure if that same function exists in OoT */
 #if defined(GAME_MM)
-void CollisionCheck_SpawnShieldParticles(GameState_Play* play, Vec3f* v);
+void CollisionCheck_SpawnShieldParticles(PlayState* play, Vec3f* v);
 f32 BgCheck_EntityRaycastFloor5(CollisionContext* colCtx, CollisionPoly** outPoly, s32* outBgId, Actor* actor, Vec3f* pos);
 s32 SurfaceType_IsIgnoredByEntities(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 SurfaceMaterial SurfaceType_GetMaterial(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
-void CollisionCheck_SpawnShieldParticlesWood(GameState_Play* play, Vec3f* v, Vec3f* pos);
+void CollisionCheck_SpawnShieldParticlesWood(PlayState* play, Vec3f* v, Vec3f* pos);
 s32 BgCheck_EntityLineTest2(CollisionContext* colCtx, Vec3f* posA, Vec3f* posB, Vec3f* posResult, CollisionPoly** outPoly, s32 checkWall, s32 checkFloor, s32 checkCeil, s32 checkOneFace, s32* bgId, Actor* actor);
-void EffectSsBlast_SpawnWhiteShockwave(GameState_Play* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel);
+void EffectSsBlast_SpawnWhiteShockwave(PlayState* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel);
+s32 Collider_InitAndSetTris(PlayState* play, ColliderTris* dest, Actor* actor, ColliderTrisInit* src, ColliderTrisElement* trisElements);
+s32 Collider_InitAndSetQuad(PlayState* play, ColliderQuad* dest, Actor* actor, ColliderQuadInit* src);
+s32 Collider_DestroyQuad(PlayState* play, ColliderQuad* quad);
+s32 Collider_DestroyTris(PlayState* play, ColliderTris* tris);
+void func_800BE504(Actor* actor, ColliderCylinder* cyl);
+void Collider_SetTrisVertices(ColliderTris* tris, s32 elemIndex, Vec3f* a, Vec3f* b, Vec3f* c);
+void Collider_SetQuadVertices(ColliderQuad* quad, Vec3f* a, Vec3f* b, Vec3f* c, Vec3f* d);
 
 #endif
 

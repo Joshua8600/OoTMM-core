@@ -34,21 +34,21 @@ static int canShowDpad(void)
     return 1;
 }
 
-static int canUseDpad(GameState_Play* play)
+static int canUseDpad(PlayState* play)
 {
-    Actor_Player* link;
+    Player* link;
 
     link = GET_PLAYER(play);
     if (!canShowDpad())
         return 0;
-    if (link->state & (PLAYER_ACTOR_STATE_CLIMB | PLAYER_ACTOR_STATE_CLIMB2 | PLAYER_ACTOR_STATE_EPONA | PLAYER_ACTOR_STATE_USE_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN | PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_DEATH | PLAYER_ACTOR_STATE_TRANSITION | PLAYER_ACTOR_STATE_TRANSFORM))
+    if (link->stateFlags1 & (PLAYER_ACTOR_STATE_CLIMB | PLAYER_ACTOR_STATE_CLIMB2 | PLAYER_ACTOR_STATE_EPONA | PLAYER_ACTOR_STATE_USE_ITEM | PLAYER_ACTOR_STATE_CUTSCENE_FROZEN | PLAYER_ACTOR_STATE_GET_ITEM | PLAYER_ACTOR_STATE_DEATH | PLAYER_ACTOR_STATE_TRANSITION | PLAYER_ACTOR_STATE_TRANSFORM))
         return 0;
     return 1;
 }
 
-static int canUseDpadItem(GameState_Play* play, s16 itemId, int flags)
+static int canUseDpadItem(PlayState* play, s16 itemId, int flags)
 {
-    Actor_Player* link;
+    Player* link;
     int isEquip;
 
     link = GET_PLAYER(play);
@@ -80,12 +80,12 @@ static int canUseDpadItem(GameState_Play* play, s16 itemId, int flags)
         return 0;
 
     /* These states seem to handle minigames - and everything should be disabled during these */
-    if(link->state3 & (1 << 22) || link->state & (1 << 5))
+    if(link->stateFlags3 & (1 << 22) || link->stateFlags1 & (1 << 5))
         return 0;
 #endif
 
     /* Underwater - disable everything except zora mask */
-    if (link->state & PLAYER_ACTOR_STATE_WATER)
+    if (link->stateFlags1 & PLAYER_ACTOR_STATE_WATER)
     {
 #if defined(GAME_MM)
         if (itemId != ITEM_MM_MASK_ZORA && !(gSave.playerForm == MM_PLAYER_FORM_ZORA && (itemId == ITEM_MM_OCARINA_FAIRY || itemId == ITEM_MM_OCARINA_OF_TIME)))
@@ -96,7 +96,7 @@ static int canUseDpadItem(GameState_Play* play, s16 itemId, int flags)
     return 1;
 }
 
-static void reloadIcons(GameState_Play* play)
+static void reloadIcons(PlayState* play)
 {
     if (!sDpadIconBuffer)
     {
@@ -117,7 +117,7 @@ static void reloadIcons(GameState_Play* play)
     }
 }
 
-void Dpad_Draw(GameState_Play* play)
+void Dpad_Draw(PlayState* play)
 {
     s16 itemId;
     u8 alpha;
@@ -136,7 +136,7 @@ void Dpad_Draw(GameState_Play* play)
 #endif
 
     /* Init */
-    OPEN_DISPS(play->gs.gfx);
+    OPEN_DISPS(play->state.gfxCtx);
     gDPPipeSync(OVERLAY_DISP++);
     gSPSegment(OVERLAY_DISP++, 0x06, g.customKeep);
     gSPSegment(OVERLAY_DISP++, 0x07, sDpadIconBuffer);
@@ -167,7 +167,7 @@ void Dpad_Draw(GameState_Play* play)
     CLOSE_DISPS();
 }
 
-static void dpadUseItem(GameState_Play* play, int index, int flags)
+static void dpadUseItem(PlayState* play, int index, int flags)
 {
     s16 itemId;
 
@@ -178,16 +178,16 @@ static void dpadUseItem(GameState_Play* play, int index, int flags)
 }
 
 #if defined(GAME_OOT)
-void Dpad_Update(GameState_Play* play)
+void Dpad_Update(PlayState* play)
 {
     /* Update the items */
-    sDpadItems[DPAD_DOWN] = gSave.inventory.items[ITS_OOT_OCARINA];
-    sDpadItems[DPAD_LEFT] = (gSave.inventory.equipment.boots & EQ_OOT_BOOTS_IRON) ? ITEM_OOT_BOOTS_IRON : ITEM_NONE;
-    sDpadItems[DPAD_RIGHT] = (gSave.inventory.equipment.boots & EQ_OOT_BOOTS_HOVER) ? ITEM_OOT_BOOTS_HOVER : ITEM_NONE;
-    sDpadItems[DPAD_UP] = gSave.inventory.items[ITS_OOT_TRADE_ADULT];
+    sDpadItems[DPAD_DOWN] = gSave.info.inventory.items[ITS_OOT_OCARINA];
+    sDpadItems[DPAD_LEFT] = (gSave.info.inventory.equipment.boots & EQ_OOT_BOOTS_IRON) ? ITEM_OOT_BOOTS_IRON : ITEM_NONE;
+    sDpadItems[DPAD_RIGHT] = (gSave.info.inventory.equipment.boots & EQ_OOT_BOOTS_HOVER) ? ITEM_OOT_BOOTS_HOVER : ITEM_NONE;
+    sDpadItems[DPAD_UP] = gSave.info.inventory.items[ITS_OOT_TRADE_ADULT];
     if (gSave.age == AGE_CHILD)
     {
-        sDpadItems[DPAD_UP] = gSave.inventory.items[ITS_OOT_TRADE_CHILD];
+        sDpadItems[DPAD_UP] = gSave.info.inventory.items[ITS_OOT_TRADE_CHILD];
         if (!Config_Flag(CFG_OOT_AGELESS_BOOTS))
         {
             sDpadItems[DPAD_LEFT] = ITEM_NONE;
@@ -195,29 +195,29 @@ void Dpad_Update(GameState_Play* play)
         }
     }
     else if(Config_Flag(CFG_OOT_AGELESS_CHILD_TRADE))
-        sDpadItems[DPAD_UP] = gSave.inventory.items[ITS_OOT_TRADE_CHILD];
+        sDpadItems[DPAD_UP] = gSave.info.inventory.items[ITS_OOT_TRADE_CHILD];
 }
 #endif
 
 #if defined(GAME_MM)
-void Dpad_Update(GameState_Play* play)
+void Dpad_Update(PlayState* play)
 {
     /* Update the items */
-    sDpadItems[DPAD_DOWN] = gSave.inventory.items[ITS_MM_OCARINA];
-    sDpadItems[DPAD_UP] = gSave.inventory.items[ITS_MM_MASK_DEKU];
-    sDpadItems[DPAD_LEFT] = gSave.inventory.items[ITS_MM_MASK_GORON];
-    sDpadItems[DPAD_RIGHT] = gSave.inventory.items[ITS_MM_MASK_ZORA];
+    sDpadItems[DPAD_DOWN] = gSave.info.inventory.items[ITS_MM_OCARINA];
+    sDpadItems[DPAD_UP] = gSave.info.inventory.items[ITS_MM_MASK_DEKU];
+    sDpadItems[DPAD_LEFT] = gSave.info.inventory.items[ITS_MM_MASK_GORON];
+    sDpadItems[DPAD_RIGHT] = gSave.info.inventory.items[ITS_MM_MASK_ZORA];
 }
 #endif
 
-int Dpad_Use(GameState_Play* play, int flags)
+int Dpad_Use(PlayState* play, int flags)
 {
     u32 buttons;
     if (!canUseDpad(play))
         return 0;
 
     /* Detect button press */
-    buttons = play->gs.input[0].pressed.buttons;
+    buttons = play->state.input[0].press.button;
     if (buttons & U_JPAD)
     {
         dpadUseItem(play, DPAD_UP, flags);

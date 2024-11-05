@@ -10,7 +10,7 @@
 #define TRIGGER_OOT_WEIRD_EGG               0x104
 #define TRIGGER_OOT_POCKET_EGG              0x105
 
-void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, GameState_Play* play)
+void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, PlayState* play)
 {
     switch (gComboTriggersData.trigger)
     {
@@ -62,7 +62,7 @@ void CustomTriggers_HandleTriggerGame(Actor_CustomTriggers* this, GameState_Play
     }
 }
 
-void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, GameState_Play* play)
+void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, PlayState* play)
 {
     /* Sheik in colossus */
     if (comboHasSoulOot(GI_OOT_SOUL_NPC_SHEIK) && gSave.entrance == ENTR_OOT_DESERT_COLOSSUS_FROM_TEMPLE_SPIRIT && !GetEventChk(EV_OOT_CHK_SONG_TP_SPIRIT))
@@ -72,7 +72,7 @@ void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, GameState_Play*
     }
 
     /* Sheik in Kakariko */
-    if (comboHasSoulOot(GI_OOT_SOUL_NPC_SHEIK) && play->sceneId == SCE_OOT_KAKARIKO_VILLAGE && gSave.inventory.quest.medallionForest && gSave.inventory.quest.medallionFire && gSave.inventory.quest.medallionWater && gSave.age == AGE_ADULT && !GetEventChk(EV_OOT_CHK_SONG_TP_SHADOW))
+    if (comboHasSoulOot(GI_OOT_SOUL_NPC_SHEIK) && play->sceneId == SCE_OOT_KAKARIKO_VILLAGE && gSave.info.inventory.quest.medallionForest && gSave.info.inventory.quest.medallionFire && gSave.info.inventory.quest.medallionWater && gSave.age == AGE_ADULT && !GetEventChk(EV_OOT_CHK_SONG_TP_SHADOW))
     {
         gComboTriggersData.trigger = TRIGGER_OOT_SHEIK_KAKARIKO;
         return;
@@ -92,7 +92,7 @@ void CustomTriggers_CheckTriggerGame(Actor_CustomTriggers* this, GameState_Play*
         if (Config_Flag(CFG_OOT_LACS_CUSTOM))
             shouldTrigger = Config_SpecialCond(SPECIAL_LACS);
         else
-            shouldTrigger = (gSave.inventory.quest.medallionSpirit && gSave.inventory.quest.medallionShadow);
+            shouldTrigger = (gSave.info.inventory.quest.medallionSpirit && gSave.info.inventory.quest.medallionShadow);
 
         if (shouldTrigger)
             gComboTriggersData.trigger = TRIGGER_OOT_ZELDA_LIGHT_ARROW;
