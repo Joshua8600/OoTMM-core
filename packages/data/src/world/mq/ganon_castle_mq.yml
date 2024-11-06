@@ -280,4 +280,4 @@
   region: GANON_CASTLE
   exits:
     "MQ Ganon Castle Main Room": "true"
-    "Ganon Castle Tower": "true"
+    "Ganon Castle Tower": "ganon_barrier"
