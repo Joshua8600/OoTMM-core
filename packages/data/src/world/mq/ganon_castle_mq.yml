@@ -124,7 +124,7 @@
   dungeon: Ganon
   exits:
     "MQ Ganon Castle Main Room": "true"
-    "MQ Ganon Castle Fire Trial Ending Ledge": "has_tunic_goron && ((can_longshot && silver_rupees_ganon_fire) || has_hover_boots || (hookshot_anywhere && event(GANON_MQ_FIRE_MONOLITH))"
+    "MQ Ganon Castle Fire Trial Ending Ledge": "has_tunic_goron && ((can_longshot && silver_rupees_ganon_fire) || has_hover_boots || (hookshot_anywhere && event(GANON_MQ_FIRE_MONOLITH)))"
   events:
     GANON_MQ_FIRE_MONOLITH: "has_tunic_goron && can_lift_gold"
   locations:
