@@ -584,6 +584,7 @@ static void cheatAllItems(PlayState* play)
     gMmOwlFlags = 0x3ff; /* all owls statues */
 
     MM_SET_EVENT_WEEK(EV_MM_WEEK_HEALED_WITCH_WOODS);
+    MM_SET_EVENT_WEEK(EV_MM_WEEK_SPIN_UPGRADE);
 
 }
 #endif
@@ -592,7 +593,7 @@ static void cheatAllItems(PlayState* play)
 static void cheatAllItems(PlayState* play)
 {
     // gSave.info.inventory.quest.gerudoCard = 1;
-    MM_SET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI);
+    // MM_SET_EVENT_WEEK(EV_MM_WEEK_DRANK_CHATEAU_ROMANI);
     SetEventChk(EV_OOT_CHK_MASTER_SWORD_PULLED);
     SetEventChk(EV_OOT_CHK_MASTER_SWORD_CHAMBER);
     gSave.info.playerData.swordHealth = 8;
@@ -604,7 +605,9 @@ static void cheatAllItems(PlayState* play)
     //MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_GB);
     //MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_ST);
 
-    /*gSave.info.inventory.quest.gerudoCard = 1; */
+    gSave.info.inventory.quest.gerudoCard = 1;
+    gSave.info.inventory.quest.agonyStone = 1;
+
     gSave.info.inventory.dungeonKeys[SCE_OOT_TEMPLE_FIRE] = 8;
     gSave.info.inventory.dungeonKeys[SCE_OOT_TREASURE_SHOP] = 6;
     gSave.info.inventory.items[ITS_OOT_STICKS] = ITEM_OOT_STICK;

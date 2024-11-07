@@ -145,7 +145,7 @@ static const CheckName kCheckNamesMm[] = {
     { TEXT_COLOR_PINK "Anju and Kafei", TF_NONE },
     { TEXT_COLOR_BLUE "Don Gero's Choir", TF_NONE },
     { "the " TEXT_COLOR_RED "Goron Race", TF_NONE },
-    { "the " TEXT_COLOR_PINK "Graveyard Big Poe", TF_NONE },
+    { "the " TEXT_COLOR_PINK "Beneath the Graveyard Night 3 Chest", TF_NONE },
     { "the " TEXT_COLOR_PINK "Termina Field Musical Stones", TF_PLURAL },
     { "the " TEXT_COLOR_TEAL "Bank's Final Reward", TF_NONE },
     { "the " TEXT_COLOR_TEAL "Milk Bar Performance", TF_NONE },
@@ -247,6 +247,9 @@ static int isItemAmbiguous(s16 gi)
     case GI_MM_NUT_UPGRADE:
     case GI_MM_NUT_UPGRADE2:
         return Config_Flag(CFG_MM_UPGRADES_STICKS_NUTS) && !Config_Flag(CFG_SHARED_NUTS_STICKS);
+    case GI_OOT_SPIN_UPGRADE:
+    case GI_MM_SPIN_UPGRADE:
+        return Config_Flag(CFG_OOT_SPIN_UPGRADE) && !Config_Flag(CFG_SHARED_SPIN_UPGRADE);
     case GI_OOT_STICK:
     case GI_OOT_STICKS_5:
     case GI_OOT_STICKS_10:
@@ -258,6 +261,9 @@ static int isItemAmbiguous(s16 gi)
     case GI_MM_NUTS_5:
     case GI_MM_NUTS_10:
         return !Config_Flag(CFG_SHARED_NUTS_STICKS);
+    case GI_OOT_STONE_OF_AGONY:
+    case GI_MM_STONE_OF_AGONY:
+        return Config_Flag(CFG_MM_STONE_OF_AGONY) && !Config_Flag(CFG_SHARED_STONE_OF_AGONY);
     case GI_OOT_HOOKSHOT:
     case GI_MM_HOOKSHOT:
     case GI_MM_HOOKSHOT_SHORT:

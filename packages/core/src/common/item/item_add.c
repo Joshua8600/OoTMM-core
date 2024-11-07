@@ -1557,9 +1557,15 @@ static int addItemKeg(PlayState* play, u8 itemId, s16 gi, u16 param)
     return 0;
 }
 
-static int addItemSpinUpgrade(PlayState* play, u8 itemId, s16 gi, u16 param)
+static int addItemSpinUpgradeMm(PlayState* play, u8 itemId, s16 gi, u16 param)
 {
     MM_SET_EVENT_WEEK(EV_MM_WEEK_SPIN_UPGRADE);
+    return 0;
+}
+
+static int addItemSpinUpgradeOot(PlayState* play, u8 itemId, s16 gi, u16 param)
+{
+    gOotExtraFlags.spinUpgrade = 1;
     return 0;
 }
 
@@ -1810,6 +1816,12 @@ static int addItemGFSHammer(PlayState* play, u8 itemId, s16 gi, u16 param)
     return 0;
 }
 
+static int addItemStoneAgonyMm(PlayState* play, u8 itemId, s16 gi, u16 param)
+{
+    gMmExtraFlags3.stoneAgony = 1;
+    return 0;
+}
+
 static const AddItemFunc kAddItemHandlers[] = {
     addItemRupeesOot,
     addItemRupeesMm,
@@ -1892,7 +1904,7 @@ static const AddItemFunc kAddItemHandlers[] = {
     addItemButtonOot,
     addItemButtonMm,
     addItemKeg,
-    addItemSpinUpgrade,
+    addItemSpinUpgradeMm,
     addItemSoulOot,
     addItemSoulMm,
     addItemPondFish,
@@ -1913,6 +1925,8 @@ static const AddItemFunc kAddItemHandlers[] = {
     addItemGFSHammer,
     addItemSticksUpgradeMm,
     addItemNutsUpgradeMm,
+    addItemStoneAgonyMm,
+    addItemSpinUpgradeOot,
 };
 
 extern const u8 kAddItemFuncs[];
@@ -2039,6 +2053,8 @@ static const SharedItem kSimpleSharedItems[] = {
     { CFG_SHARED_NUTS_STICKS, GI_OOT_STICK_UPGRADE2, GI_MM_STICK_UPGRADE2 },
     { CFG_SHARED_NUTS_STICKS, GI_OOT_NUT_UPGRADE,  GI_MM_NUT_UPGRADE },
     { CFG_SHARED_NUTS_STICKS, GI_OOT_NUT_UPGRADE2, GI_MM_NUT_UPGRADE2 },
+    { CFG_SHARED_STONE_OF_AGONY, GI_OOT_STONE_OF_AGONY, GI_MM_STONE_OF_AGONY },
+    { CFG_SHARED_SPIN_UPGRADE, GI_OOT_SPIN_UPGRADE, GI_MM_SPIN_UPGRADE },
 };
 
 static int addItem(PlayState* play, s16 gi)

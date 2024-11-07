@@ -55,7 +55,7 @@ static void CustomWarp_OnTrigger(Actor_CustomWarp* this, PlayState* play)
     {
     case SWITCH_SPRING:
         MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_SH);
-        play->nextEntrance = 0xae70;
+        play->nextEntrance = 0x9a70;
         break;
     case SWITCH_SWAMP_CLEAR:
         MM_SET_EVENT_WEEK(EV_MM_WEEK_DUNGEON_WF);
@@ -140,7 +140,7 @@ static void CustomWarp_Draw(Actor_CustomWarp* this, PlayState* play)
     CLOSE_DISPS();
 }
 
-ActorInit CustomWarp_gActorInit = {
+ActorProfile CustomWarp_gActorProfile = {
     ACTOR_CUSTOM_WARP,
     0x7,
     0x11,

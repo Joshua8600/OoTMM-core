@@ -12,6 +12,7 @@ import { ItemSharedDef, SharedItemGroups } from './shared';
 import { World } from './world';
 import { ItemProperties } from './item-properties';
 import { CLOCKS } from '../items/groups';
+import { mustStartWithMasterSword } from '../settings/util';
 
 const BROKEN_ACTORS_CHECKS = [
   'OOT Dodongo Cavern Grass East Corridor Side Room',
@@ -113,6 +114,8 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.OOT_ZELDA_LETTER,
   Items.OOT_MAGIC_BEAN,
   Items.OOT_STONE_OF_AGONY,
+  Items.MM_STONE_OF_AGONY,
+  Items.SHARED_STONE_OF_AGONY,
   Items.OOT_WALLET,
   Items.OOT_POCKET_CUCCO,
   Items.OOT_COJIRO,
@@ -191,6 +194,8 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.MM_WALLET,
   Items.MM_GREAT_FAIRY_SWORD,
   Items.MM_SPIN_UPGRADE,
+  Items.OOT_SPIN_UPGRADE,
+  Items.SHARED_SPIN_UPGRADE,
   Items.MM_SKELETON_KEY,
   Items.MM_SPELL_FIRE,
   Items.MM_SPELL_WIND,
@@ -912,10 +917,22 @@ export class LogicPassWorldTransform {
       this.replaceItem(Items.MM_SHIELD_HERO,    Items.SHARED_SHIELD_HYLIAN);
     }
 
-    if(settings.sharedHammer) {
+    if (settings.sharedHammer) {
       this.replaceItem(Items.OOT_HAMMER, Items.SHARED_HAMMER);
     } else if (settings.hammerMm) {
       this.addItem(Items.MM_HAMMER);
+    }
+
+    if (settings.sharedStoneAgony) {
+      this.replaceItem(Items.OOT_STONE_OF_AGONY, Items.SHARED_STONE_OF_AGONY);
+    } else if (settings.stoneAgonyMm) {
+      this.addItem(Items.MM_STONE_OF_AGONY);
+    }
+
+    if (settings.sharedSpinUpgrade) {
+      this.replaceItem(Items.MM_SPIN_UPGRADE, Items.SHARED_SPIN_UPGRADE);
+    } else if (settings.spinUpgradeOot) {
+      this.addItem(Items.OOT_SPIN_UPGRADE);
     }
 
     /* Triforce hunt */
@@ -945,11 +962,6 @@ export class LogicPassWorldTransform {
       if (settings.coinsYellow)
         this.pool.set(makePlayerItem(Items.OOT_COIN_YELLOW, i), settings.coinsYellow);
     }
-
-    if(settings.games === 'mm') {
-      this.addItem(Items.OOT_STONE_OF_AGONY);
-    }
-
   }
 
   private removeLocations(locs: string[]) {
@@ -1424,7 +1436,7 @@ export class LogicPassWorldTransform {
     }
 
     /* Handle OoT swords */
-    if (settings.startingAge === 'adult' && !settings.swordlessAdult) {
+    if (mustStartWithMasterSword(settings)) {
       this.removeItem(Items.OOT_SWORD_MASTER);
     }
     if (settings.progressiveSwordsOot === 'progressive') {
