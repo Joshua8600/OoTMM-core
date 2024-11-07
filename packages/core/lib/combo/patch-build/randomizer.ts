@@ -16,6 +16,7 @@ import { Item, ItemGroups, ItemHelpers, Items, ItemsCount } from '../items';
 import { SharedItemGroups } from '../logic/shared';
 import { bufReadU32BE, bufWriteI8, bufWriteU16BE, bufWriteU32BE, bufWriteU8 } from '../util/buffer';
 import { concatUint8Arrays } from 'uint8array-extras';
+import { mustStartWithMasterSword } from '../settings/util';
 
 const DUNGEON_REWARD_LOCATIONS = [
   'OOT Deku Tree Boss',
@@ -105,6 +106,8 @@ const SHARED_ITEMS_OOT = new Map([
   ['SHARED_HAMMER',           'OOT_HAMMER'],
   ['SHARED_STICK_UPGRADE',    'OOT_STICK_UPGRADE'],
   ['SHARED_NUT_UPGRADE',      'OOT_NUT_UPGRADE'],
+  ['SHARED_STONE_OF_AGONY',   'OOT_STONE_OF_AGONY'],
+  ['SHARED_SPIN_UPGRADE',     'OOT_SPIN_UPGRADE'],
 ]);
 
 const SHARED_ITEMS_MM = new Map([
@@ -180,6 +183,8 @@ const SHARED_ITEMS_MM = new Map([
   ['SHARED_HAMMER',           'MM_HAMMER'],
   ['SHARED_STICK_UPGRADE',    'MM_STICK_UPGRADE'],
   ['SHARED_NUT_UPGRADE',      'MM_NUT_UPGRADE'],
+  ['SHARED_STONE_OF_AGONY',   'MM_STONE_OF_AGONY'],
+  ['SHARED_SPIN_UPGRADE',     'MM_SPIN_UPGRADE'],
 ]);
 
 const SHARED_ITEMS = {
@@ -1032,6 +1037,11 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     SHARED_HAMMER: settings.sharedHammer,
     MM_UPGRADES_STICKS_NUTS: settings.sticksNutsUpgradesMm,
     OOT_SHUFFLE_EGGS: settings.eggShuffle,
+    MM_STONE_OF_AGONY: settings.stoneAgonyMm,
+    SHARED_STONE_OF_AGONY: settings.sharedStoneAgony,
+    OOT_MUST_START_WITH_MS: mustStartWithMasterSword(settings),
+    OOT_SPIN_UPGRADE: settings.spinUpgradeOot,
+    SHARED_SPIN_UPGRADE: settings.sharedSpinUpgrade,
   };
 
   for (const v in exprs) {

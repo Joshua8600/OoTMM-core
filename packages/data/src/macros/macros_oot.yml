@@ -95,7 +95,7 @@
 "age_bow": "is_adult || glitch_equip_swap"
 
 # Swords
-"starts_with_master_sword": "setting(startingAge, adult) && !setting(swordlessAdult)"
+"starts_with_master_sword": "setting(startingAge, adult) && (!setting(swordlessAdult) || (!setting(shuffleMasterSword) && setting(timeTravelSword)))"
 "has_sword_child(n)": "setting(extraChildSwordsOot) && cond(setting(sharedSwords), has(SHARED_SWORD, n), has(SWORD, n))"
 "has_sword_kokiri": "cond(setting(progressiveSwordsOot, progressive), has(SWORD), cond(setting(extraChildSwordsOot), has_sword_child(1), has(SWORD_KOKIRI)))"
 "has_sword_razor": "has_sword_child(2)"
@@ -126,7 +126,7 @@
 
 #Equipment Use Macros
 "has_rupees": "event(RUPEES) || (setting(sharedWallets) && event(MM_RUPEES))"
-"stone_of_agony": "has(STONE_OF_AGONY) || trick(OOT_HIDDEN_GROTTOS)"
+"stone_of_agony": "cond(setting(sharedStoneAgony), has(SHARED_STONE_OF_AGONY), has(STONE_OF_AGONY)) || trick(OOT_HIDDEN_GROTTOS)"
 
 "has_tunic_goron_strict": "age_tunics && has_tunic_goron_raw"
 "has_tunic_zora_strict": "age_tunics && has_tunic_zora_raw"

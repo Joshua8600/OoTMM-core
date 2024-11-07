@@ -6,13 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add Spin Attack Upgrade in OoT as a setting, with Shared as an extra setting.
+- Add Stone of Agony in MM as a setting, with Shared as an extra setting.
+- Add an icon to simulate the stone of agony rumble feature.
+- Add an option to not apply cosmetics to freestanding models.
 - Add a custom file select with more informations.
 - Add MM stick/nut upgrades as items in the pool.
 - Add MQ crates.
 - Add the Megaton Hammer to Majora's Mask.
 - Add butterfly shuffle, for both games.
 - Vanilla Small and Boss Keys setting.
-- Stone of Agony in MM only mode.
 - Skipped the camera pan out over Ganon's Castle being demolished.
 - New entrance option for Pirate Fortress that includes all the currently shuffled entrances.
 - Gerudo souls
@@ -33,6 +36,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fix an issue where song of time immediately after beating snowhead in ER would send you back to a bugged spring state.
+- Fix an old bug where swords could get deleted leaving bombchu bowling into MM while playing the minigame.
 - Fix a long-standing issue where Anju's reservation worked inconsistently (for real this time).
 - Fix precompleted Stone Tower not setting some flags correctly.
 - Fix possible softlock in Ice Cavern with shuffled silver rupees.

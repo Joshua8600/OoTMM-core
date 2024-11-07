@@ -34,6 +34,7 @@
 # include <combo/rand.h>
 # include <combo/text.h>
 # include <combo/collision_check.h>
+# include <combo/interface.h>
 # include <combo/common/ocarina.h>
 # include <combo/common/color.h>
 # include <combo/common/actors/Obj_Mure2.h>
@@ -131,6 +132,7 @@ void    comboWalletRefresh(void);
 void    comboCacheClear(void);
 void    comboCacheGarbageCollect(void);
 void*   comboCacheGetFile(u32 vrom);
+void*   comboCacheGetFilePartial(u32 vrom, u32 offset, s32 size);
 
 /* Objects */
 void                comboObjectsReset(void);

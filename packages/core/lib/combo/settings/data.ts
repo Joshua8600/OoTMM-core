@@ -760,8 +760,8 @@ export const SETTINGS = [{
   category: 'main.shuffle',
   type: 'boolean',
   description: 'Controls whether or not the Master Sword is shuffled',
-  cond: (s: any) => hasOoT(s) && s.swordlessAdult,
-  default: false
+  cond: hasOoT,
+  default: true
 }, {
   key: 'shuffleGerudoCard',
   name: 'Gerudo Card Shuffle',
@@ -894,8 +894,8 @@ export const SETTINGS = [{
   category: 'main.events',
   type: 'boolean',
   description: 'Choose whether or not Link needs the Master Sword to travel through time',
-  default: false,
-  cond: (s: any) => hasOoT(s) && s.swordlessAdult && (s.shuffleMasterSword || s.progressiveSwordsOot === 'progressive'),
+  default: true,
+  cond: (s: any) => hasOoT(s) && s.swordlessAdult,
 }, {
   key: 'doorOfTime',
   name: 'Door of Time',
@@ -1548,6 +1548,14 @@ export const SETTINGS = [{
   description: 'Randomize the content of the bottles',
   default: false
 }, {
+  key: 'stoneAgonyMm',
+  name: 'Stone of Agony in MM',
+  category: 'items.extensions',
+  type: 'boolean',
+  description: 'Enables stone of agony in MM',
+  default: false,
+  cond: hasMM,
+}, {
   key: 'sticksNutsUpgradesMm',
   name: 'Sticks & Nuts Upgrades in MM',
   category: 'items.extensions',
@@ -1746,6 +1754,14 @@ export const SETTINGS = [{
   default: false,
   cond: hasMM,
 }, {
+  key: 'spinUpgradeOot',
+  name: "Spin Attack Upgrade (OoT)",
+  category: 'items.extensions',
+  type: 'boolean',
+  description: "Add the spin attack upgrade as an item in OoT.",
+  default: false,
+  cond: hasOoT,
+}, {
   key: 'extraChildSwordsOot',
   name: "Extra Child Swords (OoT)",
   category: 'items.extensions',
@@ -1943,6 +1959,20 @@ export const SETTINGS = [{
   description: 'Enables using Song of Double Time in OoT when you have Song of Time in OoT',
   default: false,
   cond: hasOoT
+}, {
+  key: 'sharedStoneAgony',
+  name: 'Shared Stone of Agony',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => hasOoTMM(s) && s.stoneAgonyMm,
+}, {
+  key: 'sharedSpinUpgrade',
+  name: 'Shared Spin Upgrade',
+  category: 'items.shared',
+  type: 'boolean',
+  default: false,
+  cond: (s: any) => hasOoTMM(s) && s.spinUpgradeOot,
 }, {
   key: 'sharedNutsSticks',
   name: 'Shared Nuts & Sticks',
