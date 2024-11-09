@@ -29,6 +29,10 @@
 #define IS_ZERO(f) (fabsf(f) < 0.008f)
 
 #define M_PIf 3.14159265358979323846f
+#define M_SQRT2 1.41421356237309504880f
+#define MAXFLOAT 3.40282347e+38f
+#define SHT_MAX 32767.0f
+#define SHT_MINV (1.0f / SHT_MAX)
 
 #define VEC3F_LERPIMPDST(dst, v0, v1, t)                \
     {                                                   \
@@ -50,11 +54,13 @@ float   Math_CosS(s16 angle);
 float   Math_SinS(s16 angle);
 s16     Math_Atan2S(f32 y, f32 x);
 f32     Math_Atan2F(f32 y, f32 x);
+#define Math_FAtan2F Math_Atan2F
 s16     Math_Atan2S_XY(f32 x, f32 y);
 f32     Math_Atan2F_XY(f32 x, f32 y);
 s32     Math_StepToF(float* pValue, float target, float step);
 s32     Math_StepToS(s16* pValue, s16 target, s16 step);
 float   Math_SmoothStepToF(float* pValue, float target, float fraction, float step, float minStep);
+s16     Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep);
 void    Math_Vec3f_Copy(Vec3f* dest, Vec3f* src);
 void    Math_Vec3s_Copy(Vec3s* dest, Vec3s* src);
 void    Math_Vec3f_Sum(Vec3f* a, Vec3f* b, Vec3f* dest);
@@ -62,11 +68,13 @@ void    Math_Vec3f_Diff(Vec3f* a, Vec3f* b, Vec3f* dest);
 s32     Math_ScaledStepToS(s16* pValue, s16 target, s16 step);
 float   Math3D_Vec3fDistSq(const Vec3f* a, const Vec3f* b);
 s32     Math3D_CosOut(Vec3f* a, Vec3f* b, f32* dst);
+float   Math3D_Dist1DSq(float a, float b);
 float   Math3D_Dist2DSq(float x1, float y1, float x2, float y2);
 s16     Math_Vec3f_Yaw(Vec3f* origin, Vec3f* point);
 s16     Math_Vec3f_Pitch(Vec3f* origin, Vec3f* point);
 f32     Math_FAcosF(f32 angle);
 f32     Math_SinF(f32 rad);
+f32     Math_Vec3f_DistXZ(Vec3f* a, Vec3f* b);
 
 
 #endif

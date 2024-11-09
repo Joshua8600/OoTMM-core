@@ -71,7 +71,7 @@ void EnHs_Init(Actor_EnHs* this, PlayState* play)
         this->actor.flags |= ACTOR_FLAG_MM_10000;
 
     this->stateFlags = 0;
-    this->actor.targetMode = 6;
+    this->actor.attentionRangeType = ATTENTION_RANGE_6;
     func_80952C50(this, play);
 }
 
@@ -209,7 +209,7 @@ void EnHs_SceneTransitToBunnyHoodDialogue(Actor_EnHs* this, PlayState* play)
     if (DECR(this->stateTimer) == 0)
     {
         play->nextEntrance = play->setupExitList[HS_GET_EXIT_INDEX(&this->actor)];
-        play->transitionTrigger = TRANS_TRIGGER_NORMAL;
+        play->transitionTrigger = TRANS_TRIGGER_START;
         MM_SET_EVENT_WEEK(EV_MM_WEEK_GROG_GROWN_CHICKEN);
         this->actionFunc = EnHs_DoNothing;
     }

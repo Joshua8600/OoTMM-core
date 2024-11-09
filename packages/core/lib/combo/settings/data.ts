@@ -617,8 +617,8 @@ export const SETTINGS = [{
   values: [
     { value: 'none', name: 'None' },
     { value: 'all', name: 'All' },
-    { value: 'overworld', name: 'Overworld', cond: (s: any) => s.shuffleGrassOot === 'overworld' },
-    { value: 'dungeons', name: 'Dungeons only', cond: (s: any) => s.shuffleGrassOot === 'overworld' },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
   ],
   cond: hasOoT,
   default: 'none'
@@ -631,8 +631,8 @@ export const SETTINGS = [{
   values: [
     { value: 'none', name: 'None' },
     { value: 'all', name: 'All' },
-    { value: 'overworld', name: 'Overworld', cond: (s: any) => s.shuffleTFGrassMm },
-    { value: 'dungeons', name: 'Dungeons only', cond: (s: any) => s.shuffleTFGrassMm },
+    { value: 'overworld', name: 'Overworld' },
+    { value: 'dungeons', name: 'Dungeons only' },
   ],
   cond: hasMM,
   default: 'none'
@@ -642,7 +642,7 @@ export const SETTINGS = [{
   category: 'main.shuffle',
   type: 'boolean',
   description: 'Controls whether or not the Termina Field (grottos do not count towards this) grass is shuffled (MM)',
-  cond: (s: any) => s.shuffleTFGrassMm && hasMM(s) && (s.shuffleGrassMm === 'overworld' || s.shuffleGrassMm === 'all'),
+  cond: (s: any) => hasMM(s) && (s.shuffleGrassMm === 'overworld' || s.shuffleGrassMm === 'all'),
   default: false
 }, {
   key: 'shuffleFreeRupeesOot',
@@ -2400,13 +2400,19 @@ export const SETTINGS = [{
   description: 'Shuffle grottos and graves.',
   default: 'none'
 }, {
+  key: 'erNoPolarity',
+  name: 'No Entrance Polarity',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Some entrances have a polarity (e.g. dungeons entrances and exits). Normally, they\'re shuffled respecting that polarity, so a dungeon entrance will always lead to another dungeon entrance, never to an exit. This option disables that.',
+  default: false,
+}, {
   key: 'erSelfLoops',
   name: 'Allow Self-Loops',
   category: 'entrances',
   type: 'boolean',
   description: 'Allow entrances to loop back to the same map. Might make the topology of the world very confusing.',
   default: false,
-  cond: (x: any) => !x.erDecoupled,
 }, {
   key: 'erDecoupled',
   name: 'Decoupled Entrances',
@@ -2643,6 +2649,14 @@ export const SETTINGS = [{
   description: 'Shuffle additional, more complex interiors. These include:<br>- OOT: Link\'s House, Temple of Time, Windmill, Kak Potion Shop<br>- MM: Stock Pot Inn, Astral Observatory/Bombers\' Hideout, Swamp Tourist Hut, Ikana Spring Cave, Music Box House<br>- Pirate\'s Fortress Sewers Exit is included if Shuffle Pirate Fortress Entrances is enabled',
   default: false,
   cond: (x: any) => x.erIndoors !== 'none'
+}, {
+  key: 'erIndoorsGameLinks',
+  name: 'Shuffle Mask Shop/Clock Tower Entrances',
+  category: 'entrances',
+  type: 'boolean',
+  description: 'Shuffle the Mask Shop & Clock Tower exits among the other indoors.',
+  default: false,
+  cond: (x: any) => x.erIndoors === 'full' && (!x.erMixedIndoors || x.erMixed === 'full'),
 }, {
   key: 'erWarps',
   name: 'Shuffle Warp Songs and Soaring',
