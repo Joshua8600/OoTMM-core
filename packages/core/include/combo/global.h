@@ -20,6 +20,7 @@ typedef struct
     u8                      roomEnemyLackSoul:1;
     u8                      spawnExtended:1;
     u8                      xflagOverride:1;
+    u8                      isNextEntranceInitialSong:1;
     u8                      decoysCount;
     u8                      menuScreen;
     u8                      menuCursor;
@@ -28,7 +29,6 @@ typedef struct
     u8                      maxKeysMm[4];
     u8                      actorIndex;
     u8                      sceneSetupId;
-    s8                      keatonGrassMax;
     u32                     nextEntrance;
     Xflag                   xflag;
 }

@@ -4,8 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [26.1] - 2024-11-09
+
 ### Added
 
+- Add signs in ambiguous logcations in ER, such as generic grottos.
+
+### Fixed
+
+- Fix a bug where some ER seeds would not generate correctly.
+
+## [26.0] - 2024-11-09
+
+### Added
+
+- Add a setting to shuffle the Mask Shop <-> Clock Tower link between the games.
+- Add a setting to disable the polarity of entrances in entrance shuffle (e.g. make an entrance lead to an exit).
 - Add Spin Attack Upgrade in OoT as a setting, with Shared as an extra setting.
 - Add Stone of Agony in MM as a setting, with Shared as an extra setting.
 - Add an icon to simulate the stone of agony rumble feature.
@@ -23,6 +37,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Make OoT spin attacks scale with the MM swords.
 - Grass/Barrels/Pots/Snowballs/Hearts/Rupees/Wonder Items settings were broken up by All/None/Overworld/Dungeons.
 - Moon Crash cutscene is skipped in Cycle behavior.
 - Hint section now shows the hint importance.
@@ -48,6 +63,10 @@ All notable changes to this project will be documented in this file.
 - Logic no longer thinks you can swap ages in the Deku Theater.
 - Logic now accounts for the Hylian Guard Soul for the Keaton Mask sale in Kakariko.
 - The Light Trial Wallmaster warp now goes to the correct location, and logic for it fixed.
+- Fix logic issue for getting sticks and nuts in Forest Temple not requiring the Deku Baba Soul.
+- Fix time logic for entering the Clock Tower Roof when it is shuffled.
+- Crash when feeding a Bombchu to Dodongo.
+- Spin attack culling when collecting an item.
 
 ## [25.0] - 2024-09-08
 
@@ -1386,7 +1405,9 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v25.0...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v26.1...HEAD
+[26.1]: https://github.com/OoTMM/OoTMM/compare/v26.0...v26.1
+[26.0]: https://github.com/OoTMM/OoTMM/compare/v25.0...v26.0
 [25.0]: https://github.com/OoTMM/OoTMM/compare/v24.1...v25.0
 [24.1]: https://github.com/OoTMM/OoTMM/compare/v24.0...v24.1
 [24.0]: https://github.com/OoTMM/OoTMM/compare/v23.1...v24.0

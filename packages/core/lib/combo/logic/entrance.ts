@@ -1,4 +1,3 @@
-import { mapValues } from 'lodash';
 import { ENTRANCES } from '@ootmm/data';
 
 import { Random, sample } from '../random';
@@ -13,8 +12,8 @@ import { LogicPassSolver } from './solve';
 import { PlayerItems } from '../items';
 import { ItemProperties } from './item-properties';
 import { optimizeStartingAndPool, optimizeWorld } from './optimizer';
-import { countMapAdd } from '../util';
 
+type EntrancePolarity = 'in' | 'out' | 'any';
 type Entrance = keyof typeof ENTRANCES;
 
 type PlaceOpts = {
@@ -26,8 +25,48 @@ type PoolEntrances = {[k: string]: { src: Set<Entrance>; dst: Set<Entrance>; }};
 
 type EntranceOverrides = {[k in Entrance]?: Entrance | null};
 
+const POLARITY_ANY_OVERWORLD = new Set<string>([
+  'region',
+  'region-extra',
+  'region-shortcut',
+  'region-exit',
+]);
+
+const POLARITY_IN = new Set<string>([
+  'boss',
+  'dungeon',
+  'dungeon-minor',
+  'dungeon-ganon',
+  'dungeon-ganon-tower',
+  'dungeon-sh',
+  'dungeon-pf',
+  'dungeon-btw',
+  'dungeon-acoi',
+  'dungeon-ss',
+  'dungeon-ctr',
+  'wallmaster',
+  'region',
+  'region-extra',
+  'region-shortcut',
+  'indoors',
+  'indoors-pf',
+  'indoors-extra',
+  'indoors-special',
+  'grotto',
+  'grave',
+]);
+
+const POLARITY_OUT = new Set<string>([
+  'dungeon-exit',
+  'indoors-exit',
+  'region-exit',
+  'grotto-exit',
+  'grave-exit',
+]);
+
 class WorldShuffler {
   private world: World;
+  private worldChanged: boolean;
   private overrides: EntranceOverrides;
   private backtrackCount: number;
   private readonly allEntrances: Entrance[];
@@ -42,8 +81,35 @@ class WorldShuffler {
   ) {
     this.backtrackCount = 0;
     this.world = worlds[worldId];
+    this.worldChanged = false;
     this.overrides = {};
     this.allEntrances = this.computeAllEntrances();
+  }
+
+  private entrancePolarity(entrance: Entrance): EntrancePolarity {
+    const type = ENTRANCES[entrance].type;
+    if (this.settings.erOverworld !== 'none' && POLARITY_ANY_OVERWORLD.has(type)) {
+      return 'any';
+    }
+    if (POLARITY_IN.has(type)) {
+      return 'in';
+    }
+    if (POLARITY_OUT.has(type)) {
+      return 'out';
+    }
+    return 'any';
+  }
+
+  private entrancePolarityMatch(a: Entrance, b: Entrance) {
+    if (this.settings.erNoPolarity) {
+      return true;
+    }
+    const polA = this.entrancePolarity(a);
+    const polB = this.entrancePolarity(b);
+    if (polA === 'any' || polB === 'any') {
+      return true;
+    }
+    return polA === polB;
   }
 
   private getExpr(original: Entrance) {
@@ -161,6 +227,7 @@ class WorldShuffler {
   private reverseEntranceRaw(entrance: Entrance): Entrance | null {
     const e = ENTRANCES[entrance];
     const rr = (e as any).reverse as Entrance | undefined;
+
     if (!rr) {
       return null;
     }
@@ -175,15 +242,8 @@ class WorldShuffler {
     return this.reverseEntranceRaw(entrance);
   }
 
-  private entrances(entrance: Entrance) {
-    const entrs: Entrance[] = [entrance];
-    if (this.settings.erDecoupled) {
-      const rev = this.reverseEntranceRaw(entrance);
-      if (rev) {
-        entrs.push(rev);
-      }
-    }
-    return entrs;
+  private unbalancedPool(name: string) {
+    throw new LogicEntranceError(`Unbalanced pool: ${name}`);
   }
 
   private placePoolsRecursive(pools: EntrancePools, entrances: PoolEntrances, overrides: EntranceOverrides, assumed: Set<Entrance>): EntranceOverrides | null {
@@ -203,9 +263,10 @@ class WorldShuffler {
     if (pools[poolName].opts?.ownGame) {
       dstCandidates = new Set([...dstCandidates].filter(x => ENTRANCES[x].game === ENTRANCES[src].game));
     }
+    dstCandidates = new Set([...dstCandidates].filter(x => this.entrancePolarityMatch(src, x)));
 
     /* Filter self-loops */
-    if (!this.settings.erSelfLoops && !this.settings.erDecoupled) {
+    if (!this.settings.erSelfLoops) {
       const srcEntrance = ENTRANCES[src];
       const map = srcEntrance.fromMap;
       if (map !== 'NONE') {
@@ -244,7 +305,7 @@ class WorldShuffler {
         newOverrides[revDst] = revSrc;
         newAssumed.delete(revSrc);
       }
-      if (!this.isValidShuffle(newOverrides, newAssumed)) {
+      if (!this.isValidShuffle({ ...this.overrides, ...newOverrides }, newAssumed)) {
         continue;
       }
 
@@ -259,6 +320,9 @@ class WorldShuffler {
       }
 
       if (newEntrances[poolName].src.size === 0) {
+        if (newEntrances[poolName].dst.size !== 0) {
+          this.unbalancedPool(poolName);
+        }
         delete newEntrances[poolName];
       }
       const finalOverrides = this.placePoolsRecursive(pools, newEntrances, newOverrides, newAssumed);
@@ -276,7 +340,7 @@ class WorldShuffler {
 
   private placePools(pools: EntrancePools) {
     this.backtrackCount = 0;
-    const overrides = { ...this.overrides };
+    const overrides: EntranceOverrides = {};
     const poolEntrances: PoolEntrances = {};
 
     /* Get entrances */
@@ -289,18 +353,16 @@ class WorldShuffler {
       for (const t of types) {
         entrancesTypes.add(t);
       }
-      const entrances = this.allEntrances.filter(x => types.includes(ENTRANCES[x].type)).flatMap(x => this.entrances(x));
-      const entrancesReverse = entrances.map(x => this.reverseEntrance(x)).filter(x => x) as Entrance[];
-      const entrancesAll = [...entrances, ...entrancesReverse];
+      const pe = this.poolEntrancesForTypes(types, true);
+      poolEntrances[name] = pe;
 
-      const src = new Set([...entrances]);
-      const dst = new Set([...entrances]);
-      poolEntrances[name] = { src, dst };
-
-      for (const name of entrancesAll) {
+      for (const name of pe.src) {
         overrides[name] = null;
+      }
+
+      for (const name of pe.dst) {
         const e = ENTRANCES[name];
-        if (!(['dungeon-exit', 'grotto-exit', 'grave-exit'].includes(e.type)) || name === 'OOT_DESERT_COLOSSUS_FROM_TEMPLE_SPIRIT' || this.settings.erDecoupled) {
+        if (!(['dungeon-exit', 'grotto-exit', 'grave-exit'].includes(e.type)) || name === 'OOT_DESERT_COLOSSUS_FROM_TEMPLE_SPIRIT' || this.settings.erNoPolarity) {
           entrancesAssumed.add(name);
         }
       }
@@ -309,6 +371,9 @@ class WorldShuffler {
     /* Remove any empty pools */
     for (const name of poolNames) {
       if (poolEntrances[name].src.size === 0) {
+        if (poolEntrances[name].dst.size !== 0) {
+          this.unbalancedPool(name);
+        }
         delete poolEntrances[name];
       }
     }
@@ -317,7 +382,10 @@ class WorldShuffler {
     if (!finalOverrides) {
       throw new LogicEntranceError('Unable to place pools');
     }
-    this.overrides = finalOverrides;
+
+    for (const [src, dst] of Object.entries(finalOverrides)) {
+      this.overrideEntrance(src as Entrance, dst!);
+    }
   }
 
   private entrancesForTypes(aTypes: Iterable<string>, reverse: boolean) {
@@ -327,6 +395,25 @@ class WorldShuffler {
       return entrances;
     const entrancesReverse = entrances.map(x => this.reverseEntranceRaw(x)).filter(x => x) as Entrance[];
     return [...entrances, ...entrancesReverse];
+  }
+
+  private poolEntrancesForTypes(aTypes: Iterable<string>, reverse: boolean) {
+    const entrances = this.entrancesForTypes(aTypes, reverse);
+    const src = new Set(entrances);
+    const dst = new Set(entrances);
+
+    /* Fixup for game links */
+    src.delete('OOT_MARKET_FROM_MASK_SHOP');
+    src.delete('MM_CLOCK_TOWN_FROM_CLOCK_TOWER');
+    dst.delete('OOT_SHOP_MASKS');
+    dst.delete('MM_CLOCK_TOWER_FROM_CLOCK_TOWN');
+
+    return { src, dst };
+  }
+
+  private overrideEntrance(src: Entrance, dst: Entrance) {
+    this.overrides[src] = dst;
+    this.worldChanged = true;
   }
 
   private placeWallmasters() {
@@ -341,9 +428,8 @@ class WorldShuffler {
     }
 
     /* Compute entrances */
-    const entrances = this.entrancesForTypes(types, this.settings.erDecoupled);
     const entrancesSrc = new Set(this.allEntrances.filter(x => ENTRANCES[x].type === 'wallmaster' && this.world.areas.hasOwnProperty(ENTRANCES[x].from)));
-    const entrancesDst = new Set(entrances);
+    const entrancesDst = this.poolEntrancesForTypes(types, this.settings.erNoPolarity).dst;
 
     while (entrancesSrc.size > 0) {
       const src = sample(this.random, entrancesSrc);
@@ -352,7 +438,7 @@ class WorldShuffler {
         dstCandidates = dstCandidates.filter(x => ENTRANCES[x].game === ENTRANCES[src].game);
       }
       const dst = sample(this.random, dstCandidates);
-      this.overrides[src] = dst;
+      this.overrideEntrance(src, dst);
       entrancesSrc.delete(src);
       entrancesDst.delete(dst);
     }
@@ -368,19 +454,18 @@ class WorldShuffler {
     types.add('region');
 
     /* Compute entrances */
-    const entrances = this.entrancesForTypes(types, true).filter(x => ENTRANCES[x].game === 'oot');
     let entrancesSrc: Set<Entrance>;
     if(this.settings.erSpawns === 'child' || this.settings.erSpawns === 'adult') {
       entrancesSrc = new Set((Object.keys(ENTRANCES) as Entrance[]).filter(x => ENTRANCES[x].type === `spawn-${this.settings.erSpawns}`));
     } else if(this.settings.erSpawns === 'both') {
       entrancesSrc = new Set((Object.keys(ENTRANCES) as Entrance[]).filter(x => ENTRANCES[x].type.includes('spawn')));
     }
-    const entrancesDst = new Set(entrances);
+    const entrancesDst = new Set([...this.poolEntrancesForTypes(types, true).dst].filter(x => ENTRANCES[x].game === 'oot'));
 
     while (entrancesSrc!.size > 0) {
       const src = sample(this.random, entrancesSrc!);
       const dst = sample(this.random, entrancesDst);
-      this.overrides[src] = dst;
+      this.overrideEntrance(src, dst);
       entrancesSrc!.delete(src);
       entrancesDst.delete(dst);
     }
@@ -398,10 +483,9 @@ class WorldShuffler {
     }
 
     /* Compute entrances */
-    const entrances = this.entrancesForTypes(types, this.settings.erDecoupled);
     const oneWays = this.poolOneWays();
     const entrancesSrc = new Set(this.allEntrances.filter(x => oneWays.pool.includes(ENTRANCES[x].type) && this.world.areas.hasOwnProperty(ENTRANCES[x].from)));
-    const entrancesDst = new Set(entrances);
+    const entrancesDst = this.poolEntrancesForTypes(types, this.settings.erNoPolarity).dst;
 
     while (entrancesSrc.size > 0) {
       const src = sample(this.random, entrancesSrc);
@@ -410,7 +494,7 @@ class WorldShuffler {
         dstCandidates = dstCandidates.filter(x => ENTRANCES[x].game === ENTRANCES[src].game);
       }
       const dst = sample(this.random, dstCandidates);
-      this.overrides[src] = dst;
+      this.overrideEntrance(src, dst);
       entrancesSrc.delete(src);
     }
   }
@@ -443,7 +527,7 @@ class WorldShuffler {
   }
 
   private poolOverworld() {
-    const pool = ['region', 'region-extra', 'region-shortcut', 'region-exit', 'overworld'];
+    const pool = ['region', 'region-extra', 'region-shortcut', 'overworld'];
     if (this.settings.erPiratesWorld) pool.push('overworld-pf', 'dungeon-pf');
     return { pool, opts: { ownGame: this.settings.erOverworld === 'ownGame' } };
   }
@@ -458,6 +542,9 @@ class WorldShuffler {
     }
     if (this.settings.erIndoorsExtra && this.settings.erPiratesWorld) {
       pool.add('indoors-pf');
+    }
+    if (this.settings.erIndoorsGameLinks) {
+      pool.add('indoors-link');
     }
     return { pool: Array.from(pool), opts: { ownGame: this.settings.erIndoors === 'ownGame' } };
   }
@@ -763,8 +850,30 @@ class WorldShuffler {
     return [...new Set(types)];
   }
 
-  run(): World {
+  private connectGamesDefault() {
+    switch (this.settings.games) {
+    case 'oot':
+      this.overrideEntrance('OOT_SHOP_MASKS', 'OOT_MARKET_FROM_MASK_SHOP');
+      break;
+    case 'mm':
+      this.overrideEntrance('MM_CLOCK_TOWER_FROM_CLOCK_TOWN', 'MM_CLOCK_TOWN_FROM_CLOCK_TOWER');
+      break;
+    case 'ootmm':
+      this.overrideEntrance('OOT_SHOP_MASKS', 'MM_CLOCK_TOWN_FROM_CLOCK_TOWER');
+      this.overrideEntrance('MM_CLOCK_TOWER_FROM_CLOCK_TOWN', 'OOT_MARKET_FROM_MASK_SHOP');
+      break;
+    }
+
+    this.worldChanged = false;
+  }
+
+  run() {
     this.overrides = {};
+
+    /* Connect the games */
+    if (!this.settings.erIndoorsGameLinks) {
+      this.connectGamesDefault();
+    }
 
     if (this.settings.erWallmasters !== 'none') {
       this.placeWallmasters();
@@ -783,9 +892,10 @@ class WorldShuffler {
     let world = this.changedWorld(this.overrides);
     if (this.settings.erBoss !== 'none') {
       world = this.legacyFixBosses(world);
+      this.worldChanged = true;
     }
 
-    return world;
+    return { world, changed: this.worldChanged };
   }
 };
 
@@ -939,25 +1049,28 @@ export class LogicPassEntrances {
 
   private runAttempt() {
     this.worlds = [];
+    let changed = false;
 
     if (this.input.settings.distinctWorlds) {
       /* Distinct worlds */
       for (let i = 0; i < this.input.worlds.length; ++i) {
         const shuffler = new WorldShuffler(this.input.random, i, this.input.worlds, this.input.settings, this.input.startingItems, this.input.allItems);
-        const newWorld = shuffler.run();
-        this.worlds.push(newWorld);
+        const result = shuffler.run();
+        this.worlds.push(result.world);
+        changed = changed || result.changed;
       }
     } else {
       /* Shared world */
       const shuffler = new WorldShuffler(this.input.random, 0, this.input.worlds, this.input.settings, this.input.startingItems, this.input.allItems);
-      const newWorld = shuffler.run();
+      const result = shuffler.run();
+      changed = result.changed;
       for (let i = 0; i < this.input.worlds.length; ++i) {
-        this.worlds.push(cloneWorld(newWorld));
+        this.worlds.push(cloneWorld(result.world));
       }
     }
 
     /* Validate */
-    if (this.worlds[0].entranceOverrides.size) {
+    if (changed) {
       this.validate();
     }
 

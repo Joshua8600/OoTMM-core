@@ -53,7 +53,7 @@ void comboTransition(PlayState* play, u32 entrance)
 #if defined(GAME_OOT)
     g.nextEntrance = entrance;
     play->nextEntranceIndex = ENTR_EXTENDED;
-    play->transitionTrigger = TRANS_TRIGGER_NORMAL;
+    play->transitionTrigger = TRANS_TRIGGER_START;
     play->transitionType = TRANS_GFX_BLACK;
 #endif
 
@@ -75,8 +75,9 @@ void comboTransition(PlayState* play, u32 entrance)
     }
 
     g.nextEntrance = entrance;
+    g.isNextEntranceInitialSong = (entrance == ENTR_MM_CLOCK_TOWN_FROM_CLOCK_TOWER);
     play->nextEntrance = ENTR_EXTENDED;
-    play->transitionTrigger = TRANS_TRIGGER_NORMAL;
+    play->transitionTrigger = TRANS_TRIGGER_START;
     play->transitionType = TRANS_TYPE_FADE_BLACK;
 #endif
 }

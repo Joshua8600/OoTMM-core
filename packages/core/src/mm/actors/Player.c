@@ -36,9 +36,20 @@ void Player_DrawHookshotReticleCustom(PlayState* play, Player* player)
 
 PATCH_CALL(0x8082fe58, Player_DpadHook);
 
+void (*gEnKanban_TalkedTo)(Actor*, PlayState*);
+
 void Player_TalkDisplayTextBox(PlayState* play, s16 textId, Actor* actor)
 {
     PlayerDisplayTextBox(play, textId, actor);
+    if (actor)
+    {
+        switch (actor->id)
+        {
+        case ACTOR_EN_KANBAN:
+            gEnKanban_TalkedTo(actor, play);
+            break;
+        }
+    }
 }
 
 PATCH_CALL(0x80837bb0, Player_TalkDisplayTextBox);
@@ -380,7 +391,7 @@ void Player_Action_FaroresWindText(Player* this, PlayState* play)
         if (play->msgCtx.choiceIndex == 0)
         {
             gSaveContext.respawnFlag = 8;
-            play->transitionTrigger = TRANS_TRIGGER_NORMAL;
+            play->transitionTrigger = TRANS_TRIGGER_START;
             play->nextEntrance = gSaveContext.respawn[RESPAWN_MODE_HUMAN].entrance;
             play->transitionType = TRANS_TYPE_FADE_WHITE_FAST;
             gNoTimeFlow = 0;

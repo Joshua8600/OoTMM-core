@@ -24,8 +24,9 @@
 
 typedef struct Player Player;
 
-#define TRANS_TRIGGER_NONE     0x00
-#define TRANS_TRIGGER_NORMAL   0x14
+#define TRANS_TRIGGER_OFF     0x00
+#define TRANS_TRIGGER_START   0x14
+#define TRANS_TRIGGER_END    -0x14
 
 #define TRANS_GFX_TRIFORCE          0x01
 #define TRANS_GFX_BLACK             0x02
@@ -61,8 +62,8 @@ typedef struct PlayState
     char                   unk_007b8[0x08];
     CollisionContext       colCtx;
     ActorContext           actorCtx;
-    CutsceneContext        cutscene;
-    char                   unk_1d94[0x344];
+    CutsceneContext        csCtx;
+    char                   unk_1db4[0x324];
     MessageContext         msgCtx;
     InterfaceContext       interfaceCtx;
     PauseContext           pauseCtx;
@@ -119,7 +120,7 @@ ASSERT_SIZE(PlayState, 0x12518);
 ASSERT_OFFSET(PlayState, sceneSegment,             0x000b0);
 ASSERT_OFFSET(PlayState, colCtx,                   0x007c0);
 ASSERT_OFFSET(PlayState, actorCtx,                 0x01c24);
-ASSERT_OFFSET(PlayState, cutscene,                 0x01d64);
+ASSERT_OFFSET(PlayState, csCtx,                    0x01d64);
 ASSERT_OFFSET(PlayState, msgCtx,                   0x020d8);
 ASSERT_OFFSET(PlayState, interfaceCtx,             0x104f0);
 ASSERT_OFFSET(PlayState, pauseCtx,                 0x10760);
