@@ -260,7 +260,7 @@
 - { id: OOT_SOUL_BOSS_KING_DODONGO, type: SOUL, add: [OOT_SOUL, 0x1001], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of King Roly-Poly" }
 - { id: OOT_SOUL_BOSS_BARINADE, type: SOUL, add: [OOT_SOUL, 0x1002], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Barinade" }
 - { id: OOT_SOUL_BOSS_PHANTOM_GANON, type: SOUL, add: [OOT_SOUL, 0x1003], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Phantom Ganon" }
-- { id: OOT_SOUL_BOSS_VOLVAGIA, type: SOUL, add: [OOT_SOUL, 0x1004], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Volvagia" }
+- { id: OOT_SOUL_BOSS_VOLVAGIA, type: SOUL, add: [OOT_SOUL, 0x1004], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Volga" }
 - { id: OOT_SOUL_BOSS_MORPHA, type: SOUL, add: [OOT_SOUL, 0x1005], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Morpha" }
 - { id: OOT_SOUL_BOSS_BONGO_BONGO, type: SOUL, add: [OOT_SOUL, 0x1006], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Little Drummer Boy" }
 - { id: OOT_SOUL_BOSS_TWINROVA, type: SOUL, add: [OOT_SOUL, 0x1007], flags: 0x80, draw: SOUL_BOSS, object: [oot, 0x015c], name: "the <C1>Soul of Twinrova" }
