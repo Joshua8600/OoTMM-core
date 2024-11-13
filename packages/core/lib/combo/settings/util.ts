@@ -3,7 +3,6 @@ import type { PartialDeep } from 'type-fest';
 import type { Settings, SettingsBase } from './type';
 import { SETTINGS } from './data';
 import { DEFAULT_TRICKS, TRICKS } from './tricks';
-import { DEFAULT_DUNGEONS } from './dungeons';
 import { DEFAULT_SPECIAL_COND, DEFAULT_SPECIAL_CONDS, SPECIAL_CONDS, SPECIAL_CONDS_FIELDS } from './special-conds';
 import { SettingsPatch, patchArray } from './patch';
 import { SETTINGS_DEFAULT_HINTS } from './hints';
@@ -18,7 +17,6 @@ export const DEFAULT_SETTINGS: Settings = { ...SETTINGS.map(s => {
   startingItems: {},
   junkLocations: [] as string[],
   tricks: [ ...DEFAULT_TRICKS ],
-  dungeon: { ...DEFAULT_DUNGEONS },
   specialConds: { ...DEFAULT_SPECIAL_CONDS },
   plando: { locations: {} },
   hints: [ ...SETTINGS_DEFAULT_HINTS ],
@@ -134,10 +132,15 @@ function applyBaseSettings(dest: SettingsBase, src: PartialDeep<SettingsBase>) {
         }
         break;
       case 'set':
-        if (newValue instanceof Object && (['all', 'none', 'random', 'specific'].includes(newValue.type!))) {
+        if (newValue instanceof Object && (['all', 'none', 'random', 'specific', 'random-mixed'].includes(newValue.type!))) {
           (dest as any)[key] = { ...newValue };
           if (newValue.type === 'specific') {
             (dest[key] as any).values = Array.from(new Set(Array.from(newValue.values || []).filter(x => setting.values.some(v => v.value === x))));
+          } else if (newValue.type === 'random-mixed') {
+            const set = Array.from(new Set(Array.from(newValue.set || []).filter(x => setting.values.some(v => v.value === x))));
+            const unset = Array.from(new Set(Array.from(newValue.unset || []).filter(x => setting.values.some(v => v.value === x) && !set.includes(x))));
+            (dest[key] as any).set = set;
+            (dest[key] as any).unset = unset;
           }
         }
         break;
@@ -191,11 +194,6 @@ export function makeSettings(arg: PartialDeep<Settings>): Settings {
     result.tricks = sortCopyArray(arg.tricks);
   }
 
-  /* Apply dungeon settings */
-  if (arg.dungeon !== undefined) {
-    result.dungeon = { ...DEFAULT_DUNGEONS, ...arg.dungeon };
-  }
-
   /* Apply special conds */
   if (arg.specialConds !== undefined) {
     for (const k in arg.specialConds) {
@@ -237,11 +235,6 @@ export function mergeSettings(settings: Settings, patch: SettingsPatch): Setting
   /* Apply tricks */
   if (patch.tricks !== undefined)
     s.tricks = patchArray(s.tricks, patch.tricks);
-
-  /* Apply dungeons */
-  if (patch.dungeon) {
-    s.dungeon = { ...s.dungeon, ...patch.dungeon };
-  }
 
   /* Apply special conds */
   if (patch.specialConds !== undefined) {
