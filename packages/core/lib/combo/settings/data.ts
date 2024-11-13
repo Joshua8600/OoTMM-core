@@ -2748,4 +2748,39 @@ export const SETTINGS = [{
   description: 'Makes it so one-ways can take you to any place also shuffled.<br>This also affect warp songs and soaring locations if they are included in one-ways.',
   default: false,
   cond: (x: any) => x.erOneWays !== 'none'
+}, {
+  key: 'mqDungeons',
+  name: 'Master Quest Dungeons',
+  category: 'main.world',
+  type: 'set',
+  description: 'Controls which OoT dungeons use the Master Quest layout.',
+  values: [
+    { value: 'DT',      name: 'Deku Tree' },
+    { value: 'DC',      name: 'Dodongo Cavern' },
+    { value: 'JJ',      name: 'Jabu-Jabu' },
+    { value: 'Forest',  name: 'Forest Temple' },
+    { value: 'Fire',    name: 'Fire Temple' },
+    { value: 'Water',   name: 'Water Temple' },
+    { value: 'Spirit',  name: 'Spirit Temple' },
+    { value: 'Shadow',  name: 'Shadow Temple' },
+    { value: 'BotW',    name: 'Bottom of the Well' },
+    { value: 'IC',      name: 'Ice Cavern' },
+    { value: 'GTG',     name: 'Gerudo Training Grounds' },
+    { value: 'Ganon',   name: 'Ganon\'s Castle' },
+  ],
+  cond: hasOoT,
+  default: 'none'
+}, {
+  key: 'jpLayouts',
+  name: 'Majora\'s Mask JP Layouts',
+  category: 'main.world',
+  type: 'set',
+  description: 'Choose which parts of Majora\'s Mask use their Japanese version, when different.',
+  values: [
+    { value: 'DekuPalace',  name: 'Deku Palace' },
+    { value: 'StoneTower',  name: 'Stone Tower' },
+    { value: 'ST',          name: 'Stone Tower Temple' },
+  ],
+  default: 'none',
+  cond: hasMM,
 }] as const;

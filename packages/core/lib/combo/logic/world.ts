@@ -6,7 +6,7 @@ import { gameId } from '../util';
 import { Expr, exprTrue, MM_TIME_SLICES } from './expr';
 import { ExprParser } from './expr-parser';
 import { DATA_HINTS_POOL } from '../data';
-import { DUNGEONS, SETTINGS, Settings } from '../settings';
+import { SETTINGS, Settings } from '../settings';
 import { Monitor } from '../monitor';
 import { defaultPrices } from './price';
 import { Item, itemByID, ItemHelpers, Items } from '../items';
@@ -19,7 +19,9 @@ export const WORLD_FLAGS = [
   'silverRupeePouches',
   'openDungeonsMm',
   'openDungeonsOot',
-  'mmPreActivatedOwls'
+  'mmPreActivatedOwls',
+  'mqDungeons',
+  'jpLayouts',
 ] as const;
 
 type WorldFlag = typeof WORLD_FLAGS[number];
@@ -52,19 +54,26 @@ export type ResolvedWorldFlags = {[k in WorldFlag]: ResolvedWorldFlag};
 
 function resolveWorldFlag<T extends WorldFlag>(settings: Settings, random: Random, flag: T): ResolvedWorldFlag {
   const v = settings[flag];
-  let type = v.type;
   let wf: ResolvedWorldFlag;
-  if (type === 'random') {
-    wf = new ResolvedWorldFlag(flag, 'specific');
+  if (v.type === 'random-mixed' || v.type === 'random') {
     const setting = SETTINGS.find(x => x.key === flag)!;
     const values = ((setting as any).values as any[]).map(x => x.value) as string[];
+    let set: string[] = [];
+    let unset: string[] = [];
+    if (v.type === 'random-mixed') {
+      set = v.set;
+      unset = v.unset;
+    }
+    wf = new ResolvedWorldFlag(flag, 'specific');
     for (const v of values) {
-      if (random.next() & 0x1000) {
+      if (set.includes(v)) {
+        wf.add(v);
+      } else if (!unset.includes(v) && random.next() & 0x1000) {
         wf.add(v);
       }
     }
   } else {
-    wf = new ResolvedWorldFlag(flag, type);
+    wf = new ResolvedWorldFlag(flag, v.type);
     if (v.type === 'specific') {
       for (const k of v.values) {
         wf.add(k);
@@ -164,7 +173,6 @@ export type World = {
   songLocations: Set<string>;
   warpLocations: Set<string>;
   prices: number[];
-  mq: Set<string>;
   bossIds: number[];
   entranceOverrides: Map<string, string>;
   preCompleted: Set<string>;
@@ -274,7 +282,6 @@ export function cloneWorld(world: World): World {
     songLocations: new Set(world.songLocations),
     warpLocations: new Set(world.warpLocations),
     prices: [...world.prices],
-    mq: new Set(world.mq),
     preCompleted: new Set(world.preCompleted),
     bossIds: [...world.bossIds],
     entranceOverrides: new Map(world.entranceOverrides),
@@ -367,21 +374,8 @@ export class LogicPassWorld {
     /* Expr parser settings */
     exprParsers.mm.addVar('STRAY_FAIRY_COUNT', this.state.settings.strayFairyRewardCount);
 
-    /* MQ */
-    const mq = new Set<string>;
-    let d: keyof typeof DUNGEONS;
-    for (d in DUNGEONS) {
-      if (this.state.settings.dungeon[d] === 'mq') {
-        mq.add(d);
-      } else if (this.state.settings.dungeon[d] === 'random') {
-        if (this.state.random.next() & 0x10000) {
-          mq.add(d);
-        }
-      }
-    }
-
     /* Prices */
-    const prices = defaultPrices(mq);
+    const prices = defaultPrices(resolvedFlags);
 
     return {
       areas: {},
@@ -394,7 +388,6 @@ export class LogicPassWorld {
       songLocations: new Set(),
       warpLocations: new Set(),
       prices,
-      mq,
       preCompleted: new Set(),
       bossIds: Object.values(BOSS_INDEX_BY_DUNGEON),
       entranceOverrides: new Map,
@@ -455,8 +448,17 @@ export class LogicPassWorld {
     for (let areaSetName in data) {
       let areaSet = (data as any)[areaSetName];
       /* Handle MQ */
-      if (game === 'oot' && this.world.mq.has(areaSetName)) {
+      if (game === 'oot' && WORLD.mq.hasOwnProperty(areaSetName) && this.world.resolvedFlags.mqDungeons.has(areaSetName)) {
         areaSet = (WORLD.mq as any)[areaSetName];
+      }
+      /* Handle JP layouts */
+      if (game === 'mm') {
+        const areaSetUs = (WORLD.mm_us as any)[areaSetName];
+        const areaSetJp = (WORLD.mm_jp as any)[areaSetName];
+        if (areaSetUs !== undefined && areaSetJp !== undefined) {
+          const areaSetPatch = this.world.resolvedFlags.jpLayouts.has(areaSetName) ? areaSetJp : areaSetUs;
+          areaSet = { ...areaSet, ...areaSetPatch };
+        }
       }
       for (let name in areaSet) {
         const area = areaSet[name];
@@ -465,7 +467,7 @@ export class LogicPassWorld {
         const ageChange = area.age_change ?? (game === 'oot' ? true : false);
         const dungeon = area.dungeon || null;
         let region = area.region;
-        if (region !== 'NONE' && region !== 'ENTRANCE') {
+        if (region !== 'NONE' && region !== 'ENTRANCE' && region !== 'BUFFER' && region !== 'BUFFER_DELAYED') {
           region = region ? gameId(game, region, '_') : undefined;
         }
         if (dungeon) {
@@ -491,7 +493,7 @@ export class LogicPassWorld {
           throw new Error(`Undefined region for area ${name}`);
         }
 
-        if (region !== 'ENTRANCE' && REGIONS[region as keyof typeof REGIONS] === undefined) {
+        if (region !== 'ENTRANCE' && region !== 'BUFFER' && region !== 'BUFFER_DELAYED' && REGIONS[region as keyof typeof REGIONS] === undefined) {
           throw new Error(`Unknown region ${region}`);
         }
 

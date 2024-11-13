@@ -71,7 +71,14 @@ const DATA_WORLD = {
     SSH: loadYaml('world/mm/swamp_spider_house.yml'),
     OSH: loadYaml('world/mm/ocean_spider_house.yml'),
     Moon: loadYaml('world/mm/moon.yml'),
-  }
+    DekuPalace: {},
+  },
+  mm_us: {
+    DekuPalace: loadYaml('world/mm_us/overworld_deku_palace_us.yml'),
+  },
+  mm_jp: {
+    DekuPalace: loadYaml('world/mm_jp/overworld_deku_palace_jp.yml'),
+  },
 };
 
 const DATA_FILES = {

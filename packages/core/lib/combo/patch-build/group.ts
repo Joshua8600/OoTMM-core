@@ -51,6 +51,9 @@ export const PATCH_GROUPS = [
   'MM_FAST_MASKS',
   'OOT_FAST_BOAT',
   'MM_WELL_OPEN_OR_REMORSELESS',
+  'MM_JP_LAYOUT_DEKU_PALACE',
+  'MM_JP_LAYOUT_STONE_TOWER',
+  'MM_JP_LAYOUT_STONE_TOWER_TEMPLE',
 ] as const;
 
 export type PatchGroup = typeof PATCH_GROUPS[number];

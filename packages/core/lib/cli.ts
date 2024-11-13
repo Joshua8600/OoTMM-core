@@ -11,7 +11,7 @@ function readFileUint8(path: string): Promise<Uint8Array> {
 function parseSettings(data: any): any {
   const result = {} as any;
   for (const key in data) {
-    if (['startingItems', 'tricks', 'junkLocations', 'dungeon', 'specialConds', 'plando', 'hints'].includes(key)) {
+    if (['startingItems', 'tricks', 'junkLocations', 'specialConds', 'plando', 'hints'].includes(key)) {
       result[key] = data[key];
       continue;
     }
@@ -24,6 +24,8 @@ function parseSettings(data: any): any {
     case 'set':
       if (data[key] instanceof Array) {
         result[key] = { type: 'specific', values: Array.from(new Set(data[key])) };
+      } else if (data[key] instanceof Object) {
+        result[key] = { ...data[key] };
       } else {
         result[key] = { type: data[key] };
       }
