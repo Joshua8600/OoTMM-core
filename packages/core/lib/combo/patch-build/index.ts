@@ -9,9 +9,10 @@ import { Patchfile } from './patchfile';
 import { patchRandomizer } from './randomizer';
 import { PatchGroup } from './group';
 import { isEntranceShuffle } from '../logic/helpers';
-import { FileResolver, Options } from '../options';
+import { Options } from '../options';
 import { World } from '../logic/world';
 import { bufReadU32BE, bufWriteU32BE } from '../util/buffer';
+import { FileResolver } from '../file-resolver';
 
 export type BuildPatchfileIn = {
   opts: Options;
@@ -21,7 +22,6 @@ export type BuildPatchfileIn = {
   addresses: GameAddresses;
   logic: LogicResult;
   settings: Settings;
-  resolver: FileResolver;
 };
 
 function asmPatchGroups(world: World, settings: Settings) {
@@ -99,44 +99,45 @@ export async function buildPatchfiles(args: BuildPatchfileIn): Promise<Patchfile
   const patchedFiles = new Set<string>();
   let ovlAddr = 0xe0000000;
 
+  const fileResolver = new FileResolver();
+
   for (let world = 0; world < args.settings.players; ++world) {
     const p = args.patch.dup();
     const groups = asmPatchGroups(args.logic.worlds[world], args.settings);
-    const meta: any = {};
 
     for (const game of GAMES) {
       const gc = CONFIG[game];
 
       /* Apply ASM patches */
       const rom = args.roms[game].rom;
-      const patches = await args.resolver.fetch(`${game}_patch.bin`);
+      const patches = await fileResolver.fetch(`${game}_patch.bin`);
       const patcher = new Patcher(args.opts, game, rom, groups, args.addresses, patches, p);
       const { files } = patcher.run();
       for (const f of files) {
         patchedFiles.add(f);
       }
       /* Pack the payload */
-      const payload = await args.resolver.fetch(`${game}_payload.bin`);
+      const payload = await fileResolver.fetch(`${game}_payload.bin`);
       if (payload.length > (game === 'mm' ? 0x50000 : 0x80000)) {
         throw new Error(`Payload too large ${game}`);
       }
       const payloadVrom = game === 'oot' ? 0xf0000000 : 0xf0100000;
       const payloadVram = game === 'oot' ? 0x80400000 : 0x80730000; /* TODO: Codegen this */
       const payloadVramEnd = payloadVram + payload.length;
-      p.addNewFile({ name: `${game}/payload`, vrom: payloadVrom, vram: [payloadVram, payloadVramEnd], data: payload, compressed: false });
+      p.addNewFile({ name: `${game}/payload`, vrom: payloadVrom, vram: { [game]: [payloadVram, payloadVramEnd] }, data: payload, compressed: false });
 
       /* Handle extra overlays */
-      const allOverlays = await args.resolver.glob(/ovl\/(oot|mm)\/.+\.zovlx$/);
+      const allOverlays = await fileResolver.glob(/ovl\/(oot|mm)\/.+\.zovlx$/);
       const overlays = allOverlays.filter((f) => f.startsWith(`ovl/${game}`));
       for (const ov of overlays) {
         /* Resolve and inject the new overlay */
-        const raw = await args.resolver.fetch(ov);
+        const raw = await fileResolver.fetch(ov);
         const headerSize = raw.subarray(0, 8);
         const header = raw.subarray(8, 64);
         const data = raw.subarray(64);
         const vramStart = bufReadU32BE(headerSize, 0x00);
         const vramEnd = bufReadU32BE(headerSize, 0x04);
-        p.addNewFile({ name: ov, vram: [vramStart, vramEnd], vrom: ovlAddr, data, compressed: true });
+        p.addNewFile({ name: ov, vram: { [game]: [vramStart, vramEnd] }, vrom: ovlAddr, data, compressed: true });
         const vromStart = ovlAddr;
         const vromEnd = ovlAddr + data.length;
         ovlAddr = vromEnd;
@@ -204,27 +205,22 @@ export async function buildPatchfiles(args: BuildPatchfileIn): Promise<Patchfile
         p.removedFiles.push(f);
       }
 
-      /* Handle cosmetics */
-      const gameCosmetics: {[k: string]: number[]} = {};
-      meta.cosmetics = meta.cosmetics || {};
-      meta.cosmetics[game] = gameCosmetics;
-      const cosmetic_name = await args.resolver.fetch(`${game}_cosmetic_name.bin`);
-      const cosmetic_addr = await args.resolver.fetch(`${game}_cosmetic_addr.bin`);
-      const names = new TextDecoder().decode(cosmetic_name).split(/\0+/);
+      /* Handle symbols */
+      const symbols_name = await fileResolver.fetch(`${game}_symbols_name.bin`);
+      const symbols_addr = await fileResolver.fetch(`${game}_symbols_addr.bin`);
+      const names = new TextDecoder().decode(symbols_name).split(/\0+/);
       names.pop();
 
       for (let i = 0; i < names.length; i++) {
         const name = names[i];
-        const addr = bufReadU32BE(cosmetic_addr, i * 4);
-        if (gameCosmetics[name] === undefined) {
-          gameCosmetics[name] = [];
-        }
-        gameCosmetics[name].push(addr);
+        const addr = bufReadU32BE(symbols_addr, i * 4);
+        const addrs = p.symbols[game].get(name) || [];
+        addrs.push(addr);
+        p.symbols[game].set(name, addrs);
       }
     }
 
     patchRandomizer(world, args.logic, args.settings, p);
-    p.setMeta(meta);
 
     patches.push(p);
   }
