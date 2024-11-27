@@ -2,45 +2,30 @@ name: Continuous Integration Workflow
 
 on: [push, pull_request, workflow_dispatch]
 
+env:
+  GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
         with:
-          node-version: 22.x
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm i
-
-      - name: Test
-        run: pnpm test
-  deploy:
-    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/master' || contains(github.ref, 'refs/tags/')) }}
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+          fetch-depth: 0
 
       - name: Extract Version (Tag)
         if: ${{ contains(github.ref, 'refs/tags/') }}
         run: |
           echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
-          echo "NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID_STABLE }}" >> $GITHUB_ENV
+          echo "ENV_KEYS=${{ github.ref_name }},stable" >> $GITHUB_ENV
 
       - name: Extract Version (Commit)
         if: ${{ !contains(github.ref, 'refs/tags/') }}
         run: |
           short_sha=$(echo ${{ github.sha }} | cut -c1-7)
-          echo "VERSION=dev-${short_sha}" >> $GITHUB_ENV
-          echo "NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID_DEV }}" >> $GITHUB_ENV
+          echo "VERSION=dev" >> $GITHUB_ENV
+          echo "VERSION_SUFFIX=${short_sha}" >> $GITHUB_ENV
+          echo "ENV_KEYS=dev" >> $GITHUB_ENV
 
       - name: Add n64 toolchain repo
         uses: myci-actions/add-deb-repo@10
@@ -61,27 +46,36 @@ jobs:
           node-version: 22.x
           cache: 'pnpm'
 
+      - name: Install Third Party dependencies
+        run: ./scripts/install-deps.sh
+
       - name: Install dependencies
         run: pnpm i
 
+      - name: Find references for NX
+        uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: master
+
+      - name: Test
+        run: npx nx affected -t test --prod
+
       - name: Build
-        run: |
-          pnpm run build
+        run: npx nx affected -t build --prod
 
-      - name: Deploy to netlify (stable)
-        if: ${{ contains(github.ref, 'refs/tags/') }}
-        run: |
-          npm i -g netlify-cli@17.36.1
-          cd packages/gui/dist && netlify deploy --filter @ootmm/gui --prod --dir ./
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STABLE }}
+      - name: Configure AWS
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/master' || contains(github.ref, 'refs/tags/')) }}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Deploy to netlify (dev)
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: |
-          npm i -g netlify-cli@17.36.1
-          cd packages/gui/dist && netlify deploy --filter @ootmm/gui --prod --dir ./
+      - name: Deploy
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/master' || contains(github.ref, 'refs/tags/')) }}
+        run: npx nx affected -t deploy --prod
         env:
+          S3_BUCKET: ${{ vars.S3_BUCKET }}
+          NETLIFY_SITE_ID_WEB: ${{ vars.NETLIFY_SITE_ID_WEB }}
+          NETLIFY_SITE_ID_STATIC: ${{ vars.NETLIFY_SITE_ID_STATIC }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_DEV }}

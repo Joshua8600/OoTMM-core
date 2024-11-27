@@ -6,18 +6,28 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add the ability to play the multiplayer modes as teams, racing each other in the same seed.
+- Add the ability to play multiworld random settings.
 - Add the Japanese version of Stone Tower Temple.
 - Add the Japanese version of Stone Tower.
 - Add the Japanese version of Deku Palace & the matching grottos, as a setting.
 
 ### Changed
 
+- Dungeon Maps hinting at dungeon locations now use a significantly better algorithm, which should handle all edge-cases.
+- When hint importance is on, unreachable items will be marked as such instead of "not required".
 - Removed the cutscenes from the Skull Kid paintings and the Skulltulas spawning from big jars, tree or chandelier in MM Spider Houses.
 - Bombchu are now accounted in logic for the SSH Gold Room hives.
+- Updated **Allsanity** and **Hell** presets
 
 ### Fixed
 
+- Fix talking to Skull Kid OoT sometimes crashing.
+- Fix Romani sometimes being present without having collected her soul.
+- Some starting items being hinted "nowhere".
 - Spin attack with child sword being ridiculously small. Gilded sword spin is now as big as Biggoron sword spin.
+- Potential loss of MM sword due to Epona and overworld or region entrances randomization.
+- Logic for boat archery mistakenly requiring a bow.
 
 ## [26.1] - 2024-11-09
 
