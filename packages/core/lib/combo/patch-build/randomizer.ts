@@ -4,9 +4,9 @@ import { LogicResult } from '../logic';
 import { isEntranceShuffle } from '../logic/helpers';
 import { GI, DATA_HINTS_POOL } from '../data';
 import { Game } from '../config';
-import { World, WorldCheck } from '../logic/world';
+import { BOSS_INDEX_BY_DUNGEON, World, WorldCheck } from '../logic/world';
 import { SETTINGS, Settings, SPECIAL_CONDS, SPECIAL_CONDS_FIELDS } from '../settings';
-import { HINTS_PATHS, HintGossip, WorldHints } from '../logic/hints';
+import { HintGossip, WorldHints } from '../logic/hints';
 import { countMapAdd, gameId, padBuffer16, toI8Buffer, toU16Buffer, toU32Buffer, toU8Buffer } from '../util';
 import { Patchfile } from './patchfile';
 import { locationsZelda, makeLocation, makePlayerLocations, getPreActivatedOwlsLocations } from '../logic/locations';
@@ -18,6 +18,8 @@ import { bufReadU32BE, bufWriteI8, bufWriteU16BE, bufWriteU32BE, bufWriteU8 } fr
 import { concatUint8Arrays } from 'uint8array-extras';
 import { mustStartWithMasterSword } from '../settings/util';
 import { DUNGEON_ENTRANCES } from '../logic/entrance';
+import path from 'path';
+import { END_BOSS_METADATA } from '../logic/boss';
 
 const DUNGEON_REWARD_LOCATIONS = [
   'OOT Deku Tree Boss',
@@ -523,17 +525,39 @@ const hintBuffer = (settings: Settings, game: Game, gossip: string, hint: HintGo
   switch (hint.type) {
   case 'path':
     {
+      const { path } = hint;
+      let pathId: number;
+      let pathSubId: number;
       const regionD = regionData(hint.region);
       const region = (REGIONS as any)[regionD.id];
-      const pathId = HINTS_PATHS[hint.path].id;
       if (region === undefined) {
         throw new Error(`Unknown region ${hint.region}`);
       }
+      switch (path.type) {
+      case 'woth':
+        pathId = 0;
+        pathSubId = 0;
+        break;
+      case 'triforce':
+        pathId = 1;
+        pathSubId = { 'Power': 0, 'Courage': 1, 'Wisdom': 2 }[path.triforce];
+        break;
+      case 'boss':
+        pathId = 2;
+        pathSubId = BOSS_INDEX_BY_DUNGEON[path.boss];
+        break;
+      case 'end-boss':
+        pathId = 3;
+        pathSubId = END_BOSS_METADATA.findIndex((e) => e.name === path.boss);
+        break;
+      }
+
       bufWriteU8(data, HINT_OFFSETS.KEY, id);
       bufWriteU8(data, HINT_OFFSETS.TYPE, 0x00);
       bufWriteU8(data, HINT_OFFSETS.REGION, region);
       bufWriteU8(data, HINT_OFFSETS.WORLD, regionD.world + 1);
       bufWriteU16BE(data, HINT_OFFSETS.ITEM, pathId);
+      bufWriteU16BE(data, HINT_OFFSETS.ITEM2, pathSubId);
     }
     break;
   case 'foolish':
@@ -767,7 +791,13 @@ function randomizerWarps(worldId: number, logic: LogicResult): Uint8Array {
   ];
   const owlStatuesBuffer = toU32Buffer(owlStatues.map(e => entrance(e, logic.worlds[worldId])));
 
-  return concatUint8Arrays([warpSongs, owlStatuesBuffer]);
+  const spawns = [
+    'OOT_SPAWN_ADULT',
+    'OOT_SPAWN_CHILD'
+  ];
+  const spawnsBuffer = toU32Buffer(spawns.map(e => entrance(e, logic.worlds[worldId])));
+
+  return concatUint8Arrays([warpSongs, owlStatuesBuffer, spawnsBuffer]);
 }
 
 function worldConfig(world: World, settings: Settings): Set<Confvar> {
