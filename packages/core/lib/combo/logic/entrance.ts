@@ -208,10 +208,12 @@ class WorldShuffler {
     /* Change the world */
     let expr = this.getExpr(original);
     if (entranceReplacement.game === 'mm') {
-      if (!((entranceReplacement.flags as string[]).includes('no-global'))) {
+      if (!(entranceReplacement.flags.includes('no-global'))) {
         areaFrom.exits['MM GLOBAL'] = expr;
+      } else {
+        areaFrom.exits['MM ACCESS'] = expr;
       }
-      if (!((entranceReplacement.flags as string[]).includes('no-sot'))) {
+      if (!(entranceReplacement.flags.includes('no-sot'))) {
         expr = this.songOfTime(expr);
       }
     }
@@ -243,9 +245,11 @@ class WorldShuffler {
       world.bossIds[bossIndexDst] = bossIndexSrc;
 
       /* Set the boss event */
-      const eventClear = bossSrc.eventClear;
-      if (eventClear) {
-        world.areas['OOT SPAWN'].events[eventClear] = exprEvent(bossDst.event);
+      if (this.settings.regionState === 'dungeonBeaten') {
+        const eventClear = bossSrc.eventClear;
+        if (eventClear) {
+          world.areas['OOT SPAWN'].events[eventClear] = exprEvent(bossDst.event);
+        }
       }
 
       /* Collect areas */
@@ -335,14 +339,16 @@ class WorldShuffler {
       world.areas['OOT SPAWN'].exits['ASSUMED'] = exprTrue();
     }
 
-    const bossPool = pools.BOSS;
-    if (bossPool) {
-      for (const oldName of bossPool.src) {
-        /* Assume we can get the event */
-        const meta = BOSS_METADATA_BY_ENTRANCE.get(oldName)!;
-        const eventClear = meta.eventClear;
-        if (eventClear) {
-          world.areas['OOT SPAWN'].events[eventClear] = exprEvent(meta.event);
+    if (this.settings.regionState === 'dungeonBeaten') {
+      const bossPool = pools.BOSS;
+      if (bossPool) {
+        for (const oldName of bossPool.src) {
+          /* Assume we can get the event */
+          const meta = BOSS_METADATA_BY_ENTRANCE.get(oldName)!;
+          const eventClear = meta.eventClear;
+          if (eventClear) {
+            world.areas['OOT SPAWN'].events[eventClear] = exprEvent(meta.event);
+          }
         }
       }
     }
