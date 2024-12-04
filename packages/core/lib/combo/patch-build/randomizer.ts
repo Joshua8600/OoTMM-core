@@ -20,6 +20,8 @@ import { mustStartWithMasterSword } from '../settings/util';
 import { DUNGEON_ENTRANCES } from '../logic/entrance';
 import path from 'path';
 import { END_BOSS_METADATA } from '../logic/boss';
+import { PATH_EVENT_DATA } from '../logic/analysis-path';
+import { DUNGEONS, DUNGEONS_BY_KEY } from '../logic/dungeons';
 
 const DUNGEON_REWARD_LOCATIONS = [
   'OOT Deku Tree Boss',
@@ -542,13 +544,21 @@ const hintBuffer = (settings: Settings, game: Game, gossip: string, hint: HintGo
         pathId = 1;
         pathSubId = { 'Power': 0, 'Courage': 1, 'Wisdom': 2 }[path.triforce];
         break;
-      case 'boss':
+      case 'dungeon':
         pathId = 2;
+        pathSubId = DUNGEONS_BY_KEY.get(path.dungeon)!.id;
+        break;
+      case 'boss':
+        pathId = 3;
         pathSubId = BOSS_INDEX_BY_DUNGEON[path.boss];
         break;
       case 'end-boss':
-        pathId = 3;
+        pathId = 4;
         pathSubId = END_BOSS_METADATA.findIndex((e) => e.name === path.boss);
+        break;
+      case 'event':
+        pathId = 5;
+        pathSubId = PATH_EVENT_DATA.findIndex((e) => e.key === path.event);
         break;
       }
 
@@ -715,33 +725,6 @@ const gameEntrances = (worldId: number, game: Game, logic: LogicResult) => {
 };
 
 const randomizerDungeonsBits = (worldId: number, logic: LogicResult): Uint8Array => {
-  const DUNGEONS_PRECOMPLETED = [
-    'DT',
-    'DC',
-    'JJ',
-    'Forest',
-    'Fire',
-    'Water',
-    'Shadow',
-    'Spirit',
-    'WF',
-    'SH',
-    'GB',
-    'IST',
-    'ST',
-    'SSH',
-    'OSH',
-    'BotW',
-    'IC',
-    'GTG',
-    'BtW',
-    'ACoI',
-    'SS',
-    'BtWE',
-    'PF',
-    'Ganon',
-    'Tower',
-  ]
   let mq = 0;
   let preCompleted = 0;
   const world = logic.worlds[worldId];
@@ -753,9 +736,9 @@ const randomizerDungeonsBits = (worldId: number, logic: LogicResult): Uint8Array
     }
   }
 
-  for (let i = 0; i < DUNGEONS_PRECOMPLETED.length; ++i) {
-    const dungeon = DUNGEONS_PRECOMPLETED[i];
-    if (world.preCompleted.has(dungeon)) {
+  for (let i = 0; i < DUNGEONS.length; ++i) {
+    const dungeon = DUNGEONS[i];
+    if (world.preCompleted.has(dungeon.key)) {
       preCompleted |= 1 << i;
     }
   }
@@ -1019,6 +1002,9 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     OOT_SPIN_UPGRADE: settings.spinUpgradeOot,
     SHARED_SPIN_UPGRADE: settings.sharedSpinUpgrade,
     MM_JP_LAYOUT_DEKU_PALACE: world.resolvedFlags.jpLayouts.has('DekuPalace'),
+    REGION_STATE_DUNGEONS: settings.regionState === 'dungeonBeaten',
+    REGION_STATE_REWARDS: settings.regionState === 'reward',
+    REGION_STATE_FREE: settings.regionState === 'free',
   };
 
   for (const v in exprs) {
