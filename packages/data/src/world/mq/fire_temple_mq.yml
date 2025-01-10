@@ -173,7 +173,7 @@
 "MQ Fire Temple Rising Block Room":
   dungeon: Fire
   exits:
-    "MQ Fire Temple 1F Lava Bridge Room Main": "has_tunic_goron_strict && small_keys_fire_mq(2)"
+    "MQ Fire Temple 1F Lava Bridge Room Main": "has_tunic_goron && small_keys_fire_mq(2)"
     "MQ Fire Temple Room Before Maze": "has_tunic_goron_strict"
   locations:
     "MQ Fire Temple Heart 1": "has_tunic_goron_strict"
