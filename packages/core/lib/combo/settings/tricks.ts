@@ -43,6 +43,11 @@ export const TRICKS: Tricks = {
     tooltip: 'All hidden grottos will no longer require the Stone of Agony for logic.',
     linkText: 'https://www.zeldadungeon.net/wiki/Ocarina_of_Time_Secret_Grottos',
   },
+  MM_HIDDEN_GROTTOS: {
+    game: 'mm',
+    name: 'Hidden Grottos (MM) without Stone of Agony',
+    tooltip: 'All hidden grottos will no longer require the Stone of Agony for logic.',
+  },
   OOT_MIDO_SKIP: {
     game: 'oot',
     name: 'Backflip Over Mido',
@@ -329,15 +334,15 @@ export const TRICKS: Tricks = {
     name: "Destroy Beehives using Bombchu (OOT)",
     tooltip: "Use some careful timing with a Bombchu to blow up the beehives across Hyrule.",
   },
-  OOT_BOTW_MQ_BACKFLIP: {
-    game: 'oot',
-    name: "Backflip/Sidehop Over Gap to Reach BotW MQ's Main Room's Center",
-    tooltip: "Makes reachable the center of the main room without Zelda's Lullaby or Hover Boots.",
-  },
   OOT_DEKU_MQ_WATER_ROOM_SPIKE_ROLL: {
     game: 'oot',
     name: "Roll Under Deku Tree MQ Water Room's Rotating Spike.",
     tooltip: "Puts crossing the Water Room in Deku Tree MQ in logic with no items, as any age.",
+  },
+  OOT_BOTW_MQ_BACKFLIP: {
+    game: 'oot',
+    name: "Backflip/Sidehop Over Gap to Reach BotW MQ's Main Room's Center",
+    tooltip: "Makes reachable the center of the main room without Zelda's Lullaby or Hover Boots.",
   },
   MM_LENS: {
     game: 'mm',
@@ -451,6 +456,12 @@ export const TRICKS: Tricks = {
     name: 'Snowhead Temple Skip Raising Pillar',
     tooltip: 'Destroy the snowballs with fire arrows or bombs and then jump down.  A precise jump slash may help getting onto the platform.',
     linkVideo: 'https://youtube.com/clip/UgkxwCrliqwRiCbljfpozhmsnlzVwSUaAI0N',
+  },
+  MM_SHT_PILLAR_ROOM_HOOKSHOT: {
+    game: 'mm',
+    name: 'Snowhead Temple Hookshot Up Pillar Room',
+    tooltip: 'From the ground floor of pillar room, use a hookshot to kill the freezards and then climb using the chest that spawns.',
+    linkVideo: 'https://youtu.be/4WVOnjC7xdE',
   },
   MM_KEG_EXPLOSIVES: {
     game: 'mm',
@@ -707,6 +718,12 @@ export const TRICKS: Tricks = {
     game: 'mm',
     name: 'Powder Keg Trial without Thawing Ice using Hookshot Anywhere',
   },
+  MM_STT_LAVA_SWITCH_HAMMER: {
+    game: 'mm',
+    name: 'Stone Tower Temple Lava Room switch without Goron',
+    tooltip: "The switch in the lava room with updrafts can be done without Goron by using Megaton Hammer, Iron Boots, and Bunny Hood. It has pretty tight timing.",
+    linkVideo: 'https://www.youtube.com/watch?v=_fTKOvkVTTA',
+  },
   GLITCH_OOT_EQUIP_SWAP: {
     game: 'oot',
     name: "Equip Swap (OoT)",
@@ -726,6 +743,11 @@ export const TRICKS: Tricks = {
     game: 'mm',
     name: "Destroy Beehives using Bombchu (MM)",
     tooltip: "Use some careful timing with a Bombchu to blow up the beehives across Termina.",
+  },
+  MM_TWINMOLD_BOW: {
+    game: 'mm',
+    name: "Twinmold with Bow (MM)",
+    tooltip: "Defeat Twinmold using only the Bow.",
   },
 };
 
