@@ -264,7 +264,7 @@
   dungeon: Fire
   exits:
     "MQ Fire Temple Maze Room Lower": "true"
-    "MQ Fire Temple Maze Room Upper Switch Cage Alcove": "has_ranged_weapon"
+    "MQ Fire Temple Maze Room Upper Switch Cage Alcove": "has_ranged_weapon || has_explosives || can_use_mask_blast || can_jump_slash || (has_spin_upgrade && has_magic && (can_use_sword_master || can_use_sword_razor || can_use_sword_biggoron))"
     "MQ Fire Temple Shortcut Cage Under Maze": "has_explosives"
     "MQ Fire Temple 3F Lava Floor Room After Maze": "small_keys_fire_mq(3)"
     "MQ Fire Temple Tower Area Above Maze Room": "can_longshot || (can_play_time && can_hookshot) || hookshot_anywhere || climb_anywhere"
