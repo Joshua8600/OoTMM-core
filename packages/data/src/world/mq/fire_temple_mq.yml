@@ -355,7 +355,7 @@
     "MQ Fire Temple Pre-Boss Room Tall Ledges Corner": "has_tunic_goron && event(FIRE_MQ_PRE_BOSS_PILLAR) && (can_longshot || hookshot_anywhere || climb_anywhere)"
     "MQ Fire Temple Fire Walls Room Outside Side Room": "has_hover_boots || can_play_time || hookshot_anywhere || climb_anywhere"
     "MQ Fire Temple Fire Walls Middle Hallway Lower": "true"
-    "MQ Fire Temple Fire Walls Middle Hallway Upper": "true"
+    "MQ Fire Temple Fire Walls Middle Hallway Upper": "is_adult || can_play_time || has_hover_boots || hookshot_anywhere || climb_anywhere" #TODO: Make this ledge in Fire Walls Room its own region, and rewrite room accordingly.
     "MQ Fire Temple Fire Walls Room Large Fire Wall Side": "hookshot_anywhere || climb_anywhere"
     "MQ Fire Temple Fire Walls Room High Area After Staircase": "event(FIRE_MQ_HIGH_LEDGE_AFTER_STAIRCASE_PILLAR) && longshot_anywhere" #TODO: implement here the trick for one-sided collision.
   events:
