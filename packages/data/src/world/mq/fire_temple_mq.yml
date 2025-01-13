@@ -464,7 +464,7 @@
 "MQ Fire Temple Fire Walls Room High Area After Staircase":
   dungeon: Fire
   exits:
-    "MQ Fire Temple Fire Walls Room Pillar Side": "event(FIRE_MQ_HIGH_LEDGE_AFTER_STAIRCASE_PILLAR)"
+    "MQ Fire Temple Fire Walls Room Pillar Side": "event(FIRE_MQ_HIGH_LEDGE_AFTER_STAIRCASE_PILLAR)" #TODO: Connect to ledge region after room rewrite
     #"MQ Fire Temple Tower After Flare Dancer Staircase Lower Alcove": "false"
   events:
     FIRE_MQ_HIGH_LEDGE_AFTER_STAIRCASE_PILLAR: "can_hammer"
