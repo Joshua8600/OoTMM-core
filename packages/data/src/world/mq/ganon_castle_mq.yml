@@ -11,7 +11,7 @@
   events:
     MQ_GANON_OPEN_MAIN: "soul_iron_knuckle && soul_armos && soul_bubble && (can_use_sword_master || can_use_sword_goron || (can_use_sticks && (has_ranged_weapon_child || can_use_bow)) || has_explosives_or_hammer)"
 "Ganon Castle Spirit Wallmaster":
-  region: NONE
+  region: BUFFER_DELAYED
   exits:
     "VOID": "true"
 "MQ Ganon Castle Main Room":
