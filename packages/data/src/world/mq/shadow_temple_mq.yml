@@ -150,12 +150,17 @@
   dungeon: Shadow
   exits:
     "Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway": "small_keys_shadow(2)"
-    "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit": "true"
+    "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit": "true" #Can avoid all beamos and skultullas.
 "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit":
   dungeon: Shadow
   exits:
     "Shadow Temple Upper Guillotine Hallway Before Upper Huge Pit": "can_hookshot || climb_anywhere"
-    "Shadow Temple Upper Huge Pit Before Drop": "true" #Can avoid all beamos and skultullas.
+    "Shadow Temple Upper Huge Pit Guillotine Section Before Drop": "true" #Can avoid all beamos and skultullas.
+"Shadow Temple Upper Huge Pit Guillotine Section Before Drop":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit": "hookshot_anywhere" #TODO: test if hook NON-anywhere works on those side barriers that look wooden
+    "Shadow Temple Upper Huge Pit After Drop": "true"
 
 
 
