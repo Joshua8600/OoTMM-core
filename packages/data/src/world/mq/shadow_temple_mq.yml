@@ -65,16 +65,21 @@
   dungeon: Shadow
   exits:
     "Shadow Temple Textured Maze First Half": "has_lens && can_play_time"
-    "Shadow Temple Dead Hand Room": "has_lens && event(SHADOW_MQ_TEXTURED_MAZE_LOWER_ICE_BLOCK)"
+    "Shadow Temple Textured Maze Room Lens Alcove to Dead Hand Room": "has_lens && event(SHADOW_MQ_TEXTURED_MAZE_LOWER_ICE_BLOCK)"
   events:
-    SHADOW_MQ_TEXTURED_MAZE_LOWER_ICE_BLOCK: "has_lens && (can_use_bow || can_use_slingshot)"
+    SHADOW_MQ_TEXTURED_MAZE_LOWER_ICE_BLOCK: "can_use_bow || can_use_slingshot"
   locations:
-    "MQ Shadow Temple Flying Pot Entrance Maze 3": "has_lens && soul_flying_pot"
-    "MQ Shadow Temple Flying Pot Entrance Maze 4": "has_lens && soul_flying_pot"
+    "MQ Shadow Temple Flying Pot Entrance Maze 3": "soul_flying_pot"
+    "MQ Shadow Temple Flying Pot Entrance Maze 4": "soul_flying_pot"
+"Shadow Temple Textured Maze Room Lens Alcove to Dead Hand Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Textured Maze Second Half": "has_lens && event(SHADOW_MQ_TEXTURED_MAZE_LOWER_ICE_BLOCK)"
+    "Shadow Temple Dead Hand Room": "true"
 "Shadow Temple Dead Hand Room":
   dungeon: Shadow
   exits:
-    "Shadow Temple Textured Maze Second Half": "event(SHADOW_MQ_DEAD_HAND_ROOM_CLEAR)"
+    "Shadow Temple Textured Maze Room Lens Alcove to Dead Hand Room": "event(SHADOW_MQ_DEAD_HAND_ROOM_CLEAR)"
   events:
     SHADOW_MQ_DEAD_HAND_ROOM_CLEAR: "soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
   locations:
