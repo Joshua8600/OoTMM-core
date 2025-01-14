@@ -168,13 +168,25 @@
     "Shadow Temple Lower Huge Pit": "event(SHADOW_MQ_UPPER_HUGE_PIT_FROZEN_EYE) || has_hover_boots || hookshot_anywhere" #Child can *easily* reach with hovers+fast bunny hood without the platforms. Child can also reach with just hovers but its tight. Adult reaches with hovers only no problems.
   events:
     SHADOW_MQ_UPPER_HUGE_PIT_FROZEN_EYE: "has_fire" #If HSW (OoT) is added as a bottle content, maybe can work here because it's below you.
-
-
-
 "Shadow Temple Upper Huge Pit East Invisible Scythe Room":
   dungeon: Shadow
   exits:
     "Shadow Temple Upper Huge Pit After Drop": "true"
+  locations: #Should we add lens for the SR checks as a mercy for later damage settings?
+    "MQ Shadow Temple SR Invisible Blades Ground 1": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 2": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 3": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 4": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 5": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 6": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 7": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 8": "true"
+    "MQ Shadow Temple SR Invisible Blades Ground 9": "true"
+    "MQ Shadow Temple SR Invisible Blades Time Block": "(can_play_time && is_adult) || hookshot_anywhere || (is_child && climb_anywhere)"
+    "MQ Shadow Temple Second Silver Rupee Visible Chest": "silver_rupees_shadow_blades"
+    "MQ Shadow Temple Second Silver Rupee Invisible Chest": "silver_rupees_shadow_blades && has_lens"
+    "MQ Shadow Temple Heart Invisible Blades 1": "(can_play_time && is_adult) || hookshot_anywhere || (is_child && climb_anywhere) || can_boomerang"
+    "MQ Shadow Temple Heart Invisible Blades 2": "(can_play_time && is_adult) || hookshot_anywhere || (is_child && climb_anywhere) || can_boomerang"
 
 
 
@@ -204,25 +216,10 @@
     "Shadow Temple Invisible Blades Room": "true"
   events:
     SHADOW_PIT_FIRE: "has_fire" #This allows for adult to open the path for child with Fire Arrows to get the GS in Falling Spikes with Boomerang.
-"Shadow Temple Invisible Blades Room":
-  dungeon: Shadow
-  exits:
-    "Shadow Temple Upper Huge Pit": "true"
-  locations:
-    "MQ Shadow Temple SR Invisible Blades Ground 1": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 2": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 3": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 4": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 5": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 6": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 7": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 8": "true"
-    "MQ Shadow Temple SR Invisible Blades Ground 9": "true"
-    "MQ Shadow Temple SR Invisible Blades Time Block": "can_play_time && is_adult"
-    "MQ Shadow Temple Second Silver Rupee Visible Chest": "silver_rupees_shadow_blades"
-    "MQ Shadow Temple Second Silver Rupee Invisible Chest": "silver_rupees_shadow_blades"
-    "MQ Shadow Temple Heart Invisible Blades 1": "(can_play_time && is_adult) || hookshot_anywhere || climb_anywhere || can_boomerang"
-    "MQ Shadow Temple Heart Invisible Blades 2": "(can_play_time && is_adult) || hookshot_anywhere || climb_anywhere || can_boomerang"
+
+
+
+
 "Shadow Temple Lower Huge Pit":
   dungeon: Shadow
   exits:
