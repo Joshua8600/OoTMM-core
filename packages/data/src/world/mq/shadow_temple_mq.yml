@@ -141,16 +141,23 @@
     "Shadow Temple Area Before Boat Ride": "event(HHHH)" #TODO: Add the glitch to skip this, remember it needs climb anywhere disabled.
   locations:
     "MQ Shadow Temple Boat Passage Chest": "has_lens"
-  
-    
-    
-    
-    
-    
+"Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple First Beamos Fork": "has_explosives"
+    "Shadow Temple Upper Guillotine Hallway Before Upper Huge Pit": "small_keys_shadow(2)"
+"Shadow Temple Upper Guillotine Hallway Before Upper Huge Pit":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway": "small_keys_shadow(2)"
+    "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit": "true"
+"Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Upper Guillotine Hallway Before Upper Huge Pit": "can_hookshot || climb_anywhere"
+    "Shadow Temple Upper Huge Pit Before Drop": "true" #Can avoid all beamos and skultullas.
 
-    
-    
-    "Shadow Temple Upper Huge Pit": "small_keys_shadow(2)"
+
 
 
 
