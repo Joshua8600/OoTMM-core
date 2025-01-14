@@ -96,10 +96,25 @@
   exits:
     "Shadow Temple Spinner Room Platform Before First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER)"
     "Shadow Temple First Beamos Fork Room Lens Alcove to Gibdo Room": "has_lens"
-    "Shadow Temple First Beamos Fork Room Lens Alcove to Shortcut Room": "has_lens"
+    "Shadow Temple First Beamos Fork Room Lens Alcove to Scyth and Shortcut Room": "has_lens"
     "Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway": "has_explosives"
   #events:
     #SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "can_use_din" #Can light flames with Din's right after the gate. TODO make it a trick.
+  locations:
+    "MQ Shadow Temple Beamos Big Fairy": "can_play_storms"
+"Shadow Temple First Beamos Fork Room Lens Alcove to Gibdo Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple First Beamos Fork": "has_lens"
+    "Shadow Temple First Beamos Fork Gibdo Room": "true"
+"Shadow Temple First Beamos Fork Gibdo Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple First Beamos Fork Room Lens Alcove to Gibdo Room": "event(SHADOW_MQ_FIRST_BEAMOS_FORK_GIBDOS_CLEAR)"
+  events:
+    SHADOW_MQ_FIRST_BEAMOS_FORK_GIBDOS_CLEAR: "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
+  locations:
+    "MQ Shadow Temple First Gibdos Chest": "event(SHADOW_MQ_FIRST_BEAMOS_FORK_GIBDOS_CLEAR)"
     
     
     
@@ -110,10 +125,12 @@
     
     "Shadow Temple Upper Huge Pit": "has_explosives && small_keys_shadow(2)"
     "Shadow Temple Scythe Room": "true"
+    
   locations:
-    "MQ Shadow Temple First Gibdos Chest": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
     "MQ Shadow Temple Boat Passage Chest": "true"
-    "MQ Shadow Temple Beamos Big Fairy": "can_play_storms"
+
+
+    
 "Shadow Temple Scythe Room":
   dungeon: Shadow
   exits:
