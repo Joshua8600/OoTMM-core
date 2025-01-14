@@ -223,6 +223,25 @@
   exits:
     "Shadow Temple Lower Huge Pit": "has_lens && has_hover_boots"
     "Shadow Temple Invisible Spike Floors Room": "small_keys_shadow(3)"
+
+
+
+"Shadow Temple Invisible Spike Floors Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Lower Huge Pit Ledge Before Invisible Spike Floors": "small_keys_shadow(3)"
+    "Shadow Temple Ivisible Spike Floors Room Upper Ledge Before Door":
+    "Shadow Temple Dual Staircase Stalfos Room": "silver_rupees_shadow_spikes_mq"
+
+
+"Shadow Temple Dual Staircase Stalfos Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Invisible Spike Floors Room": "event(SHADOW_MQ_DUAL_STAIRCASE_STALFOS_CLEAR)"
+  events:
+    SHADOW_MQ_DUAL_STAIRCASE_STALFOS_CLEAR: "soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
+  locations:
+    "MQ Shadow Temple Stalfos Room Chest": "event(SHADOW_MQ_DUAL_STAIRCASE_STALFOS_CLEAR)"
     
     
 
@@ -240,7 +259,6 @@
     "Shadow Temple Wind Tunnel": "small_keys_shadow(4) && can_hookshot"
   locations:
     "MQ Shadow Temple Invisible Spike Floor Chest": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
-    "MQ Shadow Temple Stalfos Room Chest": "silver_rupees_shadow_spikes_mq && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
     "MQ Shadow Temple SR Spikes Left Corner": "can_hookshot"
     "MQ Shadow Temple SR Spikes Left Wall": "can_hookshot"
     "MQ Shadow Temple SR Spikes Left Midair": "can_hookshot"
