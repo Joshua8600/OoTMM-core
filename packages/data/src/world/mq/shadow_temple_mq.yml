@@ -267,15 +267,29 @@
   exits:
     "Shadow Temple Wind Tunnel First Part": "(has_nuts || can_use_sword || has_explosives_or_hammer || has_ranged_weapon || can_use_din) && (has_hover_boots || hookshot_anywhere || climb_anywhere)" #Need to get past Skultulla and the pit
     "Shadow Temple Wind Tunnel After Drop": "true"
-
-
-
 "Shadow Temple Wind Tunnel After Drop":
   dungeon: Shadow
   exits:
     "Shadow Temple Wind Tunnel After Pit Before Drop": "can_hookshot || climb_anywhere"
-    "HH
-    "HH
+    "Shadow Temple Wind Tunnel Hint Room": "true"
+    "Shadow Temple Wind Tunnel Lens Alcove": "has_lens && (has_hover_boots || hookshot_anywhere)"
+
+
+
+
+"Shadow Temple Wind Tunnel Hint Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Wind Tunnel After Drop": "true"
+  events:
+  locations:
+
+
+"Shadow Temple Wind Tunnel Lens Alcove":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Wind Tunnel After Drop":
+    "HHH
     
     
     
