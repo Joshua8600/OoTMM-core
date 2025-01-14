@@ -13,7 +13,7 @@
   exits:
     "Shadow Temple Entrance": "has_lens && (can_hookshot || has_hover_boots || glitch_megaflip || climb_anywhere)"
     "Shadow Temple Spinner Room Hallway to Textured Maze": "has_lens && has_explosives"
-    "Shadow Temple First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER) && (event(SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM) || has_hover_boots || hookshot_anywhere || glitch_megaflip)"
+    "Shadow Temple Spinner Room Platform Before First Beamos Fork": "event(SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM) || has_hover_boots || hookshot_anywhere || glitch_megaflip"
   events:
     SHADOW_MQ_TRUTH_SPINNER: "has_lens"
     SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "has_fire_arrows"
@@ -84,23 +84,25 @@
     SHADOW_MQ_DEAD_HAND_ROOM_CLEAR: "soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
   locations:
     "MQ Shadow Temple Hover Boots Chest": "event(SHADOW_MQ_DEAD_HAND_ROOM_CLEAR)"
-    
-
-
-
-
-
+"Shadow Temple Spinner Room Platform Before First Beamos Fork":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Truth Spinner": "event(SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM) || has_hover_boots || hookshot_anywhere || glitch_megaflip"
+    "Shadow Temple First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER)"
+  events:
+    SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "has_fire"
 "Shadow Temple First Beamos Fork":
   dungeon: Shadow
   exits:
-    "Shadow Temple Truth Spinner": "event(SHADOW_MQ_TRUTH_SPINNER) && (event(SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM) || has_hover_boots || hookshot_anywhere || glitch_megaflip)"
-  events:
-    #SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "has_fire"
+    "Shadow Temple Spinner Room Platform Before First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER)"
+  #events:
+    #SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "can_use_din" #Can light flames with Din's right after the gate. TODO make it a trick.
     
     
     
     
     
+
     
     
     "Shadow Temple Upper Huge Pit": "has_explosives && small_keys_shadow(2)"
