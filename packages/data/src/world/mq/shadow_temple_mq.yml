@@ -95,6 +95,9 @@
   dungeon: Shadow
   exits:
     "Shadow Temple Spinner Room Platform Before First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER)"
+    "Shadow Temple First Beamos Fork Room Lens Alcove to Gibdo Room": "has_lens"
+    "Shadow Temple First Beamos Fork Room Lens Alcove to Shortcut Room": "has_lens"
+    "Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway": "has_explosives"
   #events:
     #SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "can_use_din" #Can light flames with Din's right after the gate. TODO make it a trick.
     
