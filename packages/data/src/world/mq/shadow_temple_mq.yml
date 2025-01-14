@@ -37,10 +37,10 @@
     "Shadow Temple Textured Maze First Half Side Room": "has_lens"
     "Shadow Temple Textured Maze Second Half": "has_lens && can_play_time"
   locations:
-    "MQ Shadow Temple Pot Entrance Maze 1": "true"
-    "MQ Shadow Temple Pot Entrance Maze 2": "true"
-    "MQ Shadow Temple Flying Pot Entrance Maze 1": "soul_flying_pot"
-    "MQ Shadow Temple Flying Pot Entrance Maze 2": "soul_flying_pot"
+    "MQ Shadow Temple Pot Entrance Maze 1": "has_lens"
+    "MQ Shadow Temple Pot Entrance Maze 2": "has_lens"
+    "MQ Shadow Temple Flying Pot Entrance Maze 1": "has_lens && soul_flying_pot"
+    "MQ Shadow Temple Flying Pot Entrance Maze 2": "has_lens && soul_flying_pot"
 "Shadow Temple Textured Maze First Half Side Room":
   dungeon: Shadow
   exits:
