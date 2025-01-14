@@ -96,7 +96,7 @@
   exits:
     "Shadow Temple Spinner Room Platform Before First Beamos Fork": "event(SHADOW_MQ_TRUTH_SPINNER)"
     "Shadow Temple First Beamos Fork Room Lens Alcove to Gibdo Room": "has_lens"
-    "Shadow Temple First Beamos Fork Room Lens Alcove to Scyth and Shortcut Room": "has_lens"
+    "Shadow Temple First Beamos Fork Room Lens Alcove to Scythe and Shortcut Room": "has_lens"
     "Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway": "has_explosives"
   #events:
     #SHADOW_MQ_SPINNER_ROOM_ICE_PLATFORM: "can_use_din" #Can light flames with Din's right after the gate. TODO make it a trick.
@@ -115,27 +115,17 @@
     SHADOW_MQ_FIRST_BEAMOS_FORK_GIBDOS_CLEAR: "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
   locations:
     "MQ Shadow Temple First Gibdos Chest": "event(SHADOW_MQ_FIRST_BEAMOS_FORK_GIBDOS_CLEAR)"
-    
-    
-    
-    
-    
-
-    
-    
-    "Shadow Temple Upper Huge Pit": "has_explosives && small_keys_shadow(2)"
+"Shadow Temple First Beamos Fork Room Lens Alcove to Scythe and Shortcut Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple First Beamos Fork": "has_lens"
     "Shadow Temple Scythe Room": "true"
-    
-  locations:
-    "MQ Shadow Temple Boat Passage Chest": "true"
-
-
-    
 "Shadow Temple Scythe Room":
   dungeon: Shadow
   exits:
-    # Is this correct?
-    "Shadow Temple First Beamos": "silver_rupees_shadow_blades && soul_skulltula && (can_damage || has_ranged_weapon_adult || can_use_slingshot || can_hammer)"
+    "Shadow Temple First Beamos Fork Room Lens Alcove to Scythe and Shortcut Room": "event(SHADOW_MQ_SCYTHE_ROOM_SKULTULLAS_CLEAR)" #Don't need SR itself to exit, only the skultullas. See below comment.
+  events:
+    SHADOW_MQ_SCYTHE_ROOM_SKULTULLAS_CLEAR: "soul_skulltula && (can_damage || has_ranged_weapon_adult || can_use_slingshot || can_hammer)" #TODO: Din's can kill the skultullas, even the one behind the barred wall that needs SR to lower.
   locations:
     "MQ Shadow Temple SR Scythe 1": "true"
     "MQ Shadow Temple SR Scythe 2": "can_hookshot || (is_adult && has_hover_boots)"
@@ -143,6 +133,23 @@
     "MQ Shadow Temple SR Scythe 4": "true"
     "MQ Shadow Temple SR Scythe 5": "true"
     "MQ Shadow Temple Map Chest": "silver_rupees_shadow_scythe"
+    
+    
+    
+    
+    
+
+    
+    
+    "Shadow Temple Upper Huge Pit": "small_keys_shadow(2)"
+    "Shadow Temple Scythe Room": "true"
+    
+  locations:
+    "MQ Shadow Temple Boat Passage Chest": "true"
+
+
+
+    
 "Shadow Temple Upper Huge Pit":
   dungeon: Shadow
   exits:
