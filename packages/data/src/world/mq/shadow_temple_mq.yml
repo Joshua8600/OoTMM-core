@@ -129,7 +129,7 @@
     SHADOW_MQ_SCYTHE_ROOM_SKULTULLAS_CLEAR: "soul_skulltula && (can_damage || has_ranged_weapon_adult || can_use_slingshot || can_hammer)" #TODO: Din's can kill the skultullas, even the one behind the barred wall that needs SR to lower.
   locations:
     "MQ Shadow Temple SR Scythe 1": "true"
-    "MQ Shadow Temple SR Scythe 2": "can_hookshot || (is_adult && has_hover_boots)"
+    "MQ Shadow Temple SR Scythe 2": "can_hookshot || (is_adult && has_hover_boots) || climb_anywhere"
     "MQ Shadow Temple SR Scythe 3": "true"
     "MQ Shadow Temple SR Scythe 4": "true"
     "MQ Shadow Temple SR Scythe 5": "true"
