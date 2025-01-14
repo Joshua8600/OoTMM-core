@@ -159,8 +159,17 @@
 "Shadow Temple Upper Huge Pit Guillotine Section Before Drop":
   dungeon: Shadow
   exits:
-    "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit": "hookshot_anywhere" #TODO: test if hook NON-anywhere works on those side barriers that look wooden
+    "Shadow Temple Lower Guillotine Hallway Before Upper Huge Pit": "hookshot_anywhere" #Climb anywhere does not work. TODO: test if hook NON-anywhere works on those side barriers that look wooden
     "Shadow Temple Upper Huge Pit After Drop": "true"
+
+    
+"Shadow Temple Upper Huge Pit After Drop":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Upper Huge Pit East Invisible Scythe Room": "has_lens"
+    "Shadow Temple Lower Huge Pit": "
+  events:
+    SHADOW_MQ_UPPER_HUGE_PIT_FROZEN_EYE: "has_fire" #If HSW (OoT) is added as a bottle content, maybe can work here because it's below you.
 
 
 
