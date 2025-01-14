@@ -240,9 +240,9 @@
     "Shadow Temple Invisible Spike Floors Room": "event(SHADOW_MQ_DUAL_STAIRCASE_STALFOS_CLEAR)"
   events:
     SHADOW_MQ_DUAL_STAIRCASE_STALFOS_CLEAR: "soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
-  locations:
+  locations: #I have no idea how hookshot alone is normally viable, even as adult.
     "MQ Shadow Temple Stalfos Room Chest": "event(SHADOW_MQ_DUAL_STAIRCASE_STALFOS_CLEAR)"
-    "MQ Shadow Temple SR Spikes Left Corner": "can_hookshot"
+    "MQ Shadow Temple SR Spikes Left Corner": "can_hookshot || climb_anywhere"
     "MQ Shadow Temple SR Spikes Left Wall": "can_hookshot"
     "MQ Shadow Temple SR Spikes Left Midair": "can_hookshot"
     "MQ Shadow Temple SR Spikes Center Platforms": "can_hookshot"
