@@ -12,6 +12,8 @@
 #include <combo/multi.h>
 #include <combo/context.h>
 #include <combo/audio.h>
+#include <combo/inventory.h>
+#include <combo/draw.h>
 #include <actors/Obj_Grass/Obj_Grass.h>
 
 /* Grass hooks */
@@ -437,6 +439,7 @@ void Play_CheckRoomChangeHook(PlayState* play)
 
 static void Play_AfterInit(PlayState* play)
 {
+    DrawGiSystem_Reset(play);
     gLastEntrance = gSave.entrance;
     g.inGrotto = (play->sceneId == SCE_MM_GROTTOS);
     if (!g.inGrotto)
@@ -523,7 +526,6 @@ void hookPlay_Init(PlayState* play)
     int isEndOfGame;
 
     /* Init */
-    g.strayFairySkeletonInitialized = 0;
     g.prevRoom = -1;
     gIsEntranceOverride = 0;
     g.decoysCount = 0;
@@ -534,6 +536,7 @@ void hookPlay_Init(PlayState* play)
     gMultiMarkSwitch0 = 0;
     gMultiMarkSwitch1 = 0;
     Multi_ResetWisps();
+    Inventory_ReobtainProgressiveShields();
 
     if (Config_Flag(CFG_ER_OVERWORLD) || Config_Flag(CFG_ER_INDOORS))
         gSave.hasSirloin = 0;
@@ -795,6 +798,7 @@ void Play_MainWrapper(PlayState* play)
     Play_Main(play);
     Play_CheckRoomChangeHook(play);
     Audio_DisplayMusicName(play);
+    DrawGiSystem_Update(play);
     Debug_Update();
 }
 

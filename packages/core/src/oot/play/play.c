@@ -12,6 +12,8 @@
 #include <combo/context.h>
 #include <combo/dungeon.h>
 #include <combo/audio.h>
+#include <combo/inventory.h>
+#include <combo/draw.h>
 
 PlayState* gPlay;
 
@@ -471,6 +473,7 @@ static void masterSwordFix(PlayState* play)
 
 static void Play_AfterInit(PlayState* play)
 {
+    DrawGiSystem_Reset(play);
     gLastEntrance = gSave.entrance;
     g.inGrotto = (play->sceneId == SCE_OOT_GROTTOS || play->sceneId == SCE_OOT_FAIRY_FOUNTAIN);
     if (!g.inGrotto)
@@ -527,8 +530,9 @@ static void Play_AfterInit(PlayState* play)
 
 void hookPlay_Init(PlayState* play)
 {
+    gPlay = play;
+
     /* Init */
-    g.strayFairySkeletonInitialized = 0;
     gIsEntranceOverride = 0;
     g.decoysCount = 0;
     gActorCustomTriggers = NULL;
@@ -537,9 +541,7 @@ void hookPlay_Init(PlayState* play)
     gMultiMarkSwitch0 = 0;
     gMultiMarkSwitch1 = 0;
     Multi_ResetWisps();
-
-    /* Register play */
-    gPlay = play;
+    Inventory_ReobtainProgressiveShields();
 
     /* Adjust entrance */
     playAdjustEntrance(play);
@@ -573,6 +575,7 @@ void Play_MainWrapper(PlayState* play)
     Play_Main(play);
     Dpad_Draw(play);
     Audio_DisplayMusicName(play);
+    DrawGiSystem_Update(play);
     Debug_Update();
 }
 
