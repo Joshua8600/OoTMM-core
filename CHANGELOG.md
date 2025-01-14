@@ -10,6 +10,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Progressive shields will now remove as many regular shields from the pool as possible.
+- Progressive shields are now re-obtained on every scene transition, thus making them permanent logically.
+- Progressive shields now have a flame effect to differentiate them from the regular shields.
+- Made the Owl Statue item model render slightly lower to be aligned with other items.
+- Change the Old Hag checks in MM, now the two checks are separate instead of progressing into each other.
 - Completely reworked the stray fairy item model to be much closer to the actual fairies.
 - Path hints now tell the exact world the path corresponds to in multiworld.
 

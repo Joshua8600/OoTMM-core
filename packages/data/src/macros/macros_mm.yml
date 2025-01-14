@@ -186,7 +186,7 @@
 "has_goron_song": "cond(setting(progressiveGoronLullaby, progressive), has(SONG_GORON_HALF, 2), has(SONG_GORON))"
 "can_lullaby_half": "has_mask_goron && can_play_goron_half"
 "can_lullaby": "has_mask_goron && can_play_goron"
-"has_shield": "cond(setting(sharedShields), renewable(SHARED_SHIELD_HYLIAN), renewable(SHIELD_HERO)) || true"
+"has_shield": "cond(setting(sharedShields), renewable(SHARED_SHIELD_HYLIAN), renewable(SHIELD_HERO)) || has(SHIELD, 1) || has(SHARED_SHIELD, 2) || has_mirror_shield"
 "can_activate_crystal": "true"
 "can_evade_gerudo": "true"
 "can_goron_bomb_jump": "trick(MM_GORON_BOMB_JUMP) && has_mask_goron && (has_bombs || trick_keg_explosives)"
