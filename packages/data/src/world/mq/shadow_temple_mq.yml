@@ -317,9 +317,17 @@
   exits:
     "Shadow Temple After Wind Tunnel Gibdos Room": "small_keys_shadow(5)"
     "Shadow Temple Enclosed Shortcut Area": "event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED)"
-    "Shadow Temple
+    "Shadow Temple Boarding Boat Landing Area": "(event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED) && is_adult) || climb_anywhere || hookshot_anywhere"
+    "Shadow Temple Area Above Shortcut Enclosure": "scarecrow_longshot || hookshot_anywhere"
   events:
     SHADOW_MQ_SHORTCUT_BLOCK_PUSHED: "has_goron_bracelet"
+
+
+
+"Shadow Temple Area Above Shortcut Enclosure":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Area Before Boat Ride":
     
     
 
