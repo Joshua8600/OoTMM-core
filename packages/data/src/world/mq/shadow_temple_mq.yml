@@ -393,19 +393,16 @@
   dungeon: Shadow
   exits:
     "Shadow Temple Area After Boat After Bridge": "true"
-    
-    
+    "Shadow Temple Pre-Boss": "has_lens && (has_hover_boots || climb_anywhere || hookshot_anywhere)"
+  locations:
+    "MQ Shadow Temple GS Pre-Boss": "gs && has_lens && (hookshot_anywhere || ((climb_anywhere && has_ranged_weapon) || (has_hover_boots && can_collect_distance)))" #A lot of overlap bewtween macros.
 
 
-
-    
-"Shadow Temple After Boat":
+"Shadow Temple Pre-Boss":
   dungeon: Shadow
   exits:
-    "Shadow Temple Boss": "boss_key(BOSS_KEY_SHADOW) && can_use_bow || longshot_anywhere || climb_anywhere"
-    "Shadow Temple Final Side Rooms": "(can_use_bow && ((can_play_time && can_longshot) || hookshot_anywhere)) || longshot_anywhere || climb_anywhere"
-  locations:
-    "MQ Shadow Temple GS Pre-Boss": "gs && can_use_bow"
+    "Shadow Temple Pre-Boss Room": "has_lens && (has_hover_boots || climb_anywhere || hookshot_anywhere)"
+    
 
     
 "Shadow Temple Final Side Rooms":
