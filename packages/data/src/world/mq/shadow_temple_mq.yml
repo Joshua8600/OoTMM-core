@@ -397,15 +397,13 @@
 
 
 
-"Shadow Temple Invisible Wall Maze Crushing Walls Room": "has_lens && small_keys_shadow(6)" #Should we even have lens here to navigate the maze?
 
 
-
-
-"Shadow Temple Invisible Wall Maze Crushing Walls Room":
+"Shadow Temple Invisible Wall Maze Corridor To Crushing Walls Room":
   dungeon: Shadow
   exits:
-    "Shadow Temple Area After Boat Invisible Wall Maze":
+    "Shadow Temple Invisible Wall Maze Navigation": "has_lens"
+    "Shadow Temple Invisible Wall Maze Crushing Walls Room": "small_keys_shadow(6)"
 
 
 
