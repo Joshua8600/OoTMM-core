@@ -79,9 +79,9 @@
 "Shadow Temple Dead Hand Room":
   dungeon: Shadow
   exits:
-    "Shadow Temple Textured Maze Room Lens Alcove to Dead Hand Room": "event(SHADOW_MQ_DEAD_HAND_ROOM_CLEAR)"
+    "Shadow Temple Textured Maze Room Lens Alcove to Dead Hand Room": "event(SHADOW_MQ_TEXTURED_MAZE_DEAD_HAND_ROOM_CLEAR)"
   events:
-    SHADOW_MQ_DEAD_HAND_ROOM_CLEAR: "soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
+    SHADOW_MQ_TEXTURED_MAZE_DEAD_HAND_ROOM_CLEAR: "soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
   locations:
     "MQ Shadow Temple Hover Boots Chest": "event(SHADOW_MQ_DEAD_HAND_ROOM_CLEAR)"
 "Shadow Temple Spinner Room Platform Before First Beamos Fork":
@@ -381,21 +381,28 @@
   exits:
     "Shadow Temple Area After Boat Initial Landing": "true"
     "Shadow Temple Invisible Wall Maze Navigation": "has_lens"
-
-
-
-
-
 "Shadow Temple Invisible Wall Maze Navigation":
   dungeon: Shadow
   exits:
     "Shadow Temple Invisible Wall Maze Corridor To After Boat": "has_lens"
-    "Shadow Temple Invisible Wall Maze Corridor To HHH Room": "has_lens"
+    "Shadow Temple Invisible Wall Maze Corridor To Dead Hand Bomb Flower Room": "has_lens"
     "Shadow Temple Invisible Wall Maze Corridor To Triple Spinning Pots Room": "has_lens"
     "Shadow Temple Invisible Wall Maze Corridor To Crushing Walls Room": "has_lens"
-
-
-
+"Shadow Temple Invisible Wall Maze Corridor To Dead Hand Bomb Flower Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Invisible Wall Maze Navigation": "has_lens"
+    "Shadow Temple Invisible Wall Maze Dead Hand Bomb Flower Room": "true"
+"Shadow Temple Invisible Wall Maze Dead Hand Bomb Flower Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Invisible Wall Maze Corridor To Dead Hand Bomb Flower Room": "true"
+  events:
+    SHADOW_MQ_INVISIBLE_WALL_MAZE_DEAD_HAND_CLEAR: "has_lens && has_bombflowers && soul_enemy(SOUL_ENEMY_DEAD_HAND) && (has_weapon || (can_use_sticks && trick(OOT_DEAD_HAND_STICKS)))"
+  locations:
+    "MQ Shadow Temple Hidden Dead Hand Chest": "event(SHADOW_MQ_INVISIBLE_WALL_MAZE_DEAD_HAND_CLEAR)"
+    "MQ Shadow Temple Pot Bomb Flowers Room 1": "true"
+    "MQ Shadow Temple Pot Bomb Flowers Room 2": "true"
 "Shadow Temple Invisible Wall Maze Corridor To Triple Spinning Pots Room":
   dungeon: Shadow
   exits:
@@ -424,12 +431,6 @@
     "MQ Shadow Temple Crushing Wall Left Chest": "event(SHADOW_MQ_CRUSHING_WALLS_BURNT)"
     "MQ Shadow Temple Boss Key Chest": "event(SHADOW_MQ_CRUSHING_WALLS_BURNT)"
     "MQ Shadow Temple Pot Boss Key Room": "true"
-
-
-
-
-
-
 "Shadow Temple Pre-Boss Room":
   dungeon: Shadow
   exits:
@@ -442,12 +443,3 @@
   exits:
     "Shadow Temple Pre-Boss Room": "has_lens && (has_hover_boots || climb_anywhere || hookshot_anywhere)"
     "Shadow Temple Boss": "boss_key(BOSS_KEY_SHADOW)"
-    
-
-    
-"Shadow Temple Final Side Rooms":
-  dungeon: Shadow
-  locations:
-    "MQ Shadow Temple Hidden Dead Hand Chest": "has_bombflowers && soul_enemy(SOUL_ENEMY_DEAD_HAND)" #Not strictly necessary to check
-    "MQ Shadow Temple Pot Bomb Flowers Room 1": "true"
-    "MQ Shadow Temple Pot Bomb Flowers Room 2": "true"
