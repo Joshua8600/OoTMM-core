@@ -376,15 +376,14 @@
   locations:
     "MQ Shadow Temple Heart Pre-Boss Upper 1": "true"
     "MQ Shadow Temple Heart Pre-Boss Upper 2": "true"
-
-
-
-
 "Shadow Temple Invisible Wall Maze Corridor To After Boat":
   dungeon: Shadow
   exits:
     "Shadow Temple Area After Boat Initial Landing": "true"
     "Shadow Temple Invisible Wall Maze Navigation": "has_lens"
+
+
+
 
 
 "Shadow Temple Invisible Wall Maze Navigation":
@@ -411,8 +410,8 @@
   events:
     SHADOW_MQ_CRUSHING_WALLS_BURNT: "can_use_din"
   locations: #TODO: Add a trick for opening chests before void out with climb/hook anywhere.
-    "MQ Shadow Temple Crushing Wall Left Chest": "can_use_din"
-    "MQ Shadow Temple Boss Key Chest": "can_use_din"
+    "MQ Shadow Temple Crushing Wall Left Chest": "event(SHADOW_MQ_CRUSHING_WALLS_BURNT)"
+    "MQ Shadow Temple Boss Key Chest": "event(SHADOW_MQ_CRUSHING_WALLS_BURNT)"
     "MQ Shadow Temple Pot Boss Key Room": "true"
 
 
