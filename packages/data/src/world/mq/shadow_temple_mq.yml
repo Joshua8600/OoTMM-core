@@ -288,11 +288,6 @@
   exits:
     "Shadow Temple Wind Tunnel After Drop": "has_lens && (has_hover_boots || hookshot_anywhere)"
     "Shadow Temple After Wind Tunnel Gibdos Room": "true"
-
-
-
-
-
 "Shadow Temple After Wind Tunnel Gibdos Room":
   dungeon: Shadow
   exits:
@@ -308,26 +303,49 @@
     "MQ Shadow Temple Pot Room Before Boat 2": "true" #Gibdos very easy to avoid.
     "MQ Shadow Temple Flying Pot Room Before Boat 1": "soul_flying_pot" #Gibdos very easy to avoid.
     "MQ Shadow Temple Flying Pot Room Before Boat 2": "soul_flying_pot" #Gibdos very easy to avoid.
-
-
-
-
 "Shadow Temple Area Before Boat Ride":
   dungeon: Shadow
   exits:
     "Shadow Temple After Wind Tunnel Gibdos Room": "small_keys_shadow(5)"
     "Shadow Temple Enclosed Shortcut Area": "event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED)"
-    "Shadow Temple Boarding Boat Landing Area": "(event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED) && is_adult) || climb_anywhere || hookshot_anywhere"
-    "Shadow Temple Area Above Shortcut Enclosure": "scarecrow_longshot || hookshot_anywhere"
+    "Shadow Temple Boarding Boat Landing Area": "(event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED) && is_adult) || climb_anywhere || can_hookshot"
+    "Shadow Temple Area Above Shortcut Enclosure": "hookshot_anywhere" #Climb anywhere does not work.
+    "Shadow Temple On The Boat": "hookshot_anywhere"
   events:
     SHADOW_MQ_SHORTCUT_BLOCK_PUSHED: "has_goron_bracelet"
-
-
-
 "Shadow Temple Area Above Shortcut Enclosure":
   dungeon: Shadow
   exits:
-    "Shadow Temple Area Before Boat Ride":
+    "Shadow Temple Area Before Boat Ride": "true"
+    "Shadow Temple Boarding Boat Landing Area": "longshot_anywhere"
+    "Shadow Temple On The Boat": "hookshot_anywhere"
+  locations:
+    "MQ Shadow Temple Heart Shortcut 1": "true"
+    "MQ Shadow Temple Heart Shortcut 2": "true"
+"Shadow Temple Boarding Boat Landing Area":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Area Before Boat Ride": "true"
+    "Shadow Temple On The Boat": "true"
+    "Shadow Temple Area Above Shortcut Enclosure": "scarecrow_longshot || longshot_anywhere"
+"Shadow Temple On The Boat":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Area Before Boat Ride": "true"
+    "Shadow Temple Boarding Boat Landing Area": "true"
+    "Shadow Temple Area Above Shortcut Enclosure": "hookshot_anywhere || scarecrow_longshot"
+    "Shadow Temple Area After Boat": "event(SHADOW_MQ_ACTIVATE_BOAT_RIDE)"
+  events:
+    SHADOW_MQ_ACTIVATE_BOAT_RIDE: "can_play_zelda"
+
+
+
+
+"Shadow Temple Area After Boat":
+  dungeon: Shadow
+  exits:
+    H
+    #"Shadow Temple On The Boat": "false"
     
     
 
@@ -338,9 +356,9 @@
   dungeon: Shadow
   exits:
     "Shadow Temple After Boat": "small_keys_shadow(5) && can_play_zelda && is_adult && (can_hookshot || has_goron_bracelet)"
-  locations:
-    "MQ Shadow Temple Heart Shortcut 1": "small_keys_shadow(5) && (scarecrow_longshot || hookshot_anywhere || climb_anywhere)"
-    "MQ Shadow Temple Heart Shortcut 2": "small_keys_shadow(5) && (scarecrow_longshot || hookshot_anywhere || climb_anywhere)"
+
+
+    
 "Shadow Temple After Boat":
   dungeon: Shadow
   exits:
