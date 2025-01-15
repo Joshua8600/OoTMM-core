@@ -273,48 +273,51 @@
     "Shadow Temple Wind Tunnel After Pit Before Drop": "can_hookshot || climb_anywhere"
     "Shadow Temple Wind Tunnel Hint Room": "true"
     "Shadow Temple Wind Tunnel Lens Alcove": "has_lens && (has_hover_boots || hookshot_anywhere)"
-
-
-
-
-
-
 "Shadow Temple Wind Tunnel Hint Room":
   dungeon: Shadow
   exits:
     "Shadow Temple Wind Tunnel After Drop": "true"
   events:
+    SHADOW_MQ_WIND_TUNNEL_HINT_ROOM_REDEADS_CLEAR: "soul_redead_gibdo && (can_use_din || (can_play_sun && (has_weapon || can_use_sticks)))"
   locations:
-    "MQ Shadow Temple Wind Hint Chest": "true"
-    "MQ Shadow Temple GS Wind Hint": "gs"
+    "MQ Shadow Temple Wind Hint Chest": "event(SHADOW_MQ_WIND_TUNNEL_HINT_ROOM_REDEADS_CLEAR)"
+    "MQ Shadow Temple GS Wind Hint": "gs && (can_collect_distance || (has_ranged_weapon && climb_anywhere))" #Bombchu or Blast Mask too? We should have macros for GS on walls.
     "MQ Shadow Temple Big Fairy After Wind": "can_play_sun"
-
-
-
-
 "Shadow Temple Wind Tunnel Lens Alcove":
   dungeon: Shadow
   exits:
     "Shadow Temple Wind Tunnel After Drop": "has_lens && (has_hover_boots || hookshot_anywhere)"
-    "HHH": "true"
-    
-    
+    "Shadow Temple After Wind Tunnel Gibdos Room": "true"
+
+
+
+
+
+"Shadow Temple After Wind Tunnel Gibdos Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Wind Tunnel Lens Alcove": "true"
+  events:
+    SHADOW_MQ_AFTER_WIND_TUNNEL_GIBDOS_CLEAR: "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
+  locations:
+    "MQ Shadow Temple After Wind Gibdos Chest": "event(SHADOW_MQ_AFTER_WIND_TUNNEL_GIBDOS_CLEAR)"
+    "MQ Shadow Temple After Wind Bomb Chest": "has_explosives && has_lens"
+    "MQ Shadow Temple GS After Wind Bomb": "gs && has_explosives"
+    "MQ Shadow Temple Pot Room Before Boat 1": "true" #Gibdos very easy to avoid.
+    "MQ Shadow Temple Pot Room Before Boat 2": "true" #Gibdos very easy to avoid.
+    "MQ Shadow Temple Flying Pot Room Before Boat 1": "soul_flying_pot" #Gibdos very easy to avoid.
+    "MQ Shadow Temple Flying Pot Room Before Boat 2": "soul_flying_pot" #Gibdos very easy to avoid.
     
     
 
+
+    
 
 "Shadow Temple Wind Tunnel":
   dungeon: Shadow
   exits:
     "Shadow Temple After Boat": "small_keys_shadow(5) && can_play_zelda && is_adult && (can_hookshot || has_goron_bracelet)"
   locations:
-    "MQ Shadow Temple After Wind Gibdos Chest": "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
-    "MQ Shadow Temple After Wind Bomb Chest": "has_explosives"
-    "MQ Shadow Temple GS After Wind Bomb": "gs && has_explosives"
-    "MQ Shadow Temple Pot Room Before Boat 1": "has_weapon || can_use_sticks || can_use_din || can_play_sun" #It would be too unfair to get around the Gibdos otherwise
-    "MQ Shadow Temple Pot Room Before Boat 2": "has_weapon || can_use_sticks || can_use_din || can_play_sun" #It would be too unfair to get around the Gibdos otherwise
-    "MQ Shadow Temple Flying Pot Room Before Boat 1": "soul_flying_pot && ((has_weapon || can_use_sticks || can_use_din) || (can_play_sun))" #It would be too unfair to get around the Gibdos otherwise
-    "MQ Shadow Temple Flying Pot Room Before Boat 2": "soul_flying_pot && ((has_weapon || can_use_sticks || can_use_din) || (can_play_sun))" #It would be too unfair to get around the Gibdos otherwise
     "MQ Shadow Temple Heart Shortcut 1": "small_keys_shadow(5) && (scarecrow_longshot || hookshot_anywhere || climb_anywhere)"
     "MQ Shadow Temple Heart Shortcut 2": "small_keys_shadow(5) && (scarecrow_longshot || hookshot_anywhere || climb_anywhere)"
 "Shadow Temple After Boat":
