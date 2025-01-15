@@ -138,7 +138,7 @@
   dungeon: Shadow
   exits:
     "Shadow Temple Scythe Room": "has_lens" #Maybe needs something to get past skultulla too.
-    "Shadow Temple Area Before Boat Ride": "event(HHHH)" #TODO: Add the glitch to skip this, remember it needs climb anywhere disabled.
+    "Shadow Temple Area Before Boat Ride": "event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED)" #TODO: Add the glitch to skip this, remember it needs climb anywhere disabled.
   locations:
     "MQ Shadow Temple Boat Passage Chest": "has_lens"
 "Shadow Temple First Beamos Fork Room Solid Wall Alcove to Guillotine Hallway":
@@ -297,6 +297,7 @@
   dungeon: Shadow
   exits:
     "Shadow Temple Wind Tunnel Lens Alcove": "true"
+    "Shadow Temple Area Before Boat Ride": "small_keys_shadow(5)"
   events:
     SHADOW_MQ_AFTER_WIND_TUNNEL_GIBDOS_CLEAR: "soul_redead_gibdo && (has_weapon || can_use_sticks || can_use_din)"
   locations:
@@ -307,6 +308,18 @@
     "MQ Shadow Temple Pot Room Before Boat 2": "true" #Gibdos very easy to avoid.
     "MQ Shadow Temple Flying Pot Room Before Boat 1": "soul_flying_pot" #Gibdos very easy to avoid.
     "MQ Shadow Temple Flying Pot Room Before Boat 2": "soul_flying_pot" #Gibdos very easy to avoid.
+
+
+
+
+"Shadow Temple Area Before Boat Ride":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple After Wind Tunnel Gibdos Room": "small_keys_shadow(5)"
+    "Shadow Temple Enclosed Shortcut Area": "event(SHADOW_MQ_SHORTCUT_BLOCK_PUSHED)"
+    "Shadow Temple
+  events:
+    SHADOW_MQ_SHORTCUT_BLOCK_PUSHED: "has_goron_bracelet"
     
     
 
