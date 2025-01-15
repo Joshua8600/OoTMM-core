@@ -343,7 +343,7 @@
   exits:
     #"Shadow Temple On The Boat": "false"
     #"Shadow Temple Boarding Boat Landing Area": "false" #Maybe with bomb hovering glitches later.
-    "Shadow Temple Area After Boat Invisible Wall Maze": "event(SHADOW_MQ_AREA_AFTER_BOAT_AFTER_BRIDGE_HIGH_LEDGE_SWITCH)"
+    "Shadow Temple Invisible Wall Maze Corridor To After Boat": "event(SHADOW_MQ_AREA_AFTER_BOAT_AFTER_BRIDGE_HIGH_LEDGE_SWITCH)"
     "Shadow Temple Area After Boat After Bridge": "event(SHADOW_MQ_AFTER_BOAT_BRIDGE_FALL) || longshot_anywhere || climb_anywhere"
     "Shadow Temple Area After Boat After Bridge High Ledge": "longshot_anywhere || climb_anywhere"
   events:
@@ -380,13 +380,36 @@
 
 
 
-"Shadow Temple Area After Boat Invisible Wall Maze":
+"Shadow Temple Invisible Wall Maze Corridor To After Boat":
   dungeon: Shadow
   exits:
     "Shadow Temple Area After Boat Initial Landing": "true"
-    H
-    H
-    H
+    "Shadow Temple Invisible Wall Maze Navigation": "has_lens"
+
+
+"Shadow Temple Invisible Wall Maze Navigation":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Invisible Wall Maze Corridor To After Boat": "has_lens"
+    "Shadow Temple Invisible Wall Maze HHH Room": "has_lens"
+    "Shadow Temple Invisible Wall Maze HHH Room": "has_lens"
+    "Shadow Temple Invisible Wall Maze Corridor To Crushing Walls Room": "has_lens"
+
+
+
+"Shadow Temple Invisible Wall Maze Crushing Walls Room": "has_lens && small_keys_shadow(6)" #Should we even have lens here to navigate the maze?
+
+
+
+
+"Shadow Temple Invisible Wall Maze Crushing Walls Room":
+  dungeon: Shadow
+  exits:
+    "Shadow Temple Area After Boat Invisible Wall Maze":
+
+
+
+
 
 
 "Shadow Temple Pre-Boss Room":
@@ -396,8 +419,6 @@
     "Shadow Temple Pre-Boss": "has_lens && (has_hover_boots || climb_anywhere || hookshot_anywhere)"
   locations:
     "MQ Shadow Temple GS Pre-Boss": "gs && has_lens && (hookshot_anywhere || ((climb_anywhere && has_ranged_weapon) || (has_hover_boots && can_collect_distance)))" #A lot of overlap bewtween macros.
-
-
 "Shadow Temple Pre-Boss":
   dungeon: Shadow
   exits:
