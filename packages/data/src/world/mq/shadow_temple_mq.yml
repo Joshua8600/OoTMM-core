@@ -334,28 +334,36 @@
     "Shadow Temple Area Before Boat Ride": "true"
     "Shadow Temple Boarding Boat Landing Area": "true"
     "Shadow Temple Area Above Shortcut Enclosure": "hookshot_anywhere || scarecrow_longshot"
-    "Shadow Temple Area After Boat": "event(SHADOW_MQ_ACTIVATE_BOAT_RIDE)"
+    "Shadow Temple Area After Boat Initial Landing": "event(SHADOW_MQ_ACTIVATE_BOAT_RIDE)"
   events:
     SHADOW_MQ_ACTIVATE_BOAT_RIDE: "can_play_zelda"
 
 
 
 
-"Shadow Temple Area After Boat":
+"Shadow Temple Area After Boat Initial Landing":
   dungeon: Shadow
   exits:
-    H
     #"Shadow Temple On The Boat": "false"
-    
-    
+    "Shadow Temple Area After Boat First Half Room"
+    "Shadow Temple Area After Boat After Bridge": "event(SHADOW_MQ_AFTER_BOAT_BRIDGE_FALL) || longshot_anywhere"
+  events:
+    SHADOW_MQ_AFTER_BOAT_BRIDGE_FALL: "can_use_bow"
+  locations:
+    "MQ Shadow Temple Pot After Boat Before Bridge 1": "true"
+    "MQ Shadow Temple Pot After Boat Before Bridge 2": "true"
 
 
-    
 
-"Shadow Temple Wind Tunnel":
+"Shadow Temple Area After Boat After Bridge":
   dungeon: Shadow
   exits:
-    "Shadow Temple After Boat": "small_keys_shadow(5) && can_play_zelda && is_adult && (can_hookshot || has_goron_bracelet)"
+    "Shadow Temple Area After Boat Initial Landing": "(event(SHADOW_MQ_AFTER_BOAT_BRIDGE_FALL) && (is_adult || hookshot_anywhere || climb_anywhere)) || longshot_anywhere"
+  events:
+    SHADOW_MQ_AFTER_BOAT_BRIDGE_FALL: "can_use_bow || has_bombflowers"
+    
+    
+
 
 
     
@@ -367,8 +375,6 @@
   locations:
     "MQ Shadow Temple GS After Boat": "gs"
     "MQ Shadow Temple GS Pre-Boss": "gs && can_use_bow"
-    "MQ Shadow Temple Pot After Boat Before Bridge 1": "true"
-    "MQ Shadow Temple Pot After Boat Before Bridge 2": "true"
     "MQ Shadow Temple Pot After Boat After Bridge 1": "can_use_bow"
     "MQ Shadow Temple Pot After Boat After Bridge 2": "can_use_bow"
     "MQ Shadow Temple Heart Pre-Boss Upper 1": "(can_use_bow && ((can_play_time && can_longshot) || hookshot_anywhere)) || longshot_anywhere || climb_anywhere"
