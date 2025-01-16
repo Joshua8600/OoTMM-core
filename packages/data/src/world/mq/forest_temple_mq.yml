@@ -44,29 +44,50 @@
   dungeon: Forest
   exits:
     "Forest Temple Initial Hallway": "small_keys_forest(1)"
-
-
-
-"Forest Temple Main":
-  dungeon: Forest
-  exits:
-    "Forest Temple": "true"
-    "Forest Temple Antichamber": "event(FOREST_POE_4)"
-    "Forest Temple West Wing": "has_weapon && soul_enemy(SOUL_ENEMY_STALFOS)"
-    "Forest Temple West Garden": "can_hit_triggers_distance"
-    "Forest Temple East Garden": "can_hit_triggers_distance"
+    "Forest Temple Antichamber Center": "event(FOREST_POE_4)"
+    "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
+    "Forest Temple West Garden Lower": "can_hit_triggers_distance"
+    "Forest Temple East Garden Lower": "can_hit_triggers_distance"
+    "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "true"
   events:
     FOREST_POE_4: "event(FOREST_POE_1) && event(FOREST_POE_2) && event(FOREST_POE_3)"
   locations:
-    "MQ Forest Temple Wolfos Chest": "soul_wolfos && can_play_time && (has_weapon || can_use_slingshot || has_explosives || can_use_din || can_use_sticks)"
     "MQ Forest Temple Pot Main Room 1": "true"
     "MQ Forest Temple Pot Main Room 2": "true"
     "MQ Forest Temple Pot Main Room 3": "true"
     "MQ Forest Temple Pot Main Room 4": "true"
     "MQ Forest Temple Pot Main Room 5": "true"
     "MQ Forest Temple Pot Main Room 6": "true"
-    "MQ Forest Temple Pot Bow Room Lower 1": "can_play_time"
-    "MQ Forest Temple Pot Bow Room Lower 2": "can_play_time"
+
+
+
+
+"Forest Temple Hallway Before Lower Section Of Stalfos Battle Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple Main Lobby": "true"
+    "Forest Temple Lower Section of Stalfos Battle Room": "is_child || (is_adult && can_play_time)" #What about spawning here with SoT block and going backwards through it?
+"Forest Temple Lower Section Of Stalfos Battle Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)"
+    #Forest Temple Upper Section Of Stalfos Battle Room": "false" #Can't get up there when the Stalfos move the down.
+  events:
+    FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR: "soul_wolfos && (has_weapon || can_use_slingshot || has_explosives || can_use_din || can_use_sticks)"
+  locations:
+    "MQ Forest Temple Wolfos Chest": "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)"
+    "MQ Forest Temple Pot Bow Room Lower 1": "true"
+    "MQ Forest Temple Pot Bow Room Lower 2": "true"
+
+
+
+
+
+    "Forest Temple West Wing": "has_weapon && soul_enemy(SOUL_ENEMY_STALFOS)"
+
+
+
+
 "Forest Temple West Wing":
   dungeon: Forest
   exits:
