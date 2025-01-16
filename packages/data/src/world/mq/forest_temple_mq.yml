@@ -8,7 +8,7 @@
 
 "Forest Temple Entrance":
   dungeon: Forest
-  exits: #Maybe make the upper branches its own region?
+  exits: #Maybe make the upper branches where the event takes place its own region?
     "Forest Temple": "true"
     "Forest Temple Initial Hallway": "true"
   events: #longshot_anywehre is for action shuffle and not being able to climb; redundant currently with can_hookshot
