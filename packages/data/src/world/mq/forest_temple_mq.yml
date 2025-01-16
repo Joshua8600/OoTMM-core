@@ -43,7 +43,7 @@
 "Forest Temple Main Lobby":
   dungeon: Forest
   exits:
-    "Forest Temple Initial Hallway": "small_keys_forest(1)"
+    "Forest Temple Initial Hallway With Skultullas Not Facing Player": "small_keys_forest(1)"
     "Forest Temple Antichamber Center": "event(FOREST_POE_4)"
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
     "Forest Temple West Garden Lower": "can_hit_triggers_distance"
