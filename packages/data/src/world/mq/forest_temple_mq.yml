@@ -15,16 +15,26 @@
   dungeon: Forest
   exits: #Maybe make the upper branches where the event takes place its own region?
     "Forest Temple": "true"
-    "Forest Temple Initial Hallway": "true"
+    "Forest Temple Initial Hallway With Skultullas Facing Player": "true"
   events: #longshot_anywehre is for action shuffle and not being able to climb; redundant currently with can_hookshot
     FOREST_MQ_ENTRANCE_ROOM_CHEST_SWITCH: "longshot_anywhere || climb_anywhere || (has_nuts || can_hit_triggers_distance || can_hookshot || has_hover_boots || can_use_din || has_bomb_bag || can_use_mask_stone || (has_weapon && (has(MAGIC_UPGRADE) || has(SHARED_MAGIC_UPGRADE))))" #Many ways to deal with the Skulltula in the way.
   locations:
     "MQ Forest Temple First Room Chest": "event(FOREST_MQ_ENTRANCE_ROOM_CHEST_SWITCH)"
-"Forest Temple Initial Hallway":
+"Forest Temple Initial Hallway With Skultullas Facing Player":
   dungeon: Forest
   exits:
     "Forest Temple Entrance Room": "true"
-    "Forest Temple Main Lobby": "small_keys_forest(1) && (has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone)" #Even more ways to get past the skultulas.
+    "Forest Temple Initial Hallway Navigation": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
+"Forest Temple Initial Hallway Navigation": #Even more ways to get past the skultulas.
+  dungeon: Forest
+  exits:
+    "Forest Temple Initial Hallway With Skultullas Facing Player": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
+    "Forest Temple Initial Hallway With Skultullas Not Facing Player": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
+"Forest Temple Initial Hallway With Skultullas Not Facing Player":
+  dungeon: Forest
+  exits:
+    "Forest Temple Initial Hallway Navigation": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
+    "Forest Temple Main Lobby": "small_keys_forest(1)"
   locations:
     "MQ Forest Temple GS Entryway": "gs && (can_collect_distance || ((has_ranged_weapon || has_explosives) && climb_anywhere))" #Blast mask too? Need to have separate macros for close vs far-range explosives...
 
