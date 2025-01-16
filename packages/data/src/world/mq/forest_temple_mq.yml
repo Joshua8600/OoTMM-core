@@ -8,11 +8,13 @@
 
 "Forest Temple Entrance":
   dungeon: Forest
-  exits:
+  exits: #Maybe make the upper branches its own region?
     "Forest Temple": "true"
     "Forest Temple Initial Hallway": "true"
-  events:
+  events: #longshot_anywehre is for action shuffle and not being able to climb; redundant currently with can_hookshot
+    FOREST_MQ_ENTRANCE_ROOM_CHEST_SWITCH: "longshot_anywhere || climb_anywhere || (can_hit_triggers_distance || can_hookshot || has_hover_boots || can_use_din || has_bomb_bag || (has_weapon && (has(MAGIC_UPGRADE) || has(SHARED_MAGIC_UPGRADE))))" #Many ways to deal with the Skulltula in the way.
   locations:
+    "MQ Forest Temple First Room Chest": "event(FOREST_MQ_ENTRANCE_ROOM_CHEST_SWITCH)"
 
 
 
@@ -32,10 +34,8 @@
 
     
     "Forest Temple Main": "small_keys_forest(1) && (is_adult || (has_nuts || has_weapon || has_explosives || has_ranged_weapon_child))"
-  locations:
-    "MQ Forest Temple First Room Chest": "can_hit_triggers_distance || can_hookshot || has_explosives || has_hover_boots || can_use_din || (has_weapon && (has(MAGIC_UPGRADE) || has(SHARED_MAGIC_UPGRADE)))" #Many ways to deal with the Skulltula in the way.
 
-
+ 
 "Forest Temple Wallmaster West":
   region: BUFFER_DELAYED
   exits:
