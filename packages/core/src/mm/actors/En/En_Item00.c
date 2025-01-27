@@ -37,6 +37,9 @@ void EnItem00_GiveItem(Actor_EnItem00* this, PlayState* play, s16 gi, float a, f
         itemId = kExtendedGetItems[gi - 1].itemId;
         if (GetItemCollectBehavior(itemId) == 0xff)
             itemId = -1;
+
+        if (gi == GI_MM_SHIELD_HERO && gSharedCustomSave.mmShieldIsDeku)
+            q.gi = GI_MM_SHIELD_DEKU;
     }
 
     if (itemId >= 0)
@@ -62,7 +65,7 @@ void EnItem00_DrawHeartPiece(Actor_EnItem00* this, PlayState* play)
     EnItem00_ItemQuery(&q, this, play, GI_OOT_HEART_PIECE);
     comboItemOverride(&o, &q);
     Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-    Draw_Gi(play, &this->base, o.gi, 0);
+    Draw_GiCloaked(play, &this->base, o.gi, o.cloakGi, 0);
 }
 
 PATCH_FUNC(0x800a75b8, EnItem00_DrawHeartPiece);
@@ -177,3 +180,18 @@ void EnItem00_AliasFreestandingRupee(Xflag* xflag)
 void EnItem00_AliasFreestandingHeart(Xflag* xflag)
 {
 }
+
+void EnItem00_DrawShield(PlayState* play)
+{
+    s16 gi;
+
+    if (gSharedCustomSave.mmShieldIsDeku)
+        gi = GI_MM_SHIELD_DEKU;
+    else
+        gi = GI_MM_SHIELD_HERO;
+
+
+    Draw_Gi(play, NULL, gi, DRAW_RAW);
+}
+
+PATCH_CALL(0x800a726c, EnItem00_DrawShield);

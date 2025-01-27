@@ -93,6 +93,9 @@ PictoUpdateFlags = 0x8013a240;
 gPictoboxState = 0x801bf884;
 gPictoboxPhotoTaken = 0x801bf888;
 
+sMsgScriptCmdHandlers = 0x801bf5c0;
+sMsgScriptCmdSizes = 0x801bf68c;
+
 SpawnRoomActors = 0x800bb140;
 
 Flags_GetSwitch = 0x800b5bb0;
@@ -554,6 +557,8 @@ Cutscene_StartManual = 0x800ea0d4;
 Cutscene_StopManual = 0x800ea0ec;
 Actor_Noop = 0x800bdfb0;
 Math3D_Dist1DSq = 0x8017a5f8;
+kLinkHumanShieldsDLs = 0x801c00ac;
+Player_PostLimbDrawGameplay = 0x80128bd0;
 
 CutsceneManager_GetAdditionalCsId = 0x800f20b8;
 func_800B4AEC = 0x800b4aec;
@@ -682,3 +687,5 @@ Collider_InitTris = 0x800e16d0;
 Collider_SetTris = 0x800e1958;
 
 Audio_SetFileSelectSettings = 0x801a3d98;
+
+gPlayerFormItemRestrictions = 0x801c2410;

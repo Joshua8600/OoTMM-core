@@ -444,6 +444,8 @@ ALIGNED(16) extern MmSaveContext gSaveContext;
 ALIGNED(16) extern MmSave gMmSave;
 #endif
 
+extern s8 gPlayerFormItemRestrictions[5][0x72];
+
 /* Custom */
 typedef struct
 {
@@ -528,7 +530,7 @@ typedef struct
     u32 maskFierceDeity:1;
     u32 ocarina:1;
     u32 songOath:1;
-    u32 progressiveShield:1;
+    u32 unused2:1;
     u32 majora:1;
     u32 maskBremen:1;
     u32 maskScents:1;
