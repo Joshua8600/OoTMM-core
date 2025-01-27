@@ -265,6 +265,9 @@ const ITEM_POOL_PLENTIFUL = new Set([
   Items.SHARED_SCALE,
   Items.SHARED_STRENGTH,
   Items.SHARED_HAMMER,
+  Items.SHARED_TRIFORCE_POWER,
+  Items.SHARED_TRIFORCE_COURAGE,
+  Items.SHARED_TRIFORCE_WISDOM,
 ]);
 
 const ITEMS_HEART_PIECES_CONTAINERS_BY_GAME = {
@@ -1322,14 +1325,19 @@ export class LogicPassWorldTransform {
     }
 
     /* Handle progressive shields */
-    if (this.state.settings.progressiveShieldsOot === 'progressive') {
+    if (this.state.settings.progressiveShieldsOot === 'removed') {
       this.replaceItem(Items.OOT_SHIELD_MIRROR, Items.OOT_SHIELD);
       this.addItem(Items.OOT_SHIELD, 2);
       this.removeItem(Items.OOT_SHIELD_DEKU);
       this.removeItem(Items.OOT_SHIELD_HYLIAN);
     }
 
-    if (settings.progressiveShieldsMm === 'progressive') {
+    if (this.state.settings.progressiveShieldsOot === 'conserved') {
+      this.replaceItem(Items.OOT_SHIELD_MIRROR, Items.OOT_SHIELD);
+      this.addItem(Items.OOT_SHIELD, 2);
+    }
+
+    if (settings.progressiveShieldsMm === 'removed') {
       this.replaceItem(Items.MM_SHIELD_MIRROR, Items.MM_SHIELD);
       this.addItem(Items.MM_SHIELD);
       this.removeItem(Items.MM_SHIELD_HERO);
@@ -1341,6 +1349,11 @@ export class LogicPassWorldTransform {
     }
     else if (settings.dekuShieldMm) {
       this.addItem(Items.MM_SHIELD_DEKU, 3);
+    }
+
+    if (settings.progressiveShieldsMm === 'conserved') {
+      this.replaceItem(Items.MM_SHIELD_MIRROR, Items.MM_SHIELD);
+      this.addItem(Items.MM_SHIELD);
     }
 
     if (settings.extraChildSwordsOot) {
