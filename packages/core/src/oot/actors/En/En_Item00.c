@@ -79,7 +79,7 @@ void EnItem00_DrawHeartPieceSmallKey(Actor_EnItem00* this, PlayState* play)
     EnItem00_ItemQuery(&q, this, play, -1);
     comboItemOverride(&o, &q);
     Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-    Draw_Gi(play, &this->base, o.gi, 0);
+    Draw_GiCloaked(play, &this->base, o.gi, o.cloakGi, 0);
 }
 
 PATCH_FUNC(0x80013498, EnItem00_DrawHeartPieceSmallKey);
@@ -170,3 +170,17 @@ void EnItem00_AliasFreestandingRupee(Xflag* xflag)
 void EnItem00_AliasFreestandingHeart(Xflag* xflag)
 {
 }
+
+void EnItem00_DrawShieldDeku(PlayState* play)
+{
+    Draw_Gi(play, NULL, GI_OOT_SHIELD_DEKU, DRAW_RAW);
+}
+
+PATCH_CALL(0x800130fc, EnItem00_DrawShieldDeku);
+
+void EnItem00_DrawShieldHylian(PlayState* play)
+{
+    Draw_Gi(play, NULL, GI_OOT_SHIELD_HYLIAN, DRAW_RAW);
+}
+
+PATCH_CALL(0x80013110, EnItem00_DrawShieldHylian);

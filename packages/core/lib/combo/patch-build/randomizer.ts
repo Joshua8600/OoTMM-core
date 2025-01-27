@@ -9,7 +9,7 @@ import { SETTINGS, Settings, SPECIAL_CONDS, SPECIAL_CONDS_FIELDS } from '../sett
 import { HintGossip, WorldHints } from '../logic/hints';
 import { countMapAdd, gameId, padBuffer16, toI8Buffer, toU16Buffer, toU32Buffer, toU8Buffer } from '../util';
 import { Patchfile } from './patchfile';
-import { locationsZelda, makeLocation, makePlayerLocations, getPreActivatedOwlsLocations } from '../logic/locations';
+import { locationsZelda, makeLocation, makePlayerLocations, getPreActivatedOwlsLocations, isLocationFullyShuffled } from '../logic/locations';
 import { CONFVARS_VALUES, Confvar } from '../confvars';
 import { Region, regionData } from '../logic/regions';
 import { Item, ItemGroups, ItemHelpers, Items, ItemsCount } from '../items';
@@ -22,6 +22,8 @@ import path from 'path';
 import { END_BOSS_METADATA } from '../logic/boss';
 import { PATH_EVENT_DATA } from '../logic/analysis-path';
 import { DUNGEONS, DUNGEONS_BY_KEY } from '../logic/dungeons';
+import { Random, sample } from '../random';
+import { Options } from '../options';
 
 const DUNGEON_REWARD_LOCATIONS = [
   'OOT Deku Tree Boss',
@@ -85,6 +87,7 @@ const SHARED_ITEMS_OOT = new Map([
   ['SHARED_HEART_CONTAINER',  'OOT_HEART_CONTAINER'],
   ['SHARED_RECOVERY_HEART',   'OOT_RECOVERY_HEART'],
   ['SHARED_DEFENSE_UPGRADE',  'OOT_DEFENSE_UPGRADE'],
+  ['SHARED_SHIELD_DEKU',      'OOT_SHIELD_DEKU'],
   ['SHARED_SHIELD_HYLIAN',    'OOT_SHIELD_HYLIAN'],
   ['SHARED_SHIELD_MIRROR',    'OOT_SHIELD_MIRROR'],
   ['SHARED_SHIELD',           'OOT_SHIELD'],
@@ -163,9 +166,10 @@ const SHARED_ITEMS_MM = new Map([
   ['SHARED_HEART_CONTAINER',  'MM_HEART_CONTAINER'],
   ['SHARED_RECOVERY_HEART',   'MM_RECOVERY_HEART'],
   ['SHARED_DEFENSE_UPGRADE',  'MM_DEFENSE_UPGRADE'],
+  ['SHARED_SHIELD_DEKU',      'MM_SHIELD_DEKU'],
   ['SHARED_SHIELD_HYLIAN',    'MM_SHIELD_HERO'],
   ['SHARED_SHIELD_MIRROR',    'MM_SHIELD_MIRROR'],
-  ['SHARED_SHIELD',           'OOT_SHIELD'], /* Progressive */
+  ['SHARED_SHIELD',           'MM_SHIELD'], /* Progressive */
   ['SHARED_MAGIC_JAR_SMALL',  'MM_MAGIC_JAR_SMALL'],
   ['SHARED_MAGIC_JAR_LARGE',  'MM_MAGIC_JAR_LARGE'],
   ['SHARED_BOMBCHU',          'MM_BOMBCHU'],
@@ -206,9 +210,9 @@ const SUBSTITUTIONS: {[k: string]: string} = {
   OOT_STRENGTH: "OOT_GORON_BRACELET",
   OOT_SCALE: "OOT_SCALE_SILVER",
   OOT_SHIELD: "OOT_PROGRESSIVE_SHIELD_DEKU",
-  OOT_ICE_TRAP: "OOT_RUPEE_BLUE",
+  //OOT_TRAP_ICE: "OOT_RUPEE_BLUE",
   MM_SWORD: "MM_SWORD_KOKIRI",
-  MM_SHIELD: "MM_PROGRESSIVE_SHIELD_HERO",
+  MM_SHIELD: "MM_PROGRESSIVE_SHIELD_DEKU",
   MM_OCARINA: "MM_OCARINA_OF_TIME",
   MM_SCALE: "MM_SCALE_SILVER",
   MM_STRENGTH: "MM_GORON_BRACELET",
@@ -462,7 +466,24 @@ function checkKey(check: WorldCheck): number {
   return key;
 }
 
-const gameChecks = (worldId: number, settings: Settings, game: Game, logic: LogicResult): Uint8Array => {
+function makeCloakGi(key: number, seed: string, settings: Settings, logic: LogicResult): number {
+  const random = new Random();
+  random.seed(key.toString(16) + '\x00' + seed);
+
+  for (;;) {
+    const locs = [...logic.items.keys()];
+    const loc = sample(random, locs);
+    const item = logic.items.get(loc)!;
+
+    if (!ItemHelpers.isItemMajor(item.item) && !ItemHelpers.isSilverRupee(item.item) && !ItemHelpers.isKey(item.item) && !ItemHelpers.isBossKey(item.item)) continue;
+    if (ItemGroups.JUNK.has(item.item)) continue;
+    if (!isLocationFullyShuffled(settings, logic.fixedLocations, logic.items, loc, { songs: true, noPlando: true })) continue;
+
+    return gi(settings, 'oot', item.item, false);
+  }
+}
+
+const gameChecks = (worldId: number, opts: Options, settings: Settings, game: Game, logic: LogicResult): Uint8Array => {
   const buffers: Uint8Array[] = [];
   const world = logic.worlds[worldId];
   for (const locId in world.checks) {
@@ -480,15 +501,23 @@ const gameChecks = (worldId: number, settings: Settings, game: Game, logic: Logi
 
     const key = checkKey(c);
     const itemGi = gi(settings, game, item.item, true);
-    const b = new Uint8Array(8);
+    const b = new Uint8Array(16);
     bufWriteU32BE(b, 0, key);
     bufWriteU16BE(b, 4, item.player + 1);
     bufWriteU16BE(b, 6, itemGi);
+    let cloakGi = 0;
+    if (item.item === Items.OOT_TRAP_ICE && settings.cloakIceTraps) {
+      cloakGi = makeCloakGi(key, opts.seed, settings, logic);
+    }
+    bufWriteU16BE(b, 8, cloakGi);
     buffers.push(b);
   }
   /* Sort by key ascending */
   buffers.sort((a, b) => bufReadU32BE(a, 0) < bufReadU32BE(b, 0) ? -1 : 1);
-  return padBuffer16(concatUint8Arrays(buffers));
+  const end = new Uint8Array(16);
+  end.fill(0xff);
+  buffers.push(end);
+  return concatUint8Arrays(buffers);
 };
 
 const HINT_OFFSETS = {
@@ -938,6 +967,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     MM_TUNIC_ZORA: settings.tunicZoraMm,
     MM_SCALES: settings.scalesMm,
     MM_STRENGTH: settings.strengthMm,
+    MM_KEG_STRENGTH_3: settings.kegStrength3,
     OOT_GANON_BOSS_KEY_HINT: settings.ganonBossKey === 'anywhere',
     BLAST_MASK_DELAY_INSTANT: settings.blastMaskCooldown === 'instant',
     BLAST_MASK_DELAY_VERYSHORT: settings.blastMaskCooldown === 'veryshort',
@@ -974,6 +1004,7 @@ function worldConfig(world: World, settings: Settings): Set<Confvar> {
     OOT_SWORDLESS_ADULT: settings.swordlessAdult,
     OOT_TIME_TRAVEL_REQUIRES_MS: settings.timeTravelSword,
     OOT_EXTRA_CHILD_SWORDS: settings.extraChildSwordsOot,
+    MM_DEKU_SHIELD: settings.dekuShieldMm,
     ONLY_OOT: settings.games === 'oot',
     ONLY_MM: settings.games === 'mm',
     OOT_PLANTED_BEANS: settings.ootPreplantedBeans,
@@ -1167,11 +1198,11 @@ const randomizerStartingItems = (world: number, logic: LogicResult): Uint8Array 
   return toU16Buffer([...ids, ...ids2, 0xffff, 0xffff]);
 };
 
-export function patchRandomizer(worldId: number, logic: LogicResult, settings: Settings, patchfile: Patchfile) {
+export function patchRandomizer(worldId: number, logic: LogicResult, options: Options, settings: Settings, patchfile: Patchfile) {
   patchfile.addNewFile({ vrom: 0xf0200000, data: randomizerData(worldId, logic), compressed: true });
   patchfile.addNewFile({ vrom: 0xf0300000, data: randomizerStartingItems(worldId, logic), compressed: false });
-  patchfile.addNewFile({ vrom: 0xf0400000, data: gameChecks(worldId, settings, 'oot', logic), compressed: false });
-  patchfile.addNewFile({ vrom: 0xf0500000, data: gameChecks(worldId, settings, 'mm', logic), compressed: false });
+  patchfile.addNewFile({ vrom: 0xf0400000, data: gameChecks(worldId, options, settings, 'oot', logic), compressed: false });
+  patchfile.addNewFile({ vrom: 0xf0500000, data: gameChecks(worldId, options, settings, 'mm', logic), compressed: false });
   patchfile.addNewFile({ vrom: 0xf0600000, data: gameHints(settings, 'oot', logic.hints[worldId]), compressed: true });
   patchfile.addNewFile({ vrom: 0xf0700000, data: gameHints(settings, 'mm', logic.hints[worldId]), compressed: true });
   patchfile.addNewFile({ vrom: 0xf0800000, data: gameEntrances(worldId, 'oot', logic), compressed: true });
