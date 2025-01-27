@@ -1347,6 +1347,16 @@ export class LogicPassWorldTransform {
         this.removeItem(Items.MM_SHIELD_DEKU);
       }
     }
+
+    if (settings.progressiveShieldsMm === 'conserved') {
+      this.replaceItem(Items.MM_SHIELD_MIRROR, Items.MM_SHIELD);
+      this.addItem(Items.MM_SHIELD);
+      this.removeItem(Items.MM_SHIELD_HERO);
+
+      if (settings.dekuShieldMm) {
+        this.addItem(Items.MM_SHIELD);
+      }
+    }
     else if (settings.dekuShieldMm) {
       this.addItem(Items.MM_SHIELD_DEKU, 3);
     }
