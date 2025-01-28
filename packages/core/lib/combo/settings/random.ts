@@ -380,25 +380,38 @@ export async function applyRandomSettings(rnd: OptionRandomSettings, oldSettings
   /* Items */
   base.fillWallets = booleanWeighted(random, 0.5);
 
-  /* Progressive items - 25% disabled, 25% enabled, 50% individual */
+  /* Progressive Swords and Lullaby - 25% disabled, 25% enabled, 50% individual */
   switch (randomInt(random, 4)) {
   case 0:
-    base.progressiveShieldsOot = 'separate';
     base.progressiveSwordsOot = 'separate';
-    base.progressiveShieldsMm = 'separate';
     base.progressiveGoronLullaby = 'single';
     break;
   case 1:
-    base.progressiveShieldsOot = 'progressive';
     base.progressiveSwordsOot = 'progressive';
-    base.progressiveShieldsMm = 'progressive';
     base.progressiveGoronLullaby = 'progressive';
     break;
   default:
-    base.progressiveShieldsOot = sampleWeighted(random, { separate: 10, progressive: 10 });
     base.progressiveSwordsOot = sampleWeighted(random, { separate: 10, progressive: 10, goron: 5 });
-    base.progressiveShieldsMm = sampleWeighted(random, { separate: 10, progressive: 10 });
     base.progressiveGoronLullaby = sampleWeighted(random, { progressive: 10, single: 10 });
+  }
+
+  /* Progressive Shields - 25% disabled, 25% enabled */
+  switch (randomInt(random, 4)) {
+  case 0:
+    base.progressiveShieldsOot = 'separate';
+    base.progressiveShieldsMm = 'separate';
+    break;
+  case 1:
+    base.progressiveShieldsOot = 'removed';
+    base.progressiveShieldsMm = 'removed';
+    break;
+  case 2:
+    base.progressiveShieldsOot = 'conserved';
+    base.progressiveShieldsMm = 'conserved';
+    break;
+  default:
+    base.progressiveShieldsOot = sampleWeighted(random, { separate: 10, removed: 10, conserved: 10 });
+    base.progressiveShieldsMm = sampleWeighted(random, { separate: 10, removed: 10, conserved: 10 });
   }
 
   /* Shared items - 25% disabled, 25% enabled, 50% individual */
