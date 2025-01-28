@@ -1335,6 +1335,8 @@ export class LogicPassWorldTransform {
     if (this.state.settings.progressiveShieldsOot === 'conserved') {
       this.replaceItem(Items.OOT_SHIELD_MIRROR, Items.OOT_SHIELD);
       this.addItem(Items.OOT_SHIELD, 2);
+      //this.removeItem(Items.OOT_SHIELD_DEKU, 1);
+      //this.removeItem(Items.OOT_SHIELD_HYLIAN, 1);
     }
 
     if (settings.progressiveShieldsMm === 'removed') {
@@ -1350,10 +1352,12 @@ export class LogicPassWorldTransform {
 
     if (settings.progressiveShieldsMm === 'conserved') {
       this.replaceItem(Items.MM_SHIELD_MIRROR, Items.MM_SHIELD);
-      this.addItem(Items.MM_SHIELD, 2);
+      this.addItem(Items.MM_SHIELD);
+      //this.removeItem(Items.MM_SHIELD_HERO, 1);
 
       if (settings.dekuShieldMm) {
-        this.addItem(Items.MM_SHIELD, 3);
+        this.addItem(Items.MM_SHIELD);
+        this.addItem(Items.MM_SHIELD_DEKU, 3);
       }
     }
     
