@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 
 - Completely reworked the stray fairy item model to be much closer to the actual fairies.
 - Path hints now tell the exact world the path corresponds to in multiworld.
-- Rework of OOT Shadow Temple MQ dungeon logic, including implementation of Age Swap, Climb Anywhere, and Hookshot Anywhere features.
+- Reworks of OOT Fire Temple MQ and Shadow Temple MQ dungeon logic, including implementation of Age Swap, Climb Anywhere, and Hookshot Anywhere features.
 - Add two macros needed for new logic situations.
 
 ### Fixed
