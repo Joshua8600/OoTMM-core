@@ -11,6 +11,9 @@ All notable changes to this project will be documented in this file.
 - Add the ability to shuffle merchant prices in OoT.
 - Implement the Deku Shield in MM.
 - Completely rework bombchu, behavior is now a setting with 4 values : free like in OoT, tied to bomb bag like in MM, old-style bombchu bags, and a new bombchu bag setting where 3 bags are in the pool, allowing for 20/30/40 bombchu.
+- Add the ability to shuffle the drops from Red Boulders in OoT and MM.
+- Add the ability to shuffle the Purple Rupees from the OoT Frogs.
+- Add the ability to shuffle the drops from Icicles (**stalagmites** only) in OoT and MM.
 
 ### Changed
 
@@ -22,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - Completely reworked the stray fairy item model to be much closer to the actual fairies.
 - Path hints now tell the exact world the path corresponds to in multiworld.
 - Logic can now expect Sunlight Arrows to go through Spirit Temple child climb.
+- Make the GBT spawn point from the Turtle less awkward.
 
 ### Fixed
 
@@ -32,6 +36,8 @@ All notable changes to this project will be documented in this file.
 - Fix a bug where magical rupee would sometimes require a scene reload to work properly.
 - Fix an odd interaction between open MM dungeons and the moon crash.
 - Fix Ganondorf and Ganon fight not allowing Return to Dungeon Entrance.
+- Fix logic for pots in upper Deku Palace.
+- Fix snowballs in Snowhead (spring) not being paired with their winter counterpart.
 
 ## [27.0] - 2025-01-04
 
