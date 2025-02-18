@@ -24,16 +24,16 @@
   dungeon: Forest
   exits:
     "Forest Temple Entrance Room": "true"
-    "Forest Temple Initial Hallway Navigation": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
-"Forest Temple Initial Hallway Navigation": #Even more ways to get past the skultulas.
+    "Forest Temple Initial Hallway Navigation": "get_past_skultullas"
+"Forest Temple Initial Hallway Navigation": #Even more ways to get past the skultulas. Region exists for enemy drops rando, and for ease of placing the door regions for door rando.
   dungeon: Forest
   exits:
-    "Forest Temple Initial Hallway With Skultullas Facing Player": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
-    "Forest Temple Initial Hallway With Skultullas Not Facing Player": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
+    "Forest Temple Initial Hallway With Skultullas Facing Player": "get_past_skultullas"
+    "Forest Temple Initial Hallway With Skultullas Not Facing Player": "get_past_skultullas"
 "Forest Temple Initial Hallway With Skultullas Not Facing Player":
   dungeon: Forest
   exits:
-    "Forest Temple Initial Hallway Navigation": "has_nuts || can_use_sword_or_sticks || has_ranged_weapon || can_use_din || has_explosives || can_hammer || can_use_mask_stone"
+    "Forest Temple Initial Hallway Navigation": "get_past_skultullas"
     "Forest Temple Main Lobby": "small_keys_forest(1)"
   locations:
     "MQ Forest Temple GS Entryway": "gs && (can_collect_distance || ((has_ranged_weapon || has_explosives) && climb_anywhere))" #Blast mask too? Need to have separate macros for close vs far-range explosives...
