@@ -743,6 +743,9 @@ export const TRICKS: Tricks = {
     game: 'mm',
     name: "Break Red Boulders using Powder Keg (MM)",
     tooltip: "Use a Powder Keg to break Red Boulders. Only relevant with Strengths in MM",
+  MM_NO_SOT_RESET: {
+    game: 'mm',
+    name: 'Trick for NNL for the "CanResetTime" macro to not include SoT',
   },
   GLITCH_OOT_EQUIP_SWAP: {
     game: 'oot',
