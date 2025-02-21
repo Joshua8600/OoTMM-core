@@ -137,12 +137,46 @@
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
     "Forest Temple Climbing Block Puzzle Room Second Block Floor":
     "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge":
+    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "true"
+
+
+    
+"Forest Temple Climbing Block Puzzle Room Top Floor With Door":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
+    "Forest Temple Hallway and Pit Room Hallway": "small_keys_forest(3)"
+
+
+"Forest Temple Hallway and Pit Room Hallway":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
+    "Forest Temple Hallway and Pit Room Chest Area": "true"
 
 
 
+"Forest Temple Hallway and Pit Room Chest Area":
+  dungeon: Forest
+  exits:
+    "Forest Temple Hallway and Pit Room Hallway": "true" #Maybe need a way to defeat the wallmaster first?
+    "Forest Temple Wallmaster West": "soul_wallmaster"
+    "Forest Temple Floormaster Battle Room Below Hallway": "true"
+  locations:
+    "MQ Forest Temple Boss Key Chest": "true"
 
 
-    "Forest Temple West Wing": "has_weapon && soul_enemy(SOUL_ENEMY_STALFOS)"
+
+"Forest Temple Floormaster Battle Room Below Hallway":
+  dungeon: Forest
+  exits:
+    "Forest Temple Hallway and Pit Room Chest Area": "hookshot_anywhere && climb_anywhere"
+    "
+  events:
+    FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR: "soul_floormaster && has_weapon"
+
+
+
 
 
 
@@ -161,8 +195,8 @@
   exits:
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple West Garden Ledge": "soul_floormaster"
-  locations:
-    "MQ Forest Temple Boss Key Chest": "true"
+
+
 "Forest Temple West Garden Ledge":
   dungeon: Forest
   exits:
