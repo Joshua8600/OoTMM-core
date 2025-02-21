@@ -153,9 +153,6 @@
   exits:
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
     "Forest Temple Hallway and Pit Room Chest Area": "true"
-
-
-
 "Forest Temple Hallway and Pit Room Chest Area":
   dungeon: Forest
   exits:
@@ -164,16 +161,20 @@
     "Forest Temple Floormaster Battle Room Below Hallway": "true"
   locations:
     "MQ Forest Temple Boss Key Chest": "true"
-
-
-
 "Forest Temple Floormaster Battle Room Below Hallway":
   dungeon: Forest
   exits:
     "Forest Temple Hallway and Pit Room Chest Area": "hookshot_anywhere && climb_anywhere"
-    "
+    "Forest Temple West Garden Upper Ledge Hallway": "event(FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR)"
   events:
-    FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR: "soul_floormaster && has_weapon"
+    FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR: "soul_floormaster && has_weapon" #Placeholder for now.
+
+
+
+"Forest Temple West Garden Upper Ledge Hallway":
+  dungeon: Forest
+  exits:
+    "Forest Temple Floormaster Battle Room Below Hallway": "true"
 
 
 
