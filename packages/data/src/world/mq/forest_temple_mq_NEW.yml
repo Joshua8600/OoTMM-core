@@ -94,6 +94,7 @@
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
     "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": #TODO: Trick to hookshot the target with the ice there as there is a small gap.
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "true"
+    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "climb_anywhere || hookshot_anywhere"
   locations:
     "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
 
@@ -102,9 +103,18 @@
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
-    "Forest Temple Climbing Block Puzzle Room Second Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
+    "Forest Temple Climbing Block Puzzle Room Second Block Floor": "(event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && is_adult) || hookshot_anywhere || climb_anywhere"
+    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
   events:
     FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet"
+
+
+"Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
+    "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge":
 
 
 
