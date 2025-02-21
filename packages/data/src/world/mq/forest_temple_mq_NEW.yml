@@ -88,6 +88,12 @@
 
 
 
+
+
+
+
+
+
 "Forest Temple Climbing Block Puzzle Room Ground Floor":
   dungeon: Forest
   exits: #Separating floors now in preparation for action shuffle.
@@ -97,7 +103,6 @@
     "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "climb_anywhere || hookshot_anywhere"
   locations:
     "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
-
 
 "Forest Temple Climbing Block Puzzle Room First Block Floor":
   dungeon: Forest
@@ -140,12 +145,21 @@
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "true"
 
 
+
     
 "Forest Temple Climbing Block Puzzle Room Top Floor With Door":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
     "Forest Temple Hallway and Pit Room Hallway": "small_keys_forest(3)"
+
+
+
+
+
+
+
+
 
 
 "Forest Temple Hallway and Pit Room Hallway":
@@ -171,10 +185,39 @@
 
 
 
+
+
 "Forest Temple West Garden Upper Ledge Hallway":
   dungeon: Forest
   exits:
     "Forest Temple Floormaster Battle Room Below Hallway": "true"
+    "Forest Temple West Garden Pillar With Items": "true"
+    "Forest Temple West Garden Ground Area": "true"
+    "Forest Temple West Garden Redead Battle Room": "true"
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": "true"
+
+
+"Forest Temple West Garden Pillar With Items":
+  dungeon: Forest
+  exits:
+    "Forest Temple West Garden Upper Ledge Hallway": "true"
+    "Forest Temple West Garden Ground Area": "true"
+  locations:
+    "MQ Forest Temple Heart Garden 1": "true"
+    "MQ Forest Temple Heart Garden 2": "true"
+    "MQ Forest Temple Heart Garden 3": "true"
+
+
+"Forest Temple West Garden Redead Battle Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple West Garden Upper Ledge Hallway": "event(FOREST_MQ_WEST_GARDEN_REDEAD_BATTLE_CLEAR)"
+  events:
+    FOREST_MQ_WEST_GARDEN_REDEAD_BATTLE_CLEAR: "soul_redead_gibdo && has_weapon" #Placeholder
+  locations:
+    "MQ Forest Temple ReDead Chest": "event(FOREST_MQ_WEST_GARDEN_REDEAD_BATTLE_CLEAR)"
+    
+    
 
 
 
@@ -207,9 +250,8 @@
     FOREST_TWIST_SWITCH: "true"
   locations:
     "MQ Forest Temple ReDead Chest": "soul_redead_gibdo"
-    "MQ Forest Temple Heart Garden 1": "true"
-    "MQ Forest Temple Heart Garden 2": "true"
-    "MQ Forest Temple Heart Garden 3": "true"
+
+    
 "Forest Temple West Garden":
   dungeon: Forest
   exits:
