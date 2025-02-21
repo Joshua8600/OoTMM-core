@@ -78,8 +78,6 @@
     "MQ Forest Temple Wolfos Chest": "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)"
     "MQ Forest Temple Pot Bow Room Lower 1": "true"
     "MQ Forest Temple Pot Bow Room Lower 2": "true"
-
-
 "Forest Temple Hallway Before Climbing Block Puzzle Room":
   dungeon: Forest
   exits:
@@ -92,9 +90,21 @@
 
 "Forest Temple Climbing Block Puzzle Room Ground Floor":
   dungeon: Forest
-  exits:
+  exits: #Separating floors now in preparation for action shuffle.
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
     "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": #TODO: Trick to hookshot the target with the ice there as there is a small gap.
+    "Forest Temple Climbing Block Puzzle Room First Block Floor": "true"
+  locations:
+    "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
+
+
+"Forest Temple Climbing Block Puzzle Room First Block Floor":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
+    "Forest Temple Climbing Block Puzzle Room Second Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
+  events:
+    FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet"
 
 
 
@@ -112,8 +122,8 @@
     "Forest Temple Straightened Hallway": "small_keys_forest(3) && is_adult && has_goron_bracelet"
     "Forest Temple West Garden": "soul_floormaster && small_keys_forest(2) && is_adult && has_goron_bracelet" #This is sideways thinking, but you must have access to West Garden with 2 keys here because you cannot waste a third without access via another means.
     "Forest Temple Twisted Hallway": "small_keys_forest(3) && is_adult && has_goron_bracelet && event(FOREST_TWIST_SWITCH)"
-  locations:
-    "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
+
+
 "Forest Temple Straightened Hallway":
   dungeon: Forest
   exits:
