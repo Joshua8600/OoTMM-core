@@ -71,13 +71,30 @@
   dungeon: Forest
   exits:
     "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)"
-    #Forest Temple Upper Section Of Stalfos Battle Room": "false" #Can't get up there when the Stalfos move the down.
+    #Forest Temple Upper Section Of Stalfos Battle Room": "false" #Can't get up there when the Stalfos move the floor down.
   events:
     FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR: "soul_wolfos && (has_weapon || can_use_slingshot || has_explosives || can_use_din || can_use_sticks)"
   locations:
     "MQ Forest Temple Wolfos Chest": "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)"
     "MQ Forest Temple Pot Bow Room Lower 1": "true"
     "MQ Forest Temple Pot Bow Room Lower 2": "true"
+
+
+"Forest Temple Hallway Before Climbing Block Puzzle Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple Main Lobby": "event(FOREST_MQ_HALLWAY_BEFORE_CLIMBING_BLOCKS_STALFOS_CLEAR)"
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "event(FOREST_MQ_HALLWAY_BEFORE_CLIMBING_BLOCKS_STALFOS_CLEAR)"
+  events:
+    FOREST_MQ_HALLWAY_BEFORE_CLIMBING_BLOCKS_STALFOS_CLEAR: "soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
+
+
+
+"Forest Temple Climbing Block Puzzle Room Ground Floor":
+  dungeon: Forest
+  exits:
+    "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": #TODO: Trick to hookshot the target with the ice there as there is a small gap.
 
 
 
