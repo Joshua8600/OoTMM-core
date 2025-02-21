@@ -114,7 +114,19 @@
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
-    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge":
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": "event(HHHHHHHH) && (has_hover_boots || SHORT OR LONG HOOK IDK YET)"
+
+
+
+"Forest Temple Climbing Block Puzzle Room Second Block Floor":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
+    "Forest Temple Climbing Block Puzzle Room First Block Floor": "true"
+    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "hookshot_anywhere || can_jump_slash"
+  events:
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_TOP_FLOOR_CRYSTAL_SWITCH: "can_hit_triggers_distance" #Can hit it if you stand near the guard rails.
+    FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet && event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)" #A little redundant, yes, but it is a separate flag.
 
 
 
