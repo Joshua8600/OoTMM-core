@@ -228,9 +228,10 @@
     "Forest Temple West Garden Upper Ledge Hallway": "hookshot_anywhere || climb_anywhere"
     "Forest Temple West Garden Pillar With Items": "hookshot_anywhere || climb_anywhere"
     "Forest Temple Main Lobby": "true"
-    "Forest Temple Gardens Well": "
+    "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boos) || event(HHHHHHHHH)"
     "Forest Temple West Garden Ledge Above Well": "true"
     "Forest Temple West Garden Webbed Alcove":
+    "Forest Temple East Garden Ground Area": "has_tunic_zora && (has_iron_boots || can_dive_big)" #Not part of Well region because diving can't get checks.
 
 
 
