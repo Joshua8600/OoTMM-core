@@ -46,7 +46,7 @@
     "Forest Temple Initial Hallway With Skultullas Not Facing Player": "small_keys_forest(1)"
     "Forest Temple Antichamber Center": "event(FOREST_POE_4)"
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
-    "Forest Temple West Garden Lower": "can_hit_triggers_distance"
+    "Forest Temple West Garden Ground Area": "can_hit_triggers_distance"
     "Forest Temple East Garden Lower": "can_hit_triggers_distance"
     "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "true"
   events:
@@ -221,6 +221,16 @@
 
 
 
+
+"Forest Temple West Garden Ground Area":
+  dungeon: Forest
+  exits:
+    "Forest Temple West Garden Upper Ledge Hallway": "hookshot_anywhere || climb_anywhere"
+    "Forest Temple West Garden Pillar With Items": "hookshot_anywhere || climb_anywhere"
+    "Forest Temple Main Lobby": "true"
+    "Forest Temple Gardens Well": "
+    "Forest Temple West Garden Ledge Above Well": "true"
+    "Forest Temple West Garden Webbed Alcove":
 
 
 
