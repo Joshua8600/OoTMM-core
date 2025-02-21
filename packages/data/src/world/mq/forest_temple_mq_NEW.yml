@@ -301,8 +301,6 @@
 "Forest Temple Straightened Hallway":
   dungeon: Forest
   exits:
-    "Forest Temple Wallmaster West": "soul_wallmaster"
-    "Forest Temple West Garden Ledge": "soul_floormaster"
 
 
 "Forest Temple West Garden Ledge":
