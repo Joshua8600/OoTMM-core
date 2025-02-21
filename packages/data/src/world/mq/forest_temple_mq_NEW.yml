@@ -198,6 +198,7 @@
     "Forest Temple West Garden Ledge Above Well": "has_hover_boots || hookshot_anywhere" || climb_anywhere
 
 
+    
 "Forest Temple West Garden Pillar With Items":
   dungeon: Forest
   exits:
@@ -207,8 +208,6 @@
     "MQ Forest Temple Heart Garden 1": "true"
     "MQ Forest Temple Heart Garden 2": "true"
     "MQ Forest Temple Heart Garden 3": "true"
-
-
 "Forest Temple West Garden Redead Battle Room":
   dungeon: Forest
   exits:
@@ -217,9 +216,6 @@
     FOREST_MQ_WEST_GARDEN_REDEAD_BATTLE_CLEAR: "soul_redead_gibdo && has_weapon" #Placeholder
   locations:
     "MQ Forest Temple ReDead Chest": "event(FOREST_MQ_WEST_GARDEN_REDEAD_BATTLE_CLEAR)"
-
-
-
 "Forest Temple West Garden Ledge Above Well":
   dungeon: Forest
   exits:
@@ -250,7 +246,41 @@
 "Forest Temple West Garden Webbed Alcove":
   dungeon: Forest
   exits:
-    "Forest Temple West Garden Ground Area": "
+    "Forest Temple West Garden Ground Area": "trick( OOT_PASS_COLLISION) || has_fire" #Can be "true" if invisible web?
+    "Forest Temple Linking Room Between Gardens": "true"
+"Forest Temple Linking Room Between Gardens":
+  dungeon: Forest
+  exits:
+    "Forest Temple West Garden Webbed Alcove": "true"
+    "Forest Temple East Garden Top Balcony With Door": "true"
+
+
+
+"Forest Temple East Garden Top Balcony With Door":
+  dungeon: Forest
+  exits:
+    "Forest Temple Linking Room Between Gardens": "true"
+    "Forest Temple East Garden Top Balcony With Chest": "true"
+    "Forest Temple East Garden Ground Area": "true"
+
+
+
+
+"Forest Temple East Garden Top Balcony With Chest":
+  dungeon: Forest
+  exits:
+    "Forest Temple East Garden Top Balcony With Door": "true"
+    "Forest Temple East Garden Ground Area": "true"
+    #"Forest Temple East Garden Hill In Water": "has_hover_boots && can_jump_slash" #TODO: Make this a trick?
+  locations:
+    "MQ Forest Temple East Garden High Ledge Chest": "true"
+
+
+
+
+
+
+
 
 
 
@@ -309,7 +339,7 @@
     "Forest Temple West Garden": "can_use_bow || can_use_din"
     "Forest Temple East Garden": "true"
   locations:
-    "MQ Forest Temple East Garden High Ledge Chest": "true"
+    
     "MQ Forest Temple GS East Garden": "gs && can_play_time"
 "Forest Temple East Garden Ledge":
   dungeon: Forest
