@@ -98,9 +98,11 @@
   dungeon: Forest
   exits: #Separating floors now in preparation for action shuffle.
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
-    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": #TODO: Trick to hookshot the target with the ice there as there is a small gap.
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": #TODO: Trick to hookshot the target with the ice there as there is a small gap.
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "true"
     "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "climb_anywhere || hookshot_anywhere"
+  events:
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT:
   locations:
     "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
 
@@ -119,7 +121,7 @@
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
-    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": "event(HHHHHHHH) && (has_hover_boots || SHORT OR LONG HOOK IDK YET)"
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "event(HHHHHHHH) && (has_hover_boots || SHORT OR LONG HOOK IDK YET)"
 
 
 
@@ -155,7 +157,13 @@
 
 
 
-
+"Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Ground Floor":
+    "Forest Temple West Garden Upper Ledge Hallway": "true"
+  events:
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "can_hit_crystal_switch_close"
 
 
 
@@ -194,7 +202,7 @@
     "Forest Temple West Garden Pillar With Items": "true"
     "Forest Temple West Garden Ground Area": "true"
     "Forest Temple West Garden Redead Battle Room": "true"
-    "Forest Temple Climbing Block Puzzle Room Crystal Switch Ledge": "true"
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "true"
     "Forest Temple West Garden Ledge Above Well": "has_hover_boots || hookshot_anywhere" || climb_anywhere
 
 
@@ -309,12 +317,6 @@
   events:
     FOREST_TWIST_SWITCH: "true"
 
-    
-"Forest Temple West Garden":
-  dungeon: Forest
-  exits:
-    "Forest Temple East Garden": "can_dive_big"
-    "Forest Temple Garden Ledges": "has_fire_arrows"
 
 
 "Forest Temple East Garden":
