@@ -131,6 +131,15 @@
 
 
 
+"Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
+    "Forest Temple Climbing Block Puzzle Room Second Block Floor":
+    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge":
+
+
+
 
 
     "Forest Temple West Wing": "has_weapon && soul_enemy(SOUL_ENEMY_STALFOS)"
