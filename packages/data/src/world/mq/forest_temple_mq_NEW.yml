@@ -123,9 +123,6 @@
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) || has_hover_boots || hookshot_anywhere || climb_anywhere"
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "(event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || climb_anywhere)) || hookshot_anywhere
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "(event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT) && can_hookshot) || (hookshot_anywhere && climb_anywhere)"
-
-
-
 "Forest Temple Climbing Block Puzzle Room Second Block Floor":
   dungeon: Forest
   exits:
@@ -136,34 +133,24 @@
   events:
     FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT: "event(FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR) && (can_hit_triggers_distance || has_bombchu || can_longshot)" #Can hit it if you stand near the guard rails, and can use chu to go up the block after it is in place.
     FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet && event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || hookshot_anywhere || climb_anywhere)" #A little redundant, yes, but it is a separate flag. Also ground jump gltich?
-
-
-
 "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
-    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge":
-    "Forest Temple Climbing Block Puzzle Room Second Block Floor":
+    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT) || longshot_anywhere) #Take damage with longshot_anywhere.
+    "Forest Temple Climbing Block Puzzle Room Second Block Floor": "true"
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "true"
   events:
     FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT: "can_hit_crystal_switch_close"
-
-
-
-    
 "Forest Temple Climbing Block Puzzle Room Top Floor With Door":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
     "Forest Temple Hallway and Pit Room Hallway": "small_keys_forest(3)"
-
-
-
 "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove":
   dungeon: Forest
   exits:
-    "Forest Temple Climbing Block Puzzle Room Ground Floor":
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) || hookshot_anywhere" #hookshot_anywhere is a bit redundant, yes.
     "Forest Temple West Garden Upper Ledge Hallway": "true"
   events:
     FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "can_hit_crystal_switch_close"
