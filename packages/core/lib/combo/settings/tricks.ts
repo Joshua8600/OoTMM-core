@@ -344,6 +344,11 @@ export const TRICKS: Tricks = {
     name: "Backflip/Sidehop Over Gap to Reach BotW MQ's Main Room's Center",
     tooltip: "Makes reachable the center of the main room without Zelda's Lullaby or Hover Boots.",
   },
+  OOT_FOREST_MQ_CLIMBING_BLOCK_ROOM_TWIST_SWITCH_EARLY: {
+    game: 'oot',
+    name: "Hit/Reach the Forest MQ Twisting Switch While It Is Blocked",
+    tooltip: "This trick makes hitting/reaching this switch, through a variety of means, while the Ice Blocks are still covering the alcove.",
+  },
   MM_LENS: {
     game: 'mm',
     name: 'Fewer Lens Requirements (MM)',
