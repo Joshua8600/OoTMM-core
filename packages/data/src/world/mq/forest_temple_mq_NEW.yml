@@ -98,7 +98,7 @@
   dungeon: Forest
   exits: #Separating floors now in preparation for action shuffle.
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
-    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "                    #TODO: Trick to hookshot the target with the ice there as there is a small gap.
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "(event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && (can_hookshot || climb_anywhere)) || (              #TODO: Trick to hookshot the target with the ice there as there is a small gap.
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "true"
     "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "climb_anywhere || hookshot_anywhere || (can_hookshot && event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT))"
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "climb_anywhere || longshot_anywhere"
