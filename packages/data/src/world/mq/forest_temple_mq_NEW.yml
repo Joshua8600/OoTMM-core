@@ -107,6 +107,13 @@
     FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "trick(OOT_FOREST_MQ_CLIMBING_BLOCK_ROOM_TWIST_SWITCH_EARLY) && (" #FILL THIS IN.
   locations:
     "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
+"Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Ground Floor": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) || hookshot_anywhere" #hookshot_anywhere is a bit redundant, yes.
+    "Forest Temple West Garden Upper Ledge Hallway": "true"
+  events:
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "can_hit_crystal_switch_close"
 "Forest Temple Climbing Block Puzzle Room First Block Floor":
   dungeon: Forest
   exits:
@@ -146,21 +153,14 @@
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
-    "Forest Temple Hallway and Pit Room Hallway": "small_keys_forest(3)"
-"Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove":
-  dungeon: Forest
-  exits:
-    "Forest Temple Climbing Block Puzzle Room Ground Floor": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) || hookshot_anywhere" #hookshot_anywhere is a bit redundant, yes.
-    "Forest Temple West Garden Upper Ledge Hallway": "true"
-  events:
-    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "can_hit_crystal_switch_close"
+    "Forest Temple Hallway and Pit Room Hallway Section": "small_keys_forest(3)"
 
 
 
 
 
 
-"Forest Temple Hallway and Pit Room Hallway":
+"Forest Temple Hallway and Pit Room Hallway Section":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
@@ -168,7 +168,7 @@
 "Forest Temple Hallway and Pit Room Chest Area":
   dungeon: Forest
   exits:
-    "Forest Temple Hallway and Pit Room Hallway": "true" #Maybe need a way to defeat the wallmaster first?
+    "Forest Temple Hallway and Pit Room Hallway Section": "true" #Maybe need a way to defeat the wallmaster first?
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple Floormaster Battle Room Below Hallway": "true"
   locations:
