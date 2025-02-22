@@ -85,15 +85,6 @@
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "event(FOREST_MQ_HALLWAY_BEFORE_CLIMBING_BLOCKS_STALFOS_CLEAR)"
   events:
     FOREST_MQ_HALLWAY_BEFORE_CLIMBING_BLOCKS_STALFOS_CLEAR: "soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
-
-
-
-
-
-
-
-
-
 "Forest Temple Climbing Block Puzzle Room Ground Floor":
   dungeon: Forest
   exits: #Separating floors now in preparation for action shuffle.
@@ -153,19 +144,19 @@
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
-    "Forest Temple Hallway and Pit Room Hallway Section": "small_keys_forest(3)"
+    "Forest Temple Straightened Hallway and Pit Room Hallway Section": "small_keys_forest(3)"
 
 
 
 
 
 
-"Forest Temple Hallway and Pit Room Hallway Section":
+"Forest Temple Straightened Hallway and Pit Room Hallway Section":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
-    "Forest Temple Hallway and Pit Room Chest Area": "true"
-"Forest Temple Hallway and Pit Room Chest Area":
+    "Forest Temple Straightened Hallway and Pit Room Chest Area": "true"
+"Forest Temple Straightened Hallway and Pit Room Chest Area":
   dungeon: Forest
   exits:
     "Forest Temple Hallway and Pit Room Hallway Section": "true" #Maybe need a way to defeat the wallmaster first?
@@ -176,7 +167,7 @@
 "Forest Temple Floormaster Battle Room Below Hallway":
   dungeon: Forest
   exits:
-    "Forest Temple Hallway and Pit Room Chest Area": "hookshot_anywhere && climb_anywhere"
+    "Forest Temple Straightened Hallway and Pit Room Chest Area": "hookshot_anywhere && climb_anywhere"
     "Forest Temple West Garden Upper Ledge Hallway": "event(FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR)"
   events:
     FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR: "soul_floormaster && has_weapon" #Placeholder for now.
