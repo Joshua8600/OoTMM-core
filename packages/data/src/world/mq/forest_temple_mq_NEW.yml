@@ -104,10 +104,9 @@
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "climb_anywhere || longshot_anywhere"
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "climb_anywhere || longshot_anywhere || (can_hookshot && event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT))"
   events:
-    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "trick(OOT_FOREST_MQ_CLIMBING_BLOCK_ROOM_TWIST_SWITCH_EARLY) && (
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "trick(OOT_FOREST_MQ_CLIMBING_BLOCK_ROOM_TWIST_SWITCH_EARLY) && (" #FILL THIS IN.
   locations:
     "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
-
 "Forest Temple Climbing Block Puzzle Room First Block Floor":
   dungeon: Forest
   exits:
@@ -116,13 +115,11 @@
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "(event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && is_adult) || hookshot_anywhere || climb_anywhere" #Also ground jump gltich.
   events:
     FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet"
-
-
 "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
-    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "event(HHHHHHHH) && (has_hover_boots || SHORT OR LONG HOOK IDK YET)"
+    "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && (has_hover_boots || can_longshot || hookshot_anywhere)"
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) || has_hover_boots || hookshot_anywhere || climb_anywhere"
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "(event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || climb_anywhere)) || hookshot_anywhere
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "(event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT) && can_hookshot) || (hookshot_anywhere && climb_anywhere)"
