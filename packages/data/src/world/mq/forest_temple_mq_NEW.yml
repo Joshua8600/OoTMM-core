@@ -123,9 +123,9 @@
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
     "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "event(HHHHHHHH) && (has_hover_boots || SHORT OR LONG HOOK IDK YET)"
-    "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR)"
-    "Forest Temple Climbing Block Puzzle Room Second Block Floor":
-    "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing":
+    "Forest Temple Climbing Block Puzzle Room First Block Floor": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) || has_hover_boots || hookshot_anywhere || climb_anywhere"
+    "Forest Temple Climbing Block Puzzle Room Second Block Floor": "(event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || climb_anywhere)) || hookshot_anywhere
+    "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "(event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT) && can_hookshot) || (hookshot_anywhere && climb_anywhere)"
 
 
 
@@ -135,9 +135,9 @@
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
     "Forest Temple Climbing Block Puzzle Room First Block Floor": "true"
     "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "hookshot_anywhere || can_jump_slash"
-    "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "(event(FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || hookshot_anywhere || climb_anywhere)) || (event(FOREST_MQ_CLIMBING_BLOCK_ROOM_TOP_FLOOR_CRYSTAL_SWITCH) && can_hookshot)"
+    "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "(event(FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || hookshot_anywhere || climb_anywhere)) || (event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT) && can_hookshot)"
   events:
-    FOREST_MQ_CLIMBING_BLOCK_ROOM_TOP_FLOOR_CRYSTAL_SWITCH: "can_hit_triggers_distance || (event(FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR) && has_bombchu)" #Can hit it if you stand near the guard rails, and can use chu to go up the block after it is in place.
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT: "can_hit_triggers_distance || (event(FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR) && has_bombchu)" #Can hit it if you stand near the guard rails, and can use chu to go up the block after it is in place.
     FOREST_MQ_SECOND_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet && event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && (is_adult || hookshot_anywhere || climb_anywhere)" #A little redundant, yes, but it is a separate flag. Also ground jump gltich?
 
 
