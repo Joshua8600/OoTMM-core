@@ -44,14 +44,14 @@
   dungeon: Forest
   exits: #TODO: Regions for the pot ledges for Action Shuffle
     "Forest Temple Initial Hallway With Skultullas Not Facing Player": "small_keys_forest(1)"
-    "Forest Temple Antichamber Center": "event(FOREST_POE_4)"
+    "Forest Temple Antichamber Center": "event(FOREST_MQ_MEG_CLEAR)"
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
     "Forest Temple West Garden Ground Area": "event(FOREST_MQ_LOBBY_WEST_GARDEN_EYE)"
     "Forest Temple East Garden Ground Area": "event(FOREST_MQ_LOBBY_EAST_GARDEN_EYE)"
     "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "true"
     "Forest Temple
   events:
-    FOREST_POE_4: "(event(FOREST_POE_1) && event(FOREST_POE_2) && event(FOREST_POE_3)) && HHHH"
+    FOREST_MQ_MEG_CLEAR: "(event(FOREST_MQ_JOELLE_CLEAR) && event(FOREST_MQ_BETH_CLEAR) && event(FOREST_MQ_AMY_CLEAR)) && can_use_bow && has_weapon"
     FOREST_MQ_LOBBY_WEST_GARDEN_EYE: "can_hit_triggers_distance"
     FOREST_MQ_LOBBY_EAST_GARDEN_EYE: "can_hit_triggers_distance"
   locations:
