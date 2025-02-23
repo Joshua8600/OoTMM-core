@@ -389,8 +389,26 @@
   dungeon: Forest
   exits:
     "Forest Temple East Twisted Hallway And Room Hallway Section": "longshot_anywhere && climb_anywhere"
+    EAST GARDEN "event(FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR)"
+    "Forest Temple Amy Painting Room": "small_keys_forest(7)"
+  locations:
+    "MQ Forest Temple Falling Ceiling Chest": "event(FOREST_MQ_CHECKERBOARD_SWITCH_CHEST)"
+  events:
+    FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR: "true"
+    FOREST_MQ_CHECKERBOARD_SWITCH_CHEST: "true"
   
 
+
+"Forest Temple Amy Painting Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple Checkerboard Room": "small_keys_forest(7)"
+  locations:
+    "MQ Forest Temple Pot Green Poe 1": "true"
+    "MQ Forest Temple Pot Green Poe 2": "true"
+  events:
+    FOREST_MQ_AMY_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
+    
 
 
 
@@ -438,16 +456,16 @@
 
 
 
+
+
   
 "Forest Temple Falling Ceiling":
-  dungeon: Forest
-  events:
-    FOREST_POE_3: "small_keys_forest(6) && can_use_bow"
+
   locations:
-    "MQ Forest Temple Falling Ceiling Chest": "true"
     "MQ Forest Temple East Garden Ledge Chest": "true"
-    "MQ Forest Temple Pot Green Poe 1": "small_keys_forest(6)"
-    "MQ Forest Temple Pot Green Poe 2": "small_keys_forest(6)"
+    
+
+    
 "Forest Temple Antichamber":
   dungeon: Forest
   exits:
