@@ -147,22 +147,23 @@
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
-    "Forest Temple Straightened Hallway and Pit Room Hallway Section": "small_keys_forest(3)"
+    "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section": "small_keys_forest(3)"
+    "Forest Temple Twisted Hallway and Boss Key Chest Room": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && small_keys_forest(3)"
 
 
 
 
 
 
-"Forest Temple Straightened Hallway and Pit Room Hallway Section":
+"Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
-    "Forest Temple Straightened Hallway and Pit Room Chest Area": "true"
-"Forest Temple Straightened Hallway and Pit Room Chest Area":
+    "Forest Temple Straightened Hallway and Boss Key Chest Room Chest Area": "true"
+"Forest Temple Straightened Hallway and Boss Key Chest Room Chest Area":
   dungeon: Forest
   exits:
-    "Forest Temple Hallway and Pit Room Hallway Section": "true" #Maybe need a way to defeat the wallmaster first?
+    "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section": "true" #Maybe need a way to defeat the wallmaster first?
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple Floormaster Battle Room Below Hallway": "true"
   locations:
@@ -170,7 +171,7 @@
 "Forest Temple Floormaster Battle Room Below Hallway":
   dungeon: Forest
   exits:
-    "Forest Temple Straightened Hallway and Pit Room Chest Area": "hookshot_anywhere && climb_anywhere"
+    "Forest Temple Straightened Hallway and Boss Key Chest Room Chest Area": "hookshot_anywhere && climb_anywhere"
     "Forest Temple West Garden Upper Ledge Hallway": "event(FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR)"
   events:
     FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR: "soul_floormaster && has_weapon" #Placeholder for now.
@@ -187,7 +188,7 @@
     "Forest Temple West Garden Ground Area": "true"
     "Forest Temple West Garden Redead Battle Room": "true"
     "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "true"
-    "Forest Temple West Garden Ledge Above Well": "has_hover_boots || hookshot_anywhere" || climb_anywhere
+    "Forest Temple West Garden Ledge Above Well": "has_hover_boots || hookshot_anywhere || climb_anywhere"
   events:
     FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
 
@@ -221,12 +222,10 @@
     FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
   locations:
     "MQ Forest Temple GS West Garden": "gs && can_damage_skull"
+
+
+
     
-    
-
-
-
-
 "Forest Temple West Garden Ground Area":
   dungeon: Forest
   exits:
@@ -239,10 +238,6 @@
     "Forest Temple East Garden Ground Area": "has_tunic_zora && (has_iron_boots || can_dive_big)" #Not part of Well region because diving can't get checks.
   events:
     FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
-
-
-
-
 "Forest Temple West Garden Webbed Alcove":
   dungeon: Forest
   exits:
@@ -255,6 +250,9 @@
   exits:
     "Forest Temple West Garden Webbed Alcove": "true"
     "Forest Temple East Garden Top Balcony With Door": "true"
+
+
+
 
 
 
@@ -276,6 +274,13 @@
 
 
 
+
+
+
+"Forest Temple Twisted Hallway and Boss Key Chest Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
 
 
 
