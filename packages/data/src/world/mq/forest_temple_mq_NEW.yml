@@ -148,7 +148,7 @@
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
     "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section": "small_keys_forest(3)"
-    "Forest Temple Twisted Hallway and Boss Key Chest Room": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && small_keys_forest(3)"
+    "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && small_keys_forest(3)"
 
 
 
@@ -277,10 +277,20 @@
 
 
 
-"Forest Temple Twisted Hallway and Boss Key Chest Room":
+"Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side":
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
+    "Forest Temple Wallmaster West": "soul_wallmaster"
+    "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door": "true"
+
+
+"Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door":
+  dungeon: Forest
+  exits:
+    "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "true"
+    "
+    
 
 
 
