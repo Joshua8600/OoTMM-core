@@ -328,7 +328,7 @@
   dungeon: Forest
   exits:
     "Forest Temple Upper Section Of Stalfos Battle Room": "true" #I think this is true?
-    "Forest Temple HHHH": "
+    "Forest Temple East Straightened Hallway And Room At Beth Door": "small_keys_forest(5)"
   locations:
     "MQ Forest Temple Compass Chest": "event(FOREST_MQ_BETH_CLEAR)"
     "MQ Forest Temple Pot Blue Poe 1": "true"
@@ -336,6 +336,50 @@
     "MQ Forest Temple Pot Blue Poe 3": "true"
   events:
     FOREST_MQ_BETH_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
+
+
+
+
+"Forest Temple East Straightened Hallway And Room At Beth Door":
+  dungeon: Forest
+  exits:
+    "Forest Temple Beth Paintings Room": "small_keys_forest(5)"
+    "Forest Temple East Straightened Hallway And Room Hallway Section": "true"
+    "Forest Temple Wallmaster East": "soul_wallmaster"
+
+
+
+"Forest Temple East Straightened Hallway And Room Hallway Section":
+  dungeon: Forest
+  exits:
+    "Forest Temple East Straightened Hallway And Room At Beth Door": "true"
+    "Forest Temple Spinning Red Pool Room": "small_keys_forest(6)"
+    "Forest Temple Wallmaster East": "soul_wallmaster"
+
+
+
+"Forest Temple Spinning Red Pool Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple East Straightened Hallway And Room Hallway Section": "small_keys_forest(6)"
+    "Forest Temple East Twisted Hallway And Room Hallway Section": "small_keys_forest(6) && event(FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE)"
+  locations:
+    "MQ Forest Temple Spinning Red Pool Room Small Crate 1": "true"
+    "MQ Forest Temple Spinning Red Pool Room Small Crate 2": "true"
+    "MQ Forest Temple Spinning Red Pool Room Small Crate 3": "true"
+  events:
+    FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE: "can_use_bow || has_fire" #Elegy when action shuffle for carrying crates.
+
+
+
+
+"Forest Temple East Twisted Hallway And Room Hallway Section":
+  dungeon: Forest
+  exits:
+    "Forest Temple Spinning Red Pool Room": "small_keys_forest(6)"
+    "Forest Temple Beth Paintings Room": "small_keys_forest(5)"
+    "Forest Temple Checkerboard Room": "true"
+    "Forest Temple Wallmaster East": "soul_wallmaster"
   
 
 
@@ -388,15 +432,10 @@
 "Forest Temple Bow Region":
   dungeon: Forest
   exits:
-    # FIXME: Simple implem as we don't have the 2nd hallway
-    "Forest Temple Wallmaster East": "soul_wallmaster && soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
     "Forest Temple Falling Ceiling": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5) && (can_use_bow || can_use_din)" #Only 5 keys is safe because, if you wasted a key in falling ceiling, you can go there otherwise.
 
 
   
-    "MQ Forest Temple Spinning Red Pool Room Small Crate 1": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
-    "MQ Forest Temple Spinning Red Pool Room Small Crate 2": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
-    "MQ Forest Temple Spinning Red Pool Room Small Crate 3": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
 "Forest Temple Falling Ceiling":
   dungeon: Forest
   events:
