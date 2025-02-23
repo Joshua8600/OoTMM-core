@@ -284,17 +284,11 @@
     "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(3)"
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door": "true"
-
-
 "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door":
   dungeon: Forest
   exits:
     "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "true"
     "Forest Temple Joelle Paintings Room": "small_keys_forest(4)"
-
-
-
-
 "Forest Temple Joelle Paintings Room":
   dungeon: Forest
   exits:
@@ -304,10 +298,6 @@
     "MQ Forest Temple Map Chest": "event(FOREST_MQ_JOELLE_CLEAR)"
   events:
     FOREST_MQ_JOELLE_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
-
-
-
-
 "Forest Temple Upper Section Of Stalfos Battle Room":
   dungeon: Forest
   exits:
@@ -322,9 +312,6 @@
     "MQ Forest Temple Pot Bow Room Upper 4": "true"
   events:
     FOREST_MQ_BOW_ROOM_STALFOS_BATTLE_CLEAR: "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR) && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
-
-
-
 "Forest Temple Beth Paintings Room":
   dungeon: Forest
   exits:
@@ -338,28 +325,18 @@
     "MQ Forest Temple Pot Blue Poe 3": "true"
   events:
     FOREST_MQ_BETH_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
-
-
-
-
 "Forest Temple East Straightened Hallway And Room At Beth Door":
   dungeon: Forest
   exits:
     "Forest Temple Beth Paintings Room": "small_keys_forest(5)"
     "Forest Temple East Straightened Hallway And Room Hallway Section": "true"
     "Forest Temple Wallmaster East": "soul_wallmaster"
-
-
-
 "Forest Temple East Straightened Hallway And Room Hallway Section":
   dungeon: Forest
   exits:
     "Forest Temple East Straightened Hallway And Room At Beth Door": "true"
     "Forest Temple Spinning Red Pool Room": "small_keys_forest(6)"
     "Forest Temple Wallmaster East": "soul_wallmaster"
-
-
-
 "Forest Temple Spinning Red Pool Room":
   dungeon: Forest
   exits:
@@ -371,10 +348,6 @@
     "MQ Forest Temple Spinning Red Pool Room Small Crate 3": "true"
   events:
     FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE: "can_use_bow || has_fire" #Elegy when action shuffle for carrying crates.
-
-
-
-
 "Forest Temple East Twisted Hallway And Room Hallway Section":
   dungeon: Forest
   exits:
@@ -382,10 +355,6 @@
     "Forest Temple Beth Paintings Room": "small_keys_forest(5)"
     "Forest Temple Checkerboard Room": "true"
     "Forest Temple Wallmaster East": "soul_wallmaster"
-
-
-
-
 "Forest Temple Checkerboard Room":
   dungeon: Forest
   exits:
@@ -397,9 +366,6 @@
   events:
     FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR: "true"
     FOREST_MQ_CHECKERBOARD_SWITCH_CHEST: "true"
-  
-
-
 "Forest Temple Amy Painting Room":
   dungeon: Forest
   exits:
@@ -410,9 +376,6 @@
     "MQ Forest Temple Pot Green Poe 2": "true"
   events:
     FOREST_MQ_AMY_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
-
-
-
 "Forest Temple Hallway Between Amy Room And Lobby":
   dungeon: Forest
   exits:
