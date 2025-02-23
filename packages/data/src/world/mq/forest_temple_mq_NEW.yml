@@ -310,16 +310,33 @@
 "Forest Temple Upper Section Of Stalfos Battle Room":
   dungeon: Forest
   exits:
+    "Forest Temple Joelle Paintings Room": "event(FOREST_MQ_BOW_ROOM_STALFOS_BATTLE_CLEAR)"
+    "Forest Temple Beth Paintings Room": "event(FOREST_MQ_BOW_ROOM_STALFOS_BATTLE_CLEAR)"
     #"Forest Temple Lower Section Of Stalfos Battle Room": "false"
   locations:
+    "MQ Forest Temple Bow Chest": "event(FOREST_MQ_BOW_ROOM_STALFOS_BATTLE_CLEAR)"
     "MQ Forest Temple Pot Bow Room Upper 1": "true"
     "MQ Forest Temple Pot Bow Room Upper 2": "true"
     "MQ Forest Temple Pot Bow Room Upper 3": "true"
     "MQ Forest Temple Pot Bow Room Upper 4": "true"
   events:
-    
+    FOREST_MQ_BOW_ROOM_STALFOS_BATTLE_CLEAR: "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR) && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon"
 
-event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)
+
+
+"Forest Temple Beth Paintings Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple Upper Section Of Stalfos Battle Room": "true" #I think this is true?
+    "Forest Temple HHHH": "
+  locations:
+    "MQ Forest Temple Compass Chest": "event(FOREST_MQ_BETH_CLEAR)"
+    "MQ Forest Temple Pot Blue Poe 1": "true"
+    "MQ Forest Temple Pot Blue Poe 2": "true"
+    "MQ Forest Temple Pot Blue Poe 3": "true"
+  events:
+    FOREST_MQ_BETH_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
+  
 
 
 
@@ -374,19 +391,9 @@ event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)
     # FIXME: Simple implem as we don't have the 2nd hallway
     "Forest Temple Wallmaster East": "soul_wallmaster && soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
     "Forest Temple Falling Ceiling": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5) && (can_use_bow || can_use_din)" #Only 5 keys is safe because, if you wasted a key in falling ceiling, you can go there otherwise.
-  events:
-    FOREST_POE_1: "can_use_bow"
-    FOREST_POE_2: "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && can_use_bow"
-  locations:
-    "MQ Forest Temple Map Chest": "event(FOREST_POE_1)"
-    "MQ Forest Temple Bow Chest": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon"
-    "MQ Forest Temple Compass Chest": "event(FOREST_POE_2)"
 
 
-    
-    "MQ Forest Temple Pot Blue Poe 1": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos"
-    "MQ Forest Temple Pot Blue Poe 2": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos"
-    "MQ Forest Temple Pot Blue Poe 3": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos"
+  
     "MQ Forest Temple Spinning Red Pool Room Small Crate 1": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
     "MQ Forest Temple Spinning Red Pool Room Small Crate 2": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
     "MQ Forest Temple Spinning Red Pool Room Small Crate 3": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5)"
