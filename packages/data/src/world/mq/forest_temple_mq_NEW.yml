@@ -61,15 +61,11 @@
     "MQ Forest Temple Pot Main Room 4": "true"
     "MQ Forest Temple Pot Main Room 5": "true"
     "MQ Forest Temple Pot Main Room 6": "true"
-
-
-
-
 "Forest Temple Main Lobby Upper East Ledge":
   dungeon: Forest
   exits:
-
-
+    "Forest Temple Main Lobby": "true"
+    "Forest Temple Hallway Between Amy Room And Lobby": "true"
 "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room":
   dungeon: Forest
   exits:
