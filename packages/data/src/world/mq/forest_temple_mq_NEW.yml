@@ -37,9 +37,6 @@
     "Forest Temple Main Lobby": "small_keys_forest(1)"
   locations:
     "MQ Forest Temple GS Entryway": "gs && (can_collect_distance || ((has_ranged_weapon || has_explosives) && climb_anywhere))" #Blast mask too? Need to have separate macros for close vs far-range explosives...
-
-
-
 "Forest Temple Main Lobby":
   dungeon: Forest
   exits: #TODO: Regions for the pot ledges for Action Shuffle
@@ -150,12 +147,6 @@
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
     "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section": "small_keys_forest(3)"
     "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && small_keys_forest(3)"
-
-
-
-
-
-
 "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section":
   dungeon: Forest
   exits:
@@ -176,11 +167,6 @@
     "Forest Temple West Garden Upper Ledge Hallway": "event(FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR)"
   events:
     FOREST_MQ_FLOORMASTER_BATTLE_BELOW_HALLWAY_CLEAR: "soul_floormaster && has_weapon" #Placeholder for now.
-
-
-
-
-
 "Forest Temple West Garden Upper Ledge Hallway":
   dungeon: Forest
   exits:
@@ -192,9 +178,6 @@
     "Forest Temple West Garden Ledge Above Well": "has_hover_boots || hookshot_anywhere || climb_anywhere"
   events:
     FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
-
-
-    
 "Forest Temple West Garden Pillar With Items":
   dungeon: Forest
   exits:
@@ -384,6 +367,11 @@
     
 
 
+
+"Forest Temple Antichamber Center":
+  dungeon: Forest
+  exits:
+    "Forest Temple Main Lobby": "event(FOREST_MQ_MEG_CLEAR)"
 
 
 
