@@ -46,11 +46,13 @@
     "Forest Temple Initial Hallway With Skultullas Not Facing Player": "small_keys_forest(1)"
     "Forest Temple Antichamber Center": "event(FOREST_POE_4)"
     "Forest Temple Hallway Before Climbing Block Puzzle Room": "true"
-    "Forest Temple West Garden Ground Area": "can_hit_triggers_distance"
-    "Forest Temple East Garden Ground Area": "can_hit_triggers_distance"
+    "Forest Temple West Garden Ground Area": "event(FOREST_MQ_LOBBY_WEST_GARDEN_EYE)"
+    "Forest Temple East Garden Ground Area": "event(FOREST_MQ_LOBBY_EAST_GARDEN_EYE)"
     "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "true"
   events:
     FOREST_POE_4: "(event(FOREST_POE_1) && event(FOREST_POE_2) && event(FOREST_POE_3)) && HHHH"
+    FOREST_MQ_LOBBY_WEST_GARDEN_EYE: "can_hit_triggers_distance"
+    FOREST_MQ_LOBBY_EAST_GARDEN_EYE: "can_hit_triggers_distance"
   locations:
     "MQ Forest Temple Pot Main Room 1": "true"
     "MQ Forest Temple Pot Main Room 2": "true"
@@ -185,6 +187,8 @@
     "Forest Temple West Garden Redead Battle Room": "true"
     "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove": "true"
     "Forest Temple West Garden Ledge Above Well": "has_hover_boots || hookshot_anywhere" || climb_anywhere
+  events:
+    FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
 
 
     
@@ -193,6 +197,8 @@
   exits:
     "Forest Temple West Garden Upper Ledge Hallway": "true"
     "Forest Temple West Garden Ground Area": "true"
+  events:
+    FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
   locations:
     "MQ Forest Temple Heart Garden 1": "true"
     "MQ Forest Temple Heart Garden 2": "true"
@@ -210,6 +216,8 @@
   exits:
     "Forest Temple West Garden Ground Area": "true"
     "Forest Temple West Garden Upper Ledge Hallway": "climb_anywhere || hookshot_anywhere"
+  events:
+    FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
   locations:
     "MQ Forest Temple GS West Garden": "gs && can_damage_skull"
     
@@ -226,8 +234,10 @@
     "Forest Temple Main Lobby": "true"
     "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boos) || event(HHHHHHHHH)"
     "Forest Temple West Garden Ledge Above Well": "true"
-    "Forest Temple West Garden Webbed Alcove": "has_fire_arrows" #Maybe another way to destroy web with glitches?
+    "Forest Temple West Garden Webbed Alcove": "event(FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY)" #Maybe another way to destroy web with glitches?
     "Forest Temple East Garden Ground Area": "has_tunic_zora && (has_iron_boots || can_dive_big)" #Not part of Well region because diving can't get checks.
+  events:
+    FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
 
 
 
@@ -235,8 +245,10 @@
 "Forest Temple West Garden Webbed Alcove":
   dungeon: Forest
   exits:
-    "Forest Temple West Garden Ground Area": "trick( OOT_PASS_COLLISION) || has_fire" #Can be "true" if invisible web?
+    "Forest Temple West Garden Ground Area": "trick(OOT_PASS_COLLISION) || event(FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY)" #Can be "true" if invisible web?
     "Forest Temple Linking Room Between Gardens": "true"
+  events:
+    FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire"
 "Forest Temple Linking Room Between Gardens":
   dungeon: Forest
   exits:
