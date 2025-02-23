@@ -206,10 +206,6 @@
     FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
   locations:
     "MQ Forest Temple GS West Garden": "gs && can_damage_skull"
-
-
-
-    
 "Forest Temple West Garden Ground Area":
   dungeon: Forest
   exits:
@@ -280,7 +276,7 @@
     "Forest Temple Water Ledge With Door":
     "Forest Temple West Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks. 
   locations:
-     "MQ Forest Temple GS East Garden": "gs && can_collect_distance"
+    "MQ Forest Temple GS East Garden": "gs && (can_collect_distance || (climb_anywhere && can_damage_skull))"
   events:
     STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
     NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_hit_triggers_distance)"
