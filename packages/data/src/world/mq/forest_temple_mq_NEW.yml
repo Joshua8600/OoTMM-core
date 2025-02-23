@@ -312,6 +312,10 @@
   exits:
     #"Forest Temple Lower Section Of Stalfos Battle Room": "false"
   locations:
+    "MQ Forest Temple Pot Bow Room Upper 1": "true"
+    "MQ Forest Temple Pot Bow Room Upper 2": "true"
+    "MQ Forest Temple Pot Bow Room Upper 3": "true"
+    "MQ Forest Temple Pot Bow Room Upper 4": "true"
   events:
     
 
@@ -377,10 +381,9 @@ event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)
     "MQ Forest Temple Map Chest": "event(FOREST_POE_1)"
     "MQ Forest Temple Bow Chest": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon"
     "MQ Forest Temple Compass Chest": "event(FOREST_POE_2)"
-    "MQ Forest Temple Pot Bow Room Upper 1": "true"
-    "MQ Forest Temple Pot Bow Room Upper 2": "true"
-    "MQ Forest Temple Pot Bow Room Upper 3": "true"
-    "MQ Forest Temple Pot Bow Room Upper 4": "true"
+
+
+    
     "MQ Forest Temple Pot Blue Poe 1": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos"
     "MQ Forest Temple Pot Blue Poe 2": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos"
     "MQ Forest Temple Pot Blue Poe 3": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos"
