@@ -265,6 +265,19 @@
     "MQ Forest Temple East Garden High Ledge Chest": "true"
 
 
+"Forest Temple East Garden Hill With Chest":
+  dungeon: Forest
+  exits:
+  locations:
+    "MQ Forest Temple East Garden Ledge Chest": "true"
+  events:
+
+
+"Forest Temple Water Ledge With Door":
+  dungeon: Forest
+  exits:
+  
+
 
 "Forest Temple East Garden Ground Area":
   dungeon: Forest
@@ -435,17 +448,6 @@
   exits:
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple Bow Region": "small_keys_forest(4)"
-
-
-
-
-
-
-  
-"Forest Temple Falling Ceiling":
-
-  locations:
-    "MQ Forest Temple East Garden Ledge Chest": "true"
     
 
     
