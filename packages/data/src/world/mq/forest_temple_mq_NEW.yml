@@ -219,7 +219,7 @@
     "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boos) || event(FOREST_MQ_DRAIN_WELL)"
     "Forest Temple West Garden Ledge Above Well": "true"
     "Forest Temple West Garden Webbed Alcove": "event(FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY)" #Maybe another way to destroy web with glitches?
-    "Forest Temple East Garden Ground Area": "has_tunic_zora && (has_iron_boots || can_dive_big)" #Not part of Well region because diving can't get checks.
+    "Forest Temple East Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks. 
   events:
     FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY: "has_fire_arrows"
 "Forest Temple West Garden Webbed Alcove":
@@ -278,8 +278,12 @@
     "Forest Temple East Garden Top Balcony With Chest": "climb_anywhere || (hookshot_anywhere || (is_adult && longshot_anywhere))"
     "Forest Temple East Garden Hill With Chest": "climb_anywhere || can_longshot || hookshot_anywhere"
     "Forest Temple Water Ledge With Door":
+    "Forest Temple West Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks. 
   locations:
+     "MQ Forest Temple GS East Garden": "gs && can_collect_distance"
   events:
+    STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
+    NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_hit_triggers_distance)"
     FOREST_MQ_DRAIN_WELL: "can_hit_triggers_distance"
 
 
@@ -420,23 +424,9 @@
     "Forest Temple Main": "true"
     "Forest Temple Garden Ledges": "can_longshot || (can_hookshot && (trick(OOT_FOREST_HOOK) || can_play_time))"
     "Forest Temple East Garden Ledge": "can_longshot"
-  events:
-    STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
-    NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_use_slingshot)"
-  locations:
-    
-    "MQ Forest Temple GS East Garden": "gs && can_collect_distance"
 
 
-    
-"Forest Temple Garden Ledges":
-  dungeon: Forest
-  exits:
-    "Forest Temple West Garden": "can_use_bow || can_use_din"
-    "Forest Temple East Garden": "true"
-  locations:
-    
-    "MQ Forest Temple GS East Garden": "gs && can_play_time"
+
 "Forest Temple East Garden Ledge":
   dungeon: Forest
   exits:
