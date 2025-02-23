@@ -288,18 +288,7 @@
 
 
 
-"Forest Temple West Wing":
-  dungeon: Forest
-  exits:
 
-    "Forest Temple Straightened Hallway": "small_keys_forest(3) && is_adult && has_goron_bracelet"
-    "Forest Temple West Garden": "soul_floormaster && small_keys_forest(2) && is_adult && has_goron_bracelet" #This is sideways thinking, but you must have access to West Garden with 2 keys here because you cannot waste a third without access via another means.
-    "Forest Temple Twisted Hallway": "small_keys_forest(3) && is_adult && has_goron_bracelet && event(FOREST_TWIST_SWITCH)"
-
-
-"Forest Temple Straightened Hallway":
-  dungeon: Forest
-  exits:
 
 
 "Forest Temple West Garden Ledge":
