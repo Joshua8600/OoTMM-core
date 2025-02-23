@@ -289,25 +289,38 @@
   dungeon: Forest
   exits:
     "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "true"
-    "
-    
+    "Forest Temple Joelle Paintings Room": "small_keys_forest(4)"
 
 
 
 
-
-
-
-
-
-
-"Forest Temple West Garden Ledge":
+"Forest Temple Joelle Paintings Room":
   dungeon: Forest
   exits:
-    "Forest Temple West Garden": "true"
-    "Forest Temple West Wing": "event(FOREST_TWIST_SWITCH)"
+    "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door": "small_keys_forest(4)"
+    "Forest Temple Upper Section Of Stalfos Battle Room": "true"
+  locations:
+    "MQ Forest Temple Map Chest": "event(FOREST_MQ_JOELLE_CLEAR)"
   events:
-    FOREST_TWIST_SWITCH: "true"
+    FOREST_MQ_JOELLE_CLEAR: "can_use_bow && has_weapon" #PLACEHOLDER
+
+
+
+
+"Forest Temple Upper Section Of Stalfos Battle Room":
+  dungeon: Forest
+  exits:
+    #"Forest Temple Lower Section Of Stalfos Battle Room": "false"
+  locations:
+  events:
+    
+
+event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)
+
+
+
+
+
 
 
 
@@ -347,6 +360,10 @@
   exits:
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple Bow Region": "small_keys_forest(4)"
+
+
+
+    
 "Forest Temple Bow Region":
   dungeon: Forest
   exits:
