@@ -254,6 +254,7 @@
     "Forest Temple Linking Room Between Gardens": "true"
     "Forest Temple East Garden Top Balcony With Chest": "true"
     "Forest Temple East Garden Ground Area": "true"
+    "Forest Temple East Garden Above GS Awning": "is_adult && can_play_time" #Child cannot grip the ledge.
 "Forest Temple East Garden Top Balcony With Chest":
   dungeon: Forest
   exits:
@@ -276,7 +277,14 @@
 "Forest Temple Water Ledge With Door":
   dungeon: Forest
   exits:
-  
+
+
+"Forest Temple East Garden Above GS Awning":
+  dungeon: Forest
+  exits:
+    "Forest Temple East Garden Ground Area": "true"
+  locations:
+    "MQ Forest Temple GS East Garden": "gs && can_damage_skull"
 
 
 "Forest Temple East Garden Ground Area":
@@ -286,10 +294,11 @@
     "Forest Temple East Garden Top Balcony With Door": "climb_anywhere || hookshot_anywhere" #Time blocks in good position for short_hook_anywhere as any age.
     "Forest Temple East Garden Top Balcony With Chest": "climb_anywhere || (hookshot_anywhere || (is_adult && longshot_anywhere))"
     "Forest Temple East Garden Hill With Chest": "climb_anywhere || can_longshot || hookshot_anywhere"
-    "Forest Temple Water Ledge With Door":
-    "Forest Temple West Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks. 
+    "Forest Temple East Garden Water Ledge With Door":
+    "Forest Temple East Garden Above GS Awning": "climb_anywhere || can_hookshot"
+    "Forest Temple West Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks.
   locations:
-    "MQ Forest Temple GS East Garden": "gs && (can_collect_distance || (climb_anywhere && can_damage_skull))"
+    "MQ Forest Temple GS East Garden": "gs && can_collect_distance"
   events:
     STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
     NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_hit_triggers_distance)"
