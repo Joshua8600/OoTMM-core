@@ -49,6 +49,7 @@
     "Forest Temple West Garden Ground Area": "event(FOREST_MQ_LOBBY_WEST_GARDEN_EYE)"
     "Forest Temple East Garden Ground Area": "event(FOREST_MQ_LOBBY_EAST_GARDEN_EYE)"
     "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "true"
+    "Forest Temple
   events:
     FOREST_POE_4: "(event(FOREST_POE_1) && event(FOREST_POE_2) && event(FOREST_POE_3)) && HHHH"
     FOREST_MQ_LOBBY_WEST_GARDEN_EYE: "can_hit_triggers_distance"
