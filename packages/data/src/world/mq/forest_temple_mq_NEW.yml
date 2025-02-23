@@ -329,6 +329,7 @@
   exits:
     "Forest Temple Upper Section Of Stalfos Battle Room": "true" #I think this is true?
     "Forest Temple East Straightened Hallway And Room At Beth Door": "small_keys_forest(5)"
+    "Forest Temple East Twisted Hallway And Room Hallway Section": "small_keys_forest(5) && event(FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE)"
   locations:
     "MQ Forest Temple Compass Chest": "event(FOREST_MQ_BETH_CLEAR)"
     "MQ Forest Temple Pot Blue Poe 1": "true"
@@ -380,6 +381,14 @@
     "Forest Temple Beth Paintings Room": "small_keys_forest(5)"
     "Forest Temple Checkerboard Room": "true"
     "Forest Temple Wallmaster East": "soul_wallmaster"
+
+
+
+
+"Forest Temple Checkerboard Room":
+  dungeon: Forest
+  exits:
+    "Forest Temple East Twisted Hallway And Room Hallway Section": "longshot_anywhere && climb_anywhere"
   
 
 
@@ -427,12 +436,6 @@
     "Forest Temple Bow Region": "small_keys_forest(4)"
 
 
-
-    
-"Forest Temple Bow Region":
-  dungeon: Forest
-  exits:
-    "Forest Temple Falling Ceiling": "soul_enemy(SOUL_ENEMY_STALFOS) && soul_wolfos && has_weapon && small_keys_forest(5) && (can_use_bow || can_use_din)" #Only 5 keys is safe because, if you wasted a key in falling ceiling, you can go there otherwise.
 
 
   
