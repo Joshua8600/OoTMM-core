@@ -55,7 +55,7 @@
     "Spirit Temple Entrance Lobby": "event(SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER)"
   events:
     SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER: "has_explosives_or_hammer"
-    SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH: "can_lift_silver && event(SPIRIT_MQ_SHORTCUT_EYE_SWITCH)"
+    SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH: "can_lift_silver" #&& event(SPIRIT_MQ_SHORTCUT_EYE_SWITCH)(if patched)
     
 
 
@@ -64,9 +64,9 @@
   dungeon: Spirit
   exits:
     "Spirit Temple Statue Room Ground Floor": "true"
-    "Spirit Temple Entrance Room Shortcut Area Lobby Side": "event(SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH)"
+    "Spirit Temple Entrance Room Shortcut Area Lobby Side": "is_adult && event(SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH)"
   events:
-    SPIRIT_MQ_SHORTCUT_EYE_SWITCH: "can_hit_triggers_distance"
+    SPIRIT_MQ_SHORTCUT_EYE_SWITCH: "is_child && can_hit_triggers_distance"
   locations:
     HHH
 
