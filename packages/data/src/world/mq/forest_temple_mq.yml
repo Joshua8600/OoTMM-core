@@ -212,7 +212,7 @@
     "Forest Temple West Garden Upper Ledge Hallway": "hookshot_anywhere || climb_anywhere"
     "Forest Temple West Garden Pillar With Items": "hookshot_anywhere || climb_anywhere"
     "Forest Temple Main Lobby": "true"
-    "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boos) || event(FOREST_MQ_DRAIN_WELL)"
+    "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boots) || event(FOREST_MQ_DRAIN_WELL)"
     "Forest Temple West Garden Ledge Above Well": "true"
     "Forest Temple West Garden Webbed Alcove": "event(FOREST_MQ_WEST_GARDEN_HIGH_WEB_DESTROY)" #Maybe another way to destroy web with glitches?
     "Forest Temple East Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks. 
@@ -292,7 +292,7 @@
     "Forest Temple East Garden Hill With Chest": "climb_anywhere || can_longshot || hookshot_anywhere"
     "Forest Temple East Garden Water Ledge With Door":
     "Forest Temple East Garden Above GS Awning": "climb_anywhere || can_hookshot"
-    "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boos) || event(FOREST_MQ_DRAIN_WELL)"
+    "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boots) || event(FOREST_MQ_DRAIN_WELL)"
     "Forest Temple West Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks.
   locations:
     "MQ Forest Temple GS East Garden": "gs && can_collect_distance"
