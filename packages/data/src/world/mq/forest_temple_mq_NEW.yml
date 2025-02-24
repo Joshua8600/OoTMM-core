@@ -411,6 +411,11 @@
   dungeon: Forest
   exits:
     "Forest Temple Main Lobby": "event(FOREST_MQ_MEG_CLEAR)"
+    "Forest Temple Antichamber Room Hallway Before Boss": "event(
+    "Forest Temple Antichamber Room Southwest Alcove": "
+  events:
+    H
+    H
 
 
 
