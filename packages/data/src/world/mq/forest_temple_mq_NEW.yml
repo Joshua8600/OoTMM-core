@@ -300,13 +300,6 @@
     STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
     NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_hit_triggers_distance)"
     FOREST_MQ_DRAIN_WELL: "can_hit_triggers_distance"
-
-
-
-
-
-
-
 "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side":
   dungeon: Forest
   exits:
@@ -424,36 +417,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-"Forest Temple East Garden":
-  dungeon: Forest
-  exits:
-    "Forest Temple Main": "true"
-    "Forest Temple Garden Ledges": "can_longshot || (can_hookshot && (trick(OOT_FOREST_HOOK) || can_play_time))"
-    "Forest Temple East Garden Ledge": "can_longshot"
-
-
-
-"Forest Temple East Garden Ledge":
-  dungeon: Forest
-  exits:
-    "Forest Temple East Garden": "true"
-    "Forest Temple Falling Ceiling": "can_play_time"
-  locations:
-    "MQ Forest Temple East Garden Ledge Chest": "true"
-"Forest Temple Twisted Hallway":
-  dungeon: Forest
-  exits:
-    "Forest Temple Wallmaster West": "soul_wallmaster"
-    "Forest Temple Bow Region": "small_keys_forest(4)"
     
 
     
