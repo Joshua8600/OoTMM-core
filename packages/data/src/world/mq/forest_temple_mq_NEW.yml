@@ -403,20 +403,15 @@
   exits:
     "Forest Temple Amy Painting Room": "true"
     "Forest Temple Main Lobby Upper East Ledge": "true"
-    
-
-
-
 "Forest Temple Antichamber Center":
   dungeon: Forest
   exits:
     "Forest Temple Main Lobby": "event(FOREST_MQ_MEG_CLEAR)"
-    "Forest Temple Antichamber Room Hallway Before Boss": "event(
     "Forest Temple Antichamber Room Southwest Alcove": "get_past_skultullas_no_stone"
     "Forest Temple Antichamber Room East Alcove": "true"
     "Forest Temple Antichamber Room Northwest Alcove": "event(FOREST_MQ_ANTICHAMBER_EAST_ALCOVE_FLOOR_SWITCH)"
-
-
+    "Forest Temple Antichamber Room South Alcove": "event(FOREST_MQ_ANTICHAMBER_EAST_ALCOVE_FLOOR_SWITCH)"
+    "Forest Temple Antichamber Room Hallway Before Boss": "event(FOREST_MQ_ANTICHAMBER_SOUTH_ALCOVE_EYE_SWITCH)"
 "Forest Temple Antichamber Room Southwest Alcove":
   dungeon: Forest
   exits:
@@ -426,9 +421,6 @@
     "MQ Forest Temple Pot Antichamber 2": "true"
     "MQ Forest Temple Pot Antichamber 3": "true"
     "MQ Forest Temple Pot Antichamber 4": "true"
-
-
-
 "Forest Temple Antichamber Room East Alcove":
   dungeon: Forest
   exits:
@@ -436,26 +428,20 @@
   events:
     FOREST_MQ_ANTICHAMBER_EAST_ALCOVE_CRYSTAL_SWITCH: "has_bombs || can_use_mask_blast || has_bombchu || can_use_bow || can_use_slingshot || can_hookshot || can_use_sticks || can_boomerang || can_use_sword_biggoron" Child and adult both reach with stick/biggoron jumpslashes.
     FOREST_MQ_ANTICHAMBER_EAST_ALCOVE_FLOOR_SWITCH: "event(FOREST_MQ_ANTICHAMBER_EAST_ALCOVE_CRYSTAL_SWITCH)"
-
-
-
 "Forest Temple Antichamber Room Northwest Alcove":
   dungeon: Forest
   exits:
     "Forest Temple Antichamber Center": "true"
   locations:
     "MQ Forest Temple Antichamber": "true"
-
-
-
-
-
-
-    
-
-    
-"Forest Temple Antichamber":
+"Forest Temple Antichamber Room South Alcove":
   dungeon: Forest
   exits:
+    "Forest Temple Antichamber Center": "true"
+  events:
+    FOREST_MQ_ANTICHAMBER_SOUTH_ALCOVE_EYE_SWITCH: "can_hit_triggers_distance"
+"Forest Temple Antichamber Room Hallway Before Boss":
+  dungeon: Forest
+  exits:
+    "Forest Temple Antichamber Center": "true"
     "Forest Temple Boss": "boss_key(BOSS_KEY_FOREST)"
-    
