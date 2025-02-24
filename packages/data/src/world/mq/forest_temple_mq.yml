@@ -96,7 +96,7 @@
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "climb_anywhere || longshot_anywhere"
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "climb_anywhere || longshot_anywhere || (can_hookshot && event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ICE_PLATFORM_SHORTCUT))"
   events:
-    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "trick(OOT_FOREST_MQ_CLIMBING_BLOCK_ROOM_TWIST_SWITCH_EARLY) && (" #FILL THIS IN.
+    FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT: "trick(OOT_FOREST_MQ_CLIMBING_BLOCK_ROOM_TWIST_SWITCH_EARLY) && (has_bombchu || can_boomerang)" #FILL THIS IN WITH MORE.
   locations:
     "MQ Forest Temple GS Climb Room": "gs && can_damage_skull"
 "Forest Temple Climbing Block Puzzle Room Crystal Switch Alcove":
