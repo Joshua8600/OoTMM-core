@@ -67,7 +67,7 @@
   dungeon: Forest
   exits:
     "Forest Temple Main Lobby": "true"
-    "Forest Temple Lower Section of Stalfos Battle Room": "is_child || (is_adult && can_play_time)" #What about spawning here with SoT block and going backwards through it?
+    "Forest Temple Lower Section Of Stalfos Battle Room": "is_child || (is_adult && can_play_time)" #What about spawning here with SoT block and going backwards through it?
 "Forest Temple Lower Section Of Stalfos Battle Room":
   dungeon: Forest
   exits:
@@ -110,7 +110,7 @@
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room Ground Floor": "true"
-    Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) || has_hover_boots || hookshot_anywhere || climb_anywhere"
+    "Forest Temple Climbing Block Puzzle Room First Block Floor Outer Ledge": "event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) || has_hover_boots || hookshot_anywhere || climb_anywhere"
     "Forest Temple Climbing Block Puzzle Room Second Block Floor": "(event(FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR) && is_adult) || hookshot_anywhere || climb_anywhere" #Also ground jump gltich.
   events:
     FOREST_MQ_FIRST_PUSH_BLOCK_PUZZLE_CLEAR: "has_goron_bracelet"
@@ -290,7 +290,7 @@
     "Forest Temple East Garden Top Balcony With Door": "climb_anywhere || hookshot_anywhere" #Time blocks in good position for short_hook_anywhere as any age.
     "Forest Temple East Garden Top Balcony With Chest": "climb_anywhere || (hookshot_anywhere || (is_adult && longshot_anywhere))"
     "Forest Temple East Garden Hill With Chest": "climb_anywhere || can_longshot || hookshot_anywhere"
-    "Forest Temple East Garden Water Ledge With Door":
+    "Forest Temple East Garden Water Ledge With Door": "climb_anywhere || longshot_anywhere || (can_play_time && hookshot_anywhere)"
     "Forest Temple East Garden Above GS Awning": "climb_anywhere || can_hookshot"
     "Forest Temple Gardens Well": "(has_tunic_zora && has_iron_boots) || event(FOREST_MQ_DRAIN_WELL)"
     "Forest Temple West Garden Ground Area": "has_iron_boots || (has_tunic_zora && can_dive_big)" #Not part of Well region because diving with scale can't get checks.
