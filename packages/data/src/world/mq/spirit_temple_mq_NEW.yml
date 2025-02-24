@@ -36,9 +36,16 @@
     "Spirit Temple Entrance Room Shortcut Area Lobby Side": "event(SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER) && (can_longshot || (hookshot_anywhere && climb_anywhere))"
   events:
     SPIRIT_MQ_LOBBY_GROUND_BOULDERS: "has_explosives_or_hammer"
+    SPIRIT_MQ_LOBBY_HIGH_CRYSTAL_SWITCH: "has_bombchu || can_hit_triggers_distance || can_hookshot || (climb_anywhere && can_use_mask_blast)"
+    SPIRIT_MQ_LOBBY_EYE_SWITCH_BEHIND_BOULDER: "event(SPIRIT_MQ_LOBBY_GROUND_BOULDERS) && can_hit_triggers_distance"
     SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER: "has_bombchu || (hookshot_anywhere && can_use_mask_blast)"
     BOMBS_OR_BOMBCHU: "true"
     MAGIC: "true"
+  locations:
+    "MQ Spirit Temple Entrance Initial Chest": "true"
+    "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_MQ_LOBBY_GROUND_BOULDERS) && event(SPIRIT_MQ_LOBBY_EYE_SWITCH_BEHIND_BOULDER)"
+    "MQ Spirit Temple Lobby Back-Right Chest": "event(SPIRIT_MQ_LOBBY_HIGH_CRYSTAL_SWITCH)"
+    
 
 
 
@@ -50,9 +57,7 @@
 
 
   locations:
-    "MQ Spirit Temple Entrance Initial Chest": "true"
-    "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS) && can_hit_triggers_distance"
-    "MQ Spirit Temple Lobby Back-Right Chest": "can_hit_triggers_distance || has_bombchu || can_hookshot"
+
     #The following three chests are here to allow for an age indeterminate path. This is the only age indeterminate content in Spirit MQ.
     "MQ Spirit Temple Compass Chest": "can_use_slingshot && has_bow && small_keys_spirit(2) && has_bombchu"
     "MQ Spirit Temple Sun Block Room Chest": "small_keys_spirit(2) && has_bombchu && (can_play_time || can_play_elegy) && is_child"
