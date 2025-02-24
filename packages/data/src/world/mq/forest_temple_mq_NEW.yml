@@ -254,7 +254,7 @@
     "Forest Temple East Garden Ground Area": "true"
     "Forest Temple East Garden Top Balcony With Door": "true"
     "Forest Temple East Garden Hill With Chest": "(has_hover_boots && can_jump_slash) || longshot_anywhere" #TODO: Hovers a trick? Also, longshot anywhere takes damage.
-    "Forest Temple Water Ledge With Door": "longshot_anywhere"
+    "Forest Temple East Garden Water Ledge With Door": "longshot_anywhere"
     "Forest Temple East Garden Above GS Awning": "is_adult && can_play_time" #Child cannot grip the ledge to the awning.
   locations:
     "MQ Forest Temple East Garden High Ledge Chest": "true"
@@ -263,14 +263,14 @@
   exits:
     "Forest Temple East Garden Ground Area": "climb_anywhere || hookshot_anywhere || has_hover_boots" #Bronze Scale logic.
     "Forest Temple East Garden Top Balcony With Chest": "longshot_anywhere"
-    "Forest Temple Water Ledge With Door": "can_play_time || hookshot_anywhere || climb_anywhere"
+    "Forest Temple East Garden Water Ledge With Door": "can_play_time || hookshot_anywhere || climb_anywhere"
     "Forest Temple East Garden Above GS Awning": "longshot_anywhere"
   locations:
     "MQ Forest Temple East Garden Ledge Chest": "true"
   events:
     STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
     NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_hit_triggers_distance)"
-"Forest Temple Water Ledge With Door":
+"Forest Temple East Garden Water Ledge With Door":
   dungeon: Forest
   exits:
     "Forest Temple Checkerboard Room": "true"
@@ -388,7 +388,7 @@
   dungeon: Forest
   exits:
     "Forest Temple East Twisted Hallway And Room Hallway Section": "longshot_anywhere && climb_anywhere"
-    "Forest Temple Water Ledge With Door": "event(FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR)"
+    "Forest Temple East Garden Water Ledge With Door": "event(FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR)"
     "Forest Temple Amy Painting Room": "small_keys_forest(7)"
   locations:
     "MQ Forest Temple Falling Ceiling Chest": "event(FOREST_MQ_CHECKERBOARD_SWITCH_CHEST)"
