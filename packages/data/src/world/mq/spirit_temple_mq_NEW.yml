@@ -2,12 +2,53 @@
   dungeon: Spirit
   exits:
     "Desert Colossus Spirit Exit": "true"
-    "Spirit Temple Child Side": "is_child"
-    "Spirit Temple Statue": "can_longshot && has_bombchu && can_lift_silver"
+    "Spirit Temple Entrance Lobby": "true"
+"Spirit Temple Wallmaster Child Sun":
+  region: BUFFER_DELAYED
+  exits:
+    "VOID": "true"
+"Spirit Temple Wallmaster Adult Climb":
+  region: BUFFER_DELAYED
+  exits:
+    "VOID": "true"
+"Spirit Temple Wallmaster Statue":
+  region: BUFFER_DELAYED
+  exits:
+    "VOID": "true"
+
+
+
+
+
+
+
+
+
+
+
+
+"Spirit Temple Entrance Lobby":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple": "true"
+    "Spirit Temple Child Side Main Landing": "is_child"
+    "Spirit Temple Entrance Room Adult Side Landing": "
+    "Spirit Temple Entrance Room Shortcut Area Lobby Side": "event(SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER) && (can_longshot || (hookshot_anywhere && climb_anywhere))"
   events:
-    SPIRIT_LOBBY_BOULDERS: "has_explosives_or_hammer"
+    SPIRIT_MQ_LOBBY_GROUND_BOULDERS: "has_explosives_or_hammer"
+    SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER: "has_bombchu || (hookshot_anywhere && can_use_mask_blast)"
     BOMBS_OR_BOMBCHU: "true"
     MAGIC: "true"
+
+
+
+
+
+    
+    "Spirit Temple Statue": "can_longshot && has_bombchu && can_lift_silver"
+
+
+
   locations:
     "MQ Spirit Temple Entrance Initial Chest": "true"
     "MQ Spirit Temple Lobby Back-Left Chest": "event(SPIRIT_LOBBY_BOULDERS) && can_hit_triggers_distance"
@@ -23,18 +64,14 @@
     "MQ Spirit Temple Pot Entrance 2": "true"
     "MQ Spirit Temple Pot Entrance 3": "true"
     "MQ Spirit Temple Pot Entrance 4": "true"
-"Spirit Temple Wallmaster Child Sun":
-  region: BUFFER_DELAYED
-  exits:
-    "VOID": "true"
-"Spirit Temple Wallmaster Adult Climb":
-  region: BUFFER_DELAYED
-  exits:
-    "VOID": "true"
-"Spirit Temple Wallmaster Statue":
-  region: BUFFER_DELAYED
-  exits:
-    "VOID": "true"
+
+
+
+
+
+
+
+
 "Spirit Temple Child Side":
   dungeon: Spirit
   exits:
