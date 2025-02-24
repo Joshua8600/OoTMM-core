@@ -145,12 +145,12 @@
   dungeon: Forest
   exits:
     "Forest Temple Climbing Block Puzzle Room After Second Block Floor Crystal Switch Landing": "true"
-    "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section": "small_keys_forest(6)"
-    "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && small_keys_forest(6)"
+    "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section": "small_keys_forest(1)"
+    "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "event(FOREST_MQ_CLIMBING_BLOCK_ROOM_ALCOVE_SWITCH_HIT) && small_keys_forest(1)"
 "Forest Temple Straightened Hallway and Boss Key Chest Room Hallway Section":
   dungeon: Forest
   exits:
-    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(6)"
+    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(1)"
     "Forest Temple Straightened Hallway and Boss Key Chest Room Chest Area": "true"
 "Forest Temple Straightened Hallway and Boss Key Chest Room Chest Area":
   dungeon: Forest
@@ -303,18 +303,18 @@
 "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side":
   dungeon: Forest
   exits:
-    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(6)"
+    "Forest Temple Climbing Block Puzzle Room Top Floor With Door": "small_keys_forest(1)"
     "Forest Temple Wallmaster West": "soul_wallmaster"
     "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door": "true"
 "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door":
   dungeon: Forest
   exits:
     "Forest Temple Twisted Hallway and Boss Key Chest Room Hallway Side": "true"
-    "Forest Temple Joelle Paintings Room": "small_keys_forest(6)"
+    "Forest Temple Joelle Paintings Room": "small_keys_forest(1)"
 "Forest Temple Joelle Paintings Room":
   dungeon: Forest
   exits:
-    "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door": "small_keys_forest(6)"
+    "Forest Temple Twisted Hallway and Boss Key Chest Room Ledge At Door": "small_keys_forest(1)"
     "Forest Temple Upper Section Of Stalfos Battle Room": "true"
   locations:
     "MQ Forest Temple Map Chest": "event(FOREST_MQ_JOELLE_CLEAR)"
@@ -338,8 +338,8 @@
   dungeon: Forest
   exits:
     "Forest Temple Upper Section Of Stalfos Battle Room": "true" #I think this is true?
-    "Forest Temple East Straightened Hallway And Room At Beth Door": "small_keys_forest(6)"
-    "Forest Temple East Twisted Hallway And Room Hallway Section": "small_keys_forest(6) && event(FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE)"
+    "Forest Temple East Straightened Hallway And Room At Beth Door": "small_keys_forest(1)"
+    "Forest Temple East Twisted Hallway And Room Hallway Section": "small_keys_forest(1) && event(FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE)"
   locations:
     "MQ Forest Temple Compass Chest": "event(FOREST_MQ_BETH_CLEAR)"
     "MQ Forest Temple Pot Blue Poe 1": "true"
@@ -350,20 +350,20 @@
 "Forest Temple East Straightened Hallway And Room At Beth Door":
   dungeon: Forest
   exits:
-    "Forest Temple Beth Paintings Room": "small_keys_forest(6)"
+    "Forest Temple Beth Paintings Room": "small_keys_forest(1)"
     "Forest Temple East Straightened Hallway And Room Hallway Section": "true"
     "Forest Temple Wallmaster East": "soul_wallmaster"
 "Forest Temple East Straightened Hallway And Room Hallway Section":
   dungeon: Forest
   exits:
     "Forest Temple East Straightened Hallway And Room At Beth Door": "true"
-    "Forest Temple Spinning Red Pool Room": "small_keys_forest(6)"
+    "Forest Temple Spinning Red Pool Room": "small_keys_forest(1)"
     "Forest Temple Wallmaster East": "soul_wallmaster"
 "Forest Temple Spinning Red Pool Room":
   dungeon: Forest
   exits:
-    "Forest Temple East Straightened Hallway And Room Hallway Section": "small_keys_forest(6)"
-    "Forest Temple East Twisted Hallway And Room Hallway Section": "small_keys_forest(6) && event(FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE)"
+    "Forest Temple East Straightened Hallway And Room Hallway Section": "small_keys_forest(1)"
+    "Forest Temple East Twisted Hallway And Room Hallway Section": "small_keys_forest(1) && event(FOREST_MQ_SPINNING_RED_POOLS_FROZEN_EYE)"
   locations:
     "MQ Forest Temple Spinning Red Pool Room Small Crate 1": "true"
     "MQ Forest Temple Spinning Red Pool Room Small Crate 2": "true"
@@ -373,8 +373,8 @@
 "Forest Temple East Twisted Hallway And Room Hallway Section":
   dungeon: Forest
   exits:
-    "Forest Temple Spinning Red Pool Room": "small_keys_forest(6)"
-    "Forest Temple Beth Paintings Room": "small_keys_forest(6)"
+    "Forest Temple Spinning Red Pool Room": "small_keys_forest(1)"
+    "Forest Temple Beth Paintings Room": "small_keys_forest(1)"
     "Forest Temple Checkerboard Room": "true"
     "Forest Temple Wallmaster East": "soul_wallmaster"
 "Forest Temple Checkerboard Room":
@@ -382,7 +382,7 @@
   exits:
     "Forest Temple East Twisted Hallway And Room Hallway Section": "longshot_anywhere && climb_anywhere"
     "Forest Temple East Garden Water Ledge With Door": "event(FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR)"
-    "Forest Temple Amy Painting Room": "small_keys_forest(6)"
+    "Forest Temple Amy Painting Room": "small_keys_forest(1)"
   locations:
     "MQ Forest Temple Falling Ceiling Chest": "event(FOREST_MQ_CHECKERBOARD_SWITCH_CHEST)"
   events:
@@ -391,7 +391,7 @@
 "Forest Temple Amy Painting Room":
   dungeon: Forest
   exits:
-    "Forest Temple Checkerboard Room": "small_keys_forest(6)"
+    "Forest Temple Checkerboard Room": "small_keys_forest(1)"
     "Forest Temple Hallway Between Amy Room And Lobby": "event(FOREST_MQ_AMY_CLEAR)"
   locations:
     "MQ Forest Temple Pot Green Poe 1": "true"
