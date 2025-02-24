@@ -72,7 +72,7 @@
   dungeon: Forest
   exits:
     "Forest Temple Hallway Before Lower Section Of Stalfos Battle Room": "event(FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR)"
-    #Forest Temple Upper Section Of Stalfos Battle Room": "false" #Can't get up there when the Stalfos move the floor down.
+    #"Forest Temple Upper Section Of Stalfos Battle Room": "false" #Can't get up there when the Stalfos move the floor down.
   events:
     FOREST_MQ_UNDER_STALFOS_BATTLE_WOLFOS_CLEAR: "soul_wolfos && (has_weapon || can_use_slingshot || has_explosives || can_use_din || can_use_sticks)"
   locations:
