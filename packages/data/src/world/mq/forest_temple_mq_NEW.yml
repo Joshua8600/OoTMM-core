@@ -241,20 +241,13 @@
     "MQ Forest Temple Heart Well 1": "event(FOREST_MQ_DRAIN_WELL) || has_iron_boots"
     "MQ Forest Temple Heart Well 2": "event(FOREST_MQ_DRAIN_WELL) || has_iron_boots"
     "MQ Forest Temple Heart Well 3": "event(FOREST_MQ_DRAIN_WELL) || has_iron_boots"
-    
-
-
-
-
-
-
 "Forest Temple East Garden Top Balcony With Door":
   dungeon: Forest
   exits:
     "Forest Temple Linking Room Between Gardens": "true"
     "Forest Temple East Garden Ground Area": "true"
     "Forest Temple East Garden Top Balcony With Chest": "true"
-    "Forest Temple East Garden Above GS Awning": "is_adult && can_play_time" #Child cannot grip the ledge.
+    "Forest Temple East Garden Above GS Awning": "is_adult && can_play_time" #Child cannot grip the ledge to the awning.
 "Forest Temple East Garden Top Balcony With Chest":
   dungeon: Forest
   exits:
@@ -262,14 +255,13 @@
     "Forest Temple East Garden Top Balcony With Door": "true"
     "Forest Temple East Garden Hill With Chest": "(has_hover_boots && can_jump_slash) || longshot_anywhere" #TODO: Hovers a trick? Also, longshot anywhere takes damage.
     "Forest Temple Water Ledge With Door": "longshot_anywhere"
+    "Forest Temple East Garden Above GS Awning": "is_adult && can_play_time" #Child cannot grip the ledge to the awning.
   locations:
     "MQ Forest Temple East Garden High Ledge Chest": "true"
-
-
 "Forest Temple East Garden Hill With Chest":
   dungeon: Forest
   exits:
-    "Forest Temple East Garden Ground Area": "true"
+    "Forest Temple East Garden Ground Area": "climb_anywhere || hookshot_anywhere || has_hover_boots" #Bronze Scale logic.
     "Forest Temple East Garden Top Balcony With Chest": "longshot_anywhere"
     "Forest Temple Water Ledge With Door": "can_play_time || hookshot_anywhere || climb_anywhere"
     "Forest Temple East Garden Above GS Awning": "longshot_anywhere"
@@ -278,21 +270,19 @@
   events:
     STICKS: "soul_deku_baba && (can_hookshot || can_hammer || can_boomerang || (has_nuts && has_weapon))"
     NUTS: "soul_deku_baba && (has_weapon || has_explosives || can_hit_triggers_distance)"
-
-
 "Forest Temple Water Ledge With Door":
   dungeon: Forest
   exits:
-
-
+    "Forest Temple Checkerboard Room": "true"
+    "Forest Temple East Garden Ground Area": "climb_anywhere || longshot_anywhere || has_hover_boots" #Bronze Scale logic.
+    "Forest Temple East Garden Hill With Chest": "true"
+    "Forest Temple East Garden Above GS Awning": "longshot_anywhere"
 "Forest Temple East Garden Above GS Awning":
   dungeon: Forest
-  exits:
+  exits: #This awning region exists to account for the time block method from the upper balconies.
     "Forest Temple East Garden Ground Area": "true"
   locations:
     "MQ Forest Temple GS East Garden": "gs && can_damage_skull"
-
-
 "Forest Temple East Garden Ground Area":
   dungeon: Forest
   exits:
@@ -398,7 +388,7 @@
   dungeon: Forest
   exits:
     "Forest Temple East Twisted Hallway And Room Hallway Section": "longshot_anywhere && climb_anywhere"
-    EAST GARDEN "event(FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR)"
+    "Forest Temple Water Ledge With Door": "event(FOREST_MQ_CHECKERBOARD_SWITCH_GARDEN_DOOR)"
     "Forest Temple Amy Painting Room": "small_keys_forest(7)"
   locations:
     "MQ Forest Temple Falling Ceiling Chest": "event(FOREST_MQ_CHECKERBOARD_SWITCH_CHEST)"
