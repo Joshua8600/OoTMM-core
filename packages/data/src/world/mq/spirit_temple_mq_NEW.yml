@@ -51,7 +51,7 @@
 "Spirit Temple Entrance Room Shortcut Area Lobby Side":
   dungeon: Spirit
   exits:
-    "Spirit Temple Entrance Room Shortcut Area Statue Room Side": "event(SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH)"
+    "Spirit Temple Entrance Room Shortcut Area Statue Room Side": "event(SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH)" #Can also use climb_anywhere to climb OoB and continue.
     "Spirit Temple Entrance Lobby": "event(SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER)"
   events:
     SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER: "has_explosives_or_hammer"
@@ -64,7 +64,7 @@
   dungeon: Spirit
   exits:
     "Spirit Temple Statue Room Ground Floor": "true"
-    "Spirit Temple Entrance Room Shortcut Area Lobby Side": "is_adult && event(SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH)"
+    "Spirit Temple Entrance Room Shortcut Area Lobby Side": "is_adult && event(SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH)" #Can also use climb_anywhere to climb OoB and continue.
   events:
     SPIRIT_MQ_SHORTCUT_EYE_SWITCH: "is_child && can_hit_triggers_distance"
   locations:
