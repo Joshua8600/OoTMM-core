@@ -71,8 +71,9 @@
   dungeon: Spirit
   exits:
     "Spirit Temple Child Side Main Landing": "true"
-    "Spirit Temple Child Side Loop West Room North Side":
+    "Spirit Temple Child Side Loop West Room North Side": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_BRIDGE) || climb_anywhere || hookshot_anywhere" #maybe somethign to kill keese too with climb anywhere?
   events:
+    SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_ENEMIES_CLEAR: "
   locations:
     "MQ Spirit Temple Map Chest": "true"
 
@@ -82,12 +83,43 @@
   dungeon: Spirit
   exits:
     "Spirit Temple Child Side Loop West Room South Side": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_BRIDGE) || climb_anywhere || hookshot_anywhere" #maybe somethign to kill keese too with climb anywhere?
+    "Spirit Temple Child Side Loop North Room Closed Fire Section": "true"
   events:
     SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_BRIDGE: "true"
     SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_ENEMIES_CLEAR: "
   locations:
      "MQ Spirit Temple Map Room Back Chest": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_ENEMIES_CLEAR)"
 
+
+
+
+"Spirit Temple Child Side Loop North Room Closed Fire Section":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple Child Side Loop West Room North Side": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR)"
+    "Spirit Temple Child Side Loop North Room Spinning Battle Section": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR) || hookshot_anywhere"
+"Spirit Temple Child Side Loop North Room Spinning Battle Section":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple Child Side Loop North Room Closed Fire Section": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR)"
+    "Spirit Temple Child Side Loop East Room North Side": "true"
+  events:
+    SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR: "soul_enemy(SOUL_ENEMY_STALFOS)" #Can just make the Stalfos fall off and that works.
+  locations:
+    "MQ Spirit Temple Pot Child Back 1": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR)" #Maybe climb/hook anywhere too
+    "MQ Spirit Temple Pot Child Back 2": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR)" #Maybe climb/hook anywhere too
+    "MQ Spirit Temple Pot Child Back 3": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR)" #Maybe climb/hook anywhere too
+    "MQ Spirit Temple Pot Child Back 4": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_STALFOS_CLEAR)" #Maybe climb/hook anywhere too
+
+
+
+
+
+"Spirit Temple Child Side Loop East Room North Side":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple Child Side Loop North Room Spinning Battle Section":
+    "Spirit Temple Child Side Loop East Room South Side":
 
 
 
@@ -111,6 +143,10 @@
     SPIRIT_MQ_SHORTCUT_EYE_SWITCH: "is_child && can_hit_triggers_distance"
   locations:
     HHH
+
+
+
+
 
 
 
@@ -148,10 +184,7 @@
     
     "MQ Spirit Temple Pot Child Boulders 1": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Boulders 2": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
-    "MQ Spirit Temple Pot Child Back 1": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
-    "MQ Spirit Temple Pot Child Back 2": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
-    "MQ Spirit Temple Pot Child Back 3": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
-    "MQ Spirit Temple Pot Child Back 4": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
+    
     
 "Spirit Temple Child Upper":
 #All paths into this room guarantee explosives.
