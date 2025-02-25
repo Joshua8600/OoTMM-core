@@ -48,6 +48,26 @@
 
 
 
+"Spirit Temple Child Side Main Landing":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple Entrance Lobby": "is_child"
+    "Spirit Temple Child Side Loop West Room": "event(SPIRIT_MQ_CHILD_MAIN_LANDING_ENEMIES_CLEAR)"
+    "Spirit Temple Child Side Loop East Room": "event(SPIRIT_MQ_CHILD_MAIN_LANDING_ENEMIES_CLEAR)"
+  events:
+    SPIRIT_MQ_CHILD_MAIN_LANDING_ENEMIES_CLEAR: "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
+    SPIRIT_MQ_CHILD_MAIN_LANDING_EYE_SWITCH: "can_hit_triggers_distance"
+  locations:
+    "MQ Spirit Temple Pot Child Entrance": "true"
+    "MQ Spirit Temple Heart 1": "event(SPIRIT_MQ_CHILD_MAIN_LANDING_EYE_SWITCH) || can_boomerang" # || hookshot_anywhere (but takes damage)
+    "MQ Spirit Temple Heart 2": "event(SPIRIT_MQ_CHILD_MAIN_LANDING_EYE_SWITCH) || can_boomerang" # || hookshot_anywhere (but takes damage)
+
+
+
+
+
+
+
 "Spirit Temple Entrance Room Shortcut Area Lobby Side":
   dungeon: Spirit
   exits:
@@ -56,10 +76,6 @@
   events:
     SPIRIT_MQ_LOBBY_SHORTCUT_BOULDER: "has_explosives_or_hammer"
     SPIRIT_MQ_SHORTCUT_SILVER_BLOCK_PUSH: "can_lift_silver" #&& event(SPIRIT_MQ_SHORTCUT_EYE_SWITCH)(if patched)
-    
-
-
-
 "Spirit Temple Entrance Room Shortcut Area Statue Room Side":
   dungeon: Spirit
   exits:
@@ -103,15 +119,14 @@
     "MQ Spirit Temple Map Chest": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts))"
     "MQ Spirit Temple Map Room Back Chest": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && soul_keese && soul_enemy(SOUL_ENEMY_ANUBIS) && has_weapon && has_bombchu && can_use_slingshot && has_fire"
     "MQ Spirit Temple Paradox Chest": "event(SPIRIT_PARADOX)"
-    "MQ Spirit Temple Pot Child Entrance": "true"
+    
     "MQ Spirit Temple Pot Child Boulders 1": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Boulders 2": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Back 1": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Back 2": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Back 3": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Back 4": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && soul_redead_gibdo && soul_enemy(SOUL_ENEMY_STALFOS) && has_weapon && has_bombchu && can_use_slingshot"
-    "MQ Spirit Temple Heart 1": "can_hit_triggers_distance"
-    "MQ Spirit Temple Heart 2": "can_hit_triggers_distance"
+    
 "Spirit Temple Child Upper":
 #All paths into this room guarantee explosives.
   dungeon: Spirit
