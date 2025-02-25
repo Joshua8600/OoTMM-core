@@ -118,13 +118,25 @@
 "Spirit Temple Child Side Loop East Room North Side":
   dungeon: Spirit
   exits:
-    "Spirit Temple Child Side Loop North Room Spinning Battle Section":
-    "Spirit Temple Child Side Loop East Room South Side":
-  events:
-    SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_RROOM_ICE_PLATFORM: "can_hit_diggers_distance"
+    "Spirit Temple Child Side Loop North Room Spinning Battle Section": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_GIBDOS_CLEAR)"
+    #"Spirit Temple Child Side Loop East Room South Side": "false" #All flags are temporary. Cannot go from north side --> South side at all if starting at north side.
   locations:
     "MQ Spirit Temple Pot Child Boulders 1": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
     "MQ Spirit Temple Pot Child Boulders 2": "soul_enemy(SOUL_ENEMY_TORCH_SLUG) && (!setting(restoreBrokenActors) || soul_keese) && (can_use_sticks || has_weapon || (has_explosives && has_nuts)) && has_bombchu && can_use_slingshot"
+
+
+
+
+"Spirit Temple Child Side Loop East Room South Side":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple Child Side Loop East Room North Side":
+  events:
+    SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_BRIDGE_DROP: "true"
+    SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_ICE_PLATFORM: "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_BRIDGE_DROP) && can_hit_triggers_distance && (has_bombchu || (event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_TRAVERSAL) && has_explosives_or_hammer))"
+    SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_GIBDOS_CLEAR: "soul_redead_gibdo && can_use_sword_or_sticks && event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_TRAVERSAL)" #Maybe Din's too.
+    SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_TRAVERSAL: "event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_BRIDGE_DROP) && (has_hover_boots || hookshot_anywhere || (is_adult && climb_anywhere) || event(SPIRIT_MQ_CHILD_SIDE_LOOP_EAST_ROOM_ICE_PLATFORM)) #For ease of clarity.
+  locations:
 
 
 
