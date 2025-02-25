@@ -78,6 +78,18 @@
 
 
 
+"Spirit Temple Child Side Loop West Room North Side":
+  dungeon: Spirit
+  exits:
+    "Spirit Temple Child Side Loop West Room South Side": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_BRIDGE) || climb_anywhere || hookshot_anywhere" #maybe somethign to kill keese too with climb anywhere?
+  events:
+    SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_BRIDGE: "true"
+    SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_ENEMIES_CLEAR: "
+  locations:
+     "MQ Spirit Temple Map Room Back Chest": "event(SPIRIT_MQ_CHILD_SIDE_LOOP_WEST_ROOM_ENEMIES_CLEAR)"
+
+
+
 
 
 
