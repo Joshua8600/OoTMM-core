@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Add the ability to shuffle the drops from Red Boulders in OoT and MM.
 - Add the ability to shuffle the Purple Rupees from the OoT Frogs.
 - Add the ability to shuffle the drops from Icicles (**stalagmites** only) in OoT and MM.
+- Add the ability to shuffle the drops from thawing Red Ice in OoT.
 
 ### Changed
 
@@ -42,6 +43,7 @@ All notable changes to this project will be documented in this file.
 - Fix Ganondorf and Ganon fight not allowing Return to Dungeon Entrance.
 - Fix logic for pots in upper Deku Palace.
 - Fix snowballs in Snowhead (spring) not being paired with their winter counterpart.
+- Fix spoiler log including Hint Importance even if the setting is off.
 
 ## [27.0] - 2025-01-04
 
