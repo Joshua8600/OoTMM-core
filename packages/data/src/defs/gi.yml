@@ -138,7 +138,7 @@
 - { id: OOT_SONG_SUN, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_SUN], flags: 0x80, draw: [NOTE, 0x03], object: [oot, 0x00b6], name: "the <C2>Sun's Song" }
 - { id: OOT_SONG_TIME, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TIME], flags: 0x80, draw: [NOTE, 0x01], object: [oot, 0x00b6], name: "the <C2>Song of Time" }
 - { id: OOT_SONG_STORMS, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_STORMS], flags: 0x80, draw: [NOTE, 0x00], object: [oot, 0x00b6], name: "the <C2>Song of Storms" }
-- { id: OOT_SWORD_MASTER, type: MAJOR, add: [OOT_SWORD, 2], flags: 0x80, draw: OOT_SWORD_MASTER, object: GI_MASTER_SWORD, name: "the <C1>Master Sword" }
+- { id: OOT_SWORD_MASTER, type: MAJOR, add: [OOT_SWORD, 2], flags: 0x80, draw: OOT_SWORD_MASTER, object: GI_MASTER_SWORD, name: "<C1>Anaklusmos" }
 - { id: OOT_STONE_EMERALD, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_STONE_EMERALD], flags: 0x80, draw: OOT_STONE_EMERALD, object: GI_STONE_EMERALD, name: "the <C3>Kokiri's Emerald" }
 - { id: OOT_STONE_RUBY, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_STONE_RUBY], flags: 0x80, draw: OOT_STONE_RUBY, object: GI_STONE_RUBY, name: "the <C3>Goron's Ruby" }
 - { id: OOT_STONE_SAPPHIRE, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_STONE_SAPPHIRE], flags: 0x80, draw: OOT_STONE_SAPPHIRE, object: GI_STONE_SAPPHIRE, name: "the <C3>Zora's Sapphire" }
@@ -226,7 +226,7 @@
 - { id: OOT_SOUL_ENEMY_GOHMA_LARVA, type: SOUL, add: [OOT_SOUL, 0x0009], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Gohma Larvae" }
 - { id: OOT_SOUL_ENEMY_SHABOM, type: SOUL, add: [OOT_SOUL, 0x000a], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Shaboms" }
 - { id: OOT_SOUL_ENEMY_BABY_DODONGO, type: SOUL, add: [OOT_SOUL, 0x000b], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Baby Roly-Polies" }
-- { id: OOT_SOUL_ENEMY_DARK_LINK, type: SOUL, add: [OOT_SOUL, 0x000c], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Joshua8600" }
+- { id: OOT_SOUL_ENEMY_DARK_LINK, type: SOUL, add: [OOT_SOUL, 0x000c], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Boshua6800" }
 - { id: OOT_SOUL_ENEMY_BIRI_BARI, type: SOUL, add: [OOT_SOUL, 0x000d], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Biris/Baris" }
 - { id: OOT_SOUL_ENEMY_TAILPASARN, type: SOUL, add: [OOT_SOUL, 0x000e], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Tailpasarans" }
 - { id: OOT_SOUL_ENEMY_PARASITE, type: SOUL, add: [OOT_SOUL, 0x000f], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Monstro's Parasites" }
