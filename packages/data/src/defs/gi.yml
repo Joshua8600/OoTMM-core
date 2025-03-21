@@ -33,7 +33,7 @@
 - { id: OOT_POACHER_SAW, item: OOT_POACHER_SAW, type: MAJOR, add: [OOT_TRADE_ADULT, 5], flags: 0x80, draw: OOT_POACHER_SAW, object: [oot, 0x00f5], name: "the <C1>Good Luck Charm" }
 - { id: OOT_BROKEN_GORON_SWORD, item: OOT_GORON_SWORD_BROKEN, type: MAJOR, add: [OOT_TRADE_ADULT, 6], flags: 0x80, draw: OOT_BROKEN_GORON_SWORD, object: [oot, 0x0143], name: "the <C1>Broken Goron's Sword" }
 - { id: OOT_PRESCRIPTION, item: OOT_PRESCRIPTION, type: MAJOR, add: [OOT_TRADE_ADULT, 7], flags: 0x80, draw: OOT_PRESCRIPTION, object: [oot, 0x0146], name: "the <C1>Prescription" }
-- { id: OOT_EYEBALL_FROG, item: OOT_EYEBALL_FROG, type: MAJOR, add: [OOT_TRADE_ADULT, 8], flags: 0x80, draw: OOT_EYEBALL_FROG, object: [oot, 0x0149], name: "the <C1>Eyeball Frog" }
+- { id: OOT_EYEBALL_FROG, item: OOT_EYEBALL_FROG, type: MAJOR, add: [OOT_TRADE_ADULT, 8], flags: 0x80, draw: OOT_EYEBALL_FROG, object: [oot, 0x0149], name: "<C1>Kero Kero Keroppi" }
 - { id: OOT_EYE_DROPS, item: OOT_EYE_DROPS, type: MAJOR, add: [OOT_TRADE_ADULT, 9], flags: 0x80, draw: OOT_EYE_DROPS, object: [oot, 0x013f], name: "the <C1>Eye Drops" }
 - { id: OOT_CLAIM_CHECK, item: OOT_CLAIM_CHECK, type: MAJOR, add: [OOT_TRADE_ADULT, 10], flags: 0x80, draw: OOT_CLAIM_CHECK, object: [oot, 0x0142], name: "the <C1>Claim Check" }
 - { id: OOT_SWORD_KOKIRI, item: OOT_SWORD_KOKIRI, type: MAJOR, add: [OOT_SWORD, 1], flags: 0x80, draw: OOT_SWORD_KOKIRI, object: [oot, 0x018d], name: "the <C1>Butter Knife" }
@@ -106,7 +106,7 @@
 - { id: OOT_BOMBCHU_5, item: OOT_BOMBCHU_5, type: NORMAL, add: [OOT_BOMBCHU, 5], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>5 Bombchu" }
 - { id: OOT_BOMBCHU_20, item: OOT_BOMBCHU_20, type: NORMAL, add: [OOT_BOMBCHU, 20], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>20 Bombchu" }
 - { id: OOT_FISH, item: OOT_FISH, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: FISH, object: [oot, 0x00f4], name: "a <C0>Fish" }
-- { id: OOT_BUG, item: OOT_BUG, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: BUG, object: [oot, 0x0174], name: "a <C0>Bug" }
+- { id: OOT_BUG, item: OOT_BUG, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: BUG, object: [oot, 0x0174], name: "a <C0>Pest" }
 - { id: OOT_BLUE_FIRE, item: OOT_BLUE_FIRE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: OOT_BLUE_FIRE, object: [oot, 0x0173], name: "some <C0>Blue Fire" }
 - { id: OOT_POE, item: OOT_POE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: POE, object: [oot, 0x0176], name: "a <C0>Poe" }
 - { id: OOT_BIG_POE, item: OOT_BIG_POE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: BIG_POE, object: [oot, 0x0176], name: "a <C0>Big Poe" }
@@ -153,7 +153,7 @@
 - { id: OOT_DEFENSE_UPGRADE, type: MAJOR, add: OOT_DEFENSE_UPGRADE, flags: 0x80, draw: DEFENSE_UPGRADE, object: [oot, 0x00bd], name: "the <C1>Defense Upgrade" }
 - { id: OOT_PROGRESSIVE_SHIELD_DEKU, type: MAJOR, add: [OOT_SHIELD, 0x101], flags: 0xa0, draw: [OOT_SHIELD_DEKU, 1], object: [oot, 0x00cb], name: "the <C1>Progressive Deku Shield" }
 - { id: OOT_PROGRESSIVE_SHIELD_HYLIAN, type: MAJOR, add: [OOT_SHIELD, 0x102], flags: 0xa0, draw: [OOT_SHIELD_HYLIAN, 1], object: [oot, 0x00dc], name: "the <C1>Progressive Hylian Shield" }
-- { id: OOT_SMALL_KEY_FOREST, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Forest)" }
+- { id: OOT_SMALL_KEY_FOREST, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Deep Jungle)" }
 - { id: OOT_SMALL_KEY_FIRE, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Fire)" }
 - { id: OOT_SMALL_KEY_WATER, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Water)" }
 - { id: OOT_SMALL_KEY_SPIRIT, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_TEMPLE_SPIRIT], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Spirit)" }
@@ -162,7 +162,7 @@
 - { id: OOT_SMALL_KEY_BOTW, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_BOTTOM_OF_THE_WELL], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Well)" }
 - { id: OOT_SMALL_KEY_GF, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_THIEVES_HIDEOUT], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Hideout)" }
 - { id: OOT_SMALL_KEY_GTG, type: KEY, add: [OOT_SMALL_KEY, SCE_OOT_GERUDO_TRAINING_GROUND], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "a <C0>Small Key (Gotta Go!)" }
-- { id: OOT_BOSS_KEY_FOREST, type: BOSS_KEY, add: [OOT_BOSS_KEY, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: BOSS_KEY, object: [oot, 0x00b9], name: "the <C0>Boss Key (Forest)" }
+- { id: OOT_BOSS_KEY_FOREST, type: BOSS_KEY, add: [OOT_BOSS_KEY, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: BOSS_KEY, object: [oot, 0x00b9], name: "the <C0>Boss Key (Deep Jungle)" }
 - { id: OOT_BOSS_KEY_FIRE, type: BOSS_KEY, add: [OOT_BOSS_KEY, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: BOSS_KEY, object: [oot, 0x00b9], name: "the <C0>Boss Key (Fire)" }
 - { id: OOT_BOSS_KEY_WATER, type: BOSS_KEY, add: [OOT_BOSS_KEY, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: BOSS_KEY, object: [oot, 0x00b9], name: "the <C0>Boss Key (Water)" }
 - { id: OOT_BOSS_KEY_SPIRIT, type: BOSS_KEY, add: [OOT_BOSS_KEY, SCE_OOT_TEMPLE_SPIRIT], flags: 0x80, draw: BOSS_KEY, object: [oot, 0x00b9], name: "the <C0>Boss Key (Spirit)" }
@@ -171,7 +171,7 @@
 - { id: OOT_MAP_DT, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_DEKU_TREE], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Deku)" }
 - { id: OOT_MAP_DC, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_DODONGO_CAVERN], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Roly-Poly)" }
 - { id: OOT_MAP_JJ, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_INSIDE_JABU_JABU], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Monstro)" }
-- { id: OOT_MAP_FOREST, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Forest)" }
+- { id: OOT_MAP_FOREST, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Deep Jungle)" }
 - { id: OOT_MAP_FIRE, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Fire)" }
 - { id: OOT_MAP_WATER, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Water)" }
 - { id: OOT_MAP_SPIRIT, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_SPIRIT], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Spirit)" }
@@ -181,7 +181,7 @@
 - { id: OOT_COMPASS_DT, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_DEKU_TREE], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Deku)" }
 - { id: OOT_COMPASS_DC, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_DODONGO_CAVERN], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Roly-Poly)" }
 - { id: OOT_COMPASS_JJ, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_INSIDE_JABU_JABU], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Monstro)" }
-- { id: OOT_COMPASS_FOREST, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Forest)" }
+- { id: OOT_COMPASS_FOREST, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Deep Jungle)" }
 - { id: OOT_COMPASS_FIRE, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Fire)" }
 - { id: OOT_COMPASS_WATER, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Water)" }
 - { id: OOT_COMPASS_SPIRIT, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_SPIRIT], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Spirit)" }
@@ -267,7 +267,7 @@
 - { id: OOT_SOUL_MISC_GS, type: SOUL, add: [OOT_SOUL, 0x3000], flags: 0x80, draw: SOUL_MISC, object: [oot, 0x015c], name: "the <C1>Soul of Gold Skulltulas" }
 - { id: OOT_SOUL_MISC_BUSINESS_SCRUB, type: SOUL, add: [OOT_SOUL, 0x3001], flags: 0x80, draw: SOUL_MISC, object: [oot, 0x015c], name: "the <C1>Soul of Scammers" }
 - { id: OOT_KEY_RING, type: KEY, add: [OOT_KEY_RING, 0xffff], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring" }
-- { id: OOT_KEY_RING_FOREST, type: KEY, add: [OOT_KEY_RING, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring (Forest)" }
+- { id: OOT_KEY_RING_FOREST, type: KEY, add: [OOT_KEY_RING, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring (Deep Jungle)" }
 - { id: OOT_KEY_RING_FIRE, type: KEY, add: [OOT_KEY_RING, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring (Fire)" }
 - { id: OOT_KEY_RING_WATER, type: KEY, add: [OOT_KEY_RING, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring (Water)" }
 - { id: OOT_KEY_RING_SPIRIT, type: KEY, add: [OOT_KEY_RING, SCE_OOT_TEMPLE_SPIRIT], flags: 0x80, draw: SMALL_KEY, object: [oot, 0x00aa], name: "the <C0>Key Ring (Spirit)" }
@@ -507,7 +507,7 @@
 - { id: MM_FAIRY, item: MM_FAIRY, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: FAIRY, object: [oot, 0x0177], name: "a <C0>Fairy" }
 - { id: MM_BOTTLE_MILK, item: MM_MILK, type: MAJOR, add: MM_BOTTLE_NEW, flags: 0x80, draw: BOTTLE_MILK, object: [mm, 0x00b6], name: "a <C1>bottle of Milk" }
 - { id: MM_FISH, item: MM_FISH, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: FISH, object: [mm, 0x00c7], name: "a <C0>Fish" }
-- { id: MM_BUGS, item: MM_BUG, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: BUG, object: [mm, 0x0137], name: "a <C0>Bug" }
+- { id: MM_BUGS, item: MM_BUG, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: BUG, object: [mm, 0x0137], name: "a <C0>Pest" }
 - { id: MM_BIG_POE, item: MM_BIG_POE, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: BIG_POE, object: [mm, 0x0139], name: "a <C0>Big Poe" }
 - { id: MM_BOTTLED_GOLD_DUST, item: MM_GOLD_DUST, type: MAJOR, add: MM_BOTTLE_NEW, flags: 0x80, draw: MM_BOTTLED_GOLD_DUST, object: [mm, 0x01e9], name: "a <C1>bottle of Gold Dust" }
 - { id: MM_WEIRD_MUSHROOM, item: MM_MAGIC_MUSHROOM, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0x80, draw: MM_MAGIC_MUSHROOM, object: [mm, 0x021d], name: "a <C0>Magic Mushroom" }
