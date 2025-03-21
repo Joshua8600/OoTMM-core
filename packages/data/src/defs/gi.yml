@@ -170,7 +170,7 @@
 - { id: OOT_BOSS_KEY_GANON, type: BOSS_KEY, add: [OOT_BOSS_KEY, SCE_OOT_GANON_TOWER], flags: 0x80, draw: BOSS_KEY, object: [oot, 0x00b9], name: "the <C0>Boss Key (Ganon)" }
 - { id: OOT_MAP_DT, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_DEKU_TREE], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Deku)" }
 - { id: OOT_MAP_DC, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_DODONGO_CAVERN], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Roly-Poly)" }
-- { id: OOT_MAP_JJ, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_INSIDE_JABU_JABU], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Jabu)" }
+- { id: OOT_MAP_JJ, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_INSIDE_JABU_JABU], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Monstro)" }
 - { id: OOT_MAP_FOREST, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Forest)" }
 - { id: OOT_MAP_FIRE, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Fire)" }
 - { id: OOT_MAP_WATER, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Water)" }
@@ -180,7 +180,7 @@
 - { id: OOT_MAP_IC, type: MAP_COMPASS, add: [OOT_MAP, SCE_OOT_ICE_CAVERN], flags: 0x80, draw: MAP, object: [oot, 0x00c8], name: "the <C0>Dungeon Map (Ice)" }
 - { id: OOT_COMPASS_DT, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_DEKU_TREE], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Deku)" }
 - { id: OOT_COMPASS_DC, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_DODONGO_CAVERN], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Roly-Poly)" }
-- { id: OOT_COMPASS_JJ, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_INSIDE_JABU_JABU], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Jabu)" }
+- { id: OOT_COMPASS_JJ, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_INSIDE_JABU_JABU], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Monstro)" }
 - { id: OOT_COMPASS_FOREST, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_FOREST], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Forest)" }
 - { id: OOT_COMPASS_FIRE, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_FIRE], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Fire)" }
 - { id: OOT_COMPASS_WATER, type: MAP_COMPASS, add: [OOT_COMPASS, SCE_OOT_TEMPLE_WATER], flags: 0x80, draw: COMPASS, object: [oot, 0x00b8], name: "the <C0>Compass (Water)" }
@@ -229,7 +229,7 @@
 - { id: OOT_SOUL_ENEMY_DARK_LINK, type: SOUL, add: [OOT_SOUL, 0x000c], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Joshua8600" }
 - { id: OOT_SOUL_ENEMY_BIRI_BARI, type: SOUL, add: [OOT_SOUL, 0x000d], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Biris/Baris" }
 - { id: OOT_SOUL_ENEMY_TAILPASARN, type: SOUL, add: [OOT_SOUL, 0x000e], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Tailpasarans" }
-- { id: OOT_SOUL_ENEMY_PARASITE, type: SOUL, add: [OOT_SOUL, 0x000f], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Jabu-Jabu's Parasites" }
+- { id: OOT_SOUL_ENEMY_PARASITE, type: SOUL, add: [OOT_SOUL, 0x000f], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Monstro's Parasites" }
 - { id: OOT_SOUL_ENEMY_SKULLTULA, type: SOUL, add: [OOT_SOUL, 0x0010], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Skulltulas" }
 - { id: OOT_SOUL_ENEMY_TORCH_SLUG, type: SOUL, add: [OOT_SOUL, 0x0011], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Torch Slugs" }
 - { id: OOT_SOUL_ENEMY_MOBLIN, type: SOUL, add: [OOT_SOUL, 0x0012], flags: 0x80, draw: SOUL, object: [oot, 0x015c], name: "the <C1>Soul of Moblins" }
@@ -431,7 +431,7 @@
 - { id: OOT_MASK_BLAST, type: MASK, add: [OOT_TRADE_CHILD, XITEM_OOT_CHILD_MASK_BLAST], flags: 0x80, draw: MM_MASK_BLAST, object: [mm, 0x026d], name: "the <C1>Kamikaze Mask" }
 - { id: OOT_MASK_STONE, type: MASK, add: [OOT_TRADE_CHILD, XITEM_OOT_CHILD_MASK_STONE], flags: 0x80, draw: MM_MASK_STONE, object: [mm, 0x0254], name: "the <C1>Stone Mask" }
 - { id: OOT_TRAP_RUPOOR, type: RUPEE, add: [OOT_RUPEE, -10], flags: 0x80, draw: [RUPEE, 0], object: [mm, 0x013f], name: "a <COLOR_BLUE>Stonks" }
-- { id: OOT_SONG_EMPTINESS, type: MAJOR, add: OOT_SONG_EMPTINESS, flags: 0x80, draw: [NOTE, 0x84], object: [oot, 0x00b6], name: "the <C2>Elegy of Emptiness" }
+- { id: OOT_SONG_EMPTINESS, type: MAJOR, add: OOT_SONG_EMPTINESS, flags: 0x80, draw: [NOTE, 0x84], object: [oot, 0x00b6], name: "the <C2>Sculptor's Song" }
 - { id: MM_RUPEE_GREEN, item: MM_RUPEE_GREEN, type: RUPEE, add: [MM_RUPEE, 1], flags: 0x00, draw: [RUPEE, 1], object: [mm, 0x013f], name: "a <C0>Nax" }
 - { id: MM_RUPEE_BLUE, item: MM_RUPEE_BLUE, type: RUPEE, add: [MM_RUPEE, 5], flags: 0x01, draw: [RUPEE, 2], object: [mm, 0x013f], name: "a <C0>Squash" }
 - { id: MM_RUPEE_RED_10, item: MM_RUPEE_RED10, type: RUPEE, add: [MM_RUPEE, 10], flags: 0x02, draw: [RUPEE, 3], object: [mm, 0x013f], name: "a <C0>Red Rupee" }
@@ -552,7 +552,7 @@
 - { id: MM_WORLD_MAP_CLOCK_TOWN, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 0], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Tick Tock Town)" }
 - { id: MM_WORLD_MAP_WOODFALL, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 1], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Woodfall)" }
 - { id: MM_WORLD_MAP_SNOWHEAD, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 2], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Snowhead)" }
-- { id: MM_WORLD_MAP_ROMANI_RANCH, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 3], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Romani Ranch)" }
+- { id: MM_WORLD_MAP_ROMANI_RANCH, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 3], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Malon Ranch)" }
 - { id: MM_WORLD_MAP_GREAT_BAY, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 4], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Worst Bay)" }
 - { id: MM_WORLD_MAP_STONE_TOWER, item: MM_WORLD_MAP, type: NORMAL, add: [WORLD_MAP, 5], flags: 0xa0, draw: MM_WORLD_MAP, object: [mm, 0x024d], name: "a <C0>World Map (Stone Tower)" }
 - { id: MM_MAGIC_UPGRADE, type: MAJOR, add: [MM_MAGIC_UPGRADE, 1], flags: 0xa0, draw: MAGIC_UPGRADE, object: [mm, 0x00a4], name: "the <C1>One for All Quirk" }
@@ -562,7 +562,7 @@
 - { id: MM_SONG_AWAKENING, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_AWAKENING], flags: 0xa0, draw: [NOTE, 0x82], object: [mm, 0x008f], name: "the <C2>Sonata of Awakening" }
 - { id: MM_SONG_GORON, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_GORON], flags: 0xa0, draw: [NOTE, 0x85], object: [mm, 0x008f], name: "the <C2>Goron Lullaby" }
 - { id: MM_SONG_ZORA, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_ZORA], flags: 0xa0, draw: [NOTE, 0x81], object: [mm, 0x008f], name: "the <C2>New Wave Bossa Nova" }
-- { id: MM_SONG_EMPTINESS, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_EMPTINESS], flags: 0xa0, draw: [NOTE, 0x84], object: [mm, 0x008f], name: "the <C2>Elegy of Emptiness" }
+- { id: MM_SONG_EMPTINESS, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_EMPTINESS], flags: 0xa0, draw: [NOTE, 0x84], object: [mm, 0x008f], name: "the <C2>Sculptor's Song" }
 - { id: MM_SONG_ORDER, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_ORDER], flags: 0xa0, draw: [NOTE, 0x80], object: [mm, 0x008f], name: "the <C2>Oath to Disorder" }
 - { id: MM_SONG_TIME, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_TIME], flags: 0xa0, draw: [NOTE, 0x01], object: [mm, 0x008f], name: "the <C2>Song of Time" }
 - { id: MM_SONG_HEALING, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_HEALING], flags: 0xa0, draw: [NOTE, 0x02], object: [mm, 0x008f], name: "the <C2>Song of Exorcism" }
@@ -673,7 +673,7 @@
 - { id: MM_SOUL_NPC_GORON_CHILD, type: SOUL, add: [MM_SOUL, 0x2004], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Baby Goron" }
 - { id: MM_SOUL_NPC_BOMBCHU_SHOPKEEPER, type: SOUL, add: [MM_SOUL, 0x2005], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of 'Splodies Shopkeeper" }
 - { id: MM_SOUL_NPC_BOMBERS, type: SOUL, add: [MM_SOUL, 0x2006], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of The Delightful Children From Down The Lane" }
-- { id: MM_SOUL_NPC_BUTLER_DEKU, type: SOUL, add: [MM_SOUL, 0x2007], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Deku Butler" }
+- { id: MM_SOUL_NPC_BUTLER_DEKU, type: SOUL, add: [MM_SOUL, 0x2007], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of the Deku Butler's Son's Father" }
 - { id: MM_SOUL_NPC_CITIZEN, type: SOUL, add: [MM_SOUL, 0x2008], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Cizizens" }
 - { id: MM_SOUL_NPC_COMPOSER_BROS, type: SOUL, add: [MM_SOUL, 0x2009], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Composer Bros" }
 - { id: MM_SOUL_NPC_DAMPE, type: SOUL, add: [MM_SOUL, 0x200a], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Dampe" }
