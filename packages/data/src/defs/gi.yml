@@ -132,9 +132,9 @@
 - { id: OOT_SONG_TP_SPIRIT, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TP_SPIRIT], flags: 0x80, draw: [NOTE, 0x84], object: [oot, 0x00b6], name: "the <C2>Requiem of Spirit" }
 - { id: OOT_SONG_TP_SHADOW, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TP_SHADOW], flags: 0x80, draw: [NOTE, 0x80], object: [oot, 0x00b6], name: "the <C2>Nocturne of Shadow" }
 - { id: OOT_SONG_TP_LIGHT, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TP_LIGHT], flags: 0x80, draw: [NOTE, 0x83], object: [oot, 0x00b6], name: "the <C2>Prelude of Light" }
-- { id: OOT_SONG_ZELDA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_ZELDA], flags: 0x80, draw: [NOTE, 0x05], object: [oot, 0x00b6], name: "<C2>Zelda's Lullaby" }
-- { id: OOT_SONG_EPONA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_EPONA], flags: 0x80, draw: [NOTE, 0x04], object: [oot, 0x00b6], name: "<C2>Epona's Song" }
-- { id: OOT_SONG_SARIA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_SARIA], flags: 0x80, draw: [NOTE, 0x02], object: [oot, 0x00b6], name: "<C2>the Apology Song" }
+- { id: OOT_SONG_ZELDA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_ZELDA], flags: 0x80, draw: [NOTE, 0x05], object: [oot, 0x00b6], name: "<C2>Zelda's Night-Night Song" }
+- { id: OOT_SONG_EPONA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_EPONA], flags: 0x80, draw: [NOTE, 0x04], object: [oot, 0x00b6], name: "the <C2>Bad Magic Horse's Song" }
+- { id: OOT_SONG_SARIA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_SARIA], flags: 0x80, draw: [NOTE, 0x02], object: [oot, 0x00b6], name: "the <C2>Apology Song" }
 - { id: OOT_SONG_SUN, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_SUN], flags: 0x80, draw: [NOTE, 0x03], object: [oot, 0x00b6], name: "the <C2>Sun's Song" }
 - { id: OOT_SONG_TIME, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TIME], flags: 0x80, draw: [NOTE, 0x01], object: [oot, 0x00b6], name: "the <C2>Song of Time" }
 - { id: OOT_SONG_STORMS, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_STORMS], flags: 0x80, draw: [NOTE, 0x00], object: [oot, 0x00b6], name: "the <C2>Song of Storms" }
