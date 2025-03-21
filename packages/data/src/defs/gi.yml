@@ -1,6 +1,6 @@
 - { id: OOT_BOMBS_5, item: OOT_BOMBS_5, type: MINOR, add: [OOT_BOMBS, 5], flags: 0x59, draw: BOMB, object: [oot, 0x00ce], name: "<C0>5 'Splodies" }
 - { id: OOT_NUTS_5, item: OOT_NUTS_5, type: MINOR, add: [OOT_NUTS, 5], flags: 0x0c, draw: DEKU_NUT, object: [oot, 0x00bb], name: "<C0>5 Magnetic Grenades" }
-- { id: OOT_BOMBCHU_10, item: OOT_BOMBCHU_10, type: NORMAL, add: [OOT_BOMBCHU, 10], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>10 Bombchu" }
+- { id: OOT_BOMBCHU_10, item: OOT_BOMBCHU_10, type: NORMAL, add: [OOT_BOMBCHU, 10], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>10 Combustible Rats" }
 - { id: OOT_BOW, item: OOT_BOW, type: MAJOR, add: [OOT_BOW, 1], flags: 0x80, draw: OOT_BOW, object: [oot, 0x00e9], name: "the <C1>Fairy Bow" }
 - { id: OOT_SLINGSHOT, item: OOT_SLINGSHOT, type: MAJOR, add: [SLINGSHOT, 1], flags: 0x80, draw: OOT_SLINGSHOT, object: [oot, 0x00e7], name: "the <C1>Fairy Slingshot" }
 - { id: OOT_BOOMERANG, item: OOT_BOOMERANG, type: MAJOR, add: OOT_NORMAL, flags: 0x80, draw: OOT_BOOMERANG, object: [oot, 0x00e8], name: "the <C1>Boomerang" }
@@ -103,8 +103,8 @@
 - { id: OOT_BOMBS_20, item: OOT_BOMBS_20, type: MINOR, add: [OOT_BOMBS, 20], flags: 0x59, draw: BOMB, object: [oot, 0x00ce], name: "<C0>20 'Splodies" }
 - { id: OOT_BOMBS_30, item: OOT_BOMBS_30, type: MINOR, add: [OOT_BOMBS, 30], flags: 0x59, draw: BOMB, object: [oot, 0x00ce], name: "<C0>30 'Splodies" }
 - { id: OOT_DEKU_SEEDS_30, item: OOT_SEEDS_30, type: MINOR, add: [SEEDS, 30], flags: 0x50, draw: OOT_SEEDS, object: [oot, 0x0119], name: "<C0>30 Popcorn Kernals" }
-- { id: OOT_BOMBCHU_5, item: OOT_BOMBCHU_5, type: NORMAL, add: [OOT_BOMBCHU, 5], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>5 Bombchu" }
-- { id: OOT_BOMBCHU_20, item: OOT_BOMBCHU_20, type: NORMAL, add: [OOT_BOMBCHU, 20], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>20 Bombchu" }
+- { id: OOT_BOMBCHU_5, item: OOT_BOMBCHU_5, type: NORMAL, add: [OOT_BOMBCHU, 5], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>5 Combustible Rats" }
+- { id: OOT_BOMBCHU_20, item: OOT_BOMBCHU_20, type: NORMAL, add: [OOT_BOMBCHU, 20], flags: 0x80, draw: BOMBCHU, object: [oot, 0x00d9], name: "<C0>20 Combustible Rats" }
 - { id: OOT_FISH, item: OOT_FISH, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: FISH, object: [oot, 0x00f4], name: "a <C0>Fish" }
 - { id: OOT_BUG, item: OOT_BUG, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: BUG, object: [oot, 0x0174], name: "a <C0>Pest" }
 - { id: OOT_BLUE_FIRE, item: OOT_BLUE_FIRE, type: MINOR, add: OOT_BOTTLE_REFILL, flags: 0x80, draw: OOT_BLUE_FIRE, object: [oot, 0x0173], name: "some <C0>Blue Fire" }
@@ -339,7 +339,7 @@
 - { id: OOT_SOUL_NPC_ZORA, type: SOUL, add: [OOT_SOUL, 0x2016], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Zora" }
 - { id: OOT_SOUL_NPC_ZORA_SHOPKEEPER, type: SOUL, add: [OOT_SOUL, 0x2017], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Zora Shopkeeper" }
 - { id: OOT_SOUL_NPC_BAZAAR_SHOPKEEPER, type: SOUL, add: [OOT_SOUL, 0x2018], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Bazaar Shopkeeper" }
-- { id: OOT_SOUL_NPC_BOMBCHU_SHOPKEEPER, type: SOUL, add: [OOT_SOUL, 0x2019], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Bombchu Shopkeeper" }
+- { id: OOT_SOUL_NPC_BOMBCHU_SHOPKEEPER, type: SOUL, add: [OOT_SOUL, 0x2019], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Combustible Rats Shopkeeper" }
 - { id: OOT_SOUL_NPC_POTION_SHOPKEEPER, type: SOUL, add: [OOT_SOUL, 0x201a], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Potion Shopkeeper" }
 - { id: OOT_SOUL_NPC_BOMBCHU_BOWLING_LADY, type: SOUL, add: [OOT_SOUL, 0x201b], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Bowling Lady" }
 - { id: OOT_SOUL_NPC_CHEST_GAME_OWNER, type: SOUL, add: [OOT_SOUL, 0x201c], flags: 0x80, draw: SOUL_NPC, object: [oot, 0x015c], name: "the <C1>Soul of Chest Game Owner" }
@@ -416,12 +416,12 @@
 - { id: OOT_FISHING_POND_ADULT_LOACH_34LBS, type: MAJOR, add: [POND_FISH, 0x3022], flags: 0x80, draw: [POND_FISH, 30], object: GI_POND_FISH, name: "an <C1>Adult Loach (34 pounds)" }
 - { id: OOT_FISHING_POND_ADULT_LOACH_35LBS, type: MAJOR, add: [POND_FISH, 0x3023], flags: 0x80, draw: [POND_FISH, 30], object: GI_POND_FISH, name: "an <C1>Adult Loach (35 pounds)" }
 - { id: OOT_FISHING_POND_ADULT_LOACH_36LBS, type: MAJOR, add: [POND_FISH, 0x3024], flags: 0x80, draw: [POND_FISH, 30], object: GI_POND_FISH, name: "an <C1>Adult Loach (36 pounds)" }
-- { id: OOT_BOMBCHU_BAG,    type: MAJOR, add: [OOT_BOMBCHU_BAG, 1],   flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: OOT_BOMBCHU_BAG2,   type: MAJOR, add: [OOT_BOMBCHU_BAG, 2],   flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Big Bombchu Bag" }
-- { id: OOT_BOMBCHU_BAG3,   type: MAJOR, add: [OOT_BOMBCHU_BAG, 3],   flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Biggest Bombchu Bag" }
-- { id: OOT_BOMBCHU_BAG_FIRST_5,  type: MAJOR, add: [OOT_BOMBCHU_BAG, -5],  flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: OOT_BOMBCHU_BAG_FIRST_10, type: MAJOR, add: [OOT_BOMBCHU_BAG, -10], flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: OOT_BOMBCHU_BAG_FIRST_20, type: MAJOR, add: [OOT_BOMBCHU_BAG, -20], flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
+- { id: OOT_BOMBCHU_BAG,    type: MAJOR, add: [OOT_BOMBCHU_BAG, 1],   flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: OOT_BOMBCHU_BAG2,   type: MAJOR, add: [OOT_BOMBCHU_BAG, 2],   flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Big Combustible Rats Bag" }
+- { id: OOT_BOMBCHU_BAG3,   type: MAJOR, add: [OOT_BOMBCHU_BAG, 3],   flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Biggest Combustible Rats Bag" }
+- { id: OOT_BOMBCHU_BAG_FIRST_5,  type: MAJOR, add: [OOT_BOMBCHU_BAG, -5],  flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: OOT_BOMBCHU_BAG_FIRST_10, type: MAJOR, add: [OOT_BOMBCHU_BAG, -10], flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: OOT_BOMBCHU_BAG_FIRST_20, type: MAJOR, add: [OOT_BOMBCHU_BAG, -20], flags: 0x80, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
 - { id: OOT_SWORD_RAZOR, type: MAJOR, add: [OOT_SWORD_EXTRA, 1], flags: 0x80, draw: MM_SWORD_RAZOR, object: [mm, 0x01f9], name: "the <C1>Razor Sword" }
 - { id: OOT_SWORD_GILDED, type: MAJOR, add: [OOT_SWORD_EXTRA, 2], flags: 0x80, draw: MM_SWORD_GILDED, object: [mm, 0x01fa], name: "the <C1>Gilded Sword" }
 - { id: OOT_SPIN_UPGRADE, type: MAJOR, add: OOT_SPIN_UPGRADE, flags: 0xa0, draw: [SPIN_UPGRADE, 1], object: [oot, 0x018d], name: "the <C1>Spin Attack Upgrade" }
@@ -453,7 +453,7 @@
 - { id: MM_BOMBS_20, item: MM_BOMBS_20, type: MINOR, add: [MM_BOMBS, 20], flags: 0x59, draw: BOMB, object: [mm, 0x00a5], name: "<C0>20 'Splodies" }
 - { id: MM_BOMBS_30, item: MM_BOMBS_30, type: MINOR, add: [MM_BOMBS, 30], flags: 0x59, draw: BOMB, object: [mm, 0x00a5], name: "<C0>30 'Splodies" }
 - { id: MM_STICK, item: MM_STICK, type: MINOR, add: [MM_STICKS, 1], flags: 0x0d, draw: DEKU_STICK, object: [mm, 0x009f], name: "some <C0>Kindling" }
-- { id: MM_BOMBCHU_10, item: MM_BOMBCHU_10, type: NORMAL, add: [MM_BOMBCHU, 10], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "<C0>10 Bombchu" }
+- { id: MM_BOMBCHU_10, item: MM_BOMBCHU_10, type: NORMAL, add: [MM_BOMBCHU, 10], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "<C0>10 Combustible Rats" }
 - { id: MM_BOMB_BAG, item: MM_BOMB_BAG, type: MAJOR, add: [MM_BOMB_BAG, 1], flags: 0xa0, draw: BOMB_BAG, object: [mm, 0x0098], name: "the <C1>'Splody Bag" }
 - { id: MM_BOMB_BAG2, item: MM_BOMB_BAG2, type: MAJOR, add: [MM_BOMB_BAG, 2], flags: 0xa0, draw: BOMB_BAG2, object: [mm, 0x0098], name: "the <C1>Big 'Splody Bag" }
 - { id: MM_BOMB_BAG3, item: MM_BOMB_BAG3, type: MAJOR, add: [MM_BOMB_BAG, 3], flags: 0xa0, draw: BOMB_BAG3, object: [mm, 0x0098], name: "the <C1>Biggest 'Splody Bag" }
@@ -473,7 +473,7 @@
 - { id: MM_UNK_2B, item: MM_NUTS_30, type: MINOR, add: [MM_NUTS, 30], flags: 0xa0, draw: DEKU_NUT, object: [mm, 0x0094], name: "<C0>30 Magnetic Grenades" }
 - { id: MM_UNK_2C, item: MM_NUTS_30, type: MINOR, add: [MM_NUTS, 30], flags: 0xa0, draw: DEKU_NUT, object: [mm, 0x0094], name: "<C0>30 Magnetic Grenades" }
 - { id: MM_UNK_2D, item: MM_NUTS_40, type: MINOR, add: [MM_NUTS, 40], flags: 0xa0, draw: DEKU_NUT, object: [mm, 0x0094], name: "<C0>40 Magnetic Grenades" }
-- { id: MM_BOMBCHU_20, item: MM_BOMBCHU_20, type: NORMAL, add: [MM_BOMBCHU, 20], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "<C0>20 Bombchu" }
+- { id: MM_BOMBCHU_20, item: MM_BOMBCHU_20, type: NORMAL, add: [MM_BOMBCHU, 20], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "<C0>20 Combustible Rats" }
 - { id: MM_UNK_2F, item: MM_STICKS_20, type: MINOR, add: [MM_STICKS, 20], flags: 0xa0, draw: DEKU_STICK, object: [mm, 0x009f], name: "<C0>20 pieces of Kindling" }
 - { id: MM_UNK_30, item: MM_STICKS_20, type: MINOR, add: [MM_STICKS, 20], flags: 0xa0, draw: DEKU_STICK, object: [mm, 0x009f], name: "<C0>20 pieces of Kindling" }
 - { id: MM_UNK_31, item: MM_STICKS_30, type: MINOR, add: [MM_STICKS, 30], flags: 0xa0, draw: DEKU_STICK, object: [mm, 0x009f], name: "<C0>30 pieces of Kindling" }
@@ -484,11 +484,11 @@
 - { id: MM_PROGRESSIVE_SHIELD_HERO, type: MAJOR, add: [MM_SHIELD, 0x102], flags: 0xa0, draw: [MM_SHIELD_HERO, 1], object: [mm, 0x00b3], name: "the <C1>Progressive Coward's Shield" }
 - { id: MM_POWDER_KEG, item: MM_POWDER_KEG, type: MAJOR, add: [KEG, 1], flags: 0x80, draw: MM_KEG, object: [mm, 0x01ca], name: "a <C0>Powder Keg" }
 - { id: MM_MAGIC_BEAN, item: MM_MAGIC_BEAN, type: MAJOR, add: [MM_BEANS, 1], flags: 0x80, draw: MAGIC_BEAN, object: [mm, 0x00c6], name: "a <C0>Magic Bean" }
-- { id: MM_BOMBCHU, item: MM_BOMBCHU_ALT, type: NORMAL, add: [MM_BOMBCHU, 1], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "a <C1>Bombchu" }
+- { id: MM_BOMBCHU, item: MM_BOMBCHU_ALT, type: NORMAL, add: [MM_BOMBCHU, 1], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "a <C1>Combustible Rat" }
 - { id: MM_SWORD_KOKIRI, item: MM_SWORD_KOKIRI, type: MAJOR, add: [MM_SWORD, 1], flags: 0xa0, draw: MM_SWORD_KOKIRI, object: [mm, 0x0148], name: "the <C1>Butter Knife" }
 - { id: MM_SWORD_RAZOR, item: MM_SWORD_RAZOR, type: MAJOR, add: [MM_SWORD, 2], flags: 0xa0, draw: MM_SWORD_RAZOR, object: [mm, 0x01f9], name: "the <C1>Razor Sword" }
 - { id: MM_SWORD_GILDED, item: MM_SWORD_GILDED, type: MAJOR, add: [MM_SWORD, 3], flags: 0xa0, draw: MM_SWORD_GILDED, object: [mm, 0x01fa], name: "the <C1>Gilded Sword" }
-- { id: MM_BOMBCHU_5, item: MM_BOMBCHU_5, type: NORMAL, add: [MM_BOMBCHU, 5], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "<C0>5 Bombchu" }
+- { id: MM_BOMBCHU_5, item: MM_BOMBCHU_5, type: NORMAL, add: [MM_BOMBCHU, 5], flags: 0xc0, draw: BOMBCHU, object: [mm, 0x00b0], name: "<C0>5 Combustible Rats" }
 - { id: MM_GREAT_FAIRY_SWORD, item: MM_GREAT_FAIRY_SWORD, type: MAJOR, add: [MM_GFS_HAMMER, 0], flags: 0xa0, draw: MM_GREAT_FAIRY_SWORD, object: [mm, 0x01fb], name: "the <C1>Great Fairy's Sword" }
 - { id: MM_SMALL_KEY, item: MM_SMALL_KEY, type: KEY, add: [MM_SMALL_KEY, 0xffff], flags: 0xa0, draw: SMALL_KEY, object: [mm, 0x0086], name: "a <C0>Small Key" }
 - { id: MM_BOSS_KEY, item: MM_BOSS_KEY, type: BOSS_KEY, add: [MM_BOSS_KEY, 0xffff], flags: 0xa0, draw: BOSS_KEY, object: [mm, 0x0092], name: "the <C0>Boss Key" }
@@ -647,7 +647,7 @@
 - { id: MM_SOUL_ENEMY_EENO, type: SOUL, add: [MM_SOUL, 0x001e], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Evil Snowmen" }
 - { id: MM_SOUL_ENEMY_EYEGORE, type: SOUL, add: [MM_SOUL, 0x001f], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Eyegores" }
 - { id: MM_SOUL_ENEMY_HIPLOOP, type: SOUL, add: [MM_SOUL, 0x0020], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of The Stupid I-Hate-Them Hulahoops" }
-- { id: MM_SOUL_ENEMY_REAL_BOMBCHU, type: SOUL, add: [MM_SOUL, 0x0021], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Combustible Rats" }
+- { id: MM_SOUL_ENEMY_REAL_BOMBCHU, type: SOUL, add: [MM_SOUL, 0x0021], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Vermin" }
 - { id: MM_SOUL_ENEMY_TAKKURI, type: SOUL, add: [MM_SOUL, 0x0022], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Evil Bird Creature" }
 - { id: MM_SOUL_ENEMY_BOE, type: SOUL, add: [MM_SOUL, 0x0023], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Tribbles" }
 - { id: MM_SOUL_ENEMY_NEJIRON, type: SOUL, add: [MM_SOUL, 0x0024], flags: 0xa0, draw: SOUL, object: [mm, 0x0125], name: "the <C1>Soul of Knockoff Gorons" }
@@ -738,13 +738,13 @@
 - { id: MM_POE, item: MM_POE, type: MINOR, add: MM_BOTTLE_REFILL, flags: 0xa0, draw: POE, object: [oot, 0x0176], name: "a <C0>Poe" }
 - { id: MM_BOTTLE_POE, item: MM_POE, type: MAJOR, add: MM_BOTTLE_NEW, flags: 0xa0, draw: [MM_BOTTLE_FAIRY, 1], object: [mm, 0x0272], name:  "a <C1>bottled Poe" }
 - { id: MM_BOTTLE_BIG_POE, item: MM_BIG_POE, type: MAJOR, add: MM_BOTTLE_NEW, flags: 0xa0, draw: [MM_BOTTLE_FAIRY, 2], object: [mm, 0x0272], name:  "a <C1>bottled Big Poe" }
-- { id: MM_BOMBCHU_BAG,    type: MAJOR, add: [MM_BOMBCHU_BAG,  1],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: MM_BOMBCHU_BAG2,   type: MAJOR, add: [MM_BOMBCHU_BAG,  2],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Big Bombchu Bag" }
-- { id: MM_BOMBCHU_BAG3,   type: MAJOR, add: [MM_BOMBCHU_BAG,  3],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Biggest Bombchu Bag" }
-- { id: MM_BOMBCHU_BAG_FIRST_1,  type: MAJOR, add: [MM_BOMBCHU_BAG, -1],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: MM_BOMBCHU_BAG_FIRST_5,  type: MAJOR, add: [MM_BOMBCHU_BAG, -5],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: MM_BOMBCHU_BAG_FIRST_10, type: MAJOR, add: [MM_BOMBCHU_BAG, -10], flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
-- { id: MM_BOMBCHU_BAG_FIRST_20, type: MAJOR, add: [MM_BOMBCHU_BAG, -20], flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Bombchu Bag" }
+- { id: MM_BOMBCHU_BAG,    type: MAJOR, add: [MM_BOMBCHU_BAG,  1],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: MM_BOMBCHU_BAG2,   type: MAJOR, add: [MM_BOMBCHU_BAG,  2],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Big Combustible Rats Bag" }
+- { id: MM_BOMBCHU_BAG3,   type: MAJOR, add: [MM_BOMBCHU_BAG,  3],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Biggest Combustible Rats Bag" }
+- { id: MM_BOMBCHU_BAG_FIRST_1,  type: MAJOR, add: [MM_BOMBCHU_BAG, -1],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: MM_BOMBCHU_BAG_FIRST_5,  type: MAJOR, add: [MM_BOMBCHU_BAG, -5],  flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: MM_BOMBCHU_BAG_FIRST_10, type: MAJOR, add: [MM_BOMBCHU_BAG, -10], flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
+- { id: MM_BOMBCHU_BAG_FIRST_20, type: MAJOR, add: [MM_BOMBCHU_BAG, -20], flags: 0xa0, draw: BOMBCHU_BAG, object: BOMBCHU_BAG, name: "the <C1>Combustible Rats Bag" }
 - { id: MM_FAIRY_BIG, type: MINOR, add: MM_FAIRY_BIG, flags: 0xa0, draw: FAIRY_BIG, object: [oot, 0x0177], name: "a <C0>Big Fairy" }
 - { id: MM_SPELL_FIRE, item: MM_SPELL_FIRE, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_SPELL_FIRE], flags: 0x80, draw: OOT_SPELL_FIRE, object: [oot, 0x015d], name: "<C1>Din's Fire" }
 - { id: MM_SPELL_WIND, item: MM_SPELL_WIND, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_SPELL_WIND], flags: 0x80, draw: OOT_SPELL_WIND, object: [oot, 0x015d], name: "<C1>Farore's Wind" }
