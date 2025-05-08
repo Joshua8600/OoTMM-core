@@ -10,6 +10,12 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Skip the cutscene of burning spider webs in MM.
+- Skip the cutscene of melting ice blocks in MM.
+- Skip the cutscene of breaking keg boulders.
+- Add the Japanese version of Great Bay Coast.
+- Comfort option to reduce the shine time needed on Sun Block for them to go away.
+- Cutscene skip for Sun Blocks going away.
 - Add Ice Traps.
 - Add the ability to shuffle extra merchants in OoT.
 - Add the ability to shuffle merchant prices in OoT.
@@ -22,6 +28,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+
+- Layout of the settings in the Shared and Extensions tabs.
+- Layout of the settings in the Misc. tab.
 - Progressive shields will now remove as many regular shields from the pool as possible.
 - Progressive shields are now re-obtained on every scene transition, thus making them permanent logically.
 - Progressive shields now have a flame effect to differentiate them from the regular shields.
@@ -41,6 +50,13 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fix being able to stay as Fierce Deity when returning to dungeon entrance from the boss lairs without Fierce Deity anywhere turned on.
+- Fix Milk bar performance not requiring Gorman Soul.
+- Fix adult link being invisible in the Milk Bar performance.
+- Fix a bug where Kotake would check for an empty bottle in subsequent cycles even when giving "nothing", causing logic issues.
+- Fix a vanilla bug where the Ikana Fairy Fountain has the wrong color.
+- Fix a bug where a fairy could turn into a shuffled snowball check in specific circumstances.
+- Fix Stone of Agony not rumbling controllers that support it.
 - Fix the twinmold blue warp item being gigantic when giant mask is equipped.
 - Fix a vanilla bug where the frozen link effect would sometimes get distorded.
 - Fix FD mask item having weird colors sometimes.
