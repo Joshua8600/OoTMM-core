@@ -4,10 +4,6 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Jokes
-
-- (**April Fools**) Add a Misc. soul for Trees.
-
 ### Added
 
 - Skip the cutscene of burning spider webs in MM.
