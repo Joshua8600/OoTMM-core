@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Can no longer plando items that aren't in the pool to begin with.
+- In Indoor ER, the deku shrine warp now maps to the shrine exit.
+- The spiritual stones won't display on the altar as adult if ToT door is closed.
+
+### Fixed
+
+- Fixed a time bug related to voiding in Twinmold coming from OoT.
+- Fixed the ruto/big octo cutscene looking weird as adult.
+- Fixed rare ice-trap related softlocks in MM.
+
+## [28.0] - 2025-05-09
+
+### Jokes
+
+- (**April Fools**) Add a Misc. soul for Trees.
+
 ### Added
 
 - Skip the cutscene of burning spider webs in MM.
@@ -1519,7 +1537,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial stable release.
 
-[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v27.0...HEAD
+[Unreleased]: https://github.com/OoTMM/OoTMM/compare/v28.0...HEAD
+[28.0]: https://github.com/OoTMM/OoTMM/compare/v27.0...v28.0
 [27.0]: https://github.com/OoTMM/OoTMM/compare/v26.1...v27.0
 [26.1]: https://github.com/OoTMM/OoTMM/compare/v26.0...v26.1
 [26.0]: https://github.com/OoTMM/OoTMM/compare/v25.0...v26.0
