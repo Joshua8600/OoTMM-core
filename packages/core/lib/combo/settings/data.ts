@@ -1095,10 +1095,11 @@ export const SETTINGS = [{
   type: 'enum',
   description: 'Controls the behavior of the gate in Kakariko blocking Death Mountain as Child',
   values: [
-    { value: 'closed', name: 'Closed', description: 'The gate will be closed until you show Zelda\'s Letter to the guard' },
+    { value: 'closed', name: 'Closed', description: 'The gate will be closed until you show Zelda\'s Letter to the guard, even as an adult' },
+    { value: 'vanilla', name: 'Vanilla', description: 'The gate will be closed until you show Zelda\'s Letter to the guard' },
     { value: 'open', name: 'Open', description: 'The gate will be open from the start' },
   ],
-  default: 'closed',
+  default: 'vanilla',
   cond: hasOoT,
 }, {
   key: 'openZdShortcut',
@@ -1661,10 +1662,10 @@ export const SETTINGS = [{
   cond: hasMM,
 }, {
   key: 'bronzeScale',
-  name: 'Bronze Scale',
+  name: 'Bronze Scale (WIP)',
   category: 'items.extensions',
   type: 'boolean',
-  description: 'Add an extra scale item, that is required to enter deep water.',
+  description: 'Add an extra scale item, that is required to enter deep water. WORK IN PROGRESS, MIGHT BREAK.',
   default: false,
   cond: (s: any) => (hasOoT(s) || s.scalesMm) && s.logic === 'none', /* TODO: Enable once logic is ready */
 }, {
