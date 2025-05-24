@@ -756,7 +756,7 @@
     RUPEES: "is_child"
   locations:
     "Lon Lon Ranch Malon Song": "is_child && has_ocarina && event(MALON) && is_day"
-    "Lon Lon Ranch GS Tree": "gs && is_child"
+    "Lon Lon Ranch GS Tree": "gs && is_child && soul_tree"
     "Lon Lon Ranch GS House": "is_child && gs_night && (can_collect_distance || (climb_anywhere && (has_ranged_weapon || has_explosives || can_use_sword || can_use_sticks || can_use_din)))"
     "Lon Lon Ranch GS Rain Shed": "is_child && gs_night"
     "Lon Lon Ranch GS Back Wall": "is_child && gs_night && (can_collect_distance || (climb_anywhere && (has_ranged_weapon || has_explosives || can_use_din)))"
@@ -828,7 +828,7 @@
     BUGS: "has_bottle"
   locations:
     "Malon Egg": "event(MALON)"
-    "Hyrule Castle GS Tree": "gs && can_damage_skull"
+    "Hyrule Castle GS Tree": "gs && can_damage_skull && soul_tree"
     "Hyrule Castle Grass 1": "can_cut_grass"
     "Hyrule Castle Grass 2": "can_cut_grass"
     # Two broken actors
@@ -1205,7 +1205,7 @@
     "Kakariko Man on Roof": "(can_hookshot || trick(OOT_MAN_ON_ROOF) || climb_anywhere) && soul_rooftop_man"
     "Kakariko Sell Keaton Mask": "soul_npc(SOUL_NPC_HYLIAN_GUARD) && is_child && (setting(kakarikoGate, open) || event(KAKARIKO_GATE_OPEN)) && has_mask_keaton"
     "Kakariko GS Shooting Gallery": "gs_night && is_child"
-    "Kakariko GS Tree": "gs_night && is_child"
+    "Kakariko GS Tree": "gs_night && is_child && soul_tree"
     "Kakariko GS House of Skulltula": "gs_night && is_child"
     "Kakariko GS Bazaar": "gs_night && is_child"
     "Kakariko GS Ladder": "gs_night && is_child && (can_use_slingshot || has_bombchu || can_longshot || (climb_anywhere && ((can_use_sword || can_use_sticks) || can_use_din)) || (time_travel_at_will && can_use_din))"
@@ -1741,7 +1741,7 @@
     ARROWS: "is_adult && can_cut_grass"
     MAGIC: "can_cut_grass"
   locations:
-    "Zora River GS Tree": "gs && is_child && can_damage_skull"
+    "Zora River GS Tree": "gs && is_child && can_damage_skull && soul_tree"
     "Zora River Grass Pack Bush 01": "can_cut_grass"
     "Zora River Grass Pack Bush 02": "can_cut_grass"
     "Zora River Grass Pack Bush 03": "can_cut_grass"
@@ -2132,7 +2132,7 @@
   locations:
     "Zora Fountain Iceberg HP": "is_adult"
     "Zora Fountain GS Wall": "is_child && gs_night && (can_collect_distance || (climb_anywhere && (can_use_sword || can_use_sticks || has_ranged_weapon || has_explosives || can_use_din)))"
-    "Zora Fountain GS Tree": "gs && is_child && can_damage_skull"
+    "Zora Fountain GS Tree": "gs && is_child && can_damage_skull && soul_tree"
     "Zora Fountain GS Upper": "is_adult && gs_night && ((has_explosives_or_hammer && can_collect_distance && can_lift_silver) || (climb_anywhere && (has_explosives || has(SWORD_BIGGORON) || has_ranged_weapon || can_use_din)))"
     "Zora Fountain Child Pot 1": "is_child"
     "Zora Fountain Child Pot 2": "is_child"
