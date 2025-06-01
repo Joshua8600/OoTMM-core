@@ -12,6 +12,11 @@ All notable changes to this project will be documented in this file.
 
 - Fire Arrows are no longer required for Great Bay Temple's wheel room after reversing the water direction, due to the revamped save system.
 
+### Fixed
+
+- Fix some pre-completed dungeons having foolish hints.
+- Fix kokiri forest rupees not being shuffled correctly after beating Phantom Ganon.
+
 ## [28.2] - 2025-05-18
 
 ### Changed
