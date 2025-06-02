@@ -567,7 +567,7 @@
 - { id: MM_SONG_ORDER, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_ORDER], flags: 0xa0, draw: [NOTE, 0x80], object: [mm, 0x008f], name: "the <C2>Oath to Disorder" }
 - { id: MM_SONG_TIME, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_TIME], flags: 0xa0, draw: [NOTE, 0x01], object: [mm, 0x008f], name: "the <C2>Song of Time" }
 - { id: MM_SONG_HEALING, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_HEALING], flags: 0xa0, draw: [NOTE, 0x02], object: [mm, 0x008f], name: "the <C2>Song of Exorcism" }
-- { id: MM_SONG_EPONA, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_EPONA], flags: 0xa0, draw: [NOTE, 0x04], object: [mm, 0x008f], name: "<C2>Epona's Song" }
+- { id: MM_SONG_EPONA, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_EPONA], flags: 0xa0, draw: [NOTE, 0x04], object: [mm, 0x008f], name: "<C2>Bad Magic Horse's Song" }
 - { id: MM_SONG_SOARING, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_SOARING], flags: 0xa0, draw: [NOTE, 0x05], object: [mm, 0x008f], name: "the <C2>Song of Soaring" }
 - { id: MM_SONG_STORMS, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_STORMS], flags: 0xa0, draw: [NOTE, 0x00], object: [mm, 0x008f], name: "the <C2>Song of Storms" }
 - { id: MM_SONG_GORON_HALF, type: MAJOR, add: [MM_QUEST, QUEST_MM_SONG_GORON_HALF], flags: 0xa0, draw: [NOTE, 0x85], object: [mm, 0x008f], name: "the <C2>Lullaby Intro" }
