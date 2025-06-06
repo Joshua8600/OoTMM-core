@@ -667,7 +667,7 @@
 - { id: MM_SOUL_BOSS_GYORG, type: SOUL, add: [MM_SOUL, 0x1002], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Lord Woo Fak Fak" }
 - { id: MM_SOUL_BOSS_TWINMOLD, type: SOUL, add: [MM_SOUL, 0x1003], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Flying Centipedes" }
 - { id: MM_SOUL_BOSS_IGOS, type: SOUL, add: [MM_SOUL, 0x1004], flags: 0xa0, draw: SOUL_BOSS, object: [mm, 0x0125], name: "the <C1>Soul of Igos" }
-- { id: MM_SOUL_NPC_AROMA, type: SOUL, add: [MM_SOUL, 0x2000], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Madame Aroma" }
+- { id: MM_SOUL_NPC_AROMA, type: SOUL, add: [MM_SOUL, 0x2000], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Madame Tiramisu" }
 - { id: MM_SOUL_NPC_SHOOTING_GALLERY_OWNER, type: SOUL, add: [MM_SOUL, 0x2001], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Town Archery Owner" }
 - { id: MM_SOUL_NPC_BAZAAR_SHOPKEEPER, type: SOUL, add: [MM_SOUL, 0x2002], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Swamp Archery Owner" }
 - { id: MM_SOUL_NPC_GORON, type: SOUL, add: [MM_SOUL, 0x2003], flags: 0xa0, draw: SOUL_NPC, object: [mm, 0x0125], name: "the <C1>Soul of Gorons" }
