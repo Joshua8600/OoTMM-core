@@ -480,7 +480,7 @@
 - { id: MM_UNK_31, item: MM_STICKS_30, type: MINOR, add: [MM_STICKS, 30], flags: 0xa0, draw: DEKU_STICK, object: [mm, 0x009f], name: "<C0>30 pieces of Kindling" }
 - { id: MM_SHIELD_DEKU, type: NORMAL, add: [MM_SHIELD, 1], flags: 0xa0, draw: [OOT_SHIELD_DEKU, 0], object: [oot, 0x00cb], name: "the <C1>Deku Shield" }
 - { id: MM_SHIELD_HERO, item: MM_SHIELD_HERO, type: NORMAL, add: [MM_SHIELD, 2], flags: 0xa0, draw: [MM_SHIELD_HERO, 0], object: [mm, 0x00b3], name: "the <C1>Coward's Shield" }
-- { id: MM_SHIELD_MIRROR, item: MM_SHIELD_MIRROR, type: MAJOR, add: [MM_SHIELD, 3], flags: 0xa0, draw: MM_SHIELD_MIRROR, object: [mm, 0x00c3], name: "the <C1>Vanity Shield" }
+- { id: MM_SHIELD_MIRROR, item: MM_SHIELD_MIRROR, type: MAJOR, add: [MM_SHIELD, 3], flags: 0xa0, draw: MM_SHIELD_MIRROR, object: [mm, 0x00c3], name: "the <C1>Tortured Shield" }
 - { id: MM_PROGRESSIVE_SHIELD_DEKU, type: MAJOR, add: [MM_SHIELD, 0x101], flags: 0xa0, draw: [OOT_SHIELD_DEKU, 1], object: [oot, 0x00cb], name: "the <C1>Progressive Deku Shield" }
 - { id: MM_PROGRESSIVE_SHIELD_HERO, type: MAJOR, add: [MM_SHIELD, 0x102], flags: 0xa0, draw: [MM_SHIELD_HERO, 1], object: [mm, 0x00b3], name: "the <C1>Progressive Coward's Shield" }
 - { id: MM_POWDER_KEG, item: MM_POWDER_KEG, type: MAJOR, add: [KEG, 1], flags: 0x80, draw: MM_KEG, object: [mm, 0x01ca], name: "a <C0>Powder Keg" }
@@ -544,7 +544,7 @@
 - { id: MM_MOON_TEAR, item: MM_MOON_TEAR, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_MOON_TEAR], flags: 0x80, draw: MM_MOON_TEAR, object: [mm, 0x01b1], name: "the <C1>Moon's Final Will and Testament" }
 - { id: MM_DEED_LAND, item: MM_DEED_LAND, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_DEED_LAND], flags: 0x80, draw: MM_DEED_LAND, object: [mm, 0x01b2], name: "the <C1>Land Title Deed" }
 - { id: MM_DEED_SWAMP, item: MM_DEED_SWAMP, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_DEED_SWAMP], flags: 0x80, draw: MM_DEED_SWAMP, object: [mm, 0x01b2], name: "the <C1>Swamp Title Deed" }
-- { id: MM_DEED_MOUNTAIN, item: MM_DEED_MOUNTAIN, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_DEED_MOUNTAIN], flags: 0x80, draw: MM_DEED_MOUNTAIN, object: [mm, 0x01b2], name: "the <C1>Mountain Title Deed" }
+- { id: MM_DEED_MOUNTAIN, item: MM_DEED_MOUNTAIN, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_DEED_MOUNTAIN], flags: 0x80, draw: MM_DEED_MOUNTAIN, object: [mm, 0x01b2], name: "the <C1>Timeshare Deed" }
 - { id: MM_DEED_OCEAN, item: MM_DEED_OCEAN, type: MAJOR, add: [MM_TRADE1, XITEM_MM_TRADE1_DEED_OCEAN], flags: 0x80, draw: MM_DEED_OCEAN, object: [mm, 0x01b2], name: "the <C1>Ocean Title Deed" }
 - { id: MM_ROOM_KEY, item: MM_ROOM_KEY, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_ROOM_KEY], flags: 0x80, draw: MM_ROOM_KEY, object: [mm, 0x020f], name: "the <C1>Key to the Secret Room" }
 - { id: MM_LETTER_TO_MAMA, item: MM_LETTER_TO_MAMA, type: MAJOR, add: [MM_TRADE2, XITEM_MM_TRADE2_LETTER_TO_MAMA], flags: 0x80, draw: MM_LETTER_TO_MAMA, object: [mm, 0x0245], name: "the <C1>Letter to Mama" }
