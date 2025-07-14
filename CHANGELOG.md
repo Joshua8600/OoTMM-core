@@ -7,14 +7,20 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 <!-- - Cosmetics setting to enable BGM during night time. -->
+- Add an option to share triforce pieces in multiworld (including triforce quest).
+- Speed up the fall down of the Shadow Temple Big Bird Statue.
+- Speed up Bottom of the Well water drainage by 500%.
+- Permanently remove the sandstorm in Haunted Wastelands.
 - Add a setting to make kakariko gate closed as adult too.
 
 ### Changed
 
+- In Co-op, item buy logic is relaxed a little to let the player buy items for their partner(s).
 - Fire Arrows are no longer required for Great Bay Temple's wheel room after reversing the water direction, due to the revamped save system.
 
 ### Fixed
 
+- Fix a bug that caused CSMC textures to be sometimes applied to unshuffled crates.
 - Fix shared songs having the game name as a suffix in some very specific cases.
 - Fix some pre-completed dungeons having foolish hints.
 - Fix kokiri forest rupees not being shuffled correctly after beating Phantom Ganon.

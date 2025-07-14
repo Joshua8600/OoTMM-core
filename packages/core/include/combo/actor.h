@@ -54,6 +54,7 @@
 #define ACTOR_FLAG_HOSTILE                      (1 << 2)
 #define ACTOR_FLAG_FRIENDLY                     (1 << 3)
 #define ACTOR_FLAG_UPDATE_CULLING_DISABLED      (1 << 4)
+#define ACTOR_FLAG_DRAW_CULLING_DISABLED        (1 << 5)
 #define ACTOR_FLAG_REACT_TO_LENS                (1 << 7)
 #define ACTOR_FLAG_TALK                         (1 << 8)
 #define ACTOR_FLAG_IGNORE_QUAKE                 (1 << 12)
@@ -607,6 +608,7 @@ typedef struct NpcInteractInfo {
 #if defined(GAME_OOT)
 void func_80033480(struct PlayState* play, Vec3f* posBase, f32 randRangeDiameter, s32 amountMinusOne, s16 scaleBase,
                    s16 scaleStep, u8 arg6);
+void Actor_SetObjectDependency(struct PlayState* play, Actor* actor);
 #else
 extern Gfx D_801AEFA0[];
 extern Gfx D_801AEF88[];

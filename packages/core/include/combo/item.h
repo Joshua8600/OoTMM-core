@@ -218,7 +218,7 @@ int isItemLicensed(s16 gi);
 int isItemFastBuy(s16 gi);
 int isItemBuyable(s16 gi);
 
-int comboItemPrecondEx(const ComboItemQuery* q, s16 price);
+int comboItemPrecond(const ComboItemQuery* q, s16 price);
 s16 comboRenewable(s16 gi, s16 def);
 
 #define ITEM_QUERY_INIT { 0 }
@@ -251,5 +251,7 @@ extern u8 gMaxBombchuMm;
 #endif
 
 void Inventory_UpdateMaxBombchu(void);
+
+int Item_IsPlayerSelf(u8 playerId);
 
 #endif
