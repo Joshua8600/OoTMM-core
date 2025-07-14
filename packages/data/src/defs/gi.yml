@@ -31,7 +31,7 @@
 - { id: OOT_ODD_MUSHROOM, item: OOT_ODD_MUSHROOM, type: MAJOR, add: [OOT_TRADE_ADULT, 3], flags: 0x80, draw: OOT_ODD_MUSHROOM, object: [oot, 0x0141], name: "the <C1>Psychedelic Fungus" }
 - { id: OOT_ODD_POTION, item: OOT_ODD_POTION, type: MAJOR, add: [OOT_TRADE_ADULT, 4], flags: 0x80, draw: OOT_ODD_POTION, object: [oot, 0x0140], name: "the <C1>Dumpling" }
 - { id: OOT_POACHER_SAW, item: OOT_POACHER_SAW, type: MAJOR, add: [OOT_TRADE_ADULT, 5], flags: 0x80, draw: OOT_POACHER_SAW, object: [oot, 0x00f5], name: "the <C1>Good Luck Charm" }
-- { id: OOT_BROKEN_GORON_SWORD, item: OOT_GORON_SWORD_BROKEN, type: MAJOR, add: [OOT_TRADE_ADULT, 6], flags: 0x80, draw: OOT_BROKEN_GORON_SWORD, object: [oot, 0x0143], name: "the <C1>Broken Goron's Sword" }
+- { id: OOT_BROKEN_GORON_SWORD, item: OOT_GORON_SWORD_BROKEN, type: MAJOR, add: [OOT_TRADE_ADULT, 6], flags: 0x80, draw: OOT_BROKEN_GORON_SWORD, object: [oot, 0x0143], name: "the <C1>Broken Sword of My Goro" }
 - { id: OOT_PRESCRIPTION, item: OOT_PRESCRIPTION, type: MAJOR, add: [OOT_TRADE_ADULT, 7], flags: 0x80, draw: OOT_PRESCRIPTION, object: [oot, 0x0146], name: "the <C1>Prescription" }
 - { id: OOT_EYEBALL_FROG, item: OOT_EYEBALL_FROG, type: MAJOR, add: [OOT_TRADE_ADULT, 8], flags: 0x80, draw: OOT_EYEBALL_FROG, object: [oot, 0x0149], name: "<C1>Kero Kero Keroppi" }
 - { id: OOT_EYE_DROPS, item: OOT_EYE_DROPS, type: MAJOR, add: [OOT_TRADE_ADULT, 9], flags: 0x80, draw: OOT_EYE_DROPS, object: [oot, 0x013f], name: "the <C1>Eye Drops" }
@@ -132,7 +132,7 @@
 - { id: OOT_SONG_TP_SPIRIT, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TP_SPIRIT], flags: 0x80, draw: [NOTE, 0x84], object: [oot, 0x00b6], name: "the <C2>Requiem of Spirit" }
 - { id: OOT_SONG_TP_SHADOW, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TP_SHADOW], flags: 0x80, draw: [NOTE, 0x80], object: [oot, 0x00b6], name: "the <C2>Nocturne of Shadow" }
 - { id: OOT_SONG_TP_LIGHT, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_TP_LIGHT], flags: 0x80, draw: [NOTE, 0x83], object: [oot, 0x00b6], name: "the <C2>Prelude of Light" }
-- { id: OOT_SONG_ZELDA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_ZELDA], flags: 0x80, draw: [NOTE, 0x05], object: [oot, 0x00b6], name: "<C2>Zelda's Night-Night Song" }
+- { id: OOT_SONG_ZELDA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_ZELDA], flags: 0x80, draw: [NOTE, 0x05], object: [oot, 0x00b6], name: "<C2>Zelda's Nighty-Night Song" }
 - { id: OOT_SONG_EPONA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_EPONA], flags: 0x80, draw: [NOTE, 0x04], object: [oot, 0x00b6], name: "the <C2>Bad Magic Horse's Song" }
 - { id: OOT_SONG_SARIA, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_SARIA], flags: 0x80, draw: [NOTE, 0x02], object: [oot, 0x00b6], name: "the <C2>Apology Song" }
 - { id: OOT_SONG_SUN, type: MAJOR, add: [OOT_QUEST, QUEST_OOT_SONG_SUN], flags: 0x80, draw: [NOTE, 0x03], object: [oot, 0x00b6], name: "the <C2>Sun's Song" }
@@ -518,7 +518,7 @@
 - { id: MM_MASK_ZORA, item: MM_MASK_ZORA, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_ZORA, object: [mm, 0x011a], name: "the <C1>Zora Mask" }
 - { id: MM_MASK_FIERCE_DEITY, item: MM_MASK_FIERCE_DEITY, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_FIERCE_DEITY, object: [mm, 0x0242], name: "the <C1>Flying Spaghetti Monster's Mask" }
 - { id: MM_MASK_CAPTAIN, item: MM_MASK_CAPTAIN, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_CAPTAIN, object: [mm, 0x0102], name: "the <C1>Captain's Hat" }
-- { id: MM_MASK_GIANT, item: MM_MASK_GIANT, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GIANT, object: [mm, 0x0226], name: "the <C1>Giant's Mask" }
+- { id: MM_MASK_GIANT, item: MM_MASK_GIANT, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_GIANT, object: [mm, 0x0226], name: "the <C1>Tiny Mask" }
 - { id: MM_MASK_ALL_NIGHT, item: MM_MASK_ALL_NIGHT, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MM_MASK_ALL_NIGHT, object: [mm, 0x0265], name: "the <C1>All Night Mask" }
 - { id: MM_MASK_BUNNY, item: MM_MASK_BUNNY, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_BUNNY, object: [mm, 0x0103], name: "the <C1>'Lit's Git Fit With CaddickyDick' Mask" }
 - { id: MM_MASK_KEATON, item: MM_MASK_KEATON, type: MASK, add: MM_NORMAL, flags: 0xa0, draw: MASK_KEATON, object: [mm, 0x0100], name: "the <C1>Kee-Something Character Mask" }
