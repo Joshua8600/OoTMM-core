@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 <!-- - Cosmetics setting to enable BGM during night time. -->
+- Cosmetic setting to alter the File Select color.
+- Add a setting to link traps in multiworld.
+- Add Fire, Shock, Drain, Anti-Magic & Knockback traps.
+- Add settings to control the amount of traps.
 - Add an option to share triforce pieces in multiworld (including triforce quest).
 - Speed up the fall down of the Shadow Temple Big Bird Statue.
 - Speed up Bottom of the Well water drainage by 500%.
@@ -15,11 +19,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Make barren item pool include traps.
+- Reworked the web generator.
 - In Co-op, item buy logic is relaxed a little to let the player buy items for their partner(s).
 - Fire Arrows are no longer required for Great Bay Temple's wheel room after reversing the water direction, due to the revamped save system.
 
 ### Fixed
 
+- Fix Red Ice despawning in MQ Ganon's Castle when shuffled.
 - Fix a bug that caused CSMC textures to be sometimes applied to unshuffled crates.
 - Fix shared songs having the game name as a suffix in some very specific cases.
 - Fix some pre-completed dungeons having foolish hints.
