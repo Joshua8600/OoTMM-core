@@ -51,6 +51,7 @@
 "shared_soul_misc(a,b)": "cond(setting(sharedSoulsMisc), soul_misc(b), soul_misc(a))"
 "soul_gs": "shared_soul_misc(SOUL_MISC_GS, SHARED_SOUL_MISC_GS)"
 "soul_business_scrub": "shared_soul_misc(SOUL_MISC_BUSINESS_SCRUB, SHARED_SOUL_MISC_BUSINESS_SCRUB)"
+"soul_tree": "shared_soul_misc(SOUL_MISC_TREE, SHARED_SOUL_MISC_TREE)"
 
 # NPC Souls
 "shared_soul_npc(a, b)": "cond(setting(sharedSoulsNpc), soul_npc(b), soul_npc(a))"

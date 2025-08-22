@@ -773,6 +773,10 @@ export const TRICKS: Tricks = {
     name: "Defeat the waterfall Like Like in Zora Cape by using a precise Bombchu launch.",
     tooltip: "It is possible to get a precise angle for the Bombchu to crawl along and blow up the Like Like for the Piece of Heart.",
   },
+  MM_NO_SOT_RESET: {
+    game: 'mm',
+    name: 'Trick for NNL for the "CanResetTime" macro to not include SoT',
+  },
   GLITCH_OOT_EQUIP_SWAP: {
     game: 'oot',
     name: "Equip Swap (OoT)",
