@@ -488,6 +488,12 @@ export const TRICKS: Tricks = {
     tooltip: "Use Goron's ground pound in front of the Tourist Center door to land on the roof and reach the heart piece",
     linkVideo: 'https://www.youtube.com/watch?v=HvH5NaTsf5w&list=PLuteuW9RqeG0NfhzoiZlJ1HQM2BdHftzg&index=5&ab_channel=Pokemongenius88',
   },
+  MM_GBC_COW_LIKELIKE_ELEVATOR: {
+    game: 'mm',
+    name: 'Great Bay Coast Cow Grotto LikeLike Elevator',
+    tooltip: "At night time draw a LikeLike lose to the Cow Grotto ledge to be shot on top of the ledge",
+    linkVideo: 'https://youtu.be/AJpoSs5t_qQ'
+  },
   MM_ZORA_HALL_SCRUB_HP_NO_DEKU: {
     game: 'mm',
     name: 'Zora Hall Scrub HP without Deku',
@@ -723,6 +729,18 @@ export const TRICKS: Tricks = {
     game: 'mm',
     name: 'Powder Keg Trial without Thawing Ice using Hookshot Anywhere',
     tooltip: "With Hookshot Anywhere, it is possible to hookshot through the little gap in the left bottom corner.",
+  },
+  MM_KEG_HOOKBUNNY: {
+    game: 'mm',
+    name: 'Powder Keg Trial with only Long Hookshot and Bunny Hood',
+    tooltip: "With the Strength 3 for MM and Keg usable by Human Settings enabled; you can carry the keg from Medigoron to the Racetrack Boulder with Long Hookshot via the scarecrows in both areas and throwing the keg up the slopes.",
+    linkVideo: 'https://youtu.be/4dl9OHdXMnY',
+  },
+  MM_KEG_HOVERBUNNY: {
+    game: 'mm',
+    name: 'Powder Keg Trial with only Hoverboots and Bunny Hood',
+    tooltip: "With the Strength 3 for MM and Keg usable by Human Settings enabled; you can side hop up the slopes in both areas while throwing the keg up the slopes as you go.",
+    linkVideo: 'https://youtu.be/la4GsyXEPJc?si=YKvpyWUpxi3cc7QZ',
   },
   MM_STT_LAVA_SWITCH_HAMMER: {
     game: 'mm',
