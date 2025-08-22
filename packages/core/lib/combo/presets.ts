@@ -13,7 +13,6 @@ const BLITZ_BASE: PartialDeep<Settings> = {
   tingleShuffle: 'starting',
   openMaskShop: true,
   hintImportance: true,
-  cloakIceTraps: false,
   strayFairyChestShuffle: 'starting',
   mapCompassShuffle: 'starting',
   smallKeyShuffleMm: 'removed',
@@ -99,6 +98,7 @@ const BLITZ_BASE: PartialDeep<Settings> = {
   shadowFastBoat: true,
   songOfDoubleTimeOot: true,
   sharedSpinUpgrade: true,
+  trapIce: false,
   mmPreActivatedOwls: {
     type: 'specific',
     values: ["clocktown"]
@@ -891,7 +891,7 @@ const PRESET_CROSSKEYS = makeSettings({
   noPlandoHints: false,
   extraHintRegions: true,
   hintImportance: true,
-  cloakIceTraps: false,
+  cloakTraps: false,
   songs: 'anywhere',
   tingleShuffle: 'starting',
   mapCompassShuffle: 'anywhere',
