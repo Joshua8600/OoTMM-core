@@ -1036,6 +1036,12 @@ static const Gfx kMagicJarColorGold[] = {
     gsSPEndDisplayList(),
 };
 
+static const Gfx kMagicJarColorBlack[] = {
+    gsDPSetPrimColor(0x00, 0x00, 30, 30, 30, 255),
+    gsDPSetEnvColor(10, 10, 10, 255),
+    gsSPEndDisplayList(),
+};
+
 void DrawGi_MagicJar(PlayState* play, s16 index)
 {
     const DrawGi* drawGi;
@@ -1543,7 +1549,21 @@ void DrawGi_CustomShield(PlayState* play, s16 index, u8 param)
     CLOSE_DISPS();
 }
 
-void DrawGi_TrapIce(PlayState* play, s16 drawGiId, u8 param)
+void DrawGi_Heart(PlayState* play, s16 giDrawId)
+{
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
+    gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(play->state.gfxCtx, G_TX_RENDERTILE, 0 * (play->state.frameCount * 1),
+                                1 * -(play->state.frameCount * 3), 32, 32, 1, 0 * (play->state.frameCount * 1),
+                                1 * -(play->state.frameCount * 2), 32, 32));
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 200, 0, 50, 255);
+    gDPSetCombineLERP(POLY_XLU_DISP++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, TEXEL1, TEXEL0, ENVIRONMENT, TEXEL0, SHADE, PRIMITIVE, COMBINED, PRIMITIVE, 0, 0, 0, COMBINED);
+    gSPDisplayList(POLY_XLU_DISP++, 0x060000e0);
+    CLOSE_DISPS();
+}
+
+static void DrawGi_TrapIce(PlayState* play, s16 drawGiId, u8 param)
 {
     static const float scale = 0.5f;
 
@@ -1556,6 +1576,83 @@ void DrawGi_TrapIce(PlayState* play, s16 drawGiId, u8 param)
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, 255);
     gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment3DL);
     CLOSE_DISPS();
+}
+
+static void DrawGi_TrapFire(PlayState* play, s16 drawGiId, u8 param)
+{
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
+    shaderFlameEffect(play, 2, 1.f, 0.f);
+    CLOSE_DISPS();
+}
+
+static void DrawGi_TrapShock(PlayState* play, s16 drawGiId, u8 param)
+{
+    static const float scale = 3.f;
+
+    OPEN_DISPS(play->state.gfxCtx);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
+    Matrix_ReplaceRotation(&play->billboardMtxF);
+    gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
+    gDPPipeSync(POLY_XLU_DISP++);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
+    gDPSetEnvColor(POLY_XLU_DISP++, 0, 255, 155, 0);
+    Matrix_RotateZ(Rand_ZeroOne() * M_PI, MTXMODE_APPLY);
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gSPDisplayList(POLY_XLU_DISP++, CUSTOM_OBJECT_EFFECT_SHOCK_0);
+    CLOSE_DISPS();
+}
+
+static void DrawGi_TrapDrain(PlayState* play, s16 giDrawId, u8 param)
+{
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Xlu(play->state.gfxCtx);
+    gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(play->state.gfxCtx, G_TX_RENDERTILE, 0 * (play->state.frameCount * 1),
+                                1 * -(play->state.frameCount * 3), 32, 32, 1, 0 * (play->state.frameCount * 1),
+                                1 * -(play->state.frameCount * 2), 32, 32));
+    gSPMatrix(POLY_XLU_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gDPSetCombineLERP(POLY_XLU_DISP++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, TEXEL1, TEXEL0, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, COMBINED, PRIMITIVE, 0, 0, 0, COMBINED);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 20, 20, 20, 255);
+    gDPSetEnvColor(POLY_XLU_DISP++, 10, 10, 10, 255);
+    gSPDisplayList(POLY_XLU_DISP++, 0x060000e0);
+    CLOSE_DISPS();
+}
+
+static void DrawGi_TrapAntiMagic(PlayState* play, s16 drawGiId, u8 param)
+{
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Opa(play->state.gfxCtx);
+    gSPSegment(POLY_OPA_DISP++, 0x08, kMagicJarColorBlack);
+    gSPSegment(POLY_OPA_DISP++, 0x09, kMagicJarColorSilver);
+    gSPMatrix(POLY_OPA_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+    gSPDisplayList(POLY_OPA_DISP++, 0x06000580);
+    CLOSE_DISPS();
+}
+
+static void DrawGi_TrapKnockback(PlayState* play, s16 drawGiId, u8 param)
+{
+    static const float scale = 0.1f;
+    OPEN_DISPS(play->state.gfxCtx);
+    Gfx_SetupDL25_Opa(play->state.gfxCtx);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+    gSPMatrix(POLY_OPA_DISP++, Matrix_Finalize(play->state.gfxCtx), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+    gSPDisplayList(POLY_OPA_DISP++, 0x06001400);
+    CLOSE_DISPS();
+}
+
+void DrawGi_Trap(PlayState* play, s16 drawGiId, u8 param)
+{
+    static const void (*kHandlers[])(PlayState*, s16, u8) = {
+        DrawGi_TrapIce,
+        DrawGi_TrapFire,
+        DrawGi_TrapShock,
+        DrawGi_TrapDrain,
+        DrawGi_TrapAntiMagic,
+        DrawGi_TrapKnockback,
+    };
+
+    kHandlers[param](play, drawGiId, param);
 }
 
 struct CustomScaleColorDlists

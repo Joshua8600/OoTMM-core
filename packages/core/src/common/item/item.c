@@ -269,12 +269,12 @@ static int overrideData(ComboOverrideData* data, u32 key)
 
         /* Read from cart */
         /* TODO: Have a generic helper for this */
-        ovData[0] = comboReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x00);
+        ovData[0] = IO_ReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x00);
         if (ovData[0] == key)
         {
-            ovData[1] = comboReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x04);
-            ovData[2] = comboReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x08);
-            ovData[3] = comboReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x0c);
+            ovData[1] = IO_ReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x04);
+            ovData[2] = IO_ReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x08);
+            ovData[3] = IO_ReadPhysU32(sComboOverridesDevAddr + cursor * sizeof(ComboOverrideData) + 0x0c);
 
             /* Copy and add to cache */
             memcpy(data, ovData, sizeof(*data));
@@ -329,7 +329,10 @@ void comboItemOverride(ComboItemOverride* dst, const ComboItemQuery* q)
     dst->giRaw = gi;
 
     if (Item_IsPlayerSelf(dst->player))
-        gi = comboProgressive(gi, q->ovFlags);
+    {
+        gi = Item_Progressive(gi, q->ovFlags);
+        dst->cloakGi = Item_Progressive(dst->cloakGi, q->ovFlags);
+    }
 
     if (neg)
         gi = -gi;
